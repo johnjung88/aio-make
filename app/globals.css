@@ -478,3 +478,18 @@
     color: #fafafa;
   }
 }
+
+/* ───────────────────────── Cinema tone (영상 분야) ───────────────────────── */
+:root {
+  --tone-cinema-bg: #0A0A0C;
+  --tone-cinema-bg-2: #131319;
+  --tone-cinema-bg-3: #1C1C24;
+  --tone-cinema-fg: #F5F3EE;
+  --tone-cinema-fg-2: #B6B2A8;
+  --tone-cinema-fg-3: #7C7A74;
+  --tone-cinema-fg-faint: #4D4C49;
+  --tone-cinema-line: rgba(255, 255, 255, 0.12);
+  --tone-cinema-line-2: rgba(255, 255, 255, 0.07);
+  --tone-cinema-amber: #E8B15A;
+  --tone-cinema-red: #D9482F;
+}

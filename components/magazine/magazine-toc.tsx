@@ -13,6 +13,7 @@ type Discipline = {
   sub: string;
   priceMan?: string;       // 만 자리 (예: "9", "4")
   priceCheon?: string;     // 천 자리 — 없으면 빈 문자열
+  priceText?: string;      // 숫자 대신 표기 (예: "프로젝트 견적")
   days?: string;
   href?: (locale: string) => string;
   available: boolean;
@@ -24,7 +25,7 @@ const disciplines: Discipline[] = [
     name: "개발",
     nameEn: "development",
     tagline: "기능을 짓는 분야",
-    sub: "웹 · 앱 · 자동화 · 프로그램",
+    sub: "웹사이트 · 쇼핑몰 · 자동화 · 프로그램",
     priceMan: "9",
     priceCheon: "9",
     days: "1-7 DAYS",
@@ -36,40 +37,34 @@ const disciplines: Discipline[] = [
     name: "디자인",
     nameEn: "design",
     tagline: "감각을 입히는 분야",
-    sub: "브랜드브리프 · 상세페이지",
+    sub: "로고·명함 · 상세페이지 · PPT",
     priceMan: "4",
     priceCheon: "9",
-    days: "1-3 DAYS",
+    days: "1-5 DAYS",
     href: (locale: string) => `/${locale}/services/design`,
     available: true,
   },
   {
     num: "03",
-    name: "비즈니스",
-    nameEn: "business",
-    tagline: "전략을 정리하는 분야",
-    sub: "사업계획서 · PPT · 정부지원금",
-    priceMan: "4",
-    priceCheon: "",
-    days: "1-5 DAYS",
-    href: (locale: string) => `/${locale}/services/business`,
+    name: "영상",
+    nameEn: "video",
+    tagline: "장면을 담는 분야",
+    sub: "브랜드 · SNS · 마케팅 · 유튜브 편집",
+    priceText: "프로젝트 견적",
+    days: "3-7 DAYS",
+    href: (locale: string) => `/${locale}/services/video`,
     available: true,
   },
   {
     num: "04",
-    name: "영상",
-    nameEn: "video",
-    tagline: "장면을 담는 분야",
-    sub: "촬영 · 편집 · 모션",
-    available: false,
-  },
-  {
-    num: "05",
     name: "마케팅",
     nameEn: "marketing",
     tagline: "고객을 부르는 분야",
-    sub: "퍼포먼스 · 콘텐츠 · 자동화",
-    available: false,
+    sub: "블로그 · SNS · 영상채널 운영대행",
+    priceText: "월 운영",
+    days: "MONTHLY",
+    href: (locale: string) => `/${locale}/services/marketing`,
+    available: true,
   },
 ];
 
@@ -83,7 +78,7 @@ export function MagazineToc({ locale }: Props) {
       }}
     >
       {/* Eyebrow */}
-      <MagazineEyebrow className="mb-4 md:mb-6">Index · 05 Categories</MagazineEyebrow>
+      <MagazineEyebrow className="mb-4 md:mb-6">Index · 04 Categories</MagazineEyebrow>
 
       {/* H2 — 토큰 기반 */}
       <h2
@@ -96,7 +91,7 @@ export function MagazineToc({ locale }: Props) {
           color: "var(--tone-magazine-ink)",
         }}
       >
-        다섯 분야의
+        네 분야의
         <br />
         <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>
           전문가들
@@ -240,7 +235,7 @@ export function MagazineToc({ locale }: Props) {
 
               {/* Meta (price + days) — full width row on mobile, right column on PC */}
               <div className="col-span-2 md:col-span-1 flex items-baseline justify-center md:justify-end gap-2.5 md:gap-4">
-                {d.available && d.priceMan ? (
+                {d.available && (d.priceMan || d.priceText) ? (
                   <>
                     <span
                       style={{
@@ -253,20 +248,28 @@ export function MagazineToc({ locale }: Props) {
                         whiteSpace: "nowrap",
                       }}
                     >
-                      <span style={{ fontFamily: "var(--font-marcellus)", fontSize: "1.35em", fontWeight: 400 }}>
-                        {d.priceMan}
-                      </span>
-                      <span style={{ fontSize: "0.85em", marginLeft: 2 }}>만</span>
-                      {d.priceCheon && (
+                      {d.priceText ? (
+                        <span style={{ fontFamily: "var(--font-marcellus)", fontSize: "1.05em", fontWeight: 400, letterSpacing: "0.01em" }}>
+                          {d.priceText}
+                        </span>
+                      ) : (
                         <>
-                          {" "}
                           <span style={{ fontFamily: "var(--font-marcellus)", fontSize: "1.35em", fontWeight: 400 }}>
-                            {d.priceCheon}
+                            {d.priceMan}
                           </span>
-                          <span style={{ fontSize: "0.85em", marginLeft: 2 }}>천</span>
+                          <span style={{ fontSize: "0.85em", marginLeft: 2 }}>만</span>
+                          {d.priceCheon && (
+                            <>
+                              {" "}
+                              <span style={{ fontFamily: "var(--font-marcellus)", fontSize: "1.35em", fontWeight: 400 }}>
+                                {d.priceCheon}
+                              </span>
+                              <span style={{ fontSize: "0.85em", marginLeft: 2 }}>천</span>
+                            </>
+                          )}
+                          <span style={{ fontSize: "0.85em", marginLeft: 2, color: "var(--tone-magazine-ink-2)" }}>원~</span>
                         </>
                       )}
-                      <span style={{ fontSize: "0.85em", marginLeft: 2, color: "var(--tone-magazine-ink-2)" }}>원~</span>
                     </span>
                     <span
                       style={{
@@ -341,6 +344,5 @@ export function MagazineToc({ locale }: Props) {
         })}
       </div>
     </section>
- 
   );
 }

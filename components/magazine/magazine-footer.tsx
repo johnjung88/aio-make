@@ -8,9 +8,8 @@ import { useLocale, useTranslations } from "next-intl";
 const disciplines = [
   { label: "개발", href: "/services/development", available: true },
   { label: "디자인", href: "/services/design", available: true },
-  { label: "비즈니스", href: "/services/business", available: true },
-  { label: "영상", href: null, available: false },
-  { label: "마케팅", href: null, available: false },
+  { label: "영상", href: "/services/video", available: true },
+  { label: "마케팅", href: "/services/marketing", available: true },
 ];
 
 export function MagazineFooter() {

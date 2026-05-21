@@ -9,15 +9,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     path: "/services/design",
     title: isKo ? "디자인 서비스 — AIO" : "Design Services — AIO",
-    description: isKo ? "브랜드·상세페이지 — 감각을 입히는 분야." : "Brand and detail pages — visual identity made fast.",
+    description: isKo ? "로고·명함, 상세페이지, PPT — 감각을 입히는 분야." : "Logo, business cards, detail pages, and presentations.",
   });
 }
 
 type SubService = { num: string; name: string; nameEn: string; desc: string; priceMan: string; priceCheon: string; days: string; benefit: string };
 
 const subs: SubService[] = [
-  { num: "01", name: "로고·명함 패키지", nameEn: "brand brief", desc: "새 브랜드의 첫인상을 한 세트로", priceMan: "19", priceCheon: "", days: "3-7일", benefit: "로고 · 명함 · 컬러·타이포 가이드" },
+  { num: "01", name: "로고·명함", nameEn: "brand brief", desc: "새 브랜드의 첫인상을 한 세트로", priceMan: "19", priceCheon: "", days: "3-7일", benefit: "로고 · 명함 · 컬러·타이포 가이드" },
   { num: "02", name: "상세페이지", nameEn: "detail page", desc: "스크롤 한 번에, 결제 버튼까지", priceMan: "4", priceCheon: "9", days: "1-3일", benefit: "쇼핑몰 · 랜딩 · 이벤트 페이지" },
+  { num: "03", name: "PPT", nameEn: "presentation", desc: "한 장이 결정짓는 자리 — 발표·제안·IR", priceMan: "4", priceCheon: "", days: "1-5일", benefit: "발표 자료 · 제안서 · IR Deck" },
 ];
 
 const steps = [
@@ -53,7 +54,7 @@ function HeroSection({ locale }: { locale: string }) {
     <section className="max-w-[1100px] mx-auto relative text-center" style={{ padding: "var(--space-section) var(--space-edge)" }}>
       <div className="mb-8 md:mb-10 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jakarta)", fontSize: 11, color: "var(--tone-life-ink-3)", letterSpacing: "0.28em", textTransform: "uppercase" }}>
         <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
-        Design · 02 Sub-services
+        Design · 03 Sub-services
         <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
       </div>
       <h1 className="font-normal mb-7 md:mb-9 mx-auto max-w-[900px]" style={{ fontFamily: "var(--font-fraunces)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-life-ink)", fontWeight: 400 }}>
@@ -62,7 +63,7 @@ function HeroSection({ locale }: { locale: string }) {
         <em style={{ fontStyle: "italic", color: "var(--tone-life-rose)", fontWeight: 500 }}>감각</em>
       </h1>
       <p className="mb-10 md:mb-14 mx-auto max-w-[60ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-life-ink-2)" }}>
-        로고에서 상세페이지까지, 보이는 것의 첫인상을 만듭니다
+        로고에서 상세페이지·PPT까지, 보이는 것의 첫인상을 만듭니다
         <br />
         <strong style={{ color: "var(--tone-life-ink)", fontWeight: 600 }}>예쁜 것을 넘어, 구매 결정을 돕는 흐름까지</strong>
       </p>
@@ -81,12 +82,12 @@ function HeroSection({ locale }: { locale: string }) {
 function SubServicesSection() {
   return (
     <section id="subs" className="max-w-[1100px] mx-auto text-center" style={{ padding: "var(--space-section) var(--space-edge)" }}>
-      <SectionEyebrow label="Sub-services · 02" />
+      <SectionEyebrow label="Sub-services · 03" />
       <h2 className="font-normal mb-8 md:mb-12 mx-auto max-w-[900px]" style={{ fontFamily: "var(--font-fraunces)", fontSize: "var(--text-h1)", lineHeight: "var(--leading-head)", letterSpacing: "-0.012em", color: "var(--tone-life-ink)", fontWeight: 400 }}>
-        두 갈래의{" "}
+        세 갈래의{" "}
         <em style={{ fontStyle: "italic", color: "var(--tone-life-rose)", fontWeight: 500 }}>감각</em>
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
         {subs.map((s) => <SubCard key={s.num} s={s} />)}
       </div>
     </section>

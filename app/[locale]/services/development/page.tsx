@@ -15,14 +15,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 type SubService = {
   num: string; name: string; nameEn: string; desc: string;
-  priceMan: string; priceCheon: string; days: string; benefit: string;
+  priceMan?: string; priceCheon?: string; priceText?: string; days: string; benefit: string; available: boolean;
 };
 
 const subs: SubService[] = [
-  { num: "01", name: "웹", nameEn: "website", desc: "운영 가능한 홈페이지/쇼핑몰을 빠르게", priceMan: "9", priceCheon: "9", days: "1-5일", benefit: "검색 노출 · 모바일 최적화 · 결제 연동" },
-  { num: "02", name: "앱", nameEn: "app", desc: "iOS·Android, 한 코드베이스로", priceMan: "99", priceCheon: "", days: "7-30일", benefit: "iOS·Android 동시 출시 · 푸시 알림" },
-  { num: "03", name: "자동화", nameEn: "automation", desc: "반복 업무를 코드에게", priceMan: "19", priceCheon: "", days: "3-7일", benefit: "노션·구글시트·텔레그램 연동" },
-  { num: "04", name: "프로그램", nameEn: "program", desc: "데스크탑/CLI 도구를 직접", priceMan: "29", priceCheon: "", days: "5-14일", benefit: "Windows·맥 데스크탑 도구 · 매크로" },
+  { num: "01", name: "웹사이트", nameEn: "website", desc: "운영 가능한 홈페이지를 빠르게 — 기획부터 배포까지", priceMan: "9", priceCheon: "9", days: "1-5일", benefit: "검색 노출 · 모바일 최적화 · 관리자 페이지", available: true },
+  { num: "02", name: "쇼핑몰", nameEn: "shopping mall", desc: "카페24·자사몰, 상품 등록·결제까지 한 번에", priceText: "별도 견적", days: "5-10일", benefit: "카페24 · 상품 등록 · 결제 연동", available: true },
+  { num: "03", name: "자동화", nameEn: "automation", desc: "반복 업무를 코드에게 — 매크로·크롤링·연동", priceMan: "19", priceCheon: "", days: "3-7일", benefit: "노션·구글시트·텔레그램 연동", available: true },
+  { num: "04", name: "프로그램", nameEn: "program", desc: "업무에 필요한 데스크탑·CLI 도구를 직접", priceMan: "29", priceCheon: "", days: "5-14일", benefit: "Windows·맥 데스크탑 · 업무 매크로", available: true },
+  { num: "05", name: "앱", nameEn: "app", desc: "iOS·Android 모바일 앱 — 곧 합류합니다", priceText: "준비 중", days: "COMING SOON", benefit: "iOS · Android · 푸시 알림", available: false },
 ];
 
 const steps = [
@@ -91,9 +92,9 @@ function HeroSection({ locale }: { locale: string }) {
 function SubServicesSection() {
   return (
     <section id="subs" className="max-w-[1100px] mx-auto text-center" style={{ padding: "var(--space-section) var(--space-edge)" }}>
-      <SectionEyebrow label="// 04 sub-services" />
+      <SectionEyebrow label="// sub-services" />
       <h2 className="font-normal mb-8 md:mb-12 mx-auto max-w-[900px]" style={{ fontFamily: "var(--font-jetbrains)", fontSize: "var(--text-h1)", lineHeight: "var(--leading-head)", letterSpacing: "-0.012em", color: "var(--tone-ide-fg)", fontWeight: 500 }}>
-        네 갈래의 <span style={{ color: "var(--tone-ide-mint)" }}>전문 분야</span>
+        코드로 <span style={{ color: "var(--tone-ide-mint)" }}>만드는 것들</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
         {subs.map((s) => <SubCard key={s.num} s={s} />)}
@@ -103,24 +104,34 @@ function SubServicesSection() {
 }
 
 function SubCard({ s }: { s: SubService }) {
+  const dim = !s.available;
   return (
-    <div className="group transition-all hover:-translate-y-1 text-center flex flex-col items-center" style={{ padding: "clamp(28px, 3.2vw, 44px) clamp(20px, 2.5vw, 32px)", background: "var(--tone-ide-bg-2)", border: "1px solid var(--tone-ide-line)", borderRadius: 4 }}>
+    <div
+      className={`group transition-all text-center flex flex-col items-center ${dim ? "md:col-span-2" : "hover:-translate-y-1"}`}
+      style={{ padding: "clamp(28px, 3.2vw, 44px) clamp(20px, 2.5vw, 32px)", background: "var(--tone-ide-bg-2)", border: dim ? "1px dashed var(--tone-ide-line)" : "1px solid var(--tone-ide-line)", borderRadius: 4, opacity: dim ? 0.82 : 1 }}
+    >
       <span className="mb-2" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 12, color: "var(--tone-ide-fg-3)", letterSpacing: "0.18em" }}>{s.num}</span>
-      <div className="mb-3 inline-flex items-baseline gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jetbrains)", fontSize: "var(--text-h2)", lineHeight: 1.1, color: "var(--tone-ide-fg)", fontWeight: 500, letterSpacing: "-0.012em" }}>
+      <div className="mb-3 inline-flex items-baseline gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jetbrains)", fontSize: "var(--text-h2)", lineHeight: 1.1, color: dim ? "var(--tone-ide-fg-2)" : "var(--tone-ide-fg)", fontWeight: 500, letterSpacing: "-0.012em" }}>
         {s.name}
         <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "0.5em", color: "var(--tone-ide-fg-3)", fontStyle: "italic", fontWeight: 400 }}>{s.nameEn}</span>
       </div>
       <p className="mb-4 max-w-[36ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-body)", lineHeight: 1.7, color: "var(--tone-ide-fg-2)" }}>{s.desc}</p>
-      <div className="mb-5 px-4 py-2" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-small)", color: "var(--tone-ide-syntax-string)", lineHeight: 1.55, background: "var(--tone-ide-bg-3)", borderRadius: 2 }}>{s.benefit}</div>
-      <div className="mt-auto pt-5 w-full inline-flex flex-col items-center gap-2" style={{ borderTop: "1px solid var(--tone-ide-line)" }}>
+      <div className="mb-5 px-4 py-2" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-small)", color: dim ? "var(--tone-ide-fg-3)" : "var(--tone-ide-syntax-string)", lineHeight: 1.55, background: "var(--tone-ide-bg-3)", borderRadius: 2 }}>{s.benefit}</div>
+      <div className="mt-auto pt-5 w-full inline-flex flex-col items-center gap-2" style={{ borderTop: dim ? "1px dashed var(--tone-ide-line)" : "1px solid var(--tone-ide-line)" }}>
         <span style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-body)", fontWeight: 600, color: "var(--tone-ide-fg)" }}>
-          <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "1.6em", fontWeight: 500, color: "var(--tone-ide-mint)" }}>{s.priceMan}</span>
-          <span style={{ marginLeft: 2 }}>만</span>
-          {s.priceCheon && (<>{" "}<span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "1.6em", fontWeight: 500, color: "var(--tone-ide-mint)" }}>{s.priceCheon}</span><span style={{ marginLeft: 2 }}>천</span></>)}
-          <span style={{ marginLeft: 2, color: "var(--tone-ide-fg-3)", fontWeight: 400 }}>원~</span>
+          {s.priceText ? (
+            <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "1.05em", fontWeight: 500, color: dim ? "var(--tone-ide-fg-3)" : "var(--tone-ide-mint)", letterSpacing: "0.01em" }}>{s.priceText}</span>
+          ) : (
+            <>
+              <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "1.6em", fontWeight: 500, color: "var(--tone-ide-mint)" }}>{s.priceMan}</span>
+              <span style={{ marginLeft: 2 }}>만</span>
+              {s.priceCheon && (<>{" "}<span style={{ fontFamily: "var(--font-jetbrains)", fontSize: "1.6em", fontWeight: 500, color: "var(--tone-ide-mint)" }}>{s.priceCheon}</span><span style={{ marginLeft: 2 }}>천</span></>)}
+              <span style={{ marginLeft: 2, color: "var(--tone-ide-fg-3)", fontWeight: 400 }}>원~</span>
+            </>
+          )}
         </span>
         <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "var(--tone-ide-fg-3)", letterSpacing: "0.18em" }}>{s.days}</span>
-        <span className="mt-2" style={{ padding: "3px 12px", background: "var(--tone-ide-mint-soft)", color: "var(--tone-ide-mint)", borderRadius: 2, fontFamily: "var(--font-jetbrains)", fontSize: 10, letterSpacing: "0.18em" }}>의뢰 가능</span>
+        <span className="mt-2" style={{ padding: "3px 12px", background: dim ? "var(--tone-ide-bg-3)" : "var(--tone-ide-mint-soft)", color: dim ? "var(--tone-ide-fg-3)" : "var(--tone-ide-mint)", borderRadius: 2, fontFamily: "var(--font-jetbrains)", fontSize: 10, letterSpacing: "0.18em" }}>{s.available ? "의뢰 가능" : "준비 중"}</span>
       </div>
     </div>
   );
