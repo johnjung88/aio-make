@@ -14,6 +14,7 @@ import type { PortfolioProject } from "@/lib/portfolio";
 import { PortfolioCard } from "@/components/ui/portfolio-card";
 import { CategoryFaq } from "@/components/sections/category-faq";
 import { RelatedServices } from "@/components/sections/related-services";
+import { localizedPageMetadata } from "@/lib/seo";
 
 const VALID = servicesData.map((service) => service.id);
 const LEGACY_REDIRECTS: Record<string, ServiceCategory> = {
@@ -28,8 +29,6 @@ export async function generateStaticParams() {
   return VALID.map((category) => ({ category }));
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com";
-
 export async function generateMetadata({
   params,
 }: {
@@ -42,32 +41,12 @@ export async function generateMetadata({
   const l = locale as "ko" | "en";
   const title = service.title[l];
   const description = service.description[l];
-  const canonical = `${SITE_URL}/${locale}/services/${category}`;
-  const altLocale = locale === "ko" ? "en" : "ko";
-
-  return {
+  return localizedPageMetadata({
+    locale,
+    path: `/services/${category}`,
     title,
     description,
-    alternates: {
-      canonical,
-      languages: {
-        [locale]: canonical,
-        [altLocale]: `${SITE_URL}/${altLocale}/services/${category}`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      type: "website",
-      locale: locale === "ko" ? "ko_KR" : "en_US",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  };
+  });
 }
 
 export default async function ServiceDetailPage({

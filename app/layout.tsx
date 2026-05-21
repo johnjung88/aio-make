@@ -13,6 +13,7 @@ import {
 import localFont from "next/font/local";
 import { getLocale } from "next-intl/server";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SITE_URL } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -85,6 +86,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "AIO에이전시 | 5일 결과물 보장",
     template: "%s | AIO에이전시",

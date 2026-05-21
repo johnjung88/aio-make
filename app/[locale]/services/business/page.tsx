@@ -1,19 +1,16 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com";
+import { localizedPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const isKo = locale === "ko";
-  return {
+  return localizedPageMetadata({
+    locale,
+    path: "/services/business",
     title: isKo ? "비즈니스 서비스 — AIO" : "Business Services — AIO",
     description: isKo ? "사업계획서·PPT·정부지원금 — 결정을 돕는 한 장." : "Business plans, presentations, gov-funding documents.",
-    alternates: {
-      canonical: `${SITE_URL}/${locale}/services/business`,
-      languages: { ko: `${SITE_URL}/ko/services/business`, en: `${SITE_URL}/en/services/business` },
-    },
-  };
+  });
 }
 
 type SubService = { num: string; name: string; nameEn: string; desc: string; priceMan: string; priceCheon: string; days: string; benefit: string };

@@ -4,6 +4,8 @@ import { createSupabaseServerClient } from "@/lib/supabase";
 import { createResendClient, getInquiryRecipient } from "@/lib/resend";
 import { notifyTelegram } from "@/lib/admin/telegram";
 import { markSessionConverted } from "@/lib/analytics/server";
+import { getHandoffInfo, normalizeEntryPath } from "@/lib/service-handoff";
+import type { ServiceCategory } from "@/lib/services-data";
 
 type ApiResponse<T> = {
   success: boolean;
@@ -29,7 +31,13 @@ const quoteSchema = z.object({
   budget_range: z.string().trim().max(80).optional().default(""),
   timeline: z.string().trim().max(80).optional().default(""),
   rush: z.boolean().optional().default(false),
-  source: z.enum(["soomgo", "kmong", "email"]).optional().default("email"),
+  source: z.enum(["soomgo", "kmong", "email", "direct", "search", "referral", "portfolio", "service_page", "home"]).optional().default("direct"),
+  entry_path: z.string().trim().max(500).optional().default("/quote"),
+  service_key: z.string().trim().max(80).optional(),
+  assigned_pm_queue: z.string().trim().max(80).optional(),
+  handoff_status: z.enum(["new", "needs_triage", "assigned"]).optional().default("new"),
+  handoff_reason: z.string().trim().max(500).optional().default(""),
+  consent_privacy: z.boolean().optional().default(false),
   description: z.string().trim().min(1).max(3000),
   contact_method: z.enum(["email", "phone"]).optional().default("email"),
   locale: z.enum(["ko", "en"]),
@@ -64,6 +72,11 @@ async function sendQuoteEmail(payload: z.infer<typeof quoteSchema>, inquiryId?: 
       `Timeline: ${payload.timeline || "-"}`,
       `Rush: ${payload.rush ? "yes" : "no"}`,
       `Source: ${payload.source || "-"}`,
+      `Entry path: ${payload.entry_path || "-"}`,
+      `Service key: ${payload.service_key || payload.category}`,
+      `Assigned PM queue: ${payload.assigned_pm_queue || "auto"}`,
+      `Handoff status: ${payload.handoff_status}`,
+      `Privacy consent: ${payload.consent_privacy ? "yes" : "no"}`,
       `Preferred contact: ${payload.contact_method}`,
       "",
       payload.description,
@@ -85,6 +98,27 @@ export async function POST(request: Request) {
     }
 
     const payload = parsed.data;
+    if (!payload.consent_privacy) {
+      const errorResponse: ApiResponse<null> = { success: false, error: "Privacy consent is required" };
+      return NextResponse.json(errorResponse, { status: 400 });
+    }
+
+    const handoff = getHandoffInfo(payload.category as ServiceCategory, payload.subtype);
+    const sourceMeta = {
+      source: payload.source,
+      locale: payload.locale,
+      contact_method: payload.contact_method,
+      public_category: payload.category,
+      subtype: payload.subtype || null,
+      entry_path: normalizeEntryPath(payload.entry_path, `/${payload.locale}/quote`),
+      service_key: payload.service_key || handoff.serviceKey,
+      assigned_pm_queue: payload.assigned_pm_queue || handoff.assignedPmQueue,
+      handoff_status: payload.handoff_status || handoff.handoffStatus,
+      handoff_reason: payload.handoff_reason || handoff.handoffReason,
+      notification_status: "pending",
+      consent_privacy: payload.consent_privacy,
+    };
+
     const supabase = createSupabaseServerClient();
 
     const { data: lead, error: leadError } = await supabase
@@ -94,13 +128,7 @@ export async function POST(request: Request) {
         customer_name: payload.name,
         email: payload.email,
         phone: payload.phone || null,
-        source_meta: {
-          source: payload.source,
-          locale: payload.locale,
-          contact_method: payload.contact_method,
-          public_category: payload.category,
-          subtype: payload.subtype || null,
-        },
+        source_meta: sourceMeta,
       })
       .select("id")
       .single<{ id: string }>();
@@ -112,7 +140,7 @@ export async function POST(request: Request) {
         channel: "website",
         raw_text: payload.description,
         category: categoryMap[payload.category],
-        customer_summary: `${payload.name} / ${payload.category}${payload.subtype ? ` / ${payload.subtype}` : ""}`,
+        customer_summary: `${payload.name} / ${payload.category}${payload.subtype ? ` / ${payload.subtype}` : ""} / ${sourceMeta.assigned_pm_queue}`,
         deadline_text: payload.timeline || null,
         urgency: payload.rush ? "urgent" : "normal",
         status: "new",
@@ -134,12 +162,11 @@ export async function POST(request: Request) {
           draft_response: null,
           status: "new",
           notes: JSON.stringify({
+            ...sourceMeta,
             name: payload.name,
             email: payload.email,
             phone: payload.phone,
             timeline: payload.timeline,
-            contact_method: payload.contact_method,
-            locale: payload.locale,
           }),
         })
         .select("id")
@@ -166,6 +193,10 @@ export async function POST(request: Request) {
             `Timeline: ${payload.timeline || "-"}`,
             `Rush: ${payload.rush ? "yes" : "no"}`,
             `Contact method: ${payload.contact_method}`,
+            `Entry path: ${sourceMeta.entry_path}`,
+            `Service key: ${sourceMeta.service_key}`,
+            `Assigned PM queue: ${sourceMeta.assigned_pm_queue}`,
+            `Handoff status: ${sourceMeta.handoff_status}`,
             "",
             payload.description,
           ].join("\n"),
@@ -205,6 +236,8 @@ export async function POST(request: Request) {
         "신규 AIO 견적 요청",
         `이름: ${payload.name}`,
         `서비스: ${payload.category}${payload.subtype ? ` / ${payload.subtype}` : ""}`,
+        `인계: ${sourceMeta.assigned_pm_queue} / ${sourceMeta.handoff_status}`,
+        `진입: ${sourceMeta.entry_path}`,
         `일정: ${payload.timeline || "-"}`,
         `연락: ${payload.email}${payload.phone ? ` / ${payload.phone}` : ""}`,
         `관리자: ${process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com"}/admin/inbox`,

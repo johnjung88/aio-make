@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import { MagazineEyebrow } from "@/components/magazine/magazine-eyebrow";
+import { localizedPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -9,7 +10,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
-  return { title: t("title") };
+  const isKo = locale === "ko";
+  return localizedPageMetadata({
+    locale,
+    path: "/about",
+    title: t("title"),
+    description: isKo
+      ? "AIO에이전시의 제작 방식, 기술 스택, 응대·기획·제작·운영 역할을 확인하세요."
+      : "Meet AIO Agency's production process, stack, and roles across reception, planning, production, and care.",
+  });
 }
 
 const STACK = [

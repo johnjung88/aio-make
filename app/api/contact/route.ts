@@ -34,6 +34,14 @@ const contactSchema = z.object({
 
 type ContactInsertResult = { id: string };
 
+const contactCategoryMap: Record<NonNullable<z.infer<typeof contactSchema>["service_category"]>, { quoteCategory: string; serviceKey: string; assignedPmQueue: string }> = {
+  web: { quoteCategory: "website", serviceKey: "website", assignedPmQueue: "aio_pm_website" },
+  app: { quoteCategory: "automation", serviceKey: "automation-app", assignedPmQueue: "aio_director_dev" },
+  design: { quoteCategory: "detail", serviceKey: "detail-page", assignedPmQueue: "aio_pm_page" },
+  video: { quoteCategory: "video", serviceKey: "video-content", assignedPmQueue: "aio_pm_sns" },
+  automation: { quoteCategory: "automation", serviceKey: "automation-app", assignedPmQueue: "aio_director_dev" },
+};
+
 async function sendContactEmail(payload: z.infer<typeof contactSchema>, inquiryId?: string) {
   const resend = createResendClient();
   if (!resend) return;
@@ -73,24 +81,81 @@ export async function POST(request: Request) {
     const supabase = createSupabaseServerClient();
     const payload = parsed.data;
 
-    const { data, error } = await supabase
-      .from("ada_inquiries")
+    const categoryInfo = payload.service_category
+      ? contactCategoryMap[payload.service_category]
+      : { quoteCategory: "other", serviceKey: "other", assignedPmQueue: "aio_pm_insales" };
+    const sourceMeta = {
+      source: payload.source ?? "direct",
+      locale: payload.locale,
+      public_category: payload.service_category ?? null,
+      entry_path: `/${payload.locale}/contact`,
+      service_key: categoryInfo.serviceKey,
+      assigned_pm_queue: categoryInfo.assignedPmQueue,
+      handoff_status: "new",
+      handoff_reason: `${payload.service_category ?? "general"} contact form submitted`,
+      notification_status: "pending",
+    };
+
+    const { data: lead, error: leadError } = await supabase
+      .from("leads")
       .insert({
-        name: payload.name,
+        channel: "website",
+        customer_name: payload.name,
         email: payload.email,
-        phone: payload.phone,
-        service_category: payload.service_category ?? null,
-        source: payload.source ?? null,
-        budget_range: payload.budget_range ?? null,
-        message: payload.message,
-        locale: payload.locale,
+        phone: payload.phone || null,
+        source_meta: sourceMeta,
       })
       .select("id")
       .single<ContactInsertResult>();
 
-    if (error) {
-      console.error("[contact] supabase insert error:", error.message);
-      const errorResponse: ApiResponse<null> = { success: false, error: error.message };
+    let data: ContactInsertResult | null = null;
+    let error = leadError;
+
+    if (!leadError && lead) {
+      const request = await supabase
+        .from("quote_requests")
+        .insert({
+          lead_id: lead.id,
+          channel: "website",
+          raw_text: payload.message,
+          category: categoryInfo.quoteCategory,
+          customer_summary: `${payload.name} / contact / ${categoryInfo.assignedPmQueue}`,
+          status: "new",
+        })
+        .select("id")
+        .single<ContactInsertResult>();
+      data = request.data;
+      error = request.error;
+    }
+
+    if (error || !data) {
+      console.error("[contact] unified inbox insert error:", error?.message);
+      const fallback = await supabase
+        .from("ada_inquiries")
+        .insert({
+          name: payload.name,
+          email: payload.email,
+          phone: payload.phone,
+          service_category: payload.service_category ?? null,
+          source: payload.source ?? null,
+          budget_range: payload.budget_range ?? null,
+          message: [
+            payload.message,
+            "",
+            `[handoff] service_key=${sourceMeta.service_key} assigned_pm_queue=${sourceMeta.assigned_pm_queue} entry_path=${sourceMeta.entry_path}`,
+          ].join("\n"),
+          locale: payload.locale,
+        })
+        .select("id")
+        .single<ContactInsertResult>();
+
+      data = fallback.data;
+      error = fallback.error;
+    }
+
+    if (error || !data) {
+      console.error("[contact] supabase insert error:", error?.message);
+      const errorResponse: ApiResponse<null> = { success: false, error: error?.message ?? "Contact was not saved" };
       return NextResponse.json(errorResponse, { status: 500 });
     }
 

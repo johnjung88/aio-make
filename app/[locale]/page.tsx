@@ -5,6 +5,7 @@ import { MagazineToc } from "@/components/magazine/magazine-toc";
 import { MagazineVoices } from "@/components/magazine/magazine-voices";
 import { MagazineEditorial } from "@/components/magazine/magazine-editorial";
 import { getTranslations } from "next-intl/server";
+import { localizedPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -13,10 +14,11 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "hero" });
-  return {
+  return localizedPageMetadata({
+    locale,
     title: `AIO에이전시 | ${t("headline")}`,
     description: t("subheadline"),
-  };
+  });
 }
 
 export default async function HomePage({

@@ -62,6 +62,17 @@ export default async function AdminInboxPage() {
                     {item.deadlineText && <span>일정: {item.deadlineText}</span>}
                   </div>
 
+                  {(item.serviceKey || item.assignedPmQueue || item.entryPath) && (
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                      {item.serviceKey && <span className="rounded-full bg-white/5 px-2 py-1 text-muted-foreground">service: {item.serviceKey}</span>}
+                      {item.assignedPmQueue && <span className="rounded-full bg-white/5 px-2 py-1 text-muted-foreground">PM: {item.assignedPmQueue}</span>}
+                      {item.handoffStatus && <span className="rounded-full bg-white/5 px-2 py-1 text-muted-foreground">handoff: {item.handoffStatus}</span>}
+                      {item.notificationStatus && <span className="rounded-full bg-white/5 px-2 py-1 text-muted-foreground">notify: {item.notificationStatus}</span>}
+                      {item.entryPath && <span className="rounded-full bg-white/5 px-2 py-1 text-muted-foreground">entry: {item.entryPath}</span>}
+                    </div>
+                  )}
+                  {item.handoffReason && <p className="mt-2 text-xs text-muted-foreground">인계 사유: {item.handoffReason}</p>}
+
                   <p className="mt-4 whitespace-pre-wrap rounded-lg bg-white/5 p-4 text-sm leading-6 text-muted-foreground">{item.rawText}</p>
 
                   {item.responseText && (

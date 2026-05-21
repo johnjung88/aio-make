@@ -1,17 +1,31 @@
 import type { Metadata } from "next";
 import { QuoteForm } from "@/components/sections/quote-form";
 import { MagazineEyebrow } from "@/components/magazine/magazine-eyebrow";
+import { localizedPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "견적 문의",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isKo = locale === "ko";
+  return localizedPageMetadata({
+    locale,
+    path: "/quote",
+    title: isKo ? "견적 문의" : "Quote Request",
+    description: isKo
+      ? "서비스, 예산, 일정, 유입 경로를 구조화해 AIO 담당 PM에게 바로 인계되는 견적 문의입니다."
+      : "Send a structured quote request with service, budget, timeline, and source for PM handoff.",
+  });
+}
 
 export default async function QuotePage({
   params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; subtype?: string; source?: string }>;
+  searchParams: Promise<{ category?: string; service?: string; subtype?: string; source?: string; entry?: string }>;
 }) {
   const { locale } = await params;
   const query = await searchParams;
@@ -116,9 +130,10 @@ export default async function QuotePage({
 
         <QuoteForm
           locale={l}
-          initialCategory={query.category}
+          initialCategory={query.category ?? query.service}
           initialSubtype={query.subtype}
           initialSource={query.source}
+          initialEntryPath={query.entry}
         />
       </section>
     </div>

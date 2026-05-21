@@ -18,6 +18,12 @@ export type InboxItem = {
   budget?: number;
   deadlineText?: string;
   createdAt: string;
+  entryPath?: string;
+  serviceKey?: string;
+  assignedPmQueue?: string;
+  handoffStatus?: string;
+  handoffReason?: string;
+  notificationStatus?: string;
   responseText?: string;
   sentAt?: string;
 };
@@ -91,6 +97,14 @@ function getLeadField(lead: unknown, field: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
+function getLeadMetaField(lead: unknown, field: string): string | undefined {
+  if (!lead || typeof lead !== "object") return undefined;
+  const sourceMeta = (lead as Record<string, unknown>).source_meta;
+  if (!sourceMeta || typeof sourceMeta !== "object") return undefined;
+  const value = (sourceMeta as Record<string, unknown>)[field];
+  return typeof value === "string" ? value : undefined;
+}
+
 function toInboxItem(row: Record<string, unknown>): InboxItem {
   const lead = Array.isArray(row.leads) ? row.leads[0] : row.leads;
   const responses = Array.isArray(row.quote_responses) ? row.quote_responses : [];
@@ -112,6 +126,12 @@ function toInboxItem(row: Record<string, unknown>): InboxItem {
     budget: typeof row.budget === "number" ? row.budget : undefined,
     deadlineText: row.deadline_text ? String(row.deadline_text) : undefined,
     createdAt: String(row.created_at ?? new Date().toISOString()),
+    entryPath: getLeadMetaField(lead, "entry_path"),
+    serviceKey: getLeadMetaField(lead, "service_key"),
+    assignedPmQueue: getLeadMetaField(lead, "assigned_pm_queue"),
+    handoffStatus: getLeadMetaField(lead, "handoff_status"),
+    handoffReason: getLeadMetaField(lead, "handoff_reason"),
+    notificationStatus: getLeadMetaField(lead, "notification_status"),
     responseText: response?.edited_text || response?.ai_generated_text ? String(response.edited_text || response.ai_generated_text) : undefined,
     sentAt: response?.sent_at ? String(response.sent_at) : undefined,
   };
@@ -127,7 +147,7 @@ export async function getInboxItems(limit = 50): Promise<{ items: InboxItem[]; e
     const { data, error } = await supabase
       .from("quote_requests")
       .select(
-        "id, lead_id, channel, raw_text, category, status, urgency, budget, deadline_text, created_at, leads(customer_name, company_name, email, phone), quote_responses(id, edited_text, ai_generated_text, sent_at)",
+        "id, lead_id, channel, raw_text, category, status, urgency, budget, deadline_text, created_at, leads(customer_name, company_name, email, phone, source_meta), quote_responses(id, edited_text, ai_generated_text, sent_at)",
       )
       .order("created_at", { ascending: false })
       .limit(limit);

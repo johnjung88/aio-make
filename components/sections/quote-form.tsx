@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { serviceCategories, type ServiceCategory } from "@/lib/services-data";
+import { getHandoffInfo, normalizeEntryPath } from "@/lib/service-handoff";
 import { trackEvent, getOrCreateSessionUid } from "@/lib/analytics/client";
 
 const SUBTYPES: Record<ServiceCategory, { value: string; ko: string; en: string }[]> = {
@@ -66,6 +67,7 @@ interface QuoteFormProps {
   initialCategory?: string;
   initialSubtype?: string;
   initialSource?: string;
+  initialEntryPath?: string;
 }
 
 // 매거진 톤 입력 공통 스타일
@@ -94,10 +96,14 @@ const labelStyle: React.CSSProperties = {
   color: "var(--tone-magazine-ink-3)",
 };
 
-export function QuoteForm({ locale, initialCategory, initialSubtype, initialSource }: QuoteFormProps) {
+export function QuoteForm({ locale, initialCategory, initialSubtype, initialSource, initialEntryPath }: QuoteFormProps) {
   const safeCategory = serviceCategories.some((service) => service.value === initialCategory)
     ? (initialCategory as ServiceCategory)
     : "website";
+  const initialHandoff = getHandoffInfo(safeCategory, initialSubtype ?? SUBTYPES[safeCategory][0].value);
+  const safeSource = ["soomgo", "kmong", "email", "direct", "search", "referral", "portfolio", "service_page", "home"].includes(initialSource ?? "")
+    ? (initialSource as string)
+    : "direct";
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -107,9 +113,15 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
     budget_range: "",
     timeline: "",
     rush: false,
-    source: ["soomgo", "kmong", "email"].includes(initialSource ?? "") ? initialSource : "email",
+    source: safeSource,
     contact_method: "email",
     description: "",
+    entry_path: normalizeEntryPath(initialEntryPath, typeof window === "undefined" ? `/${locale}/quote` : window.location.pathname),
+    service_key: initialHandoff.serviceKey,
+    assigned_pm_queue: initialHandoff.assignedPmQueue,
+    handoff_status: initialHandoff.handoffStatus,
+    handoff_reason: initialHandoff.handoffReason,
+    consent_privacy: false,
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -119,6 +131,18 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
       if (field === "category") {
         const category = value as ServiceCategory;
         next.subtype = SUBTYPES[category][0].value;
+        const handoff = getHandoffInfo(category, next.subtype);
+        next.service_key = handoff.serviceKey;
+        next.assigned_pm_queue = handoff.assignedPmQueue;
+        next.handoff_status = handoff.handoffStatus;
+        next.handoff_reason = handoff.handoffReason;
+      }
+      if (field === "subtype") {
+        const handoff = getHandoffInfo(next.category, String(value));
+        next.service_key = handoff.serviceKey;
+        next.assigned_pm_queue = handoff.assignedPmQueue;
+        next.handoff_status = handoff.handoffStatus;
+        next.handoff_reason = handoff.handoffReason;
       }
       return next;
     });
@@ -131,6 +155,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
       budget: "예산", timeline: "희망 일정",
       source: "유입 채널", contact: "연락 방법", description: "요구사항",
       rush: "긴급 1일 작업 상담 희망",
+      consent: "개인정보 수집·이용에 동의합니다. 견적 상담 및 담당 PM 인계를 위해 입력 정보를 저장합니다.",
+      handoff: "담당 인계",
       submit: "견적 문의 보내기",
       sending: "발송 중...",
       success: "견적 문의가 접수됐습니다. 빠르게 확인하겠습니다.",
@@ -143,6 +169,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
       budget: "Budget", timeline: "Timeline",
       source: "Source", contact: "Preferred contact", description: "Requirements",
       rush: "Need a 1-day rush consultation",
+      consent: "I agree to the collection and use of my information for quote consultation and PM handoff.",
+      handoff: "PM handoff",
       submit: "Send structured quote request",
       sending: "Sending...",
       success: "Quote request received. We will review it shortly.",
@@ -199,6 +227,12 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
         <div>
           <label style={labelStyle}>{copy.source}</label>
           <select style={inputStyle} value={form.source} onChange={(e) => set("source", e.target.value)}>
+            <option value="direct">{locale === "ko" ? "직접 방문" : "Direct"}</option>
+            <option value="home">{locale === "ko" ? "홈페이지" : "Home"}</option>
+            <option value="service_page">{locale === "ko" ? "서비스 페이지" : "Service page"}</option>
+            <option value="portfolio">{locale === "ko" ? "포트폴리오" : "Portfolio"}</option>
+            <option value="search">{locale === "ko" ? "검색" : "Search"}</option>
+            <option value="referral">{locale === "ko" ? "추천" : "Referral"}</option>
             <option value="soomgo">{locale === "ko" ? "숨고" : "Soomgo"}</option>
             <option value="kmong">{locale === "ko" ? "크몽" : "Kmong"}</option>
             <option value="email">{locale === "ko" ? "이메일" : "Email"}</option>
@@ -280,6 +314,46 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
           style={{ accentColor: "var(--tone-magazine-red)" }}
         />
         {copy.rush}
+      </label>
+
+      <div
+        className="grid gap-2 px-4 py-3 text-sm"
+        style={{
+          background: "var(--tone-magazine-paper-2)",
+          border: "1px solid var(--tone-magazine-line-2)",
+          borderRadius: 2,
+          color: "var(--tone-magazine-ink-2)",
+          fontFamily: "var(--font-pretendard)",
+        }}
+      >
+        <span style={{ ...labelStyle, marginBottom: 0 }}>{copy.handoff}</span>
+        <span>{form.assigned_pm_queue} · {form.service_key} · {form.handoff_status}</span>
+        <span style={{ color: "var(--tone-magazine-ink-3)" }}>{form.handoff_reason}</span>
+      </div>
+
+      <label
+        className="flex items-start gap-3 px-4 py-3"
+        style={{
+          background: "var(--tone-magazine-paper-2)",
+          border: "1px solid var(--tone-magazine-line-2)",
+          borderRadius: 2,
+          fontFamily: "var(--font-pretendard)",
+          fontSize: 13.5,
+          lineHeight: 1.6,
+          color: "var(--tone-magazine-ink)",
+          fontWeight: 400,
+          cursor: "pointer",
+        }}
+      >
+        <input
+          required
+          type="checkbox"
+          checked={form.consent_privacy}
+          onChange={(e) => set("consent_privacy", e.target.checked)}
+          className="mt-1 size-4"
+          style={{ accentColor: "var(--tone-magazine-red)" }}
+        />
+        {copy.consent}
       </label>
 
       <div>
