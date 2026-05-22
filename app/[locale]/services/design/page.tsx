@@ -51,29 +51,36 @@ export default async function DesignPage({ params }: { params: Promise<{ locale:
 
 function HeroSection({ locale }: { locale: string }) {
   return (
-    <section className="max-w-[1100px] mx-auto relative text-center" style={{ padding: "var(--space-section) var(--space-edge)" }}>
-      <div className="mb-8 md:mb-10 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jakarta)", fontSize: 11, color: "var(--tone-life-ink-3)", letterSpacing: "0.28em", textTransform: "uppercase" }}>
-        <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
-        Design · 03 Sub-services
-        <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
+    <section className="relative overflow-hidden text-center">
+      <div className="aio-atmos" aria-hidden>
+        <div className="aio-glow" style={{ top: -130, left: "50%", transform: "translateX(-50%)", width: 660, height: 460, borderRadius: "50%", background: "radial-gradient(ellipse, color-mix(in srgb, var(--tone-life-rose) 16%, transparent), transparent 70%)", filter: "blur(46px)" }} />
+        <div style={{ bottom: -90, right: -70, width: 380, height: 380, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--tone-life-olive) 14%, transparent), transparent 70%)", filter: "blur(46px)" }} />
+        <div style={{ bottom: -90, left: -70, width: 300, height: 300, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--tone-life-rose) 10%, transparent), transparent 70%)", filter: "blur(46px)" }} />
       </div>
-      <h1 className="font-normal mb-7 md:mb-9 mx-auto max-w-[900px]" style={{ fontFamily: "var(--font-fraunces)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-life-ink)", fontWeight: 400 }}>
-        결정에 영향을 주는
-        <br />
-        <em style={{ fontStyle: "italic", color: "var(--tone-life-rose)", fontWeight: 500 }}>감각</em>
-      </h1>
-      <p className="mb-10 md:mb-14 mx-auto max-w-[60ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-life-ink-2)" }}>
-        로고에서 상세페이지·PPT까지, 보이는 것의 첫인상을 만듭니다
-        <br />
-        <strong style={{ color: "var(--tone-life-ink)", fontWeight: 600 }}>예쁜 것을 넘어, 구매 결정을 돕는 흐름까지</strong>
-      </p>
-      <div className="inline-flex flex-col md:flex-row gap-3 max-w-[280px] md:max-w-none w-full md:w-auto items-stretch md:items-center justify-center">
-        <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-life-rose)", color: "var(--tone-life-cream)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 999 }}>
-          견적 문의 →
-        </Link>
-        <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-life-ink)", border: "1px solid var(--tone-life-line-2)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 999 }}>
-          분야 더 보기
-        </Link>
+      <div className="max-w-[1100px] mx-auto relative z-10" style={{ padding: "var(--space-section) var(--space-edge)" }}>
+        <div className="aio-rise mb-8 md:mb-10 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jakarta)", fontSize: 11, color: "var(--tone-life-ink-3)", letterSpacing: "0.28em", textTransform: "uppercase", animationDelay: "0.05s" }}>
+          <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
+          Design · 03 Sub-services
+          <span style={{ width: 24, height: 1, background: "var(--tone-life-rose)", display: "inline-block" }} />
+        </div>
+        <h1 className="aio-rise font-normal mb-7 md:mb-9 mx-auto max-w-[900px]" style={{ fontFamily: "var(--font-fraunces)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-life-ink)", fontWeight: 400, animationDelay: "0.14s" }}>
+          결정에 영향을 주는
+          <br />
+          <em style={{ fontStyle: "italic", color: "var(--tone-life-rose)", fontWeight: 500 }}>감각</em>
+        </h1>
+        <p className="aio-rise mb-10 md:mb-14 mx-auto max-w-[60ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-life-ink-2)", animationDelay: "0.22s" }}>
+          로고에서 상세페이지·PPT까지, 보이는 것의 첫인상을 만듭니다
+          <br />
+          <strong style={{ color: "var(--tone-life-ink)", fontWeight: 600 }}>예쁜 것을 넘어, 구매 결정을 돕는 흐름까지</strong>
+        </p>
+        <div className="aio-rise inline-flex flex-col md:flex-row gap-3 max-w-[280px] md:max-w-none w-full md:w-auto items-stretch md:items-center justify-center" style={{ animationDelay: "0.3s" }}>
+          <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-life-rose)", color: "var(--tone-life-cream)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 999 }}>
+            견적 문의 →
+          </Link>
+          <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-life-ink)", border: "1px solid var(--tone-life-line-2)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 999 }}>
+            분야 더 보기
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -87,29 +87,35 @@ function ConsultNav({ locale }: { locale: string }) {
 
 function HeroSection({ locale }: { locale: string }) {
   return (
-    <section className="max-w-[1100px] mx-auto text-center" style={{ padding: "var(--space-section) var(--space-edge)", borderBottom: "1px solid var(--tone-consult-line-2)" }}>
-      <div className="mb-7 md:mb-9 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-ibm-plex-mono)", fontSize: 11, color: "var(--tone-consult-ink-3)", letterSpacing: "0.28em", textTransform: "uppercase" }}>
-        <span style={{ width: 24, height: 1, background: "var(--tone-consult-gold)", display: "inline-block" }} />
-        Marketing · 03 Sub-services
-        <span style={{ width: 24, height: 1, background: "var(--tone-consult-gold)", display: "inline-block" }} />
+    <section className="relative overflow-hidden" style={{ borderBottom: "1px solid var(--tone-consult-line-2)" }}>
+      <div className="aio-atmos" aria-hidden>
+        <div style={{ inset: 0, backgroundImage: "linear-gradient(color-mix(in srgb, var(--tone-consult-navy) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--tone-consult-navy) 7%, transparent) 1px, transparent 1px)", backgroundSize: "40px 40px", WebkitMaskImage: "radial-gradient(ellipse 90% 72% at 50% 0%, #000, transparent 80%)", maskImage: "radial-gradient(ellipse 90% 72% at 50% 0%, #000, transparent 80%)" }} />
+        <div className="aio-glow" style={{ top: -150, left: "50%", transform: "translateX(-50%)", width: 660, height: 420, borderRadius: "50%", background: "radial-gradient(ellipse, color-mix(in srgb, var(--tone-consult-navy) 12%, transparent), transparent 70%)", filter: "blur(50px)" }} />
       </div>
-      <h1 className="font-normal mb-7 md:mb-9 mx-auto max-w-[16ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.018em", color: "var(--tone-consult-ink)", fontWeight: 700 }}>
-        채널은 맡기고,
-        <br />
-        <span style={{ color: "var(--tone-consult-navy)" }}>본업에 집중</span>하세요
-      </h1>
-      <p className="mb-10 md:mb-12 mx-auto max-w-[50ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-consult-ink-2)" }}>
-        블로그·SNS·영상 채널을 매달 대신 운영합니다
-        <br />
-        <strong style={{ color: "var(--tone-consult-ink)", fontWeight: 600 }}>기획부터 발행·리포트까지, 꾸준함이 만드는 유입</strong>
-      </p>
-      <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center max-w-[300px] sm:max-w-none mx-auto">
-        <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-consult-navy)", color: "var(--tone-consult-paper)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 2 }}>
-          운영 상담 →
-        </Link>
-        <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-consult-ink)", border: "1px solid var(--tone-consult-line-2)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 2 }}>
-          서비스 보기
-        </Link>
+      <div className="max-w-[1100px] mx-auto text-center relative z-10" style={{ padding: "var(--space-section) var(--space-edge)" }}>
+        <div className="aio-rise mb-7 md:mb-9 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-ibm-plex-mono)", fontSize: 11, color: "var(--tone-consult-ink-3)", letterSpacing: "0.28em", textTransform: "uppercase", animationDelay: "0.05s" }}>
+          <span style={{ width: 24, height: 1, background: "var(--tone-consult-gold)", display: "inline-block" }} />
+          Marketing · 03 Sub-services
+          <span style={{ width: 24, height: 1, background: "var(--tone-consult-gold)", display: "inline-block" }} />
+        </div>
+        <h1 className="aio-rise font-normal mb-7 md:mb-9 mx-auto max-w-[16ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.018em", color: "var(--tone-consult-ink)", fontWeight: 700, animationDelay: "0.14s" }}>
+          채널은 맡기고,
+          <br />
+          <span style={{ color: "var(--tone-consult-navy)" }}>본업에 집중</span>하세요
+        </h1>
+        <p className="aio-rise mb-10 md:mb-12 mx-auto max-w-[50ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-consult-ink-2)", animationDelay: "0.22s" }}>
+          블로그·SNS·영상 채널을 매달 대신 운영합니다
+          <br />
+          <strong style={{ color: "var(--tone-consult-ink)", fontWeight: 600 }}>기획부터 발행·리포트까지, 꾸준함이 만드는 유입</strong>
+        </p>
+        <div className="aio-rise flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center max-w-[300px] sm:max-w-none mx-auto" style={{ animationDelay: "0.3s" }}>
+          <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-consult-navy)", color: "var(--tone-consult-paper)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 2 }}>
+            운영 상담 →
+          </Link>
+          <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-consult-ink)", border: "1px solid var(--tone-consult-line-2)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 2 }}>
+            서비스 보기
+          </Link>
+        </div>
       </div>
     </section>
   );

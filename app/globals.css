@@ -493,3 +493,23 @@
   --tone-cinema-amber: #E8B15A;
   --tone-cinema-red: #D9482F;
 }
+
+/* ───────────────────────── Renewal: entrance motion ───────────────────────── */
+@keyframes aio-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes aio-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes aio-glow {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 0.85; }
+}
+.aio-rise { opacity: 0; animation: aio-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.aio-fade { opacity: 0; animation: aio-fade 1s ease both; }
+.aio-glow { animation: aio-glow 6s ease-in-out infinite; }
+/* 히어로 배경 레이어 공통 */
+.aio-atmos { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.aio-atmos > * { position: absolute; }

@@ -57,33 +57,39 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ lo
 /* Hero — IDE 톤 좌정렬 (코드 에디터 무드) */
 function HeroSection({ locale }: { locale: string }) {
   return (
-    <section className="max-w-[1100px] mx-auto relative" style={{ padding: "var(--space-section) var(--space-edge)" }}>
-      <div className="mb-8 md:mb-10 inline-flex items-center gap-2 flex-wrap" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 12, color: "var(--tone-ide-fg-3)", letterSpacing: "0.06em" }}>
-        <span style={{ color: "var(--tone-ide-mint)" }}>~/services</span>
-        <span style={{ color: "var(--tone-ide-fg-faint)" }}>/</span>
-        <span>development</span>
-        <span className="ml-3 inline-flex items-center gap-1.5" style={{ padding: "2px 8px", background: "var(--tone-ide-mint-soft)", color: "var(--tone-ide-mint)", borderRadius: 2, fontSize: 10.5, letterSpacing: "0.18em" }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--tone-ide-mint)" }} className="inline-block animate-dot-pulse-mag" />
-          LIVE · 04 SUBS
-        </span>
+    <section className="relative overflow-hidden">
+      <div className="aio-atmos" aria-hidden>
+        <div className="aio-glow" style={{ top: -150, left: -110, width: 540, height: 540, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--tone-ide-mint) 20%, transparent), transparent 70%)", filter: "blur(36px)" }} />
+        <div style={{ inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)", backgroundSize: "46px 46px", WebkitMaskImage: "radial-gradient(ellipse 85% 65% at 28% 0%, #000, transparent 78%)", maskImage: "radial-gradient(ellipse 85% 65% at 28% 0%, #000, transparent 78%)" }} />
       </div>
-      <h1 className="font-normal mb-7 md:mb-9" style={{ fontFamily: "var(--font-jetbrains)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-ide-fg)", fontWeight: 500 }}>
-        필요한 것이,
-        <br />
-        <span style={{ color: "var(--tone-ide-mint)" }}>5일 안에</span> 코드로
-      </h1>
-      <p className="mb-10 md:mb-14 max-w-[60ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-ide-fg-2)" }}>
-        웹·앱·자동화·프로그램 — 네 갈래의 코드 작업을 한 손에서
-        <br />
-        <strong style={{ color: "var(--tone-ide-fg)", fontWeight: 600 }}>매일 진행 상황을 공유하고, 1개월 무상 유지보수까지</strong>
-      </p>
-      <div className="flex flex-col md:flex-row gap-3 max-w-[280px] md:max-w-none items-stretch md:items-center">
-        <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-ide-mint)", color: "var(--tone-ide-bg)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 2 }}>
-          견적 문의 →
-        </Link>
-        <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-ide-fg)", border: "1px solid var(--tone-ide-line)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 2 }}>
-          분야 더 보기
-        </Link>
+      <div className="max-w-[1100px] mx-auto relative z-10" style={{ padding: "var(--space-section) var(--space-edge)" }}>
+        <div className="aio-rise mb-8 md:mb-10 inline-flex items-center gap-2 flex-wrap" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 12, color: "var(--tone-ide-fg-3)", letterSpacing: "0.06em", animationDelay: "0.05s" }}>
+          <span style={{ color: "var(--tone-ide-mint)" }}>~/services</span>
+          <span style={{ color: "var(--tone-ide-fg-faint)" }}>/</span>
+          <span>development</span>
+          <span className="ml-3 inline-flex items-center gap-1.5" style={{ padding: "2px 8px", background: "var(--tone-ide-mint-soft)", color: "var(--tone-ide-mint)", borderRadius: 2, fontSize: 10.5, letterSpacing: "0.18em" }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--tone-ide-mint)" }} className="inline-block animate-dot-pulse-mag" />
+            LIVE · 04 SUBS
+          </span>
+        </div>
+        <h1 className="aio-rise font-normal mb-7 md:mb-9" style={{ fontFamily: "var(--font-jetbrains)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-ide-fg)", fontWeight: 500, animationDelay: "0.14s" }}>
+          필요한 것이,
+          <br />
+          <span style={{ color: "var(--tone-ide-mint)" }}>5일 안에</span> 코드로
+        </h1>
+        <p className="aio-rise mb-10 md:mb-14 max-w-[60ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-ide-fg-2)", animationDelay: "0.22s" }}>
+          웹사이트·쇼핑몰·자동화·프로그램 — 네 갈래의 코드 작업을 한 손에서
+          <br />
+          <strong style={{ color: "var(--tone-ide-fg)", fontWeight: 600 }}>매일 진행 상황을 공유하고, 1개월 무상 유지보수까지</strong>
+        </p>
+        <div className="aio-rise flex flex-col md:flex-row gap-3 max-w-[280px] md:max-w-none items-stretch md:items-center" style={{ animationDelay: "0.3s" }}>
+          <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-ide-mint)", color: "var(--tone-ide-bg)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 2 }}>
+            견적 문의 →
+          </Link>
+          <Link href="#subs" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "transparent", color: "var(--tone-ide-fg)", border: "1px solid var(--tone-ide-line)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 500, borderRadius: 2 }}>
+            분야 더 보기
+          </Link>
+        </div>
       </div>
     </section>
   );

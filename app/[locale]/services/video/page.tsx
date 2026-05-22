@@ -84,11 +84,15 @@ function CinemaNav({ locale }: { locale: string }) {
 /* Hero — 레터박스 시네마 */
 function HeroSection({ locale }: { locale: string }) {
   return (
-    <section className="relative" style={{ borderBottom: "1px solid var(--tone-cinema-line-2)" }}>
+    <section className="relative overflow-hidden" style={{ borderBottom: "1px solid var(--tone-cinema-line-2)" }}>
+      <div className="aio-atmos" aria-hidden>
+        <div className="aio-glow" style={{ top: -170, left: "50%", transform: "translateX(-50%)", width: 760, height: 480, borderRadius: "50%", background: "radial-gradient(ellipse, color-mix(in srgb, var(--tone-cinema-amber) 22%, transparent), transparent 70%)", filter: "blur(54px)" }} />
+        <div style={{ inset: 0, background: "radial-gradient(ellipse 120% 85% at 50% 0%, transparent 52%, var(--tone-cinema-bg) 100%)" }} />
+      </div>
       {/* 상단 레터박스 라인 */}
-      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, var(--tone-cinema-amber), transparent)", opacity: 0.5 }} />
-      <div className="max-w-[1100px] mx-auto text-center" style={{ padding: "var(--space-section) var(--space-edge)" }}>
-        <div className="mb-7 md:mb-9 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "var(--tone-cinema-fg-3)", letterSpacing: "0.28em", textTransform: "uppercase" }}>
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, var(--tone-cinema-amber), transparent)", opacity: 0.5, position: "relative", zIndex: 10 }} />
+      <div className="max-w-[1100px] mx-auto text-center relative z-10" style={{ padding: "var(--space-section) var(--space-edge)" }}>
+        <div className="aio-rise mb-7 md:mb-9 inline-flex items-center gap-3 flex-wrap justify-center" style={{ fontFamily: "var(--font-jetbrains)", fontSize: 11, color: "var(--tone-cinema-fg-3)", letterSpacing: "0.28em", textTransform: "uppercase", animationDelay: "0.05s" }}>
           <span className="inline-flex items-center gap-1.5">
             <span className="animate-pulse" style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--tone-cinema-red)", display: "inline-block" }} />
             REC
@@ -96,17 +100,17 @@ function HeroSection({ locale }: { locale: string }) {
           <span style={{ width: 24, height: 1, background: "var(--tone-cinema-line)", display: "inline-block" }} />
           Video · 04 Sub-services
         </div>
-        <h1 className="font-normal mb-7 md:mb-9 mx-auto max-w-[14ch]" style={{ fontFamily: "var(--font-jakarta)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.02em", color: "var(--tone-cinema-fg)", fontWeight: 700 }}>
+        <h1 className="aio-rise font-normal mb-7 md:mb-9 mx-auto max-w-[14ch]" style={{ fontFamily: "var(--font-jakarta)", fontSize: "var(--text-display)", lineHeight: "var(--leading-display)", letterSpacing: "-0.02em", color: "var(--tone-cinema-fg)", fontWeight: 700, animationDelay: "0.14s" }}>
           장면이, 브랜드를
           <br />
           <span style={{ color: "var(--tone-cinema-amber)" }}>말하게</span>
         </h1>
-        <p className="mb-10 md:mb-12 mx-auto max-w-[50ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-cinema-fg-2)" }}>
+        <p className="aio-rise mb-10 md:mb-12 mx-auto max-w-[50ch]" style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-cinema-fg-2)", animationDelay: "0.22s" }}>
           브랜드 영상부터 SNS 숏폼·광고·유튜브 편집까지
           <br />
           <strong style={{ color: "var(--tone-cinema-fg)", fontWeight: 600 }}>소재만 주시면, 끝까지 보게 만드는 한 편으로</strong>
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center max-w-[300px] sm:max-w-none mx-auto">
+        <div className="aio-rise flex flex-col sm:flex-row gap-3 justify-center items-stretch sm:items-center max-w-[300px] sm:max-w-none mx-auto" style={{ animationDelay: "0.3s" }}>
           <Link href={`/${locale}/quote`} className="inline-flex items-center justify-center gap-2 px-7 py-3.5 transition-all hover:-translate-y-0.5" style={{ background: "var(--tone-cinema-amber)", color: "var(--tone-cinema-bg)", fontFamily: "var(--font-pretendard)", fontSize: 14, fontWeight: 600, borderRadius: 999 }}>
             견적 문의 →
           </Link>
@@ -115,7 +119,7 @@ function HeroSection({ locale }: { locale: string }) {
           </Link>
         </div>
       </div>
-      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, var(--tone-cinema-amber), transparent)", opacity: 0.5 }} />
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, var(--tone-cinema-amber), transparent)", opacity: 0.5, position: "relative", zIndex: 10 }} />
     </section>
   );
 }
