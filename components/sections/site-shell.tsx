@@ -18,6 +18,11 @@ import { VideoFooter } from "@/components/video/video-footer";
  * - 시네마(영상): /services/video
  * - 컨설턴트(마케팅): /services/marketing (구 /services/business, /services/ppt-design 유지)
  */
+// 자체완결형(자체 nav+footer 내장) 소 카테고리 랜딩 — 전역 헤더/푸터 미출력
+function isStandalone(pathname: string): boolean {
+  return /^\/[a-z]{2}\/services\/(website)(\/.*)?$/.test(pathname);
+}
+
 function getTone(
   pathname: string
 ): "magazine" | "consultant" | "lifestyle" | "ide" | "cinema" | "default" {
@@ -31,6 +36,7 @@ function getTone(
 
 export function SiteHeader() {
   const pathname = usePathname();
+  if (isStandalone(pathname)) return null;
   const tone = getTone(pathname);
   // 컨설턴트·라이프스타일·IDE·시네마는 자체 Nav를 page.tsx에서 렌더 → SiteHeader 생략
   if (tone === "consultant" || tone === "lifestyle" || tone === "ide" || tone === "cinema") return null;
@@ -40,6 +46,7 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   const pathname = usePathname();
+  if (isStandalone(pathname)) return null;
   const tone = getTone(pathname);
   if (tone === "magazine") return <MagazineFooter />;
   if (tone === "consultant") return <ConsultFooter />;
