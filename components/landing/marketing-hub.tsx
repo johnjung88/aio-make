@@ -3,20 +3,23 @@ import { useEffect, useRef } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 /**
- * Marketing Hub — Live Dashboard character
- *
- * 차별화 포인트
- * - 풀폭 dashboard 그리드 (히어로 = KPI + 차트가 직접 메인 element)
- * - 모든 서비스 카드에 sparkline 라인 차트 내장
- * - 데이터 테이블·퍼센트 델타·라이브 인디케이터로 통일
- * - mono 폰트 비중 ↑, mint/green data viz 팔레트
+ * Marketing Hub — Console (그리드 라인 + 코너 픽셀 + 상단 admin bar)
+ * 페이지 전체가 admin console. 그래프 페이퍼 그리드가 fixed로 깔리고,
+ * 모든 섹션 frame에 코너 픽셀 마커. 하단 status bar 상시.
  */
 const CSS = `
-.aiomh{--bg:#0E0D0B;--bg2:#161412;--bg3:#0a0908;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(139,224,194,.26);--line2:rgba(239,233,221,.08);--gold:#C8A24A;--mint:#8BE0C2;--lime:#C6EE7A;--down:#E27B7B;
+.aiomh{--bg:#080A0B;--bg2:#0F1213;--bg3:#0A0D0E;--fg:#EFE9DD;--fg2:#A8AFA9;--fg3:#5C645E;
+  --line:rgba(139,224,194,.26);--line2:rgba(239,233,221,.06);--grid:rgba(139,224,194,.045);
+  --gold:#C8A24A;--mint:#8BE0C2;--lime:#C6EE7A;--down:#E27B7B;
   --frau:var(--font-fraunces);--corm:var(--font-cormorant);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(46px,8.5vw,116px);--fs-h2:clamp(30px,5.2vw,68px);--fs-lead:clamp(15px,1.4vw,18px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
-  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center}
+  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center;position:relative}
+/* Graph-paper grid background — fixed, fills viewport */
+.aiomh::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;background-position:center center;pointer-events:none;z-index:0}
+/* Subtle scanline */
+.aiomh::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(139,224,194,.012) 3px,rgba(139,224,194,.012) 4px);pointer-events:none;z-index:1}
+.aiomh > *{position:relative;z-index:5}
 .aiomh *{box-sizing:border-box}
 .aiomh a{text-decoration:none;color:inherit}
 .aiomh .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
@@ -25,12 +28,24 @@ const CSS = `
 .aiomh .reveal.d1{transition-delay:.1s}.aiomh .reveal.d2{transition-delay:.2s}.aiomh .reveal.d3{transition-delay:.3s}
 .aiomh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--mint),var(--lime))}
 
-/* Topbar — fake admin bar */
-.aiomh .tbar{padding:11px var(--sp-edge);border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;background:var(--bg3)}
+/* Top admin bar (full width sticky-ish) */
+.aiomh .tbar{padding:11px var(--sp-edge);border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;background:var(--bg3);position:relative}
 .aiomh .tbar .l{display:flex;align-items:center;gap:14px}
+.aiomh .tbar .l span:not(.live){color:var(--fg3)}
 .aiomh .tbar .live{display:inline-flex;align-items:center;gap:6px;color:var(--mint)}
 .aiomh .tbar .live .d{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(139,224,194,.25);animation:aiomh-pulse 2s infinite}
 @keyframes aiomh-pulse{0%,100%{opacity:1}50%{opacity:.55}}
+/* Corner pixel markers (4 corners of viewport) */
+.aiomh .corner{position:fixed;width:14px;height:14px;border:1px solid var(--mint);pointer-events:none;z-index:4;opacity:.5}
+.aiomh .corner.tl{top:50px;left:14px;border-right:none;border-bottom:none}
+.aiomh .corner.tr{top:50px;right:14px;border-left:none;border-bottom:none}
+.aiomh .corner.bl{bottom:50px;left:14px;border-right:none;border-top:none}
+.aiomh .corner.br{bottom:50px;right:14px;border-left:none;border-top:none}
+
+/* Status bar — fixed bottom */
+.aiomh .sbar{position:fixed;bottom:0;left:0;right:0;padding:8px var(--sp-edge);background:var(--bg3);border-top:1px solid var(--line2);font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;z-index:6}
+.aiomh .sbar b{color:var(--mint);font-weight:400}
+.aiomh .sbar span.dot{margin:0 10px;color:var(--fg3)}
 
 /* Hero — KPIs as part of headline */
 .aiomh .hero{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,72px);position:relative}
@@ -40,11 +55,22 @@ const CSS = `
 .aiomh .hero h1 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
 .aiomh .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 36px}
 .aiomh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
-.aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--mint);color:#0E0D0B;border:1px solid var(--mint);letter-spacing:-.005em}
+.aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--mint);color:#0E0D0B;border:1px solid var(--mint);letter-spacing:-.005em;transition:all .25s}
+.aiomh .cta-pill:hover{background:transparent;color:var(--mint)}
 .aiomh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
 
+/* Console panel — frame with corner markers around each section block */
+.aiomh .panel{position:relative;border:1px solid var(--line2);background:rgba(15,18,19,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.aiomh .panel::before,.aiomh .panel::after,.aiomh .panel .pcr,.aiomh .panel .pcr2{position:absolute;width:9px;height:9px;border:1px solid var(--mint);content:""}
+.aiomh .panel::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.aiomh .panel::after{top:-1px;right:-1px;border-left:none;border-bottom:none}
+.aiomh .panel .pcr{bottom:-1px;left:-1px;border-right:none;border-top:none;background:transparent}
+.aiomh .panel .pcr2{bottom:-1px;right:-1px;border-left:none;border-top:none;background:transparent}
+.aiomh .panel .pbar{padding:11px 22px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.aiomh .panel .pbar b{color:var(--mint);font-weight:400}
+
 /* Live KPI strip */
-.aiomh .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:clamp(30px,4vw,48px) auto 0;border:1px solid var(--line2);background:var(--bg2);max-width:1140px;text-align:left}
+.aiomh .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:clamp(30px,4vw,48px) auto 0;max-width:1140px;text-align:left}
 .aiomh .kpi{padding:24px 26px;border-right:1px solid var(--line2);position:relative}
 .aiomh .kpi:last-child{border-right:none}
 .aiomh .kpi .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;margin-bottom:10px}
@@ -63,10 +89,13 @@ const CSS = `
 .aiomh .shead h2 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
 .aiomh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
-/* Channels — services as dashboard tiles with sparklines */
+/* Channels */
 .aiomh .ch{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-.aiomh .chc{padding:30px 28px 26px;background:var(--bg2);border:1px solid var(--line2);text-align:left;transition:border-color .3s,transform .3s;position:relative;display:flex;flex-direction:column}
+.aiomh .chc{padding:30px 28px 26px;background:rgba(15,18,19,.7);border:1px solid var(--line2);text-align:left;transition:border-color .3s,transform .3s;position:relative;display:flex;flex-direction:column}
 .aiomh .chc:hover{border-color:var(--mint);transform:translateY(-4px)}
+.aiomh .chc::before,.aiomh .chc::after{content:"";position:absolute;width:7px;height:7px;border:1px solid var(--mint)}
+.aiomh .chc::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.aiomh .chc::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
 .aiomh .chc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .aiomh .chc .top .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--mint);text-transform:uppercase}
 .aiomh .chc .top .live{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--mint);letter-spacing:.14em;text-transform:uppercase}
@@ -82,9 +111,7 @@ const CSS = `
 @media(max-width:880px){.aiomh .ch{grid-template-columns:1fr}}
 
 /* Report table */
-.aiomh .rep{max-width:1100px;margin:48px auto 0;border:1px solid var(--line2);background:var(--bg2)}
-.aiomh .rep .rhd{padding:14px 24px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase}
-.aiomh .rep .rhd b{color:var(--mint);font-weight:400}
+.aiomh .rep{max-width:1100px;margin:48px auto 0}
 .aiomh .rep table{width:100%;border-collapse:collapse;font-family:var(--pret);font-size:13.5px}
 .aiomh .rep th{text-align:left;padding:14px 24px;color:var(--fg3);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line2)}
 .aiomh .rep td{padding:16px 24px;border-bottom:1px solid var(--line2);color:var(--fg2)}
@@ -93,11 +120,13 @@ const CSS = `
 .aiomh .rep td.r.up{color:var(--mint)}
 .aiomh .rep td.r.dn{color:var(--down)}
 .aiomh .rep td.name{color:var(--fg);font-family:var(--frau);font-size:15px}
-.aiomh .rep td .sp{display:inline-block;width:70px;height:20px;vertical-align:middle;margin-left:10px;background:linear-gradient(90deg,transparent 0,transparent 8%,rgba(139,224,194,.4) 8%,rgba(139,224,194,.4) 12%,transparent 12%)}
 @media(max-width:680px){.aiomh .rep th,.aiomh .rep td{padding:12px 14px;font-size:12px}}
 
 /* Ways */
-.aiomh .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);max-width:1100px;margin:32px auto 0;background:var(--bg2)}
+.aiomh .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);max-width:1100px;margin:32px auto 0;background:rgba(15,18,19,.6);position:relative}
+.aiomh .ways::before,.aiomh .ways::after{content:"";position:absolute;width:8px;height:8px;border:1px solid var(--mint)}
+.aiomh .ways::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.aiomh .ways::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
 .aiomh .way{padding:24px 18px;border-right:1px solid var(--line2);text-align:center}
 .aiomh .way:last-child{border-right:none}
 .aiomh .way .n{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--mint);margin-bottom:10px;text-transform:uppercase}
@@ -106,7 +135,7 @@ const CSS = `
 @media(max-width:760px){.aiomh .ways{grid-template-columns:1fr 1fr}.aiomh .way:nth-child(2n){border-right:none}.aiomh .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
 
 /* CTA */
-.aiomh .ctaS{padding:var(--sp-sec) 0;position:relative;overflow:hidden;text-align:center}
+.aiomh .ctaS{padding:var(--sp-sec) 0 calc(var(--sp-sec) + 40px);position:relative;overflow:hidden;text-align:center}
 .aiomh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(139,224,194,.12),transparent 70%)}
 .aiomh .ctaS .wrap{position:relative}
 .aiomh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
@@ -134,51 +163,34 @@ export function MarketingHub({ locale }: { locale: string }) {
       <div className="prog" />
       <AioNav locale={locale} level="middle" cat="marketing" active="service" />
 
-      {/* Topbar */}
       <div className="tbar">
         <div className="l"><span>AIO · Growth Console</span><span>·</span><span>Workspace 2026Q2</span></div>
         <div className="live"><span className="d" /> LIVE · LAST SYNC 12s</div>
       </div>
 
-      {/* Hero */}
+      {/* Fixed corner markers */}
+      <span className="corner tl" /><span className="corner tr" /><span className="corner bl" /><span className="corner br" />
+
       <header className="hero">
         <div className="wrap">
           <span className="kick">Marketing · 서비스 소개</span>
-          <h1 style={{ marginTop: 22 }}>유입은,<br /><em>꾸준함</em>입니다</h1>
+          <h1 style={{ marginTop: 22 }}>유입은<br /><em>꾸준함</em>입니다</h1>
           <p className="lead">블로그·SNS·영상채널. 매일 보이는 것이 한 달 뒤의 매출이 됩니다 — 측정되고, 검증되는 운영으로</p>
           <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
 
-          {/* Live KPIs */}
-          <div className="kpis reveal d1">
-            <div className="kpi">
-              <div className="lbl">평균 방문자 (MoM)</div>
-              <div className="num">128,420</div>
-              <div className="delta">▲ +42.0%  vs prev</div>
-              <div className="spark">{spark([35, 42, 38, 52, 60, 58, 72, 78, 85, 92, 98])}</div>
-            </div>
-            <div className="kpi">
-              <div className="lbl">평균 전환율</div>
-              <div className="num">3.84%</div>
-              <div className="delta">▲ +0.9pt</div>
-              <div className="spark">{spark([22, 28, 30, 35, 32, 42, 48, 52, 56, 64, 70])}</div>
-            </div>
-            <div className="kpi">
-              <div className="lbl">평균 CPC</div>
-              <div className="num">₩ 318</div>
-              <div className="delta dn">▼ −22%</div>
-              <div className="spark">{spark([88, 82, 78, 70, 64, 58, 52, 48, 40, 34, 28])}</div>
-            </div>
-            <div className="kpi">
-              <div className="lbl">평균 ROAS</div>
-              <div className="num">412%</div>
-              <div className="delta">▲ +1.4×</div>
-              <div className="spark">{spark([28, 32, 38, 44, 52, 58, 64, 72, 78, 86, 94])}</div>
+          <div className="panel reveal d1" style={{ marginTop: 48 }}>
+            <span className="pcr" /><span className="pcr2" />
+            <div className="pbar"><span>module / live-kpis</span><span><b>● live</b> · 12s</span></div>
+            <div className="kpis">
+              <div className="kpi"><div className="lbl">평균 방문자</div><div className="num">128,420</div><div className="delta">▲ +42.0%  MoM</div><div className="spark">{spark([35, 42, 38, 52, 60, 58, 72, 78, 85, 92, 98])}</div></div>
+              <div className="kpi"><div className="lbl">평균 전환율</div><div className="num">3.84%</div><div className="delta">▲ +0.9pt</div><div className="spark">{spark([22, 28, 30, 35, 32, 42, 48, 52, 56, 64, 70])}</div></div>
+              <div className="kpi"><div className="lbl">평균 CPC</div><div className="num">₩ 318</div><div className="delta dn">▼ −22%</div><div className="spark">{spark([88, 82, 78, 70, 64, 58, 52, 48, 40, 34, 28])}</div></div>
+              <div className="kpi"><div className="lbl">평균 ROAS</div><div className="num">412%</div><div className="delta">▲ +1.4×</div><div className="spark">{spark([28, 32, 38, 44, 52, 58, 64, 72, 78, 86, 94])}</div></div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Channels */}
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Channels · 03</span><h2>세 가지 <em>운영 채널</em></h2><p>채널은 다르지만 원칙은 같습니다 — 꾸준함 · 측정 · 개선</p></div>
         <div className="ch">
@@ -206,11 +218,11 @@ export function MarketingHub({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Weekly report table */}
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Weekly Report — Sample</span><h2>매주 <em>리포트</em></h2><p>월요일마다 보내드리는 KPI 표 — 실제 운영 데이터 그대로</p></div>
-        <div className="rep reveal d1">
-          <div className="rhd"><span>2026 · WK 21 · Performance</span><span><b>● Live</b> · auto-generated</span></div>
+        <div className="panel rep reveal d1">
+          <span className="pcr" /><span className="pcr2" />
+          <div className="pbar"><span>module / weekly-report</span><span><b>2026 · WK 21</b></span></div>
           <table>
             <thead>
               <tr><th>Channel</th><th>KPI</th><th style={{ textAlign: "right" }}>This Wk</th><th style={{ textAlign: "right" }}>Δ vs Prev</th></tr>
@@ -227,7 +239,6 @@ export function MarketingHub({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Ways */}
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">How we work</span><h2>운영 <em>원칙</em></h2></div>
         <div className="ways reveal d1">
@@ -243,6 +254,12 @@ export function MarketingHub({ locale }: { locale: string }) {
         <p>지금 문의하면 24시간 안에 견적 · 1주 안에 첫 발행</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
+
+      {/* Bottom status bar — fixed */}
+      <div className="sbar">
+        <span><b>AIO/MK</b><span className="dot">·</span>console v0.26<span className="dot">·</span>uptime 99.8%</span>
+        <span>{`{ status: "monitoring" }`}<span className="dot">·</span><b>{`◉ live`}</b></span>
+      </div>
 
       <AioFooter locale={locale} />
     </div>
