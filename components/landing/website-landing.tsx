@@ -150,8 +150,8 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <div className="prog" />
       <div className="nav"><div className="nw"><span className="b">A<em>I</em>O</span><span className="crumb">개발 / 웹사이트</span><a className="ncta" href={`${base}/quote`}>무료 상담 →</a></div></div>
       <div className="subnav"><div className="nw">
-        <a href={`${base}/services/development`}>회사소개</a>
-        <a href={`${base}/services/development`}>팀원소개</a>
+        <a href={`${base}/services/development/about`}>회사소개</a>
+        <a href={`${base}/services/development/team`}>팀원소개</a>
         <a className="on" href={`${base}/services/website`}>서비스 소개</a>
         <a href={`${base}/services/website/portfolio`}>포트폴리오</a>
       </div></div>
@@ -234,7 +234,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
           <div className="mem reveal d1"><div className="av">세</div><div className="role">Developer</div><div className="nm">개발 · 세호</div><div className="one">운영 가능한 상태로 구현·배포합니다</div></div>
           <div className="mem reveal d2"><div className="av">현</div><div className="role">QA · Ops</div><div className="nm">검수·운영 · 현아</div><div className="one">끝까지 점검하고 유지보수합니다</div></div>
         </div>
-        <div className="teamlink reveal"><a className="cta-link" href={`${base}/services/development`}>개발팀 전체 보기 →</a></div>
+        <div className="teamlink reveal"><a className="cta-link" href={`${base}/services/development/team`}>개발팀 전체 보기 →</a></div>
       </section>
 
       <section className="ctaS"><div className="wrap reveal">

@@ -123,8 +123,8 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
       <div className="prog" />
       <div className="nav"><div className="nw"><span className="b">A<em>I</em>O</span><span className="crumb">개발 / 웹사이트 / 포트폴리오</span><a className="ncta" href={`${base}/quote`}>무료 상담 →</a></div></div>
       <div className="subnav"><div className="nw">
-        <a href={`${base}/services/development`}>회사소개</a>
-        <a href={`${base}/services/development`}>팀원소개</a>
+        <a href={`${base}/services/development/about`}>회사소개</a>
+        <a href={`${base}/services/development/team`}>팀원소개</a>
         <a href={`${base}/services/website`}>서비스 소개</a>
         <a className="on" href={`${base}/services/website/portfolio`}>포트폴리오</a>
       </div></div>
