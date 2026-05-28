@@ -122,7 +122,7 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
     <div className="aiowsp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="development" active="portfolio" />
+      <AioNav locale={locale} level="leaf" cat="development" sub="website" active="portfolio" />
 
       <header className="head"><div className="wrap">
         <a className="back" href={`${base}/services/website`}>← 웹사이트 소개로</a>

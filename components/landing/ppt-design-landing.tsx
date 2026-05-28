@@ -85,7 +85,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
     <div className="aioppt" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="design" active="service" />
+      <AioNav locale={locale} level="leaf" cat="design" sub="ppt-design" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · PPT Design</span>

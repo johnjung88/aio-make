@@ -117,7 +117,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
     <div className="aiosm" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="development" active="service" />
+      <AioNav locale={locale} level="leaf" cat="development" sub="shopping-mall" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Shopping Mall</span>

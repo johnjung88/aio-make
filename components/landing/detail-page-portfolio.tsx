@@ -73,7 +73,7 @@ export function DetailPagePortfolio({ locale }: { locale: string }) {
     <div className="aiodp2p" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="design" active="portfolio" />
+      <AioNav locale={locale} level="leaf" cat="design" sub="detail-page" active="portfolio" />
 
       <header className="head"><div className="wrap">
         <span className="kick">Detail Page · Portfolio</span>

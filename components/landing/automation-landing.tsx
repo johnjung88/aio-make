@@ -103,7 +103,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
     <div className="aioam" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="development" active="service" />
+      <AioNav locale={locale} level="leaf" cat="development" sub="automation-app" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Automation & Programs</span>

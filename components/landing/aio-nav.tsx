@@ -85,12 +85,15 @@ interface AioNavProps {
   locale: string;
   level: AioNavLevel;
   cat?: "development" | "design" | "video" | "marketing";
+  /** Soft-category slug for leaf-level pages (e.g. "website", "shopping-mall"). 서비스 소개/포트폴리오 링크가 이 슬러그를 가리킵니다. */
+  sub?: string;
   active: AioNavActive;
 }
 
-export function AioNav({ locale, level, cat = "development", active }: AioNavProps) {
+export function AioNav({ locale, level, cat = "development", sub, active }: AioNavProps) {
   const base = `/${locale}`;
   const subs = CAT_SUB[cat] || CAT_SUB.development;
+  // leaf 페이지: 서비스 소개·포트폴리오는 현재 소 서비스(sub)를 가리킴. middle 페이지: cat 허브.
   return (
     <nav className="aionav">
       <style dangerouslySetInnerHTML={{ __html: NAV_CSS }} />
@@ -103,13 +106,13 @@ export function AioNav({ locale, level, cat = "development", active }: AioNavPro
         <div className="navitems">
           {/* 서비스 소개 — 현재 페이지(분야 또는 소서비스) */}
           <div className={"item" + (active === "service" ? " on" : "")}>
-            <a href={`${base}/services/${cat}`}>서비스 소개</a>
+            <a href={`${base}/services/${level === "leaf" && sub ? sub : cat}`}>서비스 소개</a>
           </div>
 
           {/* 포트폴리오 — leaf 일 때만, 현재 소 서비스의 포폴 */}
           {level === "leaf" && (
             <div className={"item" + (active === "portfolio" ? " on" : "")}>
-              <a href={`${base}/services/${cat}/portfolio`}>포트폴리오</a>
+              <a href={`${base}/services/${sub || cat}/portfolio`}>포트폴리오</a>
             </div>
           )}
 

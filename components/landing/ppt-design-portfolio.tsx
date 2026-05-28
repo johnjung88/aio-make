@@ -70,7 +70,7 @@ export function PptDesignPortfolio({ locale }: { locale: string }) {
     <div className="aiopptp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="design" active="portfolio" />
+      <AioNav locale={locale} level="leaf" cat="design" sub="ppt-design" active="portfolio" />
 
       <header className="head"><div className="wrap">
         <span className="kick">PPT · Portfolio</span>

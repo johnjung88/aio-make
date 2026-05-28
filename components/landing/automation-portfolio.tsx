@@ -75,7 +75,7 @@ export function AutomationPortfolio({ locale }: { locale: string }) {
     <div className="aioamp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="development" active="portfolio" />
+      <AioNav locale={locale} level="leaf" cat="development" sub="automation-app" active="portfolio" />
 
       <header className="head">
         <div className="wrap">

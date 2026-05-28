@@ -103,7 +103,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
     <div className="aiodp2" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="leaf" cat="design" active="service" />
+      <AioNav locale={locale} level="leaf" cat="design" sub="detail-page" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Detail Page</span>
