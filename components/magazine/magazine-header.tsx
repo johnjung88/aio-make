@@ -35,6 +35,7 @@ export function MagazineHeader() {
   const navItems = [
     { label: isKo ? "서비스" : "Services", href: `${base}/#toc` },
     { label: isKo ? "회사 소개" : "About", href: `${base}/about` },
+    { label: isKo ? "팀원 소개" : "Team", href: `${base}/team` },
   ];
 
   return (

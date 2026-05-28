@@ -149,7 +149,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
     <div className="aiows" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} active="service" />
+      <AioNav locale={locale} level="leaf" cat="development" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Website</span>

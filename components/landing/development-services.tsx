@@ -11,7 +11,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
     <div className="aiodp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: DP_CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} active="service" />
+      <AioNav locale={locale} level="middle" cat="development" active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">Development · 서비스 소개</span>

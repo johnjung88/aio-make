@@ -5,14 +5,12 @@ import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; one: string; tags: string[] };
 const TEAM: M[] = [
-  { av: "리", role: "Planner", nm: "기획 · 리아", one: "목적과 흐름을 먼저 설계합니다", tags: ["IA", "와이어프레임"] },
-  { av: "준", role: "Copywriter", nm: "카피 · 준", one: "읽게 만드는 한 줄을 씁니다", tags: ["메시지", "카피"] },
-  { av: "도", role: "Designer", nm: "디자인 · 도윤", one: "첫인상을 디자인합니다", tags: ["UI", "비주얼"] },
-  { av: "세", role: "Developer", nm: "개발 · 세호", one: "운영 가능한 상태로 구현·배포합니다", tags: ["Next.js", "반응형"] },
-  { av: "현", role: "QA · Ops", nm: "검수·운영 · 현아", one: "끝까지 점검하고 유지보수합니다", tags: ["QA", "A/S"] },
+  { av: "유", role: "Detail Designer", nm: "상세 · 유나", one: "스크롤을 멈추게 만드는 상세를 만듭니다", tags: ["상세", "전환"] },
+  { av: "한", role: "PPT Designer", nm: "PPT · 한결", one: "전달이 되는 슬라이드를 짭니다", tags: ["IR", "제안"] },
+  { av: "—", role: "Logo · Soon", nm: "로고·명함 (준비 중)", one: "곧 합류합니다", tags: ["Soon"] },
 ];
 
-export function DevelopmentTeam({ locale }: { locale: string }) {
+export function DesignTeam({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useDarkPremium(ref);
   const base = `/${locale}`;
@@ -20,12 +18,12 @@ export function DevelopmentTeam({ locale }: { locale: string }) {
     <div className="aiodp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: DP_CSS }} />
       <div className="prog" />
-      <AioNav locale={locale} level="middle" cat="development" active="team" />
+      <AioNav locale={locale} level="middle" cat="design" active="team" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">Development · 팀원소개</span>
-        <h1>개발을 만드는<br /><em>사람들</em></h1>
-        <p className="lead">기획부터 카피·디자인·개발·검수까지, 분야별 담당자가 프로젝트 하나를 처음부터 끝까지 함께합니다</p>
+        <span className="kick">Design · 팀원 소개</span>
+        <h1>디자인을 만드는<br /><em>사람들</em></h1>
+        <p className="lead">상세페이지·PPT·로고까지, 분야별 전문가가 한 프로젝트를 끝까지 함께합니다</p>
       </div></header>
 
       <section className="sec wrap">
@@ -44,7 +42,7 @@ export function DevelopmentTeam({ locale }: { locale: string }) {
 
       <section className="ctaS"><div className="wrap reveal">
         <h2>함께 만들어<br /><em>볼까요?</em></h2>
-        <p>지금 문의하면 24시간 안에 견적 · 5일 안에 첫 결과물</p>
+        <p>지금 문의하면 24시간 안에 견적 · 5일 안에 첫 시안</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
 

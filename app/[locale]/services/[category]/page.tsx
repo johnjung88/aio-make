@@ -17,12 +17,12 @@ import { RelatedServices } from "@/components/sections/related-services";
 import { localizedPageMetadata } from "@/lib/seo";
 
 const VALID = servicesData.map((service) => service.id);
-const LEGACY_REDIRECTS: Record<string, ServiceCategory> = {
+const LEGACY_REDIRECTS: Record<string, string> = {
   web: "website",
   app: "automation-app",
-  design: "logo-business-card",
-  video: "video-content",
   automation: "automation-app",
+  "video-content": "video",
+  "logo-business-card": "design",
 };
 
 export async function generateStaticParams() {

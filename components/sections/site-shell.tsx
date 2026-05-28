@@ -20,15 +20,18 @@ import { VideoFooter } from "@/components/video/video-footer";
  */
 // 자체완결형(자체 nav+footer 내장) 소 카테고리 랜딩 — 전역 헤더/푸터 미출력
 function isStandalone(pathname: string): boolean {
-  return /^\/[a-z]{2}\/services\/website(\/.*)?$/.test(pathname)
-    || /^\/[a-z]{2}\/services\/development$/.test(pathname)
-    || /^\/[a-z]{2}\/services\/[a-z-]+\/(about|team)$/.test(pathname);
+  // Dark Premium 자체완결형 페이지들 (자체 AioNav + AioFooter 내장 — 전역 헤더/푸터 미출력)
+  // 중카테고리 허브: /services/{development|design|video|marketing}
+  // 소카테고리: /services/{website|shopping-mall|automation-app|detail-page|ppt-design}/(... portfolio 등)
+  // 카테고리 하위: /(about|team)
+  return /^\/[a-z]{2}\/services\/(website|shopping-mall|automation-app|detail-page|ppt-design)(\/.*)?$/.test(pathname)
+    || /^\/[a-z]{2}\/services\/(development|design|video|marketing)(\/.*)?$/.test(pathname);
 }
 
 function getTone(
   pathname: string
 ): "magazine" | "consultant" | "lifestyle" | "ide" | "cinema" | "default" {
-  if (/^\/[a-z]{2}(\/(about|quote))?\/?$/.test(pathname)) return "magazine";
+  if (/^\/[a-z]{2}(\/(about|quote|team))?\/?$/.test(pathname)) return "magazine";
   if (/^\/[a-z]{2}\/services\/(development|website)(\/.*)?$/.test(pathname)) return "ide";
   if (/^\/[a-z]{2}\/services\/(design|detail-page)(\/.*)?$/.test(pathname)) return "lifestyle";
   if (/^\/[a-z]{2}\/services\/video(\/.*)?$/.test(pathname)) return "cinema";
