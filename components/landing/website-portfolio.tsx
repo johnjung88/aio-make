@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
 .aiowsp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;
@@ -121,13 +122,7 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
     <div className="aiowsp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <div className="nav"><div className="nw"><span className="b">A<em>I</em>O</span><span className="crumb">개발 / 웹사이트 / 포트폴리오</span><a className="ncta" href={`${base}/quote`}>무료 상담 →</a></div></div>
-      <div className="subnav"><div className="nw">
-        <a href={`${base}/services/development/about`}>회사소개</a>
-        <a href={`${base}/services/development/team`}>팀원소개</a>
-        <a href={`${base}/services/website`}>서비스 소개</a>
-        <a className="on" href={`${base}/services/website/portfolio`}>포트폴리오</a>
-      </div></div>
+      <AioNav locale={locale} active="portfolio" />
 
       <header className="head"><div className="wrap">
         <a className="back" href={`${base}/services/website`}>← 웹사이트 소개로</a>
@@ -159,7 +154,7 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
 
-      <footer className="foot"><div className="wrap">AIO · 개발 / 웹사이트 / 포트폴리오 &nbsp;·&nbsp; aiomake2023@gmail.com</div></footer>
+      <AioFooter locale={locale} />
     </div>
   );
 }

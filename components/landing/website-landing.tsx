@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
 .aiows{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;
@@ -148,13 +149,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
     <div className="aiows" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <div className="prog" />
-      <div className="nav"><div className="nw"><span className="b">A<em>I</em>O</span><span className="crumb">개발 / 웹사이트</span><a className="ncta" href={`${base}/quote`}>무료 상담 →</a></div></div>
-      <div className="subnav"><div className="nw">
-        <a href={`${base}/services/development/about`}>회사소개</a>
-        <a href={`${base}/services/development/team`}>팀원소개</a>
-        <a className="on" href={`${base}/services/website`}>서비스 소개</a>
-        <a href={`${base}/services/website/portfolio`}>포트폴리오</a>
-      </div></div>
+      <AioNav locale={locale} active="service" />
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Website</span>
@@ -243,7 +238,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
 
-      <footer className="foot"><div className="wrap">AIO · 개발 / 웹사이트 &nbsp;·&nbsp; 사업자 682-01-02748 &nbsp;·&nbsp; aiomake2023@gmail.com</div></footer>
+      <AioFooter locale={locale} />
     </div>
   );
 }

@@ -21,6 +21,7 @@ import { VideoFooter } from "@/components/video/video-footer";
 // 자체완결형(자체 nav+footer 내장) 소 카테고리 랜딩 — 전역 헤더/푸터 미출력
 function isStandalone(pathname: string): boolean {
   return /^\/[a-z]{2}\/services\/website(\/.*)?$/.test(pathname)
+    || /^\/[a-z]{2}\/services\/development$/.test(pathname)
     || /^\/[a-z]{2}\/services\/[a-z-]+\/(about|team)$/.test(pathname);
 }
 

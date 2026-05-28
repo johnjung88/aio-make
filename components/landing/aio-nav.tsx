@@ -1,0 +1,132 @@
+"use client";
+
+const NAV_CSS = `
+.aionav{position:sticky;top:0;z-index:60;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:rgba(14,13,11,.86);border-bottom:1px solid rgba(239,233,221,.1);font-family:var(--font-pretendard)}
+.aionav .in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:flex;align-items:center;height:62px;gap:6px}
+.aionav .b{font-family:var(--font-fraunces);font-weight:600;font-size:20px;color:#EFE9DD;text-decoration:none}
+.aionav .b em{font-style:normal;color:#C8A24A}
+.aionav .sp{flex:1}
+.aionav .item{position:relative}
+.aionav .item>a{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ibm-plex-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#B7B0A2;padding:10px 13px;border-radius:8px;text-decoration:none;cursor:pointer}
+.aionav .item>a:hover,.aionav .item.on>a{color:#C8A24A}
+.aionav .item .ar{font-size:8px;opacity:.7}
+.aionav .dd{position:absolute;top:calc(100% - 2px);left:0;min-width:220px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:5}
+.aionav .item:hover .dd{opacity:1;visibility:visible;transform:none}
+.aionav .dd a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-radius:7px;font-family:var(--font-pretendard);font-size:13.5px;color:#EFE9DD;text-decoration:none}
+.aionav .dd a:hover{background:rgba(200,162,74,.12);color:#C8A24A}
+.aionav .dd a .sn{font-family:var(--font-ibm-plex-mono);font-size:10px;color:#6F6A5E;letter-spacing:.1em}
+.aionav .dd a.soon{color:#6F6A5E;cursor:default}.aionav .dd a.soon:hover{background:transparent;color:#6F6A5E}
+.aionav .cta{font-family:var(--font-pretendard);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;background:#C8A24A;color:#0E0D0B;text-decoration:none;margin-left:6px;white-space:nowrap}
+@media(max-width:760px){
+  .aionav .in{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px;row-gap:2px}
+  .aionav .sp{flex-basis:100%;height:0;order:1}
+  .aionav .b{order:0}.aionav .cta{order:0;margin-left:auto}
+  .aionav .navitems{order:2;flex-basis:100%;display:flex;justify-content:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .aionav .navitems::-webkit-scrollbar{display:none}
+  .aionav .dd{display:none}
+}
+.aionav .navitems{display:contents}
+@media(max-width:760px){.aionav .navitems{display:flex}}
+`;
+
+const FOOT_CSS = `
+.aiofoot{background:#0E0D0B;border-top:1px solid rgba(200,162,74,.2);color:#B7B0A2;font-family:var(--font-pretendard)}
+.aiofoot .in{max-width:1400px;margin:0 auto;padding:clamp(40px,6vw,64px) clamp(20px,5vw,48px)}
+.aiofoot .top{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;align-items:center;padding-bottom:24px;margin-bottom:32px;border-bottom:1px solid rgba(239,233,221,.1);font-family:var(--font-ibm-plex-mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#6F6A5E}
+.aiofoot .top b{font-family:var(--font-fraunces);letter-spacing:.4em;color:#EFE9DD;font-weight:600}
+.aiofoot .top .dot{width:3px;height:3px;border-radius:50%;background:#C8A24A}
+.aiofoot .cols{display:flex;flex-direction:column;gap:36px;align-items:center;text-align:center}
+.aiofoot .brand .bn{font-family:var(--font-fraunces);font-size:24px;font-weight:600;color:#EFE9DD}
+.aiofoot .brand .bn em{font-style:normal;color:#C8A24A}
+.aiofoot .brand p{font-size:14px;line-height:1.7;color:#B7B0A2;margin-top:10px;max-width:36ch}
+.aiofoot .links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 40px;width:100%;max-width:680px;text-align:center}
+.aiofoot .col .h{font-family:var(--font-ibm-plex-mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#6F6A5E;margin-bottom:14px}
+.aiofoot .col a{display:block;font-size:14px;color:#EFE9DD;text-decoration:none;margin-bottom:10px}
+.aiofoot .col a:hover{color:#C8A24A}
+.aiofoot .biz{margin-top:38px;padding-top:24px;border-top:1px solid rgba(239,233,221,.1);text-align:center;font-family:var(--font-ibm-plex-mono);font-size:10.5px;letter-spacing:.04em;color:#6F6A5E;line-height:2}
+@media(max-width:600px){.aiofoot .links{grid-template-columns:1fr;gap:24px}}
+`;
+
+const SERVICES = [
+  { label: "웹사이트", svc: "/services/website", pf: "/services/website/portfolio", sn: "Website" },
+  { label: "쇼핑몰", svc: "/services/shopping-mall", pf: "/services/shopping-mall", sn: "Commerce" },
+  { label: "자동화·프로그램", svc: "/services/automation-app", pf: "/services/automation-app", sn: "Automation" },
+  { label: "앱", svc: "", pf: "", sn: "Soon" },
+];
+
+export function AioNav({ locale, active, cat = "development" }: { locale: string; active: "service" | "portfolio" | "team"; cat?: string }) {
+  const base = `/${locale}`;
+  return (
+    <nav className="aionav">
+      <style dangerouslySetInnerHTML={{ __html: NAV_CSS }} />
+      <div className="in">
+        <a className="b" href={`${base}`}>A<em>I</em>O</a>
+        <span className="sp" />
+        <div className="navitems">
+          <div className={"item" + (active === "service" ? " on" : "")}>
+            <a href={`${base}/services/${cat}`}>서비스 소개 <span className="ar">▼</span></a>
+            <div className="dd">
+              {SERVICES.map((s) => s.svc
+                ? <a key={s.label} href={`${base}${s.svc}`}>{s.label}<span className="sn">{s.sn}</span></a>
+                : <a key={s.label} className="soon">{s.label}<span className="sn">SOON</span></a>)}
+            </div>
+          </div>
+          <div className={"item" + (active === "portfolio" ? " on" : "")}>
+            <a href={`${base}/services/website/portfolio`}>포트폴리오 <span className="ar">▼</span></a>
+            <div className="dd">
+              {SERVICES.map((s) => s.pf
+                ? <a key={s.label} href={`${base}${s.pf}`}>{s.label}<span className="sn">{s.sn}</span></a>
+                : <a key={s.label} className="soon">{s.label}<span className="sn">SOON</span></a>)}
+            </div>
+          </div>
+          <div className={"item" + (active === "team" ? " on" : "")}>
+            <a href={`${base}/services/${cat}/team`}>팀원소개</a>
+          </div>
+        </div>
+        <a className="cta" href={`${base}/quote`}>무료 상담 →</a>
+      </div>
+    </nav>
+  );
+}
+
+export function AioFooter({ locale }: { locale: string }) {
+  const base = `/${locale}`;
+  return (
+    <footer className="aiofoot">
+      <style dangerouslySetInnerHTML={{ __html: FOOT_CSS }} />
+      <div className="in">
+        <div className="top">
+          <span>Issue 2026</span><span className="dot" /><b>A · I · O&nbsp;&nbsp;STUDIO</b><span className="dot" /><span>est 2024 · Korea</span>
+        </div>
+        <div className="cols">
+          <div className="brand">
+            <div className="bn">A<em>I</em>O</div>
+            <p>분야별 전문가가 직접 만드는 외주 스튜디오 — 개발·디자인·영상·마케팅</p>
+          </div>
+          <div className="links">
+            <div className="col">
+              <div className="h">Services</div>
+              <a href={`${base}/services/development`}>개발</a>
+              <a href={`${base}/services/design`}>디자인</a>
+              <a href={`${base}/services/video`}>영상</a>
+              <a href={`${base}/services/marketing`}>마케팅</a>
+            </div>
+            <div className="col">
+              <div className="h">Company</div>
+              <a href={`${base}/about`}>회사 소개</a>
+              <a href={`${base}/quote`}>견적 문의</a>
+            </div>
+            <div className="col">
+              <div className="h">Contact</div>
+              <a href="mailto:aiomake2023@gmail.com">aiomake2023@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <div className="biz">
+          <p>사업자명: 에이아이오 (AIO) &nbsp;|&nbsp; 사업자번호: 682-01-02748 &nbsp;|&nbsp; 통신판매업신고: 제 2026-경기김포-3656 호</p>
+          <p>주소: 경기도 김포시 대곶면 흥신로67 &nbsp;|&nbsp; © 2026 AIO에이전시. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -47,7 +47,7 @@ export const DP_CSS = `
 .aiodp .shead h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp .shead p{color:var(--fg2);font-size:var(--fs-body);line-height:1.8;max-width:50ch;margin:14px auto 0}
 .aiodp .dogrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.aiodp .doc{border:1px solid var(--line2);border-radius:12px;padding:clamp(26px,3vw,36px);background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s}
+.aiodp .doc{border:1px solid var(--line2);border-radius:12px;padding:clamp(26px,3vw,36px);background:var(--bg2);text-align:center;transition:border-color .3s,transform .3s}
 .aiodp .doc:hover{border-color:var(--gold);transform:translateY(-5px)}
 .aiodp .doc .no{font-family:var(--frau);color:var(--gold);font-size:20px;margin-bottom:10px}
 .aiodp .doc .dn{font-family:var(--frau);font-size:clamp(22px,2.6vw,28px);font-weight:500;margin-bottom:8px}
