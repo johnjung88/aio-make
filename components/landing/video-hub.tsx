@@ -84,24 +84,86 @@ const CSS = `
 .aiovh .reel .scrub::after{content:"";position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--amber)}
 .aiovh .reel .scrub::before{content:"";position:absolute;left:38%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(232,163,64,.25)}
 
-/* Scenes — service cards as movie posters */
+/* Scenes — service cards as PLATFORM UI mockups (Instagram / TikTok / Facebook Ad / YouTube) */
 .aiovh .scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
-.aiovh .scene{position:relative;aspect-ratio:2/3;border:1px solid var(--line2);overflow:hidden;background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s}
+.aiovh .scene{position:relative;display:flex;flex-direction:column;border:1px solid var(--line2);overflow:hidden;background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s;min-height:540px}
 .aiovh .scene:hover{border-color:var(--amber);transform:translateY(-4px)}
-.aiovh .scene .bg{position:absolute;inset:0}
-.aiovh .scene.a .bg{background:linear-gradient(160deg,rgba(232,163,64,.35),rgba(0,0,0,.85))}
-.aiovh .scene.b .bg{background:linear-gradient(190deg,rgba(244,180,90,.30),rgba(0,0,0,.9))}
-.aiovh .scene.c .bg{background:linear-gradient(150deg,rgba(200,162,74,.30),rgba(0,0,0,.9))}
-.aiovh .scene.d .bg{background:linear-gradient(210deg,rgba(232,163,64,.25),rgba(0,0,0,.9))}
-.aiovh .scene .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,transparent 50%,rgba(0,0,0,.92) 100%)}
-.aiovh .scene .info{position:absolute;left:18px;right:18px;bottom:18px;z-index:2}
-.aiovh .scene .info .tc{font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:.2em;margin-bottom:10px}
-.aiovh .scene .info h3{font-family:var(--frau);font-size:clamp(20px,2.2vw,26px);font-weight:500;line-height:1.1;margin-bottom:6px;color:var(--fg)}
-.aiovh .scene .info h3 em{font-family:var(--corm);font-style:italic;color:var(--amber)}
-.aiovh .scene .info p{font-size:12.5px;color:var(--fg2);line-height:1.6;margin:0}
-.aiovh .scene .genre{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--amber);border:1px solid var(--amber);padding:4px 9px;z-index:2;background:rgba(0,0,0,.4)}
-.aiovh .scene .rt{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9.5px;color:var(--fg2);letter-spacing:.16em;z-index:2}
-@media(max-width:880px){.aiovh .scenes{grid-template-columns:repeat(2,1fr)}}
+.aiovh .scene .stop{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--fg3);text-transform:uppercase;border-bottom:1px solid var(--line2);background:rgba(0,0,0,.4);z-index:3}
+.aiovh .scene .stop .gen{color:var(--amber);border:1px solid var(--amber);padding:3px 7px;font-size:9px}
+.aiovh .scene .stop .rt{color:var(--fg2)}
+.aiovh .scene .mock{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.aiovh .scene .sfoot{padding:14px 16px 18px;background:#000;border-top:1px solid var(--line2)}
+.aiovh .scene .sfoot .tc{font-family:var(--mono);font-size:9.5px;color:var(--amber);letter-spacing:.2em;margin-bottom:6px;text-transform:uppercase}
+.aiovh .scene .sfoot h3{font-family:var(--frau);font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.15;margin-bottom:4px;color:var(--fg);letter-spacing:-.005em}
+.aiovh .scene .sfoot h3 em{font-family:var(--corm);font-style:italic;color:var(--amber)}
+.aiovh .scene .sfoot p{font-size:11.5px;color:var(--fg2);line-height:1.55;margin:0}
+
+/* === Instagram (a) === */
+.aiovh .scene.a .mock{background:linear-gradient(180deg,#0a0a0a 0%,#1c1410 50%,#0a0a0a 100%)}
+.aiovh .scene.a .igh{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.08);font-family:Helvetica,Arial,sans-serif}
+.aiovh .scene.a .igh .av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);padding:1.5px}
+.aiovh .scene.a .igh .av i{display:block;width:100%;height:100%;border-radius:50%;background:#1c1410;border:1.5px solid #000}
+.aiovh .scene.a .igh .un{flex:1;font-size:11px;font-weight:600;color:#fff}
+.aiovh .scene.a .igh .un .v{font-size:9px;color:#888;font-weight:400;margin-left:4px}
+.aiovh .scene.a .igh .dots{color:#fff;letter-spacing:1px;font-size:14px}
+.aiovh .scene.a .igimg{flex:1;background:linear-gradient(135deg,rgba(232,163,64,.5),rgba(244,180,90,.25),rgba(0,0,0,.6));position:relative;min-height:140px}
+.aiovh .scene.a .igimg::after{content:"BRAND · FILM";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.28em}
+.aiovh .scene.a .igact{display:flex;align-items:center;gap:10px;padding:8px 12px;font-family:Helvetica,Arial,sans-serif;color:#fff;font-size:18px}
+.aiovh .scene.a .igact .sp{flex:1}
+.aiovh .scene.a .igcap{padding:0 12px 8px;font-family:Helvetica,Arial,sans-serif;font-size:11px;color:#fff;line-height:1.4}
+.aiovh .scene.a .igcap b{font-weight:600;margin-right:4px}
+.aiovh .scene.a .igcap .lk{color:#888;font-size:9.5px;display:block;margin-top:3px}
+
+/* === TikTok / Reels (b) === */
+.aiovh .scene.b .mock{background:linear-gradient(170deg,#3a2410 0%,#1a0f06 60%,#000 100%);position:relative}
+.aiovh .scene.b .ttimg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(244,180,90,.3),transparent 60%),linear-gradient(200deg,rgba(232,163,64,.18),rgba(0,0,0,.6))}
+.aiovh .scene.b .ttimg::after{content:"#shorts";position:absolute;top:14px;left:50%;transform:translateX(-50%);font-family:Helvetica,Arial,sans-serif;font-size:10px;color:rgba(255,255,255,.65);font-weight:600}
+.aiovh .scene.b .ttside{position:absolute;right:8px;bottom:50px;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:2}
+.aiovh .scene.b .ttside .av{width:32px;height:32px;border-radius:50%;background:#E8A340;border:2px solid #fff;position:relative}
+.aiovh .scene.b .ttside .av::after{content:"+";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#ff3050;color:#fff;font-size:11px;line-height:14px;text-align:center;border:1.5px solid #000;font-weight:600}
+.aiovh .scene.b .ttside .ic{display:flex;flex-direction:column;align-items:center;color:#fff;font-family:Helvetica,Arial,sans-serif}
+.aiovh .scene.b .ttside .ic .em{font-size:22px;line-height:1}
+.aiovh .scene.b .ttside .ic .n{font-size:10px;margin-top:2px;font-weight:600}
+.aiovh .scene.b .ttbot{position:absolute;left:10px;right:54px;bottom:10px;color:#fff;font-family:Helvetica,Arial,sans-serif;z-index:2}
+.aiovh .scene.b .ttbot .un{font-size:11px;font-weight:700;margin-bottom:4px}
+.aiovh .scene.b .ttbot .cp{font-size:10.5px;line-height:1.4;opacity:.9}
+.aiovh .scene.b .ttbot .mu{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;margin-top:6px;background:rgba(0,0,0,.4);padding:3px 8px;border-radius:999px}
+
+/* === Facebook Ad (c) === */
+.aiovh .scene.c .mock{background:#f0f2f5;color:#1c1e21}
+.aiovh .scene.c .fbh{display:flex;align-items:flex-start;gap:8px;padding:10px;font-family:Helvetica,Arial,sans-serif}
+.aiovh .scene.c .fbh .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#42a5f5);flex-shrink:0}
+.aiovh .scene.c .fbh .meta{flex:1;line-height:1.2}
+.aiovh .scene.c .fbh .meta .nm{font-size:11px;font-weight:600;color:#050505}
+.aiovh .scene.c .fbh .meta .sub{font-size:9.5px;color:#65676b;margin-top:2px;display:flex;align-items:center;gap:4px}
+.aiovh .scene.c .fbh .meta .sub::after{content:"· 🌐";font-size:9px}
+.aiovh .scene.c .fbh .dots{color:#65676b;font-size:14px;letter-spacing:1px}
+.aiovh .scene.c .fbcap{padding:0 10px 8px;font-family:Helvetica,Arial,sans-serif;font-size:11px;color:#050505;line-height:1.4}
+.aiovh .scene.c .fbimg{flex:1;background:linear-gradient(135deg,rgba(232,163,64,.7),rgba(244,180,90,.4));position:relative;min-height:120px}
+.aiovh .scene.c .fbimg::after{content:"AD · CONVERSION";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.24em;font-weight:600}
+.aiovh .scene.c .fbcta{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#f7f8fa;border-top:1px solid #dadde1;font-family:Helvetica,Arial,sans-serif;font-size:10px;color:#65676b}
+.aiovh .scene.c .fbcta .ti{line-height:1.3}
+.aiovh .scene.c .fbcta .ti b{font-size:11px;color:#050505;font-weight:600;display:block}
+.aiovh .scene.c .fbcta .btn{padding:7px 14px;background:#e4e6eb;border-radius:6px;font-size:11px;font-weight:600;color:#050505}
+.aiovh .scene.c .fbact{display:flex;border-top:1px solid #dadde1;padding:4px 0;font-family:Helvetica,Arial,sans-serif;background:#fff}
+.aiovh .scene.c .fbact .a{flex:1;text-align:center;padding:6px 4px;font-size:10px;color:#65676b;font-weight:600}
+
+/* === YouTube (d) === */
+.aiovh .scene.d .mock{background:#0f0f0f;color:#fff;font-family:Roboto,Helvetica,Arial,sans-serif}
+.aiovh .scene.d .ytthumb{aspect-ratio:16/9;position:relative;background:linear-gradient(145deg,rgba(232,163,64,.45),rgba(0,0,0,.85))}
+.aiovh .scene.d .ytthumb::after{content:"▶";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:32px;background:rgba(0,0,0,.78);border-radius:8px;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center}
+.aiovh .scene.d .ytthumb .dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.85);color:#fff;font-size:10px;padding:2px 5px;border-radius:3px;font-family:Roboto,Helvetica,Arial,sans-serif;font-weight:600}
+.aiovh .scene.d .ytinfo{flex:1;padding:12px;display:flex;gap:10px;align-items:flex-start}
+.aiovh .scene.d .ytinfo .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#cc0000);flex-shrink:0;position:relative}
+.aiovh .scene.d .ytinfo .meta{flex:1;line-height:1.3}
+.aiovh .scene.d .ytinfo .ti{font-size:12px;font-weight:600;color:#fff;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.aiovh .scene.d .ytinfo .ch{font-size:10px;color:#aaa;line-height:1.4}
+.aiovh .scene.d .ytinfo .ch .ck{display:inline-flex;align-items:center;gap:3px}
+.aiovh .scene.d .ytinfo .ch .ck::after{content:"✓";color:#888;font-size:8px;background:#aaa;color:#0f0f0f;border-radius:50%;width:11px;height:11px;text-align:center;line-height:11px;font-weight:600;margin-left:2px}
+.aiovh .scene.d .ytinfo .stats{font-size:10px;color:#aaa;margin-top:3px}
+
+@media(max-width:880px){.aiovh .scenes{grid-template-columns:repeat(2,1fr)}.aiovh .scene{min-height:480px}}
+@media(max-width:520px){.aiovh .scenes{grid-template-columns:1fr}}
 
 /* Pricing — minimal cinematic */
 .aiovh .pkg{max-width:560px;margin:0 auto;border:1px solid var(--line);padding:36px 30px;text-align:center;background:rgba(232,163,64,.04)}
@@ -180,10 +242,105 @@ export function VideoHub({ locale }: { locale: string }) {
         <div className="wrap">
           <div className="shead reveal"><span className="kick">Four Scenes</span><h2>네 가지 <em>장르</em></h2><p>각 장르에 맞춰 무드·길이·컷의 호흡이 다릅니다</p></div>
           <div className="scenes">
-            <div className="scene a reveal d1"><div className="bg" /><span className="genre">BRAND</span><span className="rt">60s</span><div className="info"><div className="tc">SCENE 01 · BRAND</div><h3><em>회사</em>·제품 소개</h3><p>홈페이지·전시·세일즈 — 오래 가는 무게감 있는 한 편</p></div></div>
-            <div className="scene b reveal d2"><div className="bg" /><span className="genre">SHORT</span><span className="rt">15–60s</span><div className="info"><div className="tc">SCENE 02 · SNS</div><h3><em>숏폼</em>·릴스·틱톡</h3><p>15~60초 짧고 강한 컷 — 첫 1초에 멈추게</p></div></div>
-            <div className="scene c reveal d3"><div className="bg" /><span className="genre">AD</span><span className="rt">30s</span><div className="info"><div className="tc">SCENE 03 · MARKETING</div><h3><em>광고</em>·전환 영상</h3><p>유튜브 광고·SNS 광고 — 데이터 기반 컷 구성</p></div></div>
-            <div className="scene d reveal d1"><div className="bg" /><span className="genre">EDIT</span><span className="rt">5–20m</span><div className="info"><div className="tc">SCENE 04 · YOUTUBE</div><h3><em>유튜브</em> 편집</h3><p>인트로·자막·컷·썸네일 — 채널 톤 일관성</p></div></div>
+
+            {/* CARD A — INSTAGRAM 피드 게시물 (BRAND) */}
+            <div className="scene a reveal d1">
+              <div className="stop"><span className="gen">BRAND</span><span className="rt">60s · IG</span></div>
+              <div className="mock">
+                <div className="igh">
+                  <span className="av"><i /></span>
+                  <span className="un">aio_studio<span className="v">· 1d</span></span>
+                  <span className="dots">···</span>
+                </div>
+                <div className="igimg" />
+                <div className="igact">
+                  <span>♡</span><span>💬</span><span>↗</span><span className="sp" /><span>🔖</span>
+                </div>
+                <div className="igcap">
+                  <b>aio_studio</b>한 컷이 전부입니다 ✨
+                  <span className="lk">좋아요 1,284 · 댓글 38</span>
+                </div>
+              </div>
+              <div className="sfoot">
+                <div className="tc">Scene 01 · Brand</div>
+                <h3><em>회사</em>·제품 소개</h3>
+                <p>홈페이지·전시·세일즈 — 오래 가는 한 편</p>
+              </div>
+            </div>
+
+            {/* CARD B — TIKTOK / REELS (SHORT) */}
+            <div className="scene b reveal d2">
+              <div className="stop"><span className="gen">SHORT</span><span className="rt">15–60s · TIKTOK</span></div>
+              <div className="mock">
+                <div className="ttimg" />
+                <div className="ttside">
+                  <span className="av" />
+                  <span className="ic"><span className="em">♥</span><span className="n">28.4K</span></span>
+                  <span className="ic"><span className="em">💬</span><span className="n">412</span></span>
+                  <span className="ic"><span className="em">↗</span><span className="n">공유</span></span>
+                </div>
+                <div className="ttbot">
+                  <div className="un">@aio_studio</div>
+                  <div className="cp">첫 1초가 끝까지 잡습니다 #쇼츠 #릴스 #브랜딩</div>
+                  <span className="mu">🎵 original sound · aio</span>
+                </div>
+              </div>
+              <div className="sfoot">
+                <div className="tc">Scene 02 · SNS</div>
+                <h3><em>숏폼</em>·릴스·틱톡</h3>
+                <p>15~60초 짧고 강한 컷 — 첫 1초에 멈추게</p>
+              </div>
+            </div>
+
+            {/* CARD C — FACEBOOK SPONSORED AD (MARKETING) */}
+            <div className="scene c reveal d3">
+              <div className="stop"><span className="gen">AD</span><span className="rt">30s · FB</span></div>
+              <div className="mock">
+                <div className="fbh">
+                  <span className="av" />
+                  <span className="meta"><span className="nm">AIO Studio</span><span className="sub">Sponsored</span></span>
+                  <span className="dots">···</span>
+                </div>
+                <div className="fbcap">광고비 대비 4.1× ROAS — 보는 사람의 다음 한 클릭을 만드는 영상</div>
+                <div className="fbimg" />
+                <div className="fbcta">
+                  <span className="ti"><b>지금 무료 상담받기</b>aio-make.com</span>
+                  <span className="btn">자세히 →</span>
+                </div>
+                <div className="fbact">
+                  <span className="a">👍 좋아요</span>
+                  <span className="a">💬 댓글</span>
+                  <span className="a">↗ 공유</span>
+                </div>
+              </div>
+              <div className="sfoot">
+                <div className="tc">Scene 03 · Marketing</div>
+                <h3><em>광고</em>·전환 영상</h3>
+                <p>유튜브·SNS 광고 — 데이터 기반 컷 구성</p>
+              </div>
+            </div>
+
+            {/* CARD D — YOUTUBE 비디오 카드 (EDIT) */}
+            <div className="scene d reveal d1">
+              <div className="stop"><span className="gen">EDIT</span><span className="rt">5–20m · YT</span></div>
+              <div className="mock">
+                <div className="ytthumb"><span className="dur">12:34</span></div>
+                <div className="ytinfo">
+                  <span className="av" />
+                  <div className="meta">
+                    <div className="ti">스튜디오가 매일 9분 단축한 워크플로우 공개 [Behind]</div>
+                    <div className="ch"><span className="ck">AIO Studio</span></div>
+                    <div className="stats">조회수 124,810회 · 3일 전</div>
+                  </div>
+                </div>
+              </div>
+              <div className="sfoot">
+                <div className="tc">Scene 04 · Youtube</div>
+                <h3><em>유튜브</em> 편집</h3>
+                <p>인트로·자막·컷·썸네일 — 채널 톤 일관성</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
