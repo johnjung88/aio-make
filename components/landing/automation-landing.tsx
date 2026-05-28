@@ -107,8 +107,8 @@ export function AutomationLanding({ locale }: { locale: string }) {
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Automation & Programs</span>
-        <h1>반복은 코드에게,<br /><em>시간은</em> 당신에게</h1>
-        <p className="lead">엑셀·데이터·크롤링·파싱·매크로 — 매일 반복되는 작업을 코드로 옮깁니다. 데스크탑 프로그램·텔레그램 봇·시트 자동화까지</p>
+        <h1>반복은 코드에,<br /><em>시간</em>은 당신에게</h1>
+        <p className="lead">엑셀·데이터·크롤링·매크로 — 매일 반복되는 작업을 코드로. 데스크탑 프로그램·텔레그램 봇·시트 자동화까지</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/automation-app/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 
@@ -150,7 +150,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="ctaS"><div className="wrap reveal">
-        <h2>반복을 <em>줄일</em><br />일이 있나요?</h2>
+        <h2>줄이고 싶은<br /><em>반복</em>이 있나요?</h2>
         <p>지금 문의하면 24시간 안에 기준 견적 · 3일 안에 1차 데모</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>

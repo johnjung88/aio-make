@@ -121,8 +121,8 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Shopping Mall</span>
-        <h1>팔리는 <em>스토어</em>를<br />하루 만에</h1>
-        <p className="lead">카페24·독립몰 — 디자인·상품 등록·결제 연동까지 한 번에 셋업합니다. 보여주기용 데모가 아니라 바로 매출 받을 수 있는 상태로</p>
+        <h1>팔리는 <em>스토어</em>,<br />하루 만에</h1>
+        <p className="lead">카페24·독립몰 — 디자인·상품 등록·결제 연동까지 한 번에. 보여주기용 데모가 아니라 바로 매출 받을 수 있는 상태로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/shopping-mall/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 

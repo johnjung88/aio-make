@@ -2,86 +2,119 @@
 import { useEffect, useRef } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
+/**
+ * Marketing Hub — Live Dashboard character
+ *
+ * 차별화 포인트
+ * - 풀폭 dashboard 그리드 (히어로 = KPI + 차트가 직접 메인 element)
+ * - 모든 서비스 카드에 sparkline 라인 차트 내장
+ * - 데이터 테이블·퍼센트 델타·라이브 인디케이터로 통일
+ * - mono 폰트 비중 ↑, mint/green data viz 팔레트
+ */
 const CSS = `
-.aiomh{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);--gold:#C8A24A;--gold2:#E0BE6A;--mint:#8BE0C2;
-  --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
-  --fs-display:clamp(42px,8vw,104px);--fs-h2:clamp(29px,5vw,58px);--fs-lead:clamp(15px,1.5vw,18px);
-  --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1180px;
-  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;text-align:center;min-height:100vh}
+.aiomh{--bg:#0E0D0B;--bg2:#161412;--bg3:#0a0908;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(139,224,194,.26);--line2:rgba(239,233,221,.08);--gold:#C8A24A;--mint:#8BE0C2;--lime:#C6EE7A;--down:#E27B7B;
+  --frau:var(--font-fraunces);--corm:var(--font-cormorant);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
+  --fs-display:clamp(46px,8.5vw,116px);--fs-h2:clamp(30px,5.2vw,68px);--fs-lead:clamp(15px,1.4vw,18px);
+  --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
+  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center}
 .aiomh *{box-sizing:border-box}
 .aiomh a{text-decoration:none;color:inherit}
 .aiomh .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
-.aiomh .kick{font-family:var(--mono);font-size:var(--fs-kick);letter-spacing:.34em;text-transform:uppercase;color:var(--mint)}
-.aiomh .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aiomh .reveal.in{opacity:1;transform:none}
+.aiomh .kick{font-family:var(--mono);font-size:var(--fs-kick);letter-spacing:.32em;text-transform:uppercase;color:var(--mint)}
+.aiomh .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.2,1,.3,1),transform 1.1s cubic-bezier(.2,1,.3,1)}.aiomh .reveal.in{opacity:1;transform:none}
 .aiomh .reveal.d1{transition-delay:.1s}.aiomh .reveal.d2{transition-delay:.2s}.aiomh .reveal.d3{transition-delay:.3s}
-.aiomh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--mint),var(--gold))}
-.aiomh .hero{position:relative;padding:clamp(74px,12vw,156px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aiomh .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 65% 50% at 50% 25%,rgba(139,224,194,.10),transparent 70%)}
-.aiomh .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
-.aiomh .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aiomh .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px)}
+.aiomh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--mint),var(--lime))}
+
+/* Topbar — fake admin bar */
+.aiomh .tbar{padding:11px var(--sp-edge);border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;background:var(--bg3)}
+.aiomh .tbar .l{display:flex;align-items:center;gap:14px}
+.aiomh .tbar .live{display:inline-flex;align-items:center;gap:6px;color:var(--mint)}
+.aiomh .tbar .live .d{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(139,224,194,.25);animation:aiomh-pulse 2s infinite}
+@keyframes aiomh-pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+/* Hero — KPIs as part of headline */
+.aiomh .hero{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,72px);position:relative}
+.aiomh .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 30%,rgba(139,224,194,.10),transparent 70%);pointer-events:none}
+.aiomh .hero .wrap{position:relative}
+.aiomh .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.96;letter-spacing:-.018em;margin-bottom:28px}
+.aiomh .hero h1 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
+.aiomh .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 36px}
 .aiomh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
-.aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
+.aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--mint);color:#0E0D0B;border:1px solid var(--mint);letter-spacing:-.005em}
 .aiomh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
+
+/* Live KPI strip */
+.aiomh .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:clamp(30px,4vw,48px) auto 0;border:1px solid var(--line2);background:var(--bg2);max-width:1140px;text-align:left}
+.aiomh .kpi{padding:24px 26px;border-right:1px solid var(--line2);position:relative}
+.aiomh .kpi:last-child{border-right:none}
+.aiomh .kpi .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;margin-bottom:10px}
+.aiomh .kpi .num{font-family:var(--frau);font-size:clamp(26px,3.4vw,40px);line-height:1;color:var(--fg);margin-bottom:8px;letter-spacing:-.008em}
+.aiomh .kpi .delta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mint);display:flex;align-items:center;gap:6px}
+.aiomh .kpi .delta.dn{color:var(--down)}
+.aiomh .kpi .spark{margin-top:14px;height:32px;display:flex;align-items:flex-end;gap:3px}
+.aiomh .kpi .spark .b{flex:1;background:linear-gradient(180deg,var(--mint),rgba(139,224,194,.18));border-radius:1px 1px 0 0;min-width:2px}
+@media(max-width:880px){.aiomh .kpis{grid-template-columns:1fr 1fr}.aiomh .kpi:nth-child(2n){border-right:none}.aiomh .kpi:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
+
+/* Sections */
 .aiomh .sec{padding:var(--sp-sec) 0}
 .aiomh .shead{margin-bottom:48px}
-.aiomh .shead .kick{display:block;margin-bottom:18px}
-.aiomh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.06;margin-bottom:14px}
-.aiomh .shead h2 em{font-style:normal;color:var(--gold);font-weight:600}
-.aiomh .shead p{font-size:var(--fs-lead);line-height:1.8;color:var(--fg2);max-width:50ch;margin:0 auto}
+.aiomh .shead .kick{display:block;margin-bottom:16px}
+.aiomh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
+.aiomh .shead h2 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
+.aiomh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
-/* Dashboard mockup */
-.aiomh .dash{max-width:980px;margin:0 auto;background:var(--bg2);border:1px solid var(--line2);border-radius:14px;padding:20px;box-shadow:0 36px 96px rgba(0,0,0,.6)}
-.aiomh .dash .top{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line2);margin-bottom:18px;font-family:var(--mono);font-size:10.5px;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase}
-.aiomh .dash .top b{color:var(--mint)}
-.aiomh .dash .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.aiomh .dash .kpi{background:#0a0908;border:1px solid var(--line2);border-radius:8px;padding:14px;text-align:left}
-.aiomh .dash .kpi .l{font-family:var(--mono);font-size:9.5px;color:var(--fg3);letter-spacing:.16em;margin-bottom:6px}
-.aiomh .dash .kpi .n{font-family:var(--frau);font-size:24px;color:var(--fg);margin-bottom:4px}
-.aiomh .dash .kpi .d{font-family:var(--mono);font-size:10px;color:var(--mint)}
-.aiomh .dash .kpi .d.dn{color:#D78A8A}
-.aiomh .dash .ch{background:#0a0908;border:1px solid var(--line2);border-radius:8px;padding:18px;height:200px;display:flex;align-items:flex-end;gap:6px}
-.aiomh .dash .b{flex:1;background:linear-gradient(180deg,var(--gold),rgba(200,162,74,.3));border-radius:2px 2px 0 0}
-@media(max-width:680px){.aiomh .dash .kpis{grid-template-columns:repeat(2,1fr)}}
+/* Channels — services as dashboard tiles with sparklines */
+.aiomh .ch{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.aiomh .chc{padding:30px 28px 26px;background:var(--bg2);border:1px solid var(--line2);text-align:left;transition:border-color .3s,transform .3s;position:relative;display:flex;flex-direction:column}
+.aiomh .chc:hover{border-color:var(--mint);transform:translateY(-4px)}
+.aiomh .chc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.aiomh .chc .top .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--mint);text-transform:uppercase}
+.aiomh .chc .top .live{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--mint);letter-spacing:.14em;text-transform:uppercase}
+.aiomh .chc .top .live .d{width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.aiomh .chc h3{font-family:var(--frau);font-size:clamp(22px,2.4vw,28px);font-weight:500;margin-bottom:8px;letter-spacing:-.008em}
+.aiomh .chc h3 em{font-family:var(--corm);font-style:italic;color:var(--mint)}
+.aiomh .chc .d{font-size:14px;line-height:1.8;color:var(--fg2);margin:0 0 22px}
+.aiomh .chc .stat{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.aiomh .chc .stat .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--fg3);text-transform:uppercase}
+.aiomh .chc .stat .s b{color:var(--mint);font-weight:400;font-family:var(--frau);font-size:16px;letter-spacing:.01em;margin-left:6px}
+.aiomh .chc .chart{height:52px;border-top:1px solid var(--line2);padding-top:12px;margin-top:auto;position:relative;display:flex;align-items:flex-end;gap:4px}
+.aiomh .chc .chart .b{flex:1;background:linear-gradient(180deg,var(--mint),rgba(139,224,194,.2));border-radius:1px 1px 0 0;min-width:2px}
+@media(max-width:880px){.aiomh .ch{grid-template-columns:1fr}}
 
-.aiomh .doc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
-.aiomh .dc{padding:32px 26px;border:1px solid var(--line2);border-radius:14px;background:var(--bg2);text-align:left}
-.aiomh .dc .dn{font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
-.aiomh .dc h3{font-family:var(--frau);font-size:22px;font-weight:500;margin-bottom:10px;text-align:center}
-.aiomh .dc p{font-size:14px;line-height:1.8;color:var(--fg2);text-align:center}
-@media(max-width:820px){.aiomh .doc{grid-template-columns:1fr 1fr}}
-@media(max-width:540px){.aiomh .doc{grid-template-columns:1fr}}
+/* Report table */
+.aiomh .rep{max-width:1100px;margin:48px auto 0;border:1px solid var(--line2);background:var(--bg2)}
+.aiomh .rep .rhd{padding:14px 24px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase}
+.aiomh .rep .rhd b{color:var(--mint);font-weight:400}
+.aiomh .rep table{width:100%;border-collapse:collapse;font-family:var(--pret);font-size:13.5px}
+.aiomh .rep th{text-align:left;padding:14px 24px;color:var(--fg3);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line2)}
+.aiomh .rep td{padding:16px 24px;border-bottom:1px solid var(--line2);color:var(--fg2)}
+.aiomh .rep tr:last-child td{border-bottom:none}
+.aiomh .rep td.r{text-align:right;font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+.aiomh .rep td.r.up{color:var(--mint)}
+.aiomh .rep td.r.dn{color:var(--down)}
+.aiomh .rep td.name{color:var(--fg);font-family:var(--frau);font-size:15px}
+.aiomh .rep td .sp{display:inline-block;width:70px;height:20px;vertical-align:middle;margin-left:10px;background:linear-gradient(90deg,transparent 0,transparent 8%,rgba(139,224,194,.4) 8%,rgba(139,224,194,.4) 12%,transparent 12%)}
+@media(max-width:680px){.aiomh .rep th,.aiomh .rep td{padding:12px 14px;font-size:12px}}
 
-.aiomh .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);border-radius:14px;overflow:hidden;margin-top:24px;max-width:920px;margin-left:auto;margin-right:auto}
-.aiomh .v{padding:26px 18px;border-right:1px solid var(--line2)}
-.aiomh .v:last-child{border-right:none}
-.aiomh .v .vn{font-family:var(--mono);font-size:10px;color:var(--mint);letter-spacing:.2em;margin-bottom:8px}
-.aiomh .v .vt{font-family:var(--frau);font-size:18px;margin-bottom:6px}
-.aiomh .v .vd{font-size:12.5px;line-height:1.7;color:var(--fg2)}
-@media(max-width:760px){.aiomh .vals{grid-template-columns:1fr 1fr}.aiomh .v:nth-child(2n){border-right:none}.aiomh .v:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
+/* Ways */
+.aiomh .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);max-width:1100px;margin:32px auto 0;background:var(--bg2)}
+.aiomh .way{padding:24px 18px;border-right:1px solid var(--line2);text-align:center}
+.aiomh .way:last-child{border-right:none}
+.aiomh .way .n{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--mint);margin-bottom:10px;text-transform:uppercase}
+.aiomh .way .t{font-family:var(--frau);font-size:18px;margin-bottom:6px}
+.aiomh .way .d{font-size:12.5px;line-height:1.7;color:var(--fg2)}
+@media(max-width:760px){.aiomh .ways{grid-template-columns:1fr 1fr}.aiomh .way:nth-child(2n){border-right:none}.aiomh .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
 
-.aiomh .ctaS{padding:var(--sp-sec) 0;position:relative;overflow:hidden}
-.aiomh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(139,224,194,.10),transparent 70%)}
+/* CTA */
+.aiomh .ctaS{padding:var(--sp-sec) 0;position:relative;overflow:hidden;text-align:center}
+.aiomh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(139,224,194,.12),transparent 70%)}
 .aiomh .ctaS .wrap{position:relative}
-.aiomh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.04;margin-bottom:22px}
-.aiomh .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}
+.aiomh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
+.aiomh .ctaS h2 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
 .aiomh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 
-const Dashboard = () => (
-  <div className="dash">
-    <div className="top"><span>AIO · Growth Report</span><span><b>● Live</b> · 2026 May</span></div>
-    <div className="kpis">
-      <div className="kpi"><div className="l">방문자</div><div className="n">128,420</div><div className="d">▲ 42% MoM</div></div>
-      <div className="kpi"><div className="l">전환율</div><div className="n">3.84%</div><div className="d">▲ 0.9pt</div></div>
-      <div className="kpi"><div className="l">CPC</div><div className="n">₩ 318</div><div className="d dn">▼ 22%</div></div>
-      <div className="kpi"><div className="l">ROAS</div><div className="n">412%</div><div className="d">▲ 1.4×</div></div>
-    </div>
-    <div className="ch">
-      {[35, 42, 38, 52, 60, 58, 72, 78, 85, 92, 98].map((h, i) => <div key={i} className="b" style={{ height: `${h}%` }} />)}
-    </div>
-  </div>
-);
+const spark = (heights: number[]) => heights.map((h, i) => <div key={i} className="b" style={{ height: `${h}%` }} />);
 
 export function MarketingHub({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -101,38 +134,107 @@ export function MarketingHub({ locale }: { locale: string }) {
       <div className="prog" />
       <AioNav locale={locale} level="middle" cat="marketing" active="service" />
 
-      <header className="hero"><div className="wrap">
-        <span className="kick">Marketing · 서비스 소개</span>
-        <h1>유입은,<br /><em>꾸준함</em>이 만듭니다</h1>
-        <p className="lead">블로그·SNS·영상채널 — 매일 보이는 운영이 한 달 뒤의 매출을 만듭니다. 한 번 만들고 끝나는 게 아니라 매주 보이는 결과로</p>
-        <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
-      </div></header>
+      {/* Topbar */}
+      <div className="tbar">
+        <div className="l"><span>AIO · Growth Console</span><span>·</span><span>Workspace 2026Q2</span></div>
+        <div className="live"><span className="d" /> LIVE · LAST SYNC 12s</div>
+      </div>
 
-      <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Live Report</span><h2>이런 <em>리포트</em>를 받습니다</h2><p>매주 KPI · 매월 종합 · 매분기 전략 — 보이게, 측정되게</p></div>
-        <div className="reveal d1"><Dashboard /></div>
-      </section>
+      {/* Hero */}
+      <header className="hero">
+        <div className="wrap">
+          <span className="kick">Marketing · 서비스 소개</span>
+          <h1 style={{ marginTop: 22 }}>유입은,<br /><em>꾸준함</em>입니다</h1>
+          <p className="lead">블로그·SNS·영상채널. 매일 보이는 것이 한 달 뒤의 매출이 됩니다 — 측정되고, 검증되는 운영으로</p>
+          <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
 
+          {/* Live KPIs */}
+          <div className="kpis reveal d1">
+            <div className="kpi">
+              <div className="lbl">평균 방문자 (MoM)</div>
+              <div className="num">128,420</div>
+              <div className="delta">▲ +42.0%  vs prev</div>
+              <div className="spark">{spark([35, 42, 38, 52, 60, 58, 72, 78, 85, 92, 98])}</div>
+            </div>
+            <div className="kpi">
+              <div className="lbl">평균 전환율</div>
+              <div className="num">3.84%</div>
+              <div className="delta">▲ +0.9pt</div>
+              <div className="spark">{spark([22, 28, 30, 35, 32, 42, 48, 52, 56, 64, 70])}</div>
+            </div>
+            <div className="kpi">
+              <div className="lbl">평균 CPC</div>
+              <div className="num">₩ 318</div>
+              <div className="delta dn">▼ −22%</div>
+              <div className="spark">{spark([88, 82, 78, 70, 64, 58, 52, 48, 40, 34, 28])}</div>
+            </div>
+            <div className="kpi">
+              <div className="lbl">평균 ROAS</div>
+              <div className="num">412%</div>
+              <div className="delta">▲ +1.4×</div>
+              <div className="spark">{spark([28, 32, 38, 44, 52, 58, 64, 72, 78, 86, 94])}</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Channels */}
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Services · 3 buckets</span><h2>운영 <em>대행</em></h2><p>채널은 다르지만 원칙은 같습니다 — 꾸준함 · 측정 · 개선</p></div>
-        <div className="doc">
-          <div className="dc reveal d1"><div className="dn">01 · 블로그 운영대행</div><h3>네이버·티스토리</h3><p>월 8~12편 / SEO 기반 키워드 → 글쓰기 → 발행 → 추적</p></div>
-          <div className="dc reveal d2"><div className="dn">02 · SNS 운영대행</div><h3>인스타·릴스·틱톡</h3><p>월 20~30컷 / 컨셉 → 촬영·편집 → 발행 → 반응 분석</p></div>
-          <div className="dc reveal d3"><div className="dn">03 · 영상채널 운영대행</div><h3>유튜브·숏폼</h3><p>월 4~8편 / 기획 → 촬영 → 편집·자막 → 썸네일 → 분석</p></div>
+        <div className="shead reveal"><span className="kick">Channels · 03</span><h2>세 가지 <em>운영 채널</em></h2><p>채널은 다르지만 원칙은 같습니다 — 꾸준함 · 측정 · 개선</p></div>
+        <div className="ch">
+          <div className="chc reveal d1">
+            <div className="top"><span className="tag">01 · BLOG</span><span className="live"><span className="d" /> Live</span></div>
+            <h3>블로그 <em>운영대행</em></h3>
+            <p className="d">네이버·티스토리 — 월 8~12편. SEO 키워드 → 글 → 발행 → 추적까지</p>
+            <div className="stat"><span className="s">월 발행 <b>10</b></span><span className="s">평균 노출 <b>+38%</b></span></div>
+            <div className="chart">{spark([22, 28, 32, 36, 42, 38, 46, 52, 58, 62, 68, 74])}</div>
+          </div>
+          <div className="chc reveal d2">
+            <div className="top"><span className="tag">02 · SNS</span><span className="live"><span className="d" /> Live</span></div>
+            <h3>SNS <em>운영대행</em></h3>
+            <p className="d">인스타·릴스·틱톡 — 월 20~30컷. 컨셉 → 촬영·편집 → 발행 → 반응 분석</p>
+            <div className="stat"><span className="s">월 컷 <b>25</b></span><span className="s">평균 리치 <b>+62%</b></span></div>
+            <div className="chart">{spark([18, 22, 30, 38, 42, 50, 48, 56, 64, 70, 76, 82])}</div>
+          </div>
+          <div className="chc reveal d3">
+            <div className="top"><span className="tag">03 · VIDEO CH.</span><span className="live"><span className="d" /> Live</span></div>
+            <h3>영상채널 <em>운영대행</em></h3>
+            <p className="d">유튜브·숏폼 — 월 4~8편. 기획 → 촬영 → 편집·자막 → 썸네일 → 분석</p>
+            <div className="stat"><span className="s">월 편 <b>6</b></span><span className="s">평균 시청 <b>+74%</b></span></div>
+            <div className="chart">{spark([14, 18, 24, 30, 34, 40, 48, 54, 62, 70, 78, 88])}</div>
+          </div>
         </div>
       </section>
 
+      {/* Weekly report table */}
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 준비 중</span><h2>가격은 <em>상담 후</em></h2><p>채널 수·발행 분량·광고비 운영 여부에 따라 다릅니다. 정식 가격표는 곧 공개</p></div>
+        <div className="shead reveal"><span className="kick">Weekly Report — Sample</span><h2>매주 <em>리포트</em></h2><p>월요일마다 보내드리는 KPI 표 — 실제 운영 데이터 그대로</p></div>
+        <div className="rep reveal d1">
+          <div className="rhd"><span>2026 · WK 21 · Performance</span><span><b>● Live</b> · auto-generated</span></div>
+          <table>
+            <thead>
+              <tr><th>Channel</th><th>KPI</th><th style={{ textAlign: "right" }}>This Wk</th><th style={{ textAlign: "right" }}>Δ vs Prev</th></tr>
+            </thead>
+            <tbody>
+              <tr><td className="name">블로그 (Naver)</td><td>방문자</td><td className="r">12,840</td><td className="r up">▲ +18.4%</td></tr>
+              <tr><td className="name">블로그 (Naver)</td><td>유입 검색어</td><td className="r">62 / 78</td><td className="r up">▲ +14</td></tr>
+              <tr><td className="name">Instagram</td><td>도달</td><td className="r">48,210</td><td className="r up">▲ +32%</td></tr>
+              <tr><td className="name">Instagram</td><td>저장 수</td><td className="r">1,840</td><td className="r up">▲ +28%</td></tr>
+              <tr><td className="name">YouTube</td><td>시청 시간 (h)</td><td className="r">320h</td><td className="r up">▲ +21%</td></tr>
+              <tr><td className="name">YouTube</td><td>구독자</td><td className="r">+184</td><td className="r dn">▼ −6.0%</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
+      {/* Ways */}
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">How we work</span><h2>일하는 <em>방식</em></h2></div>
-        <div className="vals reveal d1">
-          <div className="v"><div className="vn">01</div><div className="vt">주간 리포트</div><div className="vd">매주 월요일 KPI 공유</div></div>
-          <div className="v"><div className="vn">02</div><div className="vt">월 종합</div><div className="vd">월말 종합 리포트 + 다음 달 계획</div></div>
-          <div className="v"><div className="vn">03</div><div className="vt">데이터 기반</div><div className="vd">GA4·서치콘솔·픽셀 연동</div></div>
-          <div className="v"><div className="vn">04</div><div className="vt">월 단위 계약</div><div className="vd">최소 3개월 / 해지 30일 전 통보</div></div>
+        <div className="shead reveal"><span className="kick">How we work</span><h2>운영 <em>원칙</em></h2></div>
+        <div className="ways reveal d1">
+          <div className="way"><div className="n">01</div><div className="t">주간 리포트</div><div className="d">매주 월요일 KPI 공유</div></div>
+          <div className="way"><div className="n">02</div><div className="t">월 종합</div><div className="d">월말 종합 + 다음 달 계획</div></div>
+          <div className="way"><div className="n">03</div><div className="t">데이터 기반</div><div className="d">GA4·서치콘솔·픽셀 연동</div></div>
+          <div className="way"><div className="n">04</div><div className="t">월 단위 계약</div><div className="d">최소 3개월 / 해지 30일 전 통보</div></div>
         </div>
       </section>
 

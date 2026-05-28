@@ -89,8 +89,8 @@ export function PptDesignLanding({ locale }: { locale: string }) {
 
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · PPT Design</span>
-        <h1>전달되는<br /><em>슬라이드</em>를</h1>
-        <p className="lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게. 글이 많은 슬라이드 대신 메시지가 남는 슬라이드로</p>
+        <h1>읽지 않고도<br />전달되는 <em>슬라이드</em></h1>
+        <p className="lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게. 글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/ppt-design/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 
@@ -123,7 +123,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="ctaS"><div className="wrap reveal">
-        <h2>발표할 게<br /><em>있나요?</em></h2>
+        <h2>발표할<br /><em>한 장</em>이 있나요?</h2>
         <p>지금 문의하면 24시간 안에 견적 · 5일 안에 첫 시안</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>

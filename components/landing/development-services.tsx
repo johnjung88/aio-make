@@ -15,8 +15,8 @@ export function DevelopmentServices({ locale }: { locale: string }) {
 
       <header className="hero"><div className="wrap">
         <span className="kick">Development · 서비스 소개</span>
-        <h1>필요한 것을,<br /><em>코드</em>로 만듭니다</h1>
-        <p className="lead">웹사이트·쇼핑몰·자동화까지, 비즈니스에 필요한 것을 코드로 빠르게 만듭니다. 보여주기용이 아니라 바로 운영 가능한 결과물로</p>
+        <h1>필요한 것을<br /><em>코드</em>로 만듭니다</h1>
+        <p className="lead">웹사이트·쇼핑몰·자동화까지 — 비즈니스에 필요한 것을 코드로 빠르게. 보여주기용이 아니라 바로 운영 가능한 결과물로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/website`}>웹사이트부터 보기</a></div>
       </div></header>
 
@@ -42,7 +42,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
       </section>
 
       <section className="ctaS"><div className="wrap reveal">
-        <h2>코드로 만들 게<br /><em>있나요?</em></h2>
+        <h2>코드로 만들<br /><em>일</em>이 있나요?</h2>
         <p>지금 문의하면 24시간 안에 견적 · 5일 안에 첫 결과물</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
