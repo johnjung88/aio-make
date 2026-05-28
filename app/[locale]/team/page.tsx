@@ -75,7 +75,7 @@ const H1 = { fontFamily: "var(--font-marcellus)", fontSize: "clamp(42px,7vw,96px
 const H2 = { fontFamily: "var(--font-marcellus)", fontSize: "clamp(28px,4.6vw,58px)", lineHeight: 1.04, letterSpacing: "-0.012em", color: "var(--tone-magazine-ink)", fontWeight: 400 as const, wordBreak: "keep-all" as const };
 const LEAD = { fontFamily: "var(--font-pretendard)", fontSize: "clamp(14.5px,1.25vw,17.5px)", lineHeight: 1.85, color: "var(--tone-magazine-ink-2)", letterSpacing: "-0.005em", fontWeight: 400 as const, wordBreak: "keep-all" as const };
 const LABEL = { fontFamily: "var(--font-jetbrains)", fontSize: "10.5px", color: "var(--tone-magazine-ink-3)", letterSpacing: "0.22em", textTransform: "uppercase" as const };
-const EM_CORM = { fontFamily: "var(--font-cormorant)", fontStyle: "italic" as const, fontWeight: 500 as const };
+const EM_CORM = { fontFamily: "var(--font-fraunces)", fontStyle: "normal" as const, fontWeight: 500 as const };
 
 /* ───────── 페이지 ───────── */
 export default async function TeamPage({ params }: { params: Promise<{ locale: string }> }) {

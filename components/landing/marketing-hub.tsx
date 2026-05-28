@@ -11,7 +11,7 @@ const CSS = `
 .aiomh{--bg:#080A0B;--bg2:#0F1213;--bg3:#0A0D0E;--fg:#EFE9DD;--fg2:#A8AFA9;--fg3:#5C645E;
   --line:rgba(139,224,194,.26);--line2:rgba(239,233,221,.06);--grid:rgba(139,224,194,.045);
   --gold:#C8A24A;--mint:#8BE0C2;--lime:#C6EE7A;--down:#E27B7B;
-  --frau:var(--font-fraunces);--corm:var(--font-cormorant);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
+  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(46px,8.5vw,116px);--fs-h2:clamp(30px,5.2vw,68px);--fs-lead:clamp(15px,1.4vw,18px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center;position:relative}
@@ -52,7 +52,7 @@ const CSS = `
 .aiomh .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 30%,rgba(139,224,194,.10),transparent 70%);pointer-events:none}
 .aiomh .hero .wrap{position:relative}
 .aiomh .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.96;letter-spacing:-.018em;margin-bottom:28px}
-.aiomh .hero h1 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
+.aiomh .hero h1 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
 .aiomh .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 36px}
 .aiomh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--mint);color:#0E0D0B;border:1px solid var(--mint);letter-spacing:-.005em;transition:all .25s}
@@ -86,7 +86,7 @@ const CSS = `
 .aiomh .shead{margin-bottom:48px}
 .aiomh .shead .kick{display:block;margin-bottom:16px}
 .aiomh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
-.aiomh .shead h2 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
+.aiomh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
 .aiomh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
 /* Channels */
@@ -101,7 +101,7 @@ const CSS = `
 .aiomh .chc .top .live{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--mint);letter-spacing:.14em;text-transform:uppercase}
 .aiomh .chc .top .live .d{width:6px;height:6px;border-radius:50%;background:var(--mint)}
 .aiomh .chc h3{font-family:var(--frau);font-size:clamp(22px,2.4vw,28px);font-weight:500;margin-bottom:8px;letter-spacing:-.008em}
-.aiomh .chc h3 em{font-family:var(--corm);font-style:italic;color:var(--mint)}
+.aiomh .chc h3 em{font-family:var(--frau);font-style:normal;color:var(--mint)}
 .aiomh .chc .d{font-size:14px;line-height:1.8;color:var(--fg2);margin:0 0 22px}
 .aiomh .chc .stat{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
 .aiomh .chc .stat .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--fg3);text-transform:uppercase}
@@ -139,7 +139,7 @@ const CSS = `
 .aiomh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(139,224,194,.12),transparent 70%)}
 .aiomh .ctaS .wrap{position:relative}
 .aiomh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
-.aiomh .ctaS h2 em{font-family:var(--corm);font-style:italic;color:var(--mint);font-weight:500}
+.aiomh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
 .aiomh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 

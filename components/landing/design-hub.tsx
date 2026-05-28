@@ -11,7 +11,7 @@ const CSS = `
 .aiodh{--bg:#0E0D0B;--bg2:#17150F;--paper:#F4ECDC;--paper2:#EEDEC2;--ink:#1A1612;--ink2:#4B413A;--ink3:#7D7568;
   --fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);
   --gold:#C8A24A;--gold2:#E0BE6A;--rose:#C66060;--rose2:#D78A8A;
-  --frau:var(--font-fraunces);--corm:var(--font-cormorant);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
+  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(48px,9vw,128px);--fs-h2:clamp(32px,5.5vw,72px);--fs-lead:clamp(15px,1.4vw,18px);--fs-body:clamp(14px,1.1vw,15.5px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(56px,8vw,110px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;position:relative}
@@ -34,7 +34,7 @@ const CSS = `
 .aiodh .cover .meta b{color:var(--rose2);font-weight:400}
 .aiodh .cover .meta span.bar{width:18px;height:1px;background:var(--line);display:inline-block}
 .aiodh .cover h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;letter-spacing:-.018em;margin-bottom:24px}
-.aiodh .cover h1 em{font-family:var(--corm);font-style:italic;font-weight:500;color:var(--rose2)}
+.aiodh .cover h1 em{font-family:var(--frau);font-style:normal;font-weight:600;color:var(--rose2)}
 .aiodh .cover .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 28px}
 .aiodh .acts{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .aiodh .cta-pill{font-size:14px;font-weight:600;padding:14px 30px;border-radius:0;background:var(--paper);color:var(--ink);letter-spacing:-.005em}
@@ -45,7 +45,7 @@ const CSS = `
 .aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(26,22,18,.18)}
 .aiodh .frame .tag{position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:.24em;border-bottom:1px solid var(--ink2);padding-bottom:4px}
 .aiodh .frame .label{position:absolute;left:28px;bottom:30px;font-family:var(--frau);color:var(--ink);font-size:clamp(28px,3.5vw,48px);line-height:.95;letter-spacing:-.014em}
-.aiodh .frame .label em{font-family:var(--corm);font-style:italic;color:var(--rose);display:block;margin-top:6px}
+.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose);display:block;margin-top:6px}
 .aiodh .frame .price{position:absolute;right:24px;bottom:30px;font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:.2em;text-align:right;line-height:1.7}
 .aiodh .frame .ornament{position:absolute;top:50%;right:28px;width:1px;height:96px;background:var(--ink2);transform:translateY(-50%)}
 @media(max-width:880px){.aiodh .cover .wrap{grid-template-columns:1fr;text-align:center}.aiodh .cover .l{text-align:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}.aiodh .frame{max-width:420px;margin:0 auto}}
@@ -65,7 +65,7 @@ const CSS = `
 .aiodh .shead{margin-bottom:48px;text-align:center}
 .aiodh .shead .kick{display:block;margin-bottom:16px}
 .aiodh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
-.aiodh .shead h2 em{font-family:var(--corm);font-style:italic;color:var(--rose2);font-weight:500}
+.aiodh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--rose2);font-weight:600}
 .aiodh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
 /* Spread — masonry on paper */
@@ -74,7 +74,7 @@ const CSS = `
 .aiodh .tile:hover{transform:translateY(-3px)}
 .aiodh .tile .tag{position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--ink2);text-transform:uppercase}
 .aiodh .tile .ttl{position:absolute;left:14px;bottom:12px;right:14px;font-family:var(--frau);font-size:clamp(15px,1.6vw,22px);color:var(--ink);line-height:1.1}
-.aiodh .tile .ttl em{font-family:var(--corm);font-style:italic;color:var(--rose)}
+.aiodh .tile .ttl em{font-family:var(--frau);font-style:normal;color:var(--rose)}
 .aiodh .tile.t1{grid-column:span 5;grid-row:span 2;background:linear-gradient(135deg,#E8C9C2,#D9B59C)}
 .aiodh .tile.t2{grid-column:span 7;grid-row:span 2;background:linear-gradient(165deg,#EEDEC2,#D2C2A6)}
 .aiodh .tile.t3{grid-column:span 4;grid-row:span 2;background:linear-gradient(180deg,#D9B59C,#C4956A)}
@@ -84,7 +84,7 @@ const CSS = `
 
 /* Pull quote — dark canvas */
 .aiodh .pq{padding:clamp(80px,11vw,150px) 0;text-align:center}
-.aiodh .pq blockquote{margin:0 auto;max-width:18ch;font-family:var(--corm);font-style:italic;font-weight:500;font-size:clamp(38px,5.5vw,84px);line-height:1.1;color:var(--fg);letter-spacing:-.012em}
+.aiodh .pq blockquote{margin:0 auto;max-width:18ch;font-family:var(--frau);font-style:normal;font-weight:500;font-size:clamp(38px,5.5vw,84px);line-height:1.1;color:var(--fg);letter-spacing:-.012em}
 .aiodh .pq blockquote::before,.aiodh .pq blockquote::after{content:"";display:block;width:48px;height:1px;background:var(--rose2);margin:30px auto}
 .aiodh .pq cite{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
 
@@ -101,7 +101,7 @@ const CSS = `
 .aiodh .iss.c .pic{background:linear-gradient(195deg,#D9B59C,#A89070)}
 .aiodh .iss .pic .cap{position:absolute;left:18px;bottom:12px;font-family:var(--mono);font-size:9.5px;color:var(--ink);letter-spacing:.22em}
 .aiodh .iss h3{font-family:var(--frau);font-size:clamp(24px,2.6vw,32px);font-weight:500;line-height:1.1;letter-spacing:-.012em;margin-bottom:12px;color:var(--ink)}
-.aiodh .iss h3 em{font-family:var(--corm);font-style:italic;color:var(--rose)}
+.aiodh .iss h3 em{font-family:var(--frau);font-style:normal;color:var(--rose)}
 .aiodh .iss .desc{font-size:14px;line-height:1.85;color:var(--ink2);margin-bottom:auto}
 .aiodh .iss .more{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--rose);text-transform:uppercase}
 .aiodh .iss .soon{position:absolute;top:22px;right:24px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--ink3);border:1px solid rgba(26,22,18,.22);padding:4px 9px}
@@ -120,7 +120,7 @@ const CSS = `
 .aiodh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(198,96,96,.14),transparent 70%)}
 .aiodh .ctaS .wrap{position:relative}
 .aiodh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1;margin-bottom:22px;letter-spacing:-.014em}
-.aiodh .ctaS h2 em{font-family:var(--corm);font-style:italic;color:var(--rose2);font-weight:500}
+.aiodh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--rose2);font-weight:600}
 .aiodh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 

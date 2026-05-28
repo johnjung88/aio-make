@@ -117,9 +117,9 @@ export function MagazineVitalSign() {
           >
             <span
               style={{
-                fontFamily: "var(--font-cormorant)",
+                fontFamily: "var(--font-fraunces)",
                 fontSize: "clamp(16px, 1.6vw, 20px)",
-                fontStyle: "italic",
+                fontStyle: "normal",
                 color: "var(--tone-magazine-ink-2)",
                 fontWeight: 500,
               }}
@@ -156,8 +156,8 @@ export function MagazineVitalSign() {
           />
           <span
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
+              fontFamily: "var(--font-fraunces)",
+              fontStyle: "normal",
               fontSize: "clamp(20px, 2vw, 26px)",
               color: "var(--tone-magazine-ink-faint)",
               fontWeight: 400,
@@ -203,9 +203,9 @@ export function MagazineVitalSign() {
           >
             <span
               style={{
-                fontFamily: "var(--font-cormorant)",
+                fontFamily: "var(--font-fraunces)",
                 fontSize: "clamp(16px, 1.6vw, 20px)",
-                fontStyle: "italic",
+                fontStyle: "normal",
                 color: "var(--tone-magazine-ink-2)",
                 fontWeight: 500,
               }}

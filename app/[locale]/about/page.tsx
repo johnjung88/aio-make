@@ -131,8 +131,8 @@ export default async function AboutPage({
           <br />
           <em
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
+              fontFamily: "var(--font-fraunces)",
+              fontStyle: "normal",
               color: "var(--tone-magazine-red)",
               fontWeight: 500,
             }}
@@ -187,7 +187,7 @@ export default async function AboutPage({
           }}
         >
           역할은 넷,{" "}
-          <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>
+          <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", fontWeight: 500 }}>
             책임은 하나
           </em>
         </h2>
@@ -231,8 +231,8 @@ export default async function AboutPage({
                 {p.title}{" "}
                 <em
                   style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontStyle: "italic",
+                    fontFamily: "var(--font-fraunces)",
+                    fontStyle: "normal",
                     color: "var(--tone-magazine-ink-3)",
                     fontWeight: 500,
                     fontSize: "0.5em",

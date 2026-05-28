@@ -84,7 +84,7 @@ export function MagazineEditorial({ locale }: Props) {
       >
         <span>결과를 보고</span>
         <br />
-        <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", color: "var(--tone-magazine-red)", fontWeight: 500 }}>
+        <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", color: "var(--tone-magazine-red)", fontWeight: 500 }}>
           맡기는
         </em>{" "}
         외주

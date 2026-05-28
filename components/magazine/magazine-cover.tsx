@@ -50,12 +50,12 @@ export function MagazineCover() {
         aria-hidden
         className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none -z-[1] select-none"
         style={{
-          fontFamily: "var(--font-cormorant)",
+          fontFamily: "var(--font-fraunces)",
           fontSize: "clamp(280px, 45vw, 720px)",
           color: "var(--tone-magazine-ink)",
           opacity: 0.04,
           lineHeight: 0.8,
-          fontStyle: "italic",
+          fontStyle: "normal",
         }}
       >
         A
@@ -125,8 +125,8 @@ export function MagazineCover() {
         <span>
           <em
             style={{
-              fontFamily: "var(--font-cormorant)",
-              fontStyle: "italic",
+              fontFamily: "var(--font-fraunces)",
+              fontStyle: "normal",
               color: "var(--tone-magazine-red)",
               fontWeight: 500,
             }}

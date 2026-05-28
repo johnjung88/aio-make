@@ -84,8 +84,8 @@ export default async function QuotePage({
                 맡기실 일을{" "}
                 <em
                   style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontStyle: "italic",
+                    fontFamily: "var(--font-fraunces)",
+                    fontStyle: "normal",
                     color: "var(--tone-magazine-red)",
                     fontWeight: 500,
                   }}
@@ -98,8 +98,8 @@ export default async function QuotePage({
                 Tell us about{" "}
                 <em
                   style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontStyle: "italic",
+                    fontFamily: "var(--font-fraunces)",
+                    fontStyle: "normal",
                     color: "var(--tone-magazine-red)",
                     fontWeight: 500,
                   }}

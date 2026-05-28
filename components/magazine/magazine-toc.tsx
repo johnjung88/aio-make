@@ -93,7 +93,7 @@ export function MagazineToc({ locale }: Props) {
       >
         네 분야의
         <br />
-        <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>
+        <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", fontWeight: 500 }}>
           전문가들
         </em>
       </h2>
@@ -179,8 +179,8 @@ export function MagazineToc({ locale }: Props) {
                   {d.name}
                   <em
                     style={{
-                      fontFamily: "var(--font-cormorant)",
-                      fontStyle: "italic",
+                      fontFamily: "var(--font-fraunces)",
+                      fontStyle: "normal",
                       color: inkSubActive,
                       fontWeight: 500,
                       fontSize: "0.5em",
@@ -209,11 +209,11 @@ export function MagazineToc({ locale }: Props) {
               <div className="col-span-2 md:col-span-1 text-center px-1 md:px-2">
                 <p
                   style={{
-                    fontFamily: "var(--font-cormorant)",
+                    fontFamily: "var(--font-fraunces)",
                     fontSize: "var(--text-lead)",
                     lineHeight: 1.55,
                     color: inkSubActive,
-                    fontStyle: "italic",
+                    fontStyle: "normal",
                     margin: 0,
                   }}
                 >

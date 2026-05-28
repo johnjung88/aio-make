@@ -73,7 +73,7 @@ export function MagazineEditorsNote() {
         의뢰 전 가장
         <br />
         궁금한{" "}
-        <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>네 가지</em>
+        <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", fontWeight: 500 }}>네 가지</em>
       </h2>
 
       {/* Lede */}
@@ -141,7 +141,7 @@ export function MagazineEditorsNote() {
               style={{ fontFamily: "var(--font-marcellus)", fontSize: "var(--text-h3)", lineHeight: "var(--leading-head)", letterSpacing: "-0.01em", color: "var(--tone-magazine-ink)" }}
             >
               {p.title}{" "}
-              <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>
+              <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", fontWeight: 500 }}>
                 {p.titleEm}
               </em>
             </h3>

@@ -11,7 +11,7 @@ const CSS = `
 .aiovh{--bg:#000;--bg2:#0a0908;--bg3:#0e0c0a;--fg:#EFE9DD;--fg2:#A8A092;--fg3:#5C564B;
   --line:rgba(232,163,64,.32);--line2:rgba(239,233,221,.08);
   --gold:#C8A24A;--amber:#E8A340;--ember:#F4B45A;--rec:#FF3D00;
-  --frau:var(--font-fraunces);--corm:var(--font-cormorant);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
+  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(52px,9.5vw,140px);--fs-h2:clamp(30px,5.4vw,70px);--fs-lead:clamp(15px,1.4vw,18px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center;position:relative;overflow-x:hidden}
@@ -47,7 +47,7 @@ const CSS = `
 .aiovh .cine .bar .c{flex:0 0 auto;color:var(--amber)}
 .aiovh .cine .wrap{position:relative;z-index:1;padding-top:60px;padding-bottom:60px}
 .aiovh .cine h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.95;letter-spacing:-.02em;margin-bottom:30px;text-shadow:0 4px 50px rgba(232,163,64,.18)}
-.aiovh .cine h1 em{font-family:var(--corm);font-style:italic;color:var(--amber);font-weight:500}
+.aiovh .cine h1 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
 .aiovh .cine .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 40px}
 .aiovh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aiovh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--amber);color:#000;letter-spacing:.02em;border:1px solid var(--amber);transition:all .25s}
@@ -63,7 +63,7 @@ const CSS = `
 .aiovh .shead{margin-bottom:48px}
 .aiovh .shead .kick{display:block;margin-bottom:16px}
 .aiovh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
-.aiovh .shead h2 em{font-family:var(--corm);font-style:italic;color:var(--amber);font-weight:500}
+.aiovh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
 .aiovh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
 /* Featured Reel — single 21:9 full bleed cinema frame */
@@ -118,7 +118,7 @@ const CSS = `
 .aiovh .scene .sfoot{padding:14px 16px 18px;background:#000;border-top:1px solid var(--line2);min-height:108px;display:flex;flex-direction:column;justify-content:flex-start}
 .aiovh .scene .sfoot .tc{font-family:var(--mono);font-size:9.5px;color:var(--amber);letter-spacing:.2em;margin-bottom:6px;text-transform:uppercase}
 .aiovh .scene .sfoot h3{font-family:var(--frau);font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.15;margin-bottom:4px;color:var(--fg);letter-spacing:-.005em}
-.aiovh .scene .sfoot h3 em{font-family:var(--corm);font-style:italic;color:var(--amber)}
+.aiovh .scene .sfoot h3 em{font-family:var(--frau);font-style:normal;color:var(--amber)}
 .aiovh .scene .sfoot p{font-size:11.5px;color:var(--fg2);line-height:1.55;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(11.5px * 1.55 * 2)}
 
 /* === Platform A: INSTAGRAM REELS — 핑크/오렌지/퍼플 그라데이션 === */
@@ -134,7 +134,7 @@ const CSS = `
 /* === Platform C: FACEBOOK REELS — 파란 액센트 === */
 .aiovh .scene.c .mock .bg{background:linear-gradient(165deg,#1877f2 0%,#0a3a8c 50%,#000 100%)}
 .aiovh .scene.c .pchip{background:#1877f2}
-.aiovh .scene.c .pchip::before{content:"f";font-family:Georgia,serif;font-weight:900;font-style:italic;font-size:13px;margin-right:1px}
+.aiovh .scene.c .pchip::before{content:"f";font-family:Georgia,serif;font-weight:900;font-style:normal;font-size:13px;margin-right:1px}
 .aiovh .scene.c .stack .av{background:#1877f2}
 
 /* === Platform D: YOUTUBE SHORTS — 빨간 액센트 === */
@@ -170,7 +170,7 @@ const CSS = `
 .aiovh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(232,163,64,.20),transparent 70%)}
 .aiovh .ctaS .wrap{position:relative}
 .aiovh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
-.aiovh .ctaS h2 em{font-family:var(--corm);font-style:italic;color:var(--amber);font-weight:500}
+.aiovh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
 .aiovh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 

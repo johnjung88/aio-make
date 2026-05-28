@@ -83,13 +83,13 @@ export function MagazineVoices() {
         style={{ fontFamily: "var(--font-marcellus)", fontSize: "var(--text-h1)", lineHeight: "var(--leading-display)", letterSpacing: "-0.014em", color: "var(--tone-magazine-ink)" }}
       >
         의뢰인의{" "}
-        <em style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 500 }}>편지</em>
+        <em style={{ fontFamily: "var(--font-fraunces)", fontStyle: "normal", fontWeight: 500 }}>편지</em>
       </h2>
 
       {/* Slide area */}
       <div className="relative min-h-[160px] sm:min-h-[360px] max-w-[880px] mx-auto py-1 md:py-[60px] flex flex-col justify-center items-center gap-1 md:gap-8">
         <div
-          style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(44px, 9vw, 132px)", color: "var(--tone-magazine-ink-faint)", lineHeight: 0.5, fontWeight: 400, userSelect: "none" }}
+          style={{ fontFamily: "var(--font-fraunces)", fontSize: "clamp(44px, 9vw, 132px)", color: "var(--tone-magazine-ink-faint)", lineHeight: 0.5, fontWeight: 400, userSelect: "none" }}
         >
           &ldquo;
         </div>
@@ -98,7 +98,7 @@ export function MagazineVoices() {
           key={active}
           className="mx-auto max-w-[720px] animate-fade-in"
           style={{
-            fontFamily: "var(--font-cormorant)",
+            fontFamily: "var(--font-fraunces)",
             fontSize: "clamp(18px,2.8vw,38px)",
             lineHeight: 1.45,
             letterSpacing: "-0.01em",
@@ -106,7 +106,7 @@ export function MagazineVoices() {
           }}
         >
           {t.pre}
-          <em style={{ fontStyle: "italic", fontWeight: 500 }}>{t.em}</em>
+          <em style={{ fontStyle: "normal", fontWeight: 500 }}>{t.em}</em>
           {t.post}
         </blockquote>
 
