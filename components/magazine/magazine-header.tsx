@@ -49,11 +49,11 @@ export function MagazineHeader() {
         backdropFilter: isScrolled ? "blur(12px)" : "none",
       }}
     >
-      <div className="mx-auto grid h-14 md:h-16 w-full max-w-[1400px] items-center px-4 md:px-6 lg:px-12 grid-cols-[auto_1fr_auto] gap-3 md:gap-4">
+      <div className="mx-auto grid h-14 md:h-16 w-full max-w-[1400px] items-center px-4 md:px-6 lg:px-12 grid-cols-[1fr_auto_1fr] gap-3 md:gap-4">
         {/* Logo — square mark */}
         <Link
           href={base}
-          className="flex shrink-0 items-center py-1 transition-opacity hover:opacity-80"
+          className="flex shrink-0 items-center py-1 justify-self-start transition-opacity hover:opacity-80"
           aria-label="AIO에이전시 홈"
         >
           <BrandLogo variant="header" />
@@ -105,20 +105,18 @@ export function MagazineHeader() {
           </button>
           <Link
             href={`${base}/quote`}
-            className="inline-flex items-center px-5 transition-all hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 transition-colors"
             style={{
-              height: 36,
-              background: "var(--tone-magazine-red)",
-              color: "var(--tone-magazine-paper)",
+              padding: "6px 4px",
+              color: "var(--tone-magazine-ink)",
               fontFamily: "var(--font-pretendard)",
-              fontSize: 13,
-              fontWeight: 500,
-              letterSpacing: "-0.01em",
-              border: "1px solid var(--tone-magazine-red)",
-              borderRadius: 2,
+              fontSize: "clamp(14px, 1.15vw, 15.5px)",
+              fontWeight: 600,
+              letterSpacing: "-0.005em",
             }}
           >
-            {t("contact")}
+            <span>{t("contact")}</span>
+            <span style={{ fontFamily: "var(--font-jetbrains)", fontSize: 14, color: "var(--tone-magazine-red)" }}>→</span>
           </Link>
         </div>
 
