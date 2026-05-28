@@ -108,7 +108,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Automation & Programs</span>
         <h1>반복은 코드에,<br /><em>시간</em>은 당신에게</h1>
-        <p className="lead">엑셀·데이터·크롤링·매크로 — 매일 반복되는 작업을 코드로. 데스크탑 프로그램·텔레그램 봇·시트 자동화까지</p>
+        <p className="lead">엑셀·데이터·크롤링·매크로 — 매일 반복되는 작업을 코드로 · 데스크탑 프로그램·텔레그램 봇·시트 자동화까지</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/automation-app/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 
@@ -144,7 +144,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
         <div className="vals reveal d1">
           <div className="v"><div className="vn">01</div><div className="vt">매일 공유</div><div className="vd">진행을 매일 알려드립니다</div></div>
           <div className="v"><div className="vn">02</div><div className="vt">실행 가능</div><div className="vd">설치·실행 안내까지 끝내드립니다</div></div>
-          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 3~14일, 다음 날 착수</div></div>
+          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 3~14일 — 다음 날 착수</div></div>
           <div className="v"><div className="vn">04</div><div className="vt">책임 A/S</div><div className="vd">납품 후 한 달 무상 유지보수</div></div>
         </div>
       </section>

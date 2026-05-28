@@ -16,7 +16,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">Development · 서비스 소개</span>
         <h1>필요한 것을<br /><em>코드</em>로 만듭니다</h1>
-        <p className="lead">웹사이트·쇼핑몰·자동화까지 — 비즈니스에 필요한 것을 코드로 빠르게. 보여주기용이 아니라 바로 운영 가능한 결과물로</p>
+        <p className="lead">웹사이트·쇼핑몰·자동화까지 — 비즈니스에 필요한 것을 코드로 빠르게 · 보여주기용이 아니라 바로 운영 가능한 결과물로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/website`}>웹사이트부터 보기</a></div>
       </div></header>
 
@@ -36,7 +36,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
         <div className="ways reveal d1">
           <div className="way"><div className="wt">투명한 진행</div><div className="wd">작업 상황을 매일 공유합니다</div></div>
           <div className="way"><div className="wt">운영 가능한 납품</div><div className="wd">시안이 아닌 완성품으로 드립니다</div></div>
-          <div className="way"><div className="wt">빠른 속도</div><div className="wd">의뢰 후 1–5일, 다음 날 착수</div></div>
+          <div className="way"><div className="wt">빠른 속도</div><div className="wd">의뢰 후 1~5일 — 다음 날 착수</div></div>
           <div className="way"><div className="wt">책임 A/S</div><div className="wd">납품 후 한 달 무상 유지보수</div></div>
         </div>
       </section>

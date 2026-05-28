@@ -154,7 +154,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Website</span>
         <h1><span className="l1">첫 3초가,</span><span className="l2"><em>전부</em>입니다</span></h1>
-        <p className="lead">방문자는 3초 안에 남을지 떠날지를 결정합니다<br />회사 홈페이지부터 전환형 랜딩까지,<br />첫 화면에서 끝까지 시선을 붙잡는 한 페이지를 만듭니다</p>
+        <p className="lead">방문자는 3초 안에 남을지 떠날지를 결정합니다 — 회사 홈페이지·전환형 랜딩까지, 시선을 끝까지 붙잡는 한 페이지를</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href="#work">작업 보기</a></div>
         <div className="marq"><div className="row"><span>회사 홈페이지</span><span>서비스 랜딩</span><span>마케팅 랜딩</span><span>이벤트 페이지</span><span>반응형</span><span>검색 최적화</span><span>회사 홈페이지</span><span>서비스 랜딩</span><span>마케팅 랜딩</span><span>이벤트 페이지</span><span>반응형</span><span>검색 최적화</span></div></div>
       </div></header>
@@ -182,8 +182,8 @@ export function WebsiteLanding({ locale }: { locale: string }) {
 
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Pricing</span><h2>투명한 <em>가격</em></h2>
-          <p>페이지 수에 따라 명확하게 책정합니다<br />지금은 한정가로 진행 중입니다</p>
-          <div className="promo">2026년 6월까지 한정가 · 이후 정상가 적용</div></div>
+          <p>페이지 수에 따라 명확하게 책정합니다 — 지금은 한정가로 진행 중입니다</p>
+          <div className="promo">2026년 6월까지 한정가 · 이후 정상가 3배</div></div>
         <div className="price">
           <div className="pc reveal d1"><div className="pl">랜딩페이지 · 1P</div><div className="pv"><em>4.9</em><span className="u"> 만원</span></div><div className="po">정상가 14.7만원</div></div>
           <div className="pc reveal d2"><div className="pl">5페이지 이내</div><div className="pv"><em>9.9</em><span className="u"> 만원</span></div><div className="po">정상가 29.7만원</div></div>
@@ -233,7 +233,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="ctaS"><div className="wrap reveal">
-        <h2>스크롤을 멈추게 하는<br /><em>홈페이지</em>, 만들까요?</h2>
+        <h2>스크롤을 멈추는<br /><em>홈페이지</em>를 만들까요?</h2>
         <p>지금 문의하면 24시간 안에 견적 · 5일 안에 첫 화면</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>

@@ -127,7 +127,7 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
       <header className="head"><div className="wrap">
         <a className="back" href={`${base}/services/website`}>← 웹사이트 소개로</a>
         <span className="kick">Portfolio</span>
-        <h1>웹사이트 <em>포트폴리오</em></h1>
+        <h1>실제 운영 중인<br /><em>웹사이트</em>들</h1>
         <p className="sub">회사 홈페이지부터 서비스·마케팅 랜딩, 쇼핑몰까지 실제 작업물을 분야별로 모았습니다</p>
         <div className="count">총 <b>{shown.length}</b>개 프로젝트</div>
       </div></header>

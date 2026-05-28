@@ -23,7 +23,7 @@ export function DesignTeam({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">Design · 팀원 소개</span>
         <h1>디자인을 만드는<br /><em>사람들</em></h1>
-        <p className="lead">상세페이지·PPT·로고까지, 분야별 전문가가 한 프로젝트를 끝까지 함께합니다</p>
+        <p className="lead">상세페이지·PPT·로고까지 — 분야별 전문가가 한 프로젝트를 끝까지 함께합니다</p>
       </div></header>
 
       <section className="sec wrap">

@@ -81,7 +81,7 @@ export function AutomationPortfolio({ locale }: { locale: string }) {
         <div className="wrap">
           <span className="kick">Automation · Portfolio</span>
           <h1>실제 돌아가는<br /><em>자동화</em>들</h1>
-          <p>매일 누군가의 시간을 9분, 6시간, 4시간씩 돌려준 코드들</p>
+          <p>매일 누군가의 시간을 9분·6시간·4시간씩 돌려준 코드들</p>
           <div className="count">총 <b>{shown.length}</b>개 시스템</div>
         </div>
       </header>

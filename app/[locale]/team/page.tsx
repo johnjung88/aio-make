@@ -91,7 +91,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
           AIO를 만드는<br /><span style={EM_CORM}>사람들</span>
         </h1>
         <p className="mx-auto mb-20" style={{ ...LEAD, maxWidth: 640 }}>
-          분야별 전문가가 의뢰의 시작부터 운영까지 함께합니다. 의사결정부터 제작·검수·운영까지, 책임의 위치를 먼저 정합니다
+          분야별 전문가가 의뢰의 시작부터 운영까지 함께합니다 — 의사결정부터 제작·검수·운영까지, 책임의 위치를 먼저
         </p>
 
         {/* Leadership */}

@@ -175,7 +175,7 @@ export function MarketingHub({ locale }: { locale: string }) {
         <div className="wrap">
           <span className="kick">Marketing · 서비스 소개</span>
           <h1 style={{ marginTop: 22 }}>유입은<br /><em>꾸준함</em>입니다</h1>
-          <p className="lead">블로그·SNS·영상채널. 매일 보이는 것이 한 달 뒤의 매출이 됩니다 — 측정되고, 검증되는 운영으로</p>
+          <p className="lead">블로그·SNS·영상채널 — 매일 보이는 것이 한 달 뒤의 매출이 됩니다 · 측정되고 검증되는 운영으로</p>
           <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
 
           <div className="panel reveal d1" style={{ marginTop: 48 }}>
@@ -197,21 +197,21 @@ export function MarketingHub({ locale }: { locale: string }) {
           <div className="chc reveal d1">
             <div className="top"><span className="tag">01 · BLOG</span><span className="live"><span className="d" /> Live</span></div>
             <h3>블로그 <em>운영대행</em></h3>
-            <p className="d">네이버·티스토리 — 월 8~12편. SEO 키워드 → 글 → 발행 → 추적까지</p>
+            <p className="d">네이버·티스토리 — 월 8~12편 · SEO 키워드 → 글 → 발행 → 추적까지</p>
             <div className="stat"><span className="s">월 발행 <b>10</b></span><span className="s">평균 노출 <b>+38%</b></span></div>
             <div className="chart">{spark([22, 28, 32, 36, 42, 38, 46, 52, 58, 62, 68, 74])}</div>
           </div>
           <div className="chc reveal d2">
             <div className="top"><span className="tag">02 · SNS</span><span className="live"><span className="d" /> Live</span></div>
             <h3>SNS <em>운영대행</em></h3>
-            <p className="d">인스타·릴스·틱톡 — 월 20~30컷. 컨셉 → 촬영·편집 → 발행 → 반응 분석</p>
+            <p className="d">인스타·릴스·틱톡 — 월 20~30컷 · 컨셉 → 촬영·편집 → 발행 → 반응 분석</p>
             <div className="stat"><span className="s">월 컷 <b>25</b></span><span className="s">평균 리치 <b>+62%</b></span></div>
             <div className="chart">{spark([18, 22, 30, 38, 42, 50, 48, 56, 64, 70, 76, 82])}</div>
           </div>
           <div className="chc reveal d3">
             <div className="top"><span className="tag">03 · VIDEO CH.</span><span className="live"><span className="d" /> Live</span></div>
             <h3>영상채널 <em>운영대행</em></h3>
-            <p className="d">유튜브·숏폼 — 월 4~8편. 기획 → 촬영 → 편집·자막 → 썸네일 → 분석</p>
+            <p className="d">유튜브·숏폼 — 월 4~8편 · 기획 → 촬영 → 편집·자막 → 썸네일 → 분석</p>
             <div className="stat"><span className="s">월 편 <b>6</b></span><span className="s">평균 시청 <b>+74%</b></span></div>
             <div className="chart">{spark([14, 18, 24, 30, 34, 40, 48, 54, 62, 70, 78, 88])}</div>
           </div>

@@ -23,7 +23,7 @@ export function VideoTeam({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">Video · 팀원 소개</span>
         <h1>영상을 만드는<br /><em>사람들</em></h1>
-        <p className="lead">연출·편집·컬러·믹스까지, 영상 한 편을 처음부터 끝까지 함께합니다</p>
+        <p className="lead">연출·편집·컬러·믹스까지 — 영상 한 편을 처음부터 끝까지 함께합니다</p>
       </div></header>
 
       <section className="sec wrap">

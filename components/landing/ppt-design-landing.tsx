@@ -90,7 +90,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · PPT Design</span>
         <h1>읽지 않고도<br />전달되는 <em>슬라이드</em></h1>
-        <p className="lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게. 글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
+        <p className="lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게 · 글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/ppt-design/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 
@@ -105,7 +105,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>장수별</em></h2><p>표시 가격은 26년 6월까지 한정. 정상가는 표시가의 3배</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>장수별</em></h2><p>표시 가격은 26년 6월까지 한정 · 정상가는 표시가의 3배</p></div>
         <div className="price">
           <div className="prow reveal d1"><div className="pname">표준 · 10페이지 이내</div><div className="pnum">4.9<span className="unit">만원</span></div><div className="reg">정상가 14.7만원</div><div className="pdesc">제안·발표용 / 표지·목차·본문·CTA</div></div>
           <div className="prow reveal d2"><div className="pname">풀 · 30페이지 이내</div><div className="pnum">9.9<span className="unit">만원</span></div><div className="reg">정상가 29.7만원</div><div className="pdesc">IR·사업계획서 / 그래프·KPI·로드맵·재무</div></div>
@@ -117,7 +117,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
         <div className="vals reveal d1">
           <div className="v"><div className="vn">01</div><div className="vt">한 장 한 메시지</div><div className="vd">슬라이드 1장 = 메시지 1개</div></div>
           <div className="v"><div className="vn">02</div><div className="vt">원본 PPTX</div><div className="vd">PowerPoint 원본 제공</div></div>
-          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~5일, 다음 날 착수</div></div>
+          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~5일 — 다음 날 착수</div></div>
           <div className="v"><div className="vn">04</div><div className="vt">2차 수정 무료</div><div className="vd">시안·중간·최종 무제한</div></div>
         </div>
       </section>

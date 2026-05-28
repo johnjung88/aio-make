@@ -25,7 +25,7 @@ export function DevelopmentTeam({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">Development · 팀원소개</span>
         <h1>개발을 만드는<br /><em>사람들</em></h1>
-        <p className="lead">기획부터 카피·디자인·개발·검수까지, 분야별 담당자가 프로젝트 하나를 처음부터 끝까지 함께합니다</p>
+        <p className="lead">기획부터 카피·디자인·개발·검수까지 — 분야별 담당자가 한 프로젝트를 처음부터 끝까지 함께합니다</p>
       </div></header>
 
       <section className="sec wrap">

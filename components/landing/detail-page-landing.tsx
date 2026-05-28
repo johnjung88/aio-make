@@ -118,7 +118,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>길이별</em></h2><p>표시 가격은 26년 6월까지 한정. 정상가는 표시가의 3배</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>길이별</em></h2><p>표시 가격은 26년 6월까지 한정 · 정상가는 표시가의 3배</p></div>
         <div className="price">
           <div className="prow reveal d1"><div className="pname">기본 · 5,000PX</div><div className="pnum">4.9<span className="unit">만원</span></div><div className="reg">정상가 14.7만원</div><div className="pdesc">제품 소개 + 핵심 USP + CTA</div></div>
           <div className="prow reveal d2"><div className="pname">표준 · 10,000PX</div><div className="pnum">6.9<span className="unit">만원</span></div><div className="reg">정상가 20.7만원</div><div className="pdesc">스토리텔링 + 증거 + 비교 + CTA</div></div>
@@ -132,7 +132,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
         <div className="vals reveal d1">
           <div className="v"><div className="vn">01</div><div className="vt">매일 공유</div><div className="vd">진행을 매일 알려드립니다</div></div>
           <div className="v"><div className="vn">02</div><div className="vt">원본 PSD</div><div className="vd">PSD 원본 무료 제공</div></div>
-          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~5일, 다음 날 착수</div></div>
+          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~5일 — 다음 날 착수</div></div>
           <div className="v"><div className="vn">04</div><div className="vt">2차 수정 무료</div><div className="vd">시안·중간·최종 무제한</div></div>
         </div>
       </section>

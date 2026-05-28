@@ -122,7 +122,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       <header className="hero"><div className="wrap">
         <span className="kick">AIO · Shopping Mall</span>
         <h1>팔리는 <em>스토어</em>,<br />하루 만에</h1>
-        <p className="lead">카페24·독립몰 — 디자인·상품 등록·결제 연동까지 한 번에. 보여주기용 데모가 아니라 바로 매출 받을 수 있는 상태로</p>
+        <p className="lead">카페24·독립몰 — 디자인·상품 등록·결제 연동까지 한 번에 · 보여주기용 데모가 아니라 바로 매출 받을 수 있는 상태로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/shopping-mall/portfolio`}>포트폴리오 보기</a></div>
       </div></header>
 
@@ -132,7 +132,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Two ways</span><h2>두 가지 <em>제작 방식</em></h2><p>예산과 일정에 맞춰, 풀 커스텀이나 빠른 복사 셋업으로</p></div>
+        <div className="shead reveal"><span className="kick">Two ways</span><h2>두 가지 <em>제작 방식</em></h2><p>예산과 일정에 맞춰 — 풀 커스텀이나 빠른 복사 셋업으로</p></div>
         <div className="types">
           <div className="tcard reveal d1">
             <div className="tnum">01 · 단순 복사 셋업</div>
@@ -152,7 +152,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>한정가</em>입니다</h2><p>표시 가격은 26년 6월까지 한정. 정상가는 표시가의 3배</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>한정가</em>입니다</h2><p>표시 가격은 26년 6월까지 한정 · 정상가는 표시가의 3배</p></div>
         <div className="price">
           <div className="prow lim reveal d1"><div className="pname">단순 복사 셋업</div><div className="pnum">9.9<span className="unit">만원</span></div><div className="reg">정상가 29.7만원</div><div className="pdesc">카페24 · 상품 10 · 결제·배송 셋업</div></div>
           <div className="prow lim reveal d2"><div className="pname">풀 세팅 (디자인+개발)</div><div className="pnum">19.9<span className="unit">만원</span></div><div className="reg">정상가 59.7만원</div><div className="pdesc">디자인 전체 + 상품 30 + 이벤트·쿠폰</div></div>
@@ -164,13 +164,13 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
         <div className="vals reveal d1">
           <div className="v"><div className="vn">01</div><div className="vt">매일 공유</div><div className="vd">진행 상황을 매일 알려드립니다</div></div>
           <div className="v"><div className="vn">02</div><div className="vt">바로 오픈</div><div className="vd">결제까지 받을 수 있는 상태로</div></div>
-          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~10일, 다음 날 착수</div></div>
+          <div className="v"><div className="vn">03</div><div className="vt">빠른 속도</div><div className="vd">의뢰 후 2~10일 — 다음 날 착수</div></div>
           <div className="v"><div className="vn">04</div><div className="vt">책임 A/S</div><div className="vd">납품 후 한 달 무상 유지보수</div></div>
         </div>
       </section>
 
       <section className="ctaS"><div className="wrap reveal">
-        <h2>오픈할 <em>스토어</em>,<br />있나요?</h2>
+        <h2>오픈할<br /><em>스토어</em>가 있나요?</h2>
         <p>지금 문의하면 24시간 안에 견적 · 빠르면 다음 날 오픈</p>
         <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
       </div></section>
