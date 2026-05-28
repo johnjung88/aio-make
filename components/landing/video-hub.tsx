@@ -86,11 +86,11 @@ const CSS = `
 
 /* Scenes — 4 short-form platforms (Instagram Reels / TikTok / Facebook Reels / YouTube Shorts) — 같은 레이아웃, chrome만 다름 */
 .aiovh .scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
-.aiovh .scene{position:relative;display:flex;flex-direction:column;border:1px solid var(--line2);overflow:hidden;background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s;min-height:560px}
+.aiovh .scene{position:relative;display:flex;flex-direction:column;border:1px solid var(--line2);overflow:hidden;background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s}
 .aiovh .scene:hover{border-color:var(--amber);transform:translateY(-4px)}
 
 /* Common short-form vertical mock */
-.aiovh .scene .mock{flex:1;position:relative;overflow:hidden;background:#000;aspect-ratio:9/16;min-height:360px}
+.aiovh .scene .mock{flex:0 0 auto;position:relative;overflow:hidden;background:#000;aspect-ratio:9/16;width:100%}
 .aiovh .scene .mock .bg{position:absolute;inset:0}
 .aiovh .scene .mock .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 30%,transparent 60%,rgba(0,0,0,.85) 100%)}
 
@@ -115,11 +115,11 @@ const CSS = `
 .aiovh .scene .cap .mu{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.15);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 
 /* Bottom AIO footer (검정 라벨 영역) */
-.aiovh .scene .sfoot{padding:14px 16px 18px;background:#000;border-top:1px solid var(--line2)}
+.aiovh .scene .sfoot{padding:14px 16px 18px;background:#000;border-top:1px solid var(--line2);min-height:108px;display:flex;flex-direction:column;justify-content:flex-start}
 .aiovh .scene .sfoot .tc{font-family:var(--mono);font-size:9.5px;color:var(--amber);letter-spacing:.2em;margin-bottom:6px;text-transform:uppercase}
 .aiovh .scene .sfoot h3{font-family:var(--frau);font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.15;margin-bottom:4px;color:var(--fg);letter-spacing:-.005em}
 .aiovh .scene .sfoot h3 em{font-family:var(--corm);font-style:italic;color:var(--amber)}
-.aiovh .scene .sfoot p{font-size:11.5px;color:var(--fg2);line-height:1.55;margin:0}
+.aiovh .scene .sfoot p{font-size:11.5px;color:var(--fg2);line-height:1.55;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(11.5px * 1.55 * 2)}
 
 /* === Platform A: INSTAGRAM REELS — 핑크/오렌지/퍼플 그라데이션 === */
 .aiovh .scene.a .mock .bg{background:linear-gradient(160deg,#f09433 0%,#dc2743 35%,#bc1888 70%,#0a0a0a 100%)}
@@ -144,7 +144,7 @@ const CSS = `
 .aiovh .scene.d .stack .av{background:linear-gradient(135deg,#ff0000,#cc0000)}
 .aiovh .scene.d .stack .av::after{display:none}
 
-@media(max-width:880px){.aiovh .scenes{grid-template-columns:repeat(2,1fr)}.aiovh .scene{min-height:520px}}
+@media(max-width:880px){.aiovh .scenes{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.aiovh .scenes{grid-template-columns:1fr}}
 
 /* Pricing — minimal cinematic */
@@ -246,7 +246,7 @@ export function VideoHub({ locale }: { locale: string }) {
               <div className="sfoot">
                 <div className="tc">Platform 01 · Instagram Reels</div>
                 <h3>인스타 <em>릴스</em></h3>
-                <p>브랜드·라이프스타일·후킹 컷 — 알고리즘이 좋아하는 흐름</p>
+                <p>브랜드·라이프스타일·후킹 컷 — 알고리즘이 좋아하는 흐름으로</p>
               </div>
             </div>
 
@@ -271,7 +271,7 @@ export function VideoHub({ locale }: { locale: string }) {
               <div className="sfoot">
                 <div className="tc">Platform 02 · TikTok</div>
                 <h3><em>틱톡</em> 콘텐츠</h3>
-                <p>트렌드를 타는 후킹 컷 — 첫 1초가 결정합니다</p>
+                <p>트렌드를 타는 후킹 컷 — 첫 1초에 멈추게, 끝까지 보게</p>
               </div>
             </div>
 
@@ -296,7 +296,7 @@ export function VideoHub({ locale }: { locale: string }) {
               <div className="sfoot">
                 <div className="tc">Platform 03 · Facebook</div>
                 <h3>페이스북 <em>릴스</em></h3>
-                <p>광고·전환 영상 — Sponsored 노출에 최적화된 호흡</p>
+                <p>광고·전환 영상 — Sponsored 노출에 최적화된 호흡과 컷</p>
               </div>
             </div>
 
@@ -321,7 +321,7 @@ export function VideoHub({ locale }: { locale: string }) {
               <div className="sfoot">
                 <div className="tc">Platform 04 · YouTube Shorts</div>
                 <h3>유튜브 <em>숏츠</em></h3>
-                <p>채널 운영용 숏폼 — 구독·체류 시간 모두 잡는 컷</p>
+                <p>채널 운영용 숏폼 — 구독·체류 시간 모두 끌어올리는 컷</p>
               </div>
             </div>
 
