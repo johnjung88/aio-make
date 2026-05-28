@@ -53,8 +53,9 @@ export const DP_CSS = `
 .aiodp .doc .dn{font-family:var(--frau);font-size:clamp(22px,2.6vw,28px);font-weight:500;margin-bottom:8px}
 .aiodp .doc .dd{color:var(--fg2);font-size:var(--fs-body);line-height:1.75}
 .aiodp .doc .soon{font-family:var(--mono);font-size:10.5px;color:var(--fg3);letter-spacing:.14em;border:1px solid var(--line2);border-radius:999px;padding:3px 10px;display:inline-block;margin-top:12px}
-.aiodp .ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
-.aiodp .way{padding:clamp(24px,3vw,32px) 18px;border-top:1px solid var(--line);text-align:center}
+.aiodp .ways{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line2);border-radius:14px;overflow:hidden;max-width:920px;margin:0 auto;background:var(--bg2)}
+.aiodp .way{padding:clamp(28px,3vw,38px) 18px;border-right:1px solid var(--line2);text-align:center}
+.aiodp .way:last-child{border-right:none}
 .aiodp .way .wt{font-family:var(--frau);font-size:19px;font-weight:500;margin-bottom:8px;color:var(--gold)}
 .aiodp .way .wd{color:var(--fg2);font-size:13px;line-height:1.7;max-width:24ch;margin:0 auto}
 .aiodp .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -77,7 +78,7 @@ export const DP_CSS = `
 .aiodp .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:32px}
 .aiodp .foot{border-top:1px solid var(--line2);padding:40px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
-@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr 1fr}}
 `;
 
 export function useDarkPremium(ref: RefObject<HTMLDivElement | null>) {
