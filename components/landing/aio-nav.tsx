@@ -112,7 +112,7 @@ export function AioNav({ locale, level, cat = "development", sub, active }: AioN
           {/* 포트폴리오 — leaf 일 때만, 현재 소 서비스의 포폴 */}
           {level === "leaf" && (
             <div className={"item" + (active === "portfolio" ? " on" : "")}>
-              <a href={`${base}/services/${sub || cat}/portfolio`}>포트폴리오</a>
+              <a href={`${base}/portfolio/category/${sub || cat}`}>포트폴리오</a>
             </div>
           )}
 
