@@ -44,7 +44,7 @@ const NAV_CSS = `
 @media(max-width:820px){
   .aionav .in{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px;row-gap:2px;gap:4px}
   .aionav .sp{flex-basis:100%;height:0;order:1}
-  .aionav .b{order:0}.aionav .cta{order:0;margin-left:auto}
+  .aionav .b{order:0}.aionav .cta{display:none}
   .aionav .navitems{order:2;flex-basis:100%;display:flex;justify-content:center;gap:2px;overflow-x:auto;scrollbar-width:none}
   .aionav .navitems::-webkit-scrollbar{display:none}
   .aionav .dd{position:static;opacity:1;visibility:visible;transform:none;display:none;min-width:0;box-shadow:none;background:transparent;border:0;padding:0}

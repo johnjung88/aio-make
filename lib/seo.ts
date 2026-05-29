@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com").replace(/\/+$/, "");
 
-export const SUPPORTED_LOCALES = ["ko", "en"] as const;
+export const SUPPORTED_LOCALES = ["ko"] as const;
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export function isSupportedLocale(locale: string): locale is SupportedLocale {
@@ -24,7 +24,6 @@ export function localizedAlternates(locale: string, path = ""): NonNullable<Meta
     canonical,
     languages: {
       ko: localeUrl("ko", path),
-      en: localeUrl("en", path),
       "x-default": localeUrl("ko", path),
     },
   };
@@ -51,7 +50,7 @@ export function localizedPageMetadata({
       description,
       url: canonical,
       type: "website",
-      locale: locale === "en" ? "en_US" : "ko_KR",
+      locale: "ko_KR",
       siteName: "AIO에이전시",
     },
     twitter: {

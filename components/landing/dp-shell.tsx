@@ -79,7 +79,32 @@ export const DP_CSS = `
 .aiodp .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:32px}
 .aiodp .foot{border-top:1px solid var(--line2);padding:40px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
 @media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr 1fr}}
+.aiodp .org{max-width:660px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+.aiodp .org .lvl{width:100%;border:1px solid var(--line2);border-radius:12px;background:var(--bg2);padding:18px 24px;text-align:center;transition:border-color .3s,transform .3s}
+.aiodp .org .lvl:hover{border-color:var(--gold);transform:translateY(-3px)}
+.aiodp .org .lvl.lead2{border-color:var(--gold);background:linear-gradient(180deg,rgba(200,162,74,.08),var(--bg2))}
+.aiodp .org .lvl .lr{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.aiodp .org .lvl .lb{display:block;font-family:var(--frau);font-size:clamp(19px,2.2vw,25px);font-weight:600;color:var(--fg);line-height:1.12}
+.aiodp .org .lvl .ld{display:block;margin-top:7px;font-size:13px;color:var(--fg2);line-height:1.6}
+.aiodp .org .orgline{width:2px;height:24px;background:linear-gradient(var(--gold),rgba(200,162,74,.15))}
 `;
+
+export function OrgStructure({ svc }: { svc: string }) {
+  return (
+    <section className="sec wrap">
+      <div className="shead reveal"><span className="kick">Structure · 책임 구조</span><h2>한 프로젝트, <em>분명한 책임선</em></h2><p>의장의 최종 결정 아래, 총괄 PM이 일정·품질을 관리하고 {svc} PM이 실무팀을 이끕니다</p></div>
+      <div className="org reveal d1">
+        <div className="lvl"><span className="lr">Chair · 의장</span><span className="lb">최종 결정</span><span className="ld">고객 관계 · 가격 · 납기 · 결재</span></div>
+        <span className="orgline" />
+        <div className="lvl lead2"><span className="lr">Lead · 총괄 PM</span><span className="lb">대표 · 총괄 PM</span><span className="ld">우선순위 · 진행 관리 · 품질·리스크 · 보고</span></div>
+        <span className="orgline" />
+        <div className="lvl"><span className="lr">PM · 서비스</span><span className="lb">{svc} PM</span><span className="ld">이 서비스 납품 책임 · 일정·범위 조율</span></div>
+        <span className="orgline" />
+        <div className="lvl"><span className="lr">Team · 실무</span><span className="lb">실무팀</span><span className="ld">기획 · 카피 · 디자인 · 개발 · 검수·운영</span></div>
+      </div>
+    </section>
+  );
+}
 
 export function useDarkPremium(ref: RefObject<HTMLDivElement | null>) {
   useEffect(() => {

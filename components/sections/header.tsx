@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { NavDropdown, MobileNavAccordion } from "@/components/ui/nav-dropdown";
-import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { BrandLogo } from "@/components/ui/brand-logo";
 
 export function Header() {
@@ -111,7 +110,7 @@ export function Header() {
 
         {/* 우측 액션 */}
         <div className="hidden items-center gap-3 md:flex">
-          <LanguageSwitcher />
+          
           <Link
             href={`${base}/quote`}
             className="inline-flex h-9 items-center rounded-full bg-primary px-5 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-80"
@@ -160,7 +159,7 @@ export function Header() {
               </Link>
             ))}
             <div className="mt-4 flex items-center gap-3">
-              <LanguageSwitcher />
+              
               <Link
                 href={`${base}/quote`}
                 className="flex-1 inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"

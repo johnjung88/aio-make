@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
-const LOCALES = ["ko", "en"];
+const LOCALES = ["ko"];
 const CORE_PATHS = ["", "/about", "/quote", "/services", "/portfolio"];
 const SERVICE_GROUP_SLUGS = ["development", "design", "business"];
 const CATEGORY_SLUGS = [

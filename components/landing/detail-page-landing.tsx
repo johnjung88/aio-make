@@ -15,11 +15,23 @@ const CSS = `
 .aiodp2 .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aiodp2 .reveal.in{opacity:1;transform:none}
 .aiodp2 .reveal.d1{transition-delay:.1s}.aiodp2 .reveal.d2{transition-delay:.2s}
 .aiodp2 .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--rose),var(--gold))}
-.aiodp2 .hero{position:relative;padding:clamp(74px,12vw,156px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aiodp2 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 16%,rgba(215,138,138,.10),transparent 70%)}
-.aiodp2 .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
+.aiodp2 .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:clamp(108px,14vw,176px) 0 clamp(52px,7vw,82px);overflow:hidden}
+.aiodp2 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 68% at 22% 32%,rgba(215,138,138,.12),transparent 66%);pointer-events:none}
+.aiodp2 .hero .wrap{position:relative;width:100%;text-align:left}
+.aiodp2 .hero .ghost{position:absolute;right:1vw;top:50%;transform:translateY(-50%);z-index:0;font-family:var(--mono);font-weight:600;font-size:clamp(180px,26vw,400px);line-height:.74;color:transparent;-webkit-text-stroke:5px rgba(215,138,138,.32);pointer-events:none;user-select:none}
+.aiodp2 .hero .inner{position:relative;z-index:1;max-width:min(100%,940px)}
+.aiodp2 .hero .kick{display:inline-flex;align-items:center;gap:14px;margin-bottom:clamp(24px,3vw,34px)}
+.aiodp2 .hero .kick::before{content:"";width:clamp(28px,4vw,56px);height:1px;background:#D78A8A}
+.aiodp2 .hero h1{font-family:var(--frau);font-weight:400;font-size:clamp(50px,11vw,150px);line-height:.92;letter-spacing:-.025em;margin-bottom:clamp(34px,4.4vw,52px)}
+.aiodp2 .hero h1 .l{display:block;overflow:hidden;padding-bottom:.05em}
+.aiodp2 .hero h1 .l>span{display:block;transform:translateY(112%);animation:kin-aiodp2 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.aiodp2 .hero h1 .l2>span{animation-delay:.18s}
 .aiodp2 .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aiodp2 .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px)}
+.aiodp2 .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 clamp(32px,4vw,44px)}
+.aiodp2 .hero .acts{justify-content:flex-start}
+@keyframes kin-aiodp2{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.aiodp2 .hero h1 .l>span{animation:none;transform:none}}
+@media(max-width:600px){.aiodp2 .hero{min-height:auto;align-items:flex-start;padding:clamp(42px,11vw,70px) 0 clamp(44px,9vw,60px)}.aiodp2 .hero .inner{max-width:100%}.aiodp2 .hero h1{font-size:clamp(46px,14.5vw,82px)}.aiodp2 .hero .ghost{font-size:clamp(150px,48vw,250px);right:0;top:auto;bottom:-1vh;transform:none;-webkit-text-stroke-width:3px;opacity:.5}}
 .aiodp2 .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aiodp2 .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aiodp2 .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
@@ -106,10 +118,13 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="design" sub="detail-page" active="service" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">AIO · Detail Page</span>
-        <h1>스크롤을 멈추고<br /><em>구매</em>까지 닿게</h1>
+        <span className="ghost" aria-hidden="true">↓</span>
+        <div className="inner">
+        <span className="kick">AIO · Detail Page — N° 04</span>
+        <h1><span className="l l1"><span>스크롤을 멈추고</span></span><span className="l l2"><span><em>구매</em>까지 닿게</span></span></h1>
         <p className="lead">5,000PX 단순 소개부터 20,000PX 풀 스토리텔링까지 — 시선·정보·증거·CTA를 하나의 흐름으로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page/portfolio`}>포트폴리오 보기</a></div>
+        </div>
       </div></header>
 
       <section className="sec wrap">

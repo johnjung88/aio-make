@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { DP_CSS, useDarkPremium } from "./dp-shell";
+import { DP_CSS, useDarkPremium, OrgStructure } from "./dp-shell";
 import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; one: string; tags: string[] };
@@ -26,7 +26,10 @@ export function VideoTeam({ locale }: { locale: string }) {
         <p className="lead">연출·편집·컬러·믹스까지 — 영상 한 편을 처음부터 끝까지 함께합니다</p>
       </div></header>
 
+      <OrgStructure svc="영상" />
+
       <section className="sec wrap">
+        <div className="shead reveal"><span className="kick">Team · 실무팀</span><h2>이 서비스를 <em>만드는 사람들</em></h2></div>
         <div className="team">
           {TEAM.map((m, i) => (
             <div key={i} className={"mem reveal d" + ((i % 4) + 1)}>

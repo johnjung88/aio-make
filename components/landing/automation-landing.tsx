@@ -15,11 +15,23 @@ const CSS = `
 .aioam .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aioam .reveal.in{opacity:1;transform:none}
 .aioam .reveal.d1{transition-delay:.1s}.aioam .reveal.d2{transition-delay:.2s}.aioam .reveal.d3{transition-delay:.3s}
 .aioam .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--gold),var(--mint))}
-.aioam .hero{position:relative;padding:clamp(74px,12vw,156px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aioam .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 18%,rgba(139,224,194,.08),transparent 70%);pointer-events:none}
-.aioam .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
+.aioam .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:clamp(108px,14vw,176px) 0 clamp(52px,7vw,82px);overflow:hidden}
+.aioam .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 68% at 22% 32%,rgba(139,224,194,.10),transparent 66%);pointer-events:none}
+.aioam .hero .wrap{position:relative;width:100%;text-align:left}
+.aioam .hero .ghost{position:absolute;right:1vw;top:50%;transform:translateY(-50%);z-index:0;font-family:var(--mono);font-weight:600;font-size:clamp(220px,34vw,480px);line-height:.9;color:transparent;-webkit-text-stroke:5px rgba(139,224,194,.34);pointer-events:none;user-select:none;letter-spacing:-.02em}
+.aioam .hero .inner{position:relative;z-index:1;max-width:min(100%,940px)}
+.aioam .hero .kick{display:inline-flex;align-items:center;gap:14px;margin-bottom:clamp(24px,3vw,34px)}
+.aioam .hero .kick::before{content:"";width:clamp(28px,4vw,56px);height:1px;background:var(--mint)}
+.aioam .hero h1{font-family:var(--frau);font-weight:400;font-size:clamp(50px,11vw,150px);line-height:.92;letter-spacing:-.025em;margin-bottom:clamp(34px,4.4vw,52px)}
+.aioam .hero h1 .l{display:block;overflow:hidden;padding-bottom:.05em}
+.aioam .hero h1 .l>span{display:block;transform:translateY(112%);animation:kin-am 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.aioam .hero h1 .l2>span{animation-delay:.18s}
 .aioam .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aioam .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px)}
+.aioam .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 clamp(32px,4vw,44px)}
+.aioam .hero .acts{justify-content:flex-start}
+@keyframes kin-am{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.aioam .hero h1 .l>span{animation:none;transform:none}}
+@media(max-width:600px){.aioam .hero{min-height:auto;align-items:flex-start;padding:clamp(42px,11vw,70px) 0 clamp(44px,9vw,60px)}.aioam .hero .inner{max-width:100%}.aioam .hero h1{font-size:clamp(46px,14.5vw,82px)}.aioam .hero .ghost{font-size:clamp(170px,52vw,290px);right:0;top:auto;bottom:-1vh;transform:none;-webkit-text-stroke-width:3px;opacity:.55}}
 .aioam .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aioam .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aioam .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
@@ -106,10 +118,13 @@ export function AutomationLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="development" sub="automation-app" active="service" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">AIO · Automation & Programs</span>
-        <h1>반복은 코드에,<br /><em>시간</em>은 당신에게</h1>
+        <span className="ghost" aria-hidden="true">{"{ }"}</span>
+        <div className="inner">
+        <span className="kick">AIO · Automation — N° 03</span>
+        <h1><span className="l l1"><span>반복은 코드에,</span></span><span className="l l2"><span><em>시간</em>은 당신에게</span></span></h1>
         <p className="lead">엑셀·데이터·크롤링·매크로 — 매일 반복되는 작업을 코드로 · 데스크탑 프로그램·텔레그램 봇·시트 자동화까지</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/automation-app/portfolio`}>포트폴리오 보기</a></div>
+        </div>
       </div></header>
 
       <section className="sec wrap">

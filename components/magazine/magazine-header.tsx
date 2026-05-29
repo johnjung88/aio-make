@@ -83,26 +83,6 @@ export function MagazineHeader() {
 
         {/* Right actions */}
         <div className="hidden items-center justify-end gap-3 md:flex">
-          <button
-            type="button"
-            onClick={toggleLang}
-            aria-label={`Switch to ${nextLocale === "ko" ? "Korean" : "English"}`}
-            style={{
-              width: 56,
-              height: 28,
-              border: "1px solid var(--tone-magazine-line-2)",
-              background: "transparent",
-              color: "var(--tone-magazine-ink-2)",
-              fontFamily: "var(--font-jetbrains)",
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              borderRadius: 999,
-              transition: "all 0.2s",
-            }}
-            className="hover:!border-[var(--tone-magazine-ink)] hover:!text-[var(--tone-magazine-ink)]"
-          >
-            {isKo ? "EN" : "KO"}
-          </button>
           <Link
             href={`${base}/quote`}
             className="inline-flex items-center gap-1.5 transition-colors"
@@ -164,23 +144,6 @@ export function MagazineHeader() {
               </Link>
             ))}
             <div className="mt-5 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={toggleLang}
-                style={{
-                  width: 56,
-                  height: 36,
-                  border: "1px solid var(--tone-magazine-line-2)",
-                  background: "transparent",
-                  color: "var(--tone-magazine-ink-2)",
-                  fontFamily: "var(--font-jetbrains)",
-                  fontSize: 11,
-                  letterSpacing: "0.18em",
-                  borderRadius: 999,
-                }}
-              >
-                {isKo ? "EN" : "KO"}
-              </button>
               <Link
                 href={`${base}/quote`}
                 onClick={() => setMobileOpen(false)}

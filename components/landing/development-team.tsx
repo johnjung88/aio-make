@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { DP_CSS, useDarkPremium } from "./dp-shell";
+import { DP_CSS, useDarkPremium, OrgStructure } from "./dp-shell";
 import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; one: string; tags: string[] };
@@ -28,7 +28,10 @@ export function DevelopmentTeam({ locale }: { locale: string }) {
         <p className="lead">기획부터 카피·디자인·개발·검수까지 — 분야별 담당자가 한 프로젝트를 처음부터 끝까지 함께합니다</p>
       </div></header>
 
+      <OrgStructure svc="개발" />
+
       <section className="sec wrap">
+        <div className="shead reveal"><span className="kick">Team · 실무팀</span><h2>이 서비스를 <em>만드는 사람들</em></h2></div>
         <div className="team">
           {TEAM.map((m, i) => (
             <div key={i} className={"mem reveal d" + ((i % 4) + 1)}>

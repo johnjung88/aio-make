@@ -30,14 +30,23 @@ const CSS = `
 .aiows .subnav .nw::-webkit-scrollbar{display:none}
 .aiows .subnav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);padding:8px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
 .aiows .subnav a:hover{color:var(--fg)}.aiows .subnav a.on{color:var(--gold);border-bottom-color:var(--gold)}
-.aiows .hero{position:relative;padding:clamp(82px,13vw,168px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aiows .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 16%,rgba(200,162,74,.11),transparent 70%);pointer-events:none}
-.aiows .hero .wrap{position:relative}
-.aiows .hero .kick{display:block;margin-bottom:28px;animation:aiows-rise .8s both}
-.aiows .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
-.aiows .hero h1 .l1{display:block;animation:aiows-rise 1s .1s both}.aiows .hero h1 .l2{display:block;animation:aiows-rise 1s .22s both}
+.aiows .hero{position:relative;min-height:90vh;display:flex;align-items:center;padding:clamp(116px,15vw,190px) 0 clamp(56px,7vw,84px);overflow:hidden}
+.aiows .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 20% 32%,rgba(200,162,74,.14),transparent 66%);pointer-events:none}
+.aiows .hero .wrap{position:relative;width:100%;text-align:left}
+.aiows .hero .ghost{position:absolute;right:-3vw;top:50%;transform:translateY(-50%);z-index:0;font-family:var(--frau);font-weight:600;font-size:clamp(300px,46vw,680px);line-height:.72;color:transparent;-webkit-text-stroke:5px rgba(200,162,74,.42);pointer-events:none;user-select:none;animation:aiows-rise 1.5s .2s both}
+.aiows .hero .inner{position:relative;z-index:1;max-width:min(100%,980px)}
+.aiows .hero .kick{display:inline-flex;align-items:center;gap:14px;margin-bottom:clamp(26px,3vw,38px);animation:aiows-rise .8s both}
+.aiows .hero .kick::before{content:"";width:clamp(28px,4vw,56px);height:1px;background:var(--gold)}
+.aiows .hero h1{font-family:var(--frau);font-weight:400;font-size:clamp(50px,11vw,150px);line-height:.92;letter-spacing:-.025em;margin-bottom:clamp(36px,4.6vw,56px)}
+.aiows .hero h1 .l{display:block;overflow:hidden;padding-bottom:.05em}
+.aiows .hero h1 .l>span{display:block;transform:translateY(112%);animation:kin 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.aiows .hero h1 .l1>span{animation-delay:.18s}.aiows .hero h1 .l2>span{animation-delay:.34s}
 .aiows .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aiows .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px);animation:aiows-rise 1s .34s both}
+.aiows .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 clamp(32px,4vw,44px);animation:aiows-rise 1s .5s both}
+.aiows .hero .t3{margin:0 0 clamp(30px,3.8vw,40px)!important;justify-content:flex-start!important}
+.aiows .hero .acts{justify-content:flex-start}
+@keyframes kin{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.aiows .hero h1 .l>span{animation:none;transform:none}.aiows .hero .ghost{animation:none}}
 .aiows .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;animation:aiows-rise 1s .44s both}
 .aiows .cta-pill{font-size:15px;font-weight:600;padding:15px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B;transition:transform .25s,background .25s;display:inline-flex;align-items:center;gap:8px}
 .aiows .cta-pill:hover{transform:translateY(-2px);background:var(--gold2)}
@@ -81,6 +90,7 @@ const CSS = `
 .aiows .bw .top i{width:10px;height:10px;border-radius:50%;background:var(--fg3);display:inline-block;opacity:.5}
 .aiows .bw .url{margin-left:8px;flex:1;font-family:var(--mono);font-size:11px;color:var(--fg3);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .aiows .bw .shot{height:clamp(168px,23vw,210px)}
+.aiows .bw .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .aiows .bw .cap{padding:15px 16px;display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
 .aiows .bw .cap .nm{font-size:14px;color:var(--fg)}.aiows .bw .cap .ct{font-family:var(--mono);font-size:11px;color:var(--gold)}
 .aiows .more{margin-top:36px}
@@ -124,6 +134,25 @@ const CSS = `
 .aiows .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 .aiows .foot{border-top:1px solid var(--line2);padding:40px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
 @media(max-width:820px){.aiows .types{grid-template-columns:1fr}.aiows .pf{grid-template-columns:1fr}.aiows .price{grid-template-columns:1fr}.aiows .vals{grid-template-columns:1fr 1fr}.aiows .steps{grid-template-columns:1fr 1fr}.aiows .reviews{grid-template-columns:1fr}.aiows .team{grid-template-columns:1fr 1fr}}
+/* hero 3-second meter */
+.aiows .t3{display:flex;justify-content:center;align-items:center;gap:12px;margin:0 auto clamp(30px,4vw,42px);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);animation:aiows-rise 1s .5s both}
+.aiows .t3 .bar{position:relative;width:118px;height:3px;border-radius:2px;background:var(--line2);overflow:hidden}
+.aiows .t3 .bar i{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));animation:t3fill 3s .6s cubic-bezier(.4,0,.2,1) forwards}
+.aiows .t3 .num{color:var(--gold);font-variant-numeric:tabular-nums}
+@keyframes t3fill{to{width:100%}}
+@media(prefers-reduced-motion:reduce){.aiows .t3 .bar i{animation:none;width:100%}}
+/* pricing featured tier */
+.aiows .pc{position:relative}
+.aiows .pc.feat{border-color:var(--gold);background:linear-gradient(180deg,rgba(200,162,74,.08),var(--bg2))}
+.aiows .pc .badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0E0D0B;background:var(--gold);border-radius:999px;padding:4px 12px;white-space:nowrap}
+@media(max-width:600px){
+.aiows .hero{min-height:auto;align-items:flex-start;padding:clamp(42px,11vw,70px) 0 clamp(44px,9vw,60px)}
+.aiows .hero .inner{max-width:100%}
+.aiows .hero .kick{margin-bottom:clamp(18px,5vw,26px)}
+.aiows .hero h1{font-size:clamp(46px,14.5vw,82px);margin-bottom:clamp(26px,6vw,34px)}
+.aiows .hero .lead{margin-bottom:clamp(24px,6vw,32px)}
+.aiows .hero .ghost{font-size:clamp(220px,72vw,360px);right:-6vw;top:auto;bottom:-2vh;transform:none;-webkit-text-stroke-width:3px;opacity:.5}
+}
 `;
 
 const Site = ({ land = false }: { land?: boolean }) => (
@@ -131,7 +160,19 @@ const Site = ({ land = false }: { land?: boolean }) => (
     <div className="sbar"><span className="lg" />{!land && <><span className="mi" /><span className="mi" /><span className="mi" /></>}<span className="sp" /><span className="bt" /></div>
     <div className="sbd"><span className="ht" /><span className="ht2" /><span className="pp" /><span className="cta" />{!land && <span className="drow"><span className="cc" /><span className="cc" /><span className="cc" /></span>}</div>
   </div>
+
 );
+
+// ─────────────────────────────────────────────────────────────
+// 포트폴리오 목록 — 여기만 수정하면 됩니다.
+//  img: /public 기준 이미지 경로. 비워두면 자동으로 기본 목업이 표시됩니다.
+//  land: true = 랜딩형(가운데 정렬) 목업 (img 없을 때만 의미)
+const WORK: { url: string; title: string; img?: string; land?: boolean }[] = [
+  { url: "chueok-korea.com", title: "추억코리아 · 회사 홈페이지", img: "/portfolio/chueok-korea/live.png" },
+  { url: "aio-make.com", title: "AIO · 브랜드 사이트", img: "/portfolio/aio-design-agency/live.png" },
+  { url: "v-aio.app", title: "V-AIO · 서비스 랜딩", land: true },        // img 추가 전 — 기본 목업 표시
+  { url: "promo.event.kr", title: "캠페인 · 마케팅 랜딩", land: true },  // img 추가 전 — 기본 목업 표시
+];
 
 export function WebsiteLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -152,10 +193,14 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="development" sub="website" active="service" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">AIO · Website</span>
-        <h1><span className="l1">첫 3초가,</span><span className="l2"><em>전부</em>입니다</span></h1>
+        <span className="ghost" aria-hidden="true">3</span>
+        <div className="inner">
+        <span className="kick">AIO · Website — N° 01</span>
+        <h1><span className="l l1"><span>첫 3초가,</span></span><span className="l l2"><span><em>전부</em>입니다</span></span></h1>
         <p className="lead">방문자는 3초 안에 남을지 떠날지를 결정합니다 — 회사 홈페이지·전환형 랜딩까지, 시선을 끝까지 붙잡는 한 페이지를</p>
+        <div className="t3"><span>첫인상이 결정되기까지</span><span className="bar"><i /></span><span className="num">3.0s</span></div>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href="#work">작업 보기</a></div>
+        </div>
         <div className="marq"><div className="row"><span>회사 홈페이지</span><span>서비스 랜딩</span><span>마케팅 랜딩</span><span>이벤트 페이지</span><span>반응형</span><span>검색 최적화</span><span>회사 홈페이지</span><span>서비스 랜딩</span><span>마케팅 랜딩</span><span>이벤트 페이지</span><span>반응형</span><span>검색 최적화</span></div></div>
       </div></header>
 
@@ -172,10 +217,13 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         <div className="shead reveal"><span className="kick">Portfolio</span><h2><em>포트폴리오</em></h2>
           <p>실제 작업물입니다. 카드를 누르면 상세 케이스로, 전체는 포트폴리오 페이지에서 볼 수 있습니다</p></div>
         <div className="pf">
-          <a className="bw reveal d1" href={`${base}/services/website/portfolio`}><div className="top"><i /><i /><i /><span className="url">chueok-korea.com</span></div><div className="shot"><Site /></div><div className="cap"><span className="nm">추억코리아 · 회사 홈페이지</span><span className="ct">↗ CASE</span></div></a>
-          <a className="bw reveal d2" href={`${base}/services/website/portfolio`}><div className="top"><i /><i /><i /><span className="url">v-aio.app</span></div><div className="shot"><Site land /></div><div className="cap"><span className="nm">V-AIO · 서비스 랜딩</span><span className="ct">↗ CASE</span></div></a>
-          <a className="bw reveal d1" href={`${base}/services/website/portfolio`}><div className="top"><i /><i /><i /><span className="url">promo.event.kr</span></div><div className="shot"><Site land /></div><div className="cap"><span className="nm">캠페인 · 마케팅 랜딩</span><span className="ct">↗ CASE</span></div></a>
-          <a className="bw reveal d2" href={`${base}/services/website/portfolio`}><div className="top"><i /><i /><i /><span className="url">aio-make.com</span></div><div className="shot"><Site /></div><div className="cap"><span className="nm">AIO · 브랜드 사이트</span><span className="ct">↗ CASE</span></div></a>
+          {WORK.map((w, i) => (
+            <a key={w.url} className={`bw reveal ${i % 2 ? "d2" : "d1"}`} href={`${base}/services/website/portfolio`}>
+              <div className="top"><i /><i /><i /><span className="url">{w.url}</span></div>
+              <div className="shot">{w.img ? <img src={w.img} alt={w.title} loading="lazy" /> : <Site land={w.land} />}</div>
+              <div className="cap"><span className="nm">{w.title}</span><span className="ct">↗ CASE</span></div>
+            </a>
+          ))}
         </div>
         <div className="more reveal"><a className="cta-link" href={`${base}/services/website/portfolio`}>포트폴리오 전체 보기 →</a></div>
       </section>
@@ -186,7 +234,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
           <div className="promo">2026년 6월까지 한정가 · 이후 정상가 3배</div></div>
         <div className="price">
           <div className="pc reveal d1"><div className="pl">랜딩페이지 · 1P</div><div className="pv"><em>4.9</em><span className="u"> 만원</span></div><div className="po">정상가 14.7만원</div></div>
-          <div className="pc reveal d2"><div className="pl">5페이지 이내</div><div className="pv"><em>9.9</em><span className="u"> 만원</span></div><div className="po">정상가 29.7만원</div></div>
+          <div className="pc feat reveal d2"><span className="badge">가장 인기</span><div className="pl">5페이지 이내</div><div className="pv"><em>9.9</em><span className="u"> 만원</span></div><div className="po">정상가 29.7만원</div></div>
           <div className="pc reveal d3"><div className="pl">10페이지 이내</div><div className="pv"><em>14.9</em><span className="u"> 만원</span></div><div className="po">정상가 44.7만원</div></div>
         </div>
       </section>

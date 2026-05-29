@@ -17,11 +17,23 @@ const CSS = `
 .aiosm .reveal.in{opacity:1;transform:none}
 .aiosm .reveal.d1{transition-delay:.1s}.aiosm .reveal.d2{transition-delay:.2s}.aiosm .reveal.d3{transition-delay:.3s}
 .aiosm .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.aiosm .hero{position:relative;padding:clamp(74px,12vw,156px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aiosm .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 16%,rgba(200,162,74,.10),transparent 70%);pointer-events:none}
-.aiosm .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
+.aiosm .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:clamp(108px,14vw,176px) 0 clamp(52px,7vw,82px);overflow:hidden}
+.aiosm .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 68% at 22% 32%,rgba(215,138,138,.12),transparent 66%);pointer-events:none}
+.aiosm .hero .wrap{position:relative;width:100%;text-align:left}
+.aiosm .hero .ghost{position:absolute;right:-1vw;top:50%;transform:translateY(-50%);z-index:0;font-family:var(--frau);font-weight:600;font-size:clamp(260px,40vw,560px);line-height:.7;color:transparent;-webkit-text-stroke:5px rgba(215,138,138,.34);pointer-events:none;user-select:none}
+.aiosm .hero .inner{position:relative;z-index:1;max-width:min(100%,940px)}
+.aiosm .hero .kick{display:inline-flex;align-items:center;gap:14px;margin-bottom:clamp(24px,3vw,34px)}
+.aiosm .hero .kick::before{content:"";width:clamp(28px,4vw,56px);height:1px;background:var(--gold)}
+.aiosm .hero h1{font-family:var(--frau);font-weight:400;font-size:clamp(50px,11vw,150px);line-height:.92;letter-spacing:-.025em;margin-bottom:clamp(34px,4.4vw,52px)}
+.aiosm .hero h1 .l{display:block;overflow:hidden;padding-bottom:.05em}
+.aiosm .hero h1 .l>span{display:block;transform:translateY(112%);animation:kin-sm 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.aiosm .hero h1 .l2>span{animation-delay:.18s}
 .aiosm .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aiosm .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px)}
+.aiosm .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 clamp(32px,4vw,44px)}
+.aiosm .hero .acts{justify-content:flex-start}
+@keyframes kin-sm{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.aiosm .hero h1 .l>span{animation:none;transform:none}.aiosm .hero .ghost{animation:none}}
+@media(max-width:600px){.aiosm .hero{min-height:auto;align-items:flex-start;padding:clamp(42px,11vw,70px) 0 clamp(44px,9vw,60px)}.aiosm .hero .inner{max-width:100%}.aiosm .hero h1{font-size:clamp(46px,14.5vw,82px)}.aiosm .hero .ghost{font-size:clamp(200px,66vw,320px);right:-6vw;top:auto;bottom:-2vh;transform:none;-webkit-text-stroke-width:3px;opacity:.5}}
 .aiosm .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aiosm .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aiosm .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
@@ -120,10 +132,13 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="development" sub="shopping-mall" active="service" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">AIO · Shopping Mall</span>
-        <h1>팔리는 <em>스토어</em>,<br />하루 만에</h1>
+        <span className="ghost" aria-hidden="true">₩</span>
+        <div className="inner">
+        <span className="kick">AIO · Shopping Mall — N° 02</span>
+        <h1><span className="l l1"><span>팔리는 <em>스토어</em>,</span></span><span className="l l2"><span>하루 만에</span></span></h1>
         <p className="lead">카페24·독립몰 — 디자인·상품 등록·결제 연동까지 한 번에 · 보여주기용 데모가 아니라 바로 매출 받을 수 있는 상태로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/shopping-mall/portfolio`}>포트폴리오 보기</a></div>
+        </div>
       </div></header>
 
       <section className="sec wrap">

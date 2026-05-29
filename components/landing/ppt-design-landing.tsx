@@ -15,11 +15,23 @@ const CSS = `
 .aioppt .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aioppt .reveal.in{opacity:1;transform:none}
 .aioppt .reveal.d1{transition-delay:.1s}.aioppt .reveal.d2{transition-delay:.2s}.aioppt .reveal.d3{transition-delay:.3s}
 .aioppt .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--blue),var(--gold))}
-.aioppt .hero{position:relative;padding:clamp(74px,12vw,156px) 0 clamp(50px,7vw,80px);overflow:hidden}
-.aioppt .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 58% at 50% 16%,rgba(122,174,236,.10),transparent 70%)}
-.aioppt .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.0;letter-spacing:-.01em;margin-bottom:30px}
+.aioppt .hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:clamp(108px,14vw,176px) 0 clamp(52px,7vw,82px);overflow:hidden}
+.aioppt .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 68% at 22% 32%,rgba(122,174,236,.12),transparent 66%);pointer-events:none}
+.aioppt .hero .wrap{position:relative;width:100%;text-align:left}
+.aioppt .hero .ghost{position:absolute;right:1vw;top:50%;transform:translateY(-50%);z-index:0;font-family:var(--frau);font-weight:600;font-size:clamp(260px,40vw,560px);line-height:.74;color:transparent;-webkit-text-stroke:5px rgba(122,174,236,.34);pointer-events:none;user-select:none}
+.aioppt .hero .inner{position:relative;z-index:1;max-width:min(100%,940px)}
+.aioppt .hero .kick{display:inline-flex;align-items:center;gap:14px;margin-bottom:clamp(24px,3vw,34px)}
+.aioppt .hero .kick::before{content:"";width:clamp(28px,4vw,56px);height:1px;background:var(--blue)}
+.aioppt .hero h1{font-family:var(--frau);font-weight:400;font-size:clamp(50px,11vw,150px);line-height:.92;letter-spacing:-.025em;margin-bottom:clamp(34px,4.4vw,52px)}
+.aioppt .hero h1 .l{display:block;overflow:hidden;padding-bottom:.05em}
+.aioppt .hero h1 .l>span{display:block;transform:translateY(112%);animation:kin-aioppt 1.15s cubic-bezier(.16,1,.3,1) forwards}
+.aioppt .hero h1 .l2>span{animation-delay:.18s}
 .aioppt .hero h1 em{font-style:normal;color:var(--gold);font-weight:600}
-.aioppt .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 auto clamp(34px,5vw,44px)}
+.aioppt .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 clamp(32px,4vw,44px)}
+.aioppt .hero .acts{justify-content:flex-start}
+@keyframes kin-aioppt{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.aioppt .hero h1 .l>span{animation:none;transform:none}}
+@media(max-width:600px){.aioppt .hero{min-height:auto;align-items:flex-start;padding:clamp(42px,11vw,70px) 0 clamp(44px,9vw,60px)}.aioppt .hero .inner{max-width:100%}.aioppt .hero h1{font-size:clamp(46px,14.5vw,82px)}.aioppt .hero .ghost{font-size:clamp(200px,66vw,320px);right:0;top:auto;bottom:-1vh;transform:none;-webkit-text-stroke-width:3px;opacity:.5}}
 .aioppt .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aioppt .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aioppt .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
@@ -88,10 +100,13 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="design" sub="ppt-design" active="service" />
 
       <header className="hero"><div className="wrap">
-        <span className="kick">AIO · PPT Design</span>
-        <h1>읽지 않고도<br />전달되는 <em>슬라이드</em></h1>
+        <span className="ghost" aria-hidden="true">P</span>
+        <div className="inner">
+        <span className="kick">AIO · PPT Design — N° 05</span>
+        <h1><span className="l l1"><span>읽지 않고도</span></span><span className="l l2"><span>전달되는 <em>슬라이드</em></span></span></h1>
         <p className="lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게 · 글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/ppt-design/portfolio`}>포트폴리오 보기</a></div>
+        </div>
       </div></header>
 
       <section className="sec wrap">
