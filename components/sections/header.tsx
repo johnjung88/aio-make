@@ -63,13 +63,10 @@ export function Header() {
 
   const portfolioItems = [
     { label: t("portfolioAll"), href: `${base}/portfolio` },
-    { label: isKo ? "웹사이트" : "Website", href: `${base}/portfolio/category/website` },
-    { label: isKo ? "쇼핑몰" : "Store", href: `${base}/portfolio/category/shopping-mall` },
-    { label: isKo ? "로고 및 명함" : "Logo & Business Card", href: `${base}/portfolio/category/logo-business-card` },
-    { label: isKo ? "상세페이지" : "Detail Page", href: `${base}/portfolio/category/detail-page` },
-    { label: isKo ? "PPT 디자인" : "PPT Design", href: `${base}/portfolio/category/ppt-design` },
-    { label: isKo ? "자동화 및 앱" : "Automation & App", href: `${base}/portfolio/category/automation-app` },
-    { label: isKo ? "영상 콘텐츠" : "Video Content", href: `${base}/portfolio/category/video-content` },
+    { label: isKo ? "개발" : "Development", href: `${base}/services/development/portfolio` },
+    { label: isKo ? "디자인" : "Design", href: `${base}/services/design/portfolio` },
+    { label: isKo ? "영상" : "Video", href: `${base}/services/video/portfolio` },
+    { label: isKo ? "마케팅" : "Marketing", href: `${base}/services/marketing/portfolio` },
   ];
 
   return (
