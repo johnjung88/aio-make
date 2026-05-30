@@ -338,13 +338,39 @@ const LEAD = { fontFamily: "var(--font-pretendard)", fontSize: "clamp(14.5px,1.2
 const LABEL = { fontFamily: "var(--font-jetbrains)", fontSize: "10.5px", color: "var(--tone-magazine-ink-3)", letterSpacing: "0.22em", textTransform: "uppercase" as const };
 const EM_CORM = { fontFamily: "var(--font-fraunces)", fontStyle: "normal" as const, fontWeight: 500 as const };
 
-/* ─── 서브팀 라벨 구분선 ─── */
+/* ─── 서브팀 구분 헤더 ─── */
 function SubteamDivider({ name }: { name: string }) {
   return (
-    <div className="flex items-center gap-4 mb-6 mt-14 first:mt-0">
-      <span style={{ flex: 1, height: 1, background: "var(--tone-magazine-line-2)", display: "block" }} />
-      <span style={{ ...LABEL, fontSize: "9.5px", color: "var(--tone-magazine-ink-3)" }}>{name}</span>
-      <span style={{ flex: 1, height: 1, background: "var(--tone-magazine-line-2)", display: "block" }} />
+    <div
+      className="flex items-center justify-between mt-20 mb-0 first:mt-0 px-7 py-5"
+      style={{
+        background: "var(--tone-magazine-ink)",
+        color: "var(--tone-magazine-paper)",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "var(--font-marcellus)",
+          fontSize: "clamp(20px, 2.2vw, 28px)",
+          letterSpacing: "0.02em",
+          lineHeight: 1,
+          color: "var(--tone-magazine-paper)",
+        }}
+      >
+        {name}
+      </span>
+      <span
+        style={{
+          fontFamily: "var(--font-jetbrains)",
+          fontSize: "9px",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase" as const,
+          color: "var(--tone-magazine-paper)",
+          opacity: 0.45,
+        }}
+      >
+        Org
+      </span>
     </div>
   );
 }
