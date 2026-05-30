@@ -5,9 +5,9 @@ import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; career: string; duties: string[] };
 const TEAM: M[] = [
-  { av: "서", role: "Content Ops · 운영", nm: "서영", career: "7년차 · 블로그·SNS 콘텐츠 운영", duties: ["블로그·SNS 콘텐츠 기획·발행", "월간 운영 캘린더·키워드 설계", "채널 톤·가이드 관리"] },
-  { av: "지", role: "Growth · 분석", nm: "지호", career: "8년차 · 퍼포먼스·데이터 분석", duties: ["GA4·전환·유입 분석·리포트", "채널 성장 실험·A/B 테스트", "데이터 기반 다음 액션 제안"] },
-  { av: "나", role: "Content Designer · 디자인", nm: "나래", career: "5년차 · 콘텐츠 디자이너", duties: ["카드뉴스·썸네일·배너 제작", "채널별 비주얼 포맷·템플릿", "캠페인 소재 디자인"] },
+  { av: "영", role: "Content Ops · 운영", nm: "최서영", career: "콘텐츠 7년 · 블로그·SNS 운영", duties: ["블로그·SNS 콘텐츠 기획·발행", "월간 운영 캘린더·키워드 설계", "채널 톤·가이드 관리"] },
+  { av: "혁", role: "Growth · 분석", nm: "서준혁", career: "분석 8년 · GA4·퍼포먼스 전문", duties: ["GA4·전환·유입 분석·리포트", "채널 성장 실험·A/B 테스트", "데이터 기반 다음 액션 제안"] },
+  { av: "하", role: "Content Designer · 디자인", nm: "김도하", career: "SNS 5년 · 콘텐츠 디자이너", duties: ["카드뉴스·썸네일·배너 제작", "채널별 비주얼 포맷·템플릿", "캠페인 소재 디자인"] },
 ];
 
 export function MarketingTeam({ locale }: { locale: string }) {

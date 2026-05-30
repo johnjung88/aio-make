@@ -5,9 +5,9 @@ import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; career: string; duties: string[] };
 const TEAM: M[] = [
-  { av: "유", role: "Detail Designer · 상세", nm: "유나", career: "8년차 · 커머스 상세·전환 디자인", duties: ["상품·서비스 상세페이지 기획·디자인", "시선→정보→증거→CTA 흐름 설계", "모바일 가독성·길이 최적화"] },
-  { av: "한", role: "PPT Designer · 발표", nm: "한결", career: "9년차 · IR·제안서 디자이너", duties: ["제안·IR·사업계획 슬라이드 디자인", "메시지 위계·도식화·인포그래픽", "발표용 비주얼 시스템·템플릿"] },
-  { av: "민", role: "Brand Designer · 브랜드", nm: "민서", career: "7년차 · 로고·BI 디자이너", duties: ["로고·심볼·워드마크 컨셉", "명함·브랜드 키트·적용 가이드", "컬러·타이포 브랜드 시스템"] },
+  { av: "유", role: "Detail Designer · 상세", nm: "나유나", career: "상세 디자인 8년 · 커머스 전환 전문", duties: ["상품·서비스 상세페이지 기획·디자인", "시선→정보→증거→CTA 흐름 설계", "모바일 가독성·길이 최적화"] },
+  { av: "원", role: "PPT Designer · 발표", nm: "류지원", career: "IR 덱 9년 · 투자자·제안서 전문", duties: ["제안·IR·사업계획 슬라이드 디자인", "메시지 위계·도식화·인포그래픽", "발표용 비주얼 시스템·템플릿"] },
+  { av: "결", role: "Brand Designer · 브랜드", nm: "강한결", career: "브랜딩 7년 · CI/BI 전문", duties: ["로고·심볼·워드마크 컨셉", "명함·브랜드 키트·적용 가이드", "컬러·타이포 브랜드 시스템"] },
 ];
 
 export function DesignTeam({ locale }: { locale: string }) {

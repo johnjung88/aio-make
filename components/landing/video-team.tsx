@@ -5,9 +5,9 @@ import { AioNav, AioFooter } from "./aio-nav";
 
 type M = { av: string; role: string; nm: string; career: string; duties: string[] };
 const TEAM: M[] = [
-  { av: "민", role: "Director · 연출", nm: "민재", career: "11년차 · CF·브랜드필름 연출", duties: ["브랜드·홍보 영상 기획·연출", "스토리보드·촬영 디렉션", "메시지·톤·레퍼런스 설계"] },
-  { av: "정", role: "Editor · 편집", nm: "정우", career: "8년차 · 유튜브·숏폼 에디터", duties: ["컷·리듬·자막·컬러 편집", "숏폼·릴스 포맷·후킹 최적화", "썸네일·인트로 설계"] },
-  { av: "수", role: "Motion · 모션", nm: "수진", career: "6년차 · 모션그래픽 디자이너", duties: ["인트로·자막·인포그래픽 모션", "브랜드 모션 시스템·트랜지션", "그래픽 에셋 제작"] },
+  { av: "민", role: "Director · 연출", nm: "조민재", career: "연출 11년 · 브랜드필름·광고", duties: ["브랜드·홍보 영상 기획·연출", "스토리보드·촬영 디렉션", "메시지·톤·레퍼런스 설계"] },
+  { av: "우", role: "Editor · 편집", nm: "윤정우", career: "편집 8년 · 컬러그레이딩·믹싱", duties: ["컷·리듬·자막·컬러 편집", "숏폼·릴스 포맷·후킹 최적화", "썸네일·인트로 설계"] },
+  { av: "호", role: "Motion · 모션", nm: "박지호", career: "모션 6년 · After Effects 전문", duties: ["인트로·자막·인포그래픽 모션", "브랜드 모션 시스템·트랜지션", "그래픽 에셋 제작"] },
 ];
 
 export function VideoTeam({ locale }: { locale: string }) {
