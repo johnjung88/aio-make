@@ -126,7 +126,7 @@ export function AioNav({ locale, level, cat = "development", sub, active }: AioN
             </div>
           </div>
 
-          {/* 팀원 소개 — 분야 공용 팀 */}
+          {/* 팀원 소개 — 분야 공용 팀 (leaf·middle 모두 cat 기준) */}
           <div className={"item" + (active === "team" ? " on" : "")}>
             <a href={`${base}/services/${cat}/team`}>팀원 소개</a>
           </div>
