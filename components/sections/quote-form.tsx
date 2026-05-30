@@ -316,20 +316,7 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
         {copy.rush}
       </label>
 
-      <div
-        className="grid gap-2 px-4 py-3 text-sm"
-        style={{
-          background: "var(--tone-magazine-paper-2)",
-          border: "1px solid var(--tone-magazine-line-2)",
-          borderRadius: 2,
-          color: "var(--tone-magazine-ink-2)",
-          fontFamily: "var(--font-pretendard)",
-        }}
-      >
-        <span style={{ ...labelStyle, marginBottom: 0 }}>{copy.handoff}</span>
-        <span>{form.assigned_pm_queue} · {form.service_key} · {form.handoff_status}</span>
-        <span style={{ color: "var(--tone-magazine-ink-3)" }}>{form.handoff_reason}</span>
-      </div>
+      
 
       <label
         className="flex items-start gap-3 px-4 py-3"

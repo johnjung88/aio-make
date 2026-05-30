@@ -3,11 +3,11 @@ import { useRef } from "react";
 import { DP_CSS, useDarkPremium, OrgStructure } from "./dp-shell";
 import { AioNav, AioFooter } from "./aio-nav";
 
-type M = { av: string; role: string; nm: string; one: string; tags: string[] };
+type M = { av: string; role: string; nm: string; career: string; duties: string[] };
 const TEAM: M[] = [
-  { av: "유", role: "Detail Designer", nm: "상세 · 유나", one: "스크롤을 멈추게 만드는 상세를 만듭니다", tags: ["상세", "전환"] },
-  { av: "한", role: "PPT Designer", nm: "PPT · 한결", one: "전달이 되는 슬라이드를 짭니다", tags: ["IR", "제안"] },
-  { av: "—", role: "Logo · Soon", nm: "로고·명함 (준비 중)", one: "곧 합류합니다", tags: ["Soon"] },
+  { av: "유", role: "Detail Designer · 상세", nm: "유나", career: "8년차 · 커머스 상세·전환 디자인", duties: ["상품·서비스 상세페이지 기획·디자인", "시선→정보→증거→CTA 흐름 설계", "모바일 가독성·길이 최적화"] },
+  { av: "한", role: "PPT Designer · 발표", nm: "한결", career: "9년차 · IR·제안서 디자이너", duties: ["제안·IR·사업계획 슬라이드 디자인", "메시지 위계·도식화·인포그래픽", "발표용 비주얼 시스템·템플릿"] },
+  { av: "민", role: "Brand Designer · 브랜드", nm: "민서", career: "7년차 · 로고·BI 디자이너", duties: ["로고·심볼·워드마크 컨셉", "명함·브랜드 키트·적용 가이드", "컬러·타이포 브랜드 시스템"] },
 ];
 
 export function DesignTeam({ locale }: { locale: string }) {
@@ -36,8 +36,8 @@ export function DesignTeam({ locale }: { locale: string }) {
               <div className="av">{m.av}</div>
               <div className="role">{m.role}</div>
               <div className="nm">{m.nm}</div>
-              <div className="one">{m.one}</div>
-              <div className="tags">{m.tags.map((t, j) => <span key={j}>{t}</span>)}</div>
+              <div className="career">{m.career}</div>
+              <ul className="duties">{m.duties.map((d, j) => <li key={j}>{d}</li>)}</ul>
             </div>
           ))}
         </div>

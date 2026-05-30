@@ -3,11 +3,11 @@ import { useRef } from "react";
 import { DP_CSS, useDarkPremium, OrgStructure } from "./dp-shell";
 import { AioNav, AioFooter } from "./aio-nav";
 
-type M = { av: string; role: string; nm: string; one: string; tags: string[] };
+type M = { av: string; role: string; nm: string; career: string; duties: string[] };
 const TEAM: M[] = [
-  { av: "민", role: "Director", nm: "감독 · 민재", one: "한 컷의 무게를 압니다", tags: ["연출", "기획"] },
-  { av: "정", role: "Editor", nm: "편집 · 정우", one: "리듬과 호흡으로 끝까지 보게 합니다", tags: ["편집", "컬러"] },
-  { av: "—", role: "Producer · Soon", nm: "프로듀서 (준비 중)", one: "곧 합류합니다", tags: ["Soon"] },
+  { av: "민", role: "Director · 연출", nm: "민재", career: "11년차 · CF·브랜드필름 연출", duties: ["브랜드·홍보 영상 기획·연출", "스토리보드·촬영 디렉션", "메시지·톤·레퍼런스 설계"] },
+  { av: "정", role: "Editor · 편집", nm: "정우", career: "8년차 · 유튜브·숏폼 에디터", duties: ["컷·리듬·자막·컬러 편집", "숏폼·릴스 포맷·후킹 최적화", "썸네일·인트로 설계"] },
+  { av: "수", role: "Motion · 모션", nm: "수진", career: "6년차 · 모션그래픽 디자이너", duties: ["인트로·자막·인포그래픽 모션", "브랜드 모션 시스템·트랜지션", "그래픽 에셋 제작"] },
 ];
 
 export function VideoTeam({ locale }: { locale: string }) {
@@ -36,8 +36,8 @@ export function VideoTeam({ locale }: { locale: string }) {
               <div className="av">{m.av}</div>
               <div className="role">{m.role}</div>
               <div className="nm">{m.nm}</div>
-              <div className="one">{m.one}</div>
-              <div className="tags">{m.tags.map((t, j) => <span key={j}>{t}</span>)}</div>
+              <div className="career">{m.career}</div>
+              <ul className="duties">{m.duties.map((d, j) => <li key={j}>{d}</li>)}</ul>
             </div>
           ))}
         </div>

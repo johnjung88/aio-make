@@ -1,19 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bot, Loader2, MessageCircle, Send, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 
-type ChatMessage = {
-  role: "assistant" | "customer";
-  content: string;
-};
+type ChatMessage = { role: "assistant" | "customer"; content: string };
 
-const QUICK_MESSAGES = [
-  "PPT 제안서 디자인 의뢰하고 싶어요.",
-  "홈페이지 제작 견적이 궁금합니다.",
-  "상세페이지 제작 일정과 금액 알려주세요.",
-  "업무 자동화 MVP 상담받고 싶어요.",
+const QUICK = [
+  "홈페이지 제작 견적이 궁금해요",
+  "쇼핑몰(카페24) 만들고 싶어요",
+  "상세페이지 일정·금액 알려주세요",
+  "PPT·제안서 디자인 의뢰",
+  "로고·명함 브랜딩 문의",
+  "업무 자동화·앱 MVP 상담",
 ];
 
 export function PublicChatbot({ locale }: { locale: string }) {
@@ -24,57 +23,68 @@ export function PublicChatbot({ locale }: { locale: string }) {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState("");
+  const [started, setStarted] = useState(false);
+  const [requested, setRequested] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "안녕하세요. 필요한 제작 내용을 적어주시면 예상 범위와 일정을 먼저 안내드릴게요.",
+      content:
+        "안녕하세요, AIO 상담입니다 👋\n어떤 작업이 필요하신가요? 아래에서 골라주시거나 직접 적어주시면 예상 범위·일정을 먼저 안내드릴게요.",
     },
   ]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!message.trim()) return;
-    const customerMessage = message.trim();
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages, open]);
+
+  async function send(text: string, opts?: { request?: boolean }) {
+    const t = text.trim();
+    if (!t || isSending) return;
     setError("");
     setIsSending(true);
-    setMessages((current) => [...current, { role: "customer", content: customerMessage }]);
+    setStarted(true);
+    setMessages((c) => [...c, { role: "customer", content: t }]);
     setMessage("");
-
     try {
-      const response = await fetch("/api/chatbot", {
+      const res = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message: customerMessage,
-          locale: locale === "en" ? "en" : "ko",
-        }),
+        body: JSON.stringify({ name, email, phone, message: t, locale: locale === "en" ? "en" : "ko" }),
       });
-      const json = (await response.json()) as { success: boolean; data?: { reply?: string }; error?: string };
-      if (!response.ok || !json.success) {
-        throw new Error(json.error ?? "문의 전송에 실패했습니다.");
-      }
+      const json = (await res.json()) as { success: boolean; data?: { reply?: string }; error?: string };
+      if (!res.ok || !json.success) throw new Error(json.error ?? "전송에 실패했습니다.");
       trackEvent("submit_chat", {});
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content: json.data?.reply ?? "문의가 접수되었습니다. 담당자가 확인 후 이어서 안내드리겠습니다.",
-        },
+      setMessages((c) => [
+        ...c,
+        { role: "assistant", content: json.data?.reply ?? "접수되었습니다. 담당자가 확인 후 이어서 안내드리겠습니다." },
       ]);
-    } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : "문의 전송에 실패했습니다.");
+      if (opts?.request) setRequested(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "전송에 실패했습니다.");
     } finally {
       setIsSending(false);
     }
   }
 
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void send(message);
+  }
+
+  function requestCallback() {
+    if (!name.trim() || !phone.trim()) {
+      setError("이름과 연락처를 입력해 주세요.");
+      return;
+    }
+    void send(`상담 신청합니다. (${name.trim()} / ${phone.trim()})`, { request: true });
+  }
+
   return (
     <div className="fixed right-4 top-3 z-[70] flex flex-col-reverse items-end gap-3 sm:bottom-5 sm:right-5 sm:top-auto sm:z-50 sm:flex-col">
       {open && (
-        <section className="w-[calc(100vw-2.5rem)] max-w-sm overflow-hidden rounded-lg border border-white/10 bg-card shadow-2xl shadow-black/40">
+        <section className="flex max-h-[78vh] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl shadow-black/40">
+          {/* header */}
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -82,60 +92,105 @@ export function PublicChatbot({ locale }: { locale: string }) {
               </span>
               <div>
                 <h2 className="text-sm font-semibold">AIO 상담</h2>
-                <p className="text-xs text-muted-foreground">예상 견적과 일정 확인</p>
+                <p className="text-xs text-muted-foreground">예상 견적·일정 즉시 안내</p>
               </div>
             </div>
-            <button className="flex size-8 items-center justify-center rounded-lg border border-white/10 text-muted-foreground transition hover:text-foreground" onClick={() => setOpen(false)} aria-label="상담창 닫기">
+            <button
+              className="flex size-8 items-center justify-center rounded-lg border border-white/10 text-muted-foreground transition hover:text-foreground"
+              onClick={() => setOpen(false)}
+              aria-label="상담창 닫기"
+            >
               <X className="size-4" />
             </button>
           </div>
 
-          <div className="max-h-[320px] space-y-3 overflow-y-auto px-4 py-4">
+          {/* messages */}
+          <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
             {messages.map((chat, index) => (
               <div key={`${chat.role}-${index}`} className={chat.role === "customer" ? "flex justify-end" : "flex justify-start"}>
                 <p
                   className={
                     chat.role === "customer"
-                      ? "max-w-[85%] whitespace-pre-wrap rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground"
-                      : "max-w-[85%] whitespace-pre-wrap rounded-lg bg-white/5 px-3 py-2 text-sm text-foreground"
+                      ? "max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground"
+                      : "max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-white/5 px-3 py-2 text-sm leading-relaxed text-foreground"
                   }
                 >
                   {chat.content}
                 </p>
               </div>
             ))}
+            {isSending && (
+              <div className="flex justify-start">
+                <p className="flex items-center gap-2 rounded-2xl rounded-bl-sm bg-white/5 px-3 py-2 text-sm text-muted-foreground">
+                  <Loader2 className="size-3.5 animate-spin" /> 입력 중…
+                </p>
+              </div>
+            )}
+
+            {/* quick replies — only before the first customer message */}
+            {!started && (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {QUICK.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => void send(q)}
+                    className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary hover:text-foreground"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <div className="flex gap-2 overflow-x-auto border-y border-white/10 px-4 py-3">
-            {QUICK_MESSAGES.map((item) => (
-              <button
-                key={item}
-                className="shrink-0 rounded-full border border-white/10 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary hover:text-foreground"
-                onClick={() => setMessage(item)}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
+          {/* contact capture */}
+          {!requested ? (
+            <div className="border-t border-white/10 px-4 py-3">
+              <div className="mb-2 flex gap-2">
+                <input
+                  className="h-9 flex-1 rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary"
+                  placeholder="이름"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  className="h-9 flex-1 rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary"
+                  placeholder="연락처"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={requestCallback}
+                  disabled={isSending}
+                  className="shrink-0 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground transition hover:brightness-105 disabled:opacity-60"
+                >
+                  상담 신청
+                </button>
+              </div>
+              {error && <p className="text-xs text-amber-300">{error}</p>}
+            </div>
+          ) : (
+            <div className="border-t border-white/10 bg-primary/10 px-4 py-3 text-sm text-foreground">
+              상담 신청이 접수되었습니다. 1시간 내(영업시간 기준) 담당자가 연락드리겠습니다. 🙌
+            </div>
+          )}
 
-          <form onSubmit={submit} className="space-y-3 p-4">
-            <div className="grid grid-cols-2 gap-2">
-              <input className="h-9 rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary" placeholder="성함" value={name} onChange={(event) => setName(event.target.value)} />
-              <input className="h-9 rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary" placeholder="전화번호" value={phone} onChange={(event) => setPhone(event.target.value)} />
-            </div>
-            <input className="h-9 w-full rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary" type="email" placeholder="이메일" value={email} onChange={(event) => setEmail(event.target.value)} />
-            <div className="flex gap-2">
-              <textarea
-                className="min-h-20 flex-1 resize-none rounded-lg border border-white/10 bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-                placeholder="제작 내용, 일정, 예산을 적어주세요."
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-              />
-              <button className="flex w-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:opacity-60" disabled={isSending || !message.trim()} aria-label="문의 보내기">
-                {isSending ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
-              </button>
-            </div>
-            {error && <p className="text-xs text-amber-200">{error}</p>}
+          {/* chat input */}
+          <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-white/10 p-3">
+            <input
+              className="h-10 flex-1 rounded-lg border border-white/10 bg-background px-3 text-sm outline-none focus:border-primary"
+              placeholder="필요한 작업을 적어주세요…"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button
+              className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground transition hover:brightness-105 disabled:opacity-60"
+              disabled={isSending || !message.trim()}
+              aria-label="메시지 보내기"
+            >
+              {isSending ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
+            </button>
           </form>
         </section>
       )}

@@ -62,15 +62,19 @@ export const DP_CSS = `
 .aiodp .stat{text-align:center;padding:10px}
 .aiodp .stat .sv{font-family:var(--frau);font-weight:600;font-size:clamp(30px,4.5vw,52px);color:var(--gold);line-height:1;margin-bottom:8px}
 .aiodp .stat .sl{color:var(--fg2);font-size:13px}
-.aiodp .team{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.aiodp .mem{border:1px solid var(--line2);border-radius:12px;padding:clamp(26px,3vw,34px) 16px;text-align:center;background:var(--bg2);transition:border-color .3s,transform .3s}
+.aiodp .team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.aiodp .mem{border:1px solid var(--line2);border-radius:14px;padding:clamp(24px,2.6vw,30px);text-align:left;background:var(--bg2);transition:border-color .3s,transform .3s}
 .aiodp .mem:hover{border-color:var(--gold);transform:translateY(-6px)}
-.aiodp .mem .av{width:72px;height:72px;border-radius:50%;margin:0 auto 14px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--frau);font-size:28px}
+.aiodp .mem .av{width:60px;height:60px;border-radius:50%;margin:0 0 14px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--frau);font-size:24px}
 .aiodp .mem .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-bottom:6px}
 .aiodp .mem .nm{font-family:var(--frau);font-size:19px;font-weight:500;margin-bottom:10px}
 .aiodp .mem .one{font-size:12.5px;color:var(--fg2);line-height:1.6;margin-bottom:12px;min-height:3.2em}
 .aiodp .mem .tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
 .aiodp .mem .tags span{font-family:var(--mono);font-size:10px;color:var(--fg2);border:1px solid var(--line2);border-radius:999px;padding:3px 9px}
+.aiodp .mem .career{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--gold);margin-bottom:13px;line-height:1.5}
+.aiodp .mem .duties{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.aiodp .mem .duties li{position:relative;padding-left:13px;font-size:12.5px;color:var(--fg2);line-height:1.55}
+.aiodp .mem .duties li::before{content:"";position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--gold)}
 .aiodp .ctaS{position:relative;text-align:center;padding:clamp(86px,12vw,140px) 0;border-top:1px solid var(--line)}
 .aiodp .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(200,162,74,.1),transparent 70%);pointer-events:none}
 .aiodp .ctaS .wrap{position:relative}
@@ -78,7 +82,7 @@ export const DP_CSS = `
 .aiodp .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:32px}
 .aiodp .foot{border-top:1px solid var(--line2);padding:40px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
-@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr}}
 .aiodp .org{max-width:660px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
 .aiodp .org .lvl{width:100%;border:1px solid var(--line2);border-radius:12px;background:var(--bg2);padding:18px 24px;text-align:center;transition:border-color .3s,transform .3s}
 .aiodp .org .lvl:hover{border-color:var(--gold);transform:translateY(-3px)}
