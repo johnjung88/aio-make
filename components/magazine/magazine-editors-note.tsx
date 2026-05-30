@@ -6,7 +6,7 @@ const pillars = [
     label: "No 01 · Speed",
     title: "빠른",
     titleEm: "응대",
-    body: "1시간 안에 답하고, 24시간 안에 견적을 보냅니다. 의뢰인이 다음 일을 바로 시작할 수 있도록.",
+    body: "1시간 안에 답하고, 24시간 안에 견적을 보냅니다 — 의뢰인이 다음 일을 바로 시작할 수 있도록",
     metric: { label: "평균 응답", value: "23분" },
     icon: (
       <svg viewBox="0 0 24 24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" stroke="currentColor">
@@ -19,7 +19,7 @@ const pillars = [
     label: "No 02 · Output",
     title: "빠른",
     titleEm: "결과물",
-    body: "5일 안에 전달하고, 매일 진행 상황을 공유합니다. 완성까지 기다리는 시간을 줄입니다.",
+    body: "5일 안에 전달하고, 매일 진행 상황을 공유합니다 — 완성까지 기다리는 시간을 줄입니다",
     metric: { label: "평균 납기", value: "4.6일" },
     icon: (
       <svg viewBox="0 0 24 24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" stroke="currentColor">
@@ -32,7 +32,7 @@ const pillars = [
     label: "No 03 · Quality",
     title: "높은",
     titleEm: "완성도",
-    body: "운영 중인 사이트가 곧 우리의 결과물입니다. 데모가 아닌 실제 결과를 보고 결정하세요.",
+    body: "운영 중인 사이트가 곧 우리의 결과물입니다 — 데모가 아닌 실제 결과를 보고 결정하세요",
     metric: { label: "만족도", value: "4.9 / 5" },
     icon: (
       <svg viewBox="0 0 24 24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" stroke="currentColor">
@@ -45,7 +45,7 @@ const pillars = [
     label: "No 04 · Care",
     title: "꾸준한",
     titleEm: "유지보수",
-    body: "납품 후 1개월 무상 A/S, 텔레그램으로 언제든 연락주세요. 납품이 끝이 아니라 운영의 시작입니다.",
+    body: "납품 후 1개월 무상 A/S, 텔레그램으로 언제든 연락주세요 — 납품이 끝이 아니라 운영의 시작입니다",
     metric: { label: "재의뢰율", value: "98%" },
     icon: (
       <svg viewBox="0 0 24 24" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" stroke="currentColor">

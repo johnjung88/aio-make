@@ -59,7 +59,7 @@ export function FieldPortfolio({
             ))}
           </div>
         ) : (
-          <div className="pfempty reveal">아직 공개된 작업물이 없습니다 — 곧 채워집니다.<br />먼저 상담이 필요하시면 무료 상담을 이용해 주세요.</div>
+          <div className="pfempty reveal">아직 공개된 작업물이 없습니다 — 곧 채워집니다<br />먼저 상담이 필요하시면 무료 상담을 이용해보세요</div>
         )}
       </section>
 

@@ -264,7 +264,7 @@ export function VideoHub({ locale }: { locale: string }) {
                 </div>
                 <div className="cap">
                   <div className="un">@aio_studio</div>
-                  <div className="tx">첫 1초에 잡습니다 #fyp #쇼츠 #브랜딩</div>
+                  <div className="tx">첫 1초에 시선을 사로잡습니다 #fyp #쇼츠 #브랜딩</div>
                   <span className="mu">🎵 trending · 12.4M videos</span>
                 </div>
               </div>
