@@ -5,45 +5,30 @@ import { serviceCategories, type ServiceCategory } from "@/lib/services-data";
 import { getHandoffInfo, normalizeEntryPath } from "@/lib/service-handoff";
 import { trackEvent, getOrCreateSessionUid } from "@/lib/analytics/client";
 
-const SUBTYPES: Record<ServiceCategory, { value: string; ko: string; en: string }[]> = {
-  website: [
-    { value: "landing", ko: "랜딩페이지", en: "Landing page" },
-    { value: "homepage", ko: "회사 홈페이지", en: "Company website" },
-    { value: "portfolio", ko: "포트폴리오 사이트", en: "Portfolio website" },
-  ],
-  "shopping-mall": [
-    { value: "shopping-mall", ko: "쇼핑몰", en: "Storefront" },
-    { value: "cafe24", ko: "카페24 디자인", en: "Cafe24 design" },
-    { value: "commerce-banner", ko: "배너/상품 진열", en: "Banner/product layout" },
-  ],
-  "logo-business-card": [
-    { value: "starter-logo-card", ko: "입문형 로고·명함 29,000원", en: "Starter logo & card ₩29,000" },
-    { value: "value-logo-3-card", ko: "실속형 로고 3안·명함 49,000원", en: "Value logo 3 concepts & card ₩49,000" },
-    { value: "startup-brand-kit", ko: "창업형 브랜드 키트 99,000원", en: "Startup brand kit ₩99,000" },
-  ],
-  "detail-page": [
-    { value: "product-detail", ko: "상품 상세페이지", en: "Product detail page" },
-    { value: "service-detail", ko: "서비스 상세페이지", en: "Service detail page" },
-    { value: "platform-detail", ko: "플랫폼 판매 이미지", en: "Marketplace sales image" },
-  ],
-  "ppt-design": [
-    { value: "ppt", ko: "PPT", en: "Deck" },
-    { value: "proposal", ko: "제안서", en: "Proposal" },
-    { value: "pitch-deck", ko: "피치덱", en: "Pitch deck" },
-  ],
-  "automation-app": [
-    { value: "data-crawling", ko: "데이터 크롤링", en: "Data crawling" },
-    { value: "workflow-automation", ko: "업무 자동화", en: "Workflow automation" },
-    { value: "mvp-app", ko: "MVP 앱", en: "MVP app" },
-    { value: "dashboard", ko: "운영 대시보드", en: "Ops dashboard" },
-  ],
-  "video-content": [
-    { value: "brand-intro", ko: "브랜드 인트로", en: "Brand intro" },
-    { value: "marketing-video", ko: "홍보 영상", en: "Promo video" },
-    { value: "shorts-set", ko: "쇼츠·릴스", en: "Shorts/Reels" },
-    { value: "tutorial", ko: "튜토리얼", en: "Tutorial" },
-  ],
-};
+const FIELDS: { value: string; ko: string; en: string; subs: { value: string; ko: string; en: string; category: string }[] }[] = [
+  { value: "development", ko: "개발", en: "Development", subs: [
+    { value: "website", ko: "웹사이트 제작", en: "Website", category: "website" },
+    { value: "shopping-mall", ko: "쇼핑몰·카페24", en: "Shopping mall (Cafe24)", category: "shopping-mall" },
+    { value: "automation", ko: "자동화·프로그램", en: "Automation/Program", category: "automation-app" },
+    { value: "app-mvp", ko: "앱 MVP", en: "App MVP", category: "automation-app" },
+  ] },
+  { value: "design", ko: "디자인", en: "Design", subs: [
+    { value: "logo", ko: "로고·명함", en: "Logo & business card", category: "logo-business-card" },
+    { value: "detail-page", ko: "상세페이지", en: "Detail page", category: "detail-page" },
+    { value: "ppt", ko: "PPT·제안서", en: "PPT/Proposal", category: "ppt-design" },
+  ] },
+  { value: "video", ko: "영상", en: "Video", subs: [
+    { value: "brand", ko: "브랜드 영상", en: "Brand video", category: "video-content" },
+    { value: "promo", ko: "홍보·마케팅 영상", en: "Promo/Marketing video", category: "video-content" },
+    { value: "shorts", ko: "숏폼·릴스", en: "Shorts/Reels", category: "video-content" },
+    { value: "youtube", ko: "유튜브 편집", en: "YouTube editing", category: "video-content" },
+  ] },
+  { value: "marketing", ko: "마케팅", en: "Marketing", subs: [
+    { value: "blog-ops", ko: "블로그 운영대행", en: "Blog operation", category: "marketing" },
+    { value: "sns-ops", ko: "SNS 운영대행", en: "SNS operation", category: "marketing" },
+    { value: "channel-ops", ko: "영상채널 운영대행", en: "Video channel operation", category: "marketing" },
+  ] },
+];
 
 const BUDGET_OPTIONS = [
   { value: "", ko: "-", en: "-" },
@@ -97,10 +82,13 @@ const labelStyle: React.CSSProperties = {
 };
 
 export function QuoteForm({ locale, initialCategory, initialSubtype, initialSource, initialEntryPath }: QuoteFormProps) {
-  const safeCategory = serviceCategories.some((service) => service.value === initialCategory)
-    ? (initialCategory as ServiceCategory)
-    : "website";
-  const initialHandoff = getHandoffInfo(safeCategory, initialSubtype ?? SUBTYPES[safeCategory][0].value);
+  const initialField =
+    FIELDS.find((f) => f.subs.some((sub) => sub.category === initialCategory)) ?? FIELDS[0];
+  const initialSub =
+    initialField.subs.find((sub) => sub.value === initialSubtype) ??
+    initialField.subs.find((sub) => sub.category === initialCategory) ??
+    initialField.subs[0];
+  const initialHandoff = getHandoffInfo(initialSub.category as ServiceCategory, initialSub.value);
   const safeSource = ["soomgo", "kmong", "email", "direct", "search", "referral", "portfolio", "service_page", "home"].includes(initialSource ?? "")
     ? (initialSource as string)
     : "direct";
@@ -108,8 +96,9 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
     name: "",
     email: "",
     phone: "",
-    category: safeCategory,
-    subtype: initialSubtype ?? SUBTYPES[safeCategory][0].value,
+    field: initialField.value,
+    category: initialSub.category,
+    subtype: initialSub.value,
     budget_range: "",
     timeline: "",
     rush: false,
@@ -128,17 +117,18 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
   const set = (field: keyof typeof form, value: string | boolean) => {
     setForm((current) => {
       const next = { ...current, [field]: value };
-      if (field === "category") {
-        const category = value as ServiceCategory;
-        next.subtype = SUBTYPES[category][0].value;
-        const handoff = getHandoffInfo(category, next.subtype);
-        next.service_key = handoff.serviceKey;
-        next.assigned_pm_queue = handoff.assignedPmQueue;
-        next.handoff_status = handoff.handoffStatus;
-        next.handoff_reason = handoff.handoffReason;
+      if (field === "field") {
+        const f = FIELDS.find((x) => x.value === value) ?? FIELDS[0];
+        next.subtype = f.subs[0].value;
+        next.category = f.subs[0].category;
       }
       if (field === "subtype") {
-        const handoff = getHandoffInfo(next.category, String(value));
+        const f = FIELDS.find((x) => x.value === next.field) ?? FIELDS[0];
+        const sub = f.subs.find((x) => x.value === value) ?? f.subs[0];
+        next.category = sub.category;
+      }
+      if (field === "field" || field === "subtype") {
+        const handoff = getHandoffInfo(next.category as ServiceCategory, next.subtype);
         next.service_key = handoff.serviceKey;
         next.assigned_pm_queue = handoff.assignedPmQueue;
         next.handoff_status = handoff.handoffStatus;
@@ -243,10 +233,10 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label style={labelStyle}>{copy.category} *</label>
-          <select style={inputStyle} value={form.category} onChange={(e) => set("category", e.target.value)}>
-            {serviceCategories.map((service) => (
-              <option key={service.value} value={service.value}>
-                {service.label[locale]}
+          <select style={inputStyle} value={form.field} onChange={(e) => set("field", e.target.value)}>
+            {FIELDS.map((f) => (
+              <option key={f.value} value={f.value}>
+                {locale === "ko" ? f.ko : f.en}
               </option>
             ))}
           </select>
@@ -254,9 +244,9 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
         <div>
           <label style={labelStyle}>{copy.subtype}</label>
           <select style={inputStyle} value={form.subtype} onChange={(e) => set("subtype", e.target.value)}>
-            {SUBTYPES[form.category].map((item) => (
+            {(FIELDS.find((f) => f.value === form.field) ?? FIELDS[0]).subs.map((item) => (
               <option key={item.value} value={item.value}>
-                {item[locale]}
+                {locale === "ko" ? item.ko : item.en}
               </option>
             ))}
           </select>

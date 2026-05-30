@@ -26,6 +26,7 @@ const quoteSchema = z.object({
     "ppt-design",
     "automation-app",
     "video-content",
+    "marketing",
   ]),
   subtype: z.string().trim().max(80).optional().default(""),
   budget_range: z.string().trim().max(80).optional().default(""),
@@ -51,6 +52,7 @@ const categoryMap: Record<z.infer<typeof quoteSchema>["category"], string> = {
   "ppt-design": "ppt",
   "automation-app": "automation",
   "video-content": "video",
+  marketing: "marketing",
 };
 
 async function sendQuoteEmail(payload: z.infer<typeof quoteSchema>, inquiryId?: string) {
