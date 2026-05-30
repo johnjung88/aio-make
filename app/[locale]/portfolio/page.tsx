@@ -1,8 +1,27 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getProjectsByCategory } from "@/lib/portfolio";
 import type { PortfolioGroup } from "@/lib/portfolio";
 import { FIELD_CATEGORIES, FIELD_META } from "@/lib/fields";
+import { localizedPageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isKo = locale === "ko";
+  return localizedPageMetadata({
+    locale,
+    path: "/portfolio",
+    title: isKo ? "분야별 포트폴리오" : "Portfolio by Field",
+    description: isKo
+      ? "웹사이트·쇼핑몰·로고·상세페이지·PPT 등 AIO 실제 작업물을 분야별로 확인하세요."
+      : "Browse AIO's real work by field — websites, shopping malls, logos, detail pages, PPT, and more.",
+  });
+}
 
 const FIELDS: { key: "development" | "design" | "video" | "marketing"; icon: string }[] = [
   { key: "development", icon: "💻" },

@@ -16,7 +16,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "hero" });
   return localizedPageMetadata({
     locale,
-    title: `AIO에이전시 | ${t("headline")}`,
+    title: t("headline"),
     description: t("subheadline"),
   });
 }

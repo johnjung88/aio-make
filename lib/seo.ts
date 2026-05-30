@@ -29,18 +29,23 @@ export function localizedAlternates(locale: string, path = ""): NonNullable<Meta
   };
 }
 
+const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/aio-agency-logo-final/aio-agency-board-1800.png`;
+
 export function localizedPageMetadata({
   locale,
   path = "",
   title,
   description,
+  ogImage,
 }: {
   locale: string;
   path?: string;
   title: string;
   description: string;
+  ogImage?: string;
 }): Metadata {
   const canonical = localeUrl(locale, path);
+  const image = ogImage ?? DEFAULT_OG_IMAGE;
   return {
     title,
     description,
@@ -52,11 +57,13 @@ export function localizedPageMetadata({
       type: "website",
       locale: "ko_KR",
       siteName: "AIO에이전시",
+      images: [{ url: image, width: 1800, height: 945, alt: "AIO에이전시" }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [image],
     },
   };
 }

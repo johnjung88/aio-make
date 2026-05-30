@@ -11,6 +11,7 @@ import {
   IBM_Plex_Mono,
 } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { getLocale } from "next-intl/server";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SITE_URL } from "@/lib/seo";
@@ -139,6 +140,9 @@ export default async function RootLayout({
       >
         {children}
       </body>
+      <Script id="ga-datalayer-init" strategy="beforeInteractive">
+        {`window.dataLayer = window.dataLayer || [];`}
+      </Script>
       {process.env.NEXT_PUBLIC_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       )}

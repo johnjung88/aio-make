@@ -200,23 +200,23 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label style={labelStyle}>{copy.name} *</label>
-          <input style={inputStyle} required value={form.name} onChange={(e) => set("name", e.target.value)} />
+          <label htmlFor="quote-name" style={labelStyle}>{copy.name} *</label>
+          <input id="quote-name" style={inputStyle} required value={form.name} onChange={(e) => set("name", e.target.value)} />
         </div>
         <div>
-          <label style={labelStyle}>{copy.email} *</label>
-          <input style={inputStyle} required type="email" value={form.email} onChange={(e) => set("email", e.target.value)} />
+          <label htmlFor="quote-email" style={labelStyle}>{copy.email} *</label>
+          <input id="quote-email" style={inputStyle} required type="email" value={form.email} onChange={(e) => set("email", e.target.value)} />
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label style={labelStyle}>{copy.phone}</label>
-          <input style={inputStyle} value={form.phone} onChange={(e) => set("phone", e.target.value)} />
+          <label htmlFor="quote-phone" style={labelStyle}>{copy.phone}</label>
+          <input id="quote-phone" style={inputStyle} value={form.phone} onChange={(e) => set("phone", e.target.value)} />
         </div>
         <div>
-          <label style={labelStyle}>{copy.source}</label>
-          <select style={inputStyle} value={form.source} onChange={(e) => set("source", e.target.value)}>
+          <label htmlFor="quote-source" style={labelStyle}>{copy.source}</label>
+          <select id="quote-source" style={inputStyle} value={form.source} onChange={(e) => set("source", e.target.value)}>
             <option value="direct">{locale === "ko" ? "직접 방문" : "Direct"}</option>
             <option value="home">{locale === "ko" ? "홈페이지" : "Home"}</option>
             <option value="service_page">{locale === "ko" ? "서비스 페이지" : "Service page"}</option>
@@ -232,8 +232,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label style={labelStyle}>{copy.category} *</label>
-          <select style={inputStyle} value={form.field} onChange={(e) => set("field", e.target.value)}>
+          <label htmlFor="quote-field" style={labelStyle}>{copy.category} *</label>
+          <select id="quote-field" style={inputStyle} value={form.field} onChange={(e) => set("field", e.target.value)}>
             {FIELDS.map((f) => (
               <option key={f.value} value={f.value}>
                 {locale === "ko" ? f.ko : f.en}
@@ -242,8 +242,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
           </select>
         </div>
         <div>
-          <label style={labelStyle}>{copy.subtype}</label>
-          <select style={inputStyle} value={form.subtype} onChange={(e) => set("subtype", e.target.value)}>
+          <label htmlFor="quote-subtype" style={labelStyle}>{copy.subtype}</label>
+          <select id="quote-subtype" style={inputStyle} value={form.subtype} onChange={(e) => set("subtype", e.target.value)}>
             {(FIELDS.find((f) => f.value === form.field) ?? FIELDS[0]).subs.map((item) => (
               <option key={item.value} value={item.value}>
                 {locale === "ko" ? item.ko : item.en}
@@ -255,8 +255,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
 
       <div className="grid gap-5 sm:grid-cols-3">
         <div>
-          <label style={labelStyle}>{copy.budget}</label>
-          <select style={inputStyle} value={form.budget_range} onChange={(e) => set("budget_range", e.target.value)}>
+          <label htmlFor="quote-budget" style={labelStyle}>{copy.budget}</label>
+          <select id="quote-budget" style={inputStyle} value={form.budget_range} onChange={(e) => set("budget_range", e.target.value)}>
             {BUDGET_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option[locale]}
@@ -265,8 +265,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
           </select>
         </div>
         <div>
-          <label style={labelStyle}>{copy.timeline}</label>
-          <select style={inputStyle} value={form.timeline} onChange={(e) => set("timeline", e.target.value)}>
+          <label htmlFor="quote-timeline" style={labelStyle}>{copy.timeline}</label>
+          <select id="quote-timeline" style={inputStyle} value={form.timeline} onChange={(e) => set("timeline", e.target.value)}>
             {TIMELINE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option[locale]}
@@ -275,8 +275,8 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
           </select>
         </div>
         <div>
-          <label style={labelStyle}>{copy.contact}</label>
-          <select style={inputStyle} value={form.contact_method} onChange={(e) => set("contact_method", e.target.value)}>
+          <label htmlFor="quote-contact" style={labelStyle}>{copy.contact}</label>
+          <select id="quote-contact" style={inputStyle} value={form.contact_method} onChange={(e) => set("contact_method", e.target.value)}>
             <option value="email">{locale === "ko" ? "이메일" : "Email"}</option>
             <option value="phone">{locale === "ko" ? "전화" : "Phone"}</option>
           </select>
@@ -334,8 +334,9 @@ export function QuoteForm({ locale, initialCategory, initialSubtype, initialSour
       </label>
 
       <div>
-        <label style={labelStyle}>{copy.description} *</label>
+        <label htmlFor="quote-description" style={labelStyle}>{copy.description} *</label>
         <textarea
+          id="quote-description"
           required
           rows={6}
           style={{ ...inputStyle, resize: "none" }}

@@ -1,9 +1,4 @@
-# *
 User-agent: *
 Allow: /
 
-# Host
-Host: https://aio-make.com
-
-# Sitemaps
 Sitemap: https://aio-make.com/sitemap.xml
