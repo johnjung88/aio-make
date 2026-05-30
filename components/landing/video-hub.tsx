@@ -199,7 +199,7 @@ export function VideoHub({ locale }: { locale: string }) {
         <div className="wrap">
           <div className="runtime"><span className="dot" /> NOW SHOWING · RUNTIME 03:00</div>
           <h1>한 컷이<br /><em>전부</em>입니다</h1>
-          <p className="lead">브랜드·SNS·마케팅·유튜브 — 첫 3초가 멈출지 말지를 결정합니다 · 머무르게 만드는 컷으로</p>
+          <p className="lead">브랜드·SNS·마케팅·유튜브 — 첫 3초가 계속 볼지를 결정합니다 · 끝까지 머무르게 만드는 컷으로</p>
           <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 ▶</a><a className="cta-link" href={`${base}/services/video/team`}>팀원 소개</a></div>
         </div>
         <div className="bar b"><span className="l">REEL · DURATION 03 : 00 : 00</span><span className="c">● REC</span><span className="r">24 FPS · 4K</span></div>

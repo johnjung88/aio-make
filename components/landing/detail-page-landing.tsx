@@ -121,7 +121,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
         <span className="ghost" aria-hidden="true">↓</span>
         <div className="inner">
         <span className="kick">AIO · Detail Page — N° 04</span>
-        <h1><span className="l l1"><span>스크롤을 멈추고</span></span><span className="l l2"><span><em>구매</em>까지 닿게</span></span></h1>
+        <h1><span className="l l1"><span>스크롤을 멈추고</span></span><span className="l l2"><span><em>구매</em>로 이어지게</span></span></h1>
         <p className="lead">5,000PX 단순 소개부터 20,000PX 풀 스토리텔링까지 — 시선·정보·증거·CTA를 하나의 흐름으로</p>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page/portfolio`}>포트폴리오 보기</a></div>
         </div>

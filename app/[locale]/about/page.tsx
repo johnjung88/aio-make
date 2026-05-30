@@ -58,7 +58,7 @@ const TEAM_ROLES = [
     label: "No 03 · Production",
     title: "제작",
     titleEm: "production",
-    body: "디자인 · 개발 담당 — 5일 안에 손에 쥐어드리고 매일 진행을 공유합니다",
+    body: "디자인 · 개발 담당 — 5일 안에 전달하고 매일 진행을 공유합니다",
     metric: { label: "평균 납기", value: "4.6일" },
   },
   {
@@ -66,7 +66,7 @@ const TEAM_ROLES = [
     label: "No 04 · Care",
     title: "운영",
     titleEm: "care",
-    body: "유지보수 담당 — 1개월 무상 A/S, 텔레그램으로 언제든 닿습니다",
+    body: "유지보수 담당 — 1개월 무상 A/S, 텔레그램으로 언제든 연락 가능합니다",
     metric: { label: "재의뢰율", value: "98%" },
   },
 ];

@@ -112,7 +112,7 @@ export function MagazineToc({ locale }: Props) {
       >
         각 <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>분야 페이지</strong>에서
         <br />
-        그 <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>분야 전문가</strong>가 직접 인사드립니다
+        그 <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>분야 전문가</strong>가 직접 소개해드립니다
       </p>
 
       {/* Rows */}

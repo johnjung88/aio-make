@@ -153,7 +153,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="meta">
             <b>Issue 02</b><span className="bar" />Design<span className="bar" />A · I · O 2026
           </div>
-          <h1>보이는 것이<br /><em>신뢰</em>가 됩니다</h1>
+          <h1>보이는 것이<br />곧 <em>신뢰</em>입니다</h1>
           <p className="lead">로고·명함·상세페이지·PPT — 브랜드의 첫 인사를 다듬습니다 · 한 번 봤을 때 남는 디자인으로</p>
           <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page`}>상세페이지부터</a></div>
         </div>

@@ -174,7 +174,7 @@ export function MarketingHub({ locale }: { locale: string }) {
       <header className="hero">
         <div className="wrap">
           <span className="kick">Marketing · 서비스 소개</span>
-          <h1 style={{ marginTop: 22 }}>유입은<br /><em>꾸준함</em>입니다</h1>
+          <h1 style={{ marginTop: 22 }}>유입의 답은<br /><em>꾸준함</em>입니다</h1>
           <p className="lead">블로그·SNS·영상채널 — 매일 보이는 것이 한 달 뒤의 매출이 됩니다 · 측정되고 검증되는 운영으로</p>
           <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
 

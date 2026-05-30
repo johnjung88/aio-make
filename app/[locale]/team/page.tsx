@@ -48,7 +48,7 @@ const TEAMS = [
     eyebrow: "Team · Design",
     members: [
       { mark: "유", role: "Detail Designer", name: "상세 · 유나", body: "스크롤을 멈추게 만드는 상세를 만듭니다", tags: ["상세", "전환"] },
-      { mark: "한", role: "PPT Designer", name: "PPT · 한결", body: "전달이 되는 슬라이드를 짭니다", tags: ["IR", "제안"] },
+      { mark: "한", role: "PPT Designer", name: "PPT · 한결", body: "한 눈에 전달되는 슬라이드를 설계합니다", tags: ["IR", "제안"] },
       { mark: "—", role: "Logo · Coming", name: "로고·명함 · 준비 중", body: "곧 합류합니다", tags: ["Soon"] },
     ],
   },
@@ -91,7 +91,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
           AIO를 만드는<br /><span style={EM_CORM}>사람들</span>
         </h1>
         <p className="mx-auto mb-20" style={{ ...LEAD, maxWidth: 640 }}>
-          분야별 전문가가 의뢰의 시작부터 운영까지 함께합니다 — 의사결정부터 제작·검수·운영까지, 책임의 위치를 먼저
+          분야별 전문가가 의뢰의 시작부터 운영까지 함께합니다. 의사결정부터 제작·검수·운영까지, 각자의 자리에서 책임집니다.
         </p>
 
         {/* Leadership */}

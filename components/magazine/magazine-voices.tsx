@@ -15,17 +15,17 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     pre: "빠른 제작이라 ",
-    em: "퀄리티가 걱정됐지만",
-    post: ", 첫 화면 카피와 버튼 위치까지 영업에 바로 쓸 수 있게 잡아주셨어요",
+    em: "퀄리티가 걱정됐는데",
+    post: ", 첫 화면 카피와 버튼 위치까지 영업에 바로 쓸 수 있게 다듬어주셨어요",
     name: "김 대표",
     role: "교육 컨설팅 · 랜딩 3일",
     stat: "+42%",
     statCap: "문의 전환",
   },
   {
-    pre: "기존 쇼핑몰을 다시 만든 게 아니라 ",
+    pre: "기존 쇼핑몰을 새로 만든 게 아니라 ",
     em: "첫 화면·배너·동선을",
-    post: " 같이 정리해주신 작업이었어요",
+    post: " 함께 개선해주신 작업이었어요",
     name: "박 사장",
     role: "식품몰 · 카페24 메인 5일",
     stat: "+28%",
@@ -34,7 +34,7 @@ const testimonials: Testimonial[] = [
   {
     pre: "시드 라운드 IR Deck을 ",
     em: "5일 만에",
-    post: ", 임원진이 만족할 수준으로 받았습니다",
+    post: ", 임원진이 만족하는 수준으로 완성해주셨습니다",
     name: "이 대표",
     role: "스타트업 · IR Deck 5일",
     stat: "$2M",
@@ -42,8 +42,8 @@ const testimonials: Testimonial[] = [
   },
   {
     pre: "단순히 예쁜 게 아니라 ",
-    em: "실제 구매 결정에 영향을 미치는",
-    post: " 흐름으로 짜여 있습니다",
+    em: "실제 구매 결정에 영향을 미치도록",
+    post: " 설계되어 있습니다",
     name: "정 마케터",
     role: "뷰티 브랜드 · 상세 2일",
     stat: "+52%",
@@ -52,7 +52,7 @@ const testimonials: Testimonial[] = [
   {
     pre: "자사몰을 7일 안에 ",
     em: "결제·배송·알림까지",
-    post: " 운영 가능 수준으로 검증된 상태로 받았어요",
+    post: " 운영 가능한 수준으로 구축해주셨어요",
     name: "최 대표",
     role: "피트니스 · 자사몰 7일",
     stat: "×1.2",

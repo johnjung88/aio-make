@@ -196,7 +196,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         <span className="ghost" aria-hidden="true">3</span>
         <div className="inner">
         <span className="kick">AIO · Website — N° 01</span>
-        <h1><span className="l l1"><span>첫 3초가,</span></span><span className="l l2"><span><em>전부</em>입니다</span></span></h1>
+        <h1><span className="l l1"><span>첫 3초가</span></span><span className="l l2"><span><em>전부</em>입니다</span></span></h1>
         <p className="lead">방문자는 3초 안에 남을지 떠날지를 결정합니다 — 회사 홈페이지·전환형 랜딩까지, 시선을 끝까지 붙잡는 한 페이지를</p>
         <div className="t3"><span>첫인상이 결정되기까지</span><span className="bar"><i /></span><span className="num">3.0s</span></div>
         <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href="#work">작업 보기</a></div>
