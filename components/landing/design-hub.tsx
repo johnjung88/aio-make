@@ -42,12 +42,12 @@ const CSS = `
 /* Cream art frame */
 .aiodh .cover .r{position:relative}
 .aiodh .frame{position:relative;aspect-ratio:4/5;background:var(--paper);overflow:hidden;border-radius:1px;box-shadow:0 30px 80px rgba(0,0,0,.55);transform:rotate(-1deg)}
-.aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(26,22,18,.18)}
-.aiodh .frame .tag{position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:.24em;border-bottom:1px solid var(--ink2);padding-bottom:4px}
-.aiodh .frame .label{position:absolute;left:28px;bottom:30px;font-family:var(--frau);color:var(--ink);font-size:clamp(28px,3.5vw,48px);line-height:.95;letter-spacing:-.014em}
-.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose);display:block;margin-top:6px}
-.aiodh .frame .price{position:absolute;right:24px;bottom:30px;font-family:var(--mono);font-size:10px;color:var(--ink2);letter-spacing:.2em;text-align:right;line-height:1.7}
-.aiodh .frame .ornament{position:absolute;top:50%;right:28px;width:1px;height:96px;background:var(--ink2);transform:translateY(-50%)}
+.aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(239,233,221,.22);z-index:2;pointer-events:none}
+.aiodh .frame .tag{position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:10px;color:#EFE9DD;letter-spacing:.24em;border-bottom:1px solid rgba(239,233,221,.55);padding-bottom:4px;z-index:2}
+.aiodh .frame .label{position:absolute;left:28px;bottom:30px;font-family:var(--frau);color:#F4ECDC;font-size:clamp(28px,3.5vw,48px);line-height:.95;letter-spacing:-.014em;z-index:2}
+.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose2);display:block;margin-top:6px}
+.aiodh .frame .price{position:absolute;right:24px;bottom:30px;font-family:var(--mono);font-size:10px;color:rgba(239,233,221,.7);letter-spacing:.2em;text-align:right;line-height:1.7;z-index:2}
+.aiodh .frame .ornament{position:absolute;top:50%;right:28px;width:1px;height:96px;background:rgba(239,233,221,.4);transform:translateY(-50%);z-index:2}
 @media(max-width:880px){.aiodh .cover .wrap{grid-template-columns:1fr;text-align:center}.aiodh .cover .l{text-align:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}.aiodh .frame{max-width:420px;margin:0 auto}}
 
 /* === CREAM PAPER SECTION (turning magazine page) === */
@@ -160,9 +160,14 @@ export function DesignHub({ locale }: { locale: string }) {
         <div className="r">
           <div className="frame">
             <span className="tag">N° 02 · COVER</span>
-            <span className="label">Brand<em>First Impression</em></span>
-            <span className="ornament" />
-            <span className="price">AIO<br />2026</span>
+            <img
+              src="/portfolio/logo-showcase/vela-skin/premium-presentation.jpg"
+              alt="Brand First Impression"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+            />
+            <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,22,18,0) 40%, rgba(26,22,18,0.72))", zIndex: 1 }} />
+            <span className="label" style={{ zIndex: 2, color: "#F4ECDC" }}>Brand<em>First Impression</em></span>
+            <span className="price" style={{ zIndex: 2, color: "#EFE9DD" }}>AIO<br />2026</span>
           </div>
         </div>
       </div></header>
@@ -195,7 +200,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="issues">
             <div className="iss a reveal d1">
               <div className="num"><span>N° 01</span><span className="v">Soon</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-presentation.jpg" alt="" loading="lazy" /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/photo-application.jpg" alt="" loading="lazy" /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
               <h3>로고·<em>명함</em></h3>
               <p className="desc">브랜드의 첫 글자 — 손에 남는 첫 명함</p>
               <span className="more">준비 중 →</span>
@@ -203,14 +208,14 @@ export function DesignHub({ locale }: { locale: string }) {
             </div>
             <a className="iss b reveal d2" href={`${base}/services/detail-page`}>
               <div className="num"><span>N° 02</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d02-mobile-final.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d07-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
               <h3>상세<em>페이지</em></h3>
               <p className="desc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
               <span className="more">자세히 →</span>
             </a>
             <a className="iss c reveal d3" href={`${base}/services/ppt-design`}>
               <div className="num"><span>N° 03</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/ppt-design/ir-investment/cover-slide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/ppt-design/ir-investment/sample-2.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
               <h3>PPT <em>디자인</em></h3>
               <p className="desc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
               <span className="more">자세히 →</span>
