@@ -42,19 +42,15 @@ const CSS = `
 .aioppt .shead h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aioppt .shead p{font-size:var(--fs-lead);line-height:1.8;color:var(--fg2);max-width:50ch;margin:0 auto}
 
-/* Slide mockup */
-.aioppt .slides{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:880px;margin:0 auto}
-.aioppt .sl{aspect-ratio:16/9;border:1px solid var(--line2);border-radius:10px;padding:20px 22px;background:var(--bg2);position:relative;text-align:left;overflow:hidden}
-.aioppt .sl::after{content:attr(data-no);position:absolute;right:14px;bottom:10px;font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:.14em}
-.aioppt .sl .st{font-family:var(--frau);font-size:18px;color:var(--fg);font-weight:500;margin-bottom:14px}
-.aioppt .sl .st em{color:var(--gold);font-style:normal}
-.aioppt .sl .bul{font-family:var(--mono);font-size:9.5px;color:var(--fg2);letter-spacing:.12em;line-height:1.95}
-.aioppt .sl .bar{height:6px;background:linear-gradient(90deg,var(--gold),var(--blue));border-radius:3px;margin-top:14px;max-width:64%}
-.aioppt .sl.kpi{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.aioppt .sl.kpi .big{font-family:var(--frau);font-size:46px;color:var(--gold);line-height:1;margin-bottom:6px}
-.aioppt .sl.chart .ch{display:flex;align-items:flex-end;gap:6px;height:60%;margin-top:8px}
-.aioppt .sl.chart .b{flex:1;background:linear-gradient(180deg,var(--gold),rgba(200,162,74,.3));border-radius:2px 2px 0 0}
-@media(max-width:680px){.aioppt .slides{grid-template-columns:1fr}}
+/* Slide gallery — real images */
+.aioppt .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px;margin:0 auto}
+.aioppt .pcard{border:1px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--bg2);transition:border-color .25s,transform .25s}
+.aioppt .pcard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.aioppt .pshot{aspect-ratio:16/9;overflow:hidden;position:relative}
+.aioppt .pshot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.aioppt .pcap{padding:10px 14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg3)}
+@media(max-width:720px){.aioppt .pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.aioppt .pgrid{grid-template-columns:1fr}}
 
 .aioppt .price{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px}
 .aioppt .prow{padding:30px 24px;border:1px solid var(--gold);border-radius:14px;text-align:center}
@@ -110,12 +106,21 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       </div></header>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Preview</span><h2>이런 <em>슬라이드</em>를 만듭니다</h2><p>제목·근거·KPI·차트 — 한 장씩 명확하게</p></div>
-        <div className="slides reveal d1">
-          <div className="sl" data-no="01"><div className="st">우리는 <em>읽지 않습니다</em>, 봅니다</div><div className="bul">— 결정권자는 평균 12초 / 한 슬라이드에 한 메시지<br />— 글이 많을수록 기억은 사라집니다</div><div className="bar" /></div>
-          <div className="sl kpi" data-no="02"><div className="bul" style={{ marginBottom: 8 }}>YoY 매출 증가</div><div className="big">+128%</div><div className="bul">2024 → 2025 누적 기준</div></div>
-          <div className="sl chart" data-no="03"><div className="st">3년 <em>실적 추이</em></div><div className="ch"><div className="b" style={{ height: "40%" }} /><div className="b" style={{ height: "55%" }} /><div className="b" style={{ height: "72%" }} /><div className="b" style={{ height: "88%" }} /><div className="b" style={{ height: "100%" }} /></div></div>
-          <div className="sl" data-no="04"><div className="st">다음 <em>마일스톤</em></div><div className="bul">Q1 — 베타 출시<br />Q2 — Seed 라운드<br />Q3 — Series A<br />Q4 — 해외 진출</div><div className="bar" /></div>
+        <div className="shead reveal"><span className="kick">Preview · Real Work</span><h2>이런 <em>슬라이드</em>를 만듭니다</h2><p>IR · 지원사업 · 회사소개 · 제안 — 분야별 실제 작업물</p></div>
+        <div className="pgrid">
+          {[
+            { src: "/portfolio/ppt-design/ir-investment/cover-slide.png",        cap: "IR · Seed Round" },
+            { src: "/portfolio/ppt-design/government-grant/cover-slide.png",     cap: "정부지원사업" },
+            { src: "/portfolio/ppt-design/brand-proposal/cover-slide.png",       cap: "회사소개서" },
+            { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png",cap: "B2B 가맹 제안" },
+            { src: "/portfolio/ppt-design/ir-investment/sample-2.png",           cap: "IR · 시장 트랙션" },
+            { src: "/portfolio/ppt-design/government-grant/sample-1.png",        cap: "지원사업 · 사업 구성" },
+          ].map(({ src, cap }, i) => (
+            <div key={src} className={`pcard reveal d${(i % 3) + 1}`}>
+              <div className="pshot"><img src={src} alt={cap} /></div>
+              <div className="pcap">{cap}</div>
+            </div>
+          ))}
         </div>
       </section>
 

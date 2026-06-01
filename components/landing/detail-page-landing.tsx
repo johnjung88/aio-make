@@ -55,6 +55,17 @@ const CSS = `
 @media(max-width:820px){.aiodp2 .pre{gap:14px}.aiodp2 .ph.s{width:160px;height:320px}.aiodp2 .ph.m{width:175px;height:380px}.aiodp2 .ph.l{width:190px;height:450px}}
 @media(max-width:500px){.aiodp2 .pre{gap:8px}.aiodp2 .ph.s{width:28vw;height:56vw}.aiodp2 .ph.m{width:30vw;height:64vw}.aiodp2 .ph.l{width:32vw;height:75vw}}
 
+/* Portfolio gallery */
+.aiodp2 .pgallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
+.aiodp2 .gcard{border-radius:12px;overflow:hidden;background:#17150F;transition:transform .28s,box-shadow .28s}
+.aiodp2 .gcard:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.aiodp2 .gshot{aspect-ratio:3/4;position:relative;overflow:hidden}
+.aiodp2 .gshot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.aiodp2 .gcap{padding:12px 14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg3)}
+.aiodp2 .gmore{display:block;margin:32px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px;width:fit-content}
+@media(max-width:760px){.aiodp2 .pgallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.aiodp2 .pgallery{grid-template-columns:1fr}}
+
 .aiodp2 .price{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
 .aiodp2 .prow{padding:30px 22px;border:1px solid var(--gold);border-radius:14px;text-align:center}
 .aiodp2 .prow .pname{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
@@ -84,9 +95,18 @@ const CSS = `
 `;
 
 const PHONE_IMAGES = [
-  { src: "/portfolio/detail-page/vegan-cleanser/detail.jpg",   size: "s", label: "5,000PX" },
-  { src: "/portfolio/detail-page/premium-mealkit/detail.jpg",  size: "m", label: "10,000PX" },
-  { src: "/portfolio/detail-page/premium-dog-food/detail.jpg", size: "l", label: "20,000PX" },
+  { src: "/portfolio/detail-page/vegan-cleanser/detail.jpg",  size: "s", label: "5,000PX" },
+  { src: "/portfolio/detail-page/premium-mealkit/detail.jpg", size: "m", label: "10,000PX" },
+  { src: "/portfolio/detail-page/linen-onepiece/detail.jpg",  size: "l", label: "20,000PX" },
+];
+
+const GALLERY_ITEMS = [
+  { src: "/portfolio/detail-page/vegan-cleanser/cover.webp",  cap: "비건 클렌저" },
+  { src: "/portfolio/detail-page/premium-mealkit/cover.webp", cap: "프리미엄 밀키트" },
+  { src: "/portfolio/detail-page/linen-onepiece/cover.webp",  cap: "리넨 원피스" },
+  { src: "/portfolio/detail-page/herbal-cream/cover.webp",    cap: "허브 크림" },
+  { src: "/portfolio/detail-page/hotel-bedding/cover.webp",   cap: "호텔 침구" },
+  { src: "/portfolio/detail-page/senior-protein/cover.webp",  cap: "시니어 단백질" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
@@ -129,6 +149,19 @@ export function DetailPageLanding({ locale }: { locale: string }) {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="sec wrap">
+        <div className="shead reveal"><span className="kick">Recent Work</span><h2>최근 <em>작업물</em></h2><p>실제 납품된 상세페이지 — 카테고리·길이·스타일 모두 다르게</p></div>
+        <div className="pgallery">
+          {GALLERY_ITEMS.map(({ src, cap }, i) => (
+            <div key={src} className={`gcard reveal d${(i % 3) + 1}`}>
+              <div className="gshot"><img src={src} alt={cap} loading="lazy" /></div>
+              <div className="gcap">{cap}</div>
+            </div>
+          ))}
+        </div>
+        <a className="gmore reveal d2" href={`/${locale}/services/detail-page/portfolio`}>포트폴리오 전체 보기 →</a>
       </section>
 
       <section className="sec wrap">
