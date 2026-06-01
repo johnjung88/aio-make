@@ -161,9 +161,9 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="frame">
             <span className="tag">N° 02 · COVER</span>
             <img
-              src="/portfolio/logo-showcase/onda-hair/premium-presentation.jpg"
+              src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg"
               alt="Brand First Impression"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }}
             />
             <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,22,18,0) 40%, rgba(26,22,18,0.72))", zIndex: 1 }} />
             <span className="label" style={{ zIndex: 2, color: "#F4ECDC" }}>Brand<em>First Impression</em></span>
@@ -178,7 +178,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="shead reveal"><span className="kick">Featured Spread</span><h2>이번 호의 <em>작업들</em></h2><p>로고·명함·상세페이지·PPT — 분야별 전문가가 각자의 매체로</p></div>
           <div className="spread reveal d1">
             <div className="tile t1"><img className="bg" src="/portfolio/cafe24-design-pack/d01-mobile-final.png" alt="" loading="lazy" /><span className="shade" /><span className="tag">Detail · 10,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
-            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-presentation.jpg" alt="" loading="lazy" /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
+            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
             <div className="tile t3"><img className="bg" src="/portfolio/logo-showcase/vela-skin/premium-logo-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="tag">Logo · Brand</span><span className="ttl"><em>첫 글자</em></span></div>
             <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-business-card-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
             <div className="tile t5"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl">풀 <em>스토리</em></span></div>
@@ -215,7 +215,7 @@ export function DesignHub({ locale }: { locale: string }) {
             </a>
             <a className="iss c reveal d3" href={`${base}/services/ppt-design`}>
               <div className="num"><span>N° 03</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/ppt-design/prea-silvercarelab/cover-slide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
               <h3>PPT <em>디자인</em></h3>
               <p className="desc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
               <span className="more">자세히 →</span>
