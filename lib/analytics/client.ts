@@ -43,6 +43,12 @@ export function captureUtmFromUrl() {
   } catch {}
 }
 
+/** 연락처 링크 클릭 이벤트 헬퍼 (click_email / click_phone / click_kakao) */
+export function trackContactClick(kind: "email" | "phone" | "kakao") {
+  const eventMap = { email: "click_email", phone: "click_phone", kakao: "click_kakao" } as const;
+  trackEvent(eventMap[kind]);
+}
+
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {
   // GA4
   try { sendGAEvent("event", name, params); } catch {}

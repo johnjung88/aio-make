@@ -122,6 +122,21 @@ export async function recordVisitorEvent(
     event_path: eventPath ?? null,
     event_props: eventProps ?? {},
   });
+
+  // 채팅 메시지 발송 시 total_chat_messages 증가
+  if (eventType === "submit_chat") {
+    const { data: sess } = await supabase
+      .from("visitor_sessions")
+      .select("total_chat_messages")
+      .eq("id", sessionId)
+      .single();
+    if (sess) {
+      await supabase
+        .from("visitor_sessions")
+        .update({ total_chat_messages: (sess.total_chat_messages ?? 0) + 1 })
+        .eq("id", sessionId);
+    }
+  }
 }
 
 export async function markSessionConverted(sessionUid: string, leadId: string) {

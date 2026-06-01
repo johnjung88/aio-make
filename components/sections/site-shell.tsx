@@ -2,13 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import { Header } from "./header";
-import { Footer } from "./footer";
 import { MagazineHeader } from "@/components/magazine/magazine-header";
 import { MagazineFooter } from "@/components/magazine/magazine-footer";
-import { ConsultFooter } from "@/components/consultant/consult-footer";
-import { LifestyleFooter } from "@/components/lifestyle/lifestyle-footer";
-import { IdeFooter } from "@/components/ide/ide-footer";
-import { VideoFooter } from "@/components/video/video-footer";
 
 /**
  * 톤 매핑 (4분야 체계):
@@ -52,11 +47,5 @@ export function SiteHeader() {
 export function SiteFooter() {
   const pathname = usePathname();
   if (isStandalone(pathname)) return null;
-  const tone = getTone(pathname);
-  if (tone === "magazine") return <MagazineFooter />;
-  if (tone === "consultant") return <ConsultFooter />;
-  if (tone === "lifestyle") return <LifestyleFooter />;
-  if (tone === "ide") return <IdeFooter />;
-  if (tone === "cinema") return <VideoFooter />;
-  return <Footer />;
+  return <MagazineFooter />;
 }

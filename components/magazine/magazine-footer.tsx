@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { useLocale, useTranslations } from "next-intl";
+import { trackContactClick } from "@/lib/analytics/client";
 
 
 const disciplines = [
@@ -171,6 +172,7 @@ export function MagazineFooter() {
               </p>
               <Link
                 href="mailto:aiomake2023@gmail.com"
+                onClick={() => trackContactClick("email")}
                 className="transition-colors hover:!text-[var(--tone-magazine-red)]"
                 style={{
                   fontFamily: "var(--font-pretendard)",

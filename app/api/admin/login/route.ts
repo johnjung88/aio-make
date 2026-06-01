@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { setAdminSessionCookie, verifyAdminPassword } from "@/lib/admin-auth";
+import { setAdminSessionCookie, verifyAdminCredentials } from "@/lib/admin-auth";
 
 export async function POST(request: Request) {
   const formData = await request.formData();
+  const username = String(formData.get("username") ?? "");
   const password = String(formData.get("password") ?? "");
 
-  if (!verifyAdminPassword(password)) {
+  if (!verifyAdminCredentials(username, password)) {
     return NextResponse.redirect(new URL("/admin/login?error=invalid", request.url), {
       status: 303,
     });

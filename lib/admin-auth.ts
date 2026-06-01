@@ -32,9 +32,11 @@ function safeEqual(a: string, b: string): boolean {
   return timingSafeEqual(left, right);
 }
 
-export function verifyAdminPassword(password: string): boolean {
-  const expected = process.env.ADMIN_PASSWORD;
-  return Boolean(expected) && password === expected;
+export function verifyAdminCredentials(username: string, password: string): boolean {
+  const expectedUser = process.env.ADMIN_USERNAME;
+  const expectedPass = process.env.ADMIN_PASSWORD;
+  return Boolean(expectedUser) && Boolean(expectedPass)
+    && username === expectedUser && password === expectedPass;
 }
 
 export function createAdminSessionToken(): string {

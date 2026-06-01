@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { trackContactClick } from "@/lib/analytics/client";
 
 /**
  * AioNav — Dark Premium 공용 네비게이션.
@@ -138,24 +139,26 @@ export function AioNav({ locale, level, cat = "development", sub, active }: AioN
 }
 
 const FOOT_CSS = `
-.aiofoot{background:#0E0D0B;border-top:1px solid rgba(200,162,74,.2);color:#B7B0A2;font-family:var(--font-pretendard)}
+.aiofoot{background:#F5F0E8;border-top:1px solid #1A1614;color:#4A3F38;font-family:var(--font-pretendard)}
 .aiofoot .in{max-width:1400px;margin:0 auto;padding:clamp(40px,6vw,64px) clamp(20px,5vw,48px)}
-.aiofoot .top{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;align-items:center;padding-bottom:24px;margin-bottom:32px;border-bottom:1px solid rgba(239,233,221,.1);font-family:var(--font-ibm-plex-mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#6F6A5E}
-.aiofoot .top b{font-family:var(--font-fraunces);letter-spacing:.4em;color:#EFE9DD;font-weight:600}
-.aiofoot .top .dot{width:3px;height:3px;border-radius:50%;background:#C8A24A}
-.aiofoot .cols{display:flex;flex-direction:column;gap:36px;align-items:center;text-align:center}
-.aiofoot .brand{display:flex;flex-direction:column;align-items:center;gap:12px}
-.aiofoot .brand .blogo{display:inline-flex;height:56px;width:56px;border-radius:12px;background:#17150F;overflow:hidden;align-items:center;justify-content:center}
+.aiofoot .top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 18px;padding-bottom:24px;margin-bottom:32px;border-bottom:1px solid #C4B6A0;font-family:var(--font-jetbrains);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#7A6E63}
+.aiofoot .top .dot{width:3px;height:3px;border-radius:50%;background:#7A6E63;display:inline-block}
+.aiofoot .top .studio{font-family:var(--font-marcellus);letter-spacing:.4em;color:#1A1614}
+.aiofoot .cols{display:flex;flex-direction:column;gap:40px;align-items:center;text-align:center}
+@media(min-width:768px){.aiofoot .cols{flex-direction:row;align-items:flex-start;justify-content:space-between;text-align:left}}
+.aiofoot .brand{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:320px}
+@media(min-width:768px){.aiofoot .brand{align-items:flex-start}}
+.aiofoot .brand .blogo{display:inline-flex;height:64px;width:64px}
 .aiofoot .brand .blogo img{height:100%;width:100%;object-fit:contain}
-.aiofoot .brand .bn{font-family:var(--font-fraunces);font-size:24px;font-weight:600;color:#EFE9DD}
-.aiofoot .brand .bn em{font-style:normal;color:#C8A24A}
-.aiofoot .brand p{font-size:14px;line-height:1.7;color:#B7B0A2;max-width:36ch}
-.aiofoot .links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 40px;width:100%;max-width:680px;text-align:center}
-.aiofoot .col .h{font-family:var(--font-ibm-plex-mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#6F6A5E;margin-bottom:14px}
-.aiofoot .col a{display:block;font-size:14px;color:#EFE9DD;text-decoration:none;margin-bottom:10px}
-.aiofoot .col a:hover{color:#C8A24A}
-.aiofoot .biz{margin-top:38px;padding-top:24px;border-top:1px solid rgba(239,233,221,.1);text-align:center;font-family:var(--font-ibm-plex-mono);font-size:10.5px;letter-spacing:.04em;color:#6F6A5E;line-height:2}
-@media(max-width:600px){.aiofoot .links{grid-template-columns:1fr;gap:24px}}
+.aiofoot .brand p{font-family:var(--font-pretendard);font-size:15px;line-height:1.7;color:#4A3F38;font-weight:400;letter-spacing:-.005em}
+.aiofoot .links{display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;text-align:center;max-width:680px;width:100%}
+@media(min-width:640px){.aiofoot .links{grid-template-columns:repeat(3,minmax(0,1fr));text-align:left}}
+.aiofoot .col .h{font-family:var(--font-jetbrains);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:#7A6E63;margin-bottom:12px;display:block}
+.aiofoot .col a{display:block;font-family:var(--font-pretendard);font-size:14.5px;font-weight:400;letter-spacing:-.005em;color:#1A1614;text-decoration:none;margin-bottom:10px;transition:color .2s}
+.aiofoot .col a:hover{color:#C8472D}
+.aiofoot .ctcol{grid-column:1/-1}
+@media(min-width:640px){.aiofoot .ctcol{grid-column:auto}}
+.aiofoot .biz{margin-top:56px;padding-top:24px;border-top:1px solid #C4B6A0;text-align:center;font-family:var(--font-jetbrains);font-size:clamp(9.5px,.9vw,10.5px);letter-spacing:.18em;color:#7A6E63;line-height:1.85}
 `;
 
 export function AioFooter({ locale }: { locale: string }) {
@@ -165,37 +168,41 @@ export function AioFooter({ locale }: { locale: string }) {
       <style dangerouslySetInnerHTML={{ __html: FOOT_CSS }} />
       <div className="in">
         <div className="top">
-          <span>Issue 2026</span><span className="dot" /><b>A · I · O&nbsp;&nbsp;STUDIO</b><span className="dot" /><span>est 2024 · Korea</span>
+          <span>Issue 2026 · May</span>
+          <span className="dot" />
+          <span className="studio">A&nbsp;·&nbsp;I&nbsp;·&nbsp;O&nbsp;&nbsp;S T U D I O</span>
+          <span className="dot" />
+          <span>est 2024 · Korea</span>
         </div>
         <div className="cols">
           <div className="brand">
-            <span className="blogo"><Image src="/brand/aio-logo.png" alt="AIO" width={56} height={56} /></span>
-            <div className="bn">A<em>I</em>O</div>
+            <span className="blogo"><Image src="/brand/aio-logo.png" alt="AIO" width={64} height={64} /></span>
             <p>분야별 전문가가 직접 만드는 외주 스튜디오 — 개발·디자인·영상·마케팅</p>
           </div>
           <div className="links">
             <div className="col">
-              <div className="h">Services</div>
+              <span className="h">— Services</span>
               <a href={`${base}/services/development`}>개발</a>
               <a href={`${base}/services/design`}>디자인</a>
               <a href={`${base}/services/video`}>영상</a>
               <a href={`${base}/services/marketing`}>마케팅</a>
             </div>
             <div className="col">
-              <div className="h">Company</div>
+              <span className="h">— Company</span>
               <a href={`${base}/about`}>회사 소개</a>
-              <a href={`${base}/team`}>전체 팀원</a>
               <a href={`${base}/quote`}>견적 문의</a>
             </div>
-            <div className="col">
-              <div className="h">Contact</div>
-              <a href="mailto:aiomake2023@gmail.com">aiomake2023@gmail.com</a>
+            <div className="col ctcol">
+              <span className="h">— Contact</span>
+              <a href="mailto:aiomake2023@gmail.com" onClick={() => trackContactClick("email")}>aiomake2023@gmail.com</a>
             </div>
           </div>
         </div>
         <div className="biz">
-          <p>사업자명: 에이아이오 (AIO) &nbsp;|&nbsp; 사업자번호: 682-01-02748 &nbsp;|&nbsp; 통신판매업신고: 제 2026-경기김포-3656 호</p>
-          <p>주소: 경기도 김포시 대곶면 흥신로67 &nbsp;|&nbsp; © 2026 AIO에이전시. All rights reserved.</p>
+          <p>사업자명: 에이아이오 (AIO) &nbsp;|&nbsp; 사업자번호: 682-01-02748</p>
+          <p>통신판매업신고: 제 2026-경기김포-3656 호</p>
+          <p>주소: 경기도 김포시 대곶면 흥신로67</p>
+          <p>© {new Date().getFullYear()} AIO에이전시. All rights reserved.</p>
         </div>
       </div>
     </footer>

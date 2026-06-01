@@ -23,11 +23,23 @@ export default async function AdminLoginPage({
           <div className="mb-8">
             <p className="text-xs font-medium uppercase text-primary">AIO-MAKE Admin</p>
             <h1 className="mt-3 text-2xl font-semibold">관리자 로그인</h1>
-            <p className="mt-2 text-sm text-muted-foreground">비밀번호로 관리자 페이지에 접속합니다.</p>
+            <p className="mt-2 text-sm text-muted-foreground">아이디와 비밀번호로 관리자 페이지에 접속합니다.</p>
           </div>
 
-          <label className="mb-2 block text-xs font-medium text-muted-foreground" htmlFor="password">
-            관리자 비밀번호
+          <label className="mb-2 block text-xs font-medium text-muted-foreground" htmlFor="username">
+            아이디
+          </label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            autoComplete="username"
+            className="h-11 w-full rounded-lg border border-white/10 bg-white/5 px-4 text-sm outline-none transition focus:border-primary/60"
+          />
+
+          <label className="mb-2 mt-4 block text-xs font-medium text-muted-foreground" htmlFor="password">
+            비밀번호
           </label>
           <input
             id="password"
@@ -39,7 +51,7 @@ export default async function AdminLoginPage({
           />
 
           {error === "invalid" && (
-            <p className="mt-4 rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-300">비밀번호가 맞지 않습니다.</p>
+            <p className="mt-4 rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-300">아이디 또는 비밀번호가 맞지 않습니다.</p>
           )}
 
           <button
