@@ -42,19 +42,18 @@ const CSS = `
 .aiodp2 .shead h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp2 .shead p{font-size:var(--fs-lead);line-height:1.8;color:var(--fg2);max-width:50ch;margin:0 auto}
 
-/* Phone mockup */
-.aiodp2 .pre{display:flex;justify-content:center;gap:18px;align-items:flex-start}
-.aiodp2 .ph{width:300px;height:540px;border:1px solid var(--gold);border-radius:32px;background:var(--bg2);padding:14px;box-shadow:0 32px 80px rgba(0,0,0,.6);position:relative;overflow:hidden}
-.aiodp2 .ph::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:90px;height:8px;background:#0E0D0B;border-radius:0 0 14px 14px;z-index:2}
-.aiodp2 .ph .scr{height:100%;border-radius:22px;overflow:hidden;background:#0a0908;display:flex;flex-direction:column;gap:8px;padding:30px 14px 14px;text-align:left}
-.aiodp2 .ph .hr1{height:42px;background:linear-gradient(135deg,rgba(200,162,74,.3),rgba(215,138,138,.2));border-radius:6px}
-.aiodp2 .ph .img{height:120px;background:linear-gradient(160deg,rgba(200,162,74,.18),rgba(215,138,138,.10));border-radius:6px}
-.aiodp2 .ph .ln{height:6px;background:rgba(239,233,221,.18);border-radius:3px}
-.aiodp2 .ph .ln.s{width:60%}.aiodp2 .ph .ln.m{width:85%}
-.aiodp2 .ph .img2{height:80px;background:linear-gradient(180deg,rgba(139,224,194,.14),rgba(200,162,74,.10));border-radius:6px}
-.aiodp2 .ph .cta{height:36px;background:var(--gold);border-radius:6px;margin-top:auto}
-.aiodp2 .ph.tall{height:680px}.aiodp2 .ph.taller{height:820px}
-@media(max-width:820px){.aiodp2 .pre{flex-wrap:wrap;gap:14px}.aiodp2 .ph{width:240px;height:430px}.aiodp2 .ph.tall{height:540px}.aiodp2 .ph.taller{height:640px}}
+/* Phone mockup — real image */
+.aiodp2 .pre{display:flex;justify-content:center;gap:28px;align-items:flex-end;padding-bottom:8px}
+.aiodp2 .ph{position:relative;border-radius:36px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(200,162,74,.35);background:#0a0908;flex-shrink:0}
+.aiodp2 .ph::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:26px;background:#0a0908;border-radius:0 0 18px 18px;z-index:3}
+.aiodp2 .ph::after{content:"";position:absolute;inset:0;border-radius:36px;box-shadow:inset 0 0 0 1px rgba(200,162,74,.25);z-index:3;pointer-events:none}
+.aiodp2 .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.aiodp2 .ph.s{width:220px;height:440px}
+.aiodp2 .ph.m{width:240px;height:520px}
+.aiodp2 .ph.l{width:260px;height:620px}
+.aiodp2 .ph .badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);background:rgba(14,13,11,.82);padding:5px 12px;border-radius:999px;border:1px solid rgba(200,162,74,.3);z-index:4}
+@media(max-width:820px){.aiodp2 .pre{gap:14px}.aiodp2 .ph.s{width:160px;height:320px}.aiodp2 .ph.m{width:175px;height:380px}.aiodp2 .ph.l{width:190px;height:450px}}
+@media(max-width:500px){.aiodp2 .pre{gap:8px}.aiodp2 .ph.s{width:28vw;height:56vw}.aiodp2 .ph.m{width:30vw;height:64vw}.aiodp2 .ph.l{width:32vw;height:75vw}}
 
 .aiodp2 .price{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
 .aiodp2 .prow{padding:30px 22px;border:1px solid var(--gold);border-radius:14px;text-align:center}
@@ -84,20 +83,11 @@ const CSS = `
 .aiodp2 .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 
-const Phone = ({ size = "" }: { size?: "" | "tall" | "taller" }) => (
-  <div className={"ph " + size}>
-    <div className="scr">
-      <div className="hr1" />
-      <div className="img" />
-      <div className="ln m" /><div className="ln s" /><div className="ln m" />
-      <div className="img2" />
-      <div className="ln m" /><div className="ln s" />
-      {size === "tall" && <><div className="img" /><div className="ln m" /></>}
-      {size === "taller" && <><div className="img" /><div className="ln m" /><div className="img2" /><div className="ln m" /></>}
-      <div className="cta" />
-    </div>
-  </div>
-);
+const PHONE_IMAGES = [
+  { src: "/portfolio/cafe24-design-pack/d01-mobile-final.png", size: "s", label: "5,000PX" },
+  { src: "/portfolio/cafe24-design-pack/d05-mobile-final.png", size: "m", label: "10,000PX" },
+  { src: "/portfolio/cafe24-design-pack/d11-mobile-final.png", size: "l", label: "20,000PX" },
+];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -129,7 +119,14 @@ export function DetailPageLanding({ locale }: { locale: string }) {
 
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Preview · 3 sizes</span><h2>세 가지 <em>길이</em></h2><p>제품·상황·예산에 맞춰 길이와 깊이를 고릅니다</p></div>
-        <div className="pre reveal d1"><Phone /><Phone size="tall" /><Phone size="taller" /></div>
+        <div className="pre reveal d1">
+          {PHONE_IMAGES.map(({ src, size, label }) => (
+            <div key={src} className={`ph ${size}`}>
+              <img src={src} alt={label} loading="lazy" />
+              <span className="badge">{label}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="sec wrap">
