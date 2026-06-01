@@ -41,14 +41,14 @@ const CSS = `
 .aiodh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
 /* Cream art frame */
 .aiodh .cover .r{position:relative}
-.aiodh .frame{position:relative;aspect-ratio:4/5;background:var(--paper);overflow:hidden;border-radius:1px;box-shadow:0 30px 80px rgba(0,0,0,.55);transform:rotate(-1deg)}
-.aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(239,233,221,.22);z-index:2;pointer-events:none}
-.aiodh .frame .tag{position:absolute;top:24px;left:24px;font-family:var(--mono);font-size:10px;color:#EFE9DD;letter-spacing:.24em;border-bottom:1px solid rgba(239,233,221,.55);padding-bottom:4px;z-index:2}
-.aiodh .frame .label{position:absolute;left:28px;bottom:30px;font-family:var(--frau);color:#F4ECDC;font-size:clamp(28px,3.5vw,48px);line-height:.95;letter-spacing:-.014em;z-index:2}
-.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose2);display:block;margin-top:6px}
-.aiodh .frame .price{position:absolute;right:24px;bottom:30px;font-family:var(--mono);font-size:10px;color:rgba(239,233,221,.7);letter-spacing:.2em;text-align:right;line-height:1.7;z-index:2}
-.aiodh .frame .ornament{position:absolute;top:50%;right:28px;width:1px;height:96px;background:rgba(239,233,221,.4);transform:translateY(-50%);z-index:2}
-@media(max-width:880px){.aiodh .cover .wrap{grid-template-columns:1fr;text-align:center}.aiodh .cover .l{text-align:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}.aiodh .frame{max-width:420px;margin:0 auto}}
+.aiodh .frame{position:relative;aspect-ratio:16/9;background:#1A1612;overflow:hidden;border-radius:2px;box-shadow:0 30px 80px rgba(0,0,0,.65)}
+.aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(239,233,221,.18);z-index:2;pointer-events:none}
+.aiodh .frame .tag{position:absolute;top:20px;left:22px;font-family:var(--mono);font-size:10px;color:#EFE9DD;letter-spacing:.24em;border-bottom:1px solid rgba(239,233,221,.45);padding-bottom:4px;z-index:2}
+.aiodh .frame .label{position:absolute;left:26px;bottom:26px;font-family:var(--frau);color:#F4ECDC;font-size:clamp(22px,2.8vw,40px);line-height:.95;letter-spacing:-.014em;z-index:2}
+.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose2);display:block;margin-top:5px}
+.aiodh .frame .price{position:absolute;right:22px;bottom:26px;font-family:var(--mono);font-size:10px;color:rgba(239,233,221,.65);letter-spacing:.2em;text-align:right;line-height:1.7;z-index:2}
+.aiodh .frame .ornament{position:absolute;top:50%;right:26px;width:1px;height:72px;background:rgba(239,233,221,.35);transform:translateY(-50%);z-index:2}
+@media(max-width:880px){.aiodh .cover .wrap{grid-template-columns:1fr;text-align:center}.aiodh .cover .l{text-align:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}.aiodh .frame{max-width:560px;margin:0 auto}}
 
 /* === CREAM PAPER SECTION (turning magazine page) === */
 .aiodh .paper{background:var(--paper);color:var(--ink);position:relative;padding:clamp(72px,10vw,120px) 0;margin:clamp(32px,5vw,72px) 0;box-shadow:0 30px 90px rgba(0,0,0,.45)}
@@ -69,7 +69,7 @@ const CSS = `
 .aiodh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
 /* Spread — masonry on paper */
-.aiodh .spread{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:160px;gap:14px}
+.aiodh .spread{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:180px;gap:14px}
 .aiodh .tile{position:relative;border:1px solid rgba(26,22,18,.16);overflow:hidden;background:var(--paper2);transition:transform .3s}
 .aiodh .tile:hover{transform:translateY(-3px)}
 .aiodh .tile .tag{position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--ink2);text-transform:uppercase}
@@ -100,7 +100,7 @@ const CSS = `
 .aiodh .iss:hover{background:rgba(26,22,18,.04)}
 .aiodh .iss .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--rose);margin-bottom:22px;display:flex;justify-content:space-between;align-items:center}
 .aiodh .iss .num .v{color:var(--ink3)}
-.aiodh .iss .pic{aspect-ratio:5/4;margin:0 -32px 22px;border-top:1px solid rgba(26,22,18,.18);border-bottom:1px solid rgba(26,22,18,.18);position:relative}
+.aiodh .iss .pic{aspect-ratio:16/9;margin:0 -32px 22px;border-top:1px solid rgba(26,22,18,.18);border-bottom:1px solid rgba(26,22,18,.18);position:relative;overflow:hidden}
 .aiodh .iss.a .pic{background:linear-gradient(165deg,#EEDEC2,#D9B59C)}
 .aiodh .iss.b .pic{background:linear-gradient(145deg,#E8C9C2,#C8A09A)}
 .aiodh .iss.c .pic{background:linear-gradient(195deg,#D9B59C,#A89070)}
@@ -163,7 +163,7 @@ export function DesignHub({ locale }: { locale: string }) {
             <img
               src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg"
               alt="Brand First Impression"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%", zIndex: 0 }}
             />
             <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,22,18,0) 40%, rgba(26,22,18,0.72))", zIndex: 1 }} />
             <span className="label" style={{ zIndex: 2, color: "#F4ECDC" }}>Brand<em>First Impression</em></span>
@@ -177,11 +177,11 @@ export function DesignHub({ locale }: { locale: string }) {
         <div className="wrap">
           <div className="shead reveal"><span className="kick">Featured Spread</span><h2>이번 호의 <em>작업들</em></h2><p>로고·명함·상세페이지·PPT — 분야별 전문가가 각자의 매체로</p></div>
           <div className="spread reveal d1">
-            <div className="tile t1"><img className="bg" src="/portfolio/cafe24-design-pack/d01-mobile-final.png" alt="" loading="lazy" /><span className="shade" /><span className="tag">Detail · 10,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
-            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
-            <div className="tile t3"><img className="bg" src="/portfolio/logo-showcase/vela-skin/premium-logo-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="tag">Logo · Brand</span><span className="ttl"><em>첫 글자</em></span></div>
-            <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-business-card-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
-            <div className="tile t5"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl">풀 <em>스토리</em></span></div>
+            <div className="tile t1"><img className="bg" src="/portfolio/cafe24-design-pack/d01-mobile-final.png" alt="" loading="lazy" style={{objectFit:"contain",objectPosition:"center center",background:"#E8C9C2"}} /><span className="shade" /><span className="tag">Detail · 10,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
+            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 22%"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
+            <div className="tile t3"><img className="bg" src="/portfolio/logo-showcase/vela-skin/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 22%"}} /><span className="shade" /><span className="tag">Logo · Brand</span><span className="ttl"><em>첫 글자</em></span></div>
+            <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-business-card-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 30%"}} /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
+            <div className="tile t5"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl">풀 <em>스토리</em></span></div>
           </div>
         </div>
         <span className="crease" />
@@ -200,7 +200,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="issues">
             <div className="iss a reveal d1">
               <div className="num"><span>N° 01</span><span className="v">Soon</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-business-card-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-business-card-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 30%"}} /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
               <h3>로고·<em>명함</em></h3>
               <p className="desc">브랜드의 첫 글자 — 손에 남는 첫 명함</p>
               <span className="more">준비 중 →</span>
@@ -208,14 +208,14 @@ export function DesignHub({ locale }: { locale: string }) {
             </div>
             <a className="iss b reveal d2" href={`${base}/services/detail-page`}>
               <div className="num"><span>N° 02</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
               <h3>상세<em>페이지</em></h3>
               <p className="desc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
               <span className="more">자세히 →</span>
             </a>
             <a className="iss c reveal d3" href={`${base}/services/ppt-design`}>
               <div className="num"><span>N° 03</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/ppt-design/prea-silvercarelab/cover-slide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/ppt-design/prea-silvercarelab/cover-slide.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
               <h3>PPT <em>디자인</em></h3>
               <p className="desc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
               <span className="more">자세히 →</span>
