@@ -44,14 +44,14 @@ const CSS = `
 
 /* Phone mockup — real image */
 .aiodp2 .pre{display:flex;justify-content:center;gap:28px;align-items:flex-end;padding-bottom:8px}
-.aiodp2 .ph{position:relative;border-radius:36px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(200,162,74,.35);background:#0a0908;flex-shrink:0}
-.aiodp2 .ph::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:26px;background:#0a0908;border-radius:0 0 18px 18px;z-index:3}
-.aiodp2 .ph::after{content:"";position:absolute;inset:0;border-radius:36px;box-shadow:inset 0 0 0 1px rgba(200,162,74,.25);z-index:3;pointer-events:none}
-.aiodp2 .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.aiodp2 .ph{position:relative;border-radius:36px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1.5px rgba(200,162,74,.4);background:#0a0908;flex-shrink:0}
+.aiodp2 .ph::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:72px;height:22px;background:#0a0908;border-radius:0 0 16px 16px;z-index:3}
+.aiodp2 .ph::after{content:"";position:absolute;inset:0;border-radius:36px;box-shadow:inset 0 0 0 1px rgba(200,162,74,.2);z-index:3;pointer-events:none}
+.aiodp2 .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;position:relative;z-index:1}
 .aiodp2 .ph.s{width:220px;height:440px}
 .aiodp2 .ph.m{width:240px;height:520px}
 .aiodp2 .ph.l{width:260px;height:620px}
-.aiodp2 .ph .badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);background:rgba(14,13,11,.82);padding:5px 12px;border-radius:999px;border:1px solid rgba(200,162,74,.3);z-index:4}
+.aiodp2 .ph .badge{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);background:rgba(14,13,11,.88);padding:5px 14px;border-radius:999px;border:1px solid rgba(200,162,74,.35);z-index:4}
 @media(max-width:820px){.aiodp2 .pre{gap:14px}.aiodp2 .ph.s{width:160px;height:320px}.aiodp2 .ph.m{width:175px;height:380px}.aiodp2 .ph.l{width:190px;height:450px}}
 @media(max-width:500px){.aiodp2 .pre{gap:8px}.aiodp2 .ph.s{width:28vw;height:56vw}.aiodp2 .ph.m{width:30vw;height:64vw}.aiodp2 .ph.l{width:32vw;height:75vw}}
 
@@ -119,11 +119,13 @@ export function DetailPageLanding({ locale }: { locale: string }) {
 
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Preview · 3 sizes</span><h2>세 가지 <em>길이</em></h2><p>제품·상황·예산에 맞춰 길이와 깊이를 고릅니다</p></div>
-        <div className="pre reveal d1">
-          {PHONE_IMAGES.map(({ src, size, label }) => (
-            <div key={src} className={`ph ${size}`}>
-              <img src={src} alt={label} loading="lazy" />
-              <span className="badge">{label}</span>
+        <div className="pre">
+          {PHONE_IMAGES.map(({ src, size, label }, i) => (
+            <div key={src} className={`reveal d${i + 1}`} style={{ flexShrink: 0 }}>
+              <div className={`ph ${size}`}>
+                <img src={src} alt={label} />
+                <span className="badge">{label}</span>
+              </div>
             </div>
           ))}
         </div>
