@@ -161,7 +161,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="frame">
             <span className="tag">N° 02 · COVER</span>
             <img
-              src="/portfolio/logo-showcase/vela-skin/premium-presentation.jpg"
+              src="/portfolio/logo-showcase/onda-hair/premium-presentation.jpg"
               alt="Brand First Impression"
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
             />
@@ -200,7 +200,7 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="issues">
             <div className="iss a reveal d1">
               <div className="num"><span>N° 01</span><span className="v">Soon</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/photo-application.jpg" alt="" loading="lazy" /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-business-card-detail.jpg" alt="" loading="lazy" /><span className="shade" /><span className="cap">Logo · Business Card</span></div>
               <h3>로고·<em>명함</em></h3>
               <p className="desc">브랜드의 첫 글자 — 손에 남는 첫 명함</p>
               <span className="more">준비 중 →</span>
@@ -208,14 +208,14 @@ export function DesignHub({ locale }: { locale: string }) {
             </div>
             <a className="iss b reveal d2" href={`${base}/services/detail-page`}>
               <div className="num"><span>N° 02</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d07-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
               <h3>상세<em>페이지</em></h3>
               <p className="desc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
               <span className="more">자세히 →</span>
             </a>
             <a className="iss c reveal d3" href={`${base}/services/ppt-design`}>
               <div className="num"><span>N° 03</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/ppt-design/ir-investment/sample-2.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png" alt="" loading="lazy" /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
               <h3>PPT <em>디자인</em></h3>
               <p className="desc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
               <span className="more">자세히 →</span>
