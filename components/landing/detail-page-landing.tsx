@@ -84,9 +84,9 @@ const CSS = `
 `;
 
 const PHONE_IMAGES = [
-  { src: "/portfolio/cafe24-design-pack/d01-mobile-final.png", size: "s", label: "5,000PX" },
-  { src: "/portfolio/cafe24-design-pack/d05-mobile-final.png", size: "m", label: "10,000PX" },
-  { src: "/portfolio/cafe24-design-pack/d11-mobile-final.png", size: "l", label: "20,000PX" },
+  { src: "/portfolio/detail-page/vegan-cleanser/detail.jpg",   size: "s", label: "5,000PX" },
+  { src: "/portfolio/detail-page/premium-mealkit/detail.jpg",  size: "m", label: "10,000PX" },
+  { src: "/portfolio/detail-page/premium-dog-food/detail.jpg", size: "l", label: "20,000PX" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
