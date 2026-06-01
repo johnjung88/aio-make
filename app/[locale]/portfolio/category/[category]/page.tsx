@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { portfolioGroups, getProjectsByCategory } from "@/lib/portfolio";
 import type { PortfolioGroup } from "@/lib/portfolio";
 import { PortfolioCard } from "@/components/ui/portfolio-card";
+import { AioNav, AioFooter } from "@/components/landing/aio-nav";
+import type { AioNavLevel } from "@/components/landing/aio-nav";
 
 const VALID_CATEGORIES = portfolioGroups
   .filter((group) => group.value !== "all")
@@ -14,6 +16,20 @@ const categoryLabels = Object.fromEntries(
     .filter((group) => group.value !== "all")
     .map((group) => [group.value, group.label]),
 ) as Record<PortfolioGroup, { ko: string; en: string }>;
+
+/** 포트폴리오 카테고리 → 서비스 nav 매핑 */
+const CATEGORY_NAV: Record<
+  string,
+  { level: AioNavLevel; cat: "development" | "design" | "video" | "marketing"; sub?: string }
+> = {
+  "logo-business-card": { level: "middle", cat: "design" },
+  "detail-page":        { level: "leaf",   cat: "design",      sub: "detail-page" },
+  "ppt-design":         { level: "leaf",   cat: "design",      sub: "ppt-design" },
+  "website":            { level: "leaf",   cat: "development", sub: "website" },
+  "shopping-mall":      { level: "leaf",   cat: "development", sub: "shopping-mall" },
+  "automation-app":     { level: "leaf",   cat: "development", sub: "automation-app" },
+  "video-content":      { level: "middle", cat: "video" },
+};
 
 export async function generateStaticParams() {
   return VALID_CATEGORIES.map((category) => ({ category }));
@@ -49,35 +65,42 @@ export default async function CategoryPortfolioPage({
   const group = category as PortfolioGroup;
   const projects = await getProjectsByCategory(group);
   const label = categoryLabels[group][locale as "ko" | "en"];
+  const nav = CATEGORY_NAV[group] ?? { level: "middle" as AioNavLevel, cat: "development" as const };
 
   return (
-    <main className="pb-24 pt-28">
-      <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-10 bg-primary" />
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
-              {t("sectionTitle")}
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">{label}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {locale === "ko" ? `${projects.length}개 작업물` : `${projects.length} projects`}
-          </p>
-        </div>
+    <div>
+      <AioNav locale={locale} level={nav.level} cat={nav.cat} sub={nav.sub} active="portfolio" />
 
-        {projects.length === 0 ? (
-          <div className="flex h-48 items-center justify-center rounded-2xl border border-dashed border-white/15 text-sm text-muted-foreground">
-            {locale === "ko" ? `${t("comingSoon")} - 5월부터 채워집니다` : t("comingSoon")}
+      <main className="pb-24 pt-20">
+        <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-px w-10 bg-primary" />
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
+                {t("sectionTitle")}
+              </span>
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">{label}</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {locale === "ko" ? `${projects.length}개 작업물` : `${projects.length} projects`}
+            </p>
           </div>
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <PortfolioCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
-      </div>
-    </main>
+
+          {projects.length === 0 ? (
+            <div className="flex h-48 items-center justify-center rounded-2xl border border-dashed border-white/15 text-sm text-muted-foreground">
+              {locale === "ko" ? `${t("comingSoon")} - 5월부터 채워집니다` : t("comingSoon")}
+            </div>
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project) => (
+                <PortfolioCard key={project.id} project={project} />
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+
+      <AioFooter locale={locale} />
+    </div>
   );
 }

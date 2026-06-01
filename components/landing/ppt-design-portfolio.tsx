@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
@@ -23,8 +24,7 @@ const CSS = `
 .aiopptp .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 var(--sp-edge);max-width:var(--maxw);margin:0 auto clamp(60px,8vw,100px)}
 .aiopptp .card{display:block;background:var(--bg2);border:1px solid var(--line2);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .3s,border-color .3s}
 .aiopptp .card:hover{transform:translateY(-4px);border-color:var(--gold)}
-.aiopptp .card .shot{aspect-ratio:16/9;background:linear-gradient(135deg,rgba(122,174,236,.18),rgba(200,162,74,.10));position:relative}
-.aiopptp .card .shot::after{content:attr(data-no);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;color:rgba(239,233,221,.35);letter-spacing:.3em}
+.aiopptp .card .shot{aspect-ratio:16/9;position:relative;background:#17150F}
 .aiopptp .card .cap{padding:12px 16px;text-align:left}
 .aiopptp .card .nm{font-family:var(--frau);font-size:16px;font-weight:500;display:block}
 .aiopptp .card .ct{font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:.14em;margin-top:4px;display:block}
@@ -37,35 +37,47 @@ const CSS = `
 .aiopptp .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B;text-decoration:none}
 `;
 
-const ITEMS = [
-  { nm: "AI 솔루션 IR (Seed)", ct: "IR", pp: "24P" },
-  { nm: "푸드테크 사업계획", ct: "사업계획", pp: "32P" },
-  { nm: "헬스케어 IR (Series A)", ct: "IR", pp: "28P" },
-  { nm: "신제품 런칭 제안", ct: "제안", pp: "12P" },
-  { nm: "글로벌 진출 전략", ct: "발표", pp: "18P" },
-  { nm: "리테일 브랜드 IR", ct: "IR", pp: "30P" },
-  { nm: "교육 솔루션 제안", ct: "제안", pp: "16P" },
-  { nm: "여행 플랫폼 사업계획", ct: "사업계획", pp: "26P" },
-  { nm: "전사 비전 발표", ct: "발표", pp: "20P" },
-];
 const FILTERS = [
-  { f: "all", label: "전체" }, { f: "IR", label: "IR" }, { f: "사업계획", label: "사업계획" }, { f: "제안", label: "제안" }, { f: "발표", label: "발표" },
+  { f: "all",       label: "전체" },
+  { f: "IR·투자유치", label: "IR·투자유치" },
+  { f: "지원사업·R&D", label: "지원사업·R&D" },
+  { f: "제안·회사소개", label: "제안·회사소개" },
+  { f: "발표·강연",   label: "발표·강연" },
+  { f: "학술·과제",   label: "학술·과제" },
 ];
 
-export function PptDesignPortfolio({ locale }: { locale: string }) {
+interface PptItem {
+  slug: string;
+  title: string;
+  cover: string;
+  slides: string;
+  deckUrl: string | null;
+  kind: string;
+}
+
+export function PptDesignPortfolio({ locale, items }: { locale: string; items: PptItem[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState("all");
+
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const prog = root.querySelector<HTMLElement>(".prog");
-    const onScroll = () => { const h = document.documentElement; if (prog) prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%"; };
+    const onScroll = () => {
+      const h = document.documentElement;
+      if (prog) prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .14 });
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
+      { threshold: .14 }
+    );
     root.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
   }, []);
+
   const base = `/${locale}`;
-  const shown = filter === "all" ? ITEMS : ITEMS.filter((i) => i.ct === filter);
+  const shown = filter === "all" ? items : items.filter((i) => i.kind === filter);
+
   return (
     <div className="aiopptp" ref={ref}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
@@ -81,15 +93,28 @@ export function PptDesignPortfolio({ locale }: { locale: string }) {
 
       <div className="filters">
         {FILTERS.map((f) => (
-          <button key={f.f} className={"chip" + (filter === f.f ? " on" : "")} onClick={() => setFilter(f.f)}>{f.label}</button>
+          <button key={f.f} className={"chip" + (filter === f.f ? " on" : "")} onClick={() => setFilter(f.f)}>
+            {f.label}
+          </button>
         ))}
       </div>
 
       <div className="grid">
-        {shown.map((it, i) => (
-          <a key={i} className="card reveal" href={`${base}/services/ppt-design`}>
-            <div className="shot" data-no={it.pp} />
-            <div className="cap"><span className="nm">{it.nm}</span><span className="ct">↗ {it.ct} · {it.pp}</span></div>
+        {shown.map((it) => (
+          <a key={it.slug} className="card reveal" href={`${base}/portfolio/${it.slug}`}>
+            <div className="shot">
+              <Image
+                src={it.cover}
+                alt={it.title}
+                fill
+                sizes="(max-width:540px) 100vw, (max-width:820px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <div className="cap">
+              <span className="nm">{it.title}</span>
+              <span className="ct">↗ {it.kind}{it.slides ? ` · ${it.slides}P` : ""}</span>
+            </div>
           </a>
         ))}
       </div>

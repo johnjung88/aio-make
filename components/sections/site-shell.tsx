@@ -18,9 +18,10 @@ function isStandalone(pathname: string): boolean {
   // Dark Premium 자체완결형 페이지들 (자체 AioNav + AioFooter 내장 — 전역 헤더/푸터 미출력)
   // 중카테고리 허브: /services/{development|design|video|marketing}
   // 소카테고리: /services/{website|shopping-mall|automation-app|detail-page|ppt-design}/(... portfolio 등)
-  // 카테고리 하위: /(about|team)
+  // 포트폴리오 카테고리 페이지: /portfolio/category/{slug} (서비스별 AioNav 내장)
   return /^\/[a-z]{2}\/services\/(website|shopping-mall|automation-app|detail-page|ppt-design)(\/.*)?$/.test(pathname)
-    || /^\/[a-z]{2}\/services\/(development|design|video|marketing)(\/.*)?$/.test(pathname);
+    || /^\/[a-z]{2}\/services\/(development|design|video|marketing)(\/.*)?$/.test(pathname)
+    || /^\/[a-z]{2}\/portfolio\/category\/(website|shopping-mall|automation-app|logo-business-card|detail-page|ppt-design|video-content)$/.test(pathname);
 }
 
 function getTone(

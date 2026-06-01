@@ -1765,6 +1765,356 @@ const additionalPptSpecs: AdditionalPptSpec[] = [
     slides: "12",
     sampleCount: 1,
   },
+  {
+    slug: "ppt-seriesb-flowdesk",
+    assetDir: "seriesb-flowdesk",
+    title: { ko: "Series B 투자유치 피치덱", en: "Series B Investment Pitch Deck" },
+    summary: {
+      ko: "ARR 성장률·NRR·글로벌 확장 트랙을 Series B VC가 빠르게 판단할 수 있도록 정리한 투자유치 피치덱입니다.",
+      en: "A Series B pitch deck built for VC review of ARR growth, NRR, and global expansion track in one clear flow.",
+    },
+    problem: {
+      ko: "Series B에서는 아이디어보다 ARR 지표, 단위 경제, 글로벌 확장 가능성이 한 흐름으로 보여야 투자자가 다음 질문 없이 판단합니다.",
+      en: "At Series B, investors need ARR metrics, unit economics, and global expansion potential in one coherent narrative.",
+    },
+    solution: {
+      ko: "핵심 지표($48M ARR·142% YoY·NRR 138%), 제품 모듈, 글로벌 트랙션, 단위 경제, 팀, 재무 추정을 자연스럽게 연결해 투자 논리가 흐르게 구성했습니다.",
+      en: "We connected key metrics, product modules, global traction, unit economics, team, and financials into a persuasive investment narrative.",
+    },
+    impact: {
+      ko: "투자자는 현재 ARR과 성장 경로를 빠르게 비교하고, 발표자는 핵심 수치 중심으로 Series B 설득력을 높일 수 있습니다.",
+      en: "Investors can assess current ARR and the growth path quickly, while founders can lead with stronger financial proof.",
+    },
+    resultSummary: {
+      ko: "ARR·NRR·글로벌 확장 흐름이 어떻게 투자자 설득 화면으로 구성되는지 완성된 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let founders review the ARR narrative and investor-ready finish before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "핵심 지표·글로벌 트랙션 슬라이드", en: "Key metrics and global traction slides" },
+      { ko: "단위 경제·재무 추정 구성", en: "Unit economics and financial projection structure" },
+    ],
+    stack: ["Series B Deck", "IR Story", "Global Traction", "Editable PPTX"],
+    role: ["스토리 설계", "지표 구성", "카피 정리", "PPT 디자인"],
+    duration: "2-4일",
+    slides: "30",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-demoday-noderush",
+    assetDir: "demoday-noderush",
+    title: { ko: "데모데이 5분 피칭 PPT", en: "Demo Day 5-Minute Pitch Deck" },
+    summary: {
+      ko: "100명 이상의 투자자가 동시에 보는 데모데이에서 5분 안에 핵심 메시지와 임팩트를 전달하는 피칭덱입니다.",
+      en: "A demo day pitch deck built to deliver a single clear message and impact within a 5-minute investor presentation.",
+    },
+    problem: {
+      ko: "데모데이는 30개 스타트업이 같은 무대에서 경쟁하므로, 5분 안에 문제·해결책·트랙션·투자 요청이 한 번에 박혀야 합니다.",
+      en: "At demo days, 30+ startups compete on stage — 5 minutes must land problem, solution, traction, and ask simultaneously.",
+    },
+    solution: {
+      ko: "텍스트를 최소화하고 거대한 숫자와 시각 임팩트 중심으로 10장 안에 핵심 피칭 흐름을 구성했습니다.",
+      en: "We built a 10-slide flow with minimal text, large numbers, and maximum visual impact for quick investor absorption.",
+    },
+    impact: {
+      ko: "짧은 무대 시간에 투자자의 기억에 남는 핵심 메시지를 심고, 발표 후 명함 교환으로 이어지는 첫인상을 만듭니다.",
+      en: "The deck plants a memorable core message in a short stage slot and creates the first impression that leads to follow-up.",
+    },
+    resultSummary: {
+      ko: "5분 피칭에서 투자자 기억에 남는 숫자와 흐름이 어떻게 구성되는지 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let founders review the demo-day flow and visual pacing before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "5분 피칭 타임라인·슬라이드 구성", en: "5-minute pitch timeline and slide structure" },
+      { ko: "임팩트 숫자·비주얼 중심 레이아웃", en: "Impact-number and visual-first layout" },
+    ],
+    stack: ["Demo Day Deck", "Pitch Story", "Bold Visuals", "Editable PPTX"],
+    role: ["피칭 구성", "카피 정리", "시각 디자인", "PPT 편집"],
+    duration: "1-3일",
+    slides: "10",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-kstartup-luminex",
+    assetDir: "kstartup-luminex",
+    title: { ko: "K-Startup 글로벌 진출 PPT", en: "K-Startup Global Expansion Deck" },
+    summary: {
+      ko: "국내 트랙션과 일본 시장 진출 전략을 K-Startup 평가 기준에 맞춰 정리한 글로벌 진출 패키지 신청 자료입니다.",
+      en: "A K-Startup global expansion deck that aligns domestic traction and Japan market strategy with program evaluation criteria.",
+    },
+    problem: {
+      ko: "글로벌 진출 지원사업은 국내 검증 지표와 진출 국가 시장조사·전략 구체성이 함께 보여야 심사 기준을 충족합니다.",
+      en: "Global expansion programs require both domestic validation metrics and concrete market research and strategy for the target country.",
+    },
+    solution: {
+      ko: "국내 매출·트랙션, 일본 시장 분석, 진출 채널·일정·자금 운용 계획을 평가 가중치에 맞춰 한 흐름으로 구성했습니다.",
+      en: "We built the deck around evaluation weights: domestic traction, Japan market data, channel strategy, timeline, and use of funds.",
+    },
+    impact: {
+      ko: "심사자는 진출 준비 완성도와 실행 가능성을 빠르게 판단하고, 신청자는 설득력 있는 글로벌 전략을 한 장씩 전달할 수 있습니다.",
+      en: "Reviewers can quickly assess readiness and feasibility, while applicants can present a compelling global strategy slide by slide.",
+    },
+    resultSummary: {
+      ko: "국내 트랙션과 일본 진출 전략이 K-Startup 평가 기준에 맞게 구성된 완성 덱을 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let applicants review the K-Startup-aligned narrative and market strategy before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "국내 검증·일본 시장 분석 슬라이드", en: "Domestic validation and Japan market analysis slides" },
+      { ko: "진출 전략·자금 운용 계획", en: "Market entry strategy and use-of-funds plan" },
+    ],
+    stack: ["Grant Deck", "Global Strategy", "Market Research", "Editable PPTX"],
+    role: ["기획", "시장 구조화", "카피 정리", "PPT 디자인"],
+    duration: "2-4일",
+    slides: "25",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-rnd-neuralwave",
+    assetDir: "rnd-neuralwave",
+    title: { ko: "정부 R&D 과제 사업계획서 PPT", en: "Government R&D Grant Application Deck" },
+    summary: {
+      ko: "의료 영상 AI 분석 과제의 연구 필요성, 정량 목표, WBS, 연구비 계획을 R&D 평가 기준에 맞춰 정리한 사업계획서 PPT입니다.",
+      en: "An R&D grant deck that aligns research necessity, quantitative goals, WBS, and budget breakdown with evaluation criteria.",
+    },
+    problem: {
+      ko: "R&D 과제는 기술 혁신성, 연구 목표 정량 명시, 인력·일정·예산 구성이 평가 항목 가중치에 맞아야 선정됩니다.",
+      en: "R&D grants require quantified research goals, team structure, WBS, and budget justification matched to weighted criteria.",
+    },
+    solution: {
+      ko: "연구 필요성·혁신성, 정량 목표, 추진 일정(24개월 Gantt), 연구 인력, 비목별 연구비를 평가 가중치 순서로 구성했습니다.",
+      en: "We organized research necessity, quantified goals, 24-month Gantt, team, and itemized budget in evaluation-weight order.",
+    },
+    impact: {
+      ko: "평가위원은 기술성·실현 가능성·사업화 가능성을 빠르게 판단하고, 연구자는 복잡한 내용을 슬라이드 단위로 설명할 수 있습니다.",
+      en: "Reviewers can quickly judge technology, feasibility, and commercialization, while researchers can present complex content slide by slide.",
+    },
+    resultSummary: {
+      ko: "R&D 평가 기준에 맞게 연구 목표·일정·인력·예산이 구성된 완성 덱을 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let researchers review the evaluation-aligned structure and completeness before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "연구 목표·WBS·Gantt 슬라이드", en: "Research goals, WBS, and Gantt slides" },
+      { ko: "연구비 비목별 사용 계획", en: "Itemized budget and use-of-funds plan" },
+    ],
+    stack: ["R&D Deck", "Grant Story", "WBS Gantt", "Editable PPTX"],
+    role: ["기획", "자료 구조화", "연구비 정리", "PPT 디자인"],
+    duration: "2-4일",
+    slides: "30",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-lifecare-insurance",
+    assetDir: "lifecare-insurance",
+    title: { ko: "보험 상품 설명 PPT", en: "Insurance Product Explanation Deck" },
+    summary: {
+      ko: "복잡한 보험 약관을 잠재 가입자가 한 번에 이해할 수 있도록 보장 내용·가격·가입 사례를 시각화한 상품 설명 자료입니다.",
+      en: "An insurance product deck that turns complex policy terms into clear visuals for benefit, pricing, and enrollment cases.",
+    },
+    problem: {
+      ko: "보험 가입자는 약관 복잡성이 가장 큰 장벽이므로, 보장 명확성·가격 투명성·신뢰 전달이 한 장씩 이어져야 합니다.",
+      en: "Policy complexity is the top barrier for buyers, so clarity, pricing transparency, and trust must flow through each slide.",
+    },
+    solution: {
+      ko: "핵심 보장 항목, 가입 사례별 시뮬레이션, 청구 절차를 시각화해 중장년 가입 대상이 쉽게 이해하도록 구성했습니다.",
+      en: "We visualized key benefits, simulation by case, and claim steps so the 40-60s audience can understand quickly.",
+    },
+    impact: {
+      ko: "잠재 가입자는 보장 내용과 가격을 명확히 이해하고 상담사는 설명 시간을 줄이며 신뢰를 먼저 전달할 수 있습니다.",
+      en: "Prospects can clearly understand coverage and pricing, while agents can build trust and reduce explanation time.",
+    },
+    resultSummary: {
+      ko: "복잡한 보험 조건이 어떻게 이해하기 쉬운 슬라이드로 바뀌는지 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let clients review how complex insurance terms become readable slides before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "핵심 보장·가격 시뮬레이션 슬라이드", en: "Key benefit and pricing simulation slides" },
+      { ko: "가입 사례·청구 절차 시각화", en: "Enrollment case and claim process visualization" },
+    ],
+    stack: ["Product Deck", "Insurance", "B2C Proposal", "Editable PPTX"],
+    role: ["구조화", "카피 정리", "시각 디자인", "PPT 편집"],
+    duration: "1-3일",
+    slides: "15",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-growthpie-marketing",
+    assetDir: "growthpie-marketing",
+    title: { ko: "디지털 마케팅 영업 제안서 PPT", en: "Digital Marketing Agency Proposal Deck" },
+    summary: {
+      ko: "퍼포먼스 마케팅 에이전시의 실적, 서비스 구조, 사례, 가격 모델을 B2B 의사결정자가 빠르게 비교하도록 정리한 영업 제안서입니다.",
+      en: "A B2B marketing agency proposal deck that helps decision-makers compare track record, services, case studies, and pricing quickly.",
+    },
+    problem: {
+      ko: "에이전시 제안서는 ROAS·CAC 같은 실적 수치와 진행 방식이 의사결정자가 내부 공유하기 쉽게 정리돼야 계약으로 이어집니다.",
+      en: "Agency proposals must present ROAS, CAC, and work process in a format easy to share internally to close deals.",
+    },
+    solution: {
+      ko: "5.8x ROAS 등 핵심 숫자를 표지부터 강조하고, 서비스 범주·사례·가격 모델·온보딩·다음 단계를 순서대로 제안합니다.",
+      en: "We lead with headline numbers like 5.8x ROAS and flow through services, case studies, pricing, onboarding, and next steps.",
+    },
+    impact: {
+      ko: "의사결정자는 서비스 가치와 기대 성과를 한눈에 비교하고, 에이전시는 미팅 전에 신뢰를 먼저 전달할 수 있습니다.",
+      en: "Decision-makers can compare service value and expected results quickly, while the agency builds trust before the first call.",
+    },
+    resultSummary: {
+      ko: "마케팅 실적 수치와 영업 흐름이 어떻게 설득력 있는 제안서로 구성되는지 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let agencies review how their metrics become a compelling proposal before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "실적 수치·사례 중심 슬라이드", en: "Performance metrics and case study slides" },
+      { ko: "가격 모델·온보딩·다음 단계 구성", en: "Pricing model, onboarding, and next-steps structure" },
+    ],
+    stack: ["Agency Proposal", "B2B Sales", "Performance Deck", "Editable PPTX"],
+    role: ["제안 구성", "카피 정리", "사례 정리", "PPT 디자인"],
+    duration: "1-3일",
+    slides: "20",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-marketing-keynote",
+    assetDir: "marketing-keynote",
+    title: { ko: "마케팅 컨퍼런스 키노트 PPT", en: "Marketing Conference Keynote Deck" },
+    summary: {
+      ko: "500명 마케팅 디렉터·CMO를 대상으로 2026 디지털 마케팅 트렌드와 AI 광고 전환을 설명하는 컨퍼런스 키노트 자료입니다.",
+      en: "A conference keynote deck presenting 2026 digital marketing trends and AI ad transformation to 500 CMOs and directors.",
+    },
+    problem: {
+      ko: "컨퍼런스 키노트는 많은 청중이 동시에 참석하므로, 한 장 한 장이 발표자 없이도 이해될 만큼 명확하고 임팩트 있어야 합니다.",
+      en: "Conference keynotes need slides clear and impactful enough to stand alone as the audience follows a large-room presentation.",
+    },
+    solution: {
+      ko: "섹션별 핵심 수치(AI 도입 ROAS +47%, TikTok +180%), 사례, 실행 가능한 Action Plan을 발표자 흐름에 맞춰 구성했습니다.",
+      en: "We built the deck around section headline stats, case studies, and an actionable plan matched to the speaker's flow.",
+    },
+    impact: {
+      ko: "청중은 트렌드와 실행 포인트를 빠르게 이해하고, 발표자는 컨퍼런스 무대에서 전문성과 신뢰를 전달할 수 있습니다.",
+      en: "Audiences can absorb trends and action points quickly, while speakers can project credibility on a conference stage.",
+    },
+    resultSummary: {
+      ko: "컨퍼런스 무대에서 트렌드와 인사이트가 어떻게 임팩트 있는 화면으로 전달되는지 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let speakers review how trends and insights translate to conference-ready slides.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "트렌드 데이터·사례 슬라이드", en: "Trend data and case study slides" },
+      { ko: "실행 Action Plan 구성", en: "Actionable plan structure" },
+    ],
+    stack: ["Keynote Deck", "Conference", "Trend Report", "Editable PPTX"],
+    role: ["강연 구성", "트렌드 정리", "시각 디자인", "PPT 편집"],
+    duration: "1-3일",
+    slides: "15",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-data-intro-seminar",
+    assetDir: "data-intro-seminar",
+    title: { ko: "데이터 분석 입문 사내 세미나 PPT", en: "Data Analysis Intro Seminar Deck" },
+    summary: {
+      ko: "비개발 직군(마케팅·기획·CS)을 대상으로 SQL·GA4·Looker 데이터 분석 도구를 소개하는 사내 세미나 자료입니다.",
+      en: "An in-house seminar deck introducing SQL, GA4, and Looker to non-developer teams like marketing and planning.",
+    },
+    problem: {
+      ko: "사내 교육 자료는 읽는 문서가 아니라 발표자가 실습과 함께 설명하는 흐름이어야 비개발 직군이 따라올 수 있습니다.",
+      en: "In-house training decks need a step-by-step flow that non-developers can follow alongside hands-on practice.",
+    },
+    solution: {
+      ko: "도구별 개념 설명, 실습 예시, 1주 학습 플랜을 단계적으로 구성해 청중이 세미나 후 바로 활용할 수 있게 정리했습니다.",
+      en: "We organized tool concepts, practice examples, and a 1-week learning plan so the audience can start using them after the session.",
+    },
+    impact: {
+      ko: "비개발 직군은 데이터 도구를 두려움 없이 시작하고, 발표자는 세미나 시간 안에 핵심 개념을 효과적으로 전달할 수 있습니다.",
+      en: "Non-developers can start with data tools without fear, while speakers can deliver key concepts effectively in seminar time.",
+    },
+    resultSummary: {
+      ko: "비개발 직군이 이해하기 쉬운 데이터 분석 도구 소개 흐름과 실습 구성을 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let speakers review the tool intro flow and practice layout before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "도구별 개념·실습 슬라이드", en: "Tool concept and practice slides" },
+      { ko: "1주 학습 플랜 정리", en: "1-week learning plan structure" },
+    ],
+    stack: ["Seminar Deck", "Data Literacy", "SQL GA4", "Editable PPTX"],
+    role: ["강의 구성", "내용 정리", "시각 디자인", "PPT 편집"],
+    duration: "1-3일",
+    slides: "12",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-teamproject-coffee",
+    assetDir: "teamproject-coffee",
+    title: { ko: "팀 프로젝트 발표 PPT", en: "Team Project Presentation Deck" },
+    summary: {
+      ko: "캠퍼스 카페 매출 데이터를 분석해 개선 제안을 도출한 팀 프로젝트 발표용 PPT입니다.",
+      en: "A team project presentation deck analyzing campus café sales data and proposing actionable improvement strategies.",
+    },
+    problem: {
+      ko: "팀 프로젝트 발표는 분석 방법·결과·제안이 평가자가 각 팀원의 기여도를 이해하기 쉽게 정리돼야 좋은 평가를 받습니다.",
+      en: "Team project decks need clear method, results, and proposals so evaluators can easily assess each member's contribution.",
+    },
+    solution: {
+      ko: "문제 정의, 데이터 수집, 분석 방법, 시간대별·메뉴별·좌석 회전율 결과, 개선 제안 5가지를 발표 순서에 맞춰 정리했습니다.",
+      en: "We organized problem, data collection, analysis method, three result categories, and five proposals in presentation order.",
+    },
+    impact: {
+      ko: "교수·평가위원은 분석 과정과 제안의 실행 가능성을 빠르게 판단하고, 팀은 발표 시간 안에 핵심을 안정적으로 전달합니다.",
+      en: "Evaluators can quickly judge analysis quality and feasibility, while the team can deliver the core content confidently.",
+    },
+    resultSummary: {
+      ko: "데이터 분석 결과와 개선 제안이 발표용으로 읽히는 흐름을 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let students review the analysis flow and proposal readability before ordering.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "데이터 수집·분석 결과 슬라이드", en: "Data collection and analysis result slides" },
+      { ko: "개선 제안·한계 정리", en: "Improvement proposals and limitations" },
+    ],
+    stack: ["Academic Deck", "Data Analysis", "Team Project", "Editable PPTX"],
+    role: ["자료 정리", "발표 구성", "시각 디자인", "PPT 편집"],
+    duration: "1-3일",
+    slides: "12",
+    sampleCount: 1,
+  },
+  {
+    slug: "ppt-internship-report",
+    assetDir: "internship-report",
+    title: { ko: "인턴십 결과 보고 PPT", en: "Internship Report Deck" },
+    summary: {
+      ko: "12주 마케팅 인턴십의 담당 업무, 성과, 배운 점을 학과 평가위원과 교수에게 보고하는 인턴십 결과 보고 PPT입니다.",
+      en: "An internship report deck presenting 12-week marketing internship duties, results, and learning to academic evaluators.",
+    },
+    problem: {
+      ko: "인턴십 보고 발표는 실무 경험을 평가자가 이해하기 쉽게 정리해야 하며, 학습·기여·성장이 한 흐름으로 보여야 합니다.",
+      en: "Internship presentations must organize work experience so evaluators can see learning, contribution, and growth in one flow.",
+    },
+    solution: {
+      ko: "회사 소개, 12주 일정, 담당 업무 3가지, 성과(ROAS 개선 사례), 배운 점, 향후 계획을 발표 순서에 맞춰 구성했습니다.",
+      en: "We organized company intro, 12-week timeline, three work areas, performance proof, learnings, and future plans in order.",
+    },
+    impact: {
+      ko: "평가위원은 인턴의 기여도와 성장을 빠르게 이해하고, 발표자는 인턴십 경험을 설득력 있게 전달할 수 있습니다.",
+      en: "Evaluators can quickly grasp contribution and growth, while presenters can articulate their internship experience persuasively.",
+    },
+    resultSummary: {
+      ko: "인턴십 경험이 어떻게 발표용으로 구조화되는지 완성 덱으로 미리 확인할 수 있습니다.",
+      en: "The planning file and editable deck let students review how internship experience translates to a presentation-ready structure.",
+    },
+    deliverables: [
+      { ko: "기획서 1개 + PPT 원본 1개", en: "One planning document plus one editable PPT deck" },
+      { ko: "업무·성과·배운 점 슬라이드", en: "Work duties, results, and learning slides" },
+      { ko: "향후 계획·결론 구성", en: "Future plans and conclusion structure" },
+    ],
+    stack: ["Report Deck", "Internship", "Career", "Editable PPTX"],
+    role: ["자료 정리", "발표 구성", "시각 디자인", "PPT 편집"],
+    duration: "1일",
+    slides: "10",
+    sampleCount: 1,
+  },
 ];
 
 const additionalPptPortfolioProjects: PortfolioProject[] = additionalPptSpecs.map((project) => ({

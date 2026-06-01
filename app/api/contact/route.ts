@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import { createResendClient, getInquiryRecipient } from "@/lib/resend";
+import { markSessionConverted } from "@/lib/analytics/server";
 
 type ApiResponse<T> = {
   success: boolean;
@@ -15,6 +16,7 @@ const contactSchema = z.object({
   phone: z.string().trim().max(30).optional().default(""),
   service_category: z.enum(["web", "app", "design", "video", "automation"]).optional(),
   source: z.enum(["soomgo", "kmong", "search", "referral", "direct"]).optional(),
+  sessionUid: z.string().min(1).max(200).optional(),
   budget_range: z
     .enum([
       "under-50k",
@@ -157,6 +159,11 @@ export async function POST(request: Request) {
       console.error("[contact] supabase insert error:", error?.message);
       const errorResponse: ApiResponse<null> = { success: false, error: error?.message ?? "Contact was not saved" };
       return NextResponse.json(errorResponse, { status: 500 });
+    }
+
+    // 방문 세션 → 문의 전환 연결
+    if (payload.sessionUid && lead?.id) {
+      markSessionConverted(payload.sessionUid, lead.id).catch(() => {});
     }
 
     try {
