@@ -1,40 +1,11 @@
-import Image from "next/image";
 import { MagazineVitalSign } from "./magazine-vital-sign";
 
 export function MagazineCover() {
   return (
-    <section className="max-w-[1500px] mx-auto relative text-center overflow-hidden">
-      {/* 배경 이미지 레이어 — opacity 낮춰 텍스처처럼 동작 */}
-      {/* Photo by Vitaly Gariev on Unsplash (Unsplash License) */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero/hero-bg.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover object-bottom"
-          style={{
-            opacity: 0.22,
-            filter: "grayscale(100%) brightness(0.25) blur(6px)",
-            transform: "scale(1.04)", /* blur 엣지 픽셀 방지 */
-          }}
-          sizes="100vw"
-        />
-      </div>
-      {/* 오버레이 — 상단은 완전 불투명, 중단 약간 열어 텍스처 힌트 */}
-      <div
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(14,13,11,1) 0%, rgba(14,13,11,0.91) 20%, rgba(14,13,11,0.89) 75%, rgba(14,13,11,1) 100%)",
-        }}
-      />
-
-      {/* 콘텐츠 — 이미지·오버레이 위에 렌더 */}
-      <div
-        className="relative z-20"
-        style={{ padding: "var(--space-section) var(--space-edge)" }}
-      >
+    <section
+      className="max-w-[1500px] mx-auto relative text-center"
+      style={{ padding: "var(--space-section) var(--space-edge)" }}
+    >
       {/* Cover meta — 모바일/PC 별도 마크업 */}
       <div
         className="pb-4 border-b mb-10 md:mb-16 mx-auto"
@@ -355,7 +326,6 @@ export function MagazineCover() {
             <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>4.6일</strong>
           </p>
         </div>
-      </div>
       </div>
     </section>
   );
