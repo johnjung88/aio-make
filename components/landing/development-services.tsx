@@ -13,25 +13,25 @@ const SUB_SERVICES = [
     no: "01", id: "website", title: "웹사이트", en: "Website",
     desc: "랜딩페이지·회사 홈페이지·서비스 사이트. 스크롤을 멈추게 만드는 완성형 홈페이지.",
     price: "₩99,000~", days: "1–5일", tags: ["Next.js", "WordPress", "카페24"],
-    href: (l: string) => `/${l}/services/website`, soon: false, accent: "#3B82F6",
+    href: (l: string) => `/${l}/services/website`, soon: false, accent: "#3B82F6", bg: "#EFF6FF",
   },
   {
     no: "02", id: "shopping-mall", title: "쇼핑몰", en: "Shopping Mall",
     desc: "카페24·독립몰 구축. 상품 등록·결제 연동·GA4·광고 픽셀까지 한 번에.",
     price: "₩149,000~", days: "2–5일", tags: ["카페24", "결제연동", "GA4·픽셀"],
-    href: (l: string) => `/${l}/services/shopping-mall`, soon: false, accent: "#FB923C",
+    href: (l: string) => `/${l}/services/shopping-mall`, soon: false, accent: "#FB923C", bg: "#FFF7ED",
   },
   {
     no: "03", id: "automation-app", title: "자동화·프로그램", en: "Automation & Program",
     desc: "엑셀·크롤링·알림·매크로·데스크탑 프로그램. 반복 업무를 코드에게.",
     price: "₩100,000~", days: "1–7일", tags: ["Python", "n8n", "Electron"],
-    href: (l: string) => `/${l}/services/automation-app`, soon: false, accent: "#818CF8",
+    href: (l: string) => `/${l}/services/automation-app`, soon: false, accent: "#818CF8", bg: "#F5F3FF",
   },
   {
     no: "04", id: "app", title: "앱", en: "Mobile App",
     desc: "iOS·Android 네이티브 앱 및 크로스플랫폼 개발. 현재 준비 중입니다.",
     price: "준비 중", days: "", tags: ["React Native", "Flutter"],
-    href: () => "#", soon: true, accent: "#9CA3AF",
+    href: () => "#", soon: true, accent: "#9CA3AF", bg: "#F9FAFB",
   },
 ];
 
@@ -39,7 +39,7 @@ const HOW = [
   { no: "01", title: "투명한 진행", desc: "작업 상황을 매일 공유합니다. 카카오톡 채널로 실시간 소통.", icon: "💬" },
   { no: "02", title: "운영 가능한 납품", desc: "시안이 아닌 완성품으로 드립니다. 받는 즉시 운영할 수 있는 결과물.", icon: "✅" },
   { no: "03", title: "빠른 속도", desc: "의뢰 후 1–5일 납품. 다음 날 착수, 매일 중간 공유.", icon: "⚡" },
-  { no: "04", title: "책임 A/S", desc: "납품 후 14일 무상 유지보수. 오류·수정 모두 책임집니다.", icon: "🛡️" },
+  { no: "04", title: "책임 A/S", desc: "납품 후 1달 무상 유지보수. 오류·수정 모두 책임집니다.", icon: "🛡️" },
 ];
 
 const PORTFOLIO = [
@@ -57,11 +57,11 @@ const REVIEWS = [
 
 const FAQS = [
   { q: "제작 기간이 얼마나 걸리나요?", a: "서비스 종류에 따라 다릅니다. 원페이지 랜딩은 1일, 3–5페이지 홈페이지는 2–5일, 쇼핑몰 기본 세팅은 2–3일, 자동화 프로그램은 1–7일이 기준입니다. 견적 시 정확한 납기를 안내드립니다." },
-  { q: "수정은 몇 번까지 가능한가요?", a: "플랜별로 수정 횟수가 다르며 라이트 1회, 스탠다드 2회, 프리미엄 3회가 기본입니다. 납품 후 14일 이내 오류·누락 수정은 무상으로 진행합니다." },
+  { q: "수정은 몇 번까지 가능한가요?", a: "플랜별로 수정 횟수가 다르며 라이트 1회, 스탠다드 2회, 프리미엄 3회가 기본입니다. 납품 후 1달 이내 오류·누락 수정은 무상으로 진행합니다." },
   { q: "도메인·호스팅도 포함인가요?", a: "도메인과 호스팅은 기본 패키지에 포함되지 않으며 별도 구매가 필요합니다. 구매 후 연결 세팅은 모두 지원드립니다." },
   { q: "결제·예약·회원가입 기능도 만들 수 있나요?", a: "네, 가능합니다. 다만 해당 기능은 기본 패키지 외 별도 견적으로 진행됩니다. 견적 문의 시 필요한 기능을 말씀해주시면 정확한 비용을 안내드립니다." },
   { q: "착수금은 얼마이고 어떻게 결제하나요?", a: "착수 시 50%, 납품 시 나머지 50%를 계좌이체로 진행합니다. 견적 확정 후 착수금 입금이 확인되면 다음 날 작업을 시작합니다." },
-  { q: "납품 후 유지보수는 어떻게 되나요?", a: "납품 후 14일간 무상 A/S를 제공합니다. 오류 수정, 사소한 텍스트·이미지 교체는 무상으로 처리합니다. 이후 추가 수정·기능 추가는 별도 견적으로 진행합니다." },
+  { q: "납품 후 유지보수는 어떻게 되나요?", a: "납품 후 1달간 무상 A/S를 제공합니다. 오류 수정, 사소한 텍스트·이미지 교체는 무상으로 처리합니다. 이후 추가 수정·기능 추가는 별도 견적으로 진행합니다." },
 ];
 
 const STACK = ["Next.js", "React", "Python", "Node.js", "n8n", "Electron", "카페24", "WordPress"];
@@ -116,7 +116,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               보여주기용이 아닌, 바로 운영 가능한 완성품으로.
             </p>
             <div className="flex flex-wrap gap-2 mb-8">
-              {["5일 납품 보장", "98% 재의뢰율", "1시간 응답", "14일 무상 A/S"].map((b) => (
+              {["5일 납품 보장", "98% 재의뢰율", "1시간 응답", "1달 무상 A/S"].map((b) => (
                 <span
                   key={b}
                   className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
@@ -132,13 +132,6 @@ export function DevelopmentServices({ locale }: { locale: string }) {
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
               >
                 제작 문의 →
-              </Link>
-              <Link
-                href={`/${locale}/portfolio`}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5"
-                style={{ border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.07)" }}
-              >
-                포트폴리오 보기
               </Link>
             </div>
             {/* 하단 수치 */}
@@ -218,8 +211,8 @@ await aio.build(project);
             {SUB_SERVICES.map((s) => {
               const Card = (
                 <div
-                  className="group border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white"
-                  style={{ borderColor: "#E5E7EB", opacity: s.soon ? 0.6 : 1 }}
+                  className="group border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ background: s.bg, borderColor: s.accent + "30", opacity: s.soon ? 0.6 : 1 }}
                 >
                   <div className="h-1" style={{ background: s.accent }} />
                   <div className="p-6">
