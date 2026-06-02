@@ -1,0 +1,98 @@
+<h2>개발 허브 — 추가할 수 있는 섹션들</h2>
+<p class="subtitle">현재: 히어로 → 수치바 → 서비스카드 → 일하는방식 → CTA &nbsp;|&nbsp; 아래 중 추가할 섹션을 선택하세요 (복수 선택 가능)</p>
+
+<div class="options" data-multiselect>
+
+  <div class="option" data-choice="portfolio" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>포트폴리오 미리보기</h3>
+      <p>실제 납품한 개발 결과물 3–4개를 카드로 보여주는 섹션. 웹사이트·쇼핑몰·자동화 각 분야 예시 포함. "전체 보기 →" 링크로 포트폴리오 페이지 연결.</p>
+      <!-- 미니 목업 -->
+      <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="background:#F0F9FF;border:1px solid #BAE6FD;border-radius:8px;padding:10px;font-size:10px">
+          <div style="width:100%;height:40px;background:#BFDBFE;border-radius:4px;margin-bottom:6px"></div>
+          <div style="color:#1E40AF;font-weight:600">병원 홈페이지</div>
+          <div style="color:#64748B;font-size:9px">웹사이트</div>
+        </div>
+        <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:10px;font-size:10px">
+          <div style="width:100%;height:40px;background:#FDBA74;border-radius:4px;margin-bottom:6px"></div>
+          <div style="color:#9A3412;font-weight:600">브랜드 쇼핑몰</div>
+          <div style="color:#64748B;font-size:9px">쇼핑몰</div>
+        </div>
+        <div style="background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;padding:10px;font-size:10px">
+          <div style="width:100%;height:40px;background:#C4B5FD;border-radius:4px;margin-bottom:6px"></div>
+          <div style="color:#5B21B6;font-weight:600">업무 자동화</div>
+          <div style="color:#64748B;font-size:9px">자동화</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="process" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>제작 프로세스 4단계</h3>
+      <p>상담 → 견적 → 제작 → 납품+A/S. 의뢰인이 가장 불안해하는 "어떻게 진행되나요?"를 시각으로 해소. 각 단계별 소요 시간 표시.</p>
+      <div style="margin-top:12px;display:flex;gap:4px;align-items:center">
+        <div style="background:#111;color:#fff;border-radius:8px;padding:8px 10px;font-size:10px;text-align:center;flex:1">
+          <div style="font-weight:700">01</div><div>상담</div><div style="color:#9CA3AF;font-size:9px">당일</div>
+        </div>
+        <span style="color:#9CA3AF">→</span>
+        <div style="background:#F3F4F6;border-radius:8px;padding:8px 10px;font-size:10px;text-align:center;flex:1">
+          <div style="font-weight:700">02</div><div>견적</div><div style="color:#9CA3AF;font-size:9px">24시간</div>
+        </div>
+        <span style="color:#9CA3AF">→</span>
+        <div style="background:#F3F4F6;border-radius:8px;padding:8px 10px;font-size:10px;text-align:center;flex:1">
+          <div style="font-weight:700">03</div><div>제작</div><div style="color:#9CA3AF;font-size:9px">1–5일</div>
+        </div>
+        <span style="color:#9CA3AF">→</span>
+        <div style="background:#F3F4F6;border-radius:8px;padding:8px 10px;font-size:10px;text-align:center;flex:1">
+          <div style="font-weight:700">04</div><div>납품</div><div style="color:#9CA3AF;font-size:9px">+14일 A/S</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="faq" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>자주 묻는 질문 (FAQ)</h3>
+      <p>견적 전 가장 자주 오는 질문들을 아코디언으로. "수정은 몇 번까지?", "기간이 얼마나?", "도메인·호스팅은?" 등. 문의 전 불안감 선제 해소.</p>
+      <div style="margin-top:12px;border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;font-size:10px">
+        <div style="padding:10px 12px;border-bottom:1px solid #E5E7EB;display:flex;justify-content:space-between">
+          <span style="font-weight:600">제작 기간이 얼마나 걸리나요?</span><span>+</span>
+        </div>
+        <div style="padding:10px 12px;border-bottom:1px solid #E5E7EB;display:flex;justify-content:space-between">
+          <span style="font-weight:600">수정은 몇 번까지 가능한가요?</span><span>+</span>
+        </div>
+        <div style="padding:10px 12px;display:flex;justify-content:space-between">
+          <span style="font-weight:600">도메인·호스팅도 포함인가요?</span><span>+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="review" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>의뢰인 후기 미리보기</h3>
+      <p>실제 개발 의뢰인 후기 2–3개를 카드로. 별점·후기 텍스트·의뢰 분야 표시. 신뢰 극대화. (기존 홈 Voices 섹션 내용 재활용 가능)</p>
+      <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px;font-size:10px">
+          <div style="color:#F59E0B;margin-bottom:4px">★★★★★</div>
+          <div style="color:#374151;line-height:1.5">"생각보다 훨씬 빠르고 퀄리티도 좋았습니다"</div>
+          <div style="color:#9CA3AF;font-size:9px;margin-top:4px">— 웹사이트 의뢰인</div>
+        </div>
+        <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:10px;font-size:10px">
+          <div style="color:#F59E0B;margin-bottom:4px">★★★★★</div>
+          <div style="color:#374151;line-height:1.5">"자동화 후 하루 3시간씩 절약하고 있어요"</div>
+          <div style="color:#9CA3AF;font-size:9px;margin-top:4px">— 자동화 의뢰인</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">여러 개 선택 가능합니다. 다 추가할 수도 있어요.</p>

@@ -1,0 +1,150 @@
+<h2>4개 페이지 방향성 — 각 분위기 확인</h2>
+<p class="subtitle">각 카드를 클릭해서 마음에 드는 방향인지 확인해주세요. 수정 의견 주시면 바로 반영합니다.</p>
+
+<div class="cards">
+
+  <!-- 개발 허브 -->
+  <div class="card" data-choice="hub" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#0d1117;overflow:hidden;position:relative;height:220px">
+      <!-- VS Code window chrome -->
+      <div style="background:#1e1e1e;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #333">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28ca41;display:inline-block"></span>
+        <span style="color:#8b949e;font-size:11px;font-family:monospace;margin-left:8px">aio-make / services / development</span>
+      </div>
+      <!-- Tab bar -->
+      <div style="background:#252526;padding:0 14px;display:flex;gap:0;border-bottom:1px solid #333">
+        <span style="color:#4dd4ac;font-size:10px;font-family:monospace;padding:6px 12px;border-right:1px solid #333;border-top:1px solid #4dd4ac;background:#1e1e1e">서비스.tsx</span>
+        <span style="color:#8b949e;font-size:10px;font-family:monospace;padding:6px 12px;border-right:1px solid #333">포트폴리오.tsx</span>
+        <span style="color:#8b949e;font-size:10px;font-family:monospace;padding:6px 12px">가격.tsx</span>
+      </div>
+      <!-- Hero area -->
+      <div style="padding:20px;text-align:center">
+        <div style="font-family:monospace;font-size:10px;color:#4dd4ac;margin-bottom:8px">$ aio init --category development</div>
+        <div style="font-family:monospace;font-size:24px;font-weight:700;color:#f0f6fc;line-height:1.1;margin-bottom:8px">코드로 만드는<br><span style="color:#4dd4ac">모든 것</span></div>
+        <div style="font-size:10px;color:#8b949e;margin-bottom:14px">웹 · 쇼핑몰 · 자동화 · 프로그램</div>
+        <!-- 4 service cards mini -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px">
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:6px;font-family:monospace;font-size:9px;color:#4dd4ac;text-align:center">01<br>웹</div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:6px;font-family:monospace;font-size:9px;color:#4dd4ac;text-align:center">02<br>쇼핑몰</div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:6px;font-family:monospace;font-size:9px;color:#4dd4ac;text-align:center">03<br>자동화</div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:6px;font-family:monospace;font-size:9px;color:#8b949e;text-align:center">04<br>앱</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>🖥 개발 허브 — IDE 에디터 무드</h3>
+      <p>VS Code 창틀 + 탭바로 시작. 다크 #0D1117 배경. 터미널 프롬프트 eyebrow. 4서비스를 코드 파일처럼 보여주는 깔끔한 인덱스 페이지. 메인처럼 텍스트 중심, 과하지 않게.</p>
+    </div>
+  </div>
+
+  <!-- 웹사이트 -->
+  <div class="card" data-choice="website" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#0d1117;overflow:hidden;position:relative;height:220px">
+      <div style="background:#1e1e1e;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #333">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28ca41;display:inline-block"></span>
+        <span style="color:#8b949e;font-size:11px;font-family:monospace;margin-left:8px">aio-make / services / website</span>
+      </div>
+      <div style="padding:16px;text-align:center">
+        <div style="font-family:monospace;font-size:9px;color:#4dd4ac;margin-bottom:6px">// web agency · 5일 납품</div>
+        <div style="font-family:monospace;font-size:18px;font-weight:700;color:#f0f6fc;line-height:1.1;margin-bottom:10px">스크롤을 멈추게<br>만드는 <span style="color:#4dd4ac">홈페이지</span></div>
+        <!-- 포트폴리오 쇼케이스 미니 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:8px">
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;height:50px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a3a5c,#0d1117);display:flex;align-items:center;justify-content:center">
+              <div style="width:70%;height:2px;background:#4dd4ac;border-radius:1px"></div>
+            </div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:7px;color:#8b949e;font-family:monospace">병원 홈</div>
+          </div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;height:50px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#3a1a5c,#0d1117);display:flex;align-items:center;justify-content:center">
+              <div style="width:70%;height:2px;background:#bd93f9;border-radius:1px"></div>
+            </div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:7px;color:#8b949e;font-family:monospace">법률사무소</div>
+          </div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;height:50px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a5c3a,#0d1117);display:flex;align-items:center;justify-content:center">
+              <div style="width:70%;height:2px;background:#28ca41;border-radius:1px"></div>
+            </div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:7px;color:#8b949e;font-family:monospace">스타트업</div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#8b949e;font-family:monospace">병원 · 법률 · 쇼핑몰 · 스타트업 전문</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>🌐 웹사이트 — 웹 에이전시 스타일</h3>
+      <p>포트폴리오가 주인공. 업종별 제작 예시(병원·법률·커머스)를 큰 화면으로 쇼케이스. "우리가 만든 사이트를 보세요" 접근. 가격 3티어 + 납기 보장 + CTA.</p>
+    </div>
+  </div>
+
+  <!-- 쇼핑몰 -->
+  <div class="card" data-choice="shopping" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#0d1117;overflow:hidden;position:relative;height:220px">
+      <div style="background:#1e1e1e;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #333">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28ca41;display:inline-block"></span>
+        <span style="color:#8b949e;font-size:11px;font-family:monospace;margin-left:8px">aio-make / services / shopping-mall</span>
+      </div>
+      <div style="padding:16px;text-align:center">
+        <div style="font-family:monospace;font-size:9px;color:#ffb347;margin-bottom:6px">// commerce · cafe24 specialist</div>
+        <div style="font-family:monospace;font-size:18px;font-weight:700;color:#f0f6fc;line-height:1.1;margin-bottom:10px">팔리는 쇼핑몰을<br><span style="color:#ffb347">구축</span>합니다</div>
+        <!-- 쇼핑몰 수치 -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:8px">
+            <div style="color:#ffb347;font-family:monospace;font-size:14px;font-weight:700">2일</div>
+            <div style="color:#8b949e;font-size:8px">평균 납기</div>
+          </div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:8px">
+            <div style="color:#ffb347;font-family:monospace;font-size:14px;font-weight:700">98%</div>
+            <div style="color:#8b949e;font-size:8px">재의뢰율</div>
+          </div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:3px;padding:8px">
+            <div style="color:#ffb347;font-family:monospace;font-size:14px;font-weight:700">카페24</div>
+            <div style="color:#8b949e;font-size:8px">전문 파트너</div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#8b949e;font-family:monospace">카페24 · 독립몰 · 자사몰 구축 전문</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>🛒 쇼핑몰 — 커머스 에이전시 스타일</h3>
+      <p>Amber 액센트 (#FFB347). "팔리는" 쇼핑몰 강조. 카페24 파트너 전문성. 업종별 쇼케이스(뷰티·식품·패션). 매출 연동 수치·전환율 중심. 결제 연동·상품등록까지 패키지로.</p>
+    </div>
+  </div>
+
+  <!-- 자동화 -->
+  <div class="card" data-choice="automation" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0;background:#0d1117;overflow:hidden;position:relative;height:220px">
+      <div style="background:#1e1e1e;padding:10px 14px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #333">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#ffbd2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28ca41;display:inline-block"></span>
+        <span style="color:#8b949e;font-size:11px;font-family:monospace;margin-left:8px">aio-make / services / automation</span>
+      </div>
+      <div style="padding:16px">
+        <div style="font-family:monospace;font-size:9px;color:#4dd4ac;margin-bottom:8px">$ python automate.py --target "반복업무" --output "자유시간"</div>
+        <!-- 터미널 느낌 -->
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:4px;padding:10px;font-family:monospace;font-size:9px;margin-bottom:8px">
+          <div style="color:#8b949e;margin-bottom:3px">// 자동화 완료:</div>
+          <div style="color:#4dd4ac">✓ 엑셀 데이터 파싱 <span style="color:#8b949e">— 0.3s</span></div>
+          <div style="color:#4dd4ac">✓ 카카오 알림톡 발송 <span style="color:#8b949e">— 1.2s</span></div>
+          <div style="color:#4dd4ac">✓ DB 업데이트 <span style="color:#8b949e">— 0.8s</span></div>
+          <div style="color:#ffb347">→ 절약 시간: 3h/일 × 365일 = <span style="color:#f0f6fc;font-weight:700">1,095h/년</span></div>
+        </div>
+        <div style="font-size:9px;color:#8b949e;font-family:monospace">n8n · Make · Python · Electron · 매크로</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>⚙️ 자동화 — 소프트웨어 개발사 스타일</h3>
+      <p>터미널 출력처럼 "Before/After 절약 시간" 수치 강조. 실제 자동화 케이스(엑셀·알림·크롤링)를 코드 블록으로 보여줌. 진짜 개발사처럼 기술 스택·처리 속도 중심. 가장 기술적인 톤.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">방향이 맞으면 클릭해주세요. 수정할 부분 있으면 말씀해 주세요 — 특히 쇼핑몰의 Amber 색상 vs 민트 유지 중 선택이 중요합니다.</p>

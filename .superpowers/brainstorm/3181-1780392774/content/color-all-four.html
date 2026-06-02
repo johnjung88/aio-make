@@ -1,0 +1,96 @@
+<h2>4개 페이지 — 각자 다른 포인트 컬러</h2>
+<p class="subtitle">각 페이지별로 클릭해서 원하는 색을 골라주세요. (복수 선택 가능)</p>
+
+<div style="display:grid;gap:20px">
+
+  <!-- 허브 -->
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#111;margin-bottom:8px">/services/development — 개발 허브</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="option" data-choice="hub-slate" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#334155;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">슬레이트 #334155</div>
+        <div style="font-size:9px;color:#666">중립·상위 카테고리</div>
+      </div>
+      <div class="option" data-choice="hub-mint" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#4dd4ac;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">민트 #4DD4AC</div>
+        <div style="font-size:9px;color:#666">기존 브랜드 유지</div>
+      </div>
+      <div class="option" data-choice="hub-black" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#111;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">블랙 #111111</div>
+        <div style="font-size:9px;color:#666">강함·umbrella</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 웹사이트 -->
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#111;margin-bottom:8px">/services/website — 웹사이트</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="option" data-choice="web-blue" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#3b82f6;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">블루 #3B82F6</div>
+        <div style="font-size:9px;color:#666">웹·디지털·신뢰감</div>
+      </div>
+      <div class="option" data-choice="web-mint" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#4dd4ac;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">민트 #4DD4AC</div>
+        <div style="font-size:9px;color:#666">크리에이티브·프레시</div>
+      </div>
+      <div class="option" data-choice="web-violet" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#7c3aed;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">바이올렛 #7C3AED</div>
+        <div style="font-size:9px;color:#666">프리미엄·크리에이티브</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 쇼핑몰 -->
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#111;margin-bottom:8px">/services/shopping-mall — 쇼핑몰</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="option" data-choice="shop-orange" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#fb923c;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">오렌지 #FB923C</div>
+        <div style="font-size:9px;color:#666">커머스·에너지·따뜻함</div>
+      </div>
+      <div class="option" data-choice="shop-red" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#ef4444;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">레드 #EF4444</div>
+        <div style="font-size:9px;color:#666">세일·커머스·임팩트</div>
+      </div>
+      <div class="option" data-choice="shop-rose" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#f43f5e;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">로즈 #F43F5E</div>
+        <div style="font-size:9px;color:#666">뷰티·패션·감성</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자동화 -->
+  <div>
+    <div style="font-size:12px;font-weight:700;color:#111;margin-bottom:8px">/services/automation-app — 자동화·프로그램</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="option" data-choice="auto-indigo" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#818cf8;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">인디고 #818CF8</div>
+        <div style="font-size:9px;color:#666">기술·소프트웨어</div>
+      </div>
+      <div class="option" data-choice="auto-purple" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#7c3aed;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">퍼플 #7C3AED</div>
+        <div style="font-size:9px;color:#666">AI·자동화·스마트</div>
+      </div>
+      <div class="option" data-choice="auto-amber" onclick="toggleSelect(this)" style="flex:1;min-width:120px;padding:10px;border-radius:6px">
+        <div style="width:100%;height:6px;background:#f59e0b;border-radius:3px;margin-bottom:6px"></div>
+        <div style="font-size:10px;font-weight:600;color:#111">앰버 #F59E0B</div>
+        <div style="font-size:9px;color:#666">경고·효율·황금시간</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">각 페이지당 하나씩 클릭. 또는 "허브 블랙, 웹 블루, 쇼핑몰 오렌지, 자동화 인디고" 처럼 말씀해주셔도 됩니다.</p>

@@ -1,0 +1,97 @@
+<h2>카테고리 갤러리를 어디에 넣을까요?</h2>
+<p class="subtitle">A(히어로 배경)는 확정. C(카테고리 갤러리)를 홈페이지 내 어느 위치에 넣을지 결정합니다.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="1" onclick="toggleSelect(this)">
+    <div class="letter">1</div>
+    <div class="content">
+      <h3>홈 TOC 섹션 안에 — 카테고리 행마다 이미지</h3>
+      <p>현재 "개발 / 디자인 / 영상 / 마케팅" 목차 섹션에서 각 카테고리 행 옆에 해당 장면 이미지를 붙입니다. 홈에서 바로 카테고리별 분위기 전달.</p>
+      <!-- 미니 목업 -->
+      <div style="margin-top:12px;background:#0e0d0b;border:1px solid rgba(240,232,216,0.1);border-radius:4px;padding:12px;font-size:11px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+          <div style="width:48px;height:32px;background:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&q=60') center/cover;border-radius:2px;opacity:0.7;filter:grayscale(30%);flex-shrink:0"></div>
+          <div>
+            <div style="color:#f0e8d8;font-weight:600">개발</div>
+            <div style="color:#807060;font-size:10px">홈페이지 · 앱 · 자동화</div>
+          </div>
+          <div style="margin-left:auto;color:#c0442a;font-size:10px">→</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+          <div style="width:48px;height:32px;background:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=100&q=60') center/cover;border-radius:2px;opacity:0.7;filter:grayscale(30%);flex-shrink:0"></div>
+          <div>
+            <div style="color:#f0e8d8;font-weight:600">디자인</div>
+            <div style="color:#807060;font-size:10px">로고 · 상세페이지 · PPT</div>
+          </div>
+          <div style="margin-left:auto;color:#c0442a;font-size:10px">→</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+          <div style="width:48px;height:32px;background:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=100&q=60') center/cover;border-radius:2px;opacity:0.7;filter:grayscale(30%);flex-shrink:0"></div>
+          <div>
+            <div style="color:#f0e8d8;font-weight:600">영상</div>
+            <div style="color:#807060;font-size:10px">마케팅 · 쇼츠 · 모션</div>
+          </div>
+          <div style="margin-left:auto;color:#c0442a;font-size:10px">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="2" onclick="toggleSelect(this)">
+    <div class="letter">2</div>
+    <div class="content">
+      <h3>히어로 바로 아래 — 4분야 이미지 가로 띠</h3>
+      <p>히어로 다음 섹션으로 개발·디자인·영상·마케팅 4장면을 가로로 나열. "이런 일을 합니다" 시각 소개. 클릭하면 각 서비스 페이지로 이동.</p>
+      <!-- 미니 목업 -->
+      <div style="margin-top:12px;background:#0e0d0b;border:1px solid rgba(240,232,216,0.1);border-radius:4px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);height:60px">
+          <div style="position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=120&q=60') center/cover;opacity:0.6;filter:grayscale(30%)"></div>
+            <div style="position:absolute;inset:0;background:rgba(14,13,11,0.55)"></div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:9px;color:#f0e8d8;letter-spacing:0.15em">개발</div>
+          </div>
+          <div style="position:relative;overflow:hidden;border-left:1px solid rgba(255,255,255,0.06)">
+            <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=120&q=60') center/cover;opacity:0.6;filter:grayscale(30%)"></div>
+            <div style="position:absolute;inset:0;background:rgba(14,13,11,0.55)"></div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:9px;color:#f0e8d8;letter-spacing:0.15em">디자인</div>
+          </div>
+          <div style="position:relative;overflow:hidden;border-left:1px solid rgba(255,255,255,0.06)">
+            <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=120&q=60') center/cover;opacity:0.6;filter:grayscale(30%)"></div>
+            <div style="position:absolute;inset:0;background:rgba(14,13,11,0.55)"></div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:9px;color:#f0e8d8;letter-spacing:0.15em">영상</div>
+          </div>
+          <div style="position:relative;overflow:hidden;border-left:1px solid rgba(255,255,255,0.06)">
+            <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&q=60') center/cover;opacity:0.6;filter:grayscale(30%)"></div>
+            <div style="position:absolute;inset:0;background:rgba(14,13,11,0.55)"></div>
+            <div style="position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:9px;color:#f0e8d8;letter-spacing:0.15em">마케팅</div>
+          </div>
+        </div>
+        <div style="padding:8px 10px;font-size:9px;color:#807060;letter-spacing:0.1em;border-top:1px solid rgba(255,255,255,0.06)">AIO 스튜디오가 하는 일 — 클릭해서 각 서비스 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="3" onclick="toggleSelect(this)">
+    <div class="letter">3</div>
+    <div class="content">
+      <h3>각 서비스 허브 페이지 상단 — 페이지 히어로</h3>
+      <p>/services/development, /services/design 등 각 카테고리 페이지 히어로에 해당 분야 이미지. 홈은 A 방식만, 서비스 페이지마다 테마 이미지.</p>
+      <!-- 미니 목업 -->
+      <div style="margin-top:12px;background:#0e0d0b;border:1px solid rgba(240,232,216,0.1);border-radius:4px;overflow:hidden;">
+        <div style="position:relative;height:56px;overflow:hidden">
+          <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=60') center/cover;opacity:0.45;filter:grayscale(30%)"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(14,13,11,0.9) 0%,rgba(14,13,11,0.6) 100%)"></div>
+          <div style="position:relative;padding:10px 14px">
+            <div style="font-size:8px;color:#a09070;letter-spacing:0.25em;text-transform:uppercase">개발 · Development</div>
+            <div style="font-size:14px;font-weight:700;color:#f0e8d8;margin-top:2px">홈페이지 · 앱 · 자동화</div>
+          </div>
+        </div>
+        <div style="padding:8px 14px;font-size:9px;color:#807060">각 서비스 페이지마다 다른 테마 이미지 사용</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">복수 선택 가능. 예) 1번 + 3번 조합도 됩니다.</p>

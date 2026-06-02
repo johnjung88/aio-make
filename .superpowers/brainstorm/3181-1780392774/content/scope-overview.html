@@ -1,0 +1,98 @@
+<h2>개발 페이지 작업 범위 — 현재 vs 목표</h2>
+<p class="subtitle">어느 페이지부터, 어느 수준까지 작업할지 정합니다</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+
+  <!-- 현재 상태 -->
+  <div style="background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:20px;font-family:monospace;font-size:12px;color:#8b949e">
+    <div style="color:#f0f6fc;font-size:13px;font-weight:600;margin-bottom:14px">📂 현재 상태</div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #f85149">
+      <div style="color:#f85149;font-size:11px;margin-bottom:4px">⚠ /services/development</div>
+      <div style="color:#8b949e">구식 aiodp 스타일<br>히어로+4카드+CTA 3섹션만</div>
+    </div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #f85149">
+      <div style="color:#f85149;font-size:11px;margin-bottom:4px">⚠ /services/website</div>
+      <div style="color:#8b949e">WebsiteLanding 컴포넌트<br>(aiodp 계열, IDE 톤 아님)</div>
+    </div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #f85149">
+      <div style="color:#f85149;font-size:11px;margin-bottom:4px">⚠ /services/shopping-mall</div>
+      <div style="color:#8b949e">ShoppingMallLanding 컴포넌트</div>
+    </div>
+
+    <div style="padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #f85149">
+      <div style="color:#f85149;font-size:11px;margin-bottom:4px">⚠ /services/automation-app</div>
+      <div style="color:#8b949e">AutomationLanding 컴포넌트</div>
+    </div>
+  </div>
+
+  <!-- 목표 상태 -->
+  <div style="background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:20px;font-family:monospace;font-size:12px;color:#8b949e">
+    <div style="color:#4dd4ac;font-size:13px;font-weight:600;margin-bottom:14px">✅ 목표 (IDE 톤)</div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #4dd4ac">
+      <div style="color:#4dd4ac;font-size:11px;margin-bottom:4px">$ /services/development</div>
+      <div style="color:#8b949e">IDE 톤 허브: 타이틀바·탭바·히어로<br>4서비스 벤토·포트폴리오·가격·FAQ·CTA</div>
+    </div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #4dd4ac">
+      <div style="color:#4dd4ac;font-size:11px;margin-bottom:4px">$ /services/website</div>
+      <div style="color:#8b949e">IDE 톤 상세: 가격 3티어·포트폴리오<br>프로세스·FAQ·CTA</div>
+    </div>
+
+    <div style="margin-bottom:10px;padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #4dd4ac">
+      <div style="color:#4dd4ac;font-size:11px;margin-bottom:4px">$ /services/shopping-mall</div>
+      <div style="color:#8b949e">IDE 톤 상세 (동일 구조)</div>
+    </div>
+
+    <div style="padding:10px;background:#161b22;border-radius:4px;border-left:3px solid #4dd4ac">
+      <div style="color:#4dd4ac;font-size:11px;margin-bottom:4px">$ /services/automation-app</div>
+      <div style="color:#8b949e">IDE 톤 상세 (동일 구조)</div>
+    </div>
+  </div>
+</div>
+
+<!-- 이미 준비된 IDE 컴포넌트 -->
+<div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin-bottom:24px">
+  <div style="color:#f0f6fc;font-size:12px;font-weight:600;margin-bottom:10px;font-family:monospace">// 이미 완성된 IDE 컴포넌트들 (조립만 하면 됨)</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-hero</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-titlebar</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-tabbar</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-pricing</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-portfolio</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-cta</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-statusbar</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-industries</span>
+    <span style="background:#1f2937;border:1px solid #4dd4ac;color:#4dd4ac;padding:4px 10px;border-radius:4px;font-size:11px;font-family:monospace">ide-resources</span>
+  </div>
+</div>
+
+<h3>이번 세션에서 작업할 범위는?</h3>
+<p class="subtitle">한 세션에 다 하면 리뷰가 어렵습니다. 단계적으로 가는 게 좋을 수 있어요.</p>
+
+<div class="options">
+  <div class="option" data-choice="A" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>허브만 완성 (development hub)</h3>
+      <p><code>/services/development</code> 페이지를 IDE 톤으로 완전 재설계. 4개 서비스 벤토·가격·프로세스·CTA 포함. 서브 페이지는 다음 세션.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="B" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>허브 + 웹사이트만</h3>
+      <p>허브 재설계 + <code>/services/website</code> 상세 페이지까지. shopping-mall·automation은 다음.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="C" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>허브 + 서브 3개 전부</h3>
+      <p>허브 + website·shopping-mall·automation-app 4페이지 전부. 서브 3개는 섹션 구조가 같아 빠르게 복제 가능.</p>
+    </div>
+  </div>
+</div>
