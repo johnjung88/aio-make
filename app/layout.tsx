@@ -123,12 +123,11 @@ export const metadata: Metadata = {
     description: "최대 5일 결과물 보장. 합리적 가격에 속도 최우선. 웹사이트·앱·디자인·영상·자동화.",
     images: [DEFAULT_OG_IMAGE],
   },
-  // 검색엔진 사이트 소유 확인 — 환경변수 값이 없으면 태그 미출력 (안전)
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
-    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
-      ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
-      : undefined,
+    other: {
+      "naver-site-verification": "6d45b448d955147e866cdf7d77a00cc31a78e173",
+    },
   },
 };
 
