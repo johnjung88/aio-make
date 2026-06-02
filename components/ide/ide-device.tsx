@@ -1,6 +1,4 @@
 // components/ide/ide-device.tsx
-import Link from "next/link";
-
 interface Props { locale: string }
 
 const MiniPage = ({ variant }: { variant: "home" | "portfolio" | "process" | "why" }) => {
