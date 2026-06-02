@@ -90,6 +90,20 @@ export default async function AboutPage({
         className="max-w-[1280px] mx-auto text-center relative"
         style={{
           padding: "clamp(56px,8vw,120px) clamp(16px,3vw,40px) clamp(64px,10vw,140px)",
+          // 팀 배경 이미지 — 어두운 에디토리얼 오버레이
+          // Photo by Mario Gogh on Unsplash (Free to use under Unsplash License)
+          backgroundImage: [
+            "linear-gradient(to bottom,",
+            "  rgba(14,13,11,0.82) 0%,",
+            "  rgba(14,13,11,0.60) 40%,",
+            "  rgba(14,13,11,0.60) 60%,",
+            "  rgba(14,13,11,0.88) 100%",
+            "),",
+            "url('/hero/team-meeting.jpg')",
+          ].join(" "),
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          backgroundRepeat: "no-repeat",
         }}
       >
         {/* Cover meta */}

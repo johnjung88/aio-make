@@ -6,6 +6,20 @@ export function MagazineCover() {
       className="max-w-[1500px] mx-auto relative text-center"
       style={{
         padding: "var(--space-section) var(--space-edge)",
+        // Hero 배경 이미지 — 다크 그라디언트 오버레이 + 프로 에이전시 작업 공간 사진
+        // Photo by Vitaly Gariev on Unsplash (Free to use under Unsplash License)
+        backgroundImage: [
+          "linear-gradient(to bottom,",
+          "  rgba(14,13,11,0.80) 0%,",
+          "  rgba(14,13,11,0.55) 45%,",
+          "  rgba(14,13,11,0.55) 55%,",
+          "  rgba(14,13,11,0.85) 100%",
+          "),",
+          "url('/hero/hero-bg.jpg')",
+        ].join(" "),
+        backgroundSize: "cover",
+        backgroundPosition: "center 30%",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Cover meta — 모바일/PC 별도 마크업 */}
