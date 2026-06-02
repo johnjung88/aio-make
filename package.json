@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap",
+    "build": "next build",
     "verify:env": "node tools/verify-aio-platform-env.mjs",
     "telegram:set-webhook": "node tools/setup-telegram-webhook.mjs",
     "video:blogautopilot": "remotion render remotion/index.ts BlogAutoPilotProof public/portfolio/blogautopilot-multinational/blogautopilot-proof.mp4",
