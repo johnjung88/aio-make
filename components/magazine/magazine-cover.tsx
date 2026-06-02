@@ -13,17 +13,17 @@ export function MagazineCover() {
           fill
           priority
           className="object-cover object-center"
-          style={{ opacity: 0.18 }}
+          style={{
+            opacity: 0.28,
+            filter: "grayscale(100%) brightness(0.3)",
+          }}
           sizes="100vw"
         />
       </div>
-      {/* 어두운 오버레이 — 이미지 밝기를 완전히 눌러 텍스트 가독성 확보 */}
+      {/* 오버레이 — 단색 어둠으로 이미지 완전히 눌러 텍스트 가독성 확보 */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, var(--tone-magazine-paper) 0%, rgba(14,13,11,0.96) 15%, rgba(14,13,11,0.94) 80%, var(--tone-magazine-paper) 100%)",
-        }}
+        style={{ background: "rgba(14,13,11,0.88)" }}
       />
 
       {/* 콘텐츠 — 이미지·오버레이 위에 렌더 */}
