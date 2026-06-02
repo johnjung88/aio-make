@@ -1,7 +1,10 @@
+"use client";
 // components/ide/ide-device.tsx
+import Link from "next/link";
+
 interface Props { locale: string }
 
-const MiniPage = ({ variant }: { variant: "home" | "portfolio" | "process" | "why" }) => {
+const MiniPage = ({ variant, locale }: { variant: "home" | "portfolio" | "process" | "why"; locale: string }) => {
   const bg: Record<string, string> = {
     home:      "linear-gradient(135deg,#1a3a4a,#2d5e6f 50%,#4dd4ac)",
     portfolio: "linear-gradient(135deg,#001626,#003a5c 50%,#4dd4ac)",
@@ -45,7 +48,9 @@ const MiniPage = ({ variant }: { variant: "home" | "portfolio" | "process" | "wh
         </h2>
         <p style={{ fontFamily: "var(--font-pretendard)", fontSize: 10.5, color: "var(--tone-ide-fg-2)", lineHeight: 1.55, marginBottom: 14, maxWidth: "90%" }}>{l.sub}</p>
         <div style={{ display: "flex", gap: 6 }}>
-          <span style={{ padding: "6px 12px", borderRadius: 4, background: "var(--tone-ide-mint)", color: "var(--tone-ide-bg)", fontFamily: "var(--font-jetbrains)", fontSize: 9.5, fontWeight: 600 }}>견적 시작 →</span>
+          <Link href={`/${locale}/quote`} style={{ padding: "6px 12px", borderRadius: 4, background: "var(--tone-ide-mint)", color: "var(--tone-ide-bg)", fontFamily: "var(--font-jetbrains)", fontSize: 9.5, fontWeight: 600, textDecoration: "none" }}>
+            견적 시작 →
+          </Link>
           <span style={{ padding: "6px 12px", borderRadius: 4, background: "var(--tone-ide-bg)", color: "var(--tone-ide-fg)", fontFamily: "var(--font-jetbrains)", fontSize: 9.5, border: "1px solid var(--tone-ide-line-2)" }}>사례 보기</span>
         </div>
       </div>
@@ -124,7 +129,7 @@ export function IdeDevice({ locale }: Props) {
               <div className="animate-ide-scroll" style={{ display: "flex", flexDirection: "column", width: "100%", height: "400%" }}>
                 {(["home","portfolio","process","why"] as const).map((v) => (
                   <div key={v} style={{ width: "100%", height: "25%", flexShrink: 0, overflow: "hidden" }}>
-                    <MiniPage variant={v} />
+                    <MiniPage variant={v} locale={locale} />
                   </div>
                 ))}
               </div>
@@ -151,7 +156,7 @@ export function IdeDevice({ locale }: Props) {
               <div className="animate-ide-scroll" style={{ display: "flex", flexDirection: "column", width: "100%", height: "400%", animationDuration: "22s" }}>
                 {(["home","portfolio","process","why"] as const).map((v) => (
                   <div key={`ip-${v}`} style={{ width: "100%", height: "25%", flexShrink: 0, overflow: "hidden", fontSize: "0.6em" }}>
-                    <MiniPage variant={v} />
+                    <MiniPage variant={v} locale={locale} />
                   </div>
                 ))}
               </div>
