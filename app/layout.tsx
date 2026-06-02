@@ -140,6 +140,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        {/* 네이버 서치어드바이저 소유 확인 */}
+        <meta name="naver-site-verification" content="6d45b448d955147e866cdf7d77a00cc31a78e173" />
+      </head>
       <body
         className={[
           geistSans.variable,
