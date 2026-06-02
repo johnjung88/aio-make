@@ -43,10 +43,10 @@ const HOW = [
 ];
 
 const PORTFOLIO = [
-  { title: "피부과 홈페이지", type: "웹사이트", tag: "의료", bg: "#EFF6FF", accent: "#3B82F6", href: (l: string) => `/${l}/portfolio/category/website` },
-  { title: "뷰티 브랜드 쇼핑몰", type: "쇼핑몰", tag: "뷰티", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/shopping-mall` },
-  { title: "엑셀 자동화 프로그램", type: "자동화", tag: "업무자동화", bg: "#F5F3FF", accent: "#818CF8", href: (l: string) => `/${l}/portfolio/category/automation` },
-  { title: "법률사무소 랜딩", type: "웹사이트", tag: "법률", bg: "#F0FDF4", accent: "#16A34A", href: (l: string) => `/${l}/portfolio/category/website` },
+  { title: "피부과 홈페이지", type: "웹사이트", tag: "의료", stack: "Next.js · Vercel", bg: "#EFF6FF", accent: "#3B82F6", href: (l: string) => `/${l}/portfolio/category/website` },
+  { title: "뷰티 브랜드 쇼핑몰", type: "쇼핑몰", tag: "뷰티", stack: "카페24 · GA4 · Meta픽셀", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/shopping-mall` },
+  { title: "엑셀 자동화 프로그램", type: "자동화", tag: "업무자동화", stack: "Python · openpyxl", bg: "#F5F3FF", accent: "#818CF8", href: (l: string) => `/${l}/portfolio/category/automation` },
+  { title: "법률사무소 랜딩", type: "웹사이트", tag: "법률", stack: "WordPress · ACF", bg: "#F0FDF4", accent: "#16A34A", href: (l: string) => `/${l}/portfolio/category/website` },
 ];
 
 const REVIEWS = [
@@ -64,6 +64,8 @@ const FAQS = [
   { q: "납품 후 유지보수는 어떻게 되나요?", a: "납품 후 14일간 무상 A/S를 제공합니다. 오류 수정, 사소한 텍스트·이미지 교체는 무상으로 처리합니다. 이후 추가 수정·기능 추가는 별도 견적으로 진행합니다." },
 ];
 
+const STACK = ["Next.js", "React", "Python", "Node.js", "n8n", "Electron", "카페24", "WordPress"];
+
 export function DevelopmentServices({ locale }: { locale: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -72,8 +74,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
       <AioNav locale={locale} level="middle" cat="development" active="service" />
 
       {/* ── Hero — 전체 화면 다크 이미지 배경 ── */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-        {/* 배경 이미지 */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <Image
           src="/images/services/development-hero.png"
           alt="AIO 개발팀"
@@ -83,121 +84,165 @@ export function DevelopmentServices({ locale }: { locale: string }) {
           quality={100}
           unoptimized
         />
-        {/* 다크 오버레이 — 좌측 더 어둡게, 우측 이미지 살림 */}
+        {/* 오버레이 — 좌측 강하게, 우측 이미지 살림 */}
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(105deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.78) 45%, rgba(10,10,10,0.45) 100%)" }}
+          style={{ background: "linear-gradient(105deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.80) 42%, rgba(10,10,10,0.40) 100%)" }}
         />
-        {/* 하단 페이드 */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to top, #fff 0%, transparent 100%)" }} />
+        {/* 하단 화이트 페이드 */}
+        <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none" style={{ background: "linear-gradient(to top, #fff 0%, transparent 100%)" }} />
 
-        {/* 콘텐츠 */}
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-24 md:py-32">
-          <div className="max-w-[640px]">
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-24 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-10 items-center">
+
+          {/* 좌: 헤드라인 + CTA */}
+          <div>
             <p
-              className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-6"
-              style={{ color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-jetbrains)" }}
+              className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-5"
+              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-jetbrains)" }}
             >
               Development · 개발 서비스
             </p>
             <h1
-              className="font-bold leading-[1.02] tracking-tight text-white mb-6"
-              style={{ fontSize: "clamp(38px,6vw,80px)" }}
+              className="font-bold leading-[1.02] tracking-tight text-white mb-5"
+              style={{ fontSize: "clamp(38px,5.5vw,72px)" }}
             >
               코드로 만드는<br />모든 것
             </h1>
             <p
               className="leading-[1.8] mb-8"
-              style={{ fontSize: "clamp(14px,1.2vw,17px)", color: "rgba(255,255,255,0.65)" }}
+              style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              웹사이트·쇼핑몰·자동화·프로그램 — 비즈니스에 필요한 결과물을 빠르게 만듭니다.
+              웹사이트·쇼핑몰·자동화·프로그램 — 비즈니스에 필요한 결과물을 빠르게 만듭니다.<br />
               보여주기용이 아닌, 바로 운영 가능한 완성품으로.
             </p>
-            {/* 배지 */}
-            <div className="flex flex-wrap gap-2 mb-10">
+            <div className="flex flex-wrap gap-2 mb-8">
               {["5일 납품 보장", "98% 재의뢰율", "1시간 응답", "14일 무상 A/S"].map((b) => (
                 <span
                   key={b}
                   className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
-                  style={{ background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.2)" }}
+                  style={{ background: "rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.80)", border: "1px solid rgba(255,255,255,0.18)" }}
                 >
                   {b}
                 </span>
               ))}
             </div>
-            {/* CTA */}
-            <div className="flex flex-wrap gap-3 mb-16">
+            <div className="flex flex-wrap gap-3 mb-12">
               <Link
                 href={`/${locale}/quote`}
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
               >
                 제작 문의 →
               </Link>
               <Link
                 href={`/${locale}/portfolio`}
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5"
-                style={{ border: "1px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.08)" }}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5"
+                style={{ border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.07)" }}
               >
                 포트폴리오 보기
               </Link>
             </div>
-            {/* 수치 3개 */}
-            <div className="flex gap-8 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+            {/* 하단 수치 */}
+            <div className="flex gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
               {[{ v: "142", l: "누적 의뢰" }, { v: "5일", l: "평균 납기" }, { v: "98%", l: "재의뢰율" }].map((s) => (
                 <div key={s.l}>
-                  <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(22px,3vw,36px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
-                  <div className="text-[12px] mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{s.l}</div>
+                  <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(20px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                  <div className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.40)" }}>{s.l}</div>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* 우: 코드 터미널 블록 (데스크탑 전용) */}
+          <div
+            className="hidden md:block rounded-xl overflow-hidden"
+            style={{ background: "rgba(10,10,10,0.85)", border: "1px solid rgba(255,255,255,0.10)" }}
+          >
+            {/* 터미널 헤더 */}
+            <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.04)" }}>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#28CA41]" />
+              <span className="ml-3 text-[10px]" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>aio-build.config.js</span>
+            </div>
+            {/* 코드 */}
+            <pre
+              className="p-5 text-[12px] leading-[1.9]"
+              style={{ fontFamily: "var(--font-jetbrains)", color: "rgba(255,255,255,0.75)" }}
+            >{`// AIO 개발팀에 맡기면
+const project = {
+  type: "website" | "shop" | "auto",
+  deadline: "≤ 5days",
+  response: "< 1hour",
+  revision: "guaranteed",
+  warranty: "14days",
+};
+
+// 다음 날 착수
+await aio.build(project);
+//  ✓ 완성품 납품`}</pre>
+          </div>
         </div>
       </section>
 
+      {/* ── 기술 스택 strip ── */}
+      <div style={{ background: "#0A0A0A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <span
+            className="text-[9px] font-bold tracking-[0.25em] uppercase"
+            style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}
+          >
+            Tech Stack
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {STACK.map((t) => (
+              <span
+                key={t}
+                className="text-[11px] font-medium px-2.5 py-1 rounded-md"
+                style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-jetbrains)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── 4 서비스 카드 ── */}
       <section className="bg-white">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-24">
-          <div className="text-center mb-12">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Services</p>
-            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(24px,3.5vw,40px)" }}>네 가지 개발 서비스</h2>
-            <p className="text-[#9CA3AF] text-[13px] mt-2">각 카드를 클릭하면 전용 소개·포트폴리오 페이지로 이동합니다</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>네 가지 개발 서비스</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {SUB_SERVICES.map((s) => {
               const Card = (
                 <div
-                  className="group border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl bg-white"
-                  style={{ borderColor: "#E5E7EB", opacity: s.soon ? 0.65 : 1 }}
+                  className="group border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white"
+                  style={{ borderColor: "#E5E7EB", opacity: s.soon ? 0.6 : 1 }}
                 >
-                  <div className="h-1.5" style={{ background: s.accent }} />
-                  <div className="p-7">
-                    <div className="flex items-center justify-between mb-5">
-                      <span className="text-[11px] font-bold tracking-[0.18em]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.no}</span>
+                  <div className="h-1" style={{ background: s.accent }} />
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold tracking-[0.2em]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.no}</span>
                       {s.soon && <span className="text-[10px] font-bold px-2.5 py-1 bg-[#F3F4F6] text-[#9CA3AF] rounded-full">COMING SOON</span>}
                     </div>
-                    <h3 className="font-bold text-[#111] mb-1" style={{ fontSize: "clamp(20px,2vw,26px)" }}>{s.title}</h3>
-                    <p className="text-[12px] text-[#9CA3AF] mb-4">{s.en}</p>
-                    <p className="text-[13px] text-[#6B7280] leading-[1.75] mb-5">{s.desc}</p>
-                    <div className="flex flex-wrap gap-1.5 mb-6">
+                    <h3 className="font-bold text-[#111] mb-1" style={{ fontSize: "clamp(18px,1.8vw,22px)" }}>{s.title}</h3>
+                    <p className="text-[11px] text-[#9CA3AF] mb-3" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.en}</p>
+                    <p className="text-[13px] text-[#6B7280] leading-[1.7] mb-4">{s.desc}</p>
+                    <div className="flex flex-wrap gap-1.5 mb-5">
                       {s.tags.map((tag) => (
-                        <span key={tag} className="text-[11px] font-medium px-2.5 py-1 rounded-md" style={{ background: s.accent + "15", color: s.accent }}>{tag}</span>
+                        <span key={tag} className="text-[11px] font-medium px-2 py-0.5 rounded-md" style={{ background: s.accent + "12", color: s.accent }}>{tag}</span>
                       ))}
                     </div>
                     {!s.soon && (
-                      <div className="flex items-center justify-between pt-5 border-t border-[#F3F4F6]">
-                        <div>
-                          <span className="font-bold" style={{ fontSize: "clamp(17px,1.8vw,22px)", color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
-                          <span className="text-[11px] text-[#9CA3AF] ml-1">시작가</span>
-                        </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-[#F3F4F6]">
+                        <span className="font-bold" style={{ fontSize: "clamp(16px,1.6vw,20px)", color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
                         <div className="flex items-center gap-1.5">
                           <span className="text-[11px] text-[#9CA3AF]">납기</span>
-                          <span className="text-[13px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.days}</span>
+                          <span className="text-[12px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.days}</span>
+                          <span className="text-[12px] font-semibold ml-1" style={{ color: s.accent }}>→</span>
                         </div>
-                      </div>
-                    )}
-                    {!s.soon && (
-                      <div className="mt-4 flex items-center gap-1.5 text-[13px] font-semibold transition-all group-hover:gap-3" style={{ color: s.accent }}>
-                        자세히 보기 <span className="transition-transform group-hover:translate-x-0.5">→</span>
                       </div>
                     )}
                   </div>
@@ -210,34 +255,44 @@ export function DevelopmentServices({ locale }: { locale: string }) {
       </section>
 
       {/* ── 포트폴리오 미리보기 ── */}
-      <section className="bg-[#F9FAFB] border-y border-[#E5E7EB]">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-20">
-          <div className="flex items-end justify-between mb-10">
+      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
-              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>실제 납품한 결과물</h2>
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
             </div>
-            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1.5 text-[13px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {PORTFOLIO.map((p) => (
               <Link key={p.title} href={p.href(locale)} className="group block">
-                <div className="rounded-2xl border border-[#E5E7EB] overflow-hidden transition-all group-hover:-translate-y-1 group-hover:shadow-lg" style={{ background: p.bg }}>
-                  <div className="h-[120px] md:h-[140px] flex items-center justify-center" style={{ background: p.accent + "18" }}>
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-white shadow-sm">
-                      {p.type === "웹사이트" ? "🌐" : p.type === "쇼핑몰" ? "🛒" : "⚙️"}
-                    </div>
+                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
+                  {/* 상단 컬러 헤더 */}
+                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
+                    <span
+                      className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full"
+                      style={{ background: p.accent + "20", color: p.accent }}
+                    >
+                      {p.type}
+                    </span>
+                    <span
+                      className="text-[10px] font-medium"
+                      style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}
+                    >
+                      {p.stack}
+                    </span>
                   </div>
-                  <div className="p-4">
-                    <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mb-2" style={{ background: p.accent + "18", color: p.accent }}>{p.tag}</span>
-                    <p className="text-[13px] font-semibold text-[#111]">{p.title}</p>
-                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">{p.type}</p>
+                  {/* 하단 정보 */}
+                  <div className="p-3.5">
+                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
+                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="text-center mt-6 md:hidden">
+          <div className="text-center mt-5 md:hidden">
             <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
           </div>
         </div>
@@ -245,34 +300,34 @@ export function DevelopmentServices({ locale }: { locale: string }) {
 
       {/* ── 일하는 방식 ── */}
       <section className="bg-white">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-24">
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-4" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
-              <h2 className="font-bold text-[#111] mb-5" style={{ fontSize: "clamp(24px,3.5vw,40px)" }}>결과물 중심으로<br />일합니다</h2>
-              <p className="text-[#6B7280] text-[14px] leading-[1.8] mb-8">
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
+              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>결과물 중심으로<br />일합니다</h2>
+              <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
                 빠르고 투명하게. 의뢰부터 납품까지 매일 진행 상황을 공유하고, 시안이 아닌 바로 쓸 수 있는 완성품으로 드립니다.
               </p>
-              <div className="flex gap-8 mb-8 pb-8 border-b border-[#E5E7EB]">
+              <div className="flex gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (
                   <div key={s.l}>
-                    <div className="font-bold text-[#111]" style={{ fontSize: "clamp(24px,3vw,36px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
-                    <div className="text-[12px] text-[#9CA3AF] mt-0.5">{s.l}</div>
+                    <div className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                    <div className="text-[11px] text-[#9CA3AF] mt-0.5">{s.l}</div>
                   </div>
                 ))}
               </div>
-              <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
+              <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
                 제작 문의 →
               </Link>
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {HOW.map((h) => (
-                <div key={h.no} className="flex items-start gap-4 p-5 bg-[#F9FAFB] rounded-2xl border border-[#E5E7EB] hover:border-[#111] transition-colors">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-white border border-[#E5E7EB]">{h.icon}</div>
+                <div key={h.no} className="flex items-start gap-4 p-5 rounded-xl border border-[#E5E7EB] hover:border-[#111] transition-colors bg-[#F9FAFB]">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 bg-white border border-[#E5E7EB]">{h.icon}</div>
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[10px] font-bold" style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}>{h.no}</span>
-                      <h3 className="text-[14px] font-bold text-[#111]">{h.title}</h3>
+                      <span className="text-[10px] font-bold text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{h.no}</span>
+                      <h3 className="text-[13px] font-bold text-[#111]">{h.title}</h3>
                     </div>
                     <p className="text-[12px] text-[#6B7280] leading-[1.7]">{h.desc}</p>
                   </div>
@@ -283,30 +338,30 @@ export function DevelopmentServices({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* ── 의뢰인 후기 — 다크 배경으로 단조로움 차단 ── */}
-      <section className="bg-[#0A0A0A]">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-20">
-          <div className="text-center mb-12">
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-jetbrains)" }}>Reviews</p>
-            <h2 className="font-bold text-white" style={{ fontSize: "clamp(22px,3vw,36px)" }}>의뢰인 후기</h2>
+      {/* ── 의뢰인 후기 ── */}
+      <section style={{ background: "#0A0A0A" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>Reviews</p>
+            <h2 className="font-bold text-white" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>의뢰인 후기</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {REVIEWS.map((r, i) => (
-              <div key={i} className="rounded-2xl p-6 flex flex-col gap-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div key={i} className="rounded-xl p-5 flex flex-col gap-3" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
                 <div className="flex gap-0.5">
                   {Array.from({ length: r.stars }).map((_, j) => (
-                    <span key={j} className="text-[#F59E0B] text-[15px]">★</span>
+                    <span key={j} className="text-[#F59E0B] text-[13px]">★</span>
                   ))}
                 </div>
-                <p className="text-[13px] leading-[1.8] flex-1" style={{ color: "rgba(255,255,255,0.7)" }}>
+                <p className="text-[13px] leading-[1.8] flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>
                   &ldquo;{r.text}&rdquo;
                 </p>
-                <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
                   <div>
-                    <p className="text-[13px] font-semibold text-white">{r.author}</p>
-                    <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.35)" }}>{r.service}</p>
+                    <p className="text-[12px] font-semibold text-white">{r.author}</p>
+                    <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>{r.service}</p>
                   </div>
-                  <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-jetbrains)" }}>{r.date}</span>
+                  <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>{r.date}</span>
                 </div>
               </div>
             ))}
@@ -316,27 +371,27 @@ export function DevelopmentServices({ locale }: { locale: string }) {
 
       {/* ── FAQ ── */}
       <section className="bg-white">
-        <div className="max-w-[800px] mx-auto px-4 md:px-10 py-16 md:py-24">
-          <div className="text-center mb-12">
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>FAQ</p>
-            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>자주 묻는 질문</h2>
+        <div className="max-w-[760px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>FAQ</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>자주 묻는 질문</h2>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {FAQS.map((faq, i) => (
-              <div key={i} className="border border-[#E5E7EB] rounded-2xl overflow-hidden">
+              <div key={i} className="border border-[#E5E7EB] rounded-xl overflow-hidden">
                 <button
-                  className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-[#F9FAFB] transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#F9FAFB] transition-colors"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
-                  <span className="text-[14px] font-semibold text-[#111] pr-4">{faq.q}</span>
+                  <span className="text-[13px] font-semibold text-[#111] pr-4">{faq.q}</span>
                   <span
-                    className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-[#E5E7EB] text-[#111] text-[14px] transition-transform"
+                    className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full border border-[#E5E7EB] text-[#111] text-[12px] transition-transform"
                     style={{ transform: openFaq === i ? "rotate(45deg)" : "none" }}
                   >+</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-5 border-t border-[#F3F4F6]">
-                    <p className="text-[13px] text-[#6B7280] leading-[1.8] pt-4">{faq.a}</p>
+                  <div className="px-5 pb-4 border-t border-[#F3F4F6]">
+                    <p className="text-[12px] text-[#6B7280] leading-[1.8] pt-3">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -347,7 +402,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
 
       {/* ── CTA ── */}
       <ServiceCta
-        accentColor={ACCENT}
+        accentColor="#FFFFFF"
         headline="코드로 만들 일이 있나요?"
         sub="지금 문의하면 24시간 안에 견적 · 5일 안에 첫 결과물"
         ctaLabel="제작 문의 →"
