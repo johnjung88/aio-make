@@ -173,14 +173,6 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
 
       {/* ── DARK HERO (2열: 좌=팀사진+텍스트, 우=플로팅 KPI 카드) ── */}
-      <style>{`
-        @keyframes kpiFloat0{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        @keyframes kpiFloat1{0%,100%{transform:translateY(-6px)}50%{transform:translateY(6px)}}
-        @keyframes kpiFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        @keyframes kpiFloat3{0%,100%{transform:translateY(-4px)}50%{transform:translateY(8px)}}
-        @keyframes kpiFloat4{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-        @media(max-width:768px){.hero-grid{grid-template-columns:1fr!important}.hero-cards{display:none!important}}
-      `}</style>
       <section className="hero-grid" style={{
         background: DARK, minHeight: "100vh",
         display: "grid", gridTemplateColumns: "55% 45%",

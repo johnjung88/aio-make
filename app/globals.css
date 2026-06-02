@@ -415,6 +415,19 @@
 .animate-caret-blink { animation: caretBlink 1s step-end infinite; }
 .animate-ide-scroll { animation: ideScrollUp 28s linear infinite; }
 
+/* Website hero — KPI 카드 플로팅 애니메이션 */
+@keyframes kpiFloat0 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes kpiFloat1 { 0%,100%{transform:translateY(-6px)} 50%{transform:translateY(6px)} }
+@keyframes kpiFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes kpiFloat3 { 0%,100%{transform:translateY(-4px)} 50%{transform:translateY(8px)} }
+@keyframes kpiFloat4 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+/* 히어로 2열 그리드 반응형 */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .hero-cards { display: none !important; }
+}
+
 
 /* Device mockup vertical marquee — 이미지 2장 복제 후 -50% 스크롤로 끊김 없는 무한 루프 */
 @keyframes deviceMarquee {
