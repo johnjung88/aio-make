@@ -1,4 +1,5 @@
 import { MagazineCover } from "@/components/magazine/magazine-cover";
+import { MagazineCategoryBand } from "@/components/magazine/magazine-category-band";
 import { MagazineBanner } from "@/components/magazine/magazine-banner";
 import { MagazineEditorsNote } from "@/components/magazine/magazine-editors-note";
 import { MagazineToc } from "@/components/magazine/magazine-toc";
@@ -91,6 +92,7 @@ export default async function HomePage({
     <main data-tone="magazine" style={{ background: "var(--tone-magazine-paper)" }}>
       <JsonLd data={HOME_JSON_LD} />
       <MagazineCover />
+      <MagazineCategoryBand locale={locale} />
       <MagazineBanner />
       <MagazineEditorsNote />
       <MagazineToc locale={locale} />

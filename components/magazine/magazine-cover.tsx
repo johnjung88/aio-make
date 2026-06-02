@@ -1,9 +1,22 @@
 import Image from "next/image";
 import { MagazineVitalSign } from "./magazine-vital-sign";
 
+// 히어로 로컬 컬러 토큰 — 다크 배경(오피스 사진) 위에서 읽히는 밝은 크림 팔레트.
+// 전역 --tone-magazine-ink* 를 덮어쓰지 않고 이 section 안에서만 격리.
+const HERO_VARS = {
+  "--hero-ink":   "#F5F0E8",                    // H1 · 숫자 · 강조
+  "--hero-ink-2": "#D8CDBB",                    // Lede · 보조 텍스트
+  "--hero-ink-3": "#A09070",                    // eyebrow · 메타 · 라벨
+  "--hero-faint": "rgba(245,240,232,0.45)",     // 구분자 · &
+  "--hero-line":  "rgba(245,240,232,0.22)",     // border · 구분선
+} as React.CSSProperties;
+
 export function MagazineCover() {
   return (
-    <section className="max-w-[1500px] mx-auto relative text-center overflow-hidden">
+    <section
+      className="max-w-[1500px] mx-auto relative text-center overflow-hidden"
+      style={HERO_VARS}
+    >
       {/* 히어로 배경 이미지 — AI 생성 한국인 크리에이티브 에이전시 오피스 */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -35,32 +48,32 @@ export function MagazineCover() {
         style={{
           fontFamily: "var(--font-jetbrains)",
           fontSize: 11,
-          color: "var(--tone-magazine-ink-3)",
+          color: "var(--hero-ink-3)",
           letterSpacing: "0.28em",
           textTransform: "uppercase",
-          borderColor: "var(--tone-magazine-ink)",
+          borderColor: "var(--hero-line)",
           maxWidth: 720,
         }}
       >
         {/* PC: 한 줄 (정보 · STUDIO · 정보) */}
         <div className="hidden md:inline-flex items-center justify-center gap-[18px]">
           <span>Issue 2026 · May</span>
-          <span style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--tone-magazine-ink-3)" }} />
-          <span style={{ fontFamily: "var(--font-marcellus)", letterSpacing: "0.4em", color: "var(--tone-magazine-ink)", fontSize: 12 }}>
+          <span style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--hero-ink-3)" }} />
+          <span style={{ fontFamily: "var(--font-marcellus)", letterSpacing: "0.4em", color: "var(--hero-ink)", fontSize: 12 }}>
             A&nbsp;·&nbsp;I&nbsp;·&nbsp;O&nbsp;&nbsp; S T U D I O
           </span>
-          <span style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--tone-magazine-ink-3)" }} />
+          <span style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--hero-ink-3)" }} />
           <span>est 2024 · Korea</span>
         </div>
 
         {/* Mobile: 2줄 (상: STUDIO 마크 / 하: Issue · est) */}
         <div className="md:hidden flex flex-col items-center gap-1.5">
-          <span style={{ fontFamily: "var(--font-marcellus)", letterSpacing: "0.4em", color: "var(--tone-magazine-ink)", fontSize: 12 }}>
+          <span style={{ fontFamily: "var(--font-marcellus)", letterSpacing: "0.4em", color: "var(--hero-ink)", fontSize: 12 }}>
             A&nbsp;·&nbsp;I&nbsp;·&nbsp;O&nbsp;&nbsp; S T U D I O
           </span>
           <div className="inline-flex items-center gap-2.5">
             <span>Issue 2026 · May</span>
-            <span style={{ width: 2.5, height: 2.5, borderRadius: "50%", background: "var(--tone-magazine-ink-3)" }} />
+            <span style={{ width: 2.5, height: 2.5, borderRadius: "50%", background: "var(--hero-ink-3)" }} />
             <span>est 2024 · Korea</span>
           </div>
         </div>
@@ -73,7 +86,7 @@ export function MagazineCover() {
         style={{
           fontFamily: "var(--font-fraunces)",
           fontSize: "clamp(280px, 45vw, 720px)",
-          color: "var(--tone-magazine-ink)",
+          color: "var(--hero-ink)",
           opacity: 0.04,
           lineHeight: 0.8,
           fontStyle: "normal",
@@ -106,7 +119,7 @@ export function MagazineCover() {
         style={{
           fontFamily: "var(--font-jetbrains)",
           fontSize: "10.5px",
-          color: "var(--tone-magazine-ink-3)",
+          color: "var(--hero-ink-3)",
           letterSpacing: "0.3em",
           textTransform: "uppercase",
         }}
@@ -115,7 +128,7 @@ export function MagazineCover() {
           style={{
             width: 32,
             height: 1,
-            background: "var(--tone-magazine-ink-3)",
+            background: "var(--hero-ink-3)",
             display: "inline-block",
           }}
         />
@@ -124,7 +137,7 @@ export function MagazineCover() {
           style={{
             width: 32,
             height: 1,
-            background: "var(--tone-magazine-ink-3)",
+            background: "var(--hero-ink-3)",
             display: "inline-block",
           }}
         />
@@ -138,7 +151,7 @@ export function MagazineCover() {
           fontSize: "var(--text-display)",
           lineHeight: "var(--leading-display)",
           letterSpacing: "-0.014em",
-          color: "var(--tone-magazine-ink)",
+          color: "var(--hero-ink)",
         }}
       >
         <span>각 분야의</span>
@@ -165,7 +178,7 @@ export function MagazineCover() {
           fontFamily: "var(--font-pretendard)",
           fontSize: "var(--text-lead)",
           lineHeight: 1.8,
-          color: "var(--tone-magazine-ink-2)",
+          color: "var(--hero-ink-2)",
           maxWidth: "48ch",
           fontWeight: 400,
         }}
@@ -173,7 +186,7 @@ export function MagazineCover() {
         AIO는{" "}
         <strong
           style={{
-            color: "var(--tone-magazine-ink)",
+            color: "var(--hero-ink)",
             fontWeight: 600,
           }}
         >
@@ -185,7 +198,7 @@ export function MagazineCover() {
         <span
           style={{
             fontFamily: "var(--font-pretendard)",
-            color: "var(--tone-magazine-ink)",
+            color: "var(--hero-ink)",
             fontWeight: 600,
             fontSize: "1.02em",
             letterSpacing: "-0.005em",
@@ -206,20 +219,20 @@ export function MagazineCover() {
       <div
         className="grid grid-cols-1 md:grid-cols-2"
         style={{
-          borderTop: "1px solid var(--tone-magazine-ink)",
-          borderBottom: "1px solid var(--tone-magazine-ink)",
+          borderTop: "1px solid var(--hero-line)",
+          borderBottom: "1px solid var(--hero-line)",
         }}
       >
         {/* Stat 1 — 의뢰 고객 */}
         <div
           className="flex flex-col justify-between gap-2.5 md:gap-4 items-center py-6 md:py-10 px-4 md:px-7 border-b md:border-b-0 md:border-r"
-          style={{ borderColor: "var(--tone-magazine-line-2)" }}
+          style={{ borderColor: "var(--hero-line)" }}
         >
           <span
             style={{
               fontFamily: "var(--font-jetbrains)",
               fontSize: "10.5px",
-              color: "var(--tone-magazine-ink-2)",
+              color: "var(--hero-ink-2)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
             }}
@@ -232,7 +245,7 @@ export function MagazineCover() {
               fontSize: "clamp(48px, 7vw, 104px)",
               lineHeight: 0.9,
               letterSpacing: "-0.025em",
-              color: "var(--tone-magazine-ink)",
+              color: "var(--hero-ink)",
             }}
           >
             142
@@ -241,7 +254,7 @@ export function MagazineCover() {
             style={{
               fontFamily: "var(--font-pretendard)",
               fontSize: "var(--text-small)",
-              color: "var(--tone-magazine-ink-2)",
+              color: "var(--hero-ink-2)",
               lineHeight: 1.7,
               maxWidth: 280,
               fontWeight: 400,
@@ -250,7 +263,7 @@ export function MagazineCover() {
             첫 의뢰{" "}
             <strong
               style={{
-                color: "var(--tone-magazine-ink)",
+                color: "var(--hero-ink)",
                 fontWeight: 600,
               }}
             >
@@ -259,7 +272,7 @@ export function MagazineCover() {
             중{" "}
             <strong
               style={{
-                color: "var(--tone-magazine-ink)",
+                color: "var(--hero-ink)",
                 fontWeight: 600,
               }}
             >
@@ -277,7 +290,7 @@ export function MagazineCover() {
             style={{
               fontFamily: "var(--font-jetbrains)",
               fontSize: "10.5px",
-              color: "var(--tone-magazine-ink-2)",
+              color: "var(--hero-ink-2)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
             }}
@@ -291,7 +304,7 @@ export function MagazineCover() {
               fontSize: "clamp(48px, 7vw, 104px)",
               lineHeight: 0.9,
               letterSpacing: "-0.025em",
-              color: "var(--tone-magazine-ink)",
+              color: "var(--hero-ink)",
             }}
           >
             <span>
@@ -299,7 +312,7 @@ export function MagazineCover() {
               <span
                 style={{
                   fontSize: "0.42em",
-                  color: "var(--tone-magazine-ink-2)",
+                  color: "var(--hero-ink-2)",
                   marginLeft: 3,
                   fontFamily: "var(--font-jetbrains)",
                   letterSpacing: "0.05em",
@@ -312,7 +325,7 @@ export function MagazineCover() {
             <span
               style={{
                 fontSize: "0.5em",
-                color: "var(--tone-magazine-ink-faint)",
+                color: "var(--hero-faint)",
               }}
             >
               ·
@@ -322,7 +335,7 @@ export function MagazineCover() {
               <span
                 style={{
                   fontSize: "0.42em",
-                  color: "var(--tone-magazine-ink-2)",
+                  color: "var(--hero-ink-2)",
                   marginLeft: 3,
                   fontFamily: "var(--font-jetbrains)",
                   letterSpacing: "0.05em",
@@ -337,16 +350,16 @@ export function MagazineCover() {
             style={{
               fontFamily: "var(--font-pretendard)",
               fontSize: "var(--text-small)",
-              color: "var(--tone-magazine-ink-2)",
+              color: "var(--hero-ink-2)",
               lineHeight: 1.7,
               maxWidth: 280,
               fontWeight: 400,
                 }}
           >
             평균 응답{" "}
-            <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>23분</strong>
+            <strong style={{ color: "var(--hero-ink)", fontWeight: 600 }}>23분</strong>
             , 평균 납기{" "}
-            <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>4.6일</strong>
+            <strong style={{ color: "var(--hero-ink)", fontWeight: 600 }}>4.6일</strong>
           </p>
         </div>
       </div>
