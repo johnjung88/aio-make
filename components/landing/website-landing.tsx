@@ -170,11 +170,20 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
         textAlign: "center",
         padding: "clamp(80px,12vw,140px) clamp(16px,5vw,48px) clamp(60px,8vw,100px)",
-        position: "relative",
+        position: "relative", overflow: "hidden",
       }}>
+        {/* 배경 이미지 */}
+        <Image
+          src="/images/services/website-hero-bg.png"
+          alt=""
+          fill
+          priority
+          style={{ objectFit: "cover", objectPosition: "center", opacity: 0.45 }}
+        />
+        {/* 어두운 오버레이 — 텍스트 가독성 */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          background: "radial-gradient(ellipse 70% 50% at 50% 30%,rgba(77,212,172,0.07) 0%,transparent 70%)",
+          background: "linear-gradient(to bottom, rgba(13,17,23,0.55) 0%, rgba(13,17,23,0.75) 60%, rgba(13,17,23,0.95) 100%)",
         }} />
         <p style={{
           fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
