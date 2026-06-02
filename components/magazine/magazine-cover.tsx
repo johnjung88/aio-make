@@ -21,7 +21,7 @@ export function MagazineCover() {
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(14,13,11,0.88) 0%, rgba(14,13,11,0.55) 25%, rgba(14,13,11,0.45) 55%, rgba(14,13,11,0.72) 80%, rgba(14,13,11,0.92) 100%)",
+            "linear-gradient(to bottom, rgba(14,13,11,0.92) 0%, rgba(14,13,11,0.62) 18%, rgba(14,13,11,0.74) 38%, rgba(14,13,11,0.74) 65%, rgba(14,13,11,0.86) 85%, rgba(14,13,11,0.95) 100%)",
         }}
       />
       {/* 콘텐츠 */}
