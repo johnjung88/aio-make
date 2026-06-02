@@ -41,7 +41,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
 
   return (
     <div className="bg-white min-h-screen" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
-      <AioNav locale={locale} level="middle" cat="development" active="service" />
+      <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
 
       {/* ── Hero (첫 화면 CTA 포함) ── */}
       <ServiceHero
