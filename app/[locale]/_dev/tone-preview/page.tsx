@@ -1,6 +1,10 @@
+import { notFound } from "next/navigation";
+
 const tones = ["magazine", "ide", "lifestyle", "consultant"] as const;
 
 export default function TonePreviewPage() {
+  // 프로덕션에서는 공개 노출 차단 (개발 미리보기 전용)
+  if (process.env.NODE_ENV === "production") notFound();
   return (
     <div>
       {tones.map((tone) => (

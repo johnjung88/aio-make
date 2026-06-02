@@ -16,7 +16,7 @@ const CATEGORY_SLUGS = [
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://aio-make.com",
   generateRobotsTxt: true,
-  exclude: ["/admin/*", "/api/*", "/icon.svg", "/*.svg"],
+  exclude: ["/admin/*", "/api/*", "/icon.svg", "/*.svg", "/*/dev-tone", "/*/_dev/*"],
   additionalPaths: async (config) => {
     const paths = [];
     for (const locale of LOCALES) {

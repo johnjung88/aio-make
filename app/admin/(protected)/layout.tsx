@@ -1,8 +1,11 @@
+import type React from "react";
 import Link from "next/link";
-import { BarChart3, BriefcaseBusiness, DollarSign, Image, Inbox, LayoutDashboard, Link2, LogOut, PieChart, Users } from "lucide-react";
+import { BarChart3, BriefcaseBusiness, DollarSign, Image, Inbox, LayoutDashboard, Link2, LogOut, PieChart, Users, Download, Receipt } from "lucide-react";
 import { requireAdminSession } from "@/lib/admin-auth";
 
-const navItems = [
+type NavItem = { href: string; label: string; icon: React.ComponentType<{ className?: string }>; disabled?: boolean };
+
+const navItems: NavItem[] = [
   { href: "/admin",                       label: "대시보드",     icon: LayoutDashboard },
   { href: "/admin/contracts",             label: "계약 관리",    icon: BriefcaseBusiness },
   { href: "/admin/customers",             label: "고객 DB",      icon: Users },
@@ -12,6 +15,7 @@ const navItems = [
   { href: "/admin/analytics",             label: "방문자 분석",  icon: PieChart },
   { href: "/admin/kanban",                label: "업무 보드",    icon: BarChart3 },
   { href: "/admin/revenue",               label: "매출 리포트",  icon: DollarSign },
+  { href: "/admin/expenses",              label: "지출 관리",    icon: Receipt },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -49,12 +53,23 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               );
             })}
           </nav>
-          <form action="/api/admin/logout" method="post" className="border-t border-white/10 p-3">
-            <button className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
-              <LogOut className="size-4" />
-              로그아웃
-            </button>
-          </form>
+          <div className="border-t border-white/10 p-3 space-y-1">
+            <a
+              href="/api/admin/export"
+              download
+              className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
+              title="운영 데이터 엑셀 백업"
+            >
+              <Download className="size-4" />
+              엑셀 백업
+            </a>
+            <form action="/api/admin/logout" method="post">
+              <button className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
+                <LogOut className="size-4" />
+                로그아웃
+              </button>
+            </form>
+          </div>
         </div>
       </aside>
 

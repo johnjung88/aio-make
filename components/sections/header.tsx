@@ -36,7 +36,7 @@ export function Header() {
     },
     {
       label: isKo ? "로고 및 명함" : "Logo & Business Card",
-      href: `${base}/services/logo-business-card`,
+      href: `${base}/services/design`,
       description: isKo ? "로고·명함·브랜드 키트" : "Logo · Card · Brand kit",
     },
     {
@@ -56,7 +56,7 @@ export function Header() {
     },
     {
       label: isKo ? "영상 콘텐츠" : "Video Content",
-      href: `${base}/services/video-content`,
+      href: `${base}/services/video`,
       description: isKo ? "마케팅·쇼츠·모션" : "Marketing · Shorts · Motion",
     },
   ];

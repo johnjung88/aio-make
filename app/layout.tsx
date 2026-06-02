@@ -15,6 +15,7 @@ import Script from "next/script";
 import { getLocale } from "next-intl/server";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SITE_URL } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
 
 import "./globals.css";
 
@@ -86,6 +87,8 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/aio-agency-logo-final/aio-agency-board-1800.png`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -112,6 +115,20 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ko_KR",
     siteName: "AIO에이전시",
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1800, height: 945, alt: "AIO에이전시 — 5일 결과물 보장" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AIO에이전시 | 5일 결과물 보장",
+    description: "최대 5일 결과물 보장. 합리적 가격에 속도 최우선. 웹사이트·앱·디자인·영상·자동화.",
+    images: [DEFAULT_OG_IMAGE],
+  },
+  // 검색엔진 사이트 소유 확인 — 환경변수 값이 없으면 태그 미출력 (안전)
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+      ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
+      : undefined,
   },
 };
 
@@ -139,7 +156,35 @@ export default async function RootLayout({
         ].join(" ")}
       >
         {children}
+        {/* JSON-LD — Organization / ProfessionalService (AEO: 지식패널·답변엔진 엔티티 인식) */}
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": ["Organization", "ProfessionalService"],
+          "@id": `${SITE_URL}/#organization`,
+          name: "AIO에이전시",
+          alternateName: "에이아이오 에이전시",
+          url: SITE_URL,
+          logo: {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/brand/aio-agency-logo-final/aio-agency-board-1800.png`,
+          },
+          description: "최대 5일 결과물 보장. 합리적 가격에 속도 최우선. 웹사이트·앱·디자인·영상·자동화.",
+          address: { "@type": "PostalAddress", addressCountry: "KR" },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            url: `${SITE_URL}/ko/quote`,
+            availableLanguage: "Korean",
+          },
+          areaServed: "KR",
+          serviceType: [
+            "홈페이지 제작", "랜딩페이지 제작", "쇼핑몰 제작", "앱 개발",
+            "업무 자동화", "로고 디자인", "상세페이지 제작", "PPT 디자인", "마케팅 영상 제작",
+          ],
+          sameAs: [],
+        }} />
       </body>
+
       <Script id="ga-datalayer-init" strategy="beforeInteractive">
         {`window.dataLayer = window.dataLayer || [];`}
       </Script>

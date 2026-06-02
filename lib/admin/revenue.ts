@@ -50,7 +50,7 @@ const EMPTY_KPI = {
   avgContractAmount: 0,
 };
 
-export async function getRevenueReport(): Promise<RevenueReport | null> {
+export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: string }) | null> {
   if (!hasSupabaseAdminConfig()) return null;
 
   const supabase = createSupabaseAdminClient();
@@ -60,6 +60,9 @@ export async function getRevenueReport(): Promise<RevenueReport | null> {
     supabase.from("v_channel_revenue").select("*"),
     supabase.from("v_category_revenue").select("*"),
   ]);
+
+  // 뷰가 라이브 DB에 미적용되면 에러가 조용히 0으로 보이는 문제를 방지
+  const dbError = monthlyRes.error?.message || channelRes.error?.message || categoryRes.error?.message;
 
   const monthly    = (monthlyRes.data  ?? []) as MonthlyRevenue[];
   const channels   = (channelRes.data  ?? []) as ChannelRevenue[];
@@ -79,6 +82,7 @@ export async function getRevenueReport(): Promise<RevenueReport | null> {
     monthly,
     channels,
     categories,
+    dbError,
     kpi: {
       thisMonthRevenue:  thisMonth?.revenue  ?? 0,
       thisMonthExpense:  thisMonth?.expense  ?? 0,

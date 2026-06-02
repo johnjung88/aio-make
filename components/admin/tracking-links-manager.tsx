@@ -18,6 +18,7 @@ type TrackingLink = {
   is_active: boolean;
   created_at: string;
   category_id: string | null;
+  click_count?: number;
 };
 
 export function TrackingLinksManager({ links }: { links: TrackingLink[] }) {
@@ -71,6 +72,11 @@ export function TrackingLinksManager({ links }: { links: TrackingLink[] }) {
                     </span>
                     {link.utm_campaign && (
                       <span className="text-[11px] text-muted-foreground">{link.utm_campaign}</span>
+                    )}
+                    {link.click_count != null && (
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] text-primary font-medium">
+                        클릭 {link.click_count}
+                      </span>
                     )}
                   </div>
                   <div className="flex items-center gap-2">

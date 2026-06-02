@@ -27,6 +27,11 @@ export default async function RevenuePage() {
         </p>
       ) : (
         <>
+          {report.dbError && (
+            <p className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+              ⚠ 데이터 로드 실패: {report.dbError} — DB 마이그레이션(009) 적용 여부를 확인하세요.
+            </p>
+          )}
           {/* KPI 카드 */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[

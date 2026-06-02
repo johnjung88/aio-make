@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BriefcaseBusiness, CalendarClock, WalletCards, Users } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, CalendarClock, WalletCards, Users, Download } from "lucide-react";
 import { getDashboardMetrics } from "@/lib/admin/data";
 
 function formatWon(value: number): string {
@@ -23,10 +23,21 @@ export default async function AdminDashboardPage() {
           <h2 className="mt-2 text-3xl font-semibold">AIO 의장님 대시보드</h2>
           <p className="mt-2 text-sm text-muted-foreground">계약 일정, 입금/미수, 고객 DB, 신규 문의 흐름을 한 화면에서 확인합니다.</p>
         </div>
-        <Link href="/admin/contracts" className="inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground">
-          계약 관리
-          <ArrowRight className="size-4" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <a
+            href="/api/admin/export"
+            download
+            className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 text-sm font-medium text-muted-foreground transition hover:bg-white/10 hover:text-foreground"
+            title="운영 데이터 엑셀 백업 다운로드"
+          >
+            <Download className="size-4" />
+            엑셀 백업
+          </a>
+          <Link href="/admin/contracts" className="inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground">
+            계약 관리
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
       </div>
 
       {error && <p className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">{error}</p>}

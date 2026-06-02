@@ -5,15 +5,11 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
-
 export function MagazineHeader() {
   const locale = useLocale();
   const t = useTranslations("nav");
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -24,12 +20,6 @@ export function MagazineHeader() {
 
   const base = `/${locale}`;
   const isKo = locale === "ko";
-  const nextLocale = isKo ? "en" : "ko";
-
-  const toggleLang = () => {
-    const newPath = pathname.replace(`/${locale}`, `/${nextLocale}`);
-    router.push(newPath);
-  };
 
   // 매거진 헤더 = 홈 전용. "서비스"는 같은 페이지의 TOC 섹션으로 스크롤
   const navItems = [

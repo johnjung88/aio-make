@@ -6,11 +6,30 @@ import { createSupabaseAdminClient, hasSupabaseAdminConfig } from "@/lib/supabas
 async function getLinks() {
   if (!hasSupabaseAdminConfig()) return [];
   const supabase = createSupabaseAdminClient();
-  const { data } = await supabase
-    .from("tracking_links")
-    .select("id, code, destination_path, utm_source, utm_medium, utm_campaign, utm_content, label, is_active, created_at, category_id")
-    .order("created_at", { ascending: false });
-  return data ?? [];
+
+  const [linksRes, clicksRes] = await Promise.all([
+    supabase
+      .from("tracking_links")
+      .select("id, code, destination_path, utm_source, utm_medium, utm_campaign, utm_content, label, is_active, created_at, category_id")
+      .order("created_at", { ascending: false }),
+    // 클릭수: visitor_sessions.first_tracking_link_id 기준 집계
+    supabase
+      .from("visitor_sessions")
+      .select("first_tracking_link_id")
+      .not("first_tracking_link_id", "is", null),
+  ]);
+
+  const links = linksRes.data ?? [];
+  const sessions = clicksRes.data ?? [];
+
+  // 링크 ID → 클릭수 맵
+  const clickMap: Record<string, number> = {};
+  for (const s of sessions) {
+    const id = s.first_tracking_link_id as string;
+    if (id) clickMap[id] = (clickMap[id] ?? 0) + 1;
+  }
+
+  return links.map((link) => ({ ...link, click_count: clickMap[link.id] ?? 0 }));
 }
 
 export default async function TrackingLinksPage() {

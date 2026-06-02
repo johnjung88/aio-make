@@ -330,3 +330,21 @@ export async function getCustomers(limit = 200): Promise<{ customers: AdminCusto
     return { customers: [], error: error instanceof Error ? error.message : "고객 DB를 불러오지 못했습니다." };
   }
 }
+
+/**
+ * 폼 저장 실패 시 fallback 테이블(ada_inquiries)에 쌓인 미연동 문의 수를 반환합니다.
+ * 테이블이 없는 환경(로컬)에서는 0을 반환합니다.
+ */
+export async function getAdaInquiriesCount(): Promise<number> {
+  if (!hasSupabaseAdminConfig()) return 0;
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { count, error } = await supabase
+      .from("ada_inquiries")
+      .select("id", { count: "exact", head: true });
+    if (error) return 0; // 테이블 미존재 또는 접근 불가 시 조용히 0
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
