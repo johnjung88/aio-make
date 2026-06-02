@@ -176,9 +176,15 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         <Image
           src="/images/services/website-hero-bg.png"
           alt=""
-          fill
+          width={1920}
+          height={1080}
           priority
-          style={{ objectFit: "cover", objectPosition: "center", opacity: 0.45 }}
+          style={{
+            position: "absolute", top: 0, left: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "center",
+            opacity: 0.45,
+          }}
         />
         {/* 어두운 오버레이 — 텍스트 가독성 */}
         <div style={{
