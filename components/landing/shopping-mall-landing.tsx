@@ -53,7 +53,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
             <span style={{ color: ACCENT }}>구축</span>합니다
           </>
         }
-        sub="카페24·독립몰·자사몰. 상품 등록부터 결제 연동까지 한 번에. 운영 가능한 완성몰로 납품합니다."
+        sub="카페24·독립몰·자사몰. 상품 등록부터 결제 연동까지 한 번에. 운영 가능한 완성몰로 납품합니다"
         badges={["카페24 전문", "결제연동 포함", "14일 A/S"]}
         ctaLabel="쇼핑몰 제작 문의 →"
         ctaHref={`/${locale}/quote`}
@@ -143,17 +143,17 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               {
                 icon: "📊",
                 title: "GA4 구매 퍼널 분석",
-                desc: "어느 단계에서 이탈하는지 데이터로 파악. 구매 전환율을 높이는 기반 세팅.",
+                desc: "어느 단계에서 이탈하는지 데이터로 파악. 구매 전환율을 높이는 기반 세팅",
               },
               {
                 icon: "🎯",
                 title: "Meta·카카오 광고 픽셀",
-                desc: "장바구니 담기·결제 완료 이벤트를 픽셀로 추적. 리타게팅 광고 즉시 집행 가능.",
+                desc: "장바구니 담기·결제 완료 이벤트를 픽셀로 추적. 리타게팅 광고 즉시 집행 가능",
               },
               {
                 icon: "🛒",
                 title: "구매 동선 UX 설계",
-                desc: "상품 진열 순서, 배너 위치, CTA 문구까지 — 매출로 이어지는 구조로 세팅.",
+                desc: "상품 진열 순서, 배너 위치, CTA 문구까지 — 매출로 이어지는 구조로 세팅",
               },
             ].map((p) => (
               <div key={p.title} className="border border-[#2a2a2a] rounded-2xl p-6 bg-[#1a1a1a]">

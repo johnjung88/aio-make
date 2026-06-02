@@ -18,7 +18,7 @@ const testimonials = [
       en: ["Hero copy", "CTA placement", "Fast revisions"],
     },
     quote: {
-      ko: "처음에는 빠른 제작이라 퀄리티가 걱정됐는데, 첫 화면 문구와 문의 버튼 위치까지 바로 영업에 쓸 수 있게 잡아주셨어요. 응답도 빨라서 수정 방향을 주고받는 과정이 편했습니다.",
+      ko: "처음에는 빠른 제작이라 퀄리티가 걱정됐는데, 첫 화면 문구와 문의 버튼 위치까지 바로 영업에 쓸 수 있게 잡아주셨어요. 응답도 빨라서 수정 방향을 주고받는 과정이 편했습니다",
       en: "I was worried fast delivery would hurt quality, but the first screen copy and inquiry flow were ready for sales use. The response speed also made revisions easy.",
     },
   },
@@ -34,7 +34,7 @@ const testimonials = [
       en: ["Product display", "Mobile review", "Purchase flow"],
     },
     quote: {
-      ko: "기존 쇼핑몰은 상품이 많아도 뭘 먼저 봐야 할지 복잡했는데, 메인 배너와 카테고리 흐름이 정리되니 훨씬 전문적으로 보였습니다. 모바일 화면까지 같이 확인해준 점이 좋았습니다.",
+      ko: "기존 쇼핑몰은 상품이 많아도 뭘 먼저 봐야 할지 복잡했는데, 메인 배너와 카테고리 흐름이 정리되니 훨씬 전문적으로 보였습니다. 모바일 화면까지 같이 확인해준 점이 좋았습니다",
       en: "Our old store felt crowded even with good products. The new main banner and category flow made it look much more professional, and I liked reviewing mobile screens together.",
     },
   },
@@ -50,7 +50,7 @@ const testimonials = [
       en: ["Print files", "Profile use", "Brand tone"],
     },
     quote: {
-      ko: "브랜드명만 정해진 상태였는데 로고, 명함, 온라인 프로필까지 한 번에 맞춰져서 오픈 준비가 빨라졌습니다. 과하게 꾸미기보다 실제로 쓰기 좋게 정리된 점이 만족스러웠습니다.",
+      ko: "브랜드명만 정해진 상태였는데 로고, 명함, 온라인 프로필까지 한 번에 맞춰져서 오픈 준비가 빨라졌습니다. 과하게 꾸미기보다 실제로 쓰기 좋게 정리된 점이 만족스러웠습니다",
       en: "We only had the brand name, but the logo, card, and online profile assets came together at once. It felt practical rather than over-designed.",
     },
   },
@@ -66,7 +66,7 @@ const testimonials = [
       en: ["Ingredient trust", "Use scenes", "Sales copy"],
     },
     quote: {
-      ko: "제품 설명을 어떻게 풀어야 할지 막막했는데, 고객 고민부터 사용 장면, 구매 전 확인 사항까지 순서가 잡히니 페이지가 훨씬 설득력 있어졌습니다. 결과물도 예상보다 빨랐습니다.",
+      ko: "제품 설명을 어떻게 풀어야 할지 막막했는데, 고객 고민부터 사용 장면, 구매 전 확인 사항까지 순서가 잡히니 페이지가 훨씬 설득력 있어졌습니다. 결과물도 예상보다 빨랐습니다",
       en: "I did not know how to explain the product, but the flow from customer concern to usage scenes and purchase checks made the page much more persuasive.",
     },
   },
@@ -82,7 +82,7 @@ const testimonials = [
       en: ["Cover polish", "Clear flow", "Editable file"],
     },
     quote: {
-      ko: "내용은 있는데 장표가 산만해서 고민이었는데, 흐름과 표지가 정리되니 제안서가 훨씬 믿음직해 보였습니다. 원본 파일까지 받아 내부에서 바로 수정할 수 있었던 점도 좋았습니다.",
+      ko: "내용은 있는데 장표가 산만해서 고민이었는데, 흐름과 표지가 정리되니 제안서가 훨씬 믿음직해 보였습니다. 원본 파일까지 받아 내부에서 바로 수정할 수 있었던 점도 좋았습니다",
       en: "We had the content, but the slides looked scattered. Once the flow and cover were cleaned up, the proposal felt much more credible, and the editable file helped internally.",
     },
   },
@@ -98,7 +98,7 @@ const testimonials = [
       en: ["Admin screen", "Status checks", "Less repetition"],
     },
     quote: {
-      ko: "매번 엑셀과 메시지를 오가며 확인하던 내용이 한 화면에 모이니 운영 속도가 확실히 빨라졌습니다. 필요한 기능을 설명하면 바로 화면 기준으로 정리해줘서 이해하기 쉬웠습니다.",
+      ko: "매번 엑셀과 메시지를 오가며 확인하던 내용이 한 화면에 모이니 운영 속도가 확실히 빨라졌습니다. 필요한 기능을 설명하면 바로 화면 기준으로 정리해줘서 이해하기 쉬웠습니다",
       en: "Bringing scattered spreadsheet and message checks into one screen made operations noticeably faster. Explaining features through screens made the process easy to follow.",
     },
   },
@@ -114,7 +114,7 @@ const testimonials = [
       en: ["Short message", "SNS-ready", "Brand tone"],
     },
     quote: {
-      ko: "텍스트로 설명하면 길어지던 서비스를 짧은 영상으로 보여줄 수 있어서 상담 전에 보내기 좋았습니다. 브랜드 톤도 과하지 않게 맞춰져서 SNS에 바로 올릴 수 있었습니다.",
+      ko: "텍스트로 설명하면 길어지던 서비스를 짧은 영상으로 보여줄 수 있어서 상담 전에 보내기 좋았습니다. 브랜드 톤도 과하지 않게 맞춰져서 SNS에 바로 올릴 수 있었습니다",
       en: "The short video explained what used to take too much text, so it was useful before consultations. The tone was polished enough to post on social channels right away.",
     },
   },
@@ -150,7 +150,7 @@ export function TestimonialsSection({ limit = 7 }: Props) {
           </div>
           <p className="max-w-md text-sm leading-7 text-muted-foreground">
             {locale === "ko"
-              ? "의뢰 전 고객이 가장 궁금해하는 속도, 응대, 결과물 확인 포인트를 서비스별 후기 형식으로 정리했습니다."
+              ? "의뢰 전 고객이 가장 궁금해하는 속도, 응대, 결과물 확인 포인트를 서비스별 후기 형식으로 정리했습니다"
               : "Review-style notes organized by service so clients can quickly check speed, response quality, and deliverables."}
           </p>
         </div>

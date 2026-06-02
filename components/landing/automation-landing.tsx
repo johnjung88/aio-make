@@ -76,7 +76,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
             <span style={{ color: ACCENT }}>코드</span>에게 맡기세요
           </>
         }
-        sub="엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램. 하루 수 시간의 반복을 한 번에 없앱니다."
+        sub="엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램. 하루 수 시간의 반복을 한 번에 없앱니다"
         badges={["1일~ 납기", "Python·n8n·Make", "14일 A/S"]}
         ctaLabel="자동화 문의 →"
         ctaHref={`/${locale}/quote`}

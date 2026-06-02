@@ -123,7 +123,7 @@ export function ServicesGridCards({ locale }: Props) {
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">
             {locale === "ko"
-              ? "각 카테고리를 클릭하면 포트폴리오, 가격, 작업 프로세스를 확인할 수 있습니다."
+              ? "각 카테고리를 클릭하면 포트폴리오, 가격, 작업 프로세스를 확인할 수 있습니다"
               : "Click any category to see portfolio samples, pricing, and work process."}
           </p>
         </div>

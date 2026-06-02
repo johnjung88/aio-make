@@ -147,7 +147,7 @@ export async function HeroSection({ locale }: Props) {
           {/* 서비스 선택 서브 카피 */}
           <p className="mt-3 text-sm text-muted-foreground sm:mt-4 sm:text-base lg:text-lg">
             {lang === "ko"
-              ? "어떤 서비스가 필요하신가요? 카테고리를 선택해 포트폴리오와 가격을 확인하세요."
+              ? "어떤 서비스가 필요하신가요? 카테고리를 선택해 포트폴리오와 가격을 확인하세요"
               : "What service do you need? Select a category to see portfolio samples and pricing."}
           </p>
         </div>

@@ -45,14 +45,14 @@ const KPI_CARDS = [
 ];
 
 const INDUSTRIES = [
-  { Icon: Stethoscope,     title: "병원·의료",       desc: "의원·한의원·치과·성형외과. 예약·진료 안내·의료광고법 대응." },
-  { Icon: Scale,           title: "법률·세무",       desc: "변호사·법무사·세무사. 상담 유도와 전문성 강조에 최적화." },
-  { Icon: GraduationCap,   title: "교육·학원",       desc: "학원·과외·온라인 강의. 강사·시간표·수강 신청 시스템." },
-  { Icon: ShoppingBag,     title: "쇼핑몰·D2C",     desc: "카페24·자사몰. 상품성과 구매 동선 최적화." },
-  { Icon: UtensilsCrossed, title: "F&B·카페",       desc: "음식점·카페·베이커리. 메뉴·매장·주문 흐름." },
-  { Icon: Scissors,        title: "뷰티·미용",       desc: "미용실·네일·피부관리. 시술 메뉴·예약·후기." },
-  { Icon: Building2,       title: "부동산",          desc: "중개·분양·임대. 매물 리스트·지도·문의." },
-  { Icon: Rocket,          title: "스타트업·서비스",  desc: "빠른 런칭과 전환율 중심의 서비스 랜딩페이지." },
+  { Icon: Stethoscope,     title: "병원·의료",       desc: "의원·한의원·치과·성형외과. 예약·진료 안내·의료광고법 대응" },
+  { Icon: Scale,           title: "법률·세무",       desc: "변호사·법무사·세무사. 상담 유도와 전문성 강조에 최적화" },
+  { Icon: GraduationCap,   title: "교육·학원",       desc: "학원·과외·온라인 강의. 강사·시간표·수강 신청 시스템" },
+  { Icon: ShoppingBag,     title: "쇼핑몰·D2C",     desc: "카페24·자사몰. 상품성과 구매 동선 최적화" },
+  { Icon: UtensilsCrossed, title: "F&B·카페",       desc: "음식점·카페·베이커리. 메뉴·매장·주문 흐름" },
+  { Icon: Scissors,        title: "뷰티·미용",       desc: "미용실·네일·피부관리. 시술 메뉴·예약·후기" },
+  { Icon: Building2,       title: "부동산",          desc: "중개·분양·임대. 매물 리스트·지도·문의" },
+  { Icon: Rocket,          title: "스타트업·서비스",  desc: "빠른 런칭과 전환율 중심의 서비스 랜딩페이지" },
 ];
 
 function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop" | "mobile" }) {
@@ -195,7 +195,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               position: "absolute", top: 0, left: 0,
               width: "100%", height: "100%",
               objectFit: "cover", objectPosition: "center",
-              opacity: 0.30,
+              opacity: 0.55,
             }}
           />
           {/* 다크 그라디언트 오버레이 */}
@@ -225,7 +225,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
             }}>
               랜딩페이지·회사 홈페이지·서비스 사이트.<br />
-              운영 가능한 완성품을 5일 이내 납품합니다.
+              운영 가능한 완성품을 5일 이내 납품합니다
             </p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
               {["5일 납품","14일 A/S","SEO 세팅 포함"].map((b) => (

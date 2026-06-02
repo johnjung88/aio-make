@@ -49,22 +49,22 @@ const sharedProcess = [
   {
     step: "01",
     title: { ko: "상담 및 범위 확정", en: "Consultation & scope" },
-    description: { ko: "목표, 예산, 일정, 참고 레퍼런스를 빠르게 정리합니다.", en: "Clarify goals, budget, timeline, and references." },
+    description: { ko: "목표, 예산, 일정, 참고 레퍼런스를 빠르게 정리합니다", en: "Clarify goals, budget, timeline, and references." },
   },
   {
     step: "02",
     title: { ko: "견적 제안", en: "Quote proposal" },
-    description: { ko: "납품 범위, 수정 횟수, 일정, 비용을 문서로 안내합니다.", en: "Confirm deliverables, revisions, timeline, and cost." },
+    description: { ko: "납품 범위, 수정 횟수, 일정, 비용을 문서로 안내합니다", en: "Confirm deliverables, revisions, timeline, and cost." },
   },
   {
     step: "03",
     title: { ko: "작업 및 중간 공유", en: "Production & check-in" },
-    description: { ko: "초안 또는 중간 결과물을 공유하고 피드백을 반영합니다.", en: "Share drafts or working results and apply feedback." },
+    description: { ko: "초안 또는 중간 결과물을 공유하고 피드백을 반영합니다", en: "Share drafts or working results and apply feedback." },
   },
   {
     step: "04",
     title: { ko: "납품 및 유지보수", en: "Delivery & support" },
-    description: { ko: "최종 파일, 운영 가이드, 14일 기본 A/S를 제공합니다.", en: "Deliver final files, guide, and 14-day support." },
+    description: { ko: "최종 파일, 운영 가이드, 14일 기본 A/S를 제공합니다", en: "Deliver final files, guide, and 14-day support." },
   },
 ];
 
@@ -74,7 +74,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "웹사이트", en: "Website" },
     subtitle: "Website",
     description: {
-      ko: "랜딩페이지, 회사 홈페이지, 포트폴리오 사이트를 전환 중심으로 제작합니다.",
+      ko: "랜딩페이지, 회사 홈페이지, 포트폴리오 사이트를 전환 중심으로 제작합니다",
       en: "Conversion-focused landing pages, company sites, and portfolio websites.",
     },
     items: [
@@ -132,23 +132,23 @@ export const servicesData: ServiceDetail[] = [
     faqs: [
       {
         q: { ko: "웹사이트 제작 기간은 얼마나 걸리나요?", en: "How long does website production take?" },
-        a: { ko: "1페이지 랜딩은 1일, 3페이지 사이트는 2-3일, 5페이지는 3-5일이 기준입니다. 자료 제출이 빠를수록 납기가 단축됩니다.", en: "One-page landing: 1 day, 3-page site: 2-3 days, 5-page: 3-5 days. Faster asset delivery means faster delivery." },
+        a: { ko: "1페이지 랜딩은 1일, 3페이지 사이트는 2-3일, 5페이지는 3-5일이 기준입니다. 자료 제출이 빠를수록 납기가 단축됩니다", en: "One-page landing: 1 day, 3-page site: 2-3 days, 5-page: 3-5 days. Faster asset delivery means faster delivery." },
       },
       {
         q: { ko: "도메인과 호스팅도 포함인가요?", en: "Are domain and hosting included?" },
-        a: { ko: "도메인·호스팅은 별도이며, 구매 후 연결 설정은 지원 드립니다.", en: "Domain and hosting are separate. We assist with connection setup after purchase." },
+        a: { ko: "도메인·호스팅은 별도이며, 구매 후 연결 설정은 지원 드립니다", en: "Domain and hosting are separate. We assist with connection setup after purchase." },
       },
       {
         q: { ko: "완성 후 직접 수정할 수 있나요?", en: "Can I edit the site after delivery?" },
-        a: { ko: "운영 가이드를 제공하고 14일 기본 A/S가 포함됩니다. 이후 추가 수정은 별도 견적입니다.", en: "An operations guide is provided with 14-day basic support. Further edits are quoted separately." },
+        a: { ko: "운영 가이드를 제공하고 14일 기본 A/S가 포함됩니다. 이후 추가 수정은 별도 견적입니다", en: "An operations guide is provided with 14-day basic support. Further edits are quoted separately." },
       },
       {
         q: { ko: "결제·예약·회원가입 기능도 추가할 수 있나요?", en: "Can payment, booking, or membership features be added?" },
-        a: { ko: "가능합니다. 기본 패키지 외 기능은 별도 견적으로 진행합니다.", en: "Yes. Features beyond the base package are quoted separately." },
+        a: { ko: "가능합니다. 기본 패키지 외 기능은 별도 견적으로 진행합니다", en: "Yes. Features beyond the base package are quoted separately." },
       },
       {
         q: { ko: "어떤 기술로 제작되나요?", en: "What technology is used?" },
-        a: { ko: "주로 Next.js 기반으로 제작하며, 용도와 예산에 따라 가장 적합한 스택을 제안합니다.", en: "Primarily Next.js-based; we recommend the best stack based on your needs and budget." },
+        a: { ko: "주로 Next.js 기반으로 제작하며, 용도와 예산에 따라 가장 적합한 스택을 제안합니다", en: "Primarily Next.js-based; we recommend the best stack based on your needs and budget." },
       },
     ],
   },
@@ -157,7 +157,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "쇼핑몰", en: "Shopping Mall" },
     subtitle: "Commerce",
     description: {
-      ko: "카페24, 커머스 메인, 상품 진열, 배너 디자인을 실제 판매 화면 중심으로 정리합니다.",
+      ko: "카페24, 커머스 메인, 상품 진열, 배너 디자인을 실제 판매 화면 중심으로 정리합니다",
       en: "Cafe24 and commerce storefront design focused on real selling screens.",
     },
     items: [
@@ -217,23 +217,23 @@ export const servicesData: ServiceDetail[] = [
     faqs: [
       {
         q: { ko: "카페24가 아닌 다른 플랫폼도 가능한가요?", en: "Do you support platforms other than Cafe24?" },
-        a: { ko: "카페24를 기본으로 지원합니다. 쇼피파이 등 다른 플랫폼은 별도 문의 주세요.", en: "Cafe24 is our primary platform. Contact us for other platforms like Shopify." },
+        a: { ko: "카페24를 기본으로 지원합니다. 쇼피파이 등 다른 플랫폼은 별도 문의 주세요", en: "Cafe24 is our primary platform. Contact us for other platforms like Shopify." },
       },
       {
         q: { ko: "상품 등록은 몇 개까지 포함되나요?", en: "How many products are included in setup?" },
-        a: { ko: "패키지에 따라 3-10개이며, 추가 상품 등록은 개당 별도 금액입니다.", en: "3-10 products depending on the package; additional uploads are quoted per item." },
+        a: { ko: "패키지에 따라 3-10개이며, 추가 상품 등록은 개당 별도 금액입니다", en: "3-10 products depending on the package; additional uploads are quoted per item." },
       },
       {
         q: { ko: "기존 쇼핑몰 리뉴얼도 가능한가요?", en: "Can you redesign an existing store?" },
-        a: { ko: "네, 기존 쇼핑몰 리뉴얼도 동일 조건으로 진행 가능합니다.", en: "Yes, existing store redesigns are handled under the same terms." },
+        a: { ko: "네, 기존 쇼핑몰 리뉴얼도 동일 조건으로 진행 가능합니다", en: "Yes, existing store redesigns are handled under the same terms." },
       },
       {
         q: { ko: "모바일 화면도 함께 제작되나요?", en: "Is mobile optimization included?" },
-        a: { ko: "모든 패키지에 모바일 최적화가 포함됩니다.", en: "Mobile optimization is included in all packages." },
+        a: { ko: "모든 패키지에 모바일 최적화가 포함됩니다", en: "Mobile optimization is included in all packages." },
       },
       {
         q: { ko: "결제·배송·PG 설정도 도와주나요?", en: "Do you help with payment and shipping setup?" },
-        a: { ko: "설정 가이드를 제공하며, 실제 PG 계약 등 플랫폼 계정 설정은 별도 안내 드립니다.", en: "We provide setup guides; actual PG contracts and platform account setup are handled separately." },
+        a: { ko: "설정 가이드를 제공하며, 실제 PG 계약 등 플랫폼 계정 설정은 별도 안내 드립니다", en: "We provide setup guides; actual PG contracts and platform account setup are handled separately." },
       },
     ],
   },
@@ -242,13 +242,13 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "로고 및 명함", en: "Logo & Business Card" },
     subtitle: "Brand Kit",
     description: {
-      ko: "새 브랜드를 시작할 때 필요한 로고와 명함을 부담 없는 5월 이벤트가로 준비할 수 있습니다. 온라인 프로필, 인쇄, 상담 자료에 바로 적용할 수 있는 실사용 파일로 받아보세요.",
+      ko: "새 브랜드를 시작할 때 필요한 로고와 명함을 부담 없는 5월 이벤트가로 준비할 수 있습니다. 온라인 프로필, 인쇄, 상담 자료에 바로 적용할 수 있는 실사용 파일로 받아보세요",
       en: "Prepare the logo and business card assets needed for a new brand at limited May launch pricing, delivered as practical files for profiles, print, and sales materials.",
     },
     items: [
-      { icon: "◈", name: { ko: "부담 없는 시작 비용", en: "Affordable launch cost" }, detail: { ko: "초기 창업자와 소상공인도 로고와 명함을 합리적인 가격으로 먼저 갖출 수 있습니다.", en: "A practical starting point for founders and small businesses that need brand assets quickly." } },
-      { icon: "◈", name: { ko: "빠른 시안 확인", en: "Fast draft review" }, detail: { ko: "브랜드 방향을 빠르게 확인하고, 마음에 드는 안을 골라 최종 파일로 받을 수 있습니다.", en: "Review directions quickly, choose the preferred concept, and receive final files." } },
-      { icon: "◈", name: { ko: "바로 쓰는 납품 파일", en: "Ready-to-use files" }, detail: { ko: "SNS 프로필, 명함 인쇄, 소개 자료에 바로 적용할 수 있는 형식으로 제공합니다.", en: "Delivered in formats ready for SNS profiles, card printing, and sales materials." } },
+      { icon: "◈", name: { ko: "부담 없는 시작 비용", en: "Affordable launch cost" }, detail: { ko: "초기 창업자와 소상공인도 로고와 명함을 합리적인 가격으로 먼저 갖출 수 있습니다", en: "A practical starting point for founders and small businesses that need brand assets quickly." } },
+      { icon: "◈", name: { ko: "빠른 시안 확인", en: "Fast draft review" }, detail: { ko: "브랜드 방향을 빠르게 확인하고, 마음에 드는 안을 골라 최종 파일로 받을 수 있습니다", en: "Review directions quickly, choose the preferred concept, and receive final files." } },
+      { icon: "◈", name: { ko: "바로 쓰는 납품 파일", en: "Ready-to-use files" }, detail: { ko: "SNS 프로필, 명함 인쇄, 소개 자료에 바로 적용할 수 있는 형식으로 제공합니다", en: "Delivered in formats ready for SNS profiles, card printing, and sales materials." } },
     ],
     process: sharedProcess,
     pricing: [
@@ -307,7 +307,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "상세페이지", en: "Detail Page" },
     subtitle: "Sales Detail",
     description: {
-      ko: "상품, 서비스, 플랫폼 판매 페이지를 이미지 중심의 세로형 상세페이지로 제작합니다.",
+      ko: "상품, 서비스, 플랫폼 판매 페이지를 이미지 중심의 세로형 상세페이지로 제작합니다",
       en: "Vertical sales detail pages for products, services, and marketplace listings.",
     },
     items: [
@@ -364,23 +364,23 @@ export const servicesData: ServiceDetail[] = [
     faqs: [
       {
         q: { ko: "상세페이지 제작에 얼마나 걸리나요?", en: "How long does detail page production take?" },
-        a: { ko: "기본 패키지 기준 2-5일입니다. 자료 제출이 빠를수록 납기가 단축됩니다.", en: "2-5 days for the base package. Faster asset delivery means faster turnaround." },
+        a: { ko: "기본 패키지 기준 2-5일입니다. 자료 제출이 빠를수록 납기가 단축됩니다", en: "2-5 days for the base package. Faster asset delivery means faster turnaround." },
       },
       {
         q: { ko: "쿠팡, 스마트스토어, 11번가 등 어떤 플랫폼도 가능한가요?", en: "Do you support Coupang, SmartStore, and other platforms?" },
-        a: { ko: "네, 모든 오픈마켓 및 쇼핑몰 플랫폼에 맞는 규격으로 제작합니다.", en: "Yes, we produce to spec for all major marketplace and storefront platforms." },
+        a: { ko: "네, 모든 오픈마켓 및 쇼핑몰 플랫폼에 맞는 규격으로 제작합니다", en: "Yes, we produce to spec for all major marketplace and storefront platforms." },
       },
       {
         q: { ko: "제품 사진이 없어도 제작이 가능한가요?", en: "Can you create a detail page without product photos?" },
-        a: { ko: "기본 이미지가 있으면 작업이 가능합니다. 고퀄리티 촬영이 필요한 경우 별도 안내 드립니다.", en: "Basic images are sufficient to start. Professional photography can be arranged separately if needed." },
+        a: { ko: "기본 이미지가 있으면 작업이 가능합니다. 고퀄리티 촬영이 필요한 경우 별도 안내 드립니다", en: "Basic images are sufficient to start. Professional photography can be arranged separately if needed." },
       },
       {
         q: { ko: "수정은 몇 번이나 가능한가요?", en: "How many revisions are included?" },
-        a: { ko: "패키지에 따라 1-3회 기본 포함이며, 추가 수정은 건당 별도 견적입니다.", en: "1-3 revisions depending on the package; additional revisions are quoted per round." },
+        a: { ko: "패키지에 따라 1-3회 기본 포함이며, 추가 수정은 건당 별도 견적입니다", en: "1-3 revisions depending on the package; additional revisions are quoted per round." },
       },
       {
         q: { ko: "납품 파일 형식은 어떻게 되나요?", en: "What file formats are delivered?" },
-        a: { ko: "PSD 원본과 플랫폼 업로드용 JPG/PNG 파일로 납품합니다.", en: "PSD source files plus platform-ready JPG/PNG files." },
+        a: { ko: "PSD 원본과 플랫폼 업로드용 JPG/PNG 파일로 납품합니다", en: "PSD source files plus platform-ready JPG/PNG files." },
       },
     ],
   },
@@ -389,7 +389,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "PPT 디자인", en: "PPT Design" },
     subtitle: "Presentation",
     description: {
-      ko: "회사소개서, 제안서, 피치덱을 바로 발표 가능한 원본 파일로 제작합니다.",
+      ko: "회사소개서, 제안서, 피치덱을 바로 발표 가능한 원본 파일로 제작합니다",
       en: "Company decks, proposals, and pitch decks delivered as editable files.",
     },
     items: [
@@ -443,7 +443,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "자동화 및 앱", en: "Automation & App" },
     subtitle: "Automation & App",
     description: {
-      ko: "반복 업무 자동화, 데이터 수집, MVP 앱, 운영 대시보드를 빠르게 구축합니다.",
+      ko: "반복 업무 자동화, 데이터 수집, MVP 앱, 운영 대시보드를 빠르게 구축합니다",
       en: "Workflow automation, data collection, MVP apps, and operation dashboards.",
     },
     items: [
@@ -505,7 +505,7 @@ export const servicesData: ServiceDetail[] = [
     title: { ko: "영상 콘텐츠", en: "Video Content" },
     subtitle: "Video",
     description: {
-      ko: "브랜드 인트로, 홍보 영상, 쇼츠·릴스, 튜토리얼 영상을 제작합니다.",
+      ko: "브랜드 인트로, 홍보 영상, 쇼츠·릴스, 튜토리얼 영상을 제작합니다",
       en: "Brand intros, promotional videos, shorts/reels, and tutorial videos.",
     },
     items: [
@@ -591,7 +591,7 @@ export const metaCategoriesData: MetaCategory[] = [
     title: { ko: "디자인", en: "Design" },
     subtitle: { ko: "브랜드디자인 · 상세페이지 · PPT", en: "Brand design · Detail pages · PPT" },
     description: {
-      ko: "로고, 브랜드 아이덴티티부터 상품 상세페이지, 제안서 디자인까지 시각적 결과물 전반을 담당합니다.",
+      ko: "로고, 브랜드 아이덴티티부터 상품 상세페이지, 제안서 디자인까지 시각적 결과물 전반을 담당합니다",
       en: "From logo and brand identity to product detail pages and presentation design.",
     },
     icon: "Palette",
@@ -603,7 +603,7 @@ export const metaCategoriesData: MetaCategory[] = [
     title: { ko: "개발", en: "Development" },
     subtitle: { ko: "쇼핑몰 · 웹사이트 · 앱", en: "Storefront · Website · App" },
     description: {
-      ko: "쇼핑몰, 랜딩페이지, 회사 홈페이지, 자동화 앱까지 코드로 구현하는 모든 것.",
+      ko: "쇼핑몰, 랜딩페이지, 회사 홈페이지, 자동화 앱까지 코드로 구현하는 모든 것",
       en: "Shopping malls, landing pages, company sites, and automation apps — all in code.",
     },
     icon: "Code2",
@@ -615,7 +615,7 @@ export const metaCategoriesData: MetaCategory[] = [
     title: { ko: "영상", en: "Video" },
     subtitle: { ko: "준비 중", en: "Coming Soon" },
     description: {
-      ko: "브랜드 인트로, 홍보 영상, 쇼츠·릴스 제작 서비스를 준비 중입니다.",
+      ko: "브랜드 인트로, 홍보 영상, 쇼츠·릴스 제작 서비스를 준비 중입니다",
       en: "Brand intro, promo videos, and Shorts/Reels — coming soon.",
     },
     icon: "Video",
@@ -627,7 +627,7 @@ export const metaCategoriesData: MetaCategory[] = [
     title: { ko: "마케팅", en: "Marketing" },
     subtitle: { ko: "준비 중", en: "Coming Soon" },
     description: {
-      ko: "SNS 콘텐츠, 광고 소재, 퍼포먼스 마케팅 서비스를 준비 중입니다.",
+      ko: "SNS 콘텐츠, 광고 소재, 퍼포먼스 마케팅 서비스를 준비 중입니다",
       en: "Social content, ad creatives, and performance marketing — coming soon.",
     },
     icon: "Megaphone",

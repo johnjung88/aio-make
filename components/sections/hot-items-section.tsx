@@ -28,7 +28,7 @@ export function HotItemsSection() {
           </div>
           <p className="max-w-xl text-sm leading-6 text-muted-foreground">
             {locale === "ko"
-              ? "가격과 납기만 보지 말고, 실제로 어떤 결과물이 납품되는지 먼저 확인하세요."
+              ? "가격과 납기만 보지 말고, 실제로 어떤 결과물이 납품되는지 먼저 확인하세요"
               : "Review the actual type of result you can receive, not just the price and timeline."}
           </p>
         </div>
