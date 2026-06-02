@@ -24,6 +24,8 @@ const INCLUDES = [
   { icon: "📦", title: "상품 등록", desc: "상품 사진·설명·옵션·가격 세팅" },
   { icon: "💳", title: "결제 연동", desc: "카드·계좌·간편결제 연동 및 테스트" },
   { icon: "📱", title: "모바일 최적화", desc: "모바일 쇼핑 흐름 우선 설계" },
+  { icon: "📊", title: "GA4 설치", desc: "구매 퍼널 분석·전환 추적 세팅" },
+  { icon: "🎯", title: "광고 픽셀 설치", desc: "Meta·카카오 픽셀 연동으로 광고 최적화" },
   { icon: "🛠️", title: "14일 A/S", desc: "납품 후 무상 유지보수 포함" },
 ];
 
@@ -76,7 +78,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               기본 패키지에 모두 포함
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
             {INCLUDES.map((inc) => (
               <div
                 key={inc.title}
@@ -85,6 +87,79 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
                 <div className="text-3xl mb-3">{inc.icon}</div>
                 <h3 className="text-[15px] font-bold text-[#111] mb-2">{inc.title}</h3>
                 <p className="text-[12px] text-[#6B7280] leading-[1.7]">{inc.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 구매 동선 최적화 ── */}
+      <section className="bg-[#111] text-white py-16 md:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10">
+          <div className="text-center mb-10">
+            <p
+              className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3"
+              style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}
+            >
+              Conversion Optimization
+            </p>
+            <h2 className="font-bold text-white mb-3" style={{ fontSize: "clamp(24px,3.5vw,38px)" }}>
+              구매자 동선에 맞는 <span style={{ color: ACCENT }}>최적의 세팅</span>까지
+            </h2>
+            <p className="text-[#9CA3AF] text-[14px] max-w-[52ch] mx-auto leading-[1.75]">
+              단순 쇼핑몰 구축이 아닙니다. 방문자가 상품을 발견하고 결제까지 이탈 없이
+              이어지도록 — 구매 퍼널 전 단계를 설계합니다.
+            </p>
+          </div>
+          {/* 퍼널 단계 */}
+          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-0 mb-10">
+            {[
+              { step: "01", label: "상품 발견", sub: "SEO·광고 유입" },
+              { step: "02", label: "상품 페이지", sub: "전환 유도 구성" },
+              { step: "03", label: "장바구니", sub: "이탈 최소화" },
+              { step: "04", label: "결제", sub: "간편결제 연동" },
+              { step: "05", label: "구매 완료", sub: "리타게팅 픽셀" },
+            ].map((f, i, arr) => (
+              <div key={f.step} className="flex items-center">
+                <div className="text-center px-4 md:px-6 py-4 rounded-xl border border-[#333] bg-[#1a1a1a] min-w-[100px]">
+                  <p
+                    className="text-[10px] font-bold mb-1"
+                    style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}
+                  >
+                    {f.step}
+                  </p>
+                  <p className="text-[14px] font-bold text-white">{f.label}</p>
+                  <p className="text-[11px] text-[#9CA3AF] mt-0.5">{f.sub}</p>
+                </div>
+                {i < arr.length - 1 && (
+                  <span className="text-[#555] text-[20px] mx-1 hidden md:block">→</span>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* 핵심 포인트 3가지 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                icon: "📊",
+                title: "GA4 구매 퍼널 분석",
+                desc: "어느 단계에서 이탈하는지 데이터로 파악. 구매 전환율을 높이는 기반 세팅.",
+              },
+              {
+                icon: "🎯",
+                title: "Meta·카카오 광고 픽셀",
+                desc: "장바구니 담기·결제 완료 이벤트를 픽셀로 추적. 리타게팅 광고 즉시 집행 가능.",
+              },
+              {
+                icon: "🛒",
+                title: "구매 동선 UX 설계",
+                desc: "상품 진열 순서, 배너 위치, CTA 문구까지 — 매출로 이어지는 구조로 세팅.",
+              },
+            ].map((p) => (
+              <div key={p.title} className="border border-[#2a2a2a] rounded-2xl p-6 bg-[#1a1a1a]">
+                <div className="text-2xl mb-3">{p.icon}</div>
+                <h3 className="text-[15px] font-bold text-white mb-2">{p.title}</h3>
+                <p className="text-[12px] text-[#9CA3AF] leading-[1.7]">{p.desc}</p>
               </div>
             ))}
           </div>
