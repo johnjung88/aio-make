@@ -7,7 +7,7 @@ export function MagazineCover() {
       {/* 히어로 배경 이미지 — AI 생성 한국인 크리에이티브 에이전시 오피스 */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero/hero-bg.jpg"
+          src="/hero/hero-bg.png"
           alt=""
           fill
           priority
