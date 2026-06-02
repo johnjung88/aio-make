@@ -36,6 +36,14 @@ const SHOWCASE = [
 
 type ShowcaseItem = (typeof SHOWCASE)[number];
 
+const KPI_CARDS = [
+  { client: "자연한의원",       cat: "병원·의료",  kpi: "+120%", label: "예약 증가",  delay: "0s",    color: "#4DD4AC" },
+  { client: "서울법무사사무소", cat: "법률·세무",  kpi: "+85%",  label: "상담 문의",  delay: "0.6s",  color: "#79C0FF" },
+  { client: "셰프밀",           cat: "쇼핑몰",     kpi: "+28%",  label: "매출 증가",  delay: "1.2s",  color: "#FFB347" },
+  { client: "V-AIO 서비스",     cat: "스타트업",   kpi: "+52%",  label: "전환율",     delay: "1.8s",  color: "#4DD4AC" },
+  { client: "아카데미밸리",     cat: "교육·학원",  kpi: "+44%",  label: "수강 등록",  delay: "0.3s",  color: "#D2A8FF" },
+];
+
 const INDUSTRIES = [
   { Icon: Stethoscope,     title: "병원·의료",       desc: "의원·한의원·치과·성형외과. 예약·진료 안내·의료광고법 대응." },
   { Icon: Scale,           title: "법률·세무",       desc: "변호사·법무사·세무사. 상담 유도와 전문성 강조에 최적화." },
@@ -164,74 +172,134 @@ export function WebsiteLanding({ locale }: { locale: string }) {
     <div style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
 
-      {/* ── DARK HERO ── */}
-      <section style={{
+      {/* ── DARK HERO (2열: 좌=팀사진+텍스트, 우=플로팅 KPI 카드) ── */}
+      <style>{`
+        @keyframes kpiFloat0{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes kpiFloat1{0%,100%{transform:translateY(-6px)}50%{transform:translateY(6px)}}
+        @keyframes kpiFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes kpiFloat3{0%,100%{transform:translateY(-4px)}50%{transform:translateY(8px)}}
+        @keyframes kpiFloat4{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+        @media(max-width:768px){.hero-grid{grid-template-columns:1fr!important}.hero-cards{display:none!important}}
+      `}</style>
+      <section className="hero-grid" style={{
         background: DARK, minHeight: "100vh",
-        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-        textAlign: "center",
-        padding: "clamp(80px,12vw,140px) clamp(16px,5vw,48px) clamp(60px,8vw,100px)",
-        position: "relative", overflow: "hidden",
+        display: "grid", gridTemplateColumns: "55% 45%",
       }}>
-        {/* 배경 이미지 */}
-        <Image
-          src="/images/services/website-hero-bg.png"
-          alt=""
-          width={1920}
-          height={1080}
-          priority
-          style={{
-            position: "absolute", top: 0, left: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center",
-            opacity: 0.45,
-          }}
-        />
-        {/* 어두운 오버레이 — 텍스트 가독성 */}
+
+        {/* ── 왼쪽: 팀 사진 배경 + 텍스트 ── */}
         <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          background: "linear-gradient(to bottom, rgba(13,17,23,0.55) 0%, rgba(13,17,23,0.75) 60%, rgba(13,17,23,0.95) 100%)",
-        }} />
-        <p style={{
-          fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
-          letterSpacing: "0.30em", textTransform: "uppercase",
-          color: ACCENT, marginBottom: 24, position: "relative",
+          position: "relative", overflow: "hidden", minHeight: "100vh",
+          display: "flex", flexDirection: "column", justifyContent: "center",
+          padding: "clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)",
         }}>
-          WEBSITE · 웹사이트 제작
-        </p>
-        <h1 style={{
-          fontSize: "clamp(44px,7vw,96px)", fontWeight: 700,
-          letterSpacing: "-0.03em", lineHeight: 0.98,
-          color: "#F0F6FC", marginBottom: 28, maxWidth: 900, position: "relative",
-        }}>
-          스크롤을 멈추게<br />
-          만드는 <span style={{ color: ACCENT }}>홈페이지</span>
-        </h1>
-        <p style={{
-          fontSize: "clamp(15px,1.3vw,18px)", color: "rgba(240,246,252,0.58)",
-          lineHeight: 1.8, maxWidth: 540, marginBottom: 36, position: "relative",
-        }}>
-          랜딩페이지·회사 홈페이지·서비스 사이트.<br />
-          운영 가능한 완성품을 5일 이내 납품합니다.
-        </p>
-        <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 40, position: "relative" }}>
-          {["5일 납품","14일 A/S","SEO 세팅 포함"].map((b) => (
-            <span key={b} style={{
-              fontSize: 11, fontWeight: 600, padding: "6px 14px",
-              border: `1px solid ${ACCENT}`, color: ACCENT,
-              borderRadius: 999, letterSpacing: "0.04em",
+          {/* 팀 배경 이미지 */}
+          <Image
+            src="/images/services/website-team.png"
+            alt=""
+            width={1344}
+            height={896}
+            priority
+            style={{
+              position: "absolute", top: 0, left: 0,
+              width: "100%", height: "100%",
+              objectFit: "cover", objectPosition: "center",
+              opacity: 0.30,
+            }}
+          />
+          {/* 다크 그라디언트 오버레이 */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
+          }} />
+          {/* 텍스트 */}
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <p style={{
+              fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
+              letterSpacing: "0.30em", textTransform: "uppercase",
+              color: ACCENT, marginBottom: 24,
             }}>
-              {b}
-            </span>
+              WEBSITE · 웹사이트 제작
+            </p>
+            <h1 style={{
+              fontSize: "clamp(36px,4.5vw,76px)", fontWeight: 700,
+              letterSpacing: "-0.03em", lineHeight: 1.0,
+              color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
+            }}>
+              스크롤을 멈추게<br />
+              만드는 <span style={{ color: ACCENT }}>홈페이지</span>
+            </h1>
+            <p style={{
+              fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
+              lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
+            }}>
+              랜딩페이지·회사 홈페이지·서비스 사이트.<br />
+              운영 가능한 완성품을 5일 이내 납품합니다.
+            </p>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
+              {["5일 납품","14일 A/S","SEO 세팅 포함"].map((b) => (
+                <span key={b} style={{
+                  fontSize: 11, fontWeight: 600, padding: "6px 14px",
+                  border: `1px solid ${ACCENT}`, color: ACCENT,
+                  borderRadius: 999, letterSpacing: "0.04em",
+                }}>
+                  {b}
+                </span>
+              ))}
+            </div>
+            <Link href={`/${locale}/quote`} style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "14px 28px", background: ACCENT, color: "#0D1117",
+              borderRadius: 8, fontSize: 14, fontWeight: 700, textDecoration: "none",
+            }}>
+              웹사이트 제작 문의 →
+            </Link>
+          </div>
+        </div>
+
+        {/* ── 오른쪽: 플로팅 KPI 카드 ── */}
+        <div className="hero-cards" style={{
+          display: "flex", flexDirection: "column", justifyContent: "center",
+          padding: "clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px)",
+          gap: 14, position: "relative",
+        }}>
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none",
+            background: "radial-gradient(ellipse 80% 60% at 60% 40%,rgba(77,212,172,0.05),transparent 70%)",
+          }} />
+          {KPI_CARDS.map((card, i) => (
+            <div key={card.client} style={{
+              marginLeft: [0, 44, 20, 60, 10][i],
+              animation: `kpiFloat${i} ${2.4 + i * 0.35}s ease-in-out ${card.delay} infinite`,
+              position: "relative", zIndex: 1,
+            }}>
+              <div style={{
+                background: "rgba(22,27,34,0.88)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderLeft: `3px solid ${card.color}`,
+                borderRadius: 10, padding: "14px 18px",
+                backdropFilter: "blur(12px)",
+                display: "flex", alignItems: "center", gap: 14,
+                minWidth: 220, maxWidth: 280,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.45)",
+              }}>
+                <div style={{
+                  background: `${card.color}18`, border: `1px solid ${card.color}35`,
+                  borderRadius: 8, width: 48, height: 48, flexShrink: 0,
+                  display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center",
+                }}>
+                  <span style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 15, fontWeight: 700, color: card.color, lineHeight: 1 }}>{card.kpi}</span>
+                  <span style={{ fontSize: 10, color: card.color, opacity: 0.7, marginTop: 2 }}>↑</span>
+                </div>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: "#F0F6FC", marginBottom: 3 }}>{card.client}</p>
+                  <p style={{ fontSize: 11, color: "rgba(240,246,252,0.42)", lineHeight: 1.5 }}>{card.cat} · {card.label}</p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
-        <Link href={`/${locale}/quote`} style={{
-          display: "inline-flex", alignItems: "center", gap: 8,
-          padding: "14px 28px", background: ACCENT, color: "#0D1117",
-          borderRadius: 8, fontSize: 14, fontWeight: 700, textDecoration: "none",
-          position: "relative",
-        }}>
-          웹사이트 제작 문의 →
-        </Link>
+
       </section>
 
       {/* ── MOCKUP SHOWCASE ── */}
