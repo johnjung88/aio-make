@@ -25,30 +25,22 @@ const CSS = `
 .aiodh .reveal.d1{transition-delay:.1s}.aiodh .reveal.d2{transition-delay:.2s}.aiodh .reveal.d3{transition-delay:.3s}
 .aiodh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--rose),var(--gold))}
 
-/* Cover hero — dark canvas with cream art frame */
-.aiodh .cover{padding:clamp(82px,11vw,156px) 0 clamp(50px,7vw,100px);position:relative;overflow:hidden}
-.aiodh .cover::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 70% 30%,rgba(198,96,96,.18),transparent 70%)}
-.aiodh .cover .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,72px);align-items:center}
-.aiodh .cover .l{text-align:left}
+/* Cover hero — full-bleed cinematic */
+.aiodh .cover{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;padding:clamp(100px,12vw,156px) 0 clamp(64px,8vw,110px)}
+.aiodh .cover .cbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:0}
+.aiodh .cover .cov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(14,13,11,.97) 0%,rgba(14,13,11,.92) 38%,rgba(14,13,11,.52) 68%,rgba(14,13,11,.22) 100%);z-index:1;pointer-events:none}
+.aiodh .cover .wrap{position:relative;z-index:2}
+.aiodh .cover .l{max-width:640px;text-align:left}
 .aiodh .cover .meta{font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:.22em;text-transform:uppercase;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .aiodh .cover .meta b{color:var(--rose2);font-weight:400}
 .aiodh .cover .meta span.bar{width:18px;height:1px;background:var(--line);display:inline-block}
 .aiodh .cover h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;letter-spacing:-.018em;margin-bottom:24px}
 .aiodh .cover h1 em{font-family:var(--frau);font-style:normal;font-weight:600;color:var(--rose2)}
-.aiodh .cover .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:42ch;margin:0 0 28px}
+.aiodh .cover .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 0 28px}
 .aiodh .acts{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .aiodh .cta-pill{font-size:14px;font-weight:600;padding:14px 30px;border-radius:0;background:var(--paper);color:var(--ink);letter-spacing:-.005em}
 .aiodh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
-/* Cream art frame */
-.aiodh .cover .r{position:relative}
-.aiodh .frame{position:relative;aspect-ratio:16/9;background:#1A1612;overflow:hidden;border-radius:2px;box-shadow:0 30px 80px rgba(0,0,0,.65)}
-.aiodh .frame::before{content:"";position:absolute;inset:14px;border:1px solid rgba(239,233,221,.18);z-index:2;pointer-events:none}
-.aiodh .frame .tag{position:absolute;top:20px;left:22px;font-family:var(--mono);font-size:10px;color:#EFE9DD;letter-spacing:.24em;border-bottom:1px solid rgba(239,233,221,.45);padding-bottom:4px;z-index:2}
-.aiodh .frame .label{position:absolute;left:26px;bottom:26px;font-family:var(--frau);color:#F4ECDC;font-size:clamp(22px,2.8vw,40px);line-height:.95;letter-spacing:-.014em;z-index:2}
-.aiodh .frame .label em{font-family:var(--frau);font-style:normal;color:var(--rose2);display:block;margin-top:5px}
-.aiodh .frame .price{position:absolute;right:22px;bottom:26px;font-family:var(--mono);font-size:10px;color:rgba(239,233,221,.65);letter-spacing:.2em;text-align:right;line-height:1.7;z-index:2}
-.aiodh .frame .ornament{position:absolute;top:50%;right:26px;width:1px;height:72px;background:rgba(239,233,221,.35);transform:translateY(-50%);z-index:2}
-@media(max-width:880px){.aiodh .cover .wrap{grid-template-columns:1fr;text-align:center}.aiodh .cover .l{text-align:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}.aiodh .frame{max-width:560px;margin:0 auto}}
+@media(max-width:880px){.aiodh .cover .l{max-width:100%;text-align:center}.aiodh .acts{justify-content:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}}
 
 /* === CREAM PAPER SECTION (turning magazine page) === */
 .aiodh .paper{background:var(--paper);color:var(--ink);position:relative;padding:clamp(72px,10vw,120px) 0;margin:clamp(32px,5vw,72px) 0;box-shadow:0 30px 90px rgba(0,0,0,.45)}
@@ -145,41 +137,32 @@ export function DesignHub({ locale }: { locale: string }) {
       <div className="prog" />
       <AioNav locale={locale} level="middle" cat="design" active="service" />
 
-      {/* Cover — dark canvas with cream art frame */}
-      <header className="cover"><div className="wrap">
-        <div className="l">
-          <div className="meta">
-            <b>Issue 02</b><span className="bar" />Design<span className="bar" />A · I · O 2026
-          </div>
-          <h1>보이는 것이<br />곧 <em>신뢰</em>입니다</h1>
-          <p className="lead">로고·명함·상세페이지·PPT — 브랜드의 첫 인사를 다듬습니다 · 한 번 봤을 때 남는 디자인으로</p>
-          <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page`}>상세페이지부터</a></div>
-        </div>
-        <div className="r">
-          <div className="frame">
-            <span className="tag">N° 02 · COVER</span>
-            <img
-              src="/images/services/design-hub.png"
-              alt="Design Studio"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", zIndex: 0 }}
-            />
-            <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,22,18,0) 40%, rgba(26,22,18,0.72))", zIndex: 1 }} />
-            <span className="label" style={{ zIndex: 2, color: "#F4ECDC" }}>Brand<em>First Impression</em></span>
-            <span className="price" style={{ zIndex: 2, color: "#EFE9DD" }}>AIO<br />2026</span>
+      {/* Cover — full-bleed cinematic */}
+      <header className="cover">
+        <img className="cbg" src="/images/services/design-hub.png" alt="" />
+        <div className="cov" />
+        <div className="wrap">
+          <div className="l">
+            <div className="meta">
+              <b>Issue 02</b><span className="bar" />Design<span className="bar" />A · I · O 2026
+            </div>
+            <h1>보이는 것이<br />곧 <em>신뢰</em>입니다</h1>
+            <p className="lead">로고·명함·상세페이지·PPT — 브랜드의 첫 인사를 다듬습니다</p>
+            <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page`}>상세페이지부터</a></div>
           </div>
         </div>
-      </div></header>
+      </header>
 
       {/* === PAPER 1: Featured spread === */}
       <section className="paper">
         <div className="wrap">
           <div className="shead reveal"><span className="kick">Featured Spread</span><h2>이번 호의 <em>작업들</em></h2><p>로고·명함·상세페이지·PPT — 분야별 전문가가 각자의 매체로</p></div>
           <div className="spread reveal d1">
-            <div className="tile t1"><img className="bg" src="/portfolio/cafe24-design-pack/d01-mobile-final.png" alt="" loading="lazy" style={{objectFit:"cover",objectPosition:"center top"}} /><span className="shade" /><span className="tag">Detail · 10,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
-            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 20%"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
-            <div className="tile t3"><img className="bg" src="/portfolio/logo-showcase/vela-skin/premium-logo-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 20%"}} /><span className="shade" /><span className="tag">Logo · Brand</span><span className="ttl"><em>첫 글자</em></span></div>
-            <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-business-card-detail.jpg" alt="" loading="lazy" style={{objectPosition:"center 30%"}} /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
-            <div className="tile t5"><img className="bg" src="/portfolio/cafe24-design-pack/d03-wide.png" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl">풀 <em>스토리</em></span></div>
+            <div className="tile t1"><img className="bg" src="/portfolio/detail-page/linen-onepiece/detail.png" alt="" loading="lazy" style={{objectFit:"cover",objectPosition:"center top"}} /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
+            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-presentation.jpg" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
+            <div className="tile t3"><img className="bg" src="/portfolio/ppt-design/ir-investment/cover-slide.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">PPT · IR Deck</span><span className="ttl">전달되는 <em>슬라이드</em></span></div>
+            <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/onda-hair/premium-logo-detail.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Logo · Brand</span><span className="ttl"><em>첫 글자</em></span></div>
+            <div className="tile t5"><img className="bg" src="/portfolio/logo-showcase/breath-pilates/premium-business-card-detail.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
           </div>
         </div>
         <span className="crease" />
