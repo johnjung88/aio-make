@@ -1,11 +1,34 @@
+import Image from "next/image";
 import { MagazineVitalSign } from "./magazine-vital-sign";
 
 export function MagazineCover() {
   return (
-    <section
-      className="max-w-[1500px] mx-auto relative text-center"
-      style={{ padding: "var(--space-section) var(--space-edge)" }}
-    >
+    <section className="max-w-[1500px] mx-auto relative text-center overflow-hidden">
+      {/* 히어로 배경 이미지 — AI 생성 한국인 크리에이티브 에이전시 오피스 */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover object-top"
+          sizes="100vw"
+          quality={90}
+        />
+      </div>
+      {/* 텍스트 가독성 오버레이 — 상하단 어둡게, 중간은 이미지 살림 */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(14,13,11,0.88) 0%, rgba(14,13,11,0.55) 25%, rgba(14,13,11,0.45) 55%, rgba(14,13,11,0.72) 80%, rgba(14,13,11,0.92) 100%)",
+        }}
+      />
+      {/* 콘텐츠 */}
+      <div
+        className="relative z-20"
+        style={{ padding: "var(--space-section) var(--space-edge)" }}
+      >
       {/* Cover meta — 모바일/PC 별도 마크업 */}
       <div
         className="pb-4 border-b mb-10 md:mb-16 mx-auto"
@@ -326,6 +349,7 @@ export function MagazineCover() {
             <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>4.6일</strong>
           </p>
         </div>
+      </div>
       </div>
     </section>
   );
