@@ -1,27 +1,36 @@
+import Image from "next/image";
 import { MagazineVitalSign } from "./magazine-vital-sign";
 
 export function MagazineCover() {
   return (
-    <section
-      className="max-w-[1500px] mx-auto relative text-center"
-      style={{
-        padding: "var(--space-section) var(--space-edge)",
-        // Hero 배경 이미지 — 다크 그라디언트 오버레이 + 프로 에이전시 작업 공간 사진
-        // Photo by Vitaly Gariev on Unsplash (Free to use under Unsplash License)
-        backgroundImage: [
-          "linear-gradient(to bottom,",
-          "  rgba(14,13,11,0.80) 0%,",
-          "  rgba(14,13,11,0.55) 45%,",
-          "  rgba(14,13,11,0.55) 55%,",
-          "  rgba(14,13,11,0.85) 100%",
-          "),",
-          "url('/hero/hero-bg.jpg')",
-        ].join(" "),
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <section className="max-w-[1500px] mx-auto relative text-center overflow-hidden">
+      {/* 배경 이미지 레이어 — opacity 낮춰 텍스처처럼 동작 */}
+      {/* Photo by Vitaly Gariev on Unsplash (Unsplash License) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          style={{ opacity: 0.18 }}
+          sizes="100vw"
+        />
+      </div>
+      {/* 어두운 오버레이 — 이미지 밝기를 완전히 눌러 텍스트 가독성 확보 */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, var(--tone-magazine-paper) 0%, rgba(14,13,11,0.96) 15%, rgba(14,13,11,0.94) 80%, var(--tone-magazine-paper) 100%)",
+        }}
+      />
+
+      {/* 콘텐츠 — 이미지·오버레이 위에 렌더 */}
+      <div
+        className="relative z-20"
+        style={{ padding: "var(--space-section) var(--space-edge)" }}
+      >
       {/* Cover meta — 모바일/PC 별도 마크업 */}
       <div
         className="pb-4 border-b mb-10 md:mb-16 mx-auto"
@@ -342,6 +351,7 @@ export function MagazineCover() {
             <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>4.6일</strong>
           </p>
         </div>
+      </div>
       </div>
     </section>
   );
