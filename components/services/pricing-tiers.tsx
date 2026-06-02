@@ -36,14 +36,17 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref }: Props) {
                   : { borderColor: "#E5E7EB" }
               }
             >
-              {tier.recommended && (
-                <span
-                  className="inline-block self-start text-[10px] font-bold px-3 py-1 rounded-full text-white mb-4"
-                  style={{ background: accentColor }}
-                >
-                  {isKo ? "추천" : "Recommended"}
-                </span>
-              )}
+              {/* 배지 높이 항상 확보 — 미추천 카드도 정렬 맞춤 */}
+              <div className="mb-4 h-[26px] flex items-center">
+                {tier.recommended && (
+                  <span
+                    className="inline-block text-[10px] font-bold px-3 py-1 rounded-full text-white"
+                    style={{ background: accentColor }}
+                  >
+                    {isKo ? "추천" : "Recommended"}
+                  </span>
+                )}
+              </div>
               <div className="text-[13px] font-semibold text-[#6B7280] mb-2">
                 {isKo ? tier.name.ko : tier.name.en}
               </div>
@@ -51,10 +54,10 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref }: Props) {
                 className="font-bold text-[#111] leading-none mb-1"
                 style={{ fontSize: "clamp(26px,3.5vw,38px)", fontFamily: "var(--font-jetbrains)" }}
               >
-                {tier.eventPrice}
+                {tier.eventPrice.replace(/₩/g, "")}
               </div>
               <div className="text-[11px] text-[#9CA3AF] mb-1">
-                {isKo ? "정가" : "Regular"} {tier.regularPrice}
+                {isKo ? "정가" : "Regular"} {tier.regularPrice.replace(/₩/g, "")}
               </div>
               <div className="text-[12px] text-[#6B7280] mb-5 pb-5 border-b border-[#F3F4F6]">
                 {isKo ? "납기" : "Delivery"} {tier.duration}
