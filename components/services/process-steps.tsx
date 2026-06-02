@@ -27,10 +27,7 @@ export function ProcessSteps({ steps, accentColor, isKo }: Props) {
             {isKo ? "제작 프로세스" : "How We Work"}
           </h2>
         </div>
-        <div
-          className="grid gap-6"
-          style={{ gridTemplateColumns: `repeat(${steps.length}, 1fr)` }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {steps.map((s) => (
             <div key={s.step} className="text-center">
               <div

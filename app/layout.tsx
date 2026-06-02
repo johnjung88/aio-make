@@ -186,40 +186,40 @@ export default async function RootLayout({
           ],
           sameAs: [],
         }} />
+
+        <Script id="ga-datalayer-init" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];`}
+        </Script>
+
+        {/* GA4 */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+
+        {/* Meta 픽셀 (NEXT_PUBLIC_META_PIXEL_ID 환경변수 설정 시 활성화) */}
+        {process.env.NEXT_PUBLIC_META_PIXEL_ID && (
+          <Script id="meta-pixel" strategy="afterInteractive">
+            {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${process.env.NEXT_PUBLIC_META_PIXEL_ID}');fbq('track','PageView');`}
+          </Script>
+        )}
+
+        {/* 카카오 픽셀 (NEXT_PUBLIC_KAKAO_PIXEL_ID 환경변수 설정 시 활성화) */}
+        {process.env.NEXT_PUBLIC_KAKAO_PIXEL_ID && (
+          <Script id="kakao-pixel" strategy="afterInteractive">
+            {`var _kaq=window._kaq||[];_kaq.push(['_setTarget','${process.env.NEXT_PUBLIC_KAKAO_PIXEL_ID}']);(function(){var ka=document.createElement('script');ka.async=true;ka.src='//t1.kakaocdn.net/kakao_ad_sa/kakao_ad_sa.js';var sc=document.getElementsByTagName('script')[0];sc.parentNode.insertBefore(ka,sc);})();`}
+          </Script>
+        )}
+
+        {/* 네이버 공통 로그 분석 (NEXT_PUBLIC_NAVER_AD_ID 환경변수 설정 시 활성화) */}
+        {process.env.NEXT_PUBLIC_NAVER_AD_ID && (
+          <Script id="naver-ad" src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
+        )}
+        {process.env.NEXT_PUBLIC_NAVER_AD_ID && (
+          <Script id="naver-ad-init" strategy="afterInteractive">
+            {`var _nasa={};if(window.wcs)_nasa["cnv"]=wcs.cnv("4","0");wcs_do(_nasa);`}
+          </Script>
+        )}
       </body>
-
-      <Script id="ga-datalayer-init" strategy="beforeInteractive">
-        {`window.dataLayer = window.dataLayer || [];`}
-      </Script>
-
-      {/* GA4 */}
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-      )}
-
-      {/* Meta 픽셀 (NEXT_PUBLIC_META_PIXEL_ID 환경변수 설정 시 활성화) */}
-      {process.env.NEXT_PUBLIC_META_PIXEL_ID && (
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${process.env.NEXT_PUBLIC_META_PIXEL_ID}');fbq('track','PageView');`}
-        </Script>
-      )}
-
-      {/* 카카오 픽셀 (NEXT_PUBLIC_KAKAO_PIXEL_ID 환경변수 설정 시 활성화) */}
-      {process.env.NEXT_PUBLIC_KAKAO_PIXEL_ID && (
-        <Script id="kakao-pixel" strategy="afterInteractive">
-          {`var _kaq=window._kaq||[];_kaq.push(['_setTarget','${process.env.NEXT_PUBLIC_KAKAO_PIXEL_ID}']);(function(){var ka=document.createElement('script');ka.async=true;ka.src='//t1.kakaocdn.net/kakao_ad_sa/kakao_ad_sa.js';var sc=document.getElementsByTagName('script')[0];sc.parentNode.insertBefore(ka,sc);})();`}
-        </Script>
-      )}
-
-      {/* 네이버 공통 로그 분석 (NEXT_PUBLIC_NAVER_AD_ID 환경변수 설정 시 활성화) */}
-      {process.env.NEXT_PUBLIC_NAVER_AD_ID && (
-        <Script id="naver-ad" src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
-      )}
-      {process.env.NEXT_PUBLIC_NAVER_AD_ID && (
-        <Script id="naver-ad-init" strategy="afterInteractive">
-          {`var _nasa={};if(window.wcs)_nasa["cnv"]=wcs.cnv("4","0");wcs_do(_nasa);`}
-        </Script>
-      )}
     </html>
   );
 }

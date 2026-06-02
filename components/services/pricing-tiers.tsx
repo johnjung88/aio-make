@@ -53,9 +53,11 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref }: Props) {
               >
                 {tier.eventPrice}
               </div>
-              <div className="text-[11px] text-[#9CA3AF] mb-1">정가 {tier.regularPrice}</div>
+              <div className="text-[11px] text-[#9CA3AF] mb-1">
+                {isKo ? "정가" : "Regular"} {tier.regularPrice}
+              </div>
               <div className="text-[12px] text-[#6B7280] mb-5 pb-5 border-b border-[#F3F4F6]">
-                납기 {tier.duration}
+                {isKo ? "납기" : "Delivery"} {tier.duration}
               </div>
               <ul className="space-y-2.5 flex-1">
                 {tier.includes.map((inc, i) => (
