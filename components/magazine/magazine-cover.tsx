@@ -12,18 +12,22 @@ export function MagazineCover() {
           alt=""
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-bottom"
           style={{
-            opacity: 0.28,
-            filter: "grayscale(100%) brightness(0.3)",
+            opacity: 0.22,
+            filter: "grayscale(100%) brightness(0.25) blur(6px)",
+            transform: "scale(1.04)", /* blur 엣지 픽셀 방지 */
           }}
           sizes="100vw"
         />
       </div>
-      {/* 오버레이 — 단색 어둠으로 이미지 완전히 눌러 텍스트 가독성 확보 */}
+      {/* 오버레이 — 상단은 완전 불투명, 중단 약간 열어 텍스처 힌트 */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
-        style={{ background: "rgba(14,13,11,0.88)" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(14,13,11,1) 0%, rgba(14,13,11,0.91) 20%, rgba(14,13,11,0.89) 75%, rgba(14,13,11,1) 100%)",
+        }}
       />
 
       {/* 콘텐츠 — 이미지·오버레이 위에 렌더 */}
