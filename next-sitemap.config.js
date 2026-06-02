@@ -2,15 +2,14 @@
 
 const LOCALES = ["ko"];
 const CORE_PATHS = ["", "/about", "/quote", "/services", "/portfolio"];
-const SERVICE_GROUP_SLUGS = ["development", "design", "business"];
+// "business"는 /services/design으로, "logo-business-card"·"video-content"는 각 정식 경로로 리다이렉트 → 사이트맵에서 제외
+const SERVICE_GROUP_SLUGS = ["development", "design", "video", "marketing"];
 const CATEGORY_SLUGS = [
   "website",
   "shopping-mall",
-  "logo-business-card",
   "detail-page",
   "ppt-design",
   "automation-app",
-  "video-content",
 ];
 
 module.exports = {
