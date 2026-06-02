@@ -49,7 +49,7 @@ export function IdeServices({ locale }: Props) {
       </div>
 
       {/* 2-col grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
         {cards.map((c) => (
           <div
             key={c.filename}

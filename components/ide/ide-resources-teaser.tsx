@@ -30,7 +30,7 @@ export function IdeResourcesTeaser({ locale }: Props) {
       </div>
 
       {/* 2×2 grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 980, margin: "0 auto" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14, maxWidth: 980, margin: "0 auto" }}>
         {teaserItems.map((r) => (
           <div
             key={r.file}
