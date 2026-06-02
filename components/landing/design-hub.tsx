@@ -159,9 +159,9 @@ export function DesignHub({ locale }: { locale: string }) {
           <div className="frame">
             <span className="tag">N° 02 · COVER</span>
             <img
-              src="/portfolio/logo-showcase/salty-yuzu/premium-presentation.jpg"
-              alt="Brand First Impression"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", zIndex: 0 }}
+              src="/images/services/design-hub.png"
+              alt="Design Studio"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", zIndex: 0 }}
             />
             <span style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,22,18,0) 40%, rgba(26,22,18,0.72))", zIndex: 1 }} />
             <span className="label" style={{ zIndex: 2, color: "#F4ECDC" }}>Brand<em>First Impression</em></span>
@@ -206,7 +206,7 @@ export function DesignHub({ locale }: { locale: string }) {
             </div>
             <a className="iss b reveal d2" href={`${base}/services/detail-page`}>
               <div className="num"><span>N° 02</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/detail-page/herbal-cream/detail.jpg" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
+              <div className="pic"><img className="bg" src="/portfolio/detail-page/herbal-cream/detail.png" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
               <h3>상세<em>페이지</em></h3>
               <p className="desc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
               <span className="more">자세히 →</span>
