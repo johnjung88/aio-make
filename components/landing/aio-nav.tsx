@@ -64,6 +64,7 @@ const SUB_ACCENT: Record<string, string> = {
   "automation-app": "#818CF8",
   "detail-page": "#C66060",
   "ppt-design": "#C66060",
+  "logo-business-card": "#5AC8A8",
 };
 
 /** 중카테고리(분야) → 서비스 액센트 색상 맵 */
@@ -83,7 +84,7 @@ const CAT_SUB: Record<string, { label: string; svc: string; pf?: string; sn: str
     { label: "앱", svc: "", sn: "Soon" },
   ],
   design: [
-    { label: "로고·명함", svc: "", sn: "Soon" },
+    { label: "로고·명함", svc: "/services/logo-business-card", pf: "/services/logo-business-card/portfolio", sn: "Brand" },
     { label: "상세페이지", svc: "/services/detail-page", pf: "/services/detail-page/portfolio", sn: "Detail" },
     { label: "PPT 디자인", svc: "/services/ppt-design", pf: "/services/ppt-design/portfolio", sn: "PPT" },
   ],

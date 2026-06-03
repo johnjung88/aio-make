@@ -223,7 +223,21 @@ export function AutomationLanding({ locale }: { locale: string }) {
   const activeCase = MONITOR_CASES.find((c) => c.id === activeId) ?? MONITOR_CASES[0];
 
   return (
-    <div style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+    <div className="autvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .autvc .aut-hero-txt { text-align: left; }
+        @media (max-width: 768px) {
+          .autvc .aut-hero-txt { text-align: center; }
+          .autvc .aut-hero-txt h1 { max-width: none !important; }
+          .autvc .aut-hero-txt p { max-width: none !important; }
+          .autvc .aut-badges { justify-content: center !important; }
+          .autvc .aut-stack-row { gap: 12px !important; }
+          .autvc .aut-stack-card { min-width: 0 !important; flex: 1 1 calc(50% - 6px); max-width: calc(50% - 6px); }
+        }
+        @media (max-width: 480px) {
+          .autvc .aut-stack-card { flex: 1 1 100%; max-width: 100%; }
+        }
+      ` }} />
       <AioNav locale={locale} level="leaf" sub="automation-app" cat="development" active="service" />
 
       {/* ── DARK HERO ── */}
@@ -252,7 +266,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
             position: "absolute", inset: 0, pointerEvents: "none",
             background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
           }} />
-          <div style={{ position: "relative", zIndex: 1 }}>
+          <div className="aut-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
               fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
               letterSpacing: "0.30em", textTransform: "uppercase",
@@ -275,7 +289,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
               엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램<br className="hidden md:block" />
               하루 수 시간의 반복을 한 번에 없앱니다
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
+            <div className="aut-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
               {["1일~ 납기", "Python·n8n·Make", "14일 A/S"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
@@ -475,9 +489,9 @@ export function AutomationLanding({ locale }: { locale: string }) {
               사용하는 기술 스택
             </h2>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16 }}>
+          <div className="aut-stack-row" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16 }}>
             {STACK.map(({ name, desc, Icon }) => (
-              <div key={name} style={{
+              <div key={name} className="aut-stack-card" style={{
                 border: `1px solid ${ACCENT}44`, borderRadius: 12,
                 padding: "20px 24px", textAlign: "center", minWidth: 130, background: "#fff",
               }}>

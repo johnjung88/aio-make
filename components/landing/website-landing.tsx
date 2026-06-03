@@ -77,7 +77,7 @@ function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop"
 
 function MacbookMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div style={{ position: "relative", width: "76%", maxWidth: 860, flexShrink: 0 }}>
+    <div className="ws-macbook" style={{ position: "relative", width: "76%", maxWidth: 860, flexShrink: 0 }}>
       <div style={{ filter: "drop-shadow(0 50px 100px rgba(0,0,0,0.80)) drop-shadow(0 20px 40px rgba(0,0,0,0.45))" }}>
         <div style={{
           background: "linear-gradient(170deg,#464a50 0%,#38393d 50%,#2d2f33 100%)",
@@ -100,7 +100,7 @@ function MacbookMockup({ item }: { item: ShowcaseItem }) {
                 <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, flexShrink: 0 }} />
               ))}
               <div style={{
-                flex: 1, maxWidth: 260, margin: "0 auto",
+                flex: 1, maxWidth: "100%", margin: "0 auto",
                 background: "#2a2a2a", borderRadius: 4, padding: "2px 10px",
                 fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10,
                 color: "rgba(255,255,255,0.4)", textAlign: "center",
@@ -133,7 +133,7 @@ function MacbookMockup({ item }: { item: ShowcaseItem }) {
 
 function PhoneMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div style={{
+    <div className="ws-phone" style={{
       position: "absolute", bottom: "-10%", right: "3%",
       width: "22%", maxWidth: 190,
       transform: "rotate(3deg)",
@@ -169,7 +169,23 @@ export function WebsiteLanding({ locale }: { locale: string }) {
   const activeItem = SHOWCASE.find((s) => s.id === activeId) ?? SHOWCASE[0];
 
   return (
-    <div style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+    <div className="wsvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .wsvc .ws-hero-txt { text-align: left; }
+        @media (max-width: 880px) {
+          .wsvc .ws-macbook { width: 88% !important; }
+        }
+        @media (max-width: 768px) {
+          .wsvc .ws-hero-txt { text-align: center; }
+          .wsvc .ws-hero-txt h1 { max-width: none !important; }
+          .wsvc .ws-hero-txt p { max-width: none !important; }
+          .wsvc .ws-badges { justify-content: center !important; }
+          .wsvc .ws-showcase-wrap { justify-content: center !important; overflow: visible !important; }
+          .wsvc .ws-macbook { width: 96% !important; max-width: none !important; }
+          .wsvc .ws-phone { display: none !important; }
+          .wsvc .ws-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        }
+      ` }} />
       <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
 
       {/* ── DARK HERO (2열: 좌=팀사진+텍스트, 우=플로팅 KPI 카드) ── */}
@@ -204,7 +220,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
             background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
           }} />
           {/* 텍스트 */}
-          <div style={{ position: "relative", zIndex: 1 }}>
+          <div className="ws-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
               fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
               letterSpacing: "0.30em", textTransform: "uppercase",
@@ -227,7 +243,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               랜딩페이지·회사 홈페이지·서비스 사이트.<br className="hidden md:block" />
               운영 가능한 완성품을 5일 이내 납품합니다
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
+            <div className="ws-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
               {["5일 납품","14일 A/S","SEO 세팅 포함"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
@@ -327,7 +343,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               </button>
             ))}
           </div>
-          <div style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
+          <div className="ws-showcase-wrap" style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
             <MacbookMockup item={activeItem} />
             <PhoneMockup item={activeItem} />
           </div>

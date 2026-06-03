@@ -86,7 +86,7 @@ function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop"
 
 function MacbookMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div style={{ position: "relative", width: "76%", maxWidth: 860, flexShrink: 0 }}>
+    <div className="sm-macbook" style={{ position: "relative", width: "76%", maxWidth: 860, flexShrink: 0 }}>
       <div style={{ filter: "drop-shadow(0 50px 100px rgba(0,0,0,0.80)) drop-shadow(0 20px 40px rgba(0,0,0,0.45))" }}>
         <div style={{
           background: "linear-gradient(170deg,#464a50 0%,#38393d 50%,#2d2f33 100%)",
@@ -142,7 +142,7 @@ function MacbookMockup({ item }: { item: ShowcaseItem }) {
 
 function PhoneMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div style={{
+    <div className="sm-phone" style={{
       position: "absolute", bottom: "-10%", right: "3%",
       width: "22%", maxWidth: 190,
       transform: "rotate(3deg)",
@@ -178,7 +178,27 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
   const activeItem = SHOWCASE.find((s) => s.id === activeId) ?? SHOWCASE[0];
 
   return (
-    <div style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+    <div className="smvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .smvc .sm-hero-txt { text-align: left; }
+        @media (max-width: 880px) {
+          .smvc .sm-macbook { width: 88% !important; }
+        }
+        @media (max-width: 768px) {
+          .smvc .sm-hero-txt { text-align: center; }
+          .smvc .sm-hero-txt h1 { max-width: none !important; }
+          .smvc .sm-hero-txt p { max-width: none !important; }
+          .smvc .sm-badges { justify-content: center !important; }
+          .smvc .sm-showcase-wrap { justify-content: center !important; overflow: visible !important; }
+          .smvc .sm-macbook { width: 96% !important; max-width: none !important; }
+          .smvc .sm-phone { display: none !important; }
+          .smvc .sm-funnel-row { flex-direction: column !important; align-items: center !important; }
+          .smvc .sm-funnel-row > div:has(span) { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .smvc .sm-funnel-card { min-width: 0 !important; width: 100%; }
+        }
+      ` }} />
       <AioNav locale={locale} level="leaf" sub="shopping-mall" cat="development" active="service" />
 
       {/* ── DARK HERO ── */}
@@ -207,7 +227,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
             position: "absolute", inset: 0, pointerEvents: "none",
             background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
           }} />
-          <div style={{ position: "relative", zIndex: 1 }}>
+          <div className="sm-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
               fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
               letterSpacing: "0.30em", textTransform: "uppercase",
@@ -230,7 +250,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               카페24·독립몰·자사몰<br className="hidden md:block" />
               상품 등록부터 결제 연동까지 한 번에 납품합니다
             </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
+            <div className="sm-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
               {["카페24 전문", "결제연동 포함", "14일 A/S"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
@@ -331,7 +351,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               </button>
             ))}
           </div>
-          <div style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
+          <div className="sm-showcase-wrap" style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
             <MacbookMockup item={activeItem} />
             <PhoneMockup item={activeItem} />
           </div>
@@ -458,7 +478,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               이탈 없이 이어지도록 — 구매 퍼널 전 단계를 설계합니다
             </p>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: 8, marginBottom: 40 }}>
+          <div className="sm-funnel-row" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: 8, marginBottom: 40 }}>
             {[
               { step: "01", label: "상품 발견",  sub: "SEO·광고 유입" },
               { step: "02", label: "상품 페이지", sub: "전환 유도 구성" },
@@ -467,7 +487,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               { step: "05", label: "구매 완료",  sub: "리타게팅 픽셀" },
             ].map((f, i, arr) => (
               <div key={f.step} style={{ display: "flex", alignItems: "center" }}>
-                <div style={{
+                <div className="sm-funnel-card" style={{
                   textAlign: "center", padding: "16px 24px", borderRadius: 12,
                   border: "1px solid #333", background: "#1a1a1a", minWidth: 100,
                 }}>

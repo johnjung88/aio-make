@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
@@ -32,6 +32,18 @@ const CSS = `
 .aioppt .kcard-inner{background:rgba(22,27,34,.88);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:14px;min-width:220px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.45)}
 .aioppt .knum-box{border-radius:8px;width:48px;height:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 @media(max-width:880px){.aioppt .hero2{grid-template-columns:1fr}.aioppt .hero2-r{display:none}.aioppt .hero2-l{min-height:80vh}}
+@media(max-width:768px){.aioppt .hero2-txt{text-align:center}.aioppt .hero2-txt h1{max-width:none}.aioppt .hero2-txt p{max-width:none}.aioppt .hero2-bdgs{justify-content:center}}
+
+/* Slide viewer */
+.aioppt .sv-frame{border:2px solid var(--gold);border-radius:12px;overflow:hidden;background:var(--bg2);aspect-ratio:16/9;position:relative;max-width:800px;margin:0 auto;box-shadow:0 24px 64px rgba(0,0,0,.6)}
+.aioppt .sv-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.aioppt .sv-film{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.aioppt .sv-thumb{border:1px solid var(--line2);border-radius:8px;overflow:hidden;cursor:pointer;flex-shrink:0;width:100px;aspect-ratio:16/9;transition:border-color .2s,transform .2s}
+.aioppt .sv-thumb:hover{border-color:var(--gold);transform:translateY(-2px)}
+.aioppt .sv-thumb.active{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.aioppt .sv-thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.aioppt .gmore{display:block;margin:32px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px;width:fit-content}
+@media(max-width:640px){.aioppt .sv-thumb{width:80px}}
 .aioppt .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aioppt .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aioppt .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
@@ -77,8 +89,59 @@ const CSS = `
 .aioppt .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 
+const SLIDE_SETS = [
+  {
+    id: "ir",
+    label: "IR 투자유치",
+    slides: [
+      { src: "/portfolio/ppt-design/ir-investment/cover-slide.png", cap: "표지 슬라이드" },
+      { src: "/portfolio/ppt-design/ir-investment/sample-1.png",    cap: "팀 소개" },
+      { src: "/portfolio/ppt-design/ir-investment/sample-2.png",    cap: "시장 트랙션" },
+      { src: "/portfolio/ppt-design/ir-investment/sample-3.png",    cap: "재무 계획" },
+    ],
+  },
+  {
+    id: "gov",
+    label: "정부지원사업",
+    slides: [
+      { src: "/portfolio/ppt-design/government-grant/cover-slide.png", cap: "표지 슬라이드" },
+      { src: "/portfolio/ppt-design/government-grant/sample-1.png",    cap: "사업 구성" },
+      { src: "/portfolio/ppt-design/government-grant/sample-2.png",    cap: "추진 계획" },
+      { src: "/portfolio/ppt-design/government-grant/sample-3.png",    cap: "기대 효과" },
+    ],
+  },
+  {
+    id: "brand",
+    label: "회사소개서",
+    slides: [
+      { src: "/portfolio/ppt-design/brand-proposal/cover-slide.png", cap: "표지 슬라이드" },
+      { src: "/portfolio/ppt-design/brand-proposal/sample-1.png",    cap: "브랜드 스토리" },
+      { src: "/portfolio/ppt-design/brand-proposal/sample-2.png",    cap: "서비스 소개" },
+      { src: "/portfolio/ppt-design/brand-proposal/sample-3.png",    cap: "포트폴리오" },
+    ],
+  },
+  {
+    id: "b2b",
+    label: "B2B 제안",
+    slides: [
+      { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png", cap: "표지 슬라이드" },
+      { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/sample-1.png",    cap: "제안 내용" },
+    ],
+  },
+];
+
 export function PptDesignLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [activeSetId, setActiveSetId] = useState("ir");
+  const [activeSlideIdx, setActiveSlideIdx] = useState(0);
+  const activeSet = SLIDE_SETS.find((s) => s.id === activeSetId) ?? SLIDE_SETS[0];
+  const activeSlide = activeSet.slides[activeSlideIdx] ?? activeSet.slides[0];
+
+  const handleSetChange = (id: string) => {
+    setActiveSetId(id);
+    setActiveSlideIdx(0);
+  };
+
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const prog = root.querySelector<HTMLElement>(".prog");
@@ -139,21 +202,57 @@ export function PptDesignLanding({ locale }: { locale: string }) {
 
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Preview · Real Work</span><h2>이런 <em>슬라이드</em>를 만듭니다</h2><p>IR · 지원사업 · 회사소개 · 제안 — 분야별 실제 작업물</p></div>
-        <div className="pgrid">
-          {[
-            { src: "/portfolio/ppt-design/ir-investment/cover-slide.png",        cap: "IR · Seed Round" },
-            { src: "/portfolio/ppt-design/government-grant/cover-slide.png",     cap: "정부지원사업" },
-            { src: "/portfolio/ppt-design/brand-proposal/cover-slide.png",       cap: "회사소개서" },
-            { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png",cap: "B2B 가맹 제안" },
-            { src: "/portfolio/ppt-design/ir-investment/sample-2.png",           cap: "IR · 시장 트랙션" },
-            { src: "/portfolio/ppt-design/government-grant/sample-1.png",        cap: "지원사업 · 사업 구성" },
-          ].map(({ src, cap }, i) => (
-            <div key={src} className={`pcard reveal d${(i % 3) + 1}`}>
-              <div className="pshot"><img src={src} alt={cap} /></div>
-              <div className="pcap">{cap}</div>
-            </div>
+
+        {/* 카테고리 탭 */}
+        <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
+          {SLIDE_SETS.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => handleSetChange(s.id)}
+              style={{
+                padding: "8px 18px", borderRadius: 999, border: "1px solid",
+                borderColor: activeSetId === s.id ? "var(--gold)" : "rgba(239,233,221,0.15)",
+                background: activeSetId === s.id ? "var(--gold)" : "transparent",
+                color: activeSetId === s.id ? "#0E0D0B" : "rgba(239,233,221,0.5)",
+                fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 12,
+                fontWeight: activeSetId === s.id ? 700 : 400, cursor: "pointer", transition: "all 0.2s",
+              }}
+            >
+              {s.label}
+            </button>
           ))}
         </div>
+
+        {/* 대형 슬라이드 뷰어 */}
+        <div className="sv-frame reveal">
+          <img src={activeSlide.src} alt={activeSlide.cap} />
+        </div>
+
+        {/* 썸네일 필름스트립 */}
+        <div className="sv-film">
+          {activeSet.slides.map((sl, idx) => (
+            <button
+              key={sl.src}
+              type="button"
+              onClick={() => setActiveSlideIdx(idx)}
+              className={`sv-thumb${activeSlideIdx === idx ? " active" : ""}`}
+              style={{ background: "none", border: "none", padding: 0 }}
+            >
+              <img src={sl.src} alt={sl.cap} />
+            </button>
+          ))}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 12 }}>
+          <span style={{ fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--fg3)" }}>
+            {activeSlide.cap}
+          </span>
+        </div>
+
+        <a className="gmore reveal" href={`/${locale}/services/ppt-design/portfolio`}>
+          포트폴리오 전체 보기 →
+        </a>
       </section>
 
       <section className="sec wrap">
