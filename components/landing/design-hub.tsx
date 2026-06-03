@@ -57,25 +57,8 @@ const CSS = `
 
 /* ===== Studio Mockup Preview ===== */
 .aiodh .showcase{display:flex;justify-content:center;align-items:flex-end;gap:clamp(14px,2.8vw,36px);padding-top:4px}
-
-/* MacBook */
-.aiodh .dmac{position:relative;width:min(64%,620px);flex-shrink:0}
-.aiodh .dmac-lid{background:linear-gradient(170deg,#4d5158 0%,#3c3f45 50%,#2e3034 100%);border-radius:12px 12px 0 0;padding:9px 9px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px #1a1c1f,0 40px 80px rgba(0,0,0,.55)}
-.aiodh .dmac-notch{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:62px;height:9px;background:#1a1c1f;border-radius:0 0 5px 5px}
-.aiodh .dmac-screen{background:#050505;border-radius:4px;overflow:hidden;aspect-ratio:16/10;position:relative}
-.aiodh .dmac-bar{position:absolute;top:0;left:0;right:0;height:26px;background:#1a1a1a;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:6px;padding:0 10px;z-index:2;flex-shrink:0}
-.aiodh .dmac-hinge{height:3px;background:#1a1c1f}
-.aiodh .dmac-foot{height:14px;background:linear-gradient(180deg,#3c3f45 0%,#464a50 60%,#3c3f45 100%);border-radius:0 0 4px 4px}
-
-/* iPhone */
-.aiodh .diph{position:relative;width:min(18%,155px);flex-shrink:0;margin-bottom:8px}
-.aiodh .diph-body{background:linear-gradient(155deg,#1c1c1e 0%,#2a2a2c 100%);border-radius:34px;padding:11px;box-shadow:0 0 0 1.5px rgba(200,162,74,.38),inset 0 0 0 .5px rgba(255,255,255,.07),0 20px 50px rgba(0,0,0,.6)}
-.aiodh .diph-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:56px;height:18px;background:#1c1c1e;border-radius:0 0 12px 12px;z-index:3}
-.aiodh .diph-screen{background:#000;border-radius:24px;overflow:hidden;aspect-ratio:9/19.5;position:relative}
-
-/* Rolling frames */
-.aiodh .droll-wrap{position:absolute;inset:0;top:26px}
-.aiodh .diph .droll-wrap{top:0}
+.aiodh .mac-frame{position:relative;width:min(64%,620px);flex-shrink:0}
+.aiodh .iph-frame{position:relative;width:min(18%,155px);flex-shrink:0;margin-bottom:8px}
 .aiodh .droll-frame{position:absolute;inset:0;opacity:0;animation:dhFade 16s linear infinite}
 .aiodh .droll-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
 @keyframes dhFade{0%{opacity:0}5%{opacity:1}23%{opacity:1}28%{opacity:0}100%{opacity:0}}
@@ -87,8 +70,8 @@ const CSS = `
 .aiodh .sdot.a1{animation:dhDot 16s linear infinite}.aiodh .sdot.a2{animation:dhDot 16s linear 4s infinite}.aiodh .sdot.a3{animation:dhDot 16s linear 8s infinite}.aiodh .sdot.a4{animation:dhDot 16s linear 12s infinite}
 @keyframes dhDot{0%,4%{background:var(--rose)}25%,100%{background:rgba(26,22,18,.25)}}
 
-@media(max-width:760px){.aiodh .showcase{gap:10px}.aiodh .diph{width:min(22%,120px)}}
-@media(max-width:520px){.aiodh .diph{display:none}.aiodh .dmac{width:100%}}
+@media(max-width:760px){.aiodh .showcase{gap:10px}.aiodh .iph-frame{width:min(22%,120px)}}
+@media(max-width:520px){.aiodh .iph-frame{display:none}.aiodh .mac-frame{width:100%}}
 
 /* Pull quote — compact */
 .aiodh .pq{padding:clamp(36px,4vw,52px) 0;text-align:center}
@@ -130,10 +113,10 @@ const CSS = `
 `;
 
 const MAC_SRCS = [
-  "/portfolio/detail-page/compact-furniture/cover.png",
-  "/portfolio/detail-page/premium-dog-food/cover.png",
-  "/portfolio/detail-page/premium-mealkit/cover.png",
-  "/portfolio/detail-page/herbal-cream/cover.png",
+  "/portfolio/detail-page/compact-furniture/cover.png",   // 1200×900
+  "/portfolio/detail-page/premium-dog-food/cover.png",    // 1200×900
+  "/portfolio/detail-page/smart-pet-feeder/cover.png",    // 1200×900
+  "/portfolio/detail-page/_categories/living.jpg",        // 1600×900
 ];
 
 const IPH_SRCS = [
@@ -190,41 +173,60 @@ export function DesignHub({ locale }: { locale: string }) {
           </div>
           <div className="showcase reveal d1">
 
-            {/* MacBook */}
-            <div className="dmac">
-              <div className="dmac-lid">
-                <div className="dmac-notch" />
-                <div className="dmac-screen">
-                  <div className="dmac-bar">
-                    {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
-                      <span key={c} style={{ display:"block", width:8, height:8, borderRadius:"50%", background:c, flexShrink:0 }} />
-                    ))}
-                  </div>
-                  <div className="droll-wrap">
-                    {MAC_SRCS.map((src, i) => (
-                      <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4}s` }}>
-                        <img src={src} alt="" loading={i === 0 ? "eager" : "lazy"} />
-                      </div>
-                    ))}
-                  </div>
+            {/* MacBook: SVG frame image + screen overlay (viewBox 1000×660, screen x=55 y=30 w=890 h=540) */}
+            <div className="mac-frame">
+              <img
+                src="/mockups/macbook.svg"
+                alt=""
+                style={{ width: "100%", display: "block", filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.72))" }}
+              />
+              <div style={{
+                position: "absolute",
+                top: "4.55%", left: "5.5%", width: "89%", height: "81.8%",
+                overflow: "hidden", borderRadius: 4,
+              }}>
+                <div style={{
+                  height: 26, background: "#1a1a1a", borderBottom: "1px solid #2a2a2a",
+                  display: "flex", alignItems: "center", gap: 6, padding: "0 10px", flexShrink: 0,
+                }}>
+                  {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
+                    <span key={c} style={{ display: "block", width: 8, height: 8, borderRadius: "50%", background: c }} />
+                  ))}
+                </div>
+                <div style={{ position: "relative", height: "calc(100% - 26px)", overflow: "hidden" }}>
+                  {MAC_SRCS.map((src, i) => (
+                    <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4}s` }}>
+                      <img src={src} alt="" loading={i === 0 ? "eager" : "lazy"} />
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="dmac-hinge" />
-              <div className="dmac-foot" />
             </div>
 
-            {/* iPhone */}
-            <div className="diph">
-              <div className="diph-body">
-                <div className="diph-notch" />
-                <div className="diph-screen">
-                  <div className="droll-wrap">
-                    {IPH_SRCS.map((src, i) => (
-                      <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4 + 2}s` }}>
-                        <img src={src} alt="" loading="lazy" />
-                      </div>
-                    ))}
-                  </div>
+            {/* iPhone: SVG frame image + screen overlay (viewBox 220×460, screen x=14 y=14 w=192 h=432) */}
+            <div className="iph-frame">
+              <img
+                src="/mockups/iphone.svg"
+                alt=""
+                style={{ width: "100%", display: "block", filter: "drop-shadow(0 22px 52px rgba(0,0,0,0.62))" }}
+              />
+              <div style={{
+                position: "absolute",
+                top: "3%", left: "6.4%", width: "87.3%", height: "93.9%",
+                overflow: "hidden", borderRadius: "min(20%, 30px)",
+              }}>
+                {/* dynamic island: SVG y=32, screen start y=14 → top=(32-14)/432=4.2% */}
+                <div style={{
+                  position: "absolute", top: "4.2%", left: "50%", transform: "translateX(-50%)",
+                  width: "43.75%", height: "5.1%",
+                  background: "#000", borderRadius: 999, zIndex: 3,
+                }} />
+                <div style={{ position: "absolute", inset: 0 }}>
+                  {IPH_SRCS.map((src, i) => (
+                    <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4 + 2}s` }}>
+                      <img src={src} alt="" loading="lazy" />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

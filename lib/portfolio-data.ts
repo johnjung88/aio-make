@@ -1410,7 +1410,7 @@ interface AdditionalPptSpec {
 
 const createPptGallery = (assetDir: string, sampleCount: number) => [
   `/portfolio/ppt-design/${assetDir}/cover-slide.png`,
-  ...Array.from({ length: Math.max(sampleCount - 1, 0) }, (_, index) => `/portfolio/ppt-design/${assetDir}/sample-${index + 2}.png`),
+  ...Array.from({ length: Math.max(sampleCount - 1, 0) }, (_, index) => `/portfolio/ppt-design/${assetDir}/sample-${index + 1}.png`),
 ];
 
 const additionalPptSpecs: AdditionalPptSpec[] = [

@@ -5,7 +5,7 @@ import { portfolioGroups, getProjectsByCategory } from "@/lib/portfolio";
 import type { PortfolioGroup } from "@/lib/portfolio";
 import { PortfolioCard } from "@/components/ui/portfolio-card";
 import { AioNav, AioFooter } from "@/components/landing/aio-nav";
-import type { AioNavLevel } from "@/components/landing/aio-nav";
+import { getCategoryNav } from "@/lib/portfolio-nav";
 
 const VALID_CATEGORIES = portfolioGroups
   .filter((group) => group.value !== "all")
@@ -16,20 +16,6 @@ const categoryLabels = Object.fromEntries(
     .filter((group) => group.value !== "all")
     .map((group) => [group.value, group.label]),
 ) as Record<PortfolioGroup, { ko: string; en: string }>;
-
-/** 포트폴리오 카테고리 → 서비스 nav 매핑 */
-const CATEGORY_NAV: Record<
-  string,
-  { level: AioNavLevel; cat: "development" | "design" | "video" | "marketing"; sub?: string }
-> = {
-  "logo-business-card": { level: "middle", cat: "design" },
-  "detail-page":        { level: "leaf",   cat: "design",      sub: "detail-page" },
-  "ppt-design":         { level: "leaf",   cat: "design",      sub: "ppt-design" },
-  "website":            { level: "leaf",   cat: "development", sub: "website" },
-  "shopping-mall":      { level: "leaf",   cat: "development", sub: "shopping-mall" },
-  "automation-app":     { level: "leaf",   cat: "development", sub: "automation-app" },
-  "video-content":      { level: "middle", cat: "video" },
-};
 
 export async function generateStaticParams() {
   return VALID_CATEGORIES.map((category) => ({ category }));
@@ -65,7 +51,7 @@ export default async function CategoryPortfolioPage({
   const group = category as PortfolioGroup;
   const projects = await getProjectsByCategory(group);
   const label = categoryLabels[group][locale as "ko" | "en"];
-  const nav = CATEGORY_NAV[group] ?? { level: "middle" as AioNavLevel, cat: "development" as const };
+  const nav = getCategoryNav(group);
 
   return (
     <div>

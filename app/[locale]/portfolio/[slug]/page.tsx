@@ -6,6 +6,9 @@ import { ExternalLink, ArrowLeft, CheckCircle2, FileText, Clock3, Monitor, Smart
 import type { Metadata } from "next";
 import { formatProjectDuration, getPortfolioGroup, portfolioProjects } from "@/lib/portfolio-data";
 import { getPortfolioBySlug } from "@/lib/portfolio";
+import { AioNav, AioFooter } from "@/components/landing/aio-nav";
+import { getCategoryNav } from "@/lib/portfolio-nav";
+import { getPptGalleryFromDisk } from "@/lib/ppt-gallery";
 import { TypeBadge } from "@/components/ui/type-badge";
 import { GuaranteeBadge } from "@/components/ui/guarantee-badge";
 import type { ServiceCategory } from "@/lib/services-data";
@@ -43,6 +46,20 @@ export default async function ProjectPage({
   const projectGroup = getPortfolioGroup(project);
   const isShoppingMall = projectGroup === "shopping-mall";
   const isPptProject = projectGroup === "ppt-design";
+
+  // nav (AioNav) — 카테고리 페이지와 동일한 4분야 다크 nav
+  const nav = getCategoryNav(projectGroup);
+
+  // PPT 갤러리 — 디스크에서 실제 슬라이드 이미지를 자동 스캔
+  // assetDir: cover 경로 "/portfolio/ppt-design/{dir}/cover-slide.png" 에서 추출
+  const pptGallery: string[] = (() => {
+    if (!isPptProject || !project.cover) return [];
+    const match = project.cover.match(/\/portfolio\/ppt-design\/([^/]+)\//);
+    if (!match) return [];
+    const diskGallery = getPptGalleryFromDisk(match[1]);
+    return diskGallery.length > 0 ? diskGallery : project.gallery;
+  })();
+  const galleryImages = isPptProject ? pptGallery : project.gallery;
   const isDetailPageProject = projectGroup === "detail-page";
   const quoteHref = `${base}/quote?category=${projectGroup}`;
   const similarWorkLabel = isShoppingMall
@@ -69,7 +86,9 @@ export default async function ProjectPage({
   const isRasterCover = /\.(png|jpe?g|webp)$/i.test(project.cover ?? "");
 
   return (
-    <main className="pb-24 pt-28">
+    <div>
+    <AioNav locale={locale} level={nav.level} cat={nav.cat} sub={nav.sub} active="portfolio" />
+    <main className="pb-24 pt-10">
       <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
 
         {/* 뒤로가기 */}
@@ -340,7 +359,7 @@ export default async function ProjectPage({
         )}
 
         {/* 갤러리 */}
-        {project.gallery.length > 0 && (
+        {galleryImages.length > 0 && (
           <div>
             <h2 className="mb-4 text-sm font-semibold text-foreground">
               {isDetailPageProject
@@ -349,7 +368,7 @@ export default async function ProjectPage({
             </h2>
             {isDetailPageProject ? (
               <div className="space-y-6">
-                {project.gallery.filter((src) => /detail\.(jpe?g|png|webp)$/i.test(src)).map((src, i) => (
+                {galleryImages.filter((src) => /detail\.(jpe?g|png|webp)$/i.test(src)).map((src, i) => (
                   <a
                     key={src}
                     href={src}
@@ -371,7 +390,7 @@ export default async function ProjectPage({
               </div>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {project.gallery.map((src, i) => (
+                {galleryImages.map((src, i) => (
                   <div
                     key={i}
                     className={`relative overflow-hidden rounded-lg bg-secondary ${isPptProject ? "aspect-video" : "aspect-[16/10]"}`}
@@ -416,5 +435,7 @@ export default async function ProjectPage({
         </div>
       </div>
     </main>
+    <AioFooter locale={locale} />
+    </div>
   );
 }

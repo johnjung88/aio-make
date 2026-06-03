@@ -21,7 +21,9 @@ function isStandalone(pathname: string): boolean {
   // 포트폴리오 카테고리 페이지: /portfolio/category/{slug} (서비스별 AioNav 내장)
   return /^\/[a-z]{2}\/services\/(website|shopping-mall|automation-app|detail-page|ppt-design)(\/.*)?$/.test(pathname)
     || /^\/[a-z]{2}\/services\/(development|design|video|marketing)(\/.*)?$/.test(pathname)
-    || /^\/[a-z]{2}\/portfolio\/category\/(website|shopping-mall|automation-app|logo-business-card|detail-page|ppt-design|video-content)$/.test(pathname);
+    || /^\/[a-z]{2}\/portfolio\/category\/(website|shopping-mall|automation-app|logo-business-card|detail-page|ppt-design|video-content)$/.test(pathname)
+    // 포트폴리오 상세 페이지 — 자체 AioNav/AioFooter 내장 (카테고리·인덱스 제외)
+    || /^\/[a-z]{2}\/portfolio\/(?!category(\/|$))[^/]+$/.test(pathname);
 }
 
 function getTone(

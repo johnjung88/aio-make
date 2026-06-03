@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 460">
+  <defs>
+    <linearGradient id="ip-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#32353c"/>
+      <stop offset="45%"  stop-color="#1f2228"/>
+      <stop offset="100%" stop-color="#141519"/>
+    </linearGradient>
+    <linearGradient id="ip-edge-l" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#3a3d44"/>
+      <stop offset="100%" stop-color="#1a1c22"/>
+    </linearGradient>
+    <linearGradient id="ip-edge-r" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#1a1c22"/>
+      <stop offset="100%" stop-color="#3a3d44"/>
+    </linearGradient>
+    <filter id="ip-drop" x="-18%" y="-4%" width="136%" height="112%">
+      <feDropShadow dx="0" dy="22" stdDeviation="28" flood-color="#000" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+
+  <!-- Body -->
+  <rect x="0" y="0" width="220" height="460" rx="50" ry="50"
+        fill="url(#ip-body)" filter="url(#ip-drop)"/>
+
+  <!-- Outer edge highlight ring -->
+  <rect x="0.5" y="0.5" width="219" height="459" rx="49.5" ry="49.5"
+        fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"/>
+
+  <!-- Screen cutout — content overlaid here in code -->
+  <rect x="14" y="14" width="192" height="432" rx="40" ry="40"
+        fill="#000"/>
+
+  <!-- Dynamic Island pill -->
+  <rect x="68" y="32" width="84" height="22" rx="11" ry="11"
+        fill="#000" stroke="rgba(255,255,255,0.035)" stroke-width="0.4"/>
+  <!-- Front camera dot -->
+  <circle cx="143" cy="43" r="3.8" fill="#18191e"/>
+  <circle cx="143" cy="43" r="1.8" fill="#0a0a0c"/>
+  <!-- Mic dot -->
+  <circle cx="82" cy="43" r="1.8" fill="#10111a"/>
+
+  <!-- Power button (right) -->
+  <rect x="217.5" y="128" width="2.5" height="52" rx="1.25"
+        fill="url(#ip-edge-l)"/>
+
+  <!-- Volume up (left) -->
+  <rect x="0" y="98" width="2.5" height="28" rx="1.25"
+        fill="url(#ip-edge-r)"/>
+  <!-- Volume down (left) -->
+  <rect x="0" y="140" width="2.5" height="38" rx="1.25"
+        fill="url(#ip-edge-r)"/>
+  <!-- Silent switch (left) -->
+  <rect x="0" y="192" width="2.5" height="38" rx="1.25"
+        fill="url(#ip-edge-r)"/>
+
+  <!-- Home indicator bar (inside screen area) -->
+  <rect x="73" y="436" width="74" height="4" rx="2"
+        fill="rgba(255,255,255,0.14)"/>
+</svg>
