@@ -201,7 +201,7 @@ export function AioFooter({ locale }: { locale: string }) {
         <div className="cols">
           <div className="brand">
             <span className="blogo"><Image src="/brand/aio-logo.png" alt="AIO" width={64} height={64} /></span>
-            <p>분야별 전문가가 직접 만드는 외주 스튜디오 — 개발·디자인·영상·마케팅</p>
+            <p>분야별 전문가가 직접 만드는 외주 스튜디오<br />— 개발·디자인·영상·마케팅</p>
           </div>
           <div className="links">
             <div className="col">

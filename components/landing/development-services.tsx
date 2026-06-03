@@ -299,7 +299,7 @@ await aio.build(project);
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
               <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>결과물 중심으로<br />일합니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                빠르고 투명하게 — 의뢰부터 납품까지 매일 진행 상황을 공유하고, 시안이 아닌 바로 쓸 수 있는 완성품으로 납품합니다
+                다음 날 착수, 매일 진행 공유 — 시안이 아닌<br className="hidden md:block" />받는 즉시 운영 가능한 완성품으로만 납품합니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (
