@@ -234,9 +234,9 @@ export function VideoHub({ locale }: { locale: string }) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10 justify-items-center">
             {([
-              { label: "브랜드 소개 영상", title: "서비스 소개", accent: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A", src: "/videos/brand-intro.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
-              { label: "제품 광고 영상", title: "제품 광고", accent: "#EF4444", bg: "#FEF2F2", border: "#FECACA", src: "/videos/product-ad.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
-              { label: "인플루언서 숏폼", title: "숏폼 영상", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", src: "/videos/influencer-shortform.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
+              { label: "브랜드 소개 영상", title: "서비스 소개", accent: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A", src: "/videos/brand-intro.mp4", poster: "/videos/brand-intro-poster.png" },
+              { label: "제품 광고 영상", title: "제품 광고", accent: "#EF4444", bg: "#FEF2F2", border: "#FECACA", src: "/videos/product-ad.mp4", poster: "/videos/product-ad-poster.png" },
+              { label: "인플루언서 숏폼", title: "숏폼 영상", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", src: "/videos/influencer-shortform.mp4", poster: "/videos/influencer-shortform-poster.png" },
             ] as const).map((item) => (
               <div key={item.label} style={{ width: "100%", maxWidth: 320 }}>
                 <div style={{ background: item.bg, borderRadius: 20, padding: "20px 16px 24px", border: `1px solid ${item.border}` }}>

@@ -238,7 +238,7 @@ export function MarketingHub({ locale }: { locale: string }) {
             {([
               { label: "블로그 운영", title: "네이버 블로그 운영대행", stack: "Naver Blog · SEO · GA4", accent: "#10B981", bg: "#F0FDF4", border: "#BBF7D0", desktop: "/portfolio/blogautopilot-multinational/published-post-ko.png", delay: "0s" },
               { label: "SNS 운영", title: "인스타그램 운영대행", stack: "Instagram · Reels · Meta Ads", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", desktop: "/images/portfolio/ws-all-desktop.png", delay: "3s" },
-              { label: "유튜브 운영", title: "유튜브 채널 운영대행", stack: "YouTube · Shorts · 썸네일", accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-shop-desktop.png", delay: "6s" },
+              { label: "유튜브 운영", title: "유튜브 채널 운영대행", stack: "YouTube · Shorts · 썸네일", accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-youtube-desktop.png", delay: "6s" },
             ] as const).map((set) => (
               <div key={set.label} style={{ background: set.bg, borderRadius: 20, padding: "20px 16px 16px", border: `1px solid ${set.border}` }}>
                 <div className="flex flex-wrap items-center gap-2 mb-4">
