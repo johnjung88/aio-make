@@ -5,7 +5,7 @@ import { AioNav, AioFooter } from "./aio-nav";
 const CSS = `
 .aiodh{--bg:#0E0D0B;--bg2:#17150F;--paper:#F4ECDC;--paper2:#EEDEC2;--ink:#1A1612;--ink2:#4B413A;--ink3:#7D7568;
   --fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);
-  --gold:#C8A24A;--gold2:#E0BE6A;--rose:#C66060;--rose2:#D78A8A;
+  --gold:#C8A24A;--rose:#C66060;--rose2:#D78A8A;
   --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(48px,9vw,128px);--fs-h2:clamp(32px,5.5vw,72px);--fs-lead:clamp(15px,1.4vw,18px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(56px,8vw,110px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
@@ -20,7 +20,7 @@ const CSS = `
 .aiodh .reveal.d1{transition-delay:.1s}.aiodh .reveal.d2{transition-delay:.2s}.aiodh .reveal.d3{transition-delay:.3s}
 .aiodh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--rose),var(--gold))}
 
-/* Cover hero — full-bleed cinematic */
+/* Cover hero */
 .aiodh .cover{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;padding:clamp(100px,12vw,156px) 0 clamp(64px,8vw,110px)}
 .aiodh .cover .cbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:0}
 .aiodh .cover .cov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(14,13,11,.97) 0%,rgba(14,13,11,.92) 38%,rgba(14,13,11,.52) 68%,rgba(14,13,11,.22) 100%);z-index:1;pointer-events:none}
@@ -37,7 +37,7 @@ const CSS = `
 .aiodh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
 @media(max-width:880px){.aiodh .cover .l{max-width:100%;text-align:center}.aiodh .acts{justify-content:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}}
 
-/* === CREAM PAPER SECTION === */
+/* Paper section */
 .aiodh .paper{background:var(--paper);color:var(--ink);position:relative;padding:clamp(64px,9vw,110px) 0;margin:clamp(32px,5vw,72px) 0;box-shadow:0 30px 90px rgba(0,0,0,.45)}
 .aiodh .paper::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 25% 35%,rgba(120,100,80,.06) 0,transparent 50%),radial-gradient(circle at 75% 65%,rgba(120,100,80,.04) 0,transparent 50%);pointer-events:none}
 .aiodh .paper::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(26,22,18,.16)}
@@ -55,16 +55,40 @@ const CSS = `
 .aiodh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--rose2);font-weight:600}
 .aiodh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
-/* Work list — 이번 호의 작업들 */
-.aiodh .wlist{border-top:1px solid rgba(26,22,18,.2)}
-.aiodh .witem{display:grid;grid-template-columns:52px 1fr auto;gap:0 28px;padding:20px 0;border-bottom:1px solid rgba(26,22,18,.2);align-items:center;transition:padding .22s}
-.aiodh .witem:hover{padding-left:10px}
-.aiodh .wnum{font-family:var(--frau);font-size:clamp(22px,2.4vw,30px);color:var(--rose);line-height:1}
-.aiodh .wmid{display:flex;flex-direction:column;gap:5px}
-.aiodh .wcat{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink3)}
-.aiodh .wtit{font-family:var(--frau);font-size:clamp(17px,1.9vw,24px);color:var(--ink);line-height:1.1}
-.aiodh .wspec{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);text-align:right;white-space:nowrap}
-@media(max-width:640px){.aiodh .witem{grid-template-columns:40px 1fr;gap:0 14px}.aiodh .wspec{display:none}}
+/* ===== Studio Mockup Preview ===== */
+.aiodh .showcase{display:flex;justify-content:center;align-items:flex-end;gap:clamp(14px,2.8vw,36px);padding-top:4px}
+
+/* MacBook */
+.aiodh .dmac{position:relative;width:min(64%,620px);flex-shrink:0}
+.aiodh .dmac-lid{background:linear-gradient(170deg,#4d5158 0%,#3c3f45 50%,#2e3034 100%);border-radius:12px 12px 0 0;padding:9px 9px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px #1a1c1f,0 40px 80px rgba(0,0,0,.55)}
+.aiodh .dmac-notch{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:62px;height:9px;background:#1a1c1f;border-radius:0 0 5px 5px}
+.aiodh .dmac-screen{background:#050505;border-radius:4px;overflow:hidden;aspect-ratio:16/10;position:relative}
+.aiodh .dmac-bar{position:absolute;top:0;left:0;right:0;height:26px;background:#1a1a1a;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:6px;padding:0 10px;z-index:2;flex-shrink:0}
+.aiodh .dmac-hinge{height:3px;background:#1a1c1f}
+.aiodh .dmac-foot{height:14px;background:linear-gradient(180deg,#3c3f45 0%,#464a50 60%,#3c3f45 100%);border-radius:0 0 4px 4px}
+
+/* iPhone */
+.aiodh .diph{position:relative;width:min(18%,155px);flex-shrink:0;margin-bottom:8px}
+.aiodh .diph-body{background:linear-gradient(155deg,#1c1c1e 0%,#2a2a2c 100%);border-radius:34px;padding:11px;box-shadow:0 0 0 1.5px rgba(200,162,74,.38),inset 0 0 0 .5px rgba(255,255,255,.07),0 20px 50px rgba(0,0,0,.6)}
+.aiodh .diph-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:56px;height:18px;background:#1c1c1e;border-radius:0 0 12px 12px;z-index:3}
+.aiodh .diph-screen{background:#000;border-radius:24px;overflow:hidden;aspect-ratio:9/19.5;position:relative}
+
+/* Rolling frames */
+.aiodh .droll-wrap{position:absolute;inset:0;top:26px}
+.aiodh .diph .droll-wrap{top:0}
+.aiodh .droll-frame{position:absolute;inset:0;opacity:0;animation:dhFade 16s linear infinite}
+.aiodh .droll-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+@keyframes dhFade{0%{opacity:0}5%{opacity:1}23%{opacity:1}28%{opacity:0}100%{opacity:0}}
+
+/* label strip below mockups */
+.aiodh .showcase-label{text-align:center;margin-top:22px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.aiodh .showcase-dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.aiodh .sdot{width:5px;height:5px;border-radius:50%;background:rgba(26,22,18,.25)}
+.aiodh .sdot.a1{animation:dhDot 16s linear infinite}.aiodh .sdot.a2{animation:dhDot 16s linear 4s infinite}.aiodh .sdot.a3{animation:dhDot 16s linear 8s infinite}.aiodh .sdot.a4{animation:dhDot 16s linear 12s infinite}
+@keyframes dhDot{0%,4%{background:var(--rose)}25%,100%{background:rgba(26,22,18,.25)}}
+
+@media(max-width:760px){.aiodh .showcase{gap:10px}.aiodh .diph{width:min(22%,120px)}}
+@media(max-width:520px){.aiodh .diph{display:none}.aiodh .dmac{width:100%}}
 
 /* Pull quote — compact */
 .aiodh .pq{padding:clamp(36px,4vw,52px) 0;text-align:center}
@@ -72,7 +96,7 @@ const CSS = `
 .aiodh .pq blockquote::before,.aiodh .pq blockquote::after{content:"";display:block;width:28px;height:1px;background:var(--rose2);margin:14px auto}
 .aiodh .pq cite{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
 
-/* Service cards — 세 가지 디자인 서비스 */
+/* Service cards */
 .aiodh .scards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
 .aiodh .scard{position:relative;border-radius:2px;overflow:hidden;border:1px solid rgba(26,22,18,.18);background:var(--paper2);display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
 .aiodh .scard:hover{border-color:rgba(26,22,18,.42);transform:translateY(-3px)}
@@ -86,10 +110,9 @@ const CSS = `
 .aiodh .scard h3 em{font-family:var(--frau);font-style:normal;color:var(--rose)}
 .aiodh .scard .sdesc{font-size:13.5px;line-height:1.8;color:var(--ink2);margin-bottom:auto}
 .aiodh .scard .smore{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--rose);text-transform:uppercase}
-.aiodh .scard .ssoon{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--ink3);border:1px solid rgba(26,22,18,.22);padding:4px 8px;background:var(--paper);z-index:3}
 @media(max-width:880px){.aiodh .scards{grid-template-columns:1fr}.aiodh .scard .simg{aspect-ratio:16/9}}
 
-/* Way list */
+/* Ways */
 .aiodh .ways2{max-width:780px;margin:0 auto}
 .aiodh .way2{display:grid;grid-template-columns:64px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--line2);text-align:left}
 .aiodh .way2:last-child{border-bottom:1px solid var(--line2)}
@@ -106,12 +129,18 @@ const CSS = `
 .aiodh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 
-const WORKS = [
-  { n: "01", cat: "Detail Page",       tit: "Compact Furniture",  spec: "20,000PX" },
-  { n: "02", cat: "Brand Identity",    tit: "Danchae Table",      spec: "Full System" },
-  { n: "03", cat: "PPT · 지원사업",    tit: "Government Grant",   spec: "32 Slides" },
-  { n: "04", cat: "Brand Application", tit: "Vela Skin",          spec: "Packaging" },
-  { n: "05", cat: "Business Card",     tit: "Moru Coffee",        spec: "Identity" },
+const MAC_SRCS = [
+  "/portfolio/detail-page/compact-furniture/cover.png",
+  "/portfolio/detail-page/premium-dog-food/cover.png",
+  "/portfolio/detail-page/premium-mealkit/cover.png",
+  "/portfolio/detail-page/herbal-cream/cover.png",
+];
+
+const IPH_SRCS = [
+  "/portfolio/detail-page/vegan-cleanser/cover.png",
+  "/portfolio/detail-page/linen-onepiece/cover.png",
+  "/portfolio/detail-page/hotel-bedding/cover.png",
+  "/portfolio/detail-page/senior-protein/cover.png",
 ];
 
 export function DesignHub({ locale }: { locale: string }) {
@@ -132,7 +161,7 @@ export function DesignHub({ locale }: { locale: string }) {
       <div className="prog" />
       <AioNav locale={locale} level="middle" cat="design" active="service" />
 
-      {/* Cover — full-bleed cinematic */}
+      {/* Cover */}
       <header className="cover">
         <img className="cbg" src="/images/services/design-hub.jpg" alt="" />
         <div className="cov" />
@@ -143,36 +172,75 @@ export function DesignHub({ locale }: { locale: string }) {
             </div>
             <h1>보이는 것이<br />곧 <em>신뢰</em>입니다</h1>
             <p className="lead">로고·명함·상세페이지·PPT — 브랜드의 첫 인사를 다듬습니다</p>
-            <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/detail-page`}>상세페이지부터</a></div>
+            <div className="acts">
+              <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
+              <a className="cta-link" href={`${base}/services/detail-page`}>상세페이지부터</a>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* === PAPER 1: 이번 호의 작업들 === */}
+      {/* === PAPER 1: Studio Preview === */}
       <section className="paper">
         <div className="wrap">
           <div className="shead reveal">
-            <span className="kick">Featured Spread</span>
-            <h2>이번 호의 <em>작업들</em></h2>
-            <p>로고·브랜딩·상세페이지·PPT — 분야별 실제 납품 작업</p>
+            <span className="kick">Studio Preview</span>
+            <h2>화면으로 보는 <em>작업물</em></h2>
+            <p>실제 납품된 상세페이지 — PC와 모바일 두 화면으로</p>
           </div>
-          <div className="wlist reveal d1">
-            {WORKS.map((w) => (
-              <div key={w.n} className="witem">
-                <div className="wnum">{w.n}</div>
-                <div className="wmid">
-                  <span className="wcat">{w.cat}</span>
-                  <span className="wtit">{w.tit}</span>
+          <div className="showcase reveal d1">
+
+            {/* MacBook */}
+            <div className="dmac">
+              <div className="dmac-lid">
+                <div className="dmac-notch" />
+                <div className="dmac-screen">
+                  <div className="dmac-bar">
+                    {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
+                      <span key={c} style={{ display:"block", width:8, height:8, borderRadius:"50%", background:c, flexShrink:0 }} />
+                    ))}
+                  </div>
+                  <div className="droll-wrap">
+                    {MAC_SRCS.map((src, i) => (
+                      <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4}s` }}>
+                        <img src={src} alt="" loading={i === 0 ? "eager" : "lazy"} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="wspec">{w.spec}</div>
               </div>
+              <div className="dmac-hinge" />
+              <div className="dmac-foot" />
+            </div>
+
+            {/* iPhone */}
+            <div className="diph">
+              <div className="diph-body">
+                <div className="diph-notch" />
+                <div className="diph-screen">
+                  <div className="droll-wrap">
+                    {IPH_SRCS.map((src, i) => (
+                      <div key={src} className="droll-frame" style={{ animationDelay: `${i * 4 + 2}s` }}>
+                        <img src={src} alt="" loading="lazy" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div className="showcase-label">Actual delivered work · Auto playing</div>
+          <div className="showcase-dots">
+            {(["a1","a2","a3","a4"] as const).map((c) => (
+              <span key={c} className={`sdot ${c}`} />
             ))}
           </div>
         </div>
         <span className="crease" />
       </section>
 
-      {/* Pull quote — compact */}
+      {/* Pull quote */}
       <section className="pq">
         <blockquote>좋은 디자인은 한 번 봤을 때 남습니다</blockquote>
         <cite>— Design Director · AIO</cite>
@@ -187,9 +255,8 @@ export function DesignHub({ locale }: { locale: string }) {
             <p>카드를 누르면 전용 소개·포트폴리오 페이지로</p>
           </div>
           <div className="scards">
-            {/* N° 01 로고·명함 — COMING SOON */}
             <div className="scard reveal d1">
-              <div className="simg" style={{background:"linear-gradient(135deg,#1e1810 0%,#2a2016 50%,#382a1e 100%)"}}>
+              <div className="simg" style={{ background:"linear-gradient(135deg,#1e1810 0%,#2a2016 50%,#382a1e 100%)" }}>
                 <img className="simg-ph" src="/images/services/design-logo-card.jpg" alt="로고·명함"
                      onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
               </div>
@@ -200,9 +267,8 @@ export function DesignHub({ locale }: { locale: string }) {
                 <span className="smore">준비 중 →</span>
               </div>
             </div>
-            {/* N° 02 상세페이지 */}
             <a className="scard reveal d2" href={`${base}/services/detail-page`}>
-              <div className="simg" style={{background:"linear-gradient(135deg,#121816 0%,#1a241e 50%,#223028 100%)"}}>
+              <div className="simg" style={{ background:"linear-gradient(135deg,#121816 0%,#1a241e 50%,#223028 100%)" }}>
                 <img className="simg-ph" src="/images/services/design-detail-page.jpg" alt="상세페이지"
                      onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
               </div>
@@ -213,9 +279,8 @@ export function DesignHub({ locale }: { locale: string }) {
                 <span className="smore">자세히 →</span>
               </div>
             </a>
-            {/* N° 03 PPT */}
             <a className="scard reveal d3" href={`${base}/services/ppt-design`}>
-              <div className="simg" style={{background:"linear-gradient(135deg,#101420 0%,#161c2e 50%,#1e2638 100%)"}}>
+              <div className="simg" style={{ background:"linear-gradient(135deg,#101420 0%,#161c2e 50%,#1e2638 100%)" }}>
                 <img className="simg-ph" src="/images/services/design-ppt.jpg" alt="PPT 디자인"
                      onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
               </div>
