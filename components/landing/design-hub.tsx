@@ -257,7 +257,7 @@ export function DesignHub({ locale }: { locale: string }) {
                 <span className="text-[14px] font-bold text-[#111]">브랜드 아이덴티티 패키지</span>
                 <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>Illustrator · Figma · Brand Brief</span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
                   "/portfolio/logo-showcase/nudekind/brand-kit-board.svg",
                   "/portfolio/logo-showcase/vela-skin/brand-kit-board.svg",
@@ -268,10 +268,6 @@ export function DesignHub({ locale }: { locale: string }) {
                     <img src={src} alt="brand kit" style={{ width: "100%", height: "auto", display: "block" }} />
                   </div>
                 ))}
-              </div>
-              <div className="flex gap-2">
-                <img src="/portfolio/aio-brand-kit/business-card-front.png" alt="명함 앞면" style={{ width: "49%", borderRadius: 6, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.13))" }} />
-                <img src="/portfolio/aio-brand-kit/business-card-back.png" alt="명함 뒷면" style={{ width: "49%", borderRadius: 6, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.13))" }} />
               </div>
             </div>
 
