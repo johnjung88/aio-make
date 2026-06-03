@@ -1,265 +1,375 @@
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useState } from "react";
+import Link from "next/link";
 import { AioNav, AioFooter } from "./aio-nav";
+import { ServiceCta } from "@/components/services/service-cta";
 
-/**
- * Marketing Hub — Console (그리드 라인 + 코너 픽셀 + 상단 admin bar)
- * 페이지 전체가 admin console. 그래프 페이퍼 그리드가 fixed로 깔리고,
- * 모든 섹션 frame에 코너 픽셀 마커. 하단 status bar 상시.
- */
-const CSS = `
-.aiomh{--bg:#080A0B;--bg2:#0F1213;--bg3:#0A0D0E;--fg:#EFE9DD;--fg2:#A8AFA9;--fg3:#5C645E;
-  --line:rgba(139,224,194,.26);--line2:rgba(239,233,221,.06);--grid:rgba(139,224,194,.045);
-  --gold:#C8A24A;--mint:#8BE0C2;--lime:#C6EE7A;--down:#E27B7B;
-  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
-  --fs-display:clamp(46px,8.5vw,116px);--fs-h2:clamp(30px,5.2vw,68px);--fs-lead:clamp(15px,1.4vw,18px);
-  --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
-  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center;position:relative}
-/* Graph-paper grid background — fixed, fills viewport */
-.aiomh::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;background-position:center center;pointer-events:none;z-index:0}
-/* Subtle scanline */
-.aiomh::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(139,224,194,.012) 3px,rgba(139,224,194,.012) 4px);pointer-events:none;z-index:1}
-.aiomh > *{position:relative;z-index:5}
-.aiomh *{box-sizing:border-box}
-.aiomh a{text-decoration:none;color:inherit}
-.aiomh .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
-.aiomh .kick{font-family:var(--mono);font-size:var(--fs-kick);letter-spacing:.32em;text-transform:uppercase;color:var(--mint)}
-.aiomh .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.2,1,.3,1),transform 1.1s cubic-bezier(.2,1,.3,1)}.aiomh .reveal.in{opacity:1;transform:none}
-.aiomh .reveal.d1{transition-delay:.1s}.aiomh .reveal.d2{transition-delay:.2s}.aiomh .reveal.d3{transition-delay:.3s}
-.aiomh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--mint),var(--lime))}
+const ACCENT = "#10B981";
 
-/* Top admin bar (full width sticky-ish) */
-.aiomh .tbar{padding:11px var(--sp-edge);border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;background:var(--bg3);position:relative}
-.aiomh .tbar .l{display:flex;align-items:center;gap:14px}
-.aiomh .tbar .l span:not(.live){color:var(--fg3)}
-.aiomh .tbar .live{display:inline-flex;align-items:center;gap:6px;color:var(--mint)}
-.aiomh .tbar .live .d{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(139,224,194,.25);animation:aiomh-pulse 2s infinite}
-@keyframes aiomh-pulse{0%,100%{opacity:1}50%{opacity:.55}}
-/* Corner pixel markers (4 corners of viewport) */
-.aiomh .corner{position:fixed;width:14px;height:14px;border:1px solid var(--mint);pointer-events:none;z-index:4;opacity:.5}
-.aiomh .corner.tl{top:50px;left:14px;border-right:none;border-bottom:none}
-.aiomh .corner.tr{top:50px;right:14px;border-left:none;border-bottom:none}
-.aiomh .corner.bl{bottom:50px;left:14px;border-right:none;border-top:none}
-.aiomh .corner.br{bottom:50px;right:14px;border-left:none;border-top:none}
+const SUB_SERVICES = [
+  {
+    no: "01", id: "blog", title: "블로그 운영대행", en: "Blog Management",
+    desc: "네이버·티스토리 — 월 8–12편 SEO 키워드 발굴부터 발행·추적까지",
+    price: "₩390,000~/월", days: "월 10편 기준", tags: ["Naver Blog", "SEO", "GA4"],
+    href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#10B981", bg: "#F0FDF4",
+  },
+  {
+    no: "02", id: "sns", title: "SNS 운영대행", en: "SNS Management",
+    desc: "인스타·릴스·틱톡 — 월 20–30컷 컨셉·촬영·편집·발행·반응 분석",
+    price: "₩490,000~/월", days: "월 25컷 기준", tags: ["Instagram", "TikTok", "Reels"],
+    href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#F472B6", bg: "#FDF2F8",
+  },
+  {
+    no: "03", id: "video-ch", title: "영상채널 운영대행", en: "Video Channel Ops",
+    desc: "유튜브·숏폼 — 월 4–8편 기획·촬영·편집·자막·썸네일·분석",
+    price: "₩590,000~/월", days: "월 6편 기준", tags: ["YouTube", "Shorts", "편집"],
+    href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#FB923C", bg: "#FFF7ED",
+  },
+  {
+    no: "04", id: "ad", title: "광고 운영대행", en: "Ad Management",
+    desc: "Meta·카카오·네이버 광고 — 예산 설정·소재 제작·성과 최적화, 준비 중",
+    price: "준비 중", days: "", tags: ["Meta Ads", "Kakao", "Naver"],
+    href: () => "#", soon: true, accent: "#9CA3AF", bg: "#F9FAFB",
+  },
+];
 
-/* Status bar — fixed bottom */
-.aiomh .sbar{position:fixed;bottom:0;left:0;right:0;padding:8px var(--sp-edge);background:var(--bg3);border-top:1px solid var(--line2);font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;z-index:6}
-.aiomh .sbar b{color:var(--mint);font-weight:400}
-.aiomh .sbar span.dot{margin:0 10px;color:var(--fg3)}
+const HOW = [
+  { no: "01", title: "주간 리포트", desc: "매주 월요일 KPI 표를 공유합니다 — 방문자·도달·전환 데이터를 실제 수치 그대로", icon: "📊" },
+  { no: "02", title: "월 종합 + 다음 달 계획", desc: "월말 종합 리포트와 다음 달 운영 방향을 함께 제안합니다", icon: "📋" },
+  { no: "03", title: "데이터 기반 운영", desc: "GA4·서치콘솔·픽셀 연동 — 감이 아닌 데이터로 판단합니다", icon: "📈" },
+  { no: "04", title: "월 단위 유연 계약", desc: "최소 3개월 운영 / 해지 30일 전 통보 — 불필요한 장기 구속 없이", icon: "🤝" },
+];
 
-/* Hero — KPIs as part of headline */
-.aiomh .hero{padding:clamp(56px,8vw,100px) 0 clamp(40px,6vw,72px);position:relative}
-.aiomh .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 30%,rgba(139,224,194,.10),transparent 70%);pointer-events:none}
-.aiomh .hero .wrap{position:relative}
-.aiomh .hero h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.96;letter-spacing:-.018em;margin-bottom:28px}
-.aiomh .hero h1 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
-.aiomh .hero .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 36px}
-.aiomh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
-.aiomh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--mint);color:#0E0D0B;border:1px solid var(--mint);letter-spacing:-.005em;transition:all .25s}
-.aiomh .cta-pill:hover{background:transparent;color:var(--mint)}
-.aiomh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
+const PORTFOLIO = [
+  { title: "뷰티 브랜드 블로그 운영", type: "블로그", tag: "뷰티", stack: "Naver Blog · GA4", bg: "#F0FDF4", accent: "#10B981", href: (l: string) => `/${l}/portfolio/category/marketing` },
+  { title: "푸드 브랜드 인스타 운영", type: "SNS", tag: "F&B", stack: "Instagram · Reels", bg: "#FDF2F8", accent: "#F472B6", href: (l: string) => `/${l}/portfolio/category/marketing` },
+  { title: "홈퍼니싱 유튜브 채널", type: "영상채널", tag: "인테리어", stack: "YouTube · Shorts", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/marketing` },
+  { title: "스킨케어 틱톡 콘텐츠", type: "SNS", tag: "뷰티·건강", stack: "TikTok · Reels", bg: "#F0F9FF", accent: "#38BDF8", href: (l: string) => `/${l}/portfolio/category/marketing` },
+];
 
-/* Console panel — frame with corner markers around each section block */
-.aiomh .panel{position:relative;border:1px solid var(--line2);background:rgba(15,18,19,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
-.aiomh .panel::before,.aiomh .panel::after,.aiomh .panel .pcr,.aiomh .panel .pcr2{position:absolute;width:9px;height:9px;border:1px solid var(--mint);content:""}
-.aiomh .panel::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
-.aiomh .panel::after{top:-1px;right:-1px;border-left:none;border-bottom:none}
-.aiomh .panel .pcr{bottom:-1px;left:-1px;border-right:none;border-top:none;background:transparent}
-.aiomh .panel .pcr2{bottom:-1px;right:-1px;border-left:none;border-top:none;background:transparent}
-.aiomh .panel .pbar{padding:11px 22px;border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--fg3);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
-.aiomh .panel .pbar b{color:var(--mint);font-weight:400}
+const REVIEWS = [
+  { stars: 5, text: "블로그 운영 시작 3개월 만에 네이버 검색 유입이 4배 늘었어요 — 키워드 선정부터 글 퀄리티까지 모두 만족합니다", author: "정*연", service: "블로그 운영대행", date: "2026.04" },
+  { stars: 5, text: "인스타 릴스 운영 후 팔로워가 2배 늘고 DM 문의도 확실히 늘었습니다 — 매주 리포트 보내줘서 진행 상황이 한눈에 보여요", author: "한*미", service: "SNS 운영대행", date: "2026.03" },
+  { stars: 5, text: "유튜브 채널 운영 맡기고 구독자 1,000명 돌파했습니다 — 영상 퀄리티와 썸네일 모두 기대 이상이었어요", author: "윤*석", service: "영상채널 운영대행", date: "2026.05" },
+];
 
-/* Live KPI strip */
-.aiomh .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:clamp(30px,4vw,48px) auto 0;max-width:1140px;text-align:left}
-.aiomh .kpi{padding:24px 26px;border-right:1px solid var(--line2);position:relative}
-.aiomh .kpi:last-child{border-right:none}
-.aiomh .kpi .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--fg3);text-transform:uppercase;margin-bottom:10px}
-.aiomh .kpi .num{font-family:var(--frau);font-size:clamp(26px,3.4vw,40px);line-height:1;color:var(--fg);margin-bottom:8px;letter-spacing:-.008em}
-.aiomh .kpi .delta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--mint);display:flex;align-items:center;gap:6px}
-.aiomh .kpi .delta.dn{color:var(--down)}
-.aiomh .kpi .spark{margin-top:14px;height:32px;display:flex;align-items:flex-end;gap:3px}
-.aiomh .kpi .spark .b{flex:1;background:linear-gradient(180deg,var(--mint),rgba(139,224,194,.18));border-radius:1px 1px 0 0;min-width:2px}
-@media(max-width:880px){.aiomh .kpis{grid-template-columns:1fr 1fr}.aiomh .kpi:nth-child(2n){border-right:none}.aiomh .kpi:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
+const FAQS = [
+  { q: "최소 계약 기간이 있나요?", a: "최소 3개월 운영을 권장합니다 — 콘텐츠 마케팅은 꾸준함이 핵심이라 단기 계약보다 3개월 이상 운영했을 때 유의미한 성과가 나타납니다" },
+  { q: "월별 발행 수량은 협의 가능한가요?", a: "네 — 기준 수량은 플랜별로 다르며 예산에 맞게 발행 수를 조정한 맞춤 견적도 가능합니다" },
+  { q: "콘텐츠 아이디어는 누가 내나요?", a: "AIO 팀이 키워드 리서치와 트렌드 분석을 바탕으로 콘텐츠 방향을 제안합니다 — 의뢰인의 피드백을 반영해 최종 방향을 확정합니다" },
+  { q: "기존 계정에 이어서 운영 가능한가요?", a: "가능합니다 — 기존 계정 분석 후 현재 상태에 맞는 운영 전략을 수립해 이어서 진행합니다" },
+  { q: "성과 측정은 어떻게 하나요?", a: "GA4·네이버 서치콘솔·Meta 픽셀·유튜브 스튜디오 등 플랫폼별 공식 지표를 기준으로 매주 리포트를 제공합니다" },
+  { q: "결제 방식은 어떻게 되나요?", a: "월 초 계좌이체로 진행합니다 — 첫 달은 착수 확인 후 다음 날 운영을 시작합니다" },
+];
 
-/* Sections */
-.aiomh .sec{padding:var(--sp-sec) 0}
-.aiomh .shead{margin-bottom:48px}
-.aiomh .shead .kick{display:block;margin-bottom:16px}
-.aiomh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
-.aiomh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
-.aiomh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
-
-/* Channels */
-.aiomh .ch{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-.aiomh .chc{padding:30px 28px 26px;background:rgba(15,18,19,.7);border:1px solid var(--line2);text-align:left;transition:border-color .3s,transform .3s;position:relative;display:flex;flex-direction:column}
-.aiomh .chc:hover{border-color:var(--mint);transform:translateY(-4px)}
-.aiomh .chc::before,.aiomh .chc::after{content:"";position:absolute;width:7px;height:7px;border:1px solid var(--mint)}
-.aiomh .chc::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
-.aiomh .chc::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
-.aiomh .chc .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.aiomh .chc .top .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--mint);text-transform:uppercase}
-.aiomh .chc .top .live{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--mint);letter-spacing:.14em;text-transform:uppercase}
-.aiomh .chc .top .live .d{width:6px;height:6px;border-radius:50%;background:var(--mint)}
-.aiomh .chc h3{font-family:var(--frau);font-size:clamp(22px,2.4vw,28px);font-weight:500;margin-bottom:8px;letter-spacing:-.008em}
-.aiomh .chc h3 em{font-family:var(--frau);font-style:normal;color:var(--mint)}
-.aiomh .chc .d{font-size:14px;line-height:1.8;color:var(--fg2);margin:0 0 22px}
-.aiomh .chc .stat{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
-.aiomh .chc .stat .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--fg3);text-transform:uppercase}
-.aiomh .chc .stat .s b{color:var(--mint);font-weight:400;font-family:var(--frau);font-size:16px;letter-spacing:.01em;margin-left:6px}
-.aiomh .chc .chart{height:52px;border-top:1px solid var(--line2);padding-top:12px;margin-top:auto;position:relative;display:flex;align-items:flex-end;gap:4px}
-.aiomh .chc .chart .b{flex:1;background:linear-gradient(180deg,var(--mint),rgba(139,224,194,.2));border-radius:1px 1px 0 0;min-width:2px}
-@media(max-width:880px){.aiomh .ch{grid-template-columns:1fr}}
-
-/* Report table */
-.aiomh .rep{max-width:1100px;margin:48px auto 0}
-.aiomh .rep table{width:100%;border-collapse:collapse;font-family:var(--pret);font-size:13.5px}
-.aiomh .rep th{text-align:left;padding:14px 24px;color:var(--fg3);font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line2)}
-.aiomh .rep td{padding:16px 24px;border-bottom:1px solid var(--line2);color:var(--fg2)}
-.aiomh .rep tr:last-child td{border-bottom:none}
-.aiomh .rep td.r{text-align:right;font-family:var(--mono);font-size:13px;letter-spacing:.04em}
-.aiomh .rep td.r.up{color:var(--mint)}
-.aiomh .rep td.r.dn{color:var(--down)}
-.aiomh .rep td.name{color:var(--fg);font-family:var(--frau);font-size:15px}
-@media(max-width:680px){.aiomh .rep th,.aiomh .rep td{padding:12px 14px;font-size:12px}}
-
-/* Ways */
-.aiomh .ways{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);max-width:1100px;margin:32px auto 0;background:rgba(15,18,19,.6);position:relative}
-.aiomh .ways::before,.aiomh .ways::after{content:"";position:absolute;width:8px;height:8px;border:1px solid var(--mint)}
-.aiomh .ways::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
-.aiomh .ways::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
-.aiomh .way{padding:24px 18px;border-right:1px solid var(--line2);text-align:center}
-.aiomh .way:last-child{border-right:none}
-.aiomh .way .n{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--mint);margin-bottom:10px;text-transform:uppercase}
-.aiomh .way .t{font-family:var(--frau);font-size:18px;margin-bottom:6px}
-.aiomh .way .d{font-size:12.5px;line-height:1.7;color:var(--fg2)}
-@media(max-width:760px){.aiomh .ways{grid-template-columns:1fr 1fr}.aiomh .way:nth-child(2n){border-right:none}.aiomh .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}}
-
-/* CTA */
-.aiomh .ctaS{padding:var(--sp-sec) 0 calc(var(--sp-sec) + 40px);position:relative;overflow:hidden;text-align:center}
-.aiomh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(139,224,194,.12),transparent 70%)}
-.aiomh .ctaS .wrap{position:relative}
-.aiomh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
-.aiomh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--mint);font-weight:600}
-.aiomh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
-`;
-
-const spark = (heights: number[]) => heights.map((h, i) => <div key={i} className="b" style={{ height: `${h}%` }} />);
+const STACK = ["Naver Blog", "Instagram", "TikTok", "YouTube", "GA4", "Meta Ads", "서치콘솔"];
 
 export function MarketingHub({ locale }: { locale: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const root = ref.current; if (!root) return;
-    const prog = root.querySelector<HTMLElement>(".prog");
-    const onScroll = () => { const h = document.documentElement; if (prog) prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%"; };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .14 });
-    root.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
-  }, []);
-  const base = `/${locale}`;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
-    <div className="aiomh" ref={ref}>
-      <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <div className="prog" />
+    <div className="bg-white min-h-screen" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <AioNav locale={locale} level="middle" cat="marketing" active="service" />
 
-      <div className="tbar">
-        <div className="l"><span>AIO · Growth Console</span><span>·</span><span>Workspace 2026Q2</span></div>
-        <div className="live"><span className="d" /> LIVE · LAST SYNC 12s</div>
-      </div>
+      {/* ── Hero — 그라디언트 다크 배경 ── */}
+      <section className="relative min-h-[70vh] md:min-h-[90vh] flex items-center overflow-hidden" style={{ background: "#050D09" }}>
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 70% 60% at 30% 40%, rgba(16,185,129,0.18) 0%, transparent 65%), radial-gradient(ellipse 50% 50% at 80% 70%, rgba(16,185,129,0.08) 0%, transparent 60%)" }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none" style={{ background: "linear-gradient(to top, #fff 0%, transparent 100%)" }} />
 
-      {/* Fixed corner markers */}
-      <span className="corner tl" /><span className="corner tr" /><span className="corner bl" /><span className="corner br" />
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-10 items-center">
+          <div className="text-center md:text-left">
+            <p
+              className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-5"
+              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-jetbrains)" }}
+            >
+              Marketing · 마케팅 운영대행
+            </p>
+            <h1
+              className="font-bold leading-[1.02] tracking-tight text-white mb-5"
+              style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
+            >
+              유입의 답은<br className="hidden md:block" /><span style={{ color: ACCENT }}>꾸준함</span>입니다
+            </h1>
+            <p
+              className="leading-[1.8] mb-8"
+              style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
+            >
+              블로그·SNS·영상채널 — 매일 보이는 것이<br className="hidden md:block" />한 달 뒤의 매출이 됩니다
+            </p>
+            <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
+              {["주간 KPI 리포트", "데이터 기반 운영", "월 단위 계약", "GA4 연동 포함"].map((b) => (
+                <span
+                  key={b}
+                  className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.80)", border: "1px solid rgba(255,255,255,0.18)" }}
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-3 mb-12 justify-center md:justify-start">
+              <Link
+                href={`/${locale}/quote`}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                운영 문의 →
+              </Link>
+            </div>
+            <div className="flex justify-center md:justify-start gap-6 sm:gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+              {[{ v: "+42%", l: "평균 유입 증가" }, { v: "3개월", l: "성과 기준" }, { v: "주 1회", l: "KPI 리포트" }].map((s) => (
+                <div key={s.l} className="text-center md:text-left">
+                  <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(20px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                  <div className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.40)" }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <header className="hero">
-        <div className="wrap">
-          <span className="kick">Marketing · 서비스 소개</span>
-          <h1 style={{ marginTop: 22 }}>유입의 답은<br /><em>꾸준함</em>입니다</h1>
-          <p className="lead">블로그·SNS·영상채널 — 매일 보이는 것이 한 달 뒤의 매출이 됩니다 · 측정되고 검증되는 운영으로</p>
-          <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a><a className="cta-link" href={`${base}/services/marketing/team`}>팀원 소개</a></div>
-
-          <div className="panel reveal d1" style={{ marginTop: 48 }}>
-            <span className="pcr" /><span className="pcr2" />
-            <div className="pbar"><span>module / live-kpis</span><span><b>● live</b> · 12s</span></div>
-            <div className="kpis">
-              <div className="kpi"><div className="lbl">평균 방문자</div><div className="num">128,420</div><div className="delta">▲ +42.0%  MoM</div><div className="spark">{spark([35, 42, 38, 52, 60, 58, 72, 78, 85, 92, 98])}</div></div>
-              <div className="kpi"><div className="lbl">평균 전환율</div><div className="num">3.84%</div><div className="delta">▲ +0.9pt</div><div className="spark">{spark([22, 28, 30, 35, 32, 42, 48, 52, 56, 64, 70])}</div></div>
-              <div className="kpi"><div className="lbl">평균 CPC</div><div className="num">₩ 318</div><div className="delta dn">▼ −22%</div><div className="spark">{spark([88, 82, 78, 70, 64, 58, 52, 48, 40, 34, 28])}</div></div>
-              <div className="kpi"><div className="lbl">평균 ROAS</div><div className="num">412%</div><div className="delta">▲ +1.4×</div><div className="spark">{spark([28, 32, 38, 44, 52, 58, 64, 72, 78, 86, 94])}</div></div>
+          {/* 우: KPI 미리보기 블록 */}
+          <div
+            className="hidden md:block rounded-xl overflow-hidden"
+            style={{ background: "rgba(5,13,9,0.90)", border: "1px solid rgba(16,185,129,0.15)" }}
+          >
+            <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(16,185,129,0.12)", background: "rgba(16,185,129,0.05)" }}>
+              <span className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.30)", fontFamily: "var(--font-jetbrains)" }}>module / live-kpis</span>
+              <span className="flex items-center gap-1.5 text-[10px]" style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT }} /> LIVE
+              </span>
+            </div>
+            <div className="p-5 space-y-4">
+              {[
+                { label: "평균 방문자", value: "128,420", delta: "▲ +42%", color: ACCENT },
+                { label: "평균 전환율", value: "3.84%", delta: "▲ +0.9pt", color: ACCENT },
+                { label: "평균 CPC", value: "₩318", delta: "▼ −22%", color: "#F472B6" },
+                { label: "평균 ROAS", value: "412%", delta: "▲ +1.4×", color: ACCENT },
+              ].map((kpi) => (
+                <div key={kpi.label} className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.40)", fontFamily: "var(--font-jetbrains)" }}>{kpi.label}</span>
+                  <div className="text-right">
+                    <div className="text-[13px] font-bold text-white" style={{ fontFamily: "var(--font-jetbrains)" }}>{kpi.value}</div>
+                    <div className="text-[10px]" style={{ color: kpi.color }}>{kpi.delta}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </header>
-
-      <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Channels · 03</span><h2>세 가지 <em>운영 채널</em></h2><p>채널은 다르지만 원칙은 같습니다 — 꾸준함 · 측정 · 개선</p></div>
-        <div className="ch">
-          <div className="chc reveal d1">
-            <div className="top"><span className="tag">01 · BLOG</span><span className="live"><span className="d" /> Live</span></div>
-            <h3>블로그 <em>운영대행</em></h3>
-            <p className="d">네이버·티스토리 — 월 8~12편 · SEO 키워드 → 글 → 발행 → 추적까지</p>
-            <div className="stat"><span className="s">월 발행 <b>10</b></span><span className="s">평균 노출 <b>+38%</b></span></div>
-            <div className="chart">{spark([22, 28, 32, 36, 42, 38, 46, 52, 58, 62, 68, 74])}</div>
-          </div>
-          <div className="chc reveal d2">
-            <div className="top"><span className="tag">02 · SNS</span><span className="live"><span className="d" /> Live</span></div>
-            <h3>SNS <em>운영대행</em></h3>
-            <p className="d">인스타·릴스·틱톡 — 월 20~30컷 · 컨셉 → 촬영·편집 → 발행 → 반응 분석</p>
-            <div className="stat"><span className="s">월 컷 <b>25</b></span><span className="s">평균 리치 <b>+62%</b></span></div>
-            <div className="chart">{spark([18, 22, 30, 38, 42, 50, 48, 56, 64, 70, 76, 82])}</div>
-          </div>
-          <div className="chc reveal d3">
-            <div className="top"><span className="tag">03 · VIDEO CH.</span><span className="live"><span className="d" /> Live</span></div>
-            <h3>영상채널 <em>운영대행</em></h3>
-            <p className="d">유튜브·숏폼 — 월 4~8편 · 기획 → 촬영 → 편집·자막 → 썸네일 → 분석</p>
-            <div className="stat"><span className="s">월 편 <b>6</b></span><span className="s">평균 시청 <b>+74%</b></span></div>
-            <div className="chart">{spark([14, 18, 24, 30, 34, 40, 48, 54, 62, 70, 78, 88])}</div>
-          </div>
-        </div>
       </section>
 
-      <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Weekly Report — Sample</span><h2>매주 <em>리포트</em></h2><p>월요일마다 보내드리는 KPI 표 — 실제 운영 데이터 그대로</p></div>
-        <div className="panel rep reveal d1">
-          <span className="pcr" /><span className="pcr2" />
-          <div className="pbar"><span>module / weekly-report</span><span><b>2026 · WK 21</b></span></div>
-          <table>
-            <thead>
-              <tr><th>Channel</th><th>KPI</th><th style={{ textAlign: "right" }}>This Wk</th><th style={{ textAlign: "right" }}>Δ vs Prev</th></tr>
-            </thead>
-            <tbody>
-              <tr><td className="name">블로그 (Naver)</td><td>방문자</td><td className="r">12,840</td><td className="r up">▲ +18.4%</td></tr>
-              <tr><td className="name">블로그 (Naver)</td><td>유입 검색어</td><td className="r">62 / 78</td><td className="r up">▲ +14</td></tr>
-              <tr><td className="name">Instagram</td><td>도달</td><td className="r">48,210</td><td className="r up">▲ +32%</td></tr>
-              <tr><td className="name">Instagram</td><td>저장 수</td><td className="r">1,840</td><td className="r up">▲ +28%</td></tr>
-              <tr><td className="name">YouTube</td><td>시청 시간 (h)</td><td className="r">320h</td><td className="r up">▲ +21%</td></tr>
-              <tr><td className="name">YouTube</td><td>구독자</td><td className="r">+184</td><td className="r dn">▼ −6.0%</td></tr>
-            </tbody>
-          </table>
+      {/* ── 채널 스택 strip ── */}
+      <div style={{ background: "#0A0A0A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <span
+            className="text-[9px] font-bold tracking-[0.25em] uppercase"
+            style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}
+          >
+            Channels & Tools
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {STACK.map((t) => (
+              <span
+                key={t}
+                className="text-[11px] font-medium px-2.5 py-1 rounded-md"
+                style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-jetbrains)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
-      </section>
-
-      <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">How we work</span><h2>운영 <em>원칙</em></h2></div>
-        <div className="ways reveal d1">
-          <div className="way"><div className="n">01</div><div className="t">주간 리포트</div><div className="d">매주 월요일 KPI 공유</div></div>
-          <div className="way"><div className="n">02</div><div className="t">월 종합</div><div className="d">월말 종합 + 다음 달 계획</div></div>
-          <div className="way"><div className="n">03</div><div className="t">데이터 기반</div><div className="d">GA4·서치콘솔·픽셀 연동</div></div>
-          <div className="way"><div className="n">04</div><div className="t">월 단위 계약</div><div className="d">최소 3개월 / 해지 30일 전 통보</div></div>
-        </div>
-      </section>
-
-      <section className="ctaS"><div className="wrap reveal">
-        <h2>꾸준히 보이는<br /><em>운영</em>이 필요한가요?</h2>
-        <p>지금 문의하면 24시간 안에 견적 · 1주 안에 첫 발행</p>
-        <a className="cta-pill" href={`${base}/quote`}>제작 문의 →</a>
-      </div></section>
-
-      {/* Bottom status bar — fixed */}
-      <div className="sbar">
-        <span><b>AIO/MK</b><span className="dot">·</span>console v0.26<span className="dot">·</span>uptime 99.8%</span>
-        <span>{`{ status: "monitoring" }`}<span className="dot">·</span><b>{`◉ live`}</b></span>
       </div>
+
+      {/* ── 4 서비스 카드 ── */}
+      <section className="bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Services</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>네 가지 마케팅 서비스</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+            {SUB_SERVICES.map((s) => {
+              const Card = (
+                <div
+                  className="group border rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ background: s.bg, borderColor: s.accent + "30", opacity: s.soon ? 0.6 : 1 }}
+                >
+                  <div className="h-1" style={{ background: s.accent }} />
+                  <div className="p-3.5 sm:p-6">
+                    <div className="flex items-center justify-between mb-2 sm:mb-4">
+                      <span className="text-[10px] font-bold tracking-[0.2em]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.no}</span>
+                      {s.soon && <span className="text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-[#F3F4F6] text-[#9CA3AF] rounded-full">SOON</span>}
+                    </div>
+                    <h3 className="font-bold text-[#111] mb-0.5 sm:mb-1 text-[15px] sm:text-[clamp(16px,1.6vw,20px)]">{s.title}</h3>
+                    <p className="hidden sm:block text-[11px] text-[#9CA3AF] mb-3" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.en}</p>
+                    <p className="hidden sm:block text-[13px] text-[#6B7280] leading-[1.7] mb-4">{s.desc}</p>
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-5">
+                      {s.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] sm:text-[11px] font-medium px-1.5 sm:px-2 py-0.5 rounded-md" style={{ background: s.accent + "12", color: s.accent }}>{tag}</span>
+                      ))}
+                    </div>
+                    {!s.soon && (
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 sm:pt-4 border-t border-[#F3F4F6] gap-0.5 sm:gap-0">
+                        <span className="font-bold text-[15px] sm:text-[clamp(14px,1.4vw,18px)]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
+                        <span className="text-[10px] sm:text-[11px] text-[#9CA3AF]">{s.days}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+              return s.soon ? <div key={s.id}>{Card}</div> : <Link key={s.id} href={s.href(locale)} className="block">{Card}</Link>;
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 포트폴리오 미리보기 ── */}
+      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 운영한 채널</h2>
+            </div>
+            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {PORTFOLIO.map((p) => (
+              <Link key={p.title} href={p.href(locale)} className="group block">
+                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
+                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
+                    <span className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: p.accent + "20", color: p.accent }}>{p.type}</span>
+                    <span className="text-[10px] font-medium" style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}>{p.stack}</span>
+                  </div>
+                  <div className="p-3.5">
+                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
+                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-5 md:hidden">
+            <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 일하는 방식 ── */}
+      <section className="bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+            <div className="md:sticky md:top-24 text-center md:text-left">
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
+              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>데이터로 증명하며<br />운영합니다</h2>
+              <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
+                감이 아닌 수치 — 매주 KPI를 공유하고<br className="hidden md:block" />측정된 결과로만 다음 방향을 결정합니다
+              </p>
+              <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
+                {[{ v: "주 1회", l: "KPI 리포트" }, { v: "3개월", l: "성과 기준" }].map((s) => (
+                  <div key={s.l} className="text-center md:text-left">
+                    <div className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                    <div className="text-[11px] text-[#9CA3AF] mt-0.5">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-center md:justify-start">
+                <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
+                  운영 문의 →
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-3">
+              {HOW.map((h) => (
+                <div key={h.no} className="flex items-start gap-4 p-5 rounded-xl border border-[#E5E7EB] hover:border-[#111] transition-colors bg-[#F9FAFB]">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 bg-white border border-[#E5E7EB]">{h.icon}</div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{h.no}</span>
+                      <h3 className="text-[13px] font-bold text-[#111]">{h.title}</h3>
+                    </div>
+                    <p className="text-[12px] text-[#6B7280] leading-[1.7]">{h.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 의뢰인 후기 ── */}
+      <section style={{ background: "#0A0A0A" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>Reviews</p>
+            <h2 className="font-bold text-white" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>의뢰인 후기</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {REVIEWS.map((r, i) => (
+              <div key={i} className="rounded-xl p-5 flex flex-col gap-3" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: r.stars }).map((_, j) => (
+                    <span key={j} className="text-[#F59E0B] text-[13px]">★</span>
+                  ))}
+                </div>
+                <p className="text-[13px] leading-[1.8] flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  &ldquo;{r.text}&rdquo;
+                </p>
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div>
+                    <p className="text-[12px] font-semibold text-white">{r.author}</p>
+                    <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>{r.service}</p>
+                  </div>
+                  <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>{r.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="bg-white">
+        <div className="max-w-[760px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>FAQ</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>자주 묻는 질문</h2>
+          </div>
+          <div className="space-y-2">
+            {FAQS.map((faq, i) => (
+              <div key={i} className="border border-[#E5E7EB] rounded-xl overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#F9FAFB] transition-colors"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span className="text-[13px] font-semibold text-[#111] pr-4">{faq.q}</span>
+                  <span
+                    className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full border border-[#E5E7EB] text-[#111] text-[12px] transition-transform"
+                    style={{ transform: openFaq === i ? "rotate(45deg)" : "none" }}
+                  >+</span>
+                </button>
+                {openFaq === i && (
+                  <div className="px-5 pb-4 border-t border-[#F3F4F6]">
+                    <p className="text-[12px] text-[#6B7280] leading-[1.8] pt-3">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <ServiceCta
+        accentColor={ACCENT}
+        headline={<>꾸준히 보이는 <span style={{ color: ACCENT }}>운영</span>이 필요한가요?</>}
+        sub="지금 문의하면 24시간 안에 견적 · 1주 안에 첫 발행"
+        ctaLabel="운영 문의 →"
+        ctaHref={`/${locale}/quote`}
+      />
 
       <AioFooter locale={locale} />
     </div>

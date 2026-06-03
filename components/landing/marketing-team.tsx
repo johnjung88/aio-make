@@ -48,7 +48,7 @@ export function MarketingTeam({ locale }: { locale: string }) {
 
       <header className="hero"><div className="wrap">
         <span className="kick">Marketing · 팀원 소개</span>
-        <h1>운영하는<br /><em>사람들</em></h1>
+        <h1>운영하는<br className="hidden md:block" /><em>사람들</em></h1>
         <p className="lead">SNS 운영 대행·블로그 운영 대행 — 전략·콘텐츠·분석·검수까지 담당자가 처음부터 끝까지 함께합니다</p>
       </div></header>
 
@@ -59,7 +59,7 @@ export function MarketingTeam({ locale }: { locale: string }) {
         {SUBTEAMS.map((st) => (
           <div key={st.name} className="reveal">
             <SubDivider name={st.name} />
-            <div className="team" style={{ gridTemplateColumns: `repeat(${st.cols}, minmax(0, 1fr))`, marginTop: 0 }}>
+            <div className="team" style={{ marginTop: 0 }}>
               {st.members.map((m, i) => (
                 <div key={i} className={"mem d" + ((i % 4) + 1)} style={{ borderRadius: 0, borderTop: "none" }}>
                   <div className="av">{m.av}</div>

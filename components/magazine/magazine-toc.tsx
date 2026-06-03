@@ -151,12 +151,12 @@ export function MagazineToc({ locale }: Props) {
             >
               {/* Number */}
               <span
+                className="text-center md:text-left"
                 style={{
                   fontFamily: "var(--font-jetbrains)",
                   fontSize: "clamp(12px, 1vw, 13px)",
                   color: inkSubActive,
                   letterSpacing: "0.06em",
-                  textAlign: "left",
                   alignSelf: "start",
                   paddingTop: 4,
                 }}

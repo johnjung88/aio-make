@@ -182,7 +182,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" sub="shopping-mall" cat="development" active="service" />
 
       {/* ── DARK HERO ── */}
-      <section style={{ background: DARK, minHeight: "100vh", display: "grid", gridTemplateColumns: "55% 45%" }}>
+      <section className="hero-grid" style={{ background: DARK, minHeight: "100vh", display: "grid", gridTemplateColumns: "55% 45%" }}>
 
         {/* 왼쪽: 팀사진 배경 + 텍스트 */}
         <div style={{
@@ -220,14 +220,14 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               letterSpacing: "-0.03em", lineHeight: 1.0,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
             }}>
-              팔리는 쇼핑몰을<br />
+              팔리는 쇼핑몰을<br className="hidden md:block" />
               <span style={{ color: ACCENT }}>구축</span>합니다
             </h1>
             <p style={{
               fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
             }}>
-              카페24·독립몰·자사몰<br />
+              카페24·독립몰·자사몰<br className="hidden md:block" />
               상품 등록부터 결제 연동까지 한 번에 납품합니다
             </p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
@@ -252,7 +252,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
         </div>
 
         {/* 오른쪽: 플로팅 KPI 카드 */}
-        <div style={{
+        <div className="hero-cards" style={{
           display: "flex", flexDirection: "column", justifyContent: "center",
           padding: "clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px)",
           gap: 14, position: "relative",

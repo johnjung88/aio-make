@@ -30,14 +30,14 @@ export default async function ServicesPage({
     <main className="pb-24 pt-28">
       <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
 
-        <div className="mb-16">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="mb-16 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-3 mb-6">
             <span className="h-px w-10 bg-primary" />
             <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
               {t("sectionTitle")}
             </span>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             {t("sectionTitle")}
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">{t("sectionSubtitle")}</p>
@@ -56,7 +56,7 @@ export default async function ServicesPage({
               </div>
               <div>
                 <h2 className="text-lg font-bold text-foreground">{service.title[l]}</h2>
-                <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
                   {service.description[l]}
                 </p>
               </div>
@@ -64,7 +64,7 @@ export default async function ServicesPage({
                 {service.items.slice(0, 3).map((item) => (
                   <span
                     key={item.name[l]}
-                    className="rounded-md bg-white/5 px-2 py-0.5 text-[10px] text-muted-foreground"
+                    className="rounded-md bg-white/5 px-2 py-0.5 text-xs text-muted-foreground"
                   >
                     {item.name[l]}
                   </span>

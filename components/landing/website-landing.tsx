@@ -217,14 +217,14 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               letterSpacing: "-0.03em", lineHeight: 1.0,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
             }}>
-              스크롤을 멈추게<br />
+              스크롤을 멈추게<br className="hidden md:block" />
               만드는 <span style={{ color: ACCENT }}>홈페이지</span>
             </h1>
             <p style={{
               fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
             }}>
-              랜딩페이지·회사 홈페이지·서비스 사이트.<br />
+              랜딩페이지·회사 홈페이지·서비스 사이트.<br className="hidden md:block" />
               운영 가능한 완성품을 5일 이내 납품합니다
             </p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>

@@ -89,7 +89,7 @@ export function MagazineEditorsNote() {
 
       {/* 2x2 Grid */}
       <div
-        className="grid grid-cols-2 mx-auto max-w-[880px]"
+        className="grid grid-cols-1 sm:grid-cols-2 mx-auto max-w-[880px]"
         style={{
           border: "1px solid var(--tone-magazine-ink)",
         }}
@@ -97,7 +97,7 @@ export function MagazineEditorsNote() {
         {pillars.map((p, i) => (
           <div
             key={i}
-            className={`flex flex-col items-center group cursor-default transition-colors duration-500 ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b" : "border-b-0"}`}
+            className={`flex flex-col items-center group cursor-default transition-colors duration-500 ${i % 2 === 0 ? "sm:border-r" : ""} ${i < 3 ? "border-b" : ""} ${i < 2 ? "sm:border-b" : "sm:border-b-0"}`}
             style={{
               padding: "clamp(18px, 3vw, 40px) clamp(12px, 2vw, 28px)",
               borderColor: "var(--tone-magazine-line-2)",

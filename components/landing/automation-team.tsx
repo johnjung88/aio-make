@@ -30,7 +30,7 @@ export function AutomationTeam({ locale }: { locale: string }) {
 
       <section className="sec wrap">
         <div className="shead reveal"><span className="kick">Team · 자동화 조직</span><h2>이 서비스를 <em>만드는 사람들</em></h2></div>
-        <div className="team" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}>
+        <div className="team">
           {TEAM.map((m, i) => (
             <div key={i} className={"mem reveal d" + ((i % 4) + 1)}>
               <div className="av">{m.av}</div>

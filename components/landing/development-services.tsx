@@ -42,12 +42,6 @@ const HOW = [
   { no: "04", title: "책임 A/S", desc: "납품 후 1달 무상 유지보수 — 오류·수정 모두 책임", icon: "🛡️" },
 ];
 
-const PORTFOLIO = [
-  { title: "피부과 홈페이지", type: "웹사이트", tag: "의료", stack: "Next.js · Vercel", bg: "#EEF9F5", accent: "#4DD4AC", href: (l: string) => `/${l}/portfolio/category/website` },
-  { title: "뷰티 브랜드 쇼핑몰", type: "쇼핑몰", tag: "뷰티", stack: "카페24 · GA4 · Meta픽셀", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/shopping-mall` },
-  { title: "엑셀 자동화 프로그램", type: "자동화", tag: "업무자동화", stack: "Python · openpyxl", bg: "#F5F3FF", accent: "#818CF8", href: (l: string) => `/${l}/portfolio/category/automation` },
-  { title: "법률사무소 랜딩", type: "웹사이트", tag: "법률", stack: "WordPress · ACF", bg: "#F0FDF4", accent: "#16A34A", href: (l: string) => `/${l}/portfolio/category/website` },
-];
 
 const REVIEWS = [
   { stars: 5, text: "생각보다 훨씬 빠르게 완성됐고 퀄리티도 기대 이상이었어요 — 요청한 내용 100% 반영해주셨습니다", author: "이*진", service: "웹사이트 제작", date: "2026.04" },
@@ -112,8 +106,10 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              시안이 아닌 완성품 — 받는 즉시 운영하는 코드<br className="hidden md:block" />
-              웹사이트 · 쇼핑몰 · 자동화 · 프로그램
+              시안이 아닌 완성품 — 받는 즉시 운영하는 코드<br />
+              <span style={{ opacity: 0.7, fontFamily: "var(--font-jetbrains)", letterSpacing: "0.04em" }}>
+                {'< 웹사이트 · 쇼핑몰 · 자동화 · 프로그램 >'}
+              </span>
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
               {["5일 납품 보장", "98% 재의뢰율", "1시간 응답", "1달 무상 A/S"].map((b) => (
@@ -248,45 +244,55 @@ await aio.build(project);
       </section>
 
       {/* ── 포트폴리오 미리보기 ── */}
-      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+      <section style={{ background: "#F2F2F2", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
-              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
-            </div>
-            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+          {/* 헤더 — 모바일 가운데 정렬 */}
+          <div className="text-center md:text-left mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {PORTFOLIO.map((p) => (
-              <Link key={p.title} href={p.href(locale)} className="group block">
-                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
-                  {/* 상단 컬러 헤더 */}
-                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
-                    <span
-                      className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full"
-                      style={{ background: p.accent + "20", color: p.accent }}
-                    >
-                      {p.type}
-                    </span>
-                    <span
-                      className="text-[10px] font-medium"
-                      style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}
-                    >
-                      {p.stack}
-                    </span>
-                  </div>
-                  {/* 하단 정보 */}
-                  <div className="p-3.5">
-                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
-                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
-                  </div>
+
+          {/* 목업 2-col */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* 웹사이트 — 모니터 목업 */}
+            <div style={{ background: "#EEF9F5", borderRadius: 20, padding: "28px 20px 20px", border: "1px solid #D1FAE5" }}>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#4DD4AC20", color: "#4DD4AC" }}>웹사이트</span>
+                  <p className="text-[14px] font-bold text-[#111] mt-2">피부과 홈페이지</p>
+                  <p className="text-[11px] text-[#9CA3AF] mt-0.5" style={{ fontFamily: "var(--font-jetbrains)" }}>Next.js · Vercel</p>
                 </div>
-              </Link>
-            ))}
-          </div>
-          <div className="text-center mt-5 md:hidden">
-            <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
+              </div>
+              {/* 모니터 목업 */}
+              <div style={{ position: "relative" }}>
+                <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                  <Image src="/images/portfolio/ws-medical-desktop.png" alt="피부과 홈페이지" fill unoptimized style={{ objectFit: "cover", objectPosition: "top center" }} />
+                </div>
+                <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.18))" }} />
+              </div>
+            </div>
+
+            {/* 쇼핑몰 — 폰 목업 */}
+            <div style={{ background: "#FFF7ED", borderRadius: 20, padding: "28px 20px 20px", border: "1px solid #FED7AA", display: "flex", flexDirection: "column" }}>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#FB923C20", color: "#FB923C" }}>쇼핑몰</span>
+                  <p className="text-[14px] font-bold text-[#111] mt-2">뷰티 브랜드 쇼핑몰</p>
+                  <p className="text-[11px] text-[#9CA3AF] mt-0.5" style={{ fontFamily: "var(--font-jetbrains)" }}>카페24 · GA4 · Meta픽셀</p>
+                </div>
+              </div>
+              {/* 폰 목업 — 가운데 정렬, 제한된 너비 */}
+              <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0" }}>
+                <div style={{ position: "relative", width: "52%", maxWidth: 220 }}>
+                  <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
+                    <img src="/images/portfolio/ws-shop-mobile.png" alt="쇼핑몰" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
+                  </div>
+                  <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.20))" }} />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

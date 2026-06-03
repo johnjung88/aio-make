@@ -227,7 +227,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" sub="automation-app" cat="development" active="service" />
 
       {/* ── DARK HERO ── */}
-      <section style={{ background: DARK, minHeight: "100vh", display: "grid", gridTemplateColumns: "55% 45%" }}>
+      <section className="hero-grid" style={{ background: DARK, minHeight: "100vh", display: "grid", gridTemplateColumns: "55% 45%" }}>
 
         {/* 왼쪽: 팀사진 배경 + 텍스트 */}
         <div style={{
@@ -265,14 +265,14 @@ export function AutomationLanding({ locale }: { locale: string }) {
               letterSpacing: "-0.03em", lineHeight: 1.0,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
             }}>
-              반복 업무를<br />
+              반복 업무를<br className="hidden md:block" />
               <span style={{ color: ACCENT }}>코드</span>에게 맡기세요
             </h1>
             <p style={{
               fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
             }}>
-              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램<br />
+              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램<br className="hidden md:block" />
               하루 수 시간의 반복을 한 번에 없앱니다
             </p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
@@ -297,7 +297,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
         </div>
 
         {/* 오른쪽: 플로팅 KPI 카드 */}
-        <div style={{
+        <div className="hero-cards" style={{
           display: "flex", flexDirection: "column", justifyContent: "center",
           padding: "clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px)",
           gap: 14, position: "relative",

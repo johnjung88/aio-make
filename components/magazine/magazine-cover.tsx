@@ -193,8 +193,8 @@ export function MagazineCover() {
           분야별 전문가가 모여 협업하는
         </strong>{" "}
         외주 스튜디오입니다
-        <br />각 분야의 전문가가, 처음부터 끝까지 책임집니다
-        <br />
+        <br className="hidden md:block" />각 분야의 전문가가, 처음부터 끝까지 책임집니다
+        <br className="hidden md:block" />
         <span
           style={{
             fontFamily: "var(--font-pretendard)",

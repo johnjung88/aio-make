@@ -98,14 +98,14 @@ export function MagazineEditorial({ locale }: Props) {
         >
           AIO는{" "}
           <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>각 분야 전문가</strong>가 직접 작업하는 외주 스튜디오입니다
-          <br />
+          <br className="hidden md:block" />
           의뢰가 들어오면 그 분야의 전문가가 처음부터 끝까지 책임집니다
         </p>
         <p
           style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-magazine-ink-2)", fontWeight: 400 }}
         >
           매주 새 작품이 더해지며 다음 의뢰인의 결정을 돕습니다
-          <br />
+          <br className="hidden md:block" />
           결과물을 먼저 보고, 가격을 확인한 뒤{" "}
           <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>맡겨주세요</strong>
         </p>
@@ -115,7 +115,7 @@ export function MagazineEditorial({ locale }: Props) {
       <div className="inline-flex gap-[14px] flex-wrap justify-center">
         <Link
           href={`/${locale}/quote`}
-          className="inline-flex items-center gap-[10px] px-8 py-4 transition-all hover:-translate-y-0.5 hover:bg-[var(--tone-magazine-red)] hover:border-[var(--tone-magazine-red)]"
+          className="inline-flex items-center gap-[10px] px-5 py-3 sm:px-8 sm:py-4 transition-all hover:-translate-y-0.5 hover:bg-[var(--tone-magazine-red)] hover:border-[var(--tone-magazine-red)]"
           style={{
             ...CTA_BASE_STYLE,
             background: "var(--tone-magazine-ink)",
@@ -126,7 +126,7 @@ export function MagazineEditorial({ locale }: Props) {
         </Link>
         <Link
           href="#toc"
-          className="inline-flex items-center gap-[10px] px-8 py-4 transition-all hover:-translate-y-0.5 hover:bg-[var(--tone-magazine-ink)] hover:text-[var(--tone-magazine-paper)]"
+          className="inline-flex items-center gap-[10px] px-5 py-3 sm:px-8 sm:py-4 transition-all hover:-translate-y-0.5 hover:bg-[var(--tone-magazine-ink)] hover:text-[var(--tone-magazine-paper)]"
           style={{
             ...CTA_BASE_STYLE,
             background: "transparent",

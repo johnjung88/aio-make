@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
@@ -94,11 +94,72 @@ const CSS = `
 .aiodp2 .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
 
-const PHONE_IMAGES = [
-  { src: "/portfolio/detail-page/vegan-cleanser/detail.png",  size: "s", label: "5,000PX" },
-  { src: "/portfolio/detail-page/premium-mealkit/detail.png", size: "m", label: "10,000PX" },
-  { src: "/portfolio/detail-page/linen-onepiece/detail.png",  size: "l", label: "20,000PX" },
+const PREVIEW_ITEMS = [
+  { id: "vegan-cleanser",   label: "5,000PX",  name: "비건 클렌저",    src: "/portfolio/detail-page/vegan-cleanser/detail.png" },
+  { id: "premium-mealkit",  label: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png" },
+  { id: "linen-onepiece",   label: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png" },
 ];
+type PreviewItem = (typeof PREVIEW_ITEMS)[number];
+
+// Monitor screen area: top=1.71% left=12.01% width=76.11% height=70.85%
+function PreviewMacbook({ item }: { item: PreviewItem }) {
+  return (
+    <div style={{ position: "relative", width: "74%", maxWidth: 800, flexShrink: 0 }}>
+      <div style={{ position: "relative" }}>
+        {/* Content behind transparent mockup */}
+        <div style={{
+          position: "absolute",
+          top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%",
+          overflow: "hidden", zIndex: 0,
+        }}>
+          <img src={item.src} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
+        </div>
+        {/* Transparent-screen monitor mockup on top */}
+        <img
+          src="/mockups/monitor.png"
+          alt="monitor mockup"
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.7))" }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Phone screen area: top=15.79% left=18.17% width=63.54% height=70.87%
+function PreviewPhone({ item }: { item: PreviewItem }) {
+  return (
+    <div style={{
+      position: "absolute", bottom: "-8%", right: "1%",
+      width: "21%", maxWidth: 170, transform: "rotate(3deg)", zIndex: 10,
+    }}>
+      <div style={{ position: "relative" }}>
+        {/* Content behind transparent mockup */}
+        <div style={{
+          position: "absolute",
+          top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%",
+          overflow: "hidden", zIndex: 0,
+        }}>
+          <img src={item.src} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
+        </div>
+        {/* Transparent-screen phone mockup on top */}
+        <img
+          src="/mockups/phone.png"
+          alt="phone mockup"
+          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}
+        />
+        <div style={{
+          position: "absolute", bottom: "10%", left: "50%", transform: "translateX(-50%)",
+          whiteSpace: "nowrap", fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 9,
+          letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--gold)",
+          background: "rgba(14,13,11,0.88)", padding: "5px 14px", borderRadius: 999,
+          border: "1px solid rgba(200,162,74,0.35)", zIndex: 4,
+        }}>
+          {item.label}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const GALLERY_ITEMS = [
   { src: "/portfolio/detail-page/vegan-cleanser/cover.png",  cap: "비건 클렌저" },
@@ -111,6 +172,8 @@ const GALLERY_ITEMS = [
 
 export function DetailPageLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [previewId, setPreviewId] = useState("vegan-cleanser");
+  const activePreview = PREVIEW_ITEMS.find((p) => p.id === previewId) ?? PREVIEW_ITEMS[0];
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const prog = root.querySelector<HTMLElement>(".prog");
@@ -134,8 +197,8 @@ export function DetailPageLanding({ locale }: { locale: string }) {
           <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Detail Page · N° 04</span>
-            <h1 className="hero2-h1">스크롤을 멈추게<br />만드는 <em>상세페이지</em></h1>
-            <p className="hero2-lead">5,000PX 기본 소개부터 20,000PX 풀 스토리텔링까지<br />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
+            <h1 className="hero2-h1">스크롤을 멈추게<br className="hidden md:block" />만드는 <em>상세페이지</em></h1>
+            <p className="hero2-lead">5,000PX 기본 소개부터 20,000PX 풀 스토리텔링까지<br className="hidden md:block" />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
             <div className="hero2-bdgs">
               {["2~5일 납품", "원본 PSD 무료", "수정 무제한"].map((b) => (
                 <span key={b} className="hero2-bdg">{b}</span>
@@ -170,16 +233,37 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       </header>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Preview · 3 sizes</span><h2>세 가지 <em>길이</em></h2><p>제품·상황·예산에 맞춰 길이와 깊이를 고릅니다</p></div>
-        <div className="pre">
-          {PHONE_IMAGES.map(({ src, size, label }, i) => (
-            <div key={src} className={`reveal d${i + 1}`} style={{ flexShrink: 0 }}>
-              <div className={`ph ${size}`}>
-                <img src={src} alt={label} />
-                <span className="badge">{label}</span>
-              </div>
-            </div>
+        <div className="shead reveal"><span className="kick">Studio Preview · 3 sizes</span><h2>화면으로 보는 <em>작업물</em></h2><p>실제 납품된 상세페이지 — PC와 모바일 두 화면으로</p></div>
+
+        <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
+          {PREVIEW_ITEMS.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => setPreviewId(p.id)}
+              style={{
+                padding: "8px 18px", borderRadius: 999, border: "1px solid",
+                borderColor: previewId === p.id ? "var(--gold)" : "rgba(239,233,221,0.15)",
+                background: previewId === p.id ? "var(--gold)" : "transparent",
+                color: previewId === p.id ? "#0E0D0B" : "rgba(239,233,221,0.5)",
+                fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 12,
+                fontWeight: previewId === p.id ? 700 : 400, cursor: "pointer", transition: "all 0.2s",
+              }}
+            >
+              {p.label}
+            </button>
           ))}
+        </div>
+
+        <div className="reveal" style={{ background: "#F0EDE6", borderRadius: 24, padding: "40px 32px 80px", maxWidth: 960, margin: "0 auto" }}>
+          <div style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 20 }}>
+            <PreviewMacbook item={activePreview} />
+            <PreviewPhone item={activePreview} />
+          </div>
+          <div style={{ textAlign: "center", marginTop: 16 }}>
+            <span style={{ fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--fg3)" }}>
+              {activePreview.name} · {activePreview.label}
+            </span>
+          </div>
         </div>
       </section>
 

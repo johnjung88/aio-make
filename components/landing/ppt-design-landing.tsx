@@ -102,8 +102,8 @@ export function PptDesignLanding({ locale }: { locale: string }) {
           <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · PPT Design · N° 05</span>
-            <h1 className="hero2-h1">읽지 않고도<br />전달되는 <em>슬라이드</em></h1>
-            <p className="hero2-lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게<br />글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
+            <h1 className="hero2-h1">읽지 않고도<br className="hidden md:block" />전달되는 <em>슬라이드</em></h1>
+            <p className="hero2-lead">제안·IR·사업계획·발표 — 결정권자가 한 장에서 핵심을 보게<br className="hidden md:block" />글이 많은 슬라이드 대신 메시지가 남는 한 장으로</p>
             <div className="hero2-bdgs">
               {["2~5일 납품", "원본 PPTX 무료", "수정 무제한"].map((b) => (
                 <span key={b} className="hero2-bdg">{b}</span>

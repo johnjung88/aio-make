@@ -1,366 +1,379 @@
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useState } from "react";
+import Link from "next/link";
 import { AioNav, AioFooter } from "./aio-nav";
+import { ServiceCta } from "@/components/services/service-cta";
 
-/**
- * Video Hub — Pure Cinema 흑백 캔버스
- * 필름 그레인 노이즈 + 코너 비네트 + 미세한 scanline + 항상 letterbox.
- * 컬러는 풀블랙 + amber spotlight + 따뜻한 골드 액센트만.
- */
-const CSS = `
-.aiovh{--bg:#000;--bg2:#0a0908;--bg3:#0e0c0a;--fg:#EFE9DD;--fg2:#A8A092;--fg3:#5C564B;
-  --line:rgba(232,163,64,.32);--line2:rgba(239,233,221,.08);
-  --gold:#C8A24A;--amber:#E8A340;--ember:#F4B45A;--rec:#FF3D00;
-  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
-  --fs-display:clamp(52px,9.5vw,140px);--fs-h2:clamp(30px,5.4vw,70px);--fs-lead:clamp(15px,1.4vw,18px);
-  --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(72px,10vw,140px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
-  background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;text-align:center;position:relative;overflow-x:hidden}
-/* Film grain noise — fixed overlay */
-.aiovh::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
-/* Scanlines — subtle */
-.aiovh::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:3;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0,rgba(0,0,0,.18) 1px,transparent 1px,transparent 3px);opacity:.45}
-/* Edge vignette */
-.aiovh .vig{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 50%,rgba(0,0,0,.85) 100%)}
-.aiovh > *{position:relative;z-index:5}
-.aiovh *{box-sizing:border-box}
-.aiovh a{text-decoration:none;color:inherit}
-.aiovh .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
-.aiovh .kick{font-family:var(--mono);font-size:var(--fs-kick);letter-spacing:.36em;text-transform:uppercase;color:var(--amber)}
-.aiovh .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.2,1,.3,1),transform 1.1s cubic-bezier(.2,1,.3,1)}.aiovh .reveal.in{opacity:1;transform:none}
-.aiovh .reveal.d1{transition-delay:.1s}.aiovh .reveal.d2{transition-delay:.2s}.aiovh .reveal.d3{transition-delay:.3s}
-.aiovh .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--ember),var(--amber))}
+const ACCENT = "#F59E0B";
 
-/* Section letterbox bars (every section gets them subtly) */
-.aiovh .letterbox{position:relative}
-.aiovh .letterbox::before,.aiovh .letterbox::after{content:"";position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--line) 12%,var(--line) 88%,transparent 100%)}
-.aiovh .letterbox::before{top:0}
-.aiovh .letterbox::after{bottom:0}
+const SUB_SERVICES = [
+  {
+    no: "01", id: "shortform", title: "SNS 숏폼", en: "SNS Short-form",
+    desc: "인스타 릴스·틱톡·페이스북 릴스 — 첫 3초에 멈추고 끝까지 보게 만드는 컷",
+    price: "₩150,000~/편", days: "3–5일", tags: ["Instagram", "TikTok", "Reels"],
+    href: (l: string) => `/${l}/services/video`, soon: false, accent: "#F472B6", bg: "#FDF2F8",
+  },
+  {
+    no: "02", id: "youtube", title: "유튜브 채널", en: "YouTube Channel",
+    desc: "기획·촬영·편집·자막·썸네일 — 구독과 체류 시간을 끌어올리는 채널 운영",
+    price: "₩290,000~/편", days: "5–7일", tags: ["YouTube", "Shorts", "4K"],
+    href: (l: string) => `/${l}/services/video`, soon: false, accent: "#EF4444", bg: "#FEF2F2",
+  },
+  {
+    no: "03", id: "brand", title: "브랜드 영상", en: "Brand Video",
+    desc: "제품·서비스·IR 소개 영상 — 브랜드 세계관을 한 컷에 담는 풀 프로덕션",
+    price: "₩490,000~/편", days: "7–14일", tags: ["촬영", "편집", "4K", "색보정"],
+    href: (l: string) => `/${l}/services/video`, soon: false, accent: ACCENT, bg: "#FFFBEB",
+  },
+  {
+    no: "04", id: "package", title: "촬영 패키지", en: "Shoot Package",
+    desc: "스튜디오·현장 촬영 + 편집 세트 패키지 — 현재 준비 중",
+    price: "준비 중", days: "", tags: ["스튜디오", "현장촬영", "드론"],
+    href: () => "#", soon: true, accent: "#9CA3AF", bg: "#F9FAFB",
+  },
+];
 
-/* Cinema hero — full bleed with letterbox bars */
-.aiovh .cine{position:relative;min-height:90vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.aiovh .cine::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 50% 45% at 50% 50%,rgba(232,163,64,.22),transparent 65%);pointer-events:none}
-.aiovh .cine .bar{position:absolute;left:0;right:0;height:clamp(56px,8vh,96px);background:#000;z-index:2;display:flex;align-items:center;padding:0 var(--sp-edge);font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--fg3);text-transform:uppercase}
-.aiovh .cine .bar.t{top:0;border-bottom:1px solid var(--line2)}
-.aiovh .cine .bar.b{bottom:0;border-top:1px solid var(--line2);justify-content:space-between}
-.aiovh .cine .bar .l,.aiovh .cine .bar .r{flex:1}
-.aiovh .cine .bar .r{text-align:right}
-.aiovh .cine .bar .c{flex:0 0 auto;color:var(--amber)}
-.aiovh .cine .wrap{position:relative;z-index:1;padding-top:60px;padding-bottom:60px}
-.aiovh .cine h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.95;letter-spacing:-.02em;margin-bottom:30px;text-shadow:0 4px 50px rgba(232,163,64,.18)}
-.aiovh .cine h1 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
-.aiovh .cine .lead{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:46ch;margin:0 auto 40px}
-.aiovh .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
-.aiovh .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:0;background:var(--amber);color:#000;letter-spacing:.02em;border:1px solid var(--amber);transition:all .25s}
-.aiovh .cta-pill:hover{background:transparent;color:var(--amber)}
-.aiovh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
-.aiovh .runtime{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:var(--amber);text-transform:uppercase;margin-bottom:24px;border:1px solid var(--line);padding:6px 14px;border-radius:999px}
-.aiovh .runtime .dot{width:7px;height:7px;border-radius:50%;background:var(--rec);box-shadow:0 0 0 4px rgba(255,61,0,.2);animation:aiovh-blink 1.5s infinite}
-@keyframes aiovh-blink{0%,100%{opacity:1}50%{opacity:.35}}
+const HOW = [
+  { no: "01", title: "레퍼런스 합의", desc: "방향과 레퍼런스를 먼저 시안으로 합의 — 촬영 전 콘티 확인까지", icon: "🎬" },
+  { no: "02", title: "러프 컷 공유", desc: "구조와 호흡을 먼저 확인 — 방향이 맞으면 파인 컷으로 넘어갑니다", icon: "✂️" },
+  { no: "03", title: "파인 컷 완성", desc: "컬러 그레이딩·자막·음악 믹스 — 플랫폼 최적 포맷으로 다듬습니다", icon: "🎨" },
+  { no: "04", title: "마스터 납품", desc: "4K 원본 + 소스 파일 함께 전달 — 추후 재편집·재활용 가능하게", icon: "📦" },
+];
 
-/* Sections — every section is a "scene" with subtle frame */
-.aiovh .sec{padding:var(--sp-sec) 0;position:relative}
-.aiovh .sec.dim{background:linear-gradient(180deg,transparent 0%,var(--bg2) 30%,var(--bg2) 70%,transparent 100%)}
-.aiovh .shead{margin-bottom:48px}
-.aiovh .shead .kick{display:block;margin-bottom:16px}
-.aiovh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
-.aiovh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
-.aiovh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
+const PORTFOLIO = [
+  { title: "뷰티 브랜드 릴스 캠페인", type: "SNS 숏폼", tag: "뷰티", stack: "Instagram · Reels · After Effects", bg: "#FDF2F8", accent: "#F472B6", href: (l: string) => `/${l}/portfolio/category/video` },
+  { title: "스타트업 서비스 소개 영상", type: "브랜드 영상", tag: "SaaS", stack: "Premiere Pro · 4K · 색보정", bg: "#FFFBEB", accent: ACCENT, href: (l: string) => `/${l}/portfolio/category/video` },
+  { title: "펫푸드 틱톡 바이럴", type: "SNS 숏폼", tag: "반려동물", stack: "TikTok · CapCut", bg: "#FEF2F2", accent: "#EF4444", href: (l: string) => `/${l}/portfolio/category/video` },
+  { title: "홈퍼니싱 유튜브 채널", type: "유튜브", tag: "인테리어", stack: "YouTube · DaVinci Resolve", bg: "#F0F9FF", accent: "#38BDF8", href: (l: string) => `/${l}/portfolio/category/video` },
+];
 
-/* Featured Reel — single 21:9 full bleed cinema frame */
-.aiovh .reel{position:relative;aspect-ratio:21/9;max-width:1180px;margin:0 auto;border:1px solid var(--line);background:linear-gradient(135deg,rgba(232,163,64,.28) 0%,rgba(200,162,74,.14) 40%,#000 100%);overflow:hidden}
-.aiovh .reel::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.4;mix-blend-mode:overlay;pointer-events:none}
-.aiovh .reel .crn{position:absolute;width:24px;height:24px;border:1px solid var(--amber)}
-.aiovh .reel .crn.tl{top:14px;left:14px;border-right:none;border-bottom:none}
-.aiovh .reel .crn.tr{top:14px;right:14px;border-left:none;border-bottom:none}
-.aiovh .reel .crn.bl{bottom:14px;left:14px;border-right:none;border-top:none}
-.aiovh .reel .crn.br{bottom:14px;right:14px;border-left:none;border-top:none}
-.aiovh .reel .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(72px,10vw,128px);height:clamp(72px,10vw,128px);border:1px solid var(--amber);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:2}
-.aiovh .reel .play::after{content:"";display:block;width:0;height:0;border-left:clamp(20px,3vw,36px) solid var(--amber);border-top:clamp(14px,2vw,24px) solid transparent;border-bottom:clamp(14px,2vw,24px) solid transparent;margin-left:8px}
-.aiovh .reel .tc{position:absolute;left:24px;top:24px;font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;z-index:2}
-.aiovh .reel .tc::before{content:"●";color:var(--rec);margin-right:8px;animation:aiovh-blink 1.5s infinite}
-.aiovh .reel .meta{position:absolute;right:24px;bottom:48px;font-family:var(--mono);font-size:10.5px;color:var(--fg3);letter-spacing:.18em;text-align:right;line-height:1.85;z-index:2}
-.aiovh .reel .meta b{color:var(--amber);font-weight:400;letter-spacing:.22em}
-.aiovh .reel .scrub{position:absolute;left:24px;right:24px;bottom:18px;height:2px;background:rgba(239,233,221,.18);z-index:2}
-.aiovh .reel .scrub::after{content:"";position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--amber)}
-.aiovh .reel .scrub::before{content:"";position:absolute;left:38%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(232,163,64,.25)}
+const REVIEWS = [
+  { stars: 5, text: "릴스 올리고 나서 팔로워가 2주 만에 2,000명 넘게 늘었어요 — 첫 3초 후킹이 진짜 다르다는 게 느껴졌습니다", author: "김*현", service: "SNS 숏폼 제작", date: "2026.04" },
+  { stars: 5, text: "브랜드 소개 영상 반응이 완전히 달라졌어요 — 투자자 미팅에서 영상 하나로 분위기가 바뀌었습니다", author: "이*준", service: "브랜드 영상 제작", date: "2026.03" },
+  { stars: 5, text: "유튜브 채널 운영 맡기고 조회수가 꾸준히 오르고 있어요 — 썸네일 퀄리티가 확실히 다르고 편집 속도도 빠릅니다", author: "박*서", service: "유튜브 채널 영상", date: "2026.05" },
+];
 
-/* Scenes — 4 short-form platforms (Instagram Reels / TikTok / Facebook Reels / YouTube Shorts) — 같은 레이아웃, chrome만 다름 */
-.aiovh .scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
-.aiovh .scene{position:relative;display:flex;flex-direction:column;border:1px solid var(--line2);overflow:hidden;background:var(--bg2);text-align:left;transition:border-color .3s,transform .3s}
-.aiovh .scene:hover{border-color:var(--amber);transform:translateY(-4px)}
+const FAQS = [
+  { q: "제작 기간이 얼마나 걸리나요?", a: "영상 종류에 따라 다릅니다 — SNS 숏폼 3–5일, 유튜브 영상 5–7일, 브랜드 영상 7–14일이 기준이며 촬영 유무에 따라 납기가 달라집니다" },
+  { q: "촬영이 포함되나요?", a: "기본 패키지는 편집 중심으로 구성되어 있으며 촬영이 필요한 경우 별도 견적으로 안내드립니다 — 소스 영상이 있으면 편집만도 가능합니다" },
+  { q: "원본 파일도 받을 수 있나요?", a: "네 — 4K 마스터 파일과 편집 소스 파일을 함께 납품합니다 — 추후 재편집·재활용이 가능합니다" },
+  { q: "플랫폼별 비율로 납품 가능한가요?", a: "가능합니다 — 인스타 릴스(9:16), 유튜브(16:9), 유튜브 숏츠(9:16) 등 플랫폼에 맞는 비율로 컷 버전을 함께 제공합니다" },
+  { q: "수정은 몇 번까지 가능한가요?", a: "러프 컷 확인 후 2차 수정까지 기본으로 포함됩니다 — 방향이 크게 바뀌는 경우 추가 비용이 발생할 수 있습니다" },
+  { q: "착수금은 어떻게 되나요?", a: "착수 시 50%, 납품 시 나머지 50%를 계좌이체로 진행합니다" },
+];
 
-/* Common short-form vertical mock */
-.aiovh .scene .mock{flex:0 0 auto;position:relative;overflow:hidden;background:#000;aspect-ratio:9/16;width:100%}
-.aiovh .scene .mock .bg{position:absolute;inset:0}
-.aiovh .scene .mock .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 30%,transparent 60%,rgba(0,0,0,.85) 100%)}
-
-/* Platform chip (top-right) — small badge with logo */
-.aiovh .scene .pchip{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:6px;font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;z-index:3;background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-
-/* Action stack (right) — same position/structure across all */
-.aiovh .scene .stack{position:absolute;right:8px;bottom:78px;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:3;color:#fff;font-family:Helvetica,Arial,sans-serif}
-.aiovh .scene .stack .av{width:34px;height:34px;border-radius:50%;border:2px solid #fff;position:relative;flex-shrink:0;background:#E8A340}
-.aiovh .scene .stack .av::after{content:"+";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#ff3050;color:#fff;font-size:11px;line-height:14px;text-align:center;border:1.5px solid #000;font-weight:700}
-.aiovh .scene .stack .ic{display:flex;flex-direction:column;align-items:center}
-.aiovh .scene .stack .ic .em{font-size:22px;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
-.aiovh .scene .stack .ic .n{font-size:10px;margin-top:3px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.6)}
-.aiovh .scene .stack .disc{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at center,#666 0,#222 50%,#000 60%,#444 70%,#000 100%);border:1px solid rgba(255,255,255,.2);animation:aiovh-spin 8s linear infinite}
-@keyframes aiovh-spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-/* Bottom caption block */
-.aiovh .scene .cap{position:absolute;left:12px;right:60px;bottom:14px;color:#fff;z-index:3;font-family:Helvetica,Arial,sans-serif;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.aiovh .scene .cap .un{font-size:11px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.aiovh .scene .cap .un .v{font-weight:500;font-size:10px;opacity:.8}
-.aiovh .scene .cap .tx{font-size:10.5px;line-height:1.4;opacity:.95;margin-bottom:6px}
-.aiovh .scene .cap .mu{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.15);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-
-/* Bottom AIO footer (검정 라벨 영역) */
-.aiovh .scene .sfoot{padding:14px 16px 18px;background:#000;border-top:1px solid var(--line2);min-height:108px;display:flex;flex-direction:column;justify-content:flex-start}
-.aiovh .scene .sfoot .tc{font-family:var(--mono);font-size:9.5px;color:var(--amber);letter-spacing:.2em;margin-bottom:6px;text-transform:uppercase}
-.aiovh .scene .sfoot h3{font-family:var(--frau);font-size:clamp(17px,1.8vw,22px);font-weight:500;line-height:1.15;margin-bottom:4px;color:var(--fg);letter-spacing:-.005em}
-.aiovh .scene .sfoot h3 em{font-family:var(--frau);font-style:normal;color:var(--amber)}
-.aiovh .scene .sfoot p{font-size:11.5px;color:var(--fg2);line-height:1.55;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(11.5px * 1.55 * 2)}
-
-/* === Platform A: INSTAGRAM REELS — 핑크/오렌지/퍼플 그라데이션 === */
-.aiovh .scene.a .mock .bg{background:linear-gradient(160deg,#f09433 0%,#dc2743 35%,#bc1888 70%,#0a0a0a 100%)}
-.aiovh .scene.a .pchip{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#bc1888)}
-.aiovh .scene.a .pchip::before{content:"◉";margin-right:1px;font-size:11px}
-
-/* === Platform B: TIKTOK — 검정/민트/핑크 액센트 === */
-.aiovh .scene.b .mock .bg{background:radial-gradient(ellipse at 30% 30%,rgba(37,244,238,.18),transparent 55%),radial-gradient(ellipse at 70% 70%,rgba(254,44,85,.18),transparent 55%),#000}
-.aiovh .scene.b .pchip{background:#000;border:1px solid rgba(255,255,255,.18)}
-.aiovh .scene.b .pchip::before{content:"♪";color:#fe2c55;font-size:13px;margin-right:1px;text-shadow:1.5px 0 0 #25f4ee}
-
-/* === Platform C: FACEBOOK REELS — 파란 액센트 === */
-.aiovh .scene.c .mock .bg{background:linear-gradient(165deg,#1877f2 0%,#0a3a8c 50%,#000 100%)}
-.aiovh .scene.c .pchip{background:#1877f2}
-.aiovh .scene.c .pchip::before{content:"f";font-family:Georgia,serif;font-weight:900;font-style:normal;font-size:13px;margin-right:1px}
-.aiovh .scene.c .stack .av{background:#1877f2}
-
-/* === Platform D: YOUTUBE SHORTS — 빨간 액센트 === */
-.aiovh .scene.d .mock .bg{background:linear-gradient(180deg,rgba(232,163,64,.25) 0%,#1a1a1a 50%,#000 100%)}
-.aiovh .scene.d .pchip{background:#fff;color:#000}
-.aiovh .scene.d .pchip::before{content:"▶";color:#ff0000;font-size:11px;margin-right:1px}
-.aiovh .scene.d .stack .av{background:linear-gradient(135deg,#ff0000,#cc0000)}
-.aiovh .scene.d .stack .av::after{display:none}
-
-@media(max-width:880px){.aiovh .scenes{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.aiovh .scenes{grid-template-columns:1fr}}
-
-/* Pricing — minimal cinematic */
-.aiovh .pkg{max-width:560px;margin:0 auto;border:1px solid var(--line);padding:36px 30px;text-align:center;background:rgba(232,163,64,.04)}
-.aiovh .pkg .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--amber);margin-bottom:12px;text-transform:uppercase}
-.aiovh .pkg .num{font-family:var(--frau);font-size:clamp(28px,4vw,40px);margin-bottom:8px}
-.aiovh .pkg .num em{font-style:normal;color:var(--amber)}
-.aiovh .pkg .desc{font-size:13.5px;color:var(--fg2);line-height:1.8;margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
-
-/* Process — scrubber timeline */
-.aiovh .tl{position:relative;max-width:880px;margin:32px auto 0;padding:30px 18px 18px}
-.aiovh .tl::before{content:"";position:absolute;left:14px;right:14px;top:46px;height:1px;background:var(--line)}
-.aiovh .tlrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative}
-.aiovh .tlc{position:relative;padding-top:34px;text-align:center}
-.aiovh .tlc::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:var(--amber);z-index:2;box-shadow:0 0 0 4px #000}
-.aiovh .tlc .tc{font-family:var(--mono);font-size:10.5px;color:var(--amber);letter-spacing:.18em;margin-bottom:6px}
-.aiovh .tlc h4{font-family:var(--frau);font-size:18px;font-weight:500;margin-bottom:6px}
-.aiovh .tlc p{font-size:12.5px;line-height:1.7;color:var(--fg2);max-width:22ch;margin:0 auto}
-@media(max-width:720px){.aiovh .tlrow{grid-template-columns:1fr 1fr;row-gap:36px}.aiovh .tl::before{display:none}}
-
-/* CTA */
-.aiovh .ctaS{padding:var(--sp-sec) 0;position:relative;overflow:hidden;text-align:center}
-.aiovh .ctaS::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 50%,rgba(232,163,64,.20),transparent 70%)}
-.aiovh .ctaS .wrap{position:relative}
-.aiovh .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:.98;margin-bottom:22px;letter-spacing:-.014em}
-.aiovh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--amber);font-weight:600}
-.aiovh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
-`;
+const STACK = ["Premiere Pro", "After Effects", "DaVinci Resolve", "Final Cut Pro", "CapCut", "Photoshop"];
 
 export function VideoHub({ locale }: { locale: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const root = ref.current; if (!root) return;
-    const prog = root.querySelector<HTMLElement>(".prog");
-    const onScroll = () => { const h = document.documentElement; if (prog) prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%"; };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .14 });
-    root.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
-  }, []);
-  const base = `/${locale}`;
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
-    <div className="aiovh" ref={ref}>
-      <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      <span className="vig" />
-      <div className="prog" />
+    <div className="bg-white min-h-screen" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <AioNav locale={locale} level="middle" cat="video" active="service" />
 
-      {/* Cinema hero */}
-      <header className="cine">
-        <div className="bar t"><span className="l">AIO · CINEMA</span><span className="c">A · I · O</span><span className="r">2026 · ISSUE 03</span></div>
-        <div className="wrap">
-          <div className="runtime"><span className="dot" /> NOW SHOWING · RUNTIME 03:00</div>
-          <h1>한 컷이<br /><em>전부</em>입니다</h1>
-          <p className="lead">브랜드·SNS·마케팅·유튜브 — 첫 3초가 계속 볼지를 결정합니다 · 끝까지 머무르게 만드는 컷으로</p>
-          <div className="acts"><a className="cta-pill" href={`${base}/quote`}>제작 문의 ▶</a><a className="cta-link" href={`${base}/services/video/team`}>팀원 소개</a></div>
-        </div>
-        <div className="bar b"><span className="l">REEL · DURATION 03 : 00 : 00</span><span className="c">● REC</span><span className="r">24 FPS · 4K</span></div>
-      </header>
+      {/* ── Hero — 시네마 다크 배경 ── */}
+      <section className="relative min-h-[70vh] md:min-h-[90vh] flex items-center overflow-hidden" style={{ background: "#060402" }}>
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 60% 55% at 35% 45%, rgba(245,158,11,0.20) 0%, transparent 65%), radial-gradient(ellipse 45% 40% at 75% 65%, rgba(239,68,68,0.08) 0%, transparent 60%)" }}
+        />
+        {/* 하단 화이트 페이드 */}
+        <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none" style={{ background: "linear-gradient(to top, #fff 0%, transparent 100%)" }} />
 
-      {/* Featured reel */}
-      <section className="sec letterbox">
-        <div className="wrap">
-          <div className="shead reveal"><span className="kick">Featured Reel</span><h2>이번 분기 <em>리일</em></h2><p>최근 작업한 브랜드·SNS·유튜브 컷들 중 한 컷</p></div>
-          <div className="reel reveal d1">
-            <span className="crn tl" /><span className="crn tr" /><span className="crn bl" /><span className="crn br" />
-            <span className="tc">REC · 00:01:23</span>
-            <span className="meta"><b>FEATURED REEL</b><br />Brand · 60s · 4K</span>
-            <div className="play" aria-label="Play reel" />
-            <div className="scrub" />
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-10 items-center">
+          <div className="text-center md:text-left">
+            <p
+              className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-5"
+              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-jetbrains)" }}
+            >
+              Video · 영상 제작
+            </p>
+            <h1
+              className="font-bold leading-[1.02] tracking-tight text-white mb-5"
+              style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
+            >
+              한 <span style={{ color: ACCENT }}>컷</span>이<br className="hidden md:block" />전부입니다
+            </h1>
+            <p
+              className="leading-[1.8] mb-8"
+              style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
+            >
+              브랜드·SNS·마케팅·유튜브<br className="hidden md:block" />
+              첫 3초가 계속 볼지를 결정합니다
+            </p>
+            <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
+              {["5일 납품 보장", "4K 원본 제공", "플랫폼 최적화", "소스 파일 포함"].map((b) => (
+                <span
+                  key={b}
+                  className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.80)", border: "1px solid rgba(255,255,255,0.18)" }}
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-3 mb-12 justify-center md:justify-start">
+              <Link
+                href={`/${locale}/quote`}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              >
+                제작 문의 ▶
+              </Link>
+            </div>
+            <div className="flex justify-center md:justify-start gap-6 sm:gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+              {[{ v: "80+", l: "누적 납품" }, { v: "5일", l: "평균 납기" }, { v: "4K", l: "최대 해상도" }].map((s) => (
+                <div key={s.l} className="text-center md:text-left">
+                  <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(20px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                  <div className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.40)" }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Scenes — services as posters */}
-      <section className="sec dim letterbox">
-        <div className="wrap">
-          <div className="shead reveal"><span className="kick">Four Platforms</span><h2>네 곳의 <em>화면</em></h2><p>인스타·틱톡·페이스북·유튜브 — 플랫폼마다 호흡과 비율, 후킹 포인트가 다릅니다</p></div>
-          <div className="scenes">
-
-            {/* Card 1 — INSTAGRAM REELS */}
-            <div className="scene a reveal d1">
-              <div className="mock">
-                <div className="bg" />
-                <span className="pchip">Reels</span>
-                <div className="stack">
-                  <span className="av" />
-                  <span className="ic"><span className="em">♥</span><span className="n">28.4K</span></span>
-                  <span className="ic"><span className="em">💬</span><span className="n">412</span></span>
-                  <span className="ic"><span className="em">↗</span><span className="n">공유</span></span>
-                  <span className="disc" />
-                </div>
-                <div className="cap">
-                  <div className="un">aio_studio<span className="v">· 팔로우</span></div>
-                  <div className="tx">한 컷이 전부입니다 ✨ #릴스 #브랜딩</div>
-                  <span className="mu">🎵 Original audio · aio_studio</span>
-                </div>
-              </div>
-              <div className="sfoot">
-                <div className="tc">Platform 01 · Instagram Reels</div>
-                <h3>인스타 <em>릴스</em></h3>
-                <p>브랜드·라이프스타일·후킹 컷 — 알고리즘이 좋아하는 흐름으로</p>
-              </div>
+          {/* 우: 제작 타임라인 블록 */}
+          <div
+            className="hidden md:block rounded-xl overflow-hidden"
+            style={{ background: "rgba(6,4,2,0.90)", border: "1px solid rgba(245,158,11,0.18)" }}
+          >
+            <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(245,158,11,0.12)", background: "rgba(245,158,11,0.05)" }}>
+              <span className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.30)", fontFamily: "var(--font-jetbrains)" }}>aio-video.timeline</span>
+              <span className="flex items-center gap-1.5 text-[10px]" style={{ color: "#EF4444", fontFamily: "var(--font-jetbrains)" }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" /> ● REC
+              </span>
             </div>
-
-            {/* Card 2 — TIKTOK */}
-            <div className="scene b reveal d2">
-              <div className="mock">
-                <div className="bg" />
-                <span className="pchip">TikTok</span>
-                <div className="stack">
-                  <span className="av" />
-                  <span className="ic"><span className="em">♥</span><span className="n">128K</span></span>
-                  <span className="ic"><span className="em">💬</span><span className="n">2,840</span></span>
-                  <span className="ic"><span className="em">↗</span><span className="n">42K</span></span>
-                  <span className="disc" />
+            <div className="p-5 space-y-3">
+              {[
+                { tc: "00:00", label: "레퍼런스·콘티", color: ACCENT },
+                { tc: "01:00", label: "러프 컷", color: ACCENT },
+                { tc: "02:00", label: "파인 컷·색보정", color: ACCENT },
+                { tc: "03:00", label: "마스터 납품", color: ACCENT },
+              ].map((step) => (
+                <div key={step.label} className="flex items-center gap-3 py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  <span className="text-[10px] w-12 flex-shrink-0" style={{ color: step.color, fontFamily: "var(--font-jetbrains)" }}>{step.tc}</span>
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: step.color }} />
+                  <span className="text-[12px] font-medium text-white">{step.label}</span>
                 </div>
-                <div className="cap">
-                  <div className="un">@aio_studio</div>
-                  <div className="tx">첫 1초에 시선을 사로잡습니다 #fyp #쇼츠 #브랜딩</div>
-                  <span className="mu">🎵 trending · 12.4M videos</span>
-                </div>
-              </div>
-              <div className="sfoot">
-                <div className="tc">Platform 02 · TikTok</div>
-                <h3><em>틱톡</em> 콘텐츠</h3>
-                <p>트렌드를 타는 후킹 컷 — 첫 1초에 멈추게, 끝까지 보게</p>
-              </div>
-            </div>
-
-            {/* Card 3 — FACEBOOK REELS */}
-            <div className="scene c reveal d3">
-              <div className="mock">
-                <div className="bg" />
-                <span className="pchip">Reels</span>
-                <div className="stack">
-                  <span className="av" />
-                  <span className="ic"><span className="em">👍</span><span className="n">8.2K</span></span>
-                  <span className="ic"><span className="em">💬</span><span className="n">186</span></span>
-                  <span className="ic"><span className="em">↗</span><span className="n">공유</span></span>
-                  <span className="disc" />
-                </div>
-                <div className="cap">
-                  <div className="un">AIO Studio<span className="v">· Sponsored</span></div>
-                  <div className="tx">광고비 대비 4.1× ROAS — 다음 한 클릭을 만드는 영상</div>
-                  <span className="mu">🎵 Brand audio · aio</span>
-                </div>
-              </div>
-              <div className="sfoot">
-                <div className="tc">Platform 03 · Facebook</div>
-                <h3>페이스북 <em>릴스</em></h3>
-                <p>광고·전환 영상 — Sponsored 노출에 최적화된 호흡과 컷</p>
-              </div>
-            </div>
-
-            {/* Card 4 — YOUTUBE SHORTS */}
-            <div className="scene d reveal d1">
-              <div className="mock">
-                <div className="bg" />
-                <span className="pchip">Shorts</span>
-                <div className="stack">
-                  <span className="av" />
-                  <span className="ic"><span className="em">👍</span><span className="n">52K</span></span>
-                  <span className="ic"><span className="em">💬</span><span className="n">1.2K</span></span>
-                  <span className="ic"><span className="em">↗</span><span className="n">공유</span></span>
-                  <span className="disc" />
-                </div>
-                <div className="cap">
-                  <div className="un">AIO Studio<span className="v">· 구독</span></div>
-                  <div className="tx">매일 9분 단축한 워크플로우 [Behind] #shorts</div>
-                  <span className="mu">🎵 워크플로우 · AIO</span>
-                </div>
-              </div>
-              <div className="sfoot">
-                <div className="tc">Platform 04 · YouTube Shorts</div>
-                <h3>유튜브 <em>숏츠</em></h3>
-                <p>채널 운영용 숏폼 — 구독·체류 시간 모두 끌어올리는 컷</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing pkg */}
-      <section className="sec letterbox">
-        <div className="wrap">
-          <div className="shead reveal"><span className="kick">Pricing · 준비 중</span><h2>가격은 <em>상담 후</em></h2><p>분량·촬영 유무·소스 사용 범위에 따라 다릅니다 · 정식 가격표는 곧 공개</p></div>
-          <div className="pkg reveal d1">
-            <div className="lbl">기준 가격대 — 상담 후 견적</div>
-            <div className="num"><em>49.9 ~ 199</em> 만원</div>
-            <p className="desc">SNS 숏폼 한 편부터 브랜드 영상 풀패키지까지 — 의뢰 내용에 맞춰</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Process — scrubber timeline */}
-      <section className="sec dim letterbox">
-        <div className="wrap">
-          <div className="shead reveal"><span className="kick">Process · Timeline</span><h2>제작 <em>흐름</em></h2></div>
-          <div className="tl reveal d1">
-            <div className="tlrow">
-              <div className="tlc"><div className="tc">00:00</div><h4>레퍼런스</h4><p>방향을 시안으로 먼저 합의</p></div>
-              <div className="tlc"><div className="tc">01:00</div><h4>러프 컷</h4><p>구조와 호흡을 먼저</p></div>
-              <div className="tlc"><div className="tc">02:00</div><h4>파인 컷</h4><p>컬러·자막·믹스 다듬기</p></div>
-              <div className="tlc"><div className="tc">03:00</div><h4>마스터</h4><p>4K·소스 원본 함께 전달</p></div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="ctaS"><div className="wrap reveal">
-        <h2>찍을<br /><em>한 컷</em>이 있나요?</h2>
-        <p>지금 문의하면 24시간 안에 견적 · 5일 안에 시안 컷</p>
-        <a className="cta-pill" href={`${base}/quote`}>제작 문의 ▶</a>
-      </div></section>
+      {/* ── 편집 툴 strip ── */}
+      <div style={{ background: "#0A0A0A", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <span
+            className="text-[9px] font-bold tracking-[0.25em] uppercase"
+            style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}
+          >
+            Edit Tools
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {STACK.map((t) => (
+              <span
+                key={t}
+                className="text-[11px] font-medium px-2.5 py-1 rounded-md"
+                style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-jetbrains)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 4 서비스 카드 ── */}
+      <section className="bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Services</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>네 가지 영상 서비스</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+            {SUB_SERVICES.map((s) => {
+              const Card = (
+                <div
+                  className="group border rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ background: s.bg, borderColor: s.accent + "30", opacity: s.soon ? 0.6 : 1 }}
+                >
+                  <div className="h-1" style={{ background: s.accent }} />
+                  <div className="p-3.5 sm:p-6">
+                    <div className="flex items-center justify-between mb-2 sm:mb-4">
+                      <span className="text-[10px] font-bold tracking-[0.2em]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.no}</span>
+                      {s.soon && <span className="text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-[#F3F4F6] text-[#9CA3AF] rounded-full">SOON</span>}
+                    </div>
+                    <h3 className="font-bold text-[#111] mb-0.5 sm:mb-1 text-[17px] sm:text-[clamp(18px,1.8vw,22px)]">{s.title}</h3>
+                    <p className="hidden sm:block text-[11px] text-[#9CA3AF] mb-3" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.en}</p>
+                    <p className="hidden sm:block text-[13px] text-[#6B7280] leading-[1.7] mb-4">{s.desc}</p>
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-5">
+                      {s.tags.map((tag) => (
+                        <span key={tag} className="text-[10px] sm:text-[11px] font-medium px-1.5 sm:px-2 py-0.5 rounded-md" style={{ background: s.accent + "12", color: s.accent }}>{tag}</span>
+                      ))}
+                    </div>
+                    {!s.soon && (
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 sm:pt-4 border-t border-[#F3F4F6] gap-0.5 sm:gap-0">
+                        <span className="font-bold text-[17px] sm:text-[clamp(16px,1.6vw,20px)]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[10px] sm:text-[11px] text-[#9CA3AF]">납기</span>
+                          <span className="text-[11px] sm:text-[12px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.days}</span>
+                          <span className="text-[11px] sm:text-[12px] font-semibold ml-0.5" style={{ color: s.accent }}>→</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+              return s.soon ? <div key={s.id}>{Card}</div> : <Link key={s.id} href={s.href(locale)} className="block">{Card}</Link>;
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 포트폴리오 미리보기 ── */}
+      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
+            </div>
+            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {PORTFOLIO.map((p) => (
+              <Link key={p.title} href={p.href(locale)} className="group block">
+                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
+                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
+                    <span className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: p.accent + "20", color: p.accent }}>{p.type}</span>
+                    <span className="text-[10px] font-medium" style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}>{p.stack}</span>
+                  </div>
+                  <div className="p-3.5">
+                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
+                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-5 md:hidden">
+            <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 일하는 방식 ── */}
+      <section className="bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+            <div className="md:sticky md:top-24 text-center md:text-left">
+              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
+              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>컷 중심으로<br />일합니다</h2>
+              <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
+                레퍼런스 합의 → 러프 컷 → 파인 컷 → 마스터<br className="hidden md:block" />단계마다 확인하고 다음 단계로 넘어갑니다
+              </p>
+              <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
+                {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (
+                  <div key={s.l} className="text-center md:text-left">
+                    <div className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
+                    <div className="text-[11px] text-[#9CA3AF] mt-0.5">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-center md:justify-start">
+                <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
+                  제작 문의 ▶
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-3">
+              {HOW.map((h) => (
+                <div key={h.no} className="flex items-start gap-4 p-5 rounded-xl border border-[#E5E7EB] hover:border-[#111] transition-colors bg-[#F9FAFB]">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 bg-white border border-[#E5E7EB]">{h.icon}</div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{h.no}</span>
+                      <h3 className="text-[13px] font-bold text-[#111]">{h.title}</h3>
+                    </div>
+                    <p className="text-[12px] text-[#6B7280] leading-[1.7]">{h.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 의뢰인 후기 ── */}
+      <section style={{ background: "#0A0A0A" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>Reviews</p>
+            <h2 className="font-bold text-white" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>의뢰인 후기</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {REVIEWS.map((r, i) => (
+              <div key={i} className="rounded-xl p-5 flex flex-col gap-3" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: r.stars }).map((_, j) => (
+                    <span key={j} className="text-[#F59E0B] text-[13px]">★</span>
+                  ))}
+                </div>
+                <p className="text-[13px] leading-[1.8] flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  &ldquo;{r.text}&rdquo;
+                </p>
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div>
+                    <p className="text-[12px] font-semibold text-white">{r.author}</p>
+                    <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>{r.service}</p>
+                  </div>
+                  <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-jetbrains)" }}>{r.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="bg-white">
+        <div className="max-w-[760px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>FAQ</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>자주 묻는 질문</h2>
+          </div>
+          <div className="space-y-2">
+            {FAQS.map((faq, i) => (
+              <div key={i} className="border border-[#E5E7EB] rounded-xl overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#F9FAFB] transition-colors"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span className="text-[13px] font-semibold text-[#111] pr-4">{faq.q}</span>
+                  <span
+                    className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full border border-[#E5E7EB] text-[#111] text-[12px] transition-transform"
+                    style={{ transform: openFaq === i ? "rotate(45deg)" : "none" }}
+                  >+</span>
+                </button>
+                {openFaq === i && (
+                  <div className="px-5 pb-4 border-t border-[#F3F4F6]">
+                    <p className="text-[12px] text-[#6B7280] leading-[1.8] pt-3">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <ServiceCta
+        accentColor={ACCENT}
+        headline={<>찍을 <span style={{ color: ACCENT }}>한 컷</span>이 있나요?</>}
+        sub="지금 문의하면 24시간 안에 견적 · 5일 안에 첫 컷"
+        ctaLabel="제작 문의 ▶"
+        ctaHref={`/${locale}/quote`}
+      />
 
       <AioFooter locale={locale} />
     </div>

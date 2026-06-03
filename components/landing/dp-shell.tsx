@@ -82,7 +82,7 @@ export const DP_CSS = `
 .aiodp .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:32px}
 .aiodp .foot{border-top:1px solid var(--line2);padding:40px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
-@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr}}
+@media(max-width:820px){.aiodp .dogrid{grid-template-columns:1fr}.aiodp .ways{grid-template-columns:1fr 1fr;max-width:540px}.aiodp .way:nth-child(2n){border-right:none}.aiodp .way:nth-child(-n+2){border-bottom:1px solid var(--line2)}.aiodp .stats{grid-template-columns:1fr 1fr}.aiodp .team{grid-template-columns:1fr!important}}
 .aiodp .org{max-width:660px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
 .aiodp .org .lvl{width:100%;border:1px solid var(--line2);border-radius:12px;background:var(--bg2);padding:18px 24px;text-align:center;transition:border-color .3s,transform .3s}
 .aiodp .org .lvl:hover{border-color:var(--gold);transform:translateY(-3px)}
