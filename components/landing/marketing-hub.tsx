@@ -87,7 +87,7 @@ export function MarketingHub({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              유입의 답은<br className="hidden md:block" /><span style={{ color: ACCENT }}>꾸준함</span>입니다
+              유입의 답은<br /><span style={{ color: ACCENT }}>꾸준함</span>입니다
             </h1>
             <p
               className="leading-[1.8] mb-8"
@@ -232,43 +232,30 @@ export function MarketingHub({ locale }: { locale: string }) {
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14">
           <div className="text-center md:text-left mb-10">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
-            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 운영한 채널</h2>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 운영한 결과물</h2>
           </div>
-          <div className="grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {([
-              { label: "브랜드 마케팅", title: "스킨케어 브랜드", stack: "Meta Ads · Instagram · GA4", accent: "#10B981", bg: "#F0FDF4", border: "#BBF7D0", desktop: "/images/portfolio/ws-all-desktop.png", mobile: "/images/portfolio/ws-all-mobile.png", delay: "0s" },
-              { label: "쇼핑몰 마케팅", title: "밀키트 쇼핑몰", stack: "카페24 · GA4 · Meta픽셀", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", desktop: "/images/portfolio/ws-shop-desktop.png", mobile: "/images/portfolio/ws-shop-mobile.png", delay: "5s" },
+              { label: "블로그 운영", title: "네이버 블로그 운영대행", stack: "Naver Blog · SEO · GA4", accent: "#10B981", bg: "#F0FDF4", border: "#BBF7D0", desktop: "/portfolio/blogautopilot-multinational/published-post-ko.png", delay: "0s" },
+              { label: "SNS 운영", title: "인스타그램 운영대행", stack: "Instagram · Reels · Meta Ads", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", desktop: "/images/portfolio/ws-all-desktop.png", delay: "3s" },
+              { label: "유튜브 운영", title: "유튜브 채널 운영대행", stack: "YouTube · Shorts · 썸네일", accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-shop-desktop.png", delay: "6s" },
             ] as const).map((set) => (
-              <div key={set.title} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
-                <div className="flex flex-wrap items-center gap-2 mb-5">
+              <div key={set.label} style={{ background: set.bg, borderRadius: 20, padding: "20px 16px 16px", border: `1px solid ${set.border}` }}>
+                <div className="flex flex-wrap items-center gap-2 mb-4">
                   <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
-                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
-                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
+                  <span className="text-[13px] font-bold text-[#111]">{set.title}</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
-                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
-                    <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
-                      <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
-                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                      </div>
-                    </div>
-                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
-                  </div>
-                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
-                    <div style={{ position: "relative" }}>
-                      <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
-                        <div style={{ width: "100%", animation: `hubScroll 11s linear ${set.delay} infinite` }}>
-                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        </div>
-                      </div>
-                      <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                <div style={{ position: "relative" }}>
+                  <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                    <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
+                      <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
+                      <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
                     </div>
                   </div>
+                  <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                 </div>
+                <p className="text-[10px] text-[#9CA3AF] mt-2 text-center" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</p>
               </div>
             ))}
           </div>

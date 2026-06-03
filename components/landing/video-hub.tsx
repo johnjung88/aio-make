@@ -88,7 +88,7 @@ export function VideoHub({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              한 <span style={{ color: ACCENT }}>컷</span>이<br className="hidden md:block" />전부입니다
+              한 <span style={{ color: ACCENT }}>컷</span>이<br />전부입니다
             </h1>
             <p
               className="leading-[1.8] mb-8"
@@ -226,51 +226,38 @@ export function VideoHub({ locale }: { locale: string }) {
       </section>
 
       {/* ── 포트폴리오 미리보기 ── */}
-      <style>{`
-        @keyframes hubScroll {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-33.33%); }
-        }
-      `}</style>
       <section style={{ background: "#F2F2F2", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14">
           <div className="text-center md:text-left mb-10">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
             <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
           </div>
-          <div className="grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10 justify-items-center">
             {([
-              { label: "브랜드 영상", title: "스타트업 서비스 소개", stack: "Premiere Pro · After Effects · 4K", accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-startup-desktop.png", mobile: "/images/portfolio/ws-startup-mobile.png", delay: "0s" },
-              { label: "병원 영상", title: "자연한의원 소개", stack: "Premiere Pro · 색보정 · 자막", accent: "#38BDF8", bg: "#F0F9FF", border: "#BAE6FD", desktop: "/images/portfolio/ws-medical-desktop.png", mobile: "/images/portfolio/ws-medical-mobile.png", delay: "5s" },
-            ] as const).map((set) => (
-              <div key={set.title} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
-                <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
-                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
-                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
-                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
-                    <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
-                      <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
-                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                      </div>
-                    </div>
-                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+              { label: "브랜드 소개 영상", title: "서비스 소개", accent: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A", src: "/videos/brand-intro.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
+              { label: "제품 광고 영상", title: "제품 광고", accent: "#EF4444", bg: "#FEF2F2", border: "#FECACA", src: "/videos/product-ad.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
+              { label: "인플루언서 숏폼", title: "숏폼 영상", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", src: "/videos/influencer-shortform.mp4", poster: "/portfolio/video-content-samples/brand-shorts.png" },
+            ] as const).map((item) => (
+              <div key={item.label} style={{ width: "100%", maxWidth: 320 }}>
+                <div style={{ background: item.bg, borderRadius: 20, padding: "20px 16px 24px", border: `1px solid ${item.border}` }}>
+                  <div className="flex flex-wrap items-center gap-2 mb-5">
+                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: item.accent + "22", color: item.accent }}>{item.label}</span>
+                    <span className="text-[13px] font-bold text-[#111]">{item.title}</span>
                   </div>
-                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
-                    <div style={{ position: "relative" }}>
-                      <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
-                        <div style={{ width: "100%", animation: `hubScroll 11s linear ${set.delay} infinite` }}>
-                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        </div>
-                      </div>
-                      <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                  <div style={{ position: "relative", maxWidth: 240, margin: "0 auto" }}>
+                    <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0, borderRadius: "2px", background: "#000" }}>
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        poster={item.poster}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      >
+                        <source src={item.src} type="video/mp4" />
+                      </video>
                     </div>
+                    <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                   </div>
                 </div>
               </div>

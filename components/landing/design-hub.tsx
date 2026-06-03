@@ -96,7 +96,7 @@ export function DesignHub({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              보이는 것이<br className="hidden md:block" />곧 <span style={{ color: ACCENT }}>신뢰</span>입니다
+              보이는 것이<br />곧 <span style={{ color: ACCENT }}>신뢰</span>입니다
             </h1>
             <p
               className="leading-[1.8] mb-8"
@@ -249,42 +249,94 @@ export function DesignHub({ locale }: { locale: string }) {
             <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
           </div>
           <div className="grid grid-cols-1 gap-8">
-            {([
-              { label: "상세페이지", title: "비건 클렌저", stack: "Figma · Photoshop · HTML/CSS", accent: "#2DD4BF", bg: "#F0FDFA", border: "#99F6E4", desktop: "/portfolio/detail-page/vegan-cleanser/detail.png", mobile: "/portfolio/detail-page/vegan-cleanser/detail.png", delay: "0s" },
-              { label: "상세페이지", title: "프리미엄 밀키트", stack: "Figma · Photoshop", accent: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A", desktop: "/portfolio/detail-page/premium-mealkit/detail.png", mobile: "/portfolio/detail-page/premium-mealkit/detail.png", delay: "5s" },
-            ] as const).map((set) => (
-              <div key={set.title} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
-                <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
-                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
-                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
-                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
-                    <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
-                      <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
-                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                      </div>
-                    </div>
-                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+
+            {/* 01 — 로고 & 브랜드 브리프 */}
+            <div style={{ background: "#FDF4F4", borderRadius: 20, padding: "24px 20px 20px", border: "1px solid #F5C6C6" }}>
+              <div className="flex flex-wrap items-center gap-2 mb-5">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#C6606022", color: "#C66060" }}>로고 &amp; 브랜드 브리프</span>
+                <span className="text-[14px] font-bold text-[#111]">브랜드 아이덴티티 패키지</span>
+                <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>Illustrator · Figma · Brand Brief</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                {[
+                  "/portfolio/logo-showcase/nudekind/brand-kit-board.svg",
+                  "/portfolio/logo-showcase/vela-skin/brand-kit-board.svg",
+                  "/portfolio/logo-showcase/salty-yuzu/brand-kit-board.svg",
+                  "/portfolio/logo-showcase/danchae-table/brand-kit-board.svg",
+                ].map((src, i) => (
+                  <div key={i} style={{ background: "white", borderRadius: 8, padding: "6px", border: "1px solid #F3F4F6", overflow: "hidden" }}>
+                    <img src={src} alt="brand kit" style={{ width: "100%", height: "auto", display: "block" }} />
                   </div>
-                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
-                    <div style={{ position: "relative" }}>
-                      <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
-                        <div style={{ width: "100%", animation: `hubScroll 11s linear ${set.delay} infinite` }}>
-                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
-                        </div>
-                      </div>
-                      <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <img src="/portfolio/aio-brand-kit/business-card-front.png" alt="명함 앞면" style={{ width: "49%", borderRadius: 6, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.13))" }} />
+                <img src="/portfolio/aio-brand-kit/business-card-back.png" alt="명함 뒷면" style={{ width: "49%", borderRadius: 6, filter: "drop-shadow(0 4px 14px rgba(0,0,0,0.13))" }} />
+              </div>
+            </div>
+
+            {/* 02 — 상세페이지 */}
+            <div style={{ background: "#F0FDFA", borderRadius: 20, padding: "24px 20px 20px", border: "1px solid #99F6E4" }}>
+              <div className="flex flex-wrap items-center gap-2 mb-5">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#2DD4BF22", color: "#2DD4BF" }}>상세페이지</span>
+                <span className="text-[14px] font-bold text-[#111]">프리미엄 밀키트 상세페이지</span>
+                <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>Figma · Photoshop · HTML/CSS</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
+                <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+                  <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                    <div style={{ width: "100%", animation: "hubScroll 16s linear 0s infinite" }}>
+                      <img src="/portfolio/detail-page/premium-mealkit/detail.png" alt="상세페이지" style={{ width: "100%", display: "block" }} />
+                      <img src="/portfolio/detail-page/premium-mealkit/detail.png" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      <img src="/portfolio/detail-page/premium-mealkit/detail.png" aria-hidden="true" style={{ width: "100%", display: "block" }} />
                     </div>
+                  </div>
+                  <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                </div>
+                <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
+                  <div style={{ position: "relative" }}>
+                    <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
+                      <div style={{ width: "100%", animation: "hubScroll 11s linear 0s infinite" }}>
+                        <img src="/portfolio/detail-page/premium-mealkit/detail.png" alt="상세페이지 모바일" style={{ width: "100%", display: "block" }} />
+                        <img src="/portfolio/detail-page/premium-mealkit/detail.png" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        <img src="/portfolio/detail-page/premium-mealkit/detail.png" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      </div>
+                    </div>
+                    <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* 03 — PPT 디자인 */}
+            <div style={{ background: "#EEF2FF", borderRadius: 20, padding: "24px 20px 20px", border: "1px solid #C7D2FE" }}>
+              <div className="flex flex-wrap items-center gap-2 mb-5">
+                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#818CF822", color: "#818CF8" }}>PPT 디자인</span>
+                <span className="text-[14px] font-bold text-[#111]">브랜드 제안서 덱</span>
+                <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>PowerPoint · Figma</span>
+              </div>
+              <div style={{ position: "relative" }}>
+                <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                  <div style={{ width: "100%", animation: "hubScroll 20s linear 3s infinite" }}>
+                    {[
+                      "/portfolio/ppt-design/brand-proposal/cover-slide.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-1.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-2.png",
+                      "/portfolio/ppt-design/brand-proposal/cover-slide.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-1.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-2.png",
+                      "/portfolio/ppt-design/brand-proposal/cover-slide.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-1.png",
+                      "/portfolio/ppt-design/brand-proposal/sample-2.png",
+                    ].map((src, i) => (
+                      <img key={i} src={src} alt="PPT 슬라이드" aria-hidden={i > 0} style={{ width: "100%", display: "block" }} />
+                    ))}
+                  </div>
+                </div>
+                <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
