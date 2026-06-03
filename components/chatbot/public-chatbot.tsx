@@ -94,7 +94,7 @@ export function PublicChatbot({ locale }: { locale: string }) {
   }
 
   return (
-    <div className="fixed right-4 top-3 z-[70] flex flex-col-reverse items-end gap-3 sm:bottom-5 sm:right-5 sm:top-auto sm:z-50 sm:flex-col">
+    <div className="fixed right-4 bottom-5 z-[70] flex flex-col items-end gap-3 sm:right-5 sm:z-50">
       {open && (
         <section className="flex max-h-[78vh] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl shadow-black/40">
           {/* header */}

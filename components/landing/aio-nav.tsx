@@ -30,19 +30,19 @@ const NAV_CSS = `
 .aionav .b .logo img{height:100%;width:100%;object-fit:contain}
 .aionav .b .bn{font-family:var(--font-fraunces);font-weight:600;font-size:18px;letter-spacing:.02em}
 .aionav .b .bn em{font-style:normal;color:var(--nav-accent, #C8A24A)}
-.aionav .sp{flex:1}
+.aionav .sp{display:none}
+.aionav .navitems{display:flex;align-items:center;justify-content:center;flex:1;gap:2px}
 .aionav .item{position:relative}
 .aionav .item>a,.aionav .item>span{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ibm-plex-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#B7B0A2;padding:10px 13px;border-radius:8px;text-decoration:none;cursor:pointer}
 .aionav .item>a:hover,.aionav .item.on>a{color:var(--nav-accent, #C8A24A)}
 .aionav .item .ar{font-size:8px;opacity:.7}
-.aionav .dd{position:absolute;top:calc(100% - 2px);left:0;min-width:230px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:5}
-.aionav .item:hover .dd{opacity:1;visibility:visible;transform:none}
+.aionav .dd{position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%) translateY(8px);min-width:230px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:200}
+.aionav .item:hover .dd{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .aionav .dd a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-radius:7px;font-family:var(--font-pretendard);font-size:13.5px;color:#EFE9DD;text-decoration:none}
 .aionav .dd a:hover{background:rgba(200,162,74,.12);color:var(--nav-accent, #C8A24A)}
 .aionav .dd a .sn{font-family:var(--font-ibm-plex-mono);font-size:10px;color:#6F6A5E;letter-spacing:.1em}
 .aionav .dd a.soon{color:#6F6A5E;cursor:default}.aionav .dd a.soon:hover{background:transparent;color:#6F6A5E}
 .aionav .cta{font-family:var(--font-pretendard);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;background:var(--nav-accent, #C8A24A);color:#0E0D0B;text-decoration:none;margin-left:6px;white-space:nowrap}
-.aionav .navitems{display:contents}
 @media(max-width:820px){
   .aionav .cta{display:none}
   .aionav .item>a,.aionav .item>span{font-size:10.5px;padding:8px 10px}
