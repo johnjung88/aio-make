@@ -74,7 +74,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
       <AioNav locale={locale} level="middle" cat="development" active="service" />
 
       {/* ── Hero — 전체 화면 다크 이미지 배경 ── */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[70vh] md:min-h-[90vh] flex items-center overflow-hidden">
         <Image
           src="/images/services/development-hero.png"
           alt="AIO 개발팀"
@@ -92,10 +92,10 @@ export function DevelopmentServices({ locale }: { locale: string }) {
         {/* 하단 화이트 페이드 */}
         <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none" style={{ background: "linear-gradient(to top, #fff 0%, transparent 100%)" }} />
 
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-24 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-10 items-center">
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-28 grid grid-cols-1 md:grid-cols-[1fr_340px] gap-10 items-center">
 
           {/* 좌: 헤드라인 + CTA */}
-          <div>
+          <div className="text-center md:text-left">
             <p
               className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-5"
               style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-jetbrains)" }}
@@ -104,18 +104,18 @@ export function DevelopmentServices({ locale }: { locale: string }) {
             </p>
             <h1
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
-              style={{ fontSize: "clamp(38px,5.5vw,72px)" }}
+              style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              <span style={{ color: ACCENT }}>코드</span>로 만드는<br />모든 것
+              <span style={{ color: ACCENT }}>코드</span>로 만드는<br className="hidden md:block" />모든 것
             </h1>
             <p
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              웹사이트·쇼핑몰·자동화·프로그램 — 비즈니스에 필요한 결과물을 빠르게 만듭니다<br />
-              보여주기용이 아닌, 바로 운영 가능한 완성품으로
+              시안이 아닌 완성품 — 받는 즉시 운영하는 코드<br className="hidden md:block" />
+              웹사이트 · 쇼핑몰 · 자동화 · 프로그램
             </p>
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
               {["5일 납품 보장", "98% 재의뢰율", "1시간 응답", "1달 무상 A/S"].map((b) => (
                 <span
                   key={b}
@@ -126,7 +126,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap gap-3 mb-12">
+            <div className="flex flex-wrap gap-3 mb-12 justify-center md:justify-start">
               <Link
                 href={`/${locale}/quote`}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-[14px] font-bold text-[#111] bg-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
@@ -135,9 +135,9 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               </Link>
             </div>
             {/* 하단 수치 */}
-            <div className="flex gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+            <div className="flex justify-center md:justify-start gap-6 sm:gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
               {[{ v: "142", l: "누적 의뢰" }, { v: "5일", l: "평균 납기" }, { v: "98%", l: "재의뢰율" }].map((s) => (
-                <div key={s.l}>
+                <div key={s.l} className="text-center md:text-left">
                   <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(20px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
                   <div className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.40)" }}>{s.l}</div>
                 </div>
@@ -207,34 +207,34 @@ await aio.build(project);
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Services</p>
             <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,3vw,36px)" }}>네 가지 개발 서비스</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {SUB_SERVICES.map((s) => {
               const Card = (
                 <div
-                  className="group border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group border rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   style={{ background: s.bg, borderColor: s.accent + "30", opacity: s.soon ? 0.6 : 1 }}
                 >
                   <div className="h-1" style={{ background: s.accent }} />
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
+                  <div className="p-3.5 sm:p-6">
+                    <div className="flex items-center justify-between mb-2 sm:mb-4">
                       <span className="text-[10px] font-bold tracking-[0.2em]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.no}</span>
-                      {s.soon && <span className="text-[10px] font-bold px-2.5 py-1 bg-[#F3F4F6] text-[#9CA3AF] rounded-full">COMING SOON</span>}
+                      {s.soon && <span className="text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-[#F3F4F6] text-[#9CA3AF] rounded-full">SOON</span>}
                     </div>
-                    <h3 className="font-bold text-[#111] mb-1" style={{ fontSize: "clamp(18px,1.8vw,22px)" }}>{s.title}</h3>
-                    <p className="text-[11px] text-[#9CA3AF] mb-3" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.en}</p>
-                    <p className="text-[13px] text-[#6B7280] leading-[1.7] mb-4">{s.desc}</p>
-                    <div className="flex flex-wrap gap-1.5 mb-5">
+                    <h3 className="font-bold text-[#111] mb-0.5 sm:mb-1 text-[17px] sm:text-[clamp(18px,1.8vw,22px)]">{s.title}</h3>
+                    <p className="hidden sm:block text-[11px] text-[#9CA3AF] mb-3" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.en}</p>
+                    <p className="hidden sm:block text-[13px] text-[#6B7280] leading-[1.7] mb-4">{s.desc}</p>
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-5">
                       {s.tags.map((tag) => (
-                        <span key={tag} className="text-[11px] font-medium px-2 py-0.5 rounded-md" style={{ background: s.accent + "12", color: s.accent }}>{tag}</span>
+                        <span key={tag} className="text-[10px] sm:text-[11px] font-medium px-1.5 sm:px-2 py-0.5 rounded-md" style={{ background: s.accent + "12", color: s.accent }}>{tag}</span>
                       ))}
                     </div>
                     {!s.soon && (
-                      <div className="flex items-center justify-between pt-4 border-t border-[#F3F4F6]">
-                        <span className="font-bold" style={{ fontSize: "clamp(16px,1.6vw,20px)", color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[11px] text-[#9CA3AF]">납기</span>
-                          <span className="text-[12px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.days}</span>
-                          <span className="text-[12px] font-semibold ml-1" style={{ color: s.accent }}>→</span>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 sm:pt-4 border-t border-[#F3F4F6] gap-0.5 sm:gap-0">
+                        <span className="font-bold text-[17px] sm:text-[clamp(16px,1.6vw,20px)]" style={{ color: s.accent, fontFamily: "var(--font-jetbrains)" }}>{s.price}</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[10px] sm:text-[11px] text-[#9CA3AF]">납기</span>
+                          <span className="text-[11px] sm:text-[12px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{s.days}</span>
+                          <span className="text-[11px] sm:text-[12px] font-semibold ml-0.5" style={{ color: s.accent }}>→</span>
                         </div>
                       </div>
                     )}
