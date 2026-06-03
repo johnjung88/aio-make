@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AioNav, AioFooter } from "./aio-nav";
 import { ServiceCta } from "@/components/services/service-cta";
 
+
 const ACCENT = "#C66060";
 
 const SUB_SERVICES = [
@@ -42,13 +43,6 @@ const HOW = [
   { no: "04", title: "2차 수정 무료", desc: "1차 시안 확인 후 수정 요청 → 2차 시안 → 최종 납품 — 만족할 때까지", icon: "✅" },
 ];
 
-const PORTFOLIO = [
-  { title: "스킨케어 브랜드 상세페이지", type: "상세페이지", tag: "뷰티", stack: "Figma · Photoshop", bg: "#F0FDFA", accent: "#2DD4BF", href: (l: string) => `/${l}/portfolio/category/design` },
-  { title: "SaaS 서비스 IR 덱", type: "PPT 디자인", tag: "스타트업", stack: "PowerPoint · Figma", bg: "#EEF2FF", accent: "#818CF8", href: (l: string) => `/${l}/portfolio/category/design` },
-  { title: "펫푸드 브랜드 상세페이지", type: "상세페이지", tag: "반려동물", stack: "Photoshop · HTML", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/design` },
-  { title: "세무사 법인 제안서", type: "PPT 디자인", tag: "법률·세무", stack: "PowerPoint", bg: "#FDF4FF", accent: "#A855F7", href: (l: string) => `/${l}/portfolio/category/design` },
-];
-
 const REVIEWS = [
   { stars: 5, text: "상세페이지 보는 순간 '이거다' 싶었어요 — 고객 반응도 완전히 달라졌고 구매 전환율이 확 올랐습니다", author: "김*현", service: "상세페이지 제작", date: "2026.04" },
   { stars: 5, text: "PPT 디자인 완성도가 정말 높아서 발표 때 자신감이 생겼습니다 — 투자자 피드백도 긍정적이었어요", author: "이*준", service: "IR 덱 디자인", date: "2026.03" },
@@ -66,71 +60,8 @@ const FAQS = [
 
 const STACK = ["Figma", "Photoshop", "Illustrator", "After Effects", "PowerPoint", "Keynote"];
 
-const STUDIO_ITEMS = [
-  { id: "vegan-cleanser",     label: "뷰티",      name: "비건 클렌저 상세페이지",     src: "/portfolio/detail-page/vegan-cleanser/detail.png" },
-  { id: "premium-mealkit",    label: "푸드",      name: "프리미엄 밀키트 상세페이지",  src: "/portfolio/detail-page/premium-mealkit/detail.png" },
-  { id: "herbal-cream",       label: "헬스뷰티",  name: "허브 크림 상세페이지",        src: "/portfolio/detail-page/herbal-cream/detail.png" },
-  { id: "ampoule-anti-aging", label: "스킨케어",  name: "안티에이징 앰플 상세페이지",  src: "/portfolio/detail-page/ampoule-anti-aging/detail.png" },
-];
-type StudioItem = (typeof STUDIO_ITEMS)[number];
-
-// Monitor screen area: top=1.71% left=12.01% width=76.11% height=70.85%
-function StudioMacbook({ item }: { item: StudioItem }) {
-  return (
-    <div style={{ position: "relative", width: "76%", maxWidth: 820, flexShrink: 0 }}>
-      {/* Content behind transparent mockup */}
-      <div style={{
-        position: "absolute",
-        top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%",
-        overflow: "hidden", zIndex: 0,
-      }}>
-        <Image src={item.src} alt={item.name} fill unoptimized style={{ objectFit: "cover", objectPosition: "top center" }} />
-      </div>
-      {/* Transparent-screen monitor mockup on top */}
-      <Image
-        src="/mockups/monitor.png"
-        alt="monitor mockup"
-        width={3072} height={2048}
-        unoptimized
-        style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.5))" }}
-      />
-    </div>
-  );
-}
-
-// Phone screen area: top=15.79% left=18.17% width=63.54% height=70.87%
-function StudioPhone({ item }: { item: StudioItem }) {
-  return (
-    <div style={{
-      position: "absolute", bottom: "-8%", right: "2%",
-      width: "21%", maxWidth: 175, transform: "rotate(3deg)", zIndex: 10,
-    }}>
-      <div style={{ position: "relative" }}>
-        {/* Content behind transparent mockup */}
-        <div style={{
-          position: "absolute",
-          top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%",
-          overflow: "hidden", zIndex: 0,
-        }}>
-          <Image src={item.src} alt={item.name} fill unoptimized style={{ objectFit: "cover", objectPosition: "top center" }} />
-        </div>
-        {/* Transparent-screen phone mockup on top */}
-        <Image
-          src="/mockups/phone.png"
-          alt="phone mockup"
-          width={1728} height={3072}
-          unoptimized
-          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.6))" }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export function DesignHub({ locale }: { locale: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [studioId, setStudioId] = useState("vegan-cleanser");
-  const activeStudio = STUDIO_ITEMS.find((s) => s.id === studioId) ?? STUDIO_ITEMS[0];
 
   return (
     <div className="bg-white min-h-screen" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
@@ -304,92 +235,56 @@ export function DesignHub({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* ── Studio Preview ── */}
-      <section style={{ background: "#F2F2F2", padding: "72px clamp(16px,5vw,48px) 110px", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <p style={{
-              fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11, fontWeight: 600,
-              letterSpacing: "0.28em", textTransform: "uppercase",
-              color: "#9CA3AF", marginBottom: 12,
-            }}>Studio Preview</p>
-            <h2 style={{
-              fontSize: "clamp(24px,3.5vw,40px)", fontWeight: 700,
-              color: "#111", letterSpacing: "-0.02em", marginBottom: 10,
-            }}>화면으로 보는 작업물</h2>
-            <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.7 }}>
-              실제 납품된 상세페이지 — PC와 모바일 두 화면으로
-            </p>
-          </div>
-
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 52 }}>
-            {STUDIO_ITEMS.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setStudioId(s.id)}
-                style={{
-                  padding: "8px 18px", borderRadius: 999, border: "1px solid",
-                  borderColor: studioId === s.id ? ACCENT : "#D1D5DB",
-                  background: studioId === s.id ? ACCENT : "#fff",
-                  color: studioId === s.id ? "#fff" : "#6B7280",
-                  fontSize: 13, fontWeight: studioId === s.id ? 700 : 400,
-                  cursor: "pointer", transition: "all 0.2s",
-                }}
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-
-          <div style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
-            <StudioMacbook item={activeStudio} />
-            <StudioPhone item={activeStudio} />
-          </div>
-
-          <div style={{ textAlign: "center", marginTop: 20 }}>
-            <p style={{ fontSize: 14, fontWeight: 600, color: "#111", marginBottom: 20 }}>{activeStudio.name}</p>
-            <Link
-              href={`/${locale}/services/detail-page/portfolio`}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "10px 22px", border: `1px solid ${ACCENT}`, color: ACCENT,
-                borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none",
-              }}
-            >
-              포트폴리오 전체 보기 →
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ── 포트폴리오 미리보기 ── */}
-      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
-              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
-            </div>
-            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+      <style>{`
+        @keyframes hubScroll {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-33.33%); }
+        }
+      `}</style>
+      <section style={{ background: "#F2F2F2", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14">
+          <div className="text-center md:text-left mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {PORTFOLIO.map((p) => (
-              <Link key={p.title} href={p.href(locale)} className="group block">
-                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
-                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
-                    <span className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: p.accent + "20", color: p.accent }}>{p.type}</span>
-                    <span className="text-[10px] font-medium" style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}>{p.stack}</span>
+          <div className="grid grid-cols-1 gap-8">
+            {([
+              { label: "상세페이지", title: "비건 클렌저", stack: "Figma · Photoshop · HTML/CSS", accent: "#2DD4BF", bg: "#F0FDFA", border: "#99F6E4", desktop: "/portfolio/detail-page/vegan-cleanser/detail.png", mobile: "/portfolio/detail-page/vegan-cleanser/detail.png", delay: "0s" },
+              { label: "상세페이지", title: "프리미엄 밀키트", stack: "Figma · Photoshop", accent: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A", desktop: "/portfolio/detail-page/premium-mealkit/detail.png", mobile: "/portfolio/detail-page/premium-mealkit/detail.png", delay: "5s" },
+            ] as const).map((set) => (
+              <div key={set.title} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
+                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
+                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
+                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+                    <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                      <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
+                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
+                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      </div>
+                    </div>
+                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                   </div>
-                  <div className="p-3.5">
-                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
-                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
+                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
+                    <div style={{ position: "relative" }}>
+                      <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
+                        <div style={{ width: "100%", animation: `hubScroll 11s linear ${set.delay} infinite` }}>
+                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        </div>
+                      </div>
+                      <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                    </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
-          </div>
-          <div className="text-center mt-5 md:hidden">
-            <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
           </div>
         </div>
       </section>

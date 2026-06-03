@@ -266,8 +266,8 @@ await aio.build(project);
           {/* 2 세트 */}
           <div className="grid grid-cols-1 gap-8">
             {([
-              { label: "웹사이트", title: "자연한의원", stack: "Next.js · Vercel · 병원·의료", accent: "#4DD4AC", bg: "#EEF9F5", border: "#D1FAE5", desktop: "/images/portfolio/ws-medical-desktop.png", mobile: "/images/portfolio/ws-medical-mobile.png", delay: "0s" },
-              { label: "쇼핑몰",   title: "셰프밀 밀키트", stack: "카페24 · GA4 · Meta픽셀",   accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-shop-desktop.png",    mobile: "/images/portfolio/ws-shop-mobile.png",    delay: "5s" },
+              { label: "웹사이트", title: "자연한의원", stack: "Next.js · Vercel · 병원·의료", accent: "#4DD4AC", bg: "#EEF9F5", border: "#D1FAE5", desktop: "/images/portfolio/ws-clinic-scroll.png",  mobile: "/images/portfolio/ws-clinic-scroll.png",  delay: "0s" },
+              { label: "쇼핑몰",   title: "셰프밀 밀키트", stack: "카페24 · GA4 · Meta픽셀",   accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-mealkit-scroll.png", mobile: "/images/portfolio/ws-mealkit-scroll.png", delay: "5s" },
             ] as const).map((set) => (
               <div key={set.label} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
 

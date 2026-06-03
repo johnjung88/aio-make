@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AioNav, AioFooter } from "./aio-nav";
 import { ServiceCta } from "@/components/services/service-cta";
 
@@ -41,12 +42,6 @@ const HOW = [
   { no: "04", title: "월 단위 유연 계약", desc: "최소 3개월 운영 / 해지 30일 전 통보 — 불필요한 장기 구속 없이", icon: "🤝" },
 ];
 
-const PORTFOLIO = [
-  { title: "뷰티 브랜드 블로그 운영", type: "블로그", tag: "뷰티", stack: "Naver Blog · GA4", bg: "#F0FDF4", accent: "#10B981", href: (l: string) => `/${l}/portfolio/category/marketing` },
-  { title: "푸드 브랜드 인스타 운영", type: "SNS", tag: "F&B", stack: "Instagram · Reels", bg: "#FDF2F8", accent: "#F472B6", href: (l: string) => `/${l}/portfolio/category/marketing` },
-  { title: "홈퍼니싱 유튜브 채널", type: "영상채널", tag: "인테리어", stack: "YouTube · Shorts", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/marketing` },
-  { title: "스킨케어 틱톡 콘텐츠", type: "SNS", tag: "뷰티·건강", stack: "TikTok · Reels", bg: "#F0F9FF", accent: "#38BDF8", href: (l: string) => `/${l}/portfolio/category/marketing` },
-];
 
 const REVIEWS = [
   { stars: 5, text: "블로그 운영 시작 3개월 만에 네이버 검색 유입이 4배 늘었어요 — 키워드 선정부터 글 퀄리티까지 모두 만족합니다", author: "정*연", service: "블로그 운영대행", date: "2026.04" },
@@ -227,33 +222,55 @@ export function MarketingHub({ locale }: { locale: string }) {
       </section>
 
       {/* ── 포트폴리오 미리보기 ── */}
-      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
-              <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 운영한 채널</h2>
-            </div>
-            <Link href={`/${locale}/portfolio`} className="hidden md:flex items-center gap-1 text-[12px] font-semibold text-[#111] hover:underline">전체 보기 →</Link>
+      <style>{`
+        @keyframes hubScroll {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-33.33%); }
+        }
+      `}</style>
+      <section style={{ background: "#F2F2F2", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14">
+          <div className="text-center md:text-left mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
+            <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 운영한 채널</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {PORTFOLIO.map((p) => (
-              <Link key={p.title} href={p.href(locale)} className="group block">
-                <div className="rounded-xl border border-[#E5E7EB] overflow-hidden bg-white transition-all group-hover:-translate-y-1 group-hover:shadow-md">
-                  <div className="h-[100px] md:h-[120px] flex flex-col justify-between p-4" style={{ background: p.accent + "10" }}>
-                    <span className="self-start text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: p.accent + "20", color: p.accent }}>{p.type}</span>
-                    <span className="text-[10px] font-medium" style={{ color: p.accent + "99", fontFamily: "var(--font-jetbrains)" }}>{p.stack}</span>
+          <div className="grid grid-cols-1 gap-8">
+            {([
+              { label: "브랜드 마케팅", title: "스킨케어 브랜드", stack: "Meta Ads · Instagram · GA4", accent: "#10B981", bg: "#F0FDF4", border: "#BBF7D0", desktop: "/images/portfolio/ws-all-desktop.png", mobile: "/images/portfolio/ws-all-mobile.png", delay: "0s" },
+              { label: "쇼핑몰 마케팅", title: "밀키트 쇼핑몰", stack: "카페24 · GA4 · Meta픽셀", accent: "#F472B6", bg: "#FDF2F8", border: "#FBCFE8", desktop: "/images/portfolio/ws-shop-desktop.png", mobile: "/images/portfolio/ws-shop-mobile.png", delay: "5s" },
+            ] as const).map((set) => (
+              <div key={set.title} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
+                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
+                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
+                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+                    <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
+                      <div style={{ width: "100%", animation: `hubScroll 16s linear ${set.delay} infinite` }}>
+                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
+                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        <img src={set.desktop} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      </div>
+                    </div>
+                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                   </div>
-                  <div className="p-3.5">
-                    <p className="text-[13px] font-semibold text-[#111] mb-1">{p.title}</p>
-                    <p className="text-[11px] text-[#9CA3AF]">{p.tag}</p>
+                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
+                    <div style={{ position: "relative" }}>
+                      <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
+                        <div style={{ width: "100%", animation: `hubScroll 11s linear ${set.delay} infinite` }}>
+                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        </div>
+                      </div>
+                      <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                    </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
-          </div>
-          <div className="text-center mt-5 md:hidden">
-            <Link href={`/${locale}/portfolio`} className="text-[13px] font-semibold text-[#111] underline">전체 포트폴리오 보기 →</Link>
           </div>
         </div>
       </section>
