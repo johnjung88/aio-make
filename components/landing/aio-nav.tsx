@@ -1,5 +1,6 @@
 "use client";
 import type React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { trackContactClick } from "@/lib/analytics/client";
 
@@ -36,8 +37,8 @@ const NAV_CSS = `
 .aionav .item>a,.aionav .item>span{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ibm-plex-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#B7B0A2;padding:10px 13px;border-radius:8px;text-decoration:none;cursor:pointer}
 .aionav .item>a:hover,.aionav .item.on>a{color:var(--nav-accent, #C8A24A)}
 .aionav .item .ar{font-size:8px;opacity:.7}
-.aionav .dd{position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%) translateY(8px);min-width:230px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:200}
-.aionav .item:hover .dd{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.aionav .dd{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(8px);min-width:230px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transition:opacity .18s,transform .18s,visibility .18s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:9999;pointer-events:none}
+.aionav .dd.open{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .aionav .dd a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-radius:7px;font-family:var(--font-pretendard);font-size:13.5px;color:#EFE9DD;text-decoration:none}
 .aionav .dd a:hover{background:rgba(200,162,74,.12);color:var(--nav-accent, #C8A24A)}
 .aionav .dd a .sn{font-family:var(--font-ibm-plex-mono);font-size:10px;color:#6F6A5E;letter-spacing:.1em}
@@ -118,7 +119,8 @@ export function AioNav({ locale, level, cat = "development", sub, active, accent
   const base = `/${locale}`;
   const subs = CAT_SUB[cat] || CAT_SUB.development;
   const resolved = accentColor ?? (sub ? SUB_ACCENT[sub] : undefined) ?? CAT_ACCENT[cat] ?? "#C8A24A";
-  // leaf 페이지: 서비스 소개·포트폴리오는 현재 소 서비스(sub)를 가리킴. middle 페이지: cat 허브.
+  const [ddOpen, setDdOpen] = useState(false);
+
   return (
     <nav className="aionav" style={{ "--nav-accent": resolved } as React.CSSProperties}>
       <style dangerouslySetInnerHTML={{ __html: NAV_CSS }} />
@@ -129,29 +131,33 @@ export function AioNav({ locale, level, cat = "development", sub, active, accent
         </a>
         <span className="sp" />
         <div className="navitems">
-          {/* 서비스 소개 — 현재 페이지(분야 또는 소서비스) */}
+          {/* 서비스 소개 */}
           <div className={"item" + (active === "service" ? " on" : "")}>
             <a href={`${base}/services/${level === "leaf" && sub ? sub : cat}`}>서비스 소개</a>
           </div>
 
-          {/* 포트폴리오 — leaf 일 때만, 현재 소 서비스의 포폴 */}
+          {/* 포트폴리오 — leaf 전용 */}
           {level === "leaf" && (
             <div className={"item" + (active === "portfolio" ? " on" : "")}>
               <a href={`${base}/portfolio/category/${sub || cat}`}>포트폴리오</a>
             </div>
           )}
 
-          {/* 카테고리 소개 — 드롭다운: 소 서비스 목록 */}
-          <div className={"item" + (active === "category" ? " on" : "")}>
+          {/* 카테고리 소개 — JS 이벤트로 드롭다운 제어 */}
+          <div
+            className={"item" + (active === "category" ? " on" : "")}
+            onMouseEnter={() => setDdOpen(true)}
+            onMouseLeave={() => setDdOpen(false)}
+          >
             <a href={`${base}/services/${cat}`}>카테고리 소개 <span className="ar">▼</span></a>
-            <div className="dd">
+            <div className={"dd" + (ddOpen ? " open" : "")}>
               {subs.map((s) => s.svc
                 ? <a key={s.label} href={`${base}${s.svc}`}>{s.label}<span className="sn">{s.sn}</span></a>
                 : <a key={s.label} className="soon">{s.label}<span className="sn">SOON</span></a>)}
             </div>
           </div>
 
-          {/* 팀원 소개 — 분야 공용 팀 (leaf·middle 모두 cat 기준) */}
+          {/* 팀원 소개 */}
           <div className={"item" + (active === "team" ? " on" : "")}>
             <a href={`${base}/services/${cat}/team`}>팀원 소개</a>
           </div>
