@@ -395,8 +395,8 @@ await aio.build(project);
 
       {/* ── CTA ── */}
       <ServiceCta
-        accentColor="#FFFFFF"
-        headline="코드로 만들 일이 있나요?"
+        accentColor={ACCENT}
+        headline={<><span style={{ color: ACCENT }}>코드</span>로 만들 일이 있나요?</>}
         sub="지금 문의하면 24시간 안에 견적 · 5일 안에 첫 결과물"
         ctaLabel="제작 문의 →"
         ctaHref={`/${locale}/quote`}

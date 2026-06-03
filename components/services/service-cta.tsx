@@ -1,10 +1,11 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 interface Props {
   accentColor: string;
-  headline: string;
+  headline: ReactNode;
   sub: string;
   ctaLabel: string;
   ctaHref: string;
