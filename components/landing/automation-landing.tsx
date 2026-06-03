@@ -133,86 +133,76 @@ const STACK = [
 
 function WideMonitorMockup({ activeCase }: { activeCase: AutoCase }) {
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto" }}>
-      <div style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.85)) drop-shadow(0 16px 32px rgba(0,0,0,0.5))" }}>
-        {/* 모니터 베젤 */}
+    <div style={{ maxWidth: 900, margin: "0 auto", position: "relative" }}>
+      {/* 대시보드 콘텐츠 — monitor.png 투명 스크린 영역 뒤에 배치 */}
+      <div style={{
+        position: "absolute", top: "1.71%", left: "12.01%",
+        width: "76.11%", height: "70.85%",
+        overflow: "hidden", zIndex: 0,
+        background: "#0d1117",
+      }}>
+        {/* 상단 타이틀바 */}
         <div style={{
-          background: "linear-gradient(170deg,#464a50 0%,#38393d 50%,#2d2f33 100%)",
-          borderRadius: "16px 16px 0 0",
-          padding: "12px 12px 28px",
-          position: "relative",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08),inset 0 -1px 0 rgba(0,0,0,0.25),0 0 0 1px #1c1e22",
+          background: "#161b22", borderBottom: "1px solid #30363d",
+          display: "flex", alignItems: "center", gap: 8, padding: "0 16px", height: 36,
+          flexShrink: 0,
         }}>
-          {/* 카메라 */}
-          <div style={{
-            position: "absolute", top: 7, left: "50%", transform: "translateX(-50%)",
-            width: 8, height: 8, background: "#1c1e22", borderRadius: "50%", zIndex: 2,
-          }} />
-          {/* 화면 */}
-          <div style={{ background: "#0d1117", borderRadius: 6, overflow: "hidden", aspectRatio: "16/9", position: "relative" }}>
-            {/* 상단 타이틀바 */}
-            <div style={{
-              background: "#161b22", borderBottom: "1px solid #30363d",
-              display: "flex", alignItems: "center", gap: 8, padding: "0 16px", height: 36,
-            }}>
-              {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
-                <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />
-              ))}
-              <span style={{ marginLeft: 8, fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11, color: "#58a6ff" }}>
-                AIO Automation Dashboard
-              </span>
-              <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
-                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e" }} />
-                <span style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10, color: "#4ade80" }}>실행 중</span>
-              </div>
-            </div>
-            {/* 대시보드 그리드 */}
-            <div style={{ padding: "16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-              {activeCase.processes.map((proc) => {
-                const cfg = STATUS_CONFIG[proc.status];
-                return (
-                  <div key={proc.name} style={{
-                    background: "#161b22", border: "1px solid #30363d", borderRadius: 8,
-                    padding: "12px 14px", display: "flex", alignItems: "center", gap: 10,
-                  }}>
-                    <span style={{ fontSize: 18 }}>{proc.icon}</span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{
-                        fontFamily: "var(--font-jetbrains,monospace)",
-                        fontSize: 11, color: "#f0f6fc", fontWeight: 600,
-                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                      }}>
-                        {proc.name}
-                      </p>
-                      <p style={{ fontSize: 10, color: "#8b949e", marginTop: 2 }}>{proc.metric}</p>
-                    </div>
-                    <div style={{
-                      background: cfg.bg, borderRadius: 6,
-                      padding: "3px 8px", display: "flex", alignItems: "center", gap: 4, flexShrink: 0,
-                    }}>
-                      <div style={{ width: 5, height: 5, borderRadius: "50%", background: cfg.dot }} />
-                      <span style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10, color: cfg.text }}>{cfg.label}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
+            <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />
+          ))}
+          <span style={{ marginLeft: 8, fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11, color: "#58a6ff" }}>
+            AIO Automation Dashboard
+          </span>
+          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e" }} />
+            <span style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10, color: "#4ade80" }}>실행 중</span>
           </div>
         </div>
-        {/* 스탠드 넥 */}
-        <div style={{ height: 4, background: "#1c1e22" }} />
-        <div style={{
-          background: "linear-gradient(180deg,#3c3f45 0%,#464a50 100%)",
-          height: 40, width: "100%",
-          clipPath: "polygon(32% 0%, 68% 0%, 72% 100%, 28% 100%)",
-        }} />
-        {/* 베이스 */}
-        <div style={{
-          background: "linear-gradient(180deg,#464a50 0%,#3c3f45 100%)",
-          height: 10, borderRadius: "0 0 8px 8px", width: "40%", margin: "0 auto",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
-        }} />
+        {/* 대시보드 그리드 */}
+        <div style={{ padding: "16px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, height: "calc(100% - 36px)" }}>
+          {activeCase.processes.map((proc) => {
+            const cfg = STATUS_CONFIG[proc.status];
+            return (
+              <div key={proc.name} style={{
+                background: "#161b22", border: "1px solid #30363d", borderRadius: 8,
+                padding: "12px 14px", display: "flex", alignItems: "center", gap: 10,
+              }}>
+                <span style={{ fontSize: 18 }}>{proc.icon}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{
+                    fontFamily: "var(--font-jetbrains,monospace)",
+                    fontSize: 11, color: "#f0f6fc", fontWeight: 600,
+                    whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                  }}>
+                    {proc.name}
+                  </p>
+                  <p style={{ fontSize: 10, color: "#8b949e", marginTop: 2 }}>{proc.metric}</p>
+                </div>
+                <div style={{
+                  background: cfg.bg, borderRadius: 6,
+                  padding: "3px 8px", display: "flex", alignItems: "center", gap: 4, flexShrink: 0,
+                }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: cfg.dot }} />
+                  <span style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10, color: cfg.text }}>{cfg.label}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+      {/* monitor.png — 투명 스크린 PNG 오버레이 */}
+      <Image
+        src="/mockups/monitor.png"
+        alt="monitor"
+        width={3072}
+        height={2048}
+        unoptimized
+        style={{
+          width: "100%", height: "auto", display: "block",
+          position: "relative", zIndex: 1,
+          filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
+        }}
+      />
     </div>
   );
 }

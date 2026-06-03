@@ -86,87 +86,50 @@ function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop"
 
 function MacbookMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div className="sm-macbook" style={{ position: "relative", width: "76%", maxWidth: 860, flexShrink: 0 }}>
-      <div style={{ filter: "drop-shadow(0 50px 100px rgba(0,0,0,0.80)) drop-shadow(0 20px 40px rgba(0,0,0,0.45))" }}>
-        <div style={{
-          background: "linear-gradient(170deg,#464a50 0%,#38393d 50%,#2d2f33 100%)",
-          borderRadius: "14px 14px 0 0",
-          padding: "10px 10px 24px",
-          position: "relative",
-          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08),inset 0 -1px 0 rgba(0,0,0,0.25),0 0 0 1px #1c1e22",
-        }}>
-          <div style={{
-            position: "absolute", top: 5, left: "50%", transform: "translateX(-50%)",
-            width: 70, height: 10, background: "#1c1e22", borderRadius: "0 0 6px 6px", zIndex: 2,
-          }} />
-          <div style={{ background: "#080808", borderRadius: 5, overflow: "hidden", position: "relative", aspectRatio: "16/10" }}>
-            <div style={{
-              position: "absolute", top: 0, left: 0, right: 0, zIndex: 2,
-              background: "#1d1d1d", borderBottom: "1px solid #2e2e2e",
-              display: "flex", alignItems: "center", gap: 8, padding: "0 12px", height: 32,
-            }}>
-              {(["#FF5F57","#FEBC2E","#28C840"] as const).map((c) => (
-                <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, flexShrink: 0 }} />
-              ))}
-              <div style={{
-                flex: 1, maxWidth: 260, margin: "0 auto",
-                background: "#2a2a2a", borderRadius: 4, padding: "2px 10px",
-                fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10,
-                color: "rgba(255,255,255,0.4)", textAlign: "center",
-                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-              }}>
-                🔒 {item.domain}
-              </div>
-            </div>
-            <div style={{ position: "absolute", inset: 0, top: 32 }}>
-              <ScreenContent key={`desktop-${item.id}`} item={item} device="desktop" />
-            </div>
-          </div>
-        </div>
-        <div style={{ height: 3, background: "#1c1e22", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)" }} />
-        <div style={{
-          background: "linear-gradient(180deg,#3c3f45 0%,#464a50 70%,#3c3f45 100%)",
-          height: 18, borderRadius: "0 0 5px 5px",
-          boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.03)",
-          position: "relative",
-        }}>
-          <div style={{
-            position: "absolute", bottom: 2, left: "50%", transform: "translateX(-50%)",
-            width: 90, height: 2, background: "rgba(0,0,0,0.35)", borderRadius: 1,
-          }} />
-        </div>
+    <div className="sm-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+      <div style={{
+        position: "absolute", top: "1.71%", left: "12.01%",
+        width: "76.11%", height: "70.85%",
+        overflow: "hidden", zIndex: 0,
+      }}>
+        <ScreenContent key={`desktop-${item.id}`} item={item} device="desktop" />
       </div>
+      <Image
+        src="/mockups/monitor.png"
+        alt="monitor"
+        width={3072}
+        height={2048}
+        unoptimized
+        style={{
+          width: "100%", height: "auto", display: "block",
+          position: "relative", zIndex: 1,
+          filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
+        }}
+      />
     </div>
   );
 }
 
 function PhoneMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div className="sm-phone" style={{
-      position: "absolute", bottom: "-10%", right: "3%",
-      width: "22%", maxWidth: 190,
-      transform: "rotate(3deg)",
-      filter: "drop-shadow(0 28px 56px rgba(0,0,0,0.9))",
-      zIndex: 10,
-    }}>
-      <div style={{
-        background: "linear-gradient(160deg,#2b2c30 0%,#1a1b1e 100%)",
-        borderRadius: 40, padding: "7px 5px",
-        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.09),inset 1px 0 0 rgba(255,255,255,0.05)",
-        position: "relative",
-      }}>
-        <div style={{ position: "absolute", right: -2.5, top: "25%", width: 2.5, height: 36, background: "#2b2c30", borderRadius: "0 2px 2px 0" }} />
-        <div style={{ position: "absolute", left: -2.5, top: "20%", width: 2.5, height: 22, background: "#2b2c30", borderRadius: "2px 0 0 2px" }} />
-        <div style={{ position: "absolute", left: -2.5, top: "31%", width: 2.5, height: 34, background: "#2b2c30", borderRadius: "2px 0 0 2px" }} />
-        <div style={{ position: "absolute", left: -2.5, top: "43%", width: 2.5, height: 34, background: "#2b2c30", borderRadius: "2px 0 0 2px" }} />
-        <div style={{ background: "#000", borderRadius: 33, overflow: "hidden", position: "relative", aspectRatio: "9/19.5" }}>
-          <div style={{
-            position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)",
-            width: 82, height: 24, background: "#000", borderRadius: 12, zIndex: 3,
-            boxShadow: "0 0 0 1.5px #1a1b1e",
-          }} />
+    <div className="sm-phone" style={{ flexShrink: 0, width: "30%", maxWidth: 240 }}>
+      <div style={{ position: "relative" }}>
+        <div style={{
+          position: "absolute", top: "15.79%", left: "18.17%",
+          width: "63.54%", height: "70.87%",
+          overflow: "hidden", zIndex: 0,
+        }}>
           <ScreenContent key={`mobile-${item.id}`} item={item} device="mobile" />
         </div>
+        <img
+          src="/mockups/phone.png"
+          alt="phone"
+          style={{
+            width: "100%", height: "auto", display: "block",
+            position: "relative", zIndex: 1,
+            filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
+          }}
+        />
       </div>
     </div>
   );
@@ -181,17 +144,13 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
     <div className="smvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .smvc .sm-hero-txt { text-align: left; }
-        @media (max-width: 880px) {
-          .smvc .sm-macbook { width: 88% !important; }
-        }
         @media (max-width: 768px) {
           .smvc .sm-hero-txt { text-align: center; }
           .smvc .sm-hero-txt h1 { max-width: none !important; }
           .smvc .sm-hero-txt p { max-width: none !important; }
           .smvc .sm-badges { justify-content: center !important; }
-          .smvc .sm-showcase-wrap { justify-content: center !important; overflow: visible !important; }
-          .smvc .sm-macbook { width: 96% !important; max-width: none !important; }
           .smvc .sm-phone { display: none !important; }
+          .smvc .sm-macbook { flex: none !important; width: 100% !important; }
           .smvc .sm-funnel-row { flex-direction: column !important; align-items: center !important; }
           .smvc .sm-funnel-row > div:has(span) { display: none !important; }
         }
@@ -351,7 +310,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               </button>
             ))}
           </div>
-          <div className="sm-showcase-wrap" style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 60, maxWidth: 960, margin: "0 auto" }}>
+          <div className="sm-showcase-wrap" style={{ display: "flex", alignItems: "flex-end", gap: "3%", maxWidth: 960, margin: "0 auto" }}>
             <MacbookMockup item={activeItem} />
             <PhoneMockup item={activeItem} />
           </div>
