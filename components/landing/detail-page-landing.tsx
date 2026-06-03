@@ -130,7 +130,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       <header className="hero2">
         {/* 왼쪽: 팀 사진 + 텍스트 */}
         <div className="hero2-l">
-          <img className="hero2-bg" src="/images/services/detail-page-team.png" alt="" />
+          <img className="hero2-bg" src="/images/services/detail-page-team.jpg" alt="" />
           <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Detail Page · N° 04</span>

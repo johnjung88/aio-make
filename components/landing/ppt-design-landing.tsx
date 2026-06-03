@@ -98,7 +98,7 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       <header className="hero2">
         {/* 왼쪽: 팀 사진 + 텍스트 */}
         <div className="hero2-l">
-          <img className="hero2-bg" src="/images/services/ppt-design-team.png" alt="" />
+          <img className="hero2-bg" src="/images/services/ppt-design-team.jpg" alt="" />
           <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · PPT Design · N° 05</span>

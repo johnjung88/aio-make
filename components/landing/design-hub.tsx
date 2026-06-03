@@ -2,17 +2,12 @@
 import { useEffect, useRef } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
-/**
- * Design Hub — Editorial Magazine (어둠 속 cream 페이퍼 스프레드)
- * 다크 캔버스 위에 cream 페이퍼 섹션이 떠 있는 갤러리 느낌.
- * 페이퍼 텍스처 + 매거진 호수 메타 + 큰 세리프.
- */
 const CSS = `
 .aiodh{--bg:#0E0D0B;--bg2:#17150F;--paper:#F4ECDC;--paper2:#EEDEC2;--ink:#1A1612;--ink2:#4B413A;--ink3:#7D7568;
   --fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);
   --gold:#C8A24A;--gold2:#E0BE6A;--rose:#C66060;--rose2:#D78A8A;
-  --frau:var(--font-fraunces);--corm:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
-  --fs-display:clamp(48px,9vw,128px);--fs-h2:clamp(32px,5.5vw,72px);--fs-lead:clamp(15px,1.4vw,18px);--fs-body:clamp(14px,1.1vw,15.5px);
+  --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
+  --fs-display:clamp(48px,9vw,128px);--fs-h2:clamp(32px,5.5vw,72px);--fs-lead:clamp(15px,1.4vw,18px);
   --fs-kick:clamp(10px,1vw,11px);--sp-sec:clamp(56px,8vw,110px);--sp-edge:clamp(20px,5vw,64px);--maxw:1280px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;overflow-wrap:break-word;min-height:100vh;position:relative}
 .aiodh::before{content:"";position:fixed;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(198,96,96,.06),transparent 40%),radial-gradient(circle at 80% 70%,rgba(200,162,74,.05),transparent 40%);pointer-events:none;z-index:0}
@@ -42,8 +37,8 @@ const CSS = `
 .aiodh .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}
 @media(max-width:880px){.aiodh .cover .l{max-width:100%;text-align:center}.aiodh .acts{justify-content:center}.aiodh .cover .lead{margin-left:auto;margin-right:auto}}
 
-/* === CREAM PAPER SECTION (turning magazine page) === */
-.aiodh .paper{background:var(--paper);color:var(--ink);position:relative;padding:clamp(72px,10vw,120px) 0;margin:clamp(32px,5vw,72px) 0;box-shadow:0 30px 90px rgba(0,0,0,.45)}
+/* === CREAM PAPER SECTION === */
+.aiodh .paper{background:var(--paper);color:var(--ink);position:relative;padding:clamp(64px,9vw,110px) 0;margin:clamp(32px,5vw,72px) 0;box-shadow:0 30px 90px rgba(0,0,0,.45)}
 .aiodh .paper::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 25% 35%,rgba(120,100,80,.06) 0,transparent 50%),radial-gradient(circle at 75% 65%,rgba(120,100,80,.04) 0,transparent 50%);pointer-events:none}
 .aiodh .paper::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(26,22,18,.16)}
 .aiodh .paper .crease{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(26,22,18,.16)}
@@ -54,55 +49,47 @@ const CSS = `
 
 /* Section common */
 .aiodh .sec{padding:var(--sp-sec) 0}
-.aiodh .shead{margin-bottom:48px;text-align:center}
+.aiodh .shead{margin-bottom:40px;text-align:center}
 .aiodh .shead .kick{display:block;margin-bottom:16px}
 .aiodh .shead h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-h2);line-height:1.04;margin-bottom:16px;letter-spacing:-.014em}
 .aiodh .shead h2 em{font-family:var(--frau);font-style:normal;color:var(--rose2);font-weight:600}
 .aiodh .shead p{font-size:var(--fs-lead);line-height:1.85;color:var(--fg2);max-width:54ch;margin:0 auto}
 
-/* Spread — masonry on paper */
-.aiodh .spread{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:180px;gap:14px}
-.aiodh .tile{position:relative;border:1px solid rgba(26,22,18,.16);overflow:hidden;background:var(--paper2);transition:transform .3s}
-.aiodh .tile:hover{transform:translateY(-3px)}
-.aiodh .tile .tag{position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;color:var(--ink2);text-transform:uppercase}
-.aiodh .tile .ttl{position:absolute;left:14px;bottom:12px;right:14px;font-family:var(--frau);font-size:clamp(15px,1.6vw,22px);color:var(--ink);line-height:1.1}
-.aiodh .tile .ttl em{font-family:var(--frau);font-style:normal;color:var(--rose)}
-.aiodh .tile.t1{grid-column:span 5;grid-row:span 2;background:#1A1612}
-.aiodh .tile.t2{grid-column:span 7;grid-row:span 2;background:#1A1612}
-.aiodh .tile.t3{grid-column:span 4;grid-row:span 2;background:#1A1612}
-.aiodh .tile.t4{grid-column:span 4;grid-row:span 2;background:#1A1612}
-.aiodh .tile.t5{grid-column:span 4;grid-row:span 2;background:#1A1612}
-.aiodh .tile .bg,.aiodh .iss .pic .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.aiodh .tile .shade,.aiodh .iss .pic .shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 55%,rgba(14,13,11,.62))}
-.aiodh .tile .tag{z-index:2;color:rgba(239,233,221,.7)}
-.aiodh .tile .ttl{z-index:2;color:#F4ECDC;text-shadow:0 1px 12px rgba(14,13,11,.8)}
-.aiodh .iss .pic .cap{z-index:2;color:#EFE9DD;text-shadow:0 1px 8px rgba(14,13,11,.7)}
-@media(max-width:880px){.aiodh .spread{grid-template-columns:repeat(6,1fr)}.aiodh .tile.t1{grid-column:span 6}.aiodh .tile.t2{grid-column:span 6}.aiodh .tile.t3,.aiodh .tile.t4,.aiodh .tile.t5{grid-column:span 3}}
+/* Work list — 이번 호의 작업들 */
+.aiodh .wlist{border-top:1px solid rgba(26,22,18,.2)}
+.aiodh .witem{display:grid;grid-template-columns:52px 1fr auto;gap:0 28px;padding:20px 0;border-bottom:1px solid rgba(26,22,18,.2);align-items:center;transition:padding .22s}
+.aiodh .witem:hover{padding-left:10px}
+.aiodh .wnum{font-family:var(--frau);font-size:clamp(22px,2.4vw,30px);color:var(--rose);line-height:1}
+.aiodh .wmid{display:flex;flex-direction:column;gap:5px}
+.aiodh .wcat{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink3)}
+.aiodh .wtit{font-family:var(--frau);font-size:clamp(17px,1.9vw,24px);color:var(--ink);line-height:1.1}
+.aiodh .wspec{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);text-align:right;white-space:nowrap}
+@media(max-width:640px){.aiodh .witem{grid-template-columns:40px 1fr;gap:0 14px}.aiodh .wspec{display:none}}
 
-/* Pull quote — dark canvas */
-.aiodh .pq{padding:clamp(80px,11vw,150px) 0;text-align:center}
-.aiodh .pq blockquote{margin:0 auto;max-width:18ch;font-family:var(--frau);font-style:normal;font-weight:500;font-size:clamp(38px,5.5vw,84px);line-height:1.1;color:var(--fg);letter-spacing:-.012em}
-.aiodh .pq blockquote::before,.aiodh .pq blockquote::after{content:"";display:block;width:48px;height:1px;background:var(--rose2);margin:30px auto}
-.aiodh .pq cite{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
+/* Pull quote — compact */
+.aiodh .pq{padding:clamp(36px,4vw,52px) 0;text-align:center}
+.aiodh .pq blockquote{margin:0 auto;max-width:28ch;font-family:var(--frau);font-style:normal;font-weight:400;font-size:clamp(20px,2.6vw,34px);line-height:1.25;color:var(--fg2);letter-spacing:-.008em}
+.aiodh .pq blockquote::before,.aiodh .pq blockquote::after{content:"";display:block;width:28px;height:1px;background:var(--rose2);margin:14px auto}
+.aiodh .pq cite{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg3)}
 
-/* Issues — services on cream paper */
-.aiodh .issues{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border-top:1px solid rgba(26,22,18,.18);border-bottom:1px solid rgba(26,22,18,.18)}
-.aiodh .iss{position:relative;padding:42px 32px 38px;display:flex;flex-direction:column;min-height:380px;text-align:left;border-right:1px solid rgba(26,22,18,.18);transition:background .3s}
-.aiodh .iss:last-child{border-right:none}
-.aiodh .iss:hover{background:rgba(26,22,18,.04)}
-.aiodh .iss .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--rose);margin-bottom:22px;display:flex;justify-content:space-between;align-items:center}
-.aiodh .iss .num .v{color:var(--ink3)}
-.aiodh .iss .pic{aspect-ratio:16/9;margin:0 -32px 22px;border-top:1px solid rgba(26,22,18,.18);border-bottom:1px solid rgba(26,22,18,.18);position:relative;overflow:hidden}
-.aiodh .iss.a .pic,.aiodh .iss.b .pic,.aiodh .iss.c .pic{background:#1A1612}
-.aiodh .iss .pic .cap{position:absolute;left:18px;bottom:12px;font-family:var(--mono);font-size:9.5px;color:var(--ink);letter-spacing:.22em}
-.aiodh .iss h3{font-family:var(--frau);font-size:clamp(24px,2.6vw,32px);font-weight:500;line-height:1.1;letter-spacing:-.012em;margin-bottom:12px;color:var(--ink)}
-.aiodh .iss h3 em{font-family:var(--frau);font-style:normal;color:var(--rose)}
-.aiodh .iss .desc{font-size:14px;line-height:1.85;color:var(--ink2);margin-bottom:auto}
-.aiodh .iss .more{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--rose);text-transform:uppercase}
-.aiodh .iss .soon{position:absolute;top:22px;right:24px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--ink3);border:1px solid rgba(26,22,18,.22);padding:4px 9px}
-@media(max-width:880px){.aiodh .issues{grid-template-columns:1fr}.aiodh .iss{border-right:none;border-bottom:1px solid rgba(26,22,18,.18)}.aiodh .iss:last-child{border-bottom:none}}
+/* Service cards — 세 가지 디자인 서비스 */
+.aiodh .scards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.aiodh .scard{position:relative;border-radius:2px;overflow:hidden;border:1px solid rgba(26,22,18,.18);background:var(--paper2);display:flex;flex-direction:column;transition:border-color .3s,transform .3s}
+.aiodh .scard:hover{border-color:rgba(26,22,18,.42);transform:translateY(-3px)}
+.aiodh .scard .simg{aspect-ratio:3/2;overflow:hidden;position:relative;flex-shrink:0}
+.aiodh .scard .simg-ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s}
+.aiodh .scard:hover .simg-ph{transform:scale(1.04)}
+.aiodh .scard .sbody{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.aiodh .scard .sn{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--rose);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.aiodh .scard .sv{color:var(--ink3);border:1px solid rgba(26,22,18,.22);padding:3px 8px;font-size:9px;font-family:var(--mono);letter-spacing:.14em}
+.aiodh .scard h3{font-family:var(--frau);font-size:clamp(20px,2.2vw,26px);font-weight:500;line-height:1.1;letter-spacing:-.012em;margin-bottom:10px;color:var(--ink)}
+.aiodh .scard h3 em{font-family:var(--frau);font-style:normal;color:var(--rose)}
+.aiodh .scard .sdesc{font-size:13.5px;line-height:1.8;color:var(--ink2);margin-bottom:auto}
+.aiodh .scard .smore{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--rose);text-transform:uppercase}
+.aiodh .scard .ssoon{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--ink3);border:1px solid rgba(26,22,18,.22);padding:4px 8px;background:var(--paper);z-index:3}
+@media(max-width:880px){.aiodh .scards{grid-template-columns:1fr}.aiodh .scard .simg{aspect-ratio:16/9}}
 
-/* Way list — editorial on dark */
+/* Way list */
 .aiodh .ways2{max-width:780px;margin:0 auto}
 .aiodh .way2{display:grid;grid-template-columns:64px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--line2);text-align:left}
 .aiodh .way2:last-child{border-bottom:1px solid var(--line2)}
@@ -118,6 +105,14 @@ const CSS = `
 .aiodh .ctaS h2 em{font-family:var(--frau);font-style:normal;color:var(--rose2);font-weight:600}
 .aiodh .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
 `;
+
+const WORKS = [
+  { n: "01", cat: "Detail Page",       tit: "Compact Furniture",  spec: "20,000PX" },
+  { n: "02", cat: "Brand Identity",    tit: "Danchae Table",      spec: "Full System" },
+  { n: "03", cat: "PPT · 지원사업",    tit: "Government Grant",   spec: "32 Slides" },
+  { n: "04", cat: "Brand Application", tit: "Vela Skin",          spec: "Packaging" },
+  { n: "05", cat: "Business Card",     tit: "Moru Coffee",        spec: "Identity" },
+];
 
 export function DesignHub({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -139,7 +134,7 @@ export function DesignHub({ locale }: { locale: string }) {
 
       {/* Cover — full-bleed cinematic */}
       <header className="cover">
-        <img className="cbg" src="/images/services/design-hub.png" alt="" />
+        <img className="cbg" src="/images/services/design-hub.jpg" alt="" />
         <div className="cov" />
         <div className="wrap">
           <div className="l">
@@ -153,60 +148,90 @@ export function DesignHub({ locale }: { locale: string }) {
         </div>
       </header>
 
-      {/* === PAPER 1: Featured spread === */}
+      {/* === PAPER 1: 이번 호의 작업들 === */}
       <section className="paper">
         <div className="wrap">
-          <div className="shead reveal"><span className="kick">Featured Spread</span><h2>이번 호의 <em>작업들</em></h2><p>로고·명함·상세페이지·PPT — 분야별 전문가가 각자의 매체로</p></div>
-          <div className="spread reveal d1">
-            <div className="tile t1"><img className="bg" src="/portfolio/detail-page/compact-furniture/cover.png" alt="" loading="lazy" style={{objectFit:"cover",objectPosition:"center top"}} /><span className="shade" /><span className="tag">Detail · 20,000PX</span><span className="ttl"><em>스크롤</em>이<br />멈추는 페이지</span></div>
-            <div className="tile t2"><img className="bg" src="/portfolio/logo-showcase/danchae-table/premium-presentation.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Brand · Identity</span><span className="ttl">한 장에 <em>한 메시지</em></span></div>
-            <div className="tile t3"><img className="bg" src="/portfolio/ppt-design/government-grant/sample-6.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">PPT · 지원사업</span><span className="ttl">전달되는 <em>슬라이드</em></span></div>
-            <div className="tile t4"><img className="bg" src="/portfolio/logo-showcase/vela-skin/premium-application-detail.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Brand · Application</span><span className="ttl"><em>브랜드</em>를<br />입힌다</span></div>
-            <div className="tile t5"><img className="bg" src="/portfolio/logo-showcase/moru-coffee/premium-business-card-detail.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="tag">Card · Business</span><span className="ttl">손에 남는 <em>두께</em></span></div>
+          <div className="shead reveal">
+            <span className="kick">Featured Spread</span>
+            <h2>이번 호의 <em>작업들</em></h2>
+            <p>로고·브랜딩·상세페이지·PPT — 분야별 실제 납품 작업</p>
+          </div>
+          <div className="wlist reveal d1">
+            {WORKS.map((w) => (
+              <div key={w.n} className="witem">
+                <div className="wnum">{w.n}</div>
+                <div className="wmid">
+                  <span className="wcat">{w.cat}</span>
+                  <span className="wtit">{w.tit}</span>
+                </div>
+                <div className="wspec">{w.spec}</div>
+              </div>
+            ))}
           </div>
         </div>
         <span className="crease" />
       </section>
 
-      {/* Pull quote on dark canvas */}
+      {/* Pull quote — compact */}
       <section className="pq">
         <blockquote>좋은 디자인은 한 번 봤을 때 남습니다</blockquote>
         <cite>— Design Director · AIO</cite>
       </section>
 
-      {/* === PAPER 2: Issues (services) === */}
+      {/* === PAPER 2: 세 가지 디자인 서비스 === */}
       <section className="paper">
         <div className="wrap">
-          <div className="shead reveal"><span className="kick">Three Issues</span><h2>세 가지 <em>디자인 서비스</em></h2><p>각 호수를 누르면 전용 소개·포트폴리오 페이지로</p></div>
-          <div className="issues">
-            <div className="iss a reveal d1">
-              <div className="num"><span>N° 01</span><span className="v">Soon</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/logo-showcase/mediroot/premium-presentation.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="cap">Logo · Brand Identity</span></div>
-              <h3>로고·<em>명함</em></h3>
-              <p className="desc">브랜드의 첫 글자 — 손에 남는 첫 명함</p>
-              <span className="more">준비 중 →</span>
-              <span className="soon">COMING SOON</span>
+          <div className="shead reveal">
+            <span className="kick">Three Issues</span>
+            <h2>세 가지 <em>디자인 서비스</em></h2>
+            <p>카드를 누르면 전용 소개·포트폴리오 페이지로</p>
+          </div>
+          <div className="scards">
+            {/* N° 01 로고·명함 — COMING SOON */}
+            <div className="scard reveal d1">
+              <div className="simg" style={{background:"linear-gradient(135deg,#1e1810 0%,#2a2016 50%,#382a1e 100%)"}}>
+                <img className="simg-ph" src="/images/services/design-logo-card.jpg" alt="로고·명함"
+                     onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
+              </div>
+              <div className="sbody">
+                <div className="sn"><span>N° 01</span><span className="sv">COMING SOON</span></div>
+                <h3>로고·<em>명함</em></h3>
+                <p className="sdesc">브랜드의 첫 글자 — 손에 남는 첫 명함</p>
+                <span className="smore">준비 중 →</span>
+              </div>
             </div>
-            <a className="iss b reveal d2" href={`${base}/services/detail-page`}>
-              <div className="num"><span>N° 02</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/detail-page/premium-dog-food/cover.png" alt="" loading="lazy" style={{objectPosition:"center top"}} /><span className="shade" /><span className="cap">Detail · 5,000 – 20,000PX</span></div>
-              <h3>상세<em>페이지</em></h3>
-              <p className="desc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
-              <span className="more">자세히 →</span>
+            {/* N° 02 상세페이지 */}
+            <a className="scard reveal d2" href={`${base}/services/detail-page`}>
+              <div className="simg" style={{background:"linear-gradient(135deg,#121816 0%,#1a241e 50%,#223028 100%)"}}>
+                <img className="simg-ph" src="/images/services/design-detail-page.jpg" alt="상세페이지"
+                     onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
+              </div>
+              <div className="sbody">
+                <div className="sn"><span>N° 02</span><span className="sv">LIVE</span></div>
+                <h3>상세<em>페이지</em></h3>
+                <p className="sdesc">스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서</p>
+                <span className="smore">자세히 →</span>
+              </div>
             </a>
-            <a className="iss c reveal d3" href={`${base}/services/ppt-design`}>
-              <div className="num"><span>N° 03</span><span className="v">Live</span></div>
-              <div className="pic"><img className="bg" src="/portfolio/ppt-design/seriesb-flowdesk/cover-slide.png" alt="" loading="lazy" style={{objectPosition:"center center"}} /><span className="shade" /><span className="cap">PPT · IR · Proposal</span></div>
-              <h3>PPT <em>디자인</em></h3>
-              <p className="desc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
-              <span className="more">자세히 →</span>
+            {/* N° 03 PPT */}
+            <a className="scard reveal d3" href={`${base}/services/ppt-design`}>
+              <div className="simg" style={{background:"linear-gradient(135deg,#101420 0%,#161c2e 50%,#1e2638 100%)"}}>
+                <img className="simg-ph" src="/images/services/design-ppt.jpg" alt="PPT 디자인"
+                     onError={(e) => { e.currentTarget.style.display = "none"; }} loading="lazy" />
+              </div>
+              <div className="sbody">
+                <div className="sn"><span>N° 03</span><span className="sv">LIVE</span></div>
+                <h3>PPT <em>디자인</em></h3>
+                <p className="sdesc">제안·IR·발표 — 한 장으로 전달되는 슬라이드</p>
+                <span className="smore">자세히 →</span>
+              </div>
             </a>
           </div>
         </div>
         <span className="crease" />
       </section>
 
-      {/* Ways — editorial list on dark */}
+      {/* Ways */}
       <section className="sec">
         <div className="wrap">
           <div className="shead reveal"><span className="kick">Editorial Standard</span><h2>일하는 <em>방식</em></h2></div>
