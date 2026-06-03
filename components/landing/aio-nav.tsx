@@ -44,13 +44,16 @@ const NAV_CSS = `
 .aionav .cta{font-family:var(--font-pretendard);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;background:var(--nav-accent, #C8A24A);color:#0E0D0B;text-decoration:none;margin-left:6px;white-space:nowrap}
 .aionav .navitems{display:contents}
 @media(max-width:820px){
-  .aionav .in{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px;row-gap:2px;gap:4px}
-  .aionav .sp{flex-basis:100%;height:0;order:1}
-  .aionav .b{order:0}.aionav .cta{display:none}
-  .aionav .navitems{order:2;flex-basis:100%;display:flex;justify-content:center;gap:2px;overflow-x:auto;scrollbar-width:none}
-  .aionav .navitems::-webkit-scrollbar{display:none}
-  .aionav .dd{position:static;opacity:1;visibility:visible;transform:none;display:none;min-width:0;box-shadow:none;background:transparent;border:0;padding:0}
+  .aionav .cta{display:none}
   .aionav .item>a,.aionav .item>span{font-size:10.5px;padding:8px 10px}
+}
+@media(max-width:600px){
+  .aionav .in{height:52px;gap:3px}
+  .aionav .b .bn{display:none}
+  .aionav .sp{flex:0 0 4px}
+  .aionav .navitems{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+  .aionav .navitems::-webkit-scrollbar{display:none}
+  .aionav .item>a,.aionav .item>span{font-size:10px;padding:6px 9px;white-space:nowrap}
 }
 `;
 
