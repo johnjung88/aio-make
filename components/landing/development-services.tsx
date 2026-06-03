@@ -100,7 +100,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              <span style={{ color: ACCENT }}>코드</span>로 만드는<br className="hidden md:block" />모든 것
+              <span style={{ color: ACCENT }}>코드</span>로 만드는<br className="hidden md:block" />{" "}모든 것
             </h1>
             <p
               className="leading-[1.8] mb-8"
@@ -244,56 +244,87 @@ await aio.build(project);
       </section>
 
       {/* ── 포트폴리오 미리보기 ── */}
+      <style>{`
+        @keyframes devScrollDesktop {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        @keyframes devScrollMobile {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-33.333%); }
+        }
+      `}</style>
       <section style={{ background: "#F2F2F2", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-18">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14">
+
           {/* 헤더 — 모바일 가운데 정렬 */}
           <div className="text-center md:text-left mb-10">
             <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-2" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Portfolio</p>
             <h2 className="font-bold text-[#111]" style={{ fontSize: "clamp(20px,2.5vw,32px)" }}>실제 납품한 결과물</h2>
           </div>
 
-          {/* 목업 2-col */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* 2 세트 */}
+          <div className="grid grid-cols-1 gap-8">
+            {([
+              { label: "웹사이트", title: "자연한의원", stack: "Next.js · Vercel · 병원·의료", accent: "#4DD4AC", bg: "#EEF9F5", border: "#D1FAE5", desktop: "/images/portfolio/ws-medical-desktop.png", mobile: "/images/portfolio/ws-medical-mobile.png", delay: "0s" },
+              { label: "쇼핑몰",   title: "셰프밀 밀키트", stack: "카페24 · GA4 · Meta픽셀",   accent: "#FB923C", bg: "#FFF7ED", border: "#FED7AA", desktop: "/images/portfolio/ws-shop-desktop.png",    mobile: "/images/portfolio/ws-shop-mobile.png",    delay: "5s" },
+            ] as const).map((set) => (
+              <div key={set.label} style={{ background: set.bg, borderRadius: 20, padding: "24px 20px 20px", border: `1px solid ${set.border}` }}>
 
-            {/* 웹사이트 — 모니터 목업 */}
-            <div style={{ background: "#EEF9F5", borderRadius: 20, padding: "28px 20px 20px", border: "1px solid #D1FAE5" }}>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#4DD4AC20", color: "#4DD4AC" }}>웹사이트</span>
-                  <p className="text-[14px] font-bold text-[#111] mt-2">피부과 홈페이지</p>
-                  <p className="text-[11px] text-[#9CA3AF] mt-0.5" style={{ fontFamily: "var(--font-jetbrains)" }}>Next.js · Vercel</p>
+                {/* 세트 헤더 */}
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: set.accent + "22", color: set.accent }}>{set.label}</span>
+                  <span className="text-[14px] font-bold text-[#111]">{set.title}</span>
+                  <span className="hidden sm:inline text-[11px] text-[#9CA3AF]" style={{ fontFamily: "var(--font-jetbrains)" }}>{set.stack}</span>
                 </div>
-              </div>
-              {/* 모니터 목업 */}
-              <div style={{ position: "relative" }}>
-                <div style={{ position: "absolute", top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%", overflow: "hidden", zIndex: 0 }}>
-                  <Image src="/images/portfolio/ws-medical-desktop.png" alt="피부과 홈페이지" fill unoptimized style={{ objectFit: "cover", objectPosition: "top center" }} />
-                </div>
-                <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.18))" }} />
-              </div>
-            </div>
 
-            {/* 쇼핑몰 — 폰 목업 */}
-            <div style={{ background: "#FFF7ED", borderRadius: 20, padding: "28px 20px 20px", border: "1px solid #FED7AA", display: "flex", flexDirection: "column" }}>
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#FB923C20", color: "#FB923C" }}>쇼핑몰</span>
-                  <p className="text-[14px] font-bold text-[#111] mt-2">뷰티 브랜드 쇼핑몰</p>
-                  <p className="text-[11px] text-[#9CA3AF] mt-0.5" style={{ fontFamily: "var(--font-jetbrains)" }}>카페24 · GA4 · Meta픽셀</p>
-                </div>
-              </div>
-              {/* 폰 목업 — 가운데 정렬, 제한된 너비 */}
-              <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0" }}>
-                <div style={{ position: "relative", width: "52%", maxWidth: 220 }}>
-                  <div style={{ position: "absolute", top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%", overflow: "hidden", zIndex: 0 }}>
-                    <img src="/images/portfolio/ws-shop-mobile.png" alt="쇼핑몰" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
+                {/* PC + 모바일 목업 행 */}
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
+
+                  {/* 모니터 (PC) — flex 1 */}
+                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+                    {/* 스크롤 콘텐츠: 2장 복제 + translateY(-50%) seamless loop */}
+                    <div style={{
+                      position: "absolute", top: "1.71%", left: "12.01%",
+                      width: "76.11%", height: "70.85%",
+                      overflow: "hidden", zIndex: 0,
+                    }}>
+                      <div style={{ width: "100%", animation: `devScrollDesktop 16s linear ${set.delay} infinite` }}>
+                        <img src={set.desktop} alt={set.title} style={{ width: "100%", display: "block" }} />
+                        <img src={set.desktop} alt="" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                      </div>
+                    </div>
+                    <Image src="/mockups/monitor.png" alt="monitor" width={3072} height={2048} unoptimized
+                      style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1,
+                        filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
                   </div>
-                  <img src="/mockups/phone.png" alt="phone" style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.20))" }} />
+
+                  {/* 폰 (모바일) — 고정 너비 23% */}
+                  <div style={{ flexShrink: 0, width: "23%", maxWidth: 200 }}>
+                    <div style={{ position: "relative" }}>
+                      {/* 스크롤 콘텐츠: 3장 복제 + translateY(-33.33%) seamless loop */}
+                      <div style={{
+                        position: "absolute", top: "15.79%", left: "18.17%",
+                        width: "63.54%", height: "70.87%",
+                        overflow: "hidden", zIndex: 0,
+                      }}>
+                        <div style={{ width: "100%", animation: `devScrollMobile 11s linear ${set.delay} infinite` }}>
+                          <img src={set.mobile} alt={set.title + " 모바일"} style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} alt="" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                          <img src={set.mobile} alt="" aria-hidden="true" style={{ width: "100%", display: "block" }} />
+                        </div>
+                      </div>
+                      <img src="/mockups/phone.png" alt="phone"
+                        style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1,
+                          filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))" }} />
+                    </div>
+                  </div>
+
                 </div>
               </div>
-            </div>
-
+            ))}
           </div>
+
         </div>
       </section>
 
