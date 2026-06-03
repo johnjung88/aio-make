@@ -49,11 +49,10 @@ const NAV_CSS = `
   .aionav .item>a,.aionav .item>span{font-size:10.5px;padding:8px 10px}
 }
 @media(max-width:600px){
-  .aionav .in{height:52px;gap:3px}
+  .aionav .in{height:52px;gap:3px;overflow:visible}
   .aionav .b .bn{display:none}
   .aionav .sp{flex:0 0 4px}
-  .aionav .navitems{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
-  .aionav .navitems::-webkit-scrollbar{display:none}
+  .aionav .navitems{display:flex;gap:0;flex:1;min-width:0;overflow:visible}
   .aionav .item>a,.aionav .item>span{font-size:10px;padding:6px 9px;white-space:nowrap}
 }
 `;
