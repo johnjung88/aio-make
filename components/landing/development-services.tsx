@@ -300,7 +300,7 @@ await aio.build(project);
                   </div>
 
                   {/* 폰 (모바일) — 고정 너비 23% */}
-                  <div style={{ flexShrink: 0, width: "23%", maxWidth: 200 }}>
+                  <div style={{ flexShrink: 0, width: "30%", maxWidth: 260 }}>
                     <div style={{ position: "relative" }}>
                       {/* 스크롤 콘텐츠: 3장 복제 + translateY(-33.33%) seamless loop */}
                       <div style={{
