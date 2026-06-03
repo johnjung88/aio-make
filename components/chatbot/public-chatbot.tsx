@@ -1,8 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Bot, Loader2, MessageCircle, Send, X } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
+
+function usePageAccent(): string {
+  const pathname = usePathname();
+  if (/\/services\/website/.test(pathname)) return "#4DD4AC";
+  if (/\/services\/shopping-mall/.test(pathname)) return "#FB923C";
+  if (/\/services\/automation-app/.test(pathname)) return "#818CF8";
+  if (/\/services\/(design|detail-page|ppt-design)/.test(pathname)) return "#C66060";
+  if (/\/services\/marketing/.test(pathname)) return "#8BE0C2";
+  if (/\/services\/video/.test(pathname)) return "#E8A340";
+  return "#C8A24A";
+}
 
 type ChatMessage = { role: "assistant" | "customer"; content: string };
 
@@ -16,6 +28,7 @@ const QUICK = [
 ];
 
 export function PublicChatbot({ locale }: { locale: string }) {
+  const accent = usePageAccent();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -87,7 +100,7 @@ export function PublicChatbot({ locale }: { locale: string }) {
           {/* header */}
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div className="flex items-center gap-2">
-              <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <span className="flex size-8 items-center justify-center rounded-lg" style={{ background: accent, color: "#0D1117" }}>
                 <Bot className="size-4" />
               </span>
               <div>
@@ -111,9 +124,10 @@ export function PublicChatbot({ locale }: { locale: string }) {
                 <p
                   className={
                     chat.role === "customer"
-                      ? "max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-sm bg-primary px-3 py-2 text-sm text-primary-foreground"
+                      ? "max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-br-sm px-3 py-2 text-sm"
                       : "max-w-[88%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-white/5 px-3 py-2 text-sm leading-relaxed text-foreground"
                   }
+                  style={chat.role === "customer" ? { background: accent, color: "#0D1117" } : undefined}
                 >
                   {chat.content}
                 </p>
@@ -163,7 +177,8 @@ export function PublicChatbot({ locale }: { locale: string }) {
                   type="button"
                   onClick={requestCallback}
                   disabled={isSending}
-                  className="shrink-0 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground transition hover:brightness-105 disabled:opacity-60"
+                  className="shrink-0 rounded-lg px-3 text-sm font-semibold transition hover:brightness-105 disabled:opacity-60"
+                  style={{ background: accent, color: "#0D1117" }}
                 >
                   상담 신청
                 </button>
@@ -171,7 +186,7 @@ export function PublicChatbot({ locale }: { locale: string }) {
               {error && <p className="text-xs text-amber-300">{error}</p>}
             </div>
           ) : (
-            <div className="border-t border-white/10 bg-primary/10 px-4 py-3 text-sm text-foreground">
+            <div className="border-t border-white/10 px-4 py-3 text-sm text-foreground" style={{ background: `${accent}18` }}>
               상담 신청이 접수되었습니다. 1시간 내(영업시간 기준) 담당자가 연락드리겠습니다. 🙌
             </div>
           )}
@@ -185,7 +200,8 @@ export function PublicChatbot({ locale }: { locale: string }) {
               onChange={(e) => setMessage(e.target.value)}
             />
             <button
-              className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground transition hover:brightness-105 disabled:opacity-60"
+              className="flex size-10 items-center justify-center rounded-lg transition hover:brightness-105 disabled:opacity-60"
+              style={{ background: accent, color: "#0D1117" }}
               disabled={isSending || !message.trim()}
               aria-label="메시지 보내기"
             >
@@ -196,7 +212,8 @@ export function PublicChatbot({ locale }: { locale: string }) {
       )}
 
       <button
-        className="flex h-12 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-lg shadow-black/30 transition hover:brightness-105"
+        className="flex h-12 items-center gap-2 rounded-lg px-4 text-sm font-semibold shadow-lg shadow-black/30 transition hover:brightness-105"
+        style={{ background: accent, color: "#0D1117" }}
         onClick={() => { setOpen((current) => { if (!current) trackEvent("open_chatbot", {}); return !current; }); }}
         aria-label="AIO 상담 열기"
       >

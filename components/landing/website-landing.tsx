@@ -57,7 +57,7 @@ const INDUSTRIES = [
 
 function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop" | "mobile" }) {
   const [err, setErr] = useState(false);
-  const src = `/images/portfolio/ws-${item.id}-${device}.jpg`;
+  const src = `/images/portfolio/ws-${item.id}-${device}.png`;
   return (
     <div style={{ position: "relative", width: "100%", height: "100%", background: item.gradient }}>
       {!err && (
@@ -357,7 +357,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <TrustNumbers accentColor={ACCENT} items={TRUST} />
 
       {/* ── INDUSTRIES ── */}
-      <section style={{ background: "#fff", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
+      <section style={{ background: "#060D0A", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{
@@ -367,7 +367,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
             }}>
               Industries
             </p>
-            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#F0F6FC", letterSpacing: "-0.02em" }}>
               업종별 전문 제작
             </h2>
           </div>
@@ -376,29 +376,32 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               <div
                 key={title}
                 style={{
-                  background: "#fff", border: "1px solid #E5E7EB",
+                  background: "rgba(77,212,172,0.04)",
+                  border: "1px solid rgba(77,212,172,0.14)",
                   borderRadius: 16, padding: "24px 20px",
-                  transition: "border-color 0.2s,transform 0.2s,box-shadow 0.2s",
+                  transition: "border-color 0.2s,transform 0.2s,box-shadow 0.2s,background 0.2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = ACCENT;
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${ACCENT}1a`;
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                  e.currentTarget.style.boxShadow = `0 12px 32px ${ACCENT}22`;
+                  e.currentTarget.style.background = "rgba(77,212,172,0.09)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#E5E7EB";
+                  e.currentTarget.style.borderColor = "rgba(77,212,172,0.14)";
                   e.currentTarget.style.transform = "none";
                   e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.background = "rgba(77,212,172,0.04)";
                 }}
               >
                 <div style={{
-                  width: 40, height: 40, background: `${ACCENT}1a`, borderRadius: 10,
+                  width: 40, height: 40, background: `${ACCENT}18`, borderRadius: 10,
                   display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14,
                 }}>
                   <Icon size={18} color={ACCENT} strokeWidth={1.8} />
                 </div>
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: "#111", marginBottom: 8 }}>{title}</h3>
-                <p style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.7 }}>{desc}</p>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: "#F0F6FC", marginBottom: 8 }}>{title}</h3>
+                <p style={{ fontSize: 12, color: "rgba(240,246,252,0.50)", lineHeight: 1.7 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -406,7 +409,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       </section>
 
       {/* ── PRICING ── */}
-      <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} />
+      <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} sectionBg="#EEF9F5" />
 
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />

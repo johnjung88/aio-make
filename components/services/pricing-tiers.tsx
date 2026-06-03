@@ -8,11 +8,12 @@ interface Props {
   accentColor: string;
   isKo: boolean;
   ctaHref: string;
+  sectionBg?: string;
 }
 
-export function PricingTiers({ tiers, accentColor, isKo, ctaHref }: Props) {
+export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: Props) {
   return (
-    <section className="bg-white">
+    <section style={{ background: sectionBg ?? "#F8FAF9" }}>
       <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-24">
         <div className="text-center mb-12">
           <p
@@ -29,11 +30,11 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref }: Props) {
           {tiers.map((tier) => (
             <div
               key={tier.name.ko}
-              className="border rounded-2xl p-7 flex flex-col"
+              className="border rounded-2xl p-7 flex flex-col bg-white"
               style={
                 tier.recommended
                   ? { borderColor: accentColor, borderWidth: 2, boxShadow: `0 8px 32px ${accentColor}22` }
-                  : { borderColor: "#E5E7EB" }
+                  : { borderColor: "#E5E7EB", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }
               }
             >
               {/* 배지 높이 항상 확보 — 미추천 카드도 정렬 맞춤 */}

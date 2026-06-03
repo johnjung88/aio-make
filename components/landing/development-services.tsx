@@ -6,14 +6,14 @@ import Image from "next/image";
 import { AioNav, AioFooter } from "./aio-nav";
 import { ServiceCta } from "@/components/services/service-cta";
 
-const ACCENT = "#111111";
+const ACCENT = "#C8A24A";
 
 const SUB_SERVICES = [
   {
     no: "01", id: "website", title: "웹사이트", en: "Website",
     desc: "랜딩페이지·회사 홈페이지·서비스 사이트 — 스크롤을 멈추게 만드는 완성형 홈페이지",
     price: "₩99,000~", days: "1–5일", tags: ["Next.js", "WordPress", "카페24"],
-    href: (l: string) => `/${l}/services/website`, soon: false, accent: "#3B82F6", bg: "#EFF6FF",
+    href: (l: string) => `/${l}/services/website`, soon: false, accent: "#4DD4AC", bg: "#EEF9F5",
   },
   {
     no: "02", id: "shopping-mall", title: "쇼핑몰", en: "Shopping Mall",
@@ -43,7 +43,7 @@ const HOW = [
 ];
 
 const PORTFOLIO = [
-  { title: "피부과 홈페이지", type: "웹사이트", tag: "의료", stack: "Next.js · Vercel", bg: "#EFF6FF", accent: "#3B82F6", href: (l: string) => `/${l}/portfolio/category/website` },
+  { title: "피부과 홈페이지", type: "웹사이트", tag: "의료", stack: "Next.js · Vercel", bg: "#EEF9F5", accent: "#4DD4AC", href: (l: string) => `/${l}/portfolio/category/website` },
   { title: "뷰티 브랜드 쇼핑몰", type: "쇼핑몰", tag: "뷰티", stack: "카페24 · GA4 · Meta픽셀", bg: "#FFF7ED", accent: "#FB923C", href: (l: string) => `/${l}/portfolio/category/shopping-mall` },
   { title: "엑셀 자동화 프로그램", type: "자동화", tag: "업무자동화", stack: "Python · openpyxl", bg: "#F5F3FF", accent: "#818CF8", href: (l: string) => `/${l}/portfolio/category/automation` },
   { title: "법률사무소 랜딩", type: "웹사이트", tag: "법률", stack: "WordPress · ACF", bg: "#F0FDF4", accent: "#16A34A", href: (l: string) => `/${l}/portfolio/category/website` },
@@ -106,7 +106,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(38px,5.5vw,72px)" }}
             >
-              코드로 만드는<br />모든 것
+              <span style={{ color: ACCENT }}>코드</span>로 만드는<br />모든 것
             </h1>
             <p
               className="leading-[1.8] mb-8"

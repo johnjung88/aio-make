@@ -1,4 +1,5 @@
 "use client";
+import type React from "react";
 import Image from "next/image";
 import { trackContactClick } from "@/lib/analytics/client";
 
@@ -28,19 +29,19 @@ const NAV_CSS = `
 .aionav .b .logo{display:inline-flex;height:36px;width:36px;border-radius:8px;overflow:hidden;background:#EFE9DD}
 .aionav .b .logo img{height:100%;width:100%;object-fit:contain}
 .aionav .b .bn{font-family:var(--font-fraunces);font-weight:600;font-size:18px;letter-spacing:.02em}
-.aionav .b .bn em{font-style:normal;color:#C8A24A}
+.aionav .b .bn em{font-style:normal;color:var(--nav-accent, #C8A24A)}
 .aionav .sp{flex:1}
 .aionav .item{position:relative}
 .aionav .item>a,.aionav .item>span{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ibm-plex-mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#B7B0A2;padding:10px 13px;border-radius:8px;text-decoration:none;cursor:pointer}
-.aionav .item>a:hover,.aionav .item.on>a{color:#C8A24A}
+.aionav .item>a:hover,.aionav .item.on>a{color:var(--nav-accent, #C8A24A)}
 .aionav .item .ar{font-size:8px;opacity:.7}
 .aionav .dd{position:absolute;top:calc(100% - 2px);left:0;min-width:230px;background:#17150F;border:1px solid rgba(200,162,74,.22);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;box-shadow:0 22px 54px rgba(0,0,0,.55);z-index:5}
 .aionav .item:hover .dd{opacity:1;visibility:visible;transform:none}
 .aionav .dd a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-radius:7px;font-family:var(--font-pretendard);font-size:13.5px;color:#EFE9DD;text-decoration:none}
-.aionav .dd a:hover{background:rgba(200,162,74,.12);color:#C8A24A}
+.aionav .dd a:hover{background:rgba(200,162,74,.12);color:var(--nav-accent, #C8A24A)}
 .aionav .dd a .sn{font-family:var(--font-ibm-plex-mono);font-size:10px;color:#6F6A5E;letter-spacing:.1em}
 .aionav .dd a.soon{color:#6F6A5E;cursor:default}.aionav .dd a.soon:hover{background:transparent;color:#6F6A5E}
-.aionav .cta{font-family:var(--font-pretendard);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;background:#C8A24A;color:#0E0D0B;text-decoration:none;margin-left:6px;white-space:nowrap}
+.aionav .cta{font-family:var(--font-pretendard);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;background:var(--nav-accent, #C8A24A);color:#0E0D0B;text-decoration:none;margin-left:6px;white-space:nowrap}
 .aionav .navitems{display:contents}
 @media(max-width:820px){
   .aionav .in{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px;row-gap:2px;gap:4px}
@@ -52,6 +53,23 @@ const NAV_CSS = `
   .aionav .item>a,.aionav .item>span{font-size:10.5px;padding:8px 10px}
 }
 `;
+
+/** 소카테고리 → 서비스 액센트 색상 맵 */
+const SUB_ACCENT: Record<string, string> = {
+  website: "#4DD4AC",
+  "shopping-mall": "#FB923C",
+  "automation-app": "#818CF8",
+  "detail-page": "#C66060",
+  "ppt-design": "#C66060",
+};
+
+/** 중카테고리(분야) → 서비스 액센트 색상 맵 */
+const CAT_ACCENT: Record<string, string> = {
+  development: "#C8A24A",
+  design: "#C66060",
+  video: "#E8A340",
+  marketing: "#8BE0C2",
+};
 
 /** 분야별 소 서비스 카탈로그 (소카테고리 드롭다운용). */
 const CAT_SUB: Record<string, { label: string; svc: string; pf?: string; sn: string }[]> = {
@@ -89,14 +107,17 @@ interface AioNavProps {
   /** Soft-category slug for leaf-level pages (e.g. "website", "shopping-mall"). 서비스 소개/포트폴리오 링크가 이 슬러그를 가리킵니다. */
   sub?: string;
   active: AioNavActive;
+  /** 페이지별 액센트 색상. 미입력 시 sub → cat 순으로 자동 결정됨. */
+  accentColor?: string;
 }
 
-export function AioNav({ locale, level, cat = "development", sub, active }: AioNavProps) {
+export function AioNav({ locale, level, cat = "development", sub, active, accentColor }: AioNavProps) {
   const base = `/${locale}`;
   const subs = CAT_SUB[cat] || CAT_SUB.development;
+  const resolved = accentColor ?? (sub ? SUB_ACCENT[sub] : undefined) ?? CAT_ACCENT[cat] ?? "#C8A24A";
   // leaf 페이지: 서비스 소개·포트폴리오는 현재 소 서비스(sub)를 가리킴. middle 페이지: cat 허브.
   return (
-    <nav className="aionav">
+    <nav className="aionav" style={{ "--nav-accent": resolved } as React.CSSProperties}>
       <style dangerouslySetInnerHTML={{ __html: NAV_CSS }} />
       <div className="in">
         <a className="b" href={`${base}`} aria-label="AIO 홈으로">
