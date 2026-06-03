@@ -295,23 +295,25 @@ await aio.build(project);
       <section className="bg-white">
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-            <div className="md:sticky md:top-24">
+            <div className="md:sticky md:top-24 text-center md:text-left">
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
               <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>결과물 중심으로<br />일합니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
                 빠르고 투명하게 — 의뢰부터 납품까지 매일 진행 상황을 공유하고, 시안이 아닌 바로 쓸 수 있는 완성품으로 납품합니다
               </p>
-              <div className="flex gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
+              <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (
-                  <div key={s.l}>
+                  <div key={s.l} className="text-center md:text-left">
                     <div className="font-bold text-[#111]" style={{ fontSize: "clamp(22px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
                     <div className="text-[11px] text-[#9CA3AF] mt-0.5">{s.l}</div>
                   </div>
                 ))}
               </div>
-              <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
-                제작 문의 →
-              </Link>
+              <div className="flex justify-center md:justify-start">
+                <Link href={`/${locale}/quote`} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-[13px] font-bold text-white bg-[#111] transition-all hover:-translate-y-0.5 hover:shadow-md">
+                  제작 문의 →
+                </Link>
+              </div>
             </div>
             <div className="grid grid-cols-1 gap-3">
               {HOW.map((h) => (
