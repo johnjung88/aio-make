@@ -24,7 +24,7 @@ const GUARANTEE = [
   "모바일 화면을 기본 확인합니다",
   "문의 버튼과 연락 링크 작동을 확인합니다",
   "추가 비용이 필요한 기능은 작업 전 미리 안내드립니다",
-  "기본 수정 1회를 포함합니다",
+  "1달 A/S가 포함됩니다",
 ];
 
 interface Props {
@@ -74,22 +74,22 @@ export function WebsitePricingSection({ tiers, addons, accentColor, ctaHref, sec
         </div>
 
         {/* ── 4단 요금제 카드 ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12 md:mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4 mb-10 md:mb-16">
           {tiers.map((tier) => (
             <div
               key={tier.name.ko}
-              className="border rounded-2xl p-5 md:p-6 flex flex-col bg-white"
+              className="border rounded-xl p-3 sm:p-4 md:p-5 flex flex-col bg-white"
               style={
                 tier.recommended
-                  ? { borderColor: accentColor, borderWidth: 2, boxShadow: `0 8px 32px ${accentColor}33` }
-                  : { borderColor: "#E5E7EB", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }
+                  ? { borderColor: accentColor, borderWidth: 2, boxShadow: `0 4px 20px ${accentColor}28` }
+                  : { borderColor: "#E5E7EB", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }
               }
             >
               {/* 추천 배지 */}
               {tier.recommended && (
-                <div className="mb-3">
+                <div className="mb-1.5">
                   <span
-                    className="inline-block text-[10px] font-bold px-3 py-1 rounded-full text-white"
+                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
                     style={{ background: accentColor }}
                   >
                     추천
@@ -98,15 +98,15 @@ export function WebsitePricingSection({ tiers, addons, accentColor, ctaHref, sec
               )}
 
               {/* 티어명 */}
-              <div className="text-[12px] md:text-[13px] font-semibold text-[#6B7280] mb-2" style={{ wordBreak: "keep-all" }}>
+              <div className="text-[10px] sm:text-[11px] md:text-[13px] font-semibold text-[#6B7280] mb-1.5 leading-tight" style={{ wordBreak: "keep-all" }}>
                 {tier.name.ko}
               </div>
 
               {/* 가격 */}
               <div
-                className="font-bold leading-none mb-4"
+                className="font-bold leading-none mb-2.5"
                 style={{
-                  fontSize: isFreeQuote(tier) ? "clamp(16px,2.5vw,22px)" : "clamp(22px,3.5vw,34px)",
+                  fontSize: isFreeQuote(tier) ? "clamp(13px,2vw,20px)" : "clamp(15px,2.8vw,30px)",
                   fontFamily: isFreeQuote(tier) ? "var(--font-pretendard)" : "var(--font-jetbrains)",
                   color: isFreeQuote(tier) ? "#374151" : "#111",
                 }}
@@ -115,13 +115,13 @@ export function WebsitePricingSection({ tiers, addons, accentColor, ctaHref, sec
               </div>
 
               {/* 구분선 */}
-              <div className="border-t border-[#F3F4F6] mb-4" />
+              <div className="border-t border-[#F3F4F6] mb-2" />
 
               {/* 포함 항목 */}
-              <ul className="space-y-2 flex-1">
+              <ul className="space-y-1 flex-1">
                 {tier.includes.map((inc, i) => (
-                  <li key={i} className="flex items-start gap-1.5 text-[11px] md:text-[12px] text-[#374151]" style={{ wordBreak: "keep-all" }}>
-                    <span className="mt-0.5 text-[9px] font-bold flex-shrink-0" style={{ color: accentColor }}>✓</span>
+                  <li key={i} className="flex items-start gap-1 text-[10px] sm:text-[11px] text-[#374151]" style={{ wordBreak: "keep-all" }}>
+                    <span className="mt-0.5 text-[8px] font-bold flex-shrink-0" style={{ color: accentColor }}>✓</span>
                     {inc.ko}
                   </li>
                 ))}
@@ -130,14 +130,14 @@ export function WebsitePricingSection({ tiers, addons, accentColor, ctaHref, sec
               {/* CTA */}
               <Link
                 href={ctaHref}
-                className="mt-5 block text-center py-2.5 rounded-xl text-[12px] md:text-[13px] font-semibold transition-all hover:-translate-y-0.5"
+                className="mt-3 block text-center py-1.5 md:py-2 rounded-lg text-[10px] sm:text-[11px] md:text-[12px] font-semibold transition-all hover:-translate-y-0.5"
                 style={
                   tier.recommended
                     ? { background: accentColor, color: "#fff" }
                     : { background: "#F9FAFB", color: "#111", border: "1px solid #E5E7EB" }
                 }
               >
-                {isFreeQuote(tier) ? "견적 문의 →" : "이 플랜으로 문의 →"}
+                {isFreeQuote(tier) ? "견적 문의 →" : "문의 →"}
               </Link>
             </div>
           ))}
