@@ -251,25 +251,23 @@ export function WebsiteLanding({ locale }: { locale: string }) {
                 <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
 
                   {/* 모니터 (PC) */}
-                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative", aspectRatio: "3072 / 2048" }}>
+                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
                     <div style={{
                       position: "absolute", top: "1.71%", left: "12.01%",
                       width: "76.11%", height: "70.85%",
                       overflow: "hidden", zIndex: 0,
                     }}>
-                      <img
-                        src={`/images/portfolio/ws-${s.id}-desktop.png`}
-                        alt={s.name}
-                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
-                      />
+                      <div style={{ width: "100%", animation: `wsScrollDesktop ${12 + i * 4}s linear 0s infinite` }}>
+                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt={s.name} style={{ width: "100%", display: "block" }} />
+                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                      </div>
                     </div>
                     <Image
                       src="/mockups/monitor.png" alt="monitor"
                       width={3072} height={2048} unoptimized
                       style={{
-                        position: "absolute", top: 0, left: 0,
-                        width: "100%", height: "100%", display: "block",
-                        zIndex: 1,
+                        width: "100%", height: "auto", display: "block",
+                        position: "relative", zIndex: 1,
                         filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
                       }}
                     />

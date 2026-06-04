@@ -89,19 +89,18 @@ const INCLUDES = [
   { Icon: Wrench,     title: "14일 A/S",       desc: "납품 후 무상 유지보수 포함" },
 ];
 
-function MacbookMockup({ item }: { item: ShowcaseItem }) {
+function MacbookMockup({ item, animDelay }: { item: ShowcaseItem; animDelay: string }) {
   return (
-    <div className="sm-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative", aspectRatio: "3072 / 2048" }}>
+    <div className="sm-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
       <div style={{
         position: "absolute", top: "1.71%", left: "12.01%",
         width: "76.11%", height: "70.85%",
         overflow: "hidden", zIndex: 0,
       }}>
-        <img
-          src={item.desktopImg}
-          alt={item.name}
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
-        />
+        <div style={{ width: "100%", animation: `smScrollDesktop 16s linear ${animDelay} infinite` }}>
+          <img src={item.desktopImg} alt={item.name} style={{ width: "100%", display: "block" }} />
+          <img src={item.desktopImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+        </div>
       </div>
       <Image
         src="/mockups/monitor.png"
@@ -110,9 +109,8 @@ function MacbookMockup({ item }: { item: ShowcaseItem }) {
         height={2048}
         unoptimized
         style={{
-          position: "absolute", top: 0, left: 0,
-          width: "100%", height: "100%", display: "block",
-          zIndex: 1,
+          width: "100%", height: "auto", display: "block",
+          position: "relative", zIndex: 1,
           filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
         }}
       />
@@ -129,11 +127,11 @@ function PhoneMockup({ item }: { item: ShowcaseItem }) {
           width: "63.54%", height: "70.87%",
           overflow: "hidden", zIndex: 0,
         }}>
-          <img
-            src={item.mobileImg}
-            alt={item.name + " 모바일"}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
-          />
+          <div style={{ width: "100%", animation: "smScrollMobile 11s linear 0s infinite" }}>
+            <img src={item.mobileImg} alt={item.name + " 모바일"} style={{ width: "100%", display: "block" }} />
+            <img src={item.mobileImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+            <img src={item.mobileImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+          </div>
         </div>
         <img
           src="/mockups/phone.png"
@@ -157,6 +155,14 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
   return (
     <div className="smvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes smScrollDesktop {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        @keyframes smScrollMobile {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-33.333%); }
+        }
         .smvc .sm-hero-txt { text-align: left; }
         @media (max-width: 768px) {
           .smvc .sm-hero-txt { text-align: center; }
@@ -333,7 +339,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
             ))}
           </div>
           <div className="sm-showcase-wrap" style={{ display: "flex", alignItems: "flex-end", gap: "3%", maxWidth: 960, margin: "0 auto" }}>
-            <MacbookMockup item={activeItem} />
+            <MacbookMockup item={activeItem} animDelay="0s" />
             <PhoneMockup item={activeItem} />
           </div>
           <div style={{ textAlign: "center", marginTop: 32 }}>
