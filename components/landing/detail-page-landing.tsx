@@ -137,7 +137,7 @@ const LENGTH_ITEMS = [
 
 const ROLL_ITEMS = [
   { px: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s" },
-  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "13s" },
+  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "20s" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
@@ -246,18 +246,6 @@ export function DetailPageLanding({ locale }: { locale: string }) {
               </div>
             </div>
           ))}
-        </div>
-        <div className="gif-card reveal d1">
-          <div className="gif-head">
-            <span className="rw-px">GIF 샘플</span>
-            <span className="rw-nm">움직이는 요소 · 비교 슬라이더</span>
-          </div>
-          <div className="gif-body">
-            <div className="gif-ph">
-              <img src="/portfolio/detail-page/sample.gif" alt="GIF 샘플" />
-            </div>
-            <span className="gif-label">GIF · MOTION</span>
-          </div>
         </div>
         <a className="gmore reveal d2" href={`/${locale}/services/detail-page/portfolio`}>포트폴리오 전체 보기 →</a>
       </section>
