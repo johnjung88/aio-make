@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { AioNav, AioFooter } from "./aio-nav";
 import { TrustNumbers } from "@/components/services/trust-numbers";
-import { PricingTiers } from "@/components/services/pricing-tiers";
+import { WebsitePricingSection } from "@/components/services/website-pricing-section";
 import { ProcessSteps } from "@/components/services/process-steps";
 import { ServiceCta } from "@/components/services/service-cta";
 import { servicesData } from "@/lib/services-data";
@@ -434,9 +434,13 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       </section>
 
       {/* ── PRICING ── */}
-      <div className="ws-pricing-wrap">
-        <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} sectionBg="#EEF9F5" />
-      </div>
+      <WebsitePricingSection
+        tiers={service.pricing}
+        addons={service.addons}
+        accentColor={ACCENT}
+        ctaHref={`/${locale}/quote`}
+        sectionBg="#EEF9F5"
+      />
 
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />
