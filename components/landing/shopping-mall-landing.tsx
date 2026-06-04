@@ -22,7 +22,7 @@ const service = servicesData.find((s) => s.id === "shopping-mall")!;
 const TRUST = [
   { value: "142",   label: "누적 의뢰",    sub: "쇼핑몰 포함" },
   { value: "98%",   label: "재의뢰율",     sub: "142명 중 139명" },
-  { value: "2일",   label: "평균 납기",    sub: "기본 플랜 기준" },
+  { value: "1달",   label: "기본 A/S",     sub: "납품 후 무상" },
   { value: "카페24", label: "전문 파트너", sub: "공식 구축 경험" },
 ];
 
@@ -35,11 +35,9 @@ const KPI_CARDS = [
 ];
 
 const SHOWCASE = [
-  { id: "all",     label: "전체",        domain: "chefmeal.co.kr",    name: "셰프밀 식품몰", kpi: "매출 +45%",     gradient: "linear-gradient(135deg,#2a1a0a 0%,#5a3a14 50%,#FB923C 100%)" },
-  { id: "beauty",  label: "뷰티·화장품", domain: "luna-beauty.kr",    name: "루나 뷰티",     kpi: "전환율 +32%",   gradient: "linear-gradient(135deg,#2a0a1a 0%,#5a1a3a 50%,#d97706 100%)" },
-  { id: "food",    label: "식품·건강",   domain: "greenfarm.co.kr",   name: "그린팜",        kpi: "객단가 +18%",   gradient: "linear-gradient(135deg,#0a2a0a 0%,#1a5a1a 50%,#4a9a4a 100%)" },
-  { id: "fashion", label: "패션·의류",   domain: "styleon.co.kr",     name: "스타일온",      kpi: "재구매율 +28%", gradient: "linear-gradient(135deg,#0a1a2a 0%,#1a3a5a 50%,#3a7aaa 100%)" },
-  { id: "living",  label: "리빙·인테리어", domain: "modernliving.kr", name: "모던리빙",      kpi: "ROAS 3.2x",     gradient: "linear-gradient(135deg,#1a1a0a 0%,#3a3a14 50%,#7a7a3a 100%)" },
+  { id: "beauty",  label: "뷰티·화장품", domain: "luna-beauty.kr",  name: "루나 뷰티", kpi: "전환율 +32%",   gradient: "linear-gradient(135deg,#2a0a1a 0%,#5a1a3a 50%,#d97706 100%)" },
+  { id: "food",    label: "식품·건강",   domain: "greenfarm.co.kr", name: "그린팜",    kpi: "객단가 +18%",   gradient: "linear-gradient(135deg,#0a2a0a 0%,#1a5a1a 50%,#4a9a4a 100%)" },
+  { id: "fashion", label: "패션·의류",   domain: "styleon.co.kr",   name: "스타일온",  kpi: "재구매율 +28%", gradient: "linear-gradient(135deg,#0a1a2a 0%,#1a3a5a 50%,#3a7aaa 100%)" },
 ];
 
 type ShowcaseItem = (typeof SHOWCASE)[number];
@@ -137,7 +135,7 @@ function PhoneMockup({ item }: { item: ShowcaseItem }) {
 
 export function ShoppingMallLanding({ locale }: { locale: string }) {
   const isKo = locale === "ko";
-  const [activeId, setActiveId] = useState("all");
+  const [activeId, setActiveId] = useState("beauty");
   const activeItem = SHOWCASE.find((s) => s.id === activeId) ?? SHOWCASE[0];
 
   return (
@@ -146,13 +144,18 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
         .smvc .sm-hero-txt { text-align: left; }
         @media (max-width: 768px) {
           .smvc .sm-hero-txt { text-align: center; }
-          .smvc .sm-hero-txt h1 { max-width: none !important; }
-          .smvc .sm-hero-txt p { max-width: none !important; }
+          .smvc .sm-hero-txt h1 { max-width: none !important; font-size: clamp(30px,8vw,50px) !important; line-height: 1.15 !important; }
+          .smvc .sm-hero-txt p { max-width: none !important; font-size: 14px !important; }
           .smvc .sm-badges { justify-content: center !important; }
           .smvc .sm-phone { display: none !important; }
           .smvc .sm-macbook { flex: none !important; width: 100% !important; }
           .smvc .sm-funnel-row { flex-direction: column !important; align-items: center !important; }
           .smvc .sm-funnel-row > div:has(span) { display: none !important; }
+          .smvc .sm-pricing-wrap [class*="py-16"] { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+          .smvc .sm-pricing-wrap [class*="p-7"] { padding: 1.25rem !important; }
+          .smvc .sm-pricing-wrap [class*="gap-6"] { gap: 0.75rem !important; }
+          .smvc .sm-pricing-wrap [class*="mb-12"] { margin-bottom: 1.5rem !important; }
+          .smvc .sm-pricing-wrap [style*="clamp(26px"] { font-size: 22px !important; }
         }
         @media (max-width: 640px) {
           .smvc .sm-funnel-card { min-width: 0 !important; width: 100%; }
@@ -195,22 +198,22 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               SHOPPING MALL · 쇼핑몰 구축
             </p>
             <h1 style={{
-              fontSize: "clamp(36px,4.5vw,76px)", fontWeight: 700,
-              letterSpacing: "-0.03em", lineHeight: 1.0,
+              fontSize: "clamp(32px,4.5vw,72px)", fontWeight: 700,
+              letterSpacing: "-0.03em", lineHeight: 1.08,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
             }}>
-              팔리는 쇼핑몰을<br className="hidden md:block" />
+              팔리는 쇼핑몰을<br />
               <span style={{ color: ACCENT }}>구축</span>합니다
             </h1>
             <p style={{
-              fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
-              lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
+              fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(240,246,252,0.58)",
+              lineHeight: 1.9, maxWidth: 460, marginBottom: 32,
             }}>
-              카페24·독립몰·자사몰<br className="hidden md:block" />
-              상품 등록부터 결제 연동까지 한 번에 납품합니다
+              카페24·독립몰 등 전문 쇼핑몰부터<br />
+              배너·상품 등록·결제 연동까지 원스톱 제작
             </p>
             <div className="sm-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
-              {["카페24 전문", "결제연동 포함", "14일 A/S"].map((b) => (
+              {["카페24 전문", "결제연동 포함", "1달 A/S"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
                   border: `1px solid ${ACCENT}`, color: ACCENT,
@@ -287,7 +290,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               결과를 먼저 보고 결정하세요
             </h2>
             <p style={{ fontSize: 15, color: "rgba(240,246,252,0.55)", lineHeight: 1.7 }}>
-              데모가 아닙니다. 실제 운영 중인 쇼핑몰입니다
+              데모가 아닙니다 — 실제 운영 중인 쇼핑몰입니다
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
@@ -335,7 +338,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       <TrustNumbers accentColor={ACCENT} items={TRUST} />
 
       {/* ── 업종별 전문 ── */}
-      <section style={{ background: "#fff", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
+      <section style={{ background: "#0D1117", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{
@@ -345,7 +348,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
             }}>
               Industries
             </p>
-            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#F0F6FC", letterSpacing: "-0.02em" }}>
               업종별 전문 쇼핑몰
             </h2>
           </div>
@@ -354,19 +357,21 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               <div
                 key={title}
                 style={{
-                  background: "#fff", border: "1px solid #E5E7EB",
+                  background: `${ACCENT}08`, border: `1px solid ${ACCENT}22`,
                   borderRadius: 16, padding: "24px 20px",
                   transition: "border-color 0.2s,transform 0.2s,box-shadow 0.2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = ACCENT;
                   e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow = `0 8px 24px ${ACCENT}1a`;
+                  e.currentTarget.style.boxShadow = `0 8px 24px ${ACCENT}30`;
+                  e.currentTarget.style.background = `${ACCENT}14`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#E5E7EB";
+                  e.currentTarget.style.borderColor = `${ACCENT}22`;
                   e.currentTarget.style.transform = "none";
                   e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.background = `${ACCENT}08`;
                 }}
               >
                 <div style={{
@@ -375,8 +380,8 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
                 }}>
                   <Icon size={18} color={ACCENT} strokeWidth={1.8} />
                 </div>
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: "#111", marginBottom: 8 }}>{title}</h3>
-                <p style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.7 }}>{desc}</p>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: "#F0F6FC", marginBottom: 8 }}>{title}</h3>
+                <p style={{ fontSize: 12, color: "rgba(240,246,252,0.50)", lineHeight: 1.7 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -384,7 +389,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       </section>
 
       {/* ── 포함 내역 ── */}
-      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB", borderBottom: "1px solid #E5E7EB" }}>
+      <section style={{ background: "#F5F0E8", borderTop: "1px solid #E8DFD0", borderBottom: "1px solid #E8DFD0" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
             <p style={{
@@ -394,14 +399,14 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
             }}>
               Includes
             </p>
-            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#111" }}>
+            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#1A1614" }}>
               기본 패키지에 모두 포함
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 20 }}>
             {INCLUDES.map(({ Icon, title, desc }) => (
               <div key={title} style={{
-                border: "1px solid #E5E7EB", borderRadius: 16,
+                border: "1px solid #E8DFD0", borderRadius: 16,
                 padding: "24px 20px", textAlign: "center", background: "#fff",
               }}>
                 <div style={{
@@ -433,8 +438,8 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               구매자 동선에 맞는 <span style={{ color: ACCENT }}>최적의 세팅</span>까지
             </h2>
             <p style={{ fontSize: 14, color: "#9CA3AF", maxWidth: "52ch", margin: "0 auto", lineHeight: 1.75 }}>
-              단순 쇼핑몰 구축이 아닙니다. 방문자가 상품을 발견하고 결제까지<br />
-              이탈 없이 이어지도록 — 구매 퍼널 전 단계를 설계합니다
+              단순 구축이 아닙니다 — 방문자가 상품을 발견하고 결제까지<br />
+              이탈 없이 이어지도록 구매 퍼널 전 단계를 설계합니다
             </p>
           </div>
           <div className="sm-funnel-row" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: 8, marginBottom: 40 }}>
@@ -482,7 +487,9 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       </section>
 
       {/* ── PRICING ── */}
-      <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} />
+      <div className="sm-pricing-wrap">
+        <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} />
+      </div>
 
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />

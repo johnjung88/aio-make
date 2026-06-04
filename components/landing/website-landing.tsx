@@ -23,15 +23,13 @@ const TRUST = [
   { value: "142", label: "누적 의뢰",  sub: "기업·개인 포함" },
   { value: "98%", label: "재의뢰율",   sub: "142명 중 139명 재의뢰" },
   { value: "23분", label: "평균 응답", sub: "영업일 기준" },
-  { value: "14일", label: "기본 A/S",  sub: "납품 후 무상" },
+  { value: "1달",  label: "기본 A/S",  sub: "납품 후 무상" },
 ];
 
 const SHOWCASE = [
-  { id: "all",     label: "전체",      domain: "aio-make.com",       name: "AIO 스튜디오",       kpi: "누적 142개 프로젝트", gradient: "linear-gradient(135deg,#1a3a4a 0%,#2d5e6f 50%,#4DD4AC 100%)" },
-  { id: "medical", label: "병원·의료", domain: "jaeheon-clinic.com",  name: "자연한의원",          kpi: "예약 +120%",          gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)" },
-  { id: "legal",   label: "법률·세무", domain: "seoul-legal.kr",      name: "서울법무사사무소",    kpi: "상담문의 +85%",       gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)" },
-  { id: "shop",    label: "쇼핑몰",    domain: "chefmeal.co.kr",      name: "셰프밀 식품몰",      kpi: "매출 +28%",           gradient: "linear-gradient(135deg,#2a1f0a 0%,#5a3a14 50%,#8a6228 100%)" },
-  { id: "startup", label: "스타트업",  domain: "v-aio.app",           name: "V-AIO 서비스",       kpi: "전환율 +52%",         gradient: "linear-gradient(135deg,#0a1a2a 0%,#1a2a4a 50%,#2a4a8a 100%)" },
+  { id: "medical", label: "병원·의료", domain: "jaeheon-clinic.com",  name: "자연한의원",       kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)" },
+  { id: "legal",   label: "법률·세무", domain: "seoul-legal.kr",      name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)" },
+  { id: "company", label: "회사소개",  domain: "aio-make.com",        name: "AIO 스튜디오",     kpi: "방문 +63%",     gradient: "linear-gradient(135deg,#1a3a4a 0%,#2d5e6f 50%,#4DD4AC 100%)" },
 ];
 
 type ShowcaseItem = (typeof SHOWCASE)[number];
@@ -39,20 +37,20 @@ type ShowcaseItem = (typeof SHOWCASE)[number];
 const KPI_CARDS = [
   { client: "자연한의원",       cat: "병원·의료",  kpi: "+120%", label: "예약 증가",  delay: "0s",    color: "#4DD4AC" },
   { client: "서울법무사사무소", cat: "법률·세무",  kpi: "+85%",  label: "상담 문의",  delay: "0.6s",  color: "#79C0FF" },
-  { client: "셰프밀",           cat: "쇼핑몰",     kpi: "+28%",  label: "매출 증가",  delay: "1.2s",  color: "#FFB347" },
-  { client: "V-AIO 서비스",     cat: "스타트업",   kpi: "+52%",  label: "전환율",     delay: "1.8s",  color: "#4DD4AC" },
-  { client: "아카데미밸리",     cat: "교육·학원",  kpi: "+44%",  label: "수강 등록",  delay: "0.3s",  color: "#D2A8FF" },
+  { client: "AIO 스튜디오",     cat: "회사소개",   kpi: "+63%",  label: "방문자",     delay: "1.2s",  color: "#FFB347" },
+  { client: "아카데미밸리",     cat: "교육·학원",  kpi: "+44%",  label: "수강 등록",  delay: "1.8s",  color: "#D2A8FF" },
+  { client: "하이덴탈",         cat: "병원·의료",  kpi: "+38%",  label: "신규 예약",  delay: "0.3s",  color: "#4DD4AC" },
 ];
 
 const INDUSTRIES = [
-  { Icon: Stethoscope,     title: "병원·의료",       desc: "의원·한의원·치과·성형외과. 예약·진료 안내·의료광고법 대응" },
-  { Icon: Scale,           title: "법률·세무",       desc: "변호사·법무사·세무사. 상담 유도와 전문성 강조에 최적화" },
-  { Icon: GraduationCap,   title: "교육·학원",       desc: "학원·과외·온라인 강의. 강사·시간표·수강 신청 시스템" },
-  { Icon: ShoppingBag,     title: "쇼핑몰·D2C",     desc: "카페24·자사몰. 상품성과 구매 동선 최적화" },
-  { Icon: UtensilsCrossed, title: "F&B·카페",       desc: "음식점·카페·베이커리. 메뉴·매장·주문 흐름" },
-  { Icon: Scissors,        title: "뷰티·미용",       desc: "미용실·네일·피부관리. 시술 메뉴·예약·후기" },
-  { Icon: Building2,       title: "부동산",          desc: "중개·분양·임대. 매물 리스트·지도·문의" },
-  { Icon: Rocket,          title: "스타트업·서비스",  desc: "빠른 런칭과 전환율 중심의 서비스 랜딩페이지" },
+  { Icon: Stethoscope,     title: "병원·의료",      desc: "의원·한의원·치과·성형외과 — 예약·진료 안내·의료광고법 대응" },
+  { Icon: Scale,           title: "법률·세무",      desc: "변호사·법무사·세무사 — 상담 유도와 전문성 강조에 최적화" },
+  { Icon: GraduationCap,   title: "교육·학원",      desc: "학원·과외·온라인 강의 — 강사·시간표·수강 신청 시스템" },
+  { Icon: UtensilsCrossed, title: "F&B·카페",      desc: "음식점·카페·베이커리 — 메뉴·매장·주문 흐름" },
+  { Icon: Scissors,        title: "뷰티·미용",      desc: "미용실·네일·피부관리 — 시술 메뉴·예약·후기" },
+  { Icon: Building2,       title: "부동산",         desc: "중개·분양·임대 — 매물 리스트·지도·문의" },
+  { Icon: ShoppingBag,     title: "쇼핑몰·D2C",    desc: "카페24·자사몰 — 상품성과 구매 동선 최적화" },
+  { Icon: Rocket,          title: "스타트업·서비스", desc: "빠른 런칭과 전환율 중심의 서비스 랜딩" },
 ];
 
 function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop" | "mobile" }) {
@@ -128,7 +126,7 @@ function PhoneMockup({ item }: { item: ShowcaseItem }) {
 
 export function WebsiteLanding({ locale }: { locale: string }) {
   const isKo = locale === "ko";
-  const [activeId, setActiveId] = useState("all");
+  const [activeId, setActiveId] = useState("medical");
   const activeItem = SHOWCASE.find((s) => s.id === activeId) ?? SHOWCASE[0];
 
   return (
@@ -137,11 +135,18 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         .wsvc .ws-hero-txt { text-align: left; }
         @media (max-width: 768px) {
           .wsvc .ws-hero-txt { text-align: center; }
-          .wsvc .ws-hero-txt h1 { max-width: none !important; }
-          .wsvc .ws-hero-txt p { max-width: none !important; }
+          .wsvc .ws-hero-txt h1 { max-width: none !important; font-size: clamp(32px,8vw,52px) !important; line-height: 1.15 !important; }
+          .wsvc .ws-hero-txt p { max-width: none !important; font-size: 14px !important; }
           .wsvc .ws-badges { justify-content: center !important; }
           .wsvc .ws-phone { display: none !important; }
           .wsvc .ws-macbook { flex: none !important; width: 100% !important; }
+          .wsvc .ws-pricing-wrap [class*="py-16"] { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+          .wsvc .ws-pricing-wrap [class*="p-7"] { padding: 1.25rem !important; }
+          .wsvc .ws-pricing-wrap [class*="gap-6"] { gap: 0.75rem !important; }
+          .wsvc .ws-pricing-wrap [class*="mb-12"] { margin-bottom: 1.5rem !important; }
+          .wsvc .ws-pricing-wrap [style*="clamp(26px"] { font-size: 22px !important; }
+          .wsvc .ws-pricing-wrap [class*="space-y-2"] { gap: 0.375rem !important; }
+          .wsvc .ws-pricing-wrap [class*="text-[13px]"] { font-size: 12px !important; }
         }
       ` }} />
       <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
@@ -187,22 +192,22 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               WEBSITE · 웹사이트 제작
             </p>
             <h1 style={{
-              fontSize: "clamp(36px,4.5vw,76px)", fontWeight: 700,
-              letterSpacing: "-0.03em", lineHeight: 1.0,
+              fontSize: "clamp(36px,4.5vw,72px)", fontWeight: 700,
+              letterSpacing: "-0.03em", lineHeight: 1.08,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
             }}>
-              스크롤을 멈추게<br className="hidden md:block" />
+              스크롤을 멈추게<br />
               만드는 <span style={{ color: ACCENT }}>홈페이지</span>
             </h1>
             <p style={{
-              fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
-              lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
+              fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(240,246,252,0.58)",
+              lineHeight: 1.9, maxWidth: 460, marginBottom: 32,
             }}>
-              랜딩페이지·회사 홈페이지·서비스 사이트.<br className="hidden md:block" />
+              랜딩페이지·회사 홈페이지·서비스 사이트<br />
               운영 가능한 완성품을 5일 이내 납품합니다
             </p>
             <div className="ws-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
-              {["5일 납품","14일 A/S","SEO 세팅 포함"].map((b) => (
+              {["5일 납품","1달 A/S","SEO·AEO 무료 세팅"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
                   border: `1px solid ${ACCENT}`, color: ACCENT,
@@ -279,7 +284,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               결과를 먼저 보고 결정하세요
             </h2>
             <p style={{ fontSize: 15, color: "rgba(240,246,252,0.55)", lineHeight: 1.7 }}>
-              데모가 아닙니다. 실제 운영 중인 사이트입니다.
+              데모가 아닙니다 — 실제 운영 중인 사이트입니다
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
@@ -382,8 +387,54 @@ export function WebsiteLanding({ locale }: { locale: string }) {
         </div>
       </section>
 
+      {/* ── SEO · AEO ── */}
+      <section style={{ background: DARK, padding: "clamp(48px,7vw,80px) clamp(16px,5vw,48px)" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <p style={{
+              fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
+              fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase",
+              color: ACCENT, marginBottom: 12,
+            }}>
+              SEO · AEO — 제작 시 무료 세팅
+            </p>
+            <h2 style={{ fontSize: "clamp(22px,3vw,36px)", fontWeight: 700, color: "#F0F6FC", letterSpacing: "-0.02em", marginBottom: 12 }}>
+              구글·AI 검색에서 <span style={{ color: ACCENT }}>먼저 발견</span>되는 사이트
+            </h2>
+            <p style={{ fontSize: 14, color: "rgba(240,246,252,0.55)", lineHeight: 1.8, maxWidth: "46ch", margin: "0 auto" }}>
+              SEO(구글 검색)와 AEO(ChatGPT·Perplexity 등 AI 답변)<br />
+              모두 제작 패키지에 무료로 포함됩니다
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 16, maxWidth: 860, margin: "0 auto" }}>
+            {[
+              { title: "SEO 기초 세팅", sub: "Search Engine Optimization", items: ["메타 타이틀·디스크립션", "OG 태그·사이트맵", "구조화 데이터(Schema)", "구글 서치콘솔 등록"] },
+              { title: "AEO 콘텐츠 구조", sub: "Answer Engine Optimization", items: ["AI 답변 최적화 텍스트", "FAQ 섹션 구성", "E-E-A-T 신호 강화", "ChatGPT·Perplexity 대응"] },
+            ].map((card) => (
+              <div key={card.title} style={{
+                background: "rgba(77,212,172,0.05)", border: `1px solid ${ACCENT}30`,
+                borderRadius: 16, padding: "28px 24px",
+              }}>
+                <p style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 10, color: ACCENT, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>{card.sub}</p>
+                <h3 style={{ fontSize: 17, fontWeight: 700, color: "#F0F6FC", marginBottom: 16 }}>{card.title}</h3>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {card.items.map((item) => (
+                    <li key={item} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(240,246,252,0.65)", marginBottom: 8 }}>
+                      <span style={{ color: ACCENT, fontWeight: 700, flexShrink: 0 }}>✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── PRICING ── */}
-      <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} sectionBg="#EEF9F5" />
+      <div className="ws-pricing-wrap">
+        <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} sectionBg="#EEF9F5" />
+      </div>
 
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />
@@ -392,7 +443,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       <ServiceCta
         accentColor={ACCENT}
         headline="지금 제작 문의하세요"
-        sub="24시간 안에 견적 · 5일 안에 첫 화면"
+        sub="24시간 안에 견적 — 5일 안에 첫 화면"
         ctaLabel="웹사이트 제작 문의 →"
         ctaHref={`/${locale}/quote`}
       />
