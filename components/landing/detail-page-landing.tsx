@@ -99,21 +99,17 @@ const CSS = `
 
 @keyframes dpSc{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
 
-/* Studio Preview — size compare */
-.aiodp2 .sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:640px;margin:0 auto}
-.aiodp2 .sc-card{display:flex;flex-direction:column;align-items:center;gap:14px}
-.aiodp2 .sc-badge{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,162,74,.3);padding:5px 16px;border-radius:999px}
-.aiodp2 .sc-phone{position:relative;width:160px;height:340px;border-radius:30px;background:#0a0908;overflow:hidden;box-shadow:0 28px 72px rgba(0,0,0,.65),inset 0 0 0 1.5px rgba(200,162,74,.2);flex-shrink:0}
-.aiodp2 .sc-phone::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:52px;height:16px;background:#0a0908;border-radius:0 0 10px 10px;z-index:4}
-.aiodp2 .sc-scroll{animation:dpSc var(--spd,14s) linear infinite}
-.aiodp2 .sc-scroll img{display:block;width:100%}
-.aiodp2 .sc-foot{display:flex;align-items:flex-end;gap:10px}
-.aiodp2 .sc-bar{width:5px;border-radius:3px;background:linear-gradient(to top,var(--gold),rgba(200,162,74,.12));flex-shrink:0}
-.aiodp2 .sc-info{text-align:left}
-.aiodp2 .sc-px{font-family:var(--mono);font-size:12px;color:var(--gold)}
-.aiodp2 .sc-type{font-size:11px;color:var(--fg3);margin-top:3px}
-.aiodp2 .sc-name{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3)}
-@media(max-width:520px){.aiodp2 .sc-grid{gap:14px}.aiodp2 .sc-phone{width:130px;height:270px}}
+/* Studio Preview — length comparison (크몽 스타일) */
+.aiodp2 .lc-wrap{display:flex;align-items:flex-end;justify-content:center;gap:24px;max-width:560px;margin:0 auto}
+.aiodp2 .lc-card{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1}
+.aiodp2 .lc-badge{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,162,74,.3);padding:5px 14px;border-radius:999px;white-space:nowrap}
+.aiodp2 .lc-strip{width:100%;overflow:hidden;border-radius:10px;border:1px solid rgba(200,162,74,.15);position:relative}
+.aiodp2 .lc-strip img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.aiodp2 .lc-footer{text-align:center}
+.aiodp2 .lc-px{font-family:var(--mono);font-size:13px;color:var(--gold)}
+.aiodp2 .lc-desc{font-size:11px;color:var(--fg3);margin-top:3px}
+.aiodp2 .lc-price{font-family:var(--mono);font-size:11px;color:var(--fg2);margin-top:2px}
+@media(max-width:480px){.aiodp2 .lc-wrap{gap:12px}}
 
 /* Recent Work — rolling cards */
 .aiodp2 .rw-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -133,14 +129,15 @@ const CSS = `
 @media(max-width:560px){.aiodp2 .rw-grid{grid-template-columns:1fr}}
 `;
 
-const SIZE_ITEMS = [
-  { label: "10,000PX", name: "프리미엄 밀키트", type: "소개형", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s", barH: 28 },
-  { label: "20,000PX", name: "리넨 원피스",    type: "풀 스토리텔링", src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "22s", barH: 56 },
+const COMPARE_SRC = "/portfolio/detail-page/premium-mealkit/detail.png";
+const LENGTH_ITEMS = [
+  { label: "10,000PX", desc: "소개형",        price: "₩129,000~", stripH: 260 },
+  { label: "20,000PX", desc: "풀 스토리텔링", price: "₩249,000~", stripH: 520 },
 ];
 
 const ROLL_ITEMS = [
   { px: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s" },
-  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "22s" },
+  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "13s" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
@@ -210,24 +207,18 @@ export function DetailPageLanding({ locale }: { locale: string }) {
           <h2>화면으로 보는 <em>작업물</em></h2>
           <p>같은 상세페이지, 다른 길이 — 스크롤 길이가 정보량의 차이입니다</p>
         </div>
-        <div className="sc-grid reveal">
-          {SIZE_ITEMS.map((item) => (
-            <div key={item.label} className="sc-card">
-              <span className="sc-badge">{item.label}</span>
-              <div className="sc-phone" style={{ "--spd": item.spd } as React.CSSProperties}>
-                <div className="sc-scroll">
-                  <img src={item.src} alt={item.name} />
-                  <img src={item.src} alt="" aria-hidden />
-                </div>
+        <div className="lc-wrap reveal">
+          {LENGTH_ITEMS.map((item) => (
+            <div key={item.label} className="lc-card">
+              <span className="lc-badge">{item.label}</span>
+              <div className="lc-strip" style={{ height: item.stripH }}>
+                <img src={COMPARE_SRC} alt={item.label} />
               </div>
-              <div className="sc-foot">
-                <div className="sc-bar" style={{ height: item.barH }} />
-                <div className="sc-info">
-                  <div className="sc-px">{item.label}</div>
-                  <div className="sc-type">{item.type}</div>
-                </div>
+              <div className="lc-footer">
+                <div className="lc-px">{item.label}</div>
+                <div className="lc-desc">{item.desc}</div>
+                <div className="lc-price">{item.price}</div>
               </div>
-              <span className="sc-name">{item.name}</span>
             </div>
           ))}
         </div>
