@@ -67,16 +67,19 @@ const CSS = `
 @media(max-width:760px){.aiodp2 .pgallery{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.aiodp2 .pgallery{grid-template-columns:1fr}}
 
-.aiodp2 .price{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+.aiodp2 .price{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:48px;max-width:640px;margin-left:auto;margin-right:auto}
 .aiodp2 .prow{padding:30px 22px;border:1px solid var(--gold);border-radius:14px;text-align:center}
 .aiodp2 .prow .pname{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .aiodp2 .prow .pnum{font-family:var(--frau);font-size:clamp(28px,3.5vw,42px);margin-bottom:6px}
 .aiodp2 .prow .pnum .unit{font-size:.55em;color:var(--fg2);margin-left:4px}
-.aiodp2 .prow .reg{font-family:var(--mono);font-size:10.5px;color:var(--fg3);text-decoration:line-through;letter-spacing:.06em;margin-bottom:6px}
 .aiodp2 .prow .pdesc{font-size:13px;line-height:1.8;color:var(--fg2);margin-top:8px}
 @media(max-width:760px){.aiodp2 .price{grid-template-columns:1fr}}
 
-.aiodp2 .addon{max-width:520px;margin:24px auto 0;padding:18px 22px;border:1px dashed var(--line2);border-radius:12px;font-size:13px;color:var(--fg2)}
+.aiodp2 .addon{max-width:640px;margin:24px auto 0;padding:18px 22px;border:1px dashed var(--line2);border-radius:12px;font-size:13px;color:var(--fg2)}
+.aiodp2 .addon-list{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:6px}
+.aiodp2 .addon-list li{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(239,233,221,.07)}
+.aiodp2 .addon-list li:last-child{border-bottom:none}
+.aiodp2 .addon-price{font-family:var(--mono);font-size:12px;color:var(--gold);white-space:nowrap;margin-left:12px}
 .aiodp2 .addon b{color:var(--gold)}
 
 .aiodp2 .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);border-radius:14px;overflow:hidden;margin-top:24px;max-width:920px;margin-left:auto;margin-right:auto}
@@ -282,13 +285,19 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>길이별</em></h2><p>표시 가격은 26년 6월까지 한정 · 정상가는 표시가의 3배</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 자사몰 / 직접문의</span><h2>가격은 <em>길이별</em></h2><p>자사몰 직접 문의 기준 가격</p></div>
         <div className="price">
-          <div className="prow reveal d1"><div className="pname">기본 · 5,000PX</div><div className="pnum">4.9<span className="unit">만원</span></div><div className="reg">정상가 14.7만원</div><div className="pdesc">제품 소개 + 핵심 USP + CTA</div></div>
-          <div className="prow reveal d2"><div className="pname">표준 · 10,000PX</div><div className="pnum">6.9<span className="unit">만원</span></div><div className="reg">정상가 20.7만원</div><div className="pdesc">스토리텔링 + 증거 + 비교 + CTA</div></div>
-          <div className="prow reveal d1"><div className="pname">풀 · 20,000PX</div><div className="pnum">9.9<span className="unit">만원</span></div><div className="reg">정상가 29.7만원</div><div className="pdesc">풀 스토리텔링 + Q&amp;A + 후기 + 추천</div></div>
+          <div className="prow reveal d1"><div className="pname">10,000PX 이하</div><div className="pnum">129,000<span className="unit">원~</span></div><div className="pdesc">스토리텔링 + 증거 + 비교 + CTA</div></div>
+          <div className="prow reveal d2"><div className="pname">20,000PX 이하</div><div className="pnum">249,000<span className="unit">원~</span></div><div className="pdesc">풀 스토리텔링 + Q&amp;A + 후기 + 추천</div></div>
         </div>
-        <div className="addon reveal d2">⊕ <b>GIF</b> 건당 <b>1만원</b> · 움직이는 비교/시연 등 모션 컷 추가</div>
+        <div className="addon reveal d2">
+          <b>추가 옵션</b>
+          <ul className="addon-list">
+            <li><span>대표 썸네일 제작</span><span className="addon-price">+30,000원~</span></li>
+            <li><span>AI 연출 이미지 추가</span><span className="addon-price">+50,000원~</span></li>
+            <li><span>GIF / 움직이는 요소 제작</span><span className="addon-price">+50,000원~</span></li>
+          </ul>
+        </div>
       </section>
 
       <section className="sec wrap">
