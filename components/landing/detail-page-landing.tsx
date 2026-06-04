@@ -32,7 +32,7 @@ const CSS = `
 .aiodp2 .kcard-inner{background:rgba(22,27,34,.88);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:14px;min-width:220px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.45)}
 .aiodp2 .knum-box{border-radius:8px;width:48px;height:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 @media(max-width:880px){.aiodp2 .hero2{grid-template-columns:1fr}.aiodp2 .hero2-r{display:none}.aiodp2 .hero2-l{min-height:80vh}}
-@media(max-width:768px){.aiodp2 .hero2-txt{text-align:center}.aiodp2 .hero2-txt h1{max-width:none}.aiodp2 .hero2-txt p{max-width:none}.aiodp2 .hero2-bdgs{justify-content:center}}
+@media(max-width:880px){.aiodp2 .hero2-txt{text-align:center;width:100%}.aiodp2 .hero2-txt h1{max-width:none}.aiodp2 .hero2-txt p{max-width:none}.aiodp2 .hero2-bdgs{justify-content:center}}
 .aiodp2 .acts{display:inline-flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
 .aiodp2 .cta-pill{font-size:14px;font-weight:600;padding:14px 32px;border-radius:999px;background:var(--gold);color:#0E0D0B}
 .aiodp2 .cta-link{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--line);padding-bottom:6px}

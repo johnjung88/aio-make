@@ -32,7 +32,7 @@ const CSS = `
 .aioppt .kcard-inner{background:rgba(22,27,34,.88);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:14px;min-width:220px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.45)}
 .aioppt .knum-box{border-radius:8px;width:48px;height:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 @media(max-width:880px){.aioppt .hero2{grid-template-columns:1fr}.aioppt .hero2-r{display:none}.aioppt .hero2-l{min-height:80vh}}
-@media(max-width:768px){.aioppt .hero2-txt{text-align:center}.aioppt .hero2-txt h1{max-width:none}.aioppt .hero2-txt p{max-width:none}.aioppt .hero2-bdgs{justify-content:center}}
+@media(max-width:880px){.aioppt .hero2-txt{text-align:center;width:100%}.aioppt .hero2-txt h1{max-width:none}.aioppt .hero2-txt p{max-width:none}.aioppt .hero2-bdgs{justify-content:center}}
 
 /* Slide viewer */
 .aioppt .sv-frame{border:2px solid var(--gold);border-radius:12px;overflow:hidden;background:var(--bg2);aspect-ratio:16/9;position:relative;max-width:800px;margin:0 auto;box-shadow:0 24px 64px rgba(0,0,0,.6)}
