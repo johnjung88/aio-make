@@ -151,14 +151,18 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
           .smvc .sm-macbook { flex: none !important; width: 100% !important; }
           .smvc .sm-funnel-row { flex-direction: column !important; align-items: center !important; }
           .smvc .sm-funnel-row > div:has(span) { display: none !important; }
-          .smvc .sm-pricing-wrap [class*="py-16"] { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
-          .smvc .sm-pricing-wrap [class*="p-7"] { padding: 1.25rem !important; }
-          .smvc .sm-pricing-wrap [class*="gap-6"] { gap: 0.75rem !important; }
-          .smvc .sm-pricing-wrap [class*="mb-12"] { margin-bottom: 1.5rem !important; }
-          .smvc .sm-pricing-wrap [style*="clamp(26px"] { font-size: 22px !important; }
+          .smvc .sm-industries { padding: 2rem 1rem !important; }
+          .smvc .sm-ind-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+          .smvc .sm-ind-card { padding: 14px 12px !important; border-radius: 10px !important; }
+          .smvc .sm-ind-card h3 { font-size: 13px !important; margin-bottom: 4px !important; }
+          .smvc .sm-ind-card p { font-size: 11px !important; }
+          .smvc .sm-ind-card > div:first-child { width: 32px !important; height: 32px !important; margin-bottom: 10px !important; }
         }
         @media (max-width: 640px) {
           .smvc .sm-funnel-card { min-width: 0 !important; width: 100%; }
+        }
+        @media (max-width: 400px) {
+          .smvc .sm-ind-grid { grid-template-columns: 1fr !important; }
         }
       ` }} />
       <AioNav locale={locale} level="leaf" sub="shopping-mall" cat="development" active="service" />
@@ -338,7 +342,7 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
       <TrustNumbers accentColor={ACCENT} items={TRUST} />
 
       {/* ── 업종별 전문 ── */}
-      <section style={{ background: "#0D1117", padding: "clamp(60px,8vw,96px) clamp(16px,5vw,48px)" }}>
+      <section className="sm-industries" style={{ background: "#0D1117", padding: "clamp(40px,6vw,96px) clamp(16px,5vw,48px)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p style={{
@@ -352,13 +356,14 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
               업종별 전문 쇼핑몰
             </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 16 }}>
+          <div className="sm-ind-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 12 }}>
             {INDUSTRIES.map(({ Icon, title, desc }) => (
               <div
                 key={title}
+                className="sm-ind-card"
                 style={{
                   background: `${ACCENT}08`, border: `1px solid ${ACCENT}22`,
-                  borderRadius: 16, padding: "24px 20px",
+                  borderRadius: 14, padding: "20px 18px",
                   transition: "border-color 0.2s,transform 0.2s,box-shadow 0.2s",
                 }}
                 onMouseEnter={(e) => {

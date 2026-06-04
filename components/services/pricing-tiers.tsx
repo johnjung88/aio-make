@@ -14,8 +14,8 @@ interface Props {
 export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: Props) {
   return (
     <section style={{ background: sectionBg ?? "#F8FAF9" }}>
-      <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-24">
-        <div className="text-center mb-12">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-8 md:py-20">
+        <div className="text-center mb-6 md:mb-12">
           <p
             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3"
             style={{ color: accentColor, fontFamily: "var(--font-jetbrains)" }}
@@ -26,11 +26,11 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: P
             {isKo ? "투명한 가격" : "Transparent Pricing"}
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
           {tiers.map((tier) => (
             <div
               key={tier.name.ko}
-              className="border rounded-2xl p-7 flex flex-col bg-white"
+              className="border rounded-xl p-4 md:p-7 flex flex-col bg-white"
               style={
                 tier.recommended
                   ? { borderColor: accentColor, borderWidth: 2, boxShadow: `0 8px 32px ${accentColor}22` }
@@ -38,7 +38,7 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: P
               }
             >
               {/* 배지 높이 항상 확보 — 미추천 카드도 정렬 맞춤 */}
-              <div className="mb-4 h-[26px] flex items-center">
+              <div className="mb-2 md:mb-4 h-[22px] md:h-[26px] flex items-center">
                 {tier.recommended && (
                   <span
                     className="inline-block text-[10px] font-bold px-3 py-1 rounded-full text-white"
@@ -48,24 +48,24 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: P
                   </span>
                 )}
               </div>
-              <div className="text-[13px] font-semibold text-[#6B7280] mb-2">
+              <div className="text-[12px] md:text-[13px] font-semibold text-[#6B7280] mb-1 md:mb-2">
                 {isKo ? tier.name.ko : tier.name.en}
               </div>
               <div
                 className="font-bold text-[#111] leading-none mb-1"
-                style={{ fontSize: "clamp(26px,3.5vw,38px)", fontFamily: "var(--font-jetbrains)" }}
+                style={{ fontSize: "clamp(22px,3.5vw,36px)", fontFamily: "var(--font-jetbrains)" }}
               >
                 {tier.eventPrice.replace(/₩/g, "")}
               </div>
-              <div className="text-[11px] text-[#9CA3AF] mb-1">
+              <div className="text-[10px] md:text-[11px] text-[#9CA3AF] mb-1">
                 {isKo ? "정가" : "Regular"} {tier.regularPrice.replace(/₩/g, "")}
               </div>
-              <div className="text-[12px] text-[#6B7280] mb-5 pb-5 border-b border-[#F3F4F6]">
+              <div className="text-[11px] md:text-[12px] text-[#6B7280] mb-3 pb-3 md:mb-5 md:pb-5 border-b border-[#F3F4F6]">
                 {isKo ? "납기" : "Delivery"} {tier.duration}
               </div>
-              <ul className="space-y-2.5 flex-1">
+              <ul className="space-y-1.5 md:space-y-2.5 flex-1">
                 {tier.includes.map((inc, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[13px] text-[#374151]">
+                  <li key={i} className="flex items-start gap-2 text-[12px] md:text-[13px] text-[#374151]">
                     <span
                       className="mt-0.5 text-[10px] font-bold flex-shrink-0"
                       style={{ color: accentColor }}
@@ -78,7 +78,7 @@ export function PricingTiers({ tiers, accentColor, isKo, ctaHref, sectionBg }: P
               </ul>
               <Link
                 href={ctaHref}
-                className="mt-6 block text-center py-3 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5"
+                className="mt-3 md:mt-6 block text-center py-2.5 md:py-3 rounded-lg text-[12px] md:text-[13px] font-semibold transition-all hover:-translate-y-0.5"
                 style={
                   tier.recommended
                     ? { background: accentColor, color: "#fff" }
