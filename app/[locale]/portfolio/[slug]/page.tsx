@@ -74,9 +74,10 @@ export default async function ProjectPage({
   );
 
   const rawGallery = isPptProject ? pptGallery : project.gallery;
-  const dedupedGallery = isDetailPageProject || isPptProject
+  const dedupedGallery = (isDetailPageProject || isPptProject
     ? rawGallery
-    : rawGallery.filter((s) => !heroImages.has(s));
+    : rawGallery.filter((s) => !heroImages.has(s))
+  ).filter((s) => !/\.svg$/i.test(s));
 
   const quoteHref = `${base}/quote?category=${projectGroup}`;
   const similarWorkLabel = isShoppingMall
@@ -325,23 +326,6 @@ export default async function ProjectPage({
               )}
             </div>
           )}
-
-          {/* ── STACK ── */}
-          <div className="mb-14">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
-              {l === "ko" ? "사용 기술 / 제작 방식" : "Stack"}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-foreground/70"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
 
           {/* ── VIDEO ── */}
           {project.links.video && (
