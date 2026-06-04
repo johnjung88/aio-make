@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
@@ -96,87 +96,55 @@ const CSS = `
 .aiodp2 .ctaS h2{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.04;margin-bottom:22px}
 .aiodp2 .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}
 .aiodp2 .ctaS p{color:var(--fg2);font-size:var(--fs-lead);margin-bottom:34px}
+
+@keyframes dpSc{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+
+/* Studio Preview — size compare */
+.aiodp2 .sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:640px;margin:0 auto}
+.aiodp2 .sc-card{display:flex;flex-direction:column;align-items:center;gap:14px}
+.aiodp2 .sc-badge{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,162,74,.3);padding:5px 16px;border-radius:999px}
+.aiodp2 .sc-phone{position:relative;width:160px;height:340px;border-radius:30px;background:#0a0908;overflow:hidden;box-shadow:0 28px 72px rgba(0,0,0,.65),inset 0 0 0 1.5px rgba(200,162,74,.2);flex-shrink:0}
+.aiodp2 .sc-phone::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:52px;height:16px;background:#0a0908;border-radius:0 0 10px 10px;z-index:4}
+.aiodp2 .sc-scroll{animation:dpSc var(--spd,14s) linear infinite}
+.aiodp2 .sc-scroll img{display:block;width:100%}
+.aiodp2 .sc-foot{display:flex;align-items:flex-end;gap:10px}
+.aiodp2 .sc-bar{width:5px;border-radius:3px;background:linear-gradient(to top,var(--gold),rgba(200,162,74,.12));flex-shrink:0}
+.aiodp2 .sc-info{text-align:left}
+.aiodp2 .sc-px{font-family:var(--mono);font-size:12px;color:var(--gold)}
+.aiodp2 .sc-type{font-size:11px;color:var(--fg3);margin-top:3px}
+.aiodp2 .sc-name{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3)}
+@media(max-width:520px){.aiodp2 .sc-grid{gap:14px}.aiodp2 .sc-phone{width:130px;height:270px}}
+
+/* Recent Work — rolling cards */
+.aiodp2 .rw-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.aiodp2 .rw-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:16px;overflow:hidden}
+.aiodp2 .rw-head{padding:14px 16px 10px;display:flex;align-items:center;gap:8px}
+.aiodp2 .rw-px{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,162,74,.8);background:rgba(200,162,74,.08);padding:3px 10px;border-radius:999px}
+.aiodp2 .rw-nm{font-size:13px;font-weight:600;color:var(--fg)}
+.aiodp2 .rw-phone{position:relative;aspect-ratio:9/18;overflow:hidden;background:#0a0908}
+.aiodp2 .rw-scroll{animation:dpSc var(--spd,14s) linear infinite}
+.aiodp2 .rw-scroll img{display:block;width:100%}
+.aiodp2 .gif-card{margin-top:12px;background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:16px;overflow:hidden}
+.aiodp2 .gif-head{padding:14px 16px;display:flex;align-items:center;gap:8px}
+.aiodp2 .gif-body{background:#0a0908;display:flex;justify-content:center;align-items:flex-end;gap:20px;padding:24px 20px}
+.aiodp2 .gif-ph{width:150px;aspect-ratio:9/18;overflow:hidden;border-radius:12px;position:relative}
+.aiodp2 .gif-ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.aiodp2 .gif-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);writing-mode:vertical-rl;padding-bottom:8px}
+@media(max-width:560px){.aiodp2 .rw-grid{grid-template-columns:1fr}}
 `;
 
-const PREVIEW_ITEMS = [
-  { id: "premium-mealkit",  label: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png" },
-  { id: "linen-onepiece",   label: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png" },
+const SIZE_ITEMS = [
+  { label: "10,000PX", name: "프리미엄 밀키트", type: "소개형", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s", barH: 28 },
+  { label: "20,000PX", name: "리넨 원피스",    type: "풀 스토리텔링", src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "22s", barH: 56 },
 ];
-type PreviewItem = (typeof PREVIEW_ITEMS)[number];
 
-// Monitor screen area: top=1.71% left=12.01% width=76.11% height=70.85%
-function PreviewMacbook({ item }: { item: PreviewItem }) {
-  return (
-    <div style={{ position: "relative", width: "74%", maxWidth: 800, flexShrink: 0 }}>
-      <div style={{ position: "relative" }}>
-        {/* Content behind transparent mockup */}
-        <div style={{
-          position: "absolute",
-          top: "1.71%", left: "12.01%", width: "76.11%", height: "70.85%",
-          overflow: "hidden", zIndex: 0,
-        }}>
-          <img src={item.src} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
-        </div>
-        {/* Transparent-screen monitor mockup on top */}
-        <img
-          src="/mockups/monitor.png"
-          alt="monitor mockup"
-          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.7))" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-// Phone screen area: top=15.79% left=18.17% width=63.54% height=70.87%
-function PreviewPhone({ item }: { item: PreviewItem }) {
-  return (
-    <div style={{
-      position: "absolute", bottom: "-8%", right: "1%",
-      width: "21%", maxWidth: 170, transform: "rotate(3deg)", zIndex: 10,
-    }}>
-      <div style={{ position: "relative" }}>
-        {/* Content behind transparent mockup */}
-        <div style={{
-          position: "absolute",
-          top: "15.79%", left: "18.17%", width: "63.54%", height: "70.87%",
-          overflow: "hidden", zIndex: 0,
-        }}>
-          <img src={item.src} alt={item.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
-        </div>
-        {/* Transparent-screen phone mockup on top */}
-        <img
-          src="/mockups/phone.png"
-          alt="phone mockup"
-          style={{ width: "100%", height: "auto", display: "block", position: "relative", zIndex: 1, filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.8))" }}
-        />
-        <div style={{
-          position: "absolute", bottom: "10%", left: "50%", transform: "translateX(-50%)",
-          whiteSpace: "nowrap", fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 9,
-          letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--gold)",
-          background: "rgba(14,13,11,0.88)", padding: "5px 14px", borderRadius: 999,
-          border: "1px solid rgba(200,162,74,0.35)", zIndex: 4,
-        }}>
-          {item.label}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const GALLERY_ITEMS = [
-  { src: "/portfolio/detail-page/vegan-cleanser/cover.png",  cap: "비건 클렌저" },
-  { src: "/portfolio/detail-page/premium-mealkit/cover.png", cap: "프리미엄 밀키트" },
-  { src: "/portfolio/detail-page/linen-onepiece/cover.png",  cap: "리넨 원피스" },
-  { src: "/portfolio/detail-page/herbal-cream/cover.png",    cap: "허브 크림" },
-  { src: "/portfolio/detail-page/hotel-bedding/cover.png",   cap: "호텔 침구" },
-  { src: "/portfolio/detail-page/senior-protein/cover.png",  cap: "시니어 단백질" },
+const ROLL_ITEMS = [
+  { px: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s" },
+  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "22s" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [previewId, setPreviewId] = useState("premium-mealkit");
-  const activePreview = PREVIEW_ITEMS.find((p) => p.id === previewId) ?? PREVIEW_ITEMS[0];
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const prog = root.querySelector<HTMLElement>(".prog");
@@ -235,50 +203,70 @@ export function DetailPageLanding({ locale }: { locale: string }) {
         </div>
       </header>
 
+      {/* ── 화면으로 보는 작업물: 길이 비교 ── */}
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Studio Preview · 2 sizes</span><h2>화면으로 보는 <em>작업물</em></h2><p>실제 납품된 상세페이지 — PC와 모바일 두 화면으로</p></div>
-
-        <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
-          {PREVIEW_ITEMS.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => setPreviewId(p.id)}
-              style={{
-                padding: "8px 18px", borderRadius: 999, border: "1px solid",
-                borderColor: previewId === p.id ? "var(--gold)" : "rgba(239,233,221,0.15)",
-                background: previewId === p.id ? "var(--gold)" : "transparent",
-                color: previewId === p.id ? "#0E0D0B" : "rgba(239,233,221,0.5)",
-                fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 12,
-                fontWeight: previewId === p.id ? 700 : 400, cursor: "pointer", transition: "all 0.2s",
-              }}
-            >
-              {p.label}
-            </button>
-          ))}
+        <div className="shead reveal">
+          <span className="kick">Studio Preview · 2 sizes</span>
+          <h2>화면으로 보는 <em>작업물</em></h2>
+          <p>같은 상세페이지, 다른 길이 — 스크롤 길이가 정보량의 차이입니다</p>
         </div>
-
-        <div className="reveal" style={{ background: "#F0EDE6", borderRadius: 24, padding: "40px 32px 80px", maxWidth: 960, margin: "0 auto" }}>
-          <div style={{ position: "relative", display: "flex", alignItems: "flex-end", paddingBottom: 20 }}>
-            <PreviewMacbook item={activePreview} />
-            <PreviewPhone item={activePreview} />
-          </div>
-          <div style={{ textAlign: "center", marginTop: 16 }}>
-            <span style={{ fontFamily: "var(--font-ibm-plex-mono,monospace)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--fg3)" }}>
-              {activePreview.name} · {activePreview.label}
-            </span>
-          </div>
+        <div className="sc-grid reveal">
+          {SIZE_ITEMS.map((item) => (
+            <div key={item.label} className="sc-card">
+              <span className="sc-badge">{item.label}</span>
+              <div className="sc-phone" style={{ "--spd": item.spd } as React.CSSProperties}>
+                <div className="sc-scroll">
+                  <img src={item.src} alt={item.name} />
+                  <img src={item.src} alt="" aria-hidden />
+                </div>
+              </div>
+              <div className="sc-foot">
+                <div className="sc-bar" style={{ height: item.barH }} />
+                <div className="sc-info">
+                  <div className="sc-px">{item.label}</div>
+                  <div className="sc-type">{item.type}</div>
+                </div>
+              </div>
+              <span className="sc-name">{item.name}</span>
+            </div>
+          ))}
         </div>
       </section>
 
+      {/* ── 최근 작업물: 롤링 카드 ── */}
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Recent Work</span><h2>최근 <em>작업물</em></h2><p>실제 납품된 상세페이지 — 카테고리·길이·스타일 모두 다르게</p></div>
-        <div className="pgallery">
-          {GALLERY_ITEMS.map(({ src, cap }, i) => (
-            <div key={src} className={`gcard reveal d${(i % 3) + 1}`}>
-              <div className="gshot"><img src={src} alt={cap} loading="lazy" /></div>
-              <div className="gcap">{cap}</div>
+        <div className="shead reveal">
+          <span className="kick">Recent Work</span>
+          <h2>최근 <em>작업물</em></h2>
+          <p>실제 납품된 상세페이지 — 스크롤해서 전체 길이를 확인하세요</p>
+        </div>
+        <div className="rw-grid">
+          {ROLL_ITEMS.map((item, i) => (
+            <div key={item.px} className={`rw-card reveal d${i + 1}`}>
+              <div className="rw-head">
+                <span className="rw-px">{item.px}</span>
+                <span className="rw-nm">{item.name}</span>
+              </div>
+              <div className="rw-phone" style={{ "--spd": item.spd } as React.CSSProperties}>
+                <div className="rw-scroll">
+                  <img src={item.src} alt={item.name} />
+                  <img src={item.src} alt="" aria-hidden />
+                </div>
+              </div>
             </div>
           ))}
+        </div>
+        <div className="gif-card reveal d1">
+          <div className="gif-head">
+            <span className="rw-px">GIF 샘플</span>
+            <span className="rw-nm">움직이는 요소 · 비교 슬라이더</span>
+          </div>
+          <div className="gif-body">
+            <div className="gif-ph">
+              <img src="/portfolio/detail-page/sample.gif" alt="GIF 샘플" />
+            </div>
+            <span className="gif-label">GIF · MOTION</span>
+          </div>
         </div>
         <a className="gmore reveal d2" href={`/${locale}/services/detail-page/portfolio`}>포트폴리오 전체 보기 →</a>
       </section>
