@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/en", destination: "/ko", permanent: true },
       { source: "/en/:path*", destination: "/ko/:path*", permanent: true },
-      { source: "/:locale/services/:svc(website|shopping-mall|automation-app|detail-page|ppt-design)/portfolio", destination: "/:locale/portfolio/category/:svc", permanent: true },
       { source: "/:locale/services/video-content", destination: "/:locale/services/video", permanent: true },
       { source: "/:locale/services/video-content/:path*", destination: "/:locale/services/video/:path*", permanent: true },
     ];
