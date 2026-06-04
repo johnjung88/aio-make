@@ -35,9 +35,36 @@ const KPI_CARDS = [
 ];
 
 const SHOWCASE = [
-  { id: "beauty",  label: "뷰티·화장품", domain: "luna-beauty.kr",  name: "루나 뷰티", kpi: "전환율 +32%",   gradient: "linear-gradient(135deg,#2a0a1a 0%,#5a1a3a 50%,#d97706 100%)" },
-  { id: "food",    label: "식품·건강",   domain: "greenfarm.co.kr", name: "그린팜",    kpi: "객단가 +18%",   gradient: "linear-gradient(135deg,#0a2a0a 0%,#1a5a1a 50%,#4a9a4a 100%)" },
-  { id: "fashion", label: "패션·의류",   domain: "styleon.co.kr",   name: "스타일온",  kpi: "재구매율 +28%", gradient: "linear-gradient(135deg,#0a1a2a 0%,#1a3a5a 50%,#3a7aaa 100%)" },
+  {
+    id: "food",
+    label: "식품·건강",
+    domain: "farmfresh.co.kr",
+    name: "숲으로",
+    kpi: "객단가 +18%",
+    desktopImg: "/portfolio/cafe24-design-pack/d01-wide.png",
+    mobileImg:  "/portfolio/cafe24-design-pack/d01-mobile-final.png",
+    gradient: "linear-gradient(135deg,#0a2a0a 0%,#1a5a1a 50%,#4a9a4a 100%)",
+  },
+  {
+    id: "beauty",
+    label: "뷰티·라이프",
+    domain: "saum.kr",
+    name: "사움",
+    kpi: "전환율 +32%",
+    desktopImg: "/portfolio/cafe24-design-pack/d07-wide.png",
+    mobileImg:  "/portfolio/cafe24-design-pack/d07-mobile-final.png",
+    gradient: "linear-gradient(135deg,#1a0f0a 0%,#2d1f14 50%,#6b4226 100%)",
+  },
+  {
+    id: "fashion",
+    label: "패션·스트리트",
+    domain: "boldmodern.co.kr",
+    name: "볼드모던",
+    kpi: "재구매율 +28%",
+    desktopImg: "/portfolio/cafe24-design-pack/d08-wide.png",
+    mobileImg:  "/portfolio/cafe24-design-pack/d08-mobile-final.png",
+    gradient: "linear-gradient(135deg,#111111 0%,#1e1e1e 50%,#2a2a2a 100%)",
+  },
 ];
 
 type ShowcaseItem = (typeof SHOWCASE)[number];
@@ -62,35 +89,19 @@ const INCLUDES = [
   { Icon: Wrench,     title: "14일 A/S",       desc: "납품 후 무상 유지보수 포함" },
 ];
 
-function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop" | "mobile" }) {
-  const [err, setErr] = useState(false);
-  const src = `/images/portfolio/sm-${item.id}-${device}.jpg`;
-  return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: item.gradient }}>
-      {!err && (
-        <Image
-          key={src}
-          src={src}
-          alt={item.name}
-          fill
-          unoptimized
-          style={{ objectFit: "cover", objectPosition: "top center" }}
-          onError={() => setErr(true)}
-        />
-      )}
-    </div>
-  );
-}
-
 function MacbookMockup({ item }: { item: ShowcaseItem }) {
   return (
-    <div className="sm-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+    <div className="sm-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative", aspectRatio: "3072 / 2048" }}>
       <div style={{
         position: "absolute", top: "1.71%", left: "12.01%",
         width: "76.11%", height: "70.85%",
         overflow: "hidden", zIndex: 0,
       }}>
-        <ScreenContent key={`desktop-${item.id}`} item={item} device="desktop" />
+        <img
+          src={item.desktopImg}
+          alt={item.name}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
+        />
       </div>
       <Image
         src="/mockups/monitor.png"
@@ -99,8 +110,9 @@ function MacbookMockup({ item }: { item: ShowcaseItem }) {
         height={2048}
         unoptimized
         style={{
-          width: "100%", height: "auto", display: "block",
-          position: "relative", zIndex: 1,
+          position: "absolute", top: 0, left: 0,
+          width: "100%", height: "100%", display: "block",
+          zIndex: 1,
           filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
         }}
       />
@@ -117,7 +129,11 @@ function PhoneMockup({ item }: { item: ShowcaseItem }) {
           width: "63.54%", height: "70.87%",
           overflow: "hidden", zIndex: 0,
         }}>
-          <ScreenContent key={`mobile-${item.id}`} item={item} device="mobile" />
+          <img
+            src={item.mobileImg}
+            alt={item.name + " 모바일"}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
+          />
         </div>
         <img
           src="/mockups/phone.png"
