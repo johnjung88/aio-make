@@ -495,6 +495,54 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
         <PricingTiers tiers={service.pricing} accentColor={ACCENT} isKo={isKo} ctaHref={`/${locale}/quote`} />
       </div>
 
+      {/* ── 추가 옵션 ── */}
+      {service.addons && service.addons.length > 0 && (
+        <section style={{ background: "#F9F5EE", borderTop: "1px solid #EDE8DF", padding: "clamp(48px,6vw,80px) clamp(16px,5vw,48px)" }}>
+          <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 36 }}>
+              <p style={{
+                fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
+                fontWeight: 600, letterSpacing: "0.22em", textTransform: "uppercase",
+                color: ACCENT, marginBottom: 12,
+              }}>Add-ons</p>
+              <h2 style={{ fontSize: "clamp(22px,3vw,34px)", fontWeight: 700, color: "#111", letterSpacing: "-0.02em" }}>
+                추가 옵션
+              </h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 16 }}>
+              {service.addons.map((addon) => (
+                <div key={addon.name.ko} style={{
+                  background: "#fff", border: "1px solid #E8E2D9",
+                  borderRadius: 16, padding: "24px 22px",
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, marginBottom: 10 }}>
+                    <h3 style={{ fontSize: 15, fontWeight: 700, color: "#111", lineHeight: 1.4, wordBreak: "keep-all" }}>
+                      {addon.name.ko}
+                    </h3>
+                    <span style={{
+                      fontFamily: "var(--font-jetbrains,monospace)", fontSize: 13, fontWeight: 700,
+                      color: ACCENT, whiteSpace: "nowrap", flexShrink: 0,
+                    }}>
+                      {addon.price}
+                    </span>
+                  </div>
+                  {addon.detail && (
+                    <p style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.75, wordBreak: "keep-all" }}>
+                      {addon.detail.ko.split(" · ").map((item, i, arr) => (
+                        <span key={i}>
+                          <span style={{ color: ACCENT, fontWeight: 600, marginRight: 4 }}>·</span>
+                          {item}{i < arr.length - 1 ? <br /> : null}
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />
 
