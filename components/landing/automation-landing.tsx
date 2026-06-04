@@ -278,7 +278,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
               wordBreak: "keep-all",
             }}>
-              업무를<br className="hidden md:block" />
+              반복 업무를<br />
               <span style={{ color: ACCENT }}>코드</span>에게 맡기세요
             </h1>
             <p style={{
@@ -286,7 +286,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
               wordBreak: "keep-all",
             }}>
-              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램으로<br className="hidden md:block" />
+              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램으로<br />
               수 많은 시간의 반복을 한 번에 없앱니다
             </p>
             <div className="aut-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
