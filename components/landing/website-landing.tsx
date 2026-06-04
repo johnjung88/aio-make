@@ -26,9 +26,9 @@ const TRUST = [
 ];
 
 const SHOWCASE = [
-  { id: "medical",  label: "병원·의료",  domain: "jaeheon-clinic.com", name: "자연한의원",     kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)", desktopImg: "/portfolio/med-ondam/live.png",      mobileImg: "/portfolio/med-ondam/mobile-preview.png" },
-  { id: "legal",    label: "법률·세무",  domain: "seoul-legal.kr",     name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)", desktopImg: "/portfolio/law-yuldam/live.png",     mobileImg: "/images/portfolio/ws-legal-mobile.png" },
-  { id: "startup",  label: "스타트업",   domain: "launch-startup.io",  name: "스타트업 서비스", kpi: "전환율 +63%",   gradient: "linear-gradient(135deg,#1a1a3a 0%,#2d2d6a 50%,#4D4DAC 100%)", desktopImg: "/portfolio/corp-novatek/live.png",   mobileImg: "/portfolio/corp-novatek/mobile-preview.png" },
+  { id: "medical", label: "병원·의료",   domain: "ondam.clinic",  name: "온담 한의원",      kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)", desktopImg: "/portfolio/med-ondam/live.png",     mobileImg: "/portfolio/med-ondam/mobile-preview.png" },
+  { id: "legal",   label: "법률·세무",   domain: "yuldam.law",    name: "율담 법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)", desktopImg: "/portfolio/law-yuldam/live.png",    mobileImg: "/portfolio/law-yuldam/mobile-preview.png" },
+  { id: "mkt",     label: "마케팅 랜딩", domain: "aura-glow.kr",  name: "오라",             kpi: "전환율 +63%",   gradient: "linear-gradient(135deg,#1a1a3a 0%,#2d2d6a 50%,#4D4DAC 100%)", desktopImg: "/portfolio/lp-aura/live.png",       mobileImg: "/portfolio/lp-aura/mobile-preview.png" },
 ];
 
 const KPI_CARDS = [
