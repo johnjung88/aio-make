@@ -10,6 +10,7 @@ const CSS = `
 .aiodp2p .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
 .aiodp2p .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--rose),var(--gold))}
 .aiodp2p .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s,transform .9s}.aiodp2p .reveal.in{opacity:1;transform:none}
+.aiodp2p .back{font-family:var(--mono);font-size:12px;color:var(--fg3);display:inline-block;margin-bottom:18px;text-decoration:none}.aiodp2p .back:hover{color:var(--gold)}
 .aiodp2p .head{padding:clamp(70px,11vw,140px) 0 clamp(40px,6vw,70px)}
 .aiodp2p .head .kick{font-family:var(--mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:18px}
 .aiodp2p .head h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.04;margin-bottom:18px}
@@ -43,16 +44,16 @@ const ITEMS = [
   { nm: "원목 가구", ct: "Living", px: "10,000PX" },
   { nm: "프리미엄 캔들", ct: "Living", px: "5,000PX" },
   { nm: "디톡스 차", ct: "Food", px: "10,000PX" },
-  { nm: "여행 가방", ct: "Travel", px: "20,000PX" },
-  { nm: "스마트 조명", ct: "Tech", px: "10,000PX" },
-  { nm: "운동 보조", ct: "Health", px: "5,000PX" },
+  { nm: "여행 가방", ct: "Fashion", px: "20,000PX" },   // Travel → Fashion (의류·잡화 계열)
+  { nm: "스마트 조명", ct: "Living", px: "10,000PX" },  // Tech → Living (가전·인테리어)
+  { nm: "운동 보조", ct: "Food", px: "5,000PX" },       // Health → Food (건강식품·보조제)
   { nm: "남자 코트", ct: "Fashion", px: "20,000PX" },
-  { nm: "유아 매트", ct: "Baby", px: "10,000PX" },
-  { nm: "반려동물 사료", ct: "Pet", px: "10,000PX" },
-  { nm: "캠핑 텐트", ct: "Travel", px: "20,000PX" },
+  { nm: "유아 매트", ct: "Living", px: "10,000PX" },    // Baby → Living (육아·홈)
+  { nm: "반려동물 사료", ct: "Beauty", px: "10,000PX" }, // Pet → Beauty (프리미엄 케어)
+  { nm: "캠핑 텐트", ct: "Fashion", px: "20,000PX" },   // Travel(아웃도어) → Fashion
 ];
 const FILTERS = [
-  { f: "all", label: "전체" }, { f: "Food", label: "푸드" }, { f: "Beauty", label: "뷰티" }, { f: "Living", label: "리빙" }, { f: "Fashion", label: "패션" },
+  { f: "all", label: "전체" }, { f: "Food", label: "푸드·건강" }, { f: "Beauty", label: "뷰티·케어" }, { f: "Living", label: "리빙·홈" }, { f: "Fashion", label: "패션·잡화" },
 ];
 
 export function DetailPagePortfolio({ locale }: { locale: string }) {
@@ -76,6 +77,7 @@ export function DetailPagePortfolio({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="design" sub="detail-page" active="portfolio" />
 
       <header className="head"><div className="wrap">
+        <a className="back" href={`${base}/services/detail-page`}>← 상세페이지 소개로</a>
         <span className="kick">Detail Page · Portfolio</span>
         <h1>스크롤을 멈춘<br /><em>상세페이지</em>들</h1>
         <p>실제 매출로 검증된 페이지만 모았습니다</p>

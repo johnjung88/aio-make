@@ -10,6 +10,7 @@ const CSS = `
 .aioamp .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
 .aioamp .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--gold),var(--mint))}
 .aioamp .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s,transform .9s}.aioamp .reveal.in{opacity:1;transform:none}
+.aioamp .back{font-family:var(--mono);font-size:12px;color:var(--fg3);display:inline-block;margin-bottom:18px;text-decoration:none}.aioamp .back:hover{color:var(--gold)}
 .aioamp .head{padding:clamp(70px,11vw,140px) 0 clamp(40px,6vw,70px)}
 .aioamp .head .kick{font-family:var(--mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:18px}
 .aioamp .head h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.04;margin-bottom:18px}
@@ -50,11 +51,13 @@ const ITEMS = [
 ];
 
 const FILTERS = [
-  { f: "all", label: "전체" },
-  { f: "Bot", label: "봇·알림" },
-  { f: "Sheet", label: "시트·엑셀" },
-  { f: "Crawl", label: "크롤링" },
-  { f: "Macro", label: "매크로" },
+  { f: "all",     label: "전체" },
+  { f: "Bot",     label: "봇·알림" },
+  { f: "Sheet",   label: "시트·엑셀" },
+  { f: "Crawl",   label: "크롤링" },
+  { f: "Macro",   label: "매크로" },
+  { f: "Desktop", label: "데스크탑" },
+  { f: "API",     label: "API·연동" },
 ];
 
 export function AutomationPortfolio({ locale }: { locale: string }) {
@@ -79,6 +82,7 @@ export function AutomationPortfolio({ locale }: { locale: string }) {
 
       <header className="head">
         <div className="wrap">
+          <a className="back" href={`${base}/services/automation-app`}>← 자동화·프로그램 소개로</a>
           <span className="kick">Automation · Portfolio</span>
           <h1>실제 돌아가는<br /><em>자동화</em>들</h1>
           <p>매일 누군가의 시간을 9분·6시간·4시간씩 돌려준 코드들</p>

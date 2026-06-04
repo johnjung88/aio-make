@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import {
   Stethoscope, Scale, GraduationCap, ShoppingBag,
   UtensilsCrossed, Scissors, Building2, Rocket,
@@ -27,12 +26,10 @@ const TRUST = [
 ];
 
 const SHOWCASE = [
-  { id: "medical", label: "병원·의료", domain: "jaeheon-clinic.com",  name: "자연한의원",       kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)" },
-  { id: "legal",   label: "법률·세무", domain: "seoul-legal.kr",      name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)" },
-  { id: "company", label: "회사소개",  domain: "aio-make.com",        name: "AIO 스튜디오",     kpi: "방문 +63%",     gradient: "linear-gradient(135deg,#1a3a4a 0%,#2d5e6f 50%,#4DD4AC 100%)" },
+  { id: "medical",  label: "병원·의료",  domain: "jaeheon-clinic.com", name: "자연한의원",     kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)" },
+  { id: "legal",    label: "법률·세무",  domain: "seoul-legal.kr",     name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)" },
+  { id: "startup",  label: "스타트업",   domain: "launch-startup.io",  name: "스타트업 서비스", kpi: "전환율 +63%",   gradient: "linear-gradient(135deg,#1a1a3a 0%,#2d2d6a 50%,#4D4DAC 100%)" },
 ];
-
-type ShowcaseItem = (typeof SHOWCASE)[number];
 
 const KPI_CARDS = [
   { client: "자연한의원",       cat: "병원·의료",  kpi: "+120%", label: "예약 증가",  delay: "0s",    color: "#4DD4AC" },
@@ -53,86 +50,22 @@ const INDUSTRIES = [
   { Icon: Rocket,          title: "스타트업·서비스", desc: "빠른 런칭과 전환율 중심의 서비스 랜딩" },
 ];
 
-function ScreenContent({ item, device }: { item: ShowcaseItem; device: "desktop" | "mobile" }) {
-  const [err, setErr] = useState(false);
-  const src = `/images/portfolio/ws-${item.id}-${device}.png`;
-  return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: item.gradient }}>
-      {!err && (
-        <Image
-          key={src}
-          src={src}
-          alt={item.name}
-          fill
-          unoptimized
-          style={{ objectFit: "cover", objectPosition: "top center" }}
-          onError={() => setErr(true)}
-        />
-      )}
-    </div>
-  );
-}
-
-function MacbookMockup({ item }: { item: ShowcaseItem }) {
-  return (
-    <div className="ws-macbook" style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
-      <div style={{
-        position: "absolute", top: "1.71%", left: "12.01%",
-        width: "76.11%", height: "70.85%",
-        overflow: "hidden", zIndex: 0,
-      }}>
-        <ScreenContent item={item} device="desktop" />
-      </div>
-      <Image
-        src="/mockups/monitor.png"
-        alt="monitor"
-        width={3072}
-        height={2048}
-        unoptimized
-        style={{
-          width: "100%", height: "auto", display: "block",
-          position: "relative", zIndex: 1,
-          filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
-        }}
-      />
-    </div>
-  );
-}
-
-function PhoneMockup({ item }: { item: ShowcaseItem }) {
-  return (
-    <div className="ws-phone" style={{ flexShrink: 0, width: "30%", maxWidth: 240 }}>
-      <div style={{ position: "relative" }}>
-        <div style={{
-          position: "absolute", top: "15.79%", left: "18.17%",
-          width: "63.54%", height: "70.87%",
-          overflow: "hidden", zIndex: 0,
-        }}>
-          <ScreenContent item={item} device="mobile" />
-        </div>
-        <img
-          src="/mockups/phone.png"
-          alt="phone"
-          style={{
-            width: "100%", height: "auto", display: "block",
-            position: "relative", zIndex: 1,
-            filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
 export function WebsiteLanding({ locale }: { locale: string }) {
   const isKo = locale === "ko";
-  const [activeId, setActiveId] = useState("medical");
-  const activeItem = SHOWCASE.find((s) => s.id === activeId) ?? SHOWCASE[0];
 
   return (
     <div className="wsvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         .wsvc .ws-hero-txt { text-align: left; }
+        @keyframes wsScrollDesktop {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        @keyframes wsScrollMobile {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-33.333%); }
+        }
         @media (max-width: 768px) {
           .wsvc .ws-hero-txt { text-align: center; }
           .wsvc .ws-hero-txt h1 { max-width: none !important; font-size: clamp(32px,8vw,52px) !important; line-height: 1.15 !important; }
@@ -277,7 +210,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       {/* ── MOCKUP SHOWCASE ── */}
       <section style={{ background: DARK, padding: "60px clamp(16px,5vw,48px) 100px" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
             <h2 style={{
               fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700,
               letterSpacing: "-0.025em", color: "#F0F6FC", marginBottom: 12,
@@ -288,39 +221,95 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               데모가 아닙니다 — 실제 운영 중인 사이트입니다
             </p>
           </div>
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
-            {SHOWCASE.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setActiveId(s.id)}
-                style={{
-                  padding: "8px 18px", borderRadius: 999,
-                  border: "1px solid",
-                  borderColor: activeId === s.id ? ACCENT : "rgba(240,246,252,0.20)",
-                  background: activeId === s.id ? ACCENT : "transparent",
-                  color: activeId === s.id ? "#0D1117" : "rgba(240,246,252,0.65)",
-                  fontSize: 13, fontWeight: activeId === s.id ? 700 : 400,
-                  cursor: "pointer", transition: "all 0.2s",
-                }}
-              >
-                {s.label}
-              </button>
+
+          {/* 3개 아이템 — 세로 배치, 각 항목에 PC+모바일 롤링 */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 20 }}>
+            {SHOWCASE.map((s, i) => (
+              <div key={s.id} style={{
+                background: "rgba(22,27,34,0.88)",
+                border: "1px solid rgba(240,246,252,0.08)",
+                borderRadius: 20, padding: "24px 20px 20px",
+              }}>
+                {/* 카드 헤더 */}
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10, marginBottom: 20 }}>
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 999,
+                    background: `${ACCENT}22`, color: ACCENT,
+                  }}>{s.label}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#F0F6FC" }}>{s.name}</span>
+                  <span style={{
+                    fontFamily: "var(--font-jetbrains,monospace)", fontSize: 11,
+                    color: ACCENT, marginLeft: 4,
+                  }}>{s.domain}</span>
+                  <span style={{
+                    marginLeft: "auto", fontSize: 12, fontWeight: 700, color: ACCENT,
+                    fontFamily: "var(--font-jetbrains,monospace)",
+                  }}>{s.kpi}</span>
+                </div>
+
+                {/* PC + 모바일 목업 롤링 */}
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "3%" }}>
+
+                  {/* 모니터 (PC) */}
+                  <div style={{ flex: "1 1 0", minWidth: 0, position: "relative" }}>
+                    <div style={{
+                      position: "absolute", top: "1.71%", left: "12.01%",
+                      width: "76.11%", height: "70.85%",
+                      overflow: "hidden", zIndex: 0,
+                    }}>
+                      <div style={{
+                        width: "100%",
+                        animation: `wsScrollDesktop ${14 + i * 2}s linear 0s infinite`,
+                      }}>
+                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt={s.name} style={{ width: "100%", display: "block" }} />
+                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                      </div>
+                    </div>
+                    <Image
+                      src="/mockups/monitor.png" alt="monitor"
+                      width={3072} height={2048} unoptimized
+                      style={{
+                        width: "100%", height: "auto", display: "block",
+                        position: "relative", zIndex: 1,
+                        filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
+                      }}
+                    />
+                  </div>
+
+                  {/* 폰 (모바일) */}
+                  <div className="ws-phone" style={{ flexShrink: 0, width: "30%", maxWidth: 240 }}>
+                    <div style={{ position: "relative" }}>
+                      <div style={{
+                        position: "absolute", top: "15.79%", left: "18.17%",
+                        width: "63.54%", height: "70.87%",
+                        overflow: "hidden", zIndex: 0,
+                      }}>
+                        <div style={{
+                          width: "100%",
+                          animation: `wsScrollMobile ${10 + i * 2}s linear 0s infinite`,
+                        }}>
+                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt={s.name + " 모바일"} style={{ width: "100%", display: "block" }} />
+                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                        </div>
+                      </div>
+                      <img
+                        src="/mockups/phone.png" alt="phone"
+                        style={{
+                          width: "100%", height: "auto", display: "block",
+                          position: "relative", zIndex: 1,
+                          filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.22))",
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             ))}
           </div>
-          <div className="ws-showcase-wrap" style={{ display: "flex", alignItems: "flex-end", gap: "3%", maxWidth: 960, margin: "0 auto" }}>
-            <MacbookMockup item={activeItem} />
-            <PhoneMockup item={activeItem} />
-          </div>
-          <div style={{ textAlign: "center", marginTop: 32 }}>
-            <p style={{ fontFamily: "var(--font-jetbrains,monospace)", fontSize: 12, color: ACCENT, marginBottom: 4 }}>
-              {activeItem.domain}
-            </p>
-            <p style={{ fontSize: 15, fontWeight: 600, color: "#F0F6FC", marginBottom: 4 }}>
-              {activeItem.name}
-            </p>
-            <p style={{ fontSize: 13, color: "rgba(240,246,252,0.55)" }}>{activeItem.kpi}</p>
-          </div>
-          <div style={{ textAlign: "center", marginTop: 32 }}>
+
+          <div style={{ textAlign: "center", marginTop: 36 }}>
             <Link href={`/${locale}/services/website/portfolio`} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               padding: "10px 22px",

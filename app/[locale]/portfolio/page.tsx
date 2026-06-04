@@ -78,6 +78,7 @@ export default async function PortfolioPage({
             <Link
               key={c.key}
               href={`/${locale}/services/${c.key}/portfolio`}
+              replace
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition hover:-translate-y-1 hover:border-primary/60"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-white/[0.06] to-white/[0.01]">

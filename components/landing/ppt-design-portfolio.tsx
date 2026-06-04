@@ -11,6 +11,7 @@ const CSS = `
 .aiopptp .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--sp-edge)}
 .aiopptp .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--blue),var(--gold))}
 .aiopptp .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s,transform .9s}.aiopptp .reveal.in{opacity:1;transform:none}
+.aiopptp .back{font-family:var(--mono);font-size:12px;color:var(--fg3);display:inline-block;margin-bottom:18px;text-decoration:none}.aiopptp .back:hover{color:var(--gold)}
 .aiopptp .head{padding:clamp(70px,11vw,140px) 0 clamp(40px,6vw,70px)}
 .aiopptp .head .kick{font-family:var(--mono);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:18px}
 .aiopptp .head h1{font-family:var(--frau);font-weight:400;font-size:var(--fs-display);line-height:1.04;margin-bottom:18px}
@@ -85,6 +86,7 @@ export function PptDesignPortfolio({ locale, items }: { locale: string; items: P
       <AioNav locale={locale} level="leaf" cat="design" sub="ppt-design" active="portfolio" />
 
       <header className="head"><div className="wrap">
+        <a className="back" href={`${base}/services/ppt-design`}>← PPT 디자인 소개로</a>
         <span className="kick">PPT · Portfolio</span>
         <h1>전달이 된<br /><em>슬라이드</em>들</h1>
         <p>실제 투자·계약·승인을 받은 슬라이드만 모았습니다</p>

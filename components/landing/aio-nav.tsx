@@ -136,10 +136,10 @@ export function AioNav({ locale, level, cat = "development", sub, active, accent
             <a href={`${base}/services/${level === "leaf" && sub ? sub : cat}`}>서비스 소개</a>
           </div>
 
-          {/* 포트폴리오 — leaf 전용 */}
-          {level === "leaf" && (
+          {/* 포트폴리오 — leaf 전용: 각 서비스의 전용 포트폴리오 페이지로 1:1 연결 */}
+          {level === "leaf" && sub && (
             <div className={"item" + (active === "portfolio" ? " on" : "")}>
-              <a href={`${base}/portfolio/category/${sub || cat}`}>포트폴리오</a>
+              <a href={`${base}/services/${sub}/portfolio`}>포트폴리오</a>
             </div>
           )}
 

@@ -23,13 +23,13 @@ const SUB_SERVICES = [
   {
     no: "02", id: "shopping-mall", title: "쇼핑몰", en: "Shopping Mall",
     desc: "카페24·독립몰 구축 — 상품 등록·결제 연동·GA4·광고 픽셀까지 한 번에",
-    price: hubPrice("shopping-mall"), days: "2–5일", tags: ["카페24", "결제연동", "GA4·픽셀"],
+    price: hubPrice("shopping-mall"), days: "결제 후 5일 내", tags: ["카페24", "결제연동", "GA4·픽셀"],
     href: (l: string) => `/${l}/services/shopping-mall`, soon: false, accent: "#FB923C", bg: "#FFF7ED",
   },
   {
     no: "03", id: "automation-app", title: "자동화·프로그램", en: "Automation & Program",
     desc: "엑셀·크롤링·알림·매크로·데스크탑 프로그램 — 반복 업무를 코드에게",
-    price: hubPrice("automation-app"), days: "1–7일", tags: ["Python", "n8n", "Electron"],
+    price: hubPrice("automation-app"), days: "결제 후 5일 내", tags: ["Python", "n8n", "Electron"],
     href: (l: string) => `/${l}/services/automation-app`, soon: false, accent: "#818CF8", bg: "#F5F3FF",
   },
   {

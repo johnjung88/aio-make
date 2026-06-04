@@ -22,6 +22,9 @@ const EXTRA = `
 
 export type FieldCard = { slug: string; label: string; icon: string; count: number; cover: string | null };
 
+/** 독자적인 커스텀 포트폴리오 페이지(/services/{slug}/portfolio)가 있는 슬러그 */
+const LEAF_PF = new Set(["website", "shopping-mall", "automation-app", "detail-page", "ppt-design"]);
+
 export function FieldPortfolio({
   locale, field, title, lead, cards,
 }: { locale: string; field: "development" | "design" | "video" | "marketing"; title: string; lead: string; cards: FieldCard[] }) {
@@ -45,7 +48,8 @@ export function FieldPortfolio({
         {has ? (
           <div className="pfgrid">
             {cards.map((c) => (
-              <a key={c.slug} className="pfc reveal" href={`${base}/portfolio/category/${c.slug}`}>
+              <a key={c.slug} className="pfc reveal"
+                href={LEAF_PF.has(c.slug) ? `${base}/services/${c.slug}/portfolio` : `${base}/portfolio/category/${c.slug}`}>
                 <div className="pfc-img">
                   {c.cover
                     ? /* eslint-disable-next-line @next/next/no-img-element */ <img src={c.cover} alt={c.label} loading="lazy" />
