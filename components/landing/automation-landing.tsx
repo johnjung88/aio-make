@@ -22,8 +22,8 @@ const service = servicesData.find((s) => s.id === "automation-app")!;
 const TRUST = [
   { value: "142",  label: "누적 의뢰",  sub: "자동화 포함" },
   { value: "98%",  label: "재의뢰율",   sub: "142명 중 139명" },
-  { value: "1일~", label: "최소 납기",  sub: "단순 자동화 기준" },
-  { value: "14일", label: "기본 A/S",   sub: "납품 후 무상" },
+  { value: "5일~", label: "기본 납기",  sub: "단순 자동화 기준" },
+  { value: "1달",  label: "기본 A/S",   sub: "납품 후 무상" },
 ];
 
 const KPI_CARDS = [
@@ -218,11 +218,20 @@ export function AutomationLanding({ locale }: { locale: string }) {
         .autvc .aut-hero-txt { text-align: left; }
         @media (max-width: 768px) {
           .autvc .aut-hero-txt { text-align: center; }
-          .autvc .aut-hero-txt h1 { max-width: none !important; }
-          .autvc .aut-hero-txt p { max-width: none !important; }
+          .autvc .aut-hero-txt h1 { max-width: none !important; font-size: clamp(30px,8vw,48px) !important; line-height: 1.18 !important; word-break: keep-all; }
+          .autvc .aut-hero-txt p { max-width: none !important; font-size: 14px !important; line-height: 1.75 !important; word-break: keep-all; }
           .autvc .aut-badges { justify-content: center !important; }
+          .autvc .aut-hero-btn { display: flex !important; justify-content: center; }
           .autvc .aut-stack-row { gap: 12px !important; }
           .autvc .aut-stack-card { min-width: 0 !important; flex: 1 1 calc(50% - 6px); max-width: calc(50% - 6px); }
+          .autvc .aut-monitor-tabs { gap: 6px !important; }
+          .autvc .aut-monitor-tabs button { padding: 6px 12px !important; font-size: 12px !important; }
+          .autvc .aut-section-title { font-size: clamp(20px,5.5vw,32px) !important; word-break: keep-all; }
+          .autvc .aut-section-sub { font-size: 13px !important; word-break: keep-all; }
+          .autvc .aut-ba-card { padding: 16px !important; }
+          .autvc .aut-time-h2 { font-size: clamp(22px,6vw,38px) !important; word-break: keep-all; }
+          .autvc .aut-time-kpi { font-size: clamp(36px,9vw,60px) !important; }
+          .autvc .aut-time-sub { font-size: 13px !important; word-break: keep-all; }
         }
         @media (max-width: 480px) {
           .autvc .aut-stack-card { flex: 1 1 100%; max-width: 100%; }
@@ -253,7 +262,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
           />
           <div style={{
             position: "absolute", inset: 0, pointerEvents: "none",
-            background: "linear-gradient(105deg, rgba(13,17,23,0.93) 0%, rgba(13,17,23,0.72) 50%, rgba(13,17,23,0.35) 100%)",
+            background: "linear-gradient(105deg, rgba(13,17,23,0.78) 0%, rgba(13,17,23,0.50) 50%, rgba(13,17,23,0.18) 100%)",
           }} />
           <div className="aut-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
@@ -267,6 +276,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
               fontSize: "clamp(36px,4.5vw,76px)", fontWeight: 700,
               letterSpacing: "-0.03em", lineHeight: 1.0,
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
+              wordBreak: "keep-all",
             }}>
               반복 업무를<br className="hidden md:block" />
               <span style={{ color: ACCENT }}>코드</span>에게 맡기세요
@@ -274,12 +284,13 @@ export function AutomationLanding({ locale }: { locale: string }) {
             <p style={{
               fontSize: "clamp(14px,1.1vw,17px)", color: "rgba(240,246,252,0.58)",
               lineHeight: 1.85, maxWidth: 460, marginBottom: 32,
+              wordBreak: "keep-all",
             }}>
-              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램<br className="hidden md:block" />
-              하루 수 시간의 반복을 한 번에 없앱니다
+              엑셀 파싱·알림 발송·크롤링·매크로·데스크탑 프로그램으로<br className="hidden md:block" />
+              수 많은 시간의 반복을 한 번에 없앱니다
             </p>
             <div className="aut-badges" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 36 }}>
-              {["1일~ 납기", "Python·n8n·Make", "14일 A/S"].map((b) => (
+              {["5일~ 납기", "Python·n8n·Make", "1달 A/S"].map((b) => (
                 <span key={b} style={{
                   fontSize: 11, fontWeight: 600, padding: "6px 14px",
                   border: `1px solid ${ACCENT}`, color: ACCENT,
@@ -289,13 +300,15 @@ export function AutomationLanding({ locale }: { locale: string }) {
                 </span>
               ))}
             </div>
-            <Link href={`/${locale}/quote`} style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "14px 28px", background: ACCENT, color: "#0D1117",
-              borderRadius: 8, fontSize: 14, fontWeight: 700, textDecoration: "none",
-            }}>
-              자동화 문의 →
-            </Link>
+            <div className="aut-hero-btn">
+              <Link href={`/${locale}/quote`} style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "14px 28px", background: ACCENT, color: "#0D1117",
+                borderRadius: 8, fontSize: 14, fontWeight: 700, textDecoration: "none",
+              }}>
+                자동화 문의 →
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -349,17 +362,18 @@ export function AutomationLanding({ locale }: { locale: string }) {
       <section style={{ background: DARK, padding: "60px clamp(16px,5vw,48px) 100px" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <h2 style={{
+            <h2 className="aut-section-title" style={{
               fontSize: "clamp(26px,3.5vw,44px)", fontWeight: 700,
               letterSpacing: "-0.025em", color: "#F0F6FC", marginBottom: 12,
+              wordBreak: "keep-all",
             }}>
               지금 이 순간도 자동으로 돌아갑니다
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(240,246,252,0.55)", lineHeight: 1.7 }}>
+            <p className="aut-section-sub" style={{ fontSize: 15, color: "rgba(240,246,252,0.55)", lineHeight: 1.7, wordBreak: "keep-all" }}>
               한 번 세팅하면 — 24시간 365일 알아서 처리합니다
             </p>
           </div>
-          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
+          <div className="aut-monitor-tabs" style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
             {MONITOR_CASES.map((c) => (
               <button
                 type="button"
@@ -397,13 +411,13 @@ export function AutomationLanding({ locale }: { locale: string }) {
             }}>
               Before / After
             </p>
-            <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#111" }}>
+            <h2 className="aut-section-title" style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 700, color: "#111", wordBreak: "keep-all" }}>
               이런 일을 자동화합니다
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 20 }}>
             {CASES.map((c) => (
-              <div key={c.title} style={{ border: "1px solid #E5E7EB", borderRadius: 16, padding: 24, background: "#fff" }}>
+              <div key={c.title} className="aut-ba-card" style={{ border: "1px solid #E5E7EB", borderRadius: 16, padding: 24, background: "#fff" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                   <div style={{
                     width: 40, height: 40, background: `${ACCENT}1a`, borderRadius: 10,
@@ -446,17 +460,17 @@ export function AutomationLanding({ locale }: { locale: string }) {
           }}>
             Time Savings
           </p>
-          <h2 style={{ fontSize: "clamp(24px,4vw,44px)", fontWeight: 700, color: "#fff", marginBottom: 16 }}>
+          <h2 className="aut-time-h2" style={{ fontSize: "clamp(24px,4vw,44px)", fontWeight: 700, color: "#fff", marginBottom: 16, wordBreak: "keep-all" }}>
             하루 <span style={{ color: ACCENT }}>3시간</span> × 365일
           </h2>
-          <p style={{
+          <p className="aut-time-kpi" style={{
             fontSize: "clamp(32px,6vw,72px)", fontWeight: 700,
             color: ACCENT, fontFamily: "var(--font-jetbrains,monospace)",
             marginBottom: 16,
           }}>
             = 1,095시간/년
           </p>
-          <p style={{ fontSize: 15, color: "#9CA3AF", maxWidth: "40ch", margin: "0 auto", lineHeight: 1.7 }}>
+          <p className="aut-time-sub" style={{ fontSize: 15, color: "#9CA3AF", maxWidth: "40ch", margin: "0 auto", lineHeight: 1.7, wordBreak: "keep-all" }}>
             그 시간을 매출·성장·쉬는 시간에 쓰세요<br />
             자동화는 한 번 만들면 계속 일합니다
           </p>

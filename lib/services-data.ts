@@ -19,6 +19,7 @@ export interface PricingTier {
   duration: string;
   includes: LocalizedString[];
   recommended?: boolean;
+  enterprise?: boolean;
 }
 
 export interface AddonItem {
@@ -523,37 +524,90 @@ export const servicesData: ServiceDetail[] = [
     process: sharedProcess,
     pricing: [
       {
-        name: { ko: "자동화 단순", en: "Simple automation" },
-        eventPrice: "₩100,000~",
-        regularPrice: "₩300,000~",
-        duration: "1일",
+        name: { ko: "엑셀·구글시트 간단 자동화", en: "Excel / Google Sheets Automation" },
+        eventPrice: "₩49,000~",
+        regularPrice: "₩70,000~",
+        duration: "1~2일",
         includes: [
-          { ko: "단일 업무 자동화/크롤링", en: "Single workflow or crawling task" },
-          { ko: "엑셀/CSV 납품", en: "Excel/CSV delivery" },
-          { ko: "처리 흐름 설명", en: "Workflow explanation" },
+          { ko: "엑셀 양식 자동화", en: "Excel form automation" },
+          { ko: "구글시트 자동 계산", en: "Google Sheets auto calc" },
+          { ko: "버튼 클릭형 정리", en: "One-click organization" },
+          { ko: "파일명·폴더 정리", en: "File & folder renaming" },
         ],
       },
       {
-        name: { ko: "자동화 일반", en: "Standard automation" },
-        eventPrice: "₩800,000~",
-        regularPrice: "₩2,500,000~",
-        duration: "5일",
+        name: { ko: "단순 매크로·반복작업 자동화", en: "Simple Macro / Repetitive Task" },
+        eventPrice: "₩79,000~",
+        regularPrice: "₩120,000~",
+        duration: "1~3일",
+        includes: [
+          { ko: "단순 클릭·입력 반복", en: "Click & input repetition" },
+          { ko: "파일 이동·정리", en: "File move & organize" },
+          { ko: "반복 업무 1개 흐름", en: "Single workflow automation" },
+          { ko: "단순 브라우저 조작", en: "Basic browser control" },
+        ],
+      },
+      {
+        name: { ko: "웹크롤링·데이터 수집 기본", en: "Web Crawling / Data Collection" },
+        eventPrice: "₩99,000~",
+        regularPrice: "₩150,000~",
+        duration: "2~3일",
+        includes: [
+          { ko: "공개 페이지 데이터 수집", en: "Public page data collection" },
+          { ko: "목록·상세 페이지 수집", en: "List & detail page scraping" },
+          { ko: "엑셀/CSV 저장", en: "Excel/CSV export" },
+          { ko: "1개 사이트 기준", en: "Single-site scope" },
+        ],
+      },
+      {
+        name: { ko: "업무자동화 프로그램 기본", en: "Workflow Automation Program" },
+        eventPrice: "₩149,000~",
+        regularPrice: "₩250,000~",
+        duration: "3~5일",
         recommended: true,
         includes: [
-          { ko: "복합 워크플로", en: "Multi-step workflow" },
-          { ko: "DB/외부 API 연동", en: "DB/API integration" },
-          { ko: "운영 가이드", en: "Operation guide" },
+          { ko: "입력→처리→결과 저장", en: "Input → Process → Save" },
+          { ko: "반복 업무 1개 프로세스", en: "Single process automation" },
+          { ko: "간단 설정값 포함", en: "Configurable settings" },
+          { ko: "로컬 실행 스크립트", en: "Local script / executable" },
         ],
       },
       {
-        name: { ko: "고급 자동화/앱 MVP", en: "Advanced automation / MVP app" },
-        eventPrice: "₩1,500,000~",
-        regularPrice: "₩5,000,000~",
-        duration: "5-7일",
+        name: { ko: "UI 포함 자동화 프로그램", en: "Automation with UI" },
+        eventPrice: "₩299,000~",
+        regularPrice: "₩500,000~",
+        duration: "5~7일",
         includes: [
-          { ko: "핵심 화면 2~3개", en: "2-3 core screens" },
-          { ko: "기본 DB/인증", en: "Basic DB/auth" },
-          { ko: "배포 또는 빌드 가이드", en: "Deployment or build guide" },
+          { ko: "버튼형 실행 프로그램", en: "GUI-driven program" },
+          { ko: "파일 선택·실행·중지", en: "File pick, run, stop" },
+          { ko: "결과 확인 화면", en: "Results display screen" },
+          { ko: "간단 사용자 입력창", en: "User input interface" },
+        ],
+      },
+      {
+        name: { ko: "스케줄러·알림·DB 포함 자동화", en: "Scheduler / Alert / DB Automation" },
+        eventPrice: "₩499,000~",
+        regularPrice: "₩800,000~",
+        duration: "5~10일",
+        includes: [
+          { ko: "정해진 시간 자동 실행", en: "Scheduled auto-run" },
+          { ko: "텔레그램·메일 알림", en: "Telegram / Email alerts" },
+          { ko: "DB·구글시트 저장", en: "DB or Google Sheets storage" },
+          { ko: "로그·오류 처리", en: "Logging & error handling" },
+        ],
+      },
+      {
+        name: { ko: "RPA·API·AI·관리자형 시스템", en: "RPA / API / AI / Admin System" },
+        eventPrice: "₩1,000,000~",
+        regularPrice: "₩1,500,000~",
+        duration: "별도 협의",
+        enterprise: true,
+        includes: [
+          { ko: "내부 업무·관리자 시스템", en: "Internal workflow & admin system" },
+          { ko: "API·ERP·CRM 연동", en: "API / ERP / CRM integration" },
+          { ko: "AI 자동분류·요약·응답", en: "AI auto-classify, summarize, respond" },
+          { ko: "다중 사용자 지원", en: "Multi-user support" },
+          { ko: "장기 유지보수형", en: "Long-term maintenance" },
         ],
       },
     ],
