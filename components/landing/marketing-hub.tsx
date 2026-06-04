@@ -10,52 +10,114 @@ const ACCENT = "#10B981";
 
 const SUB_SERVICES = [
   {
-    no: "01", id: "blog", title: "블로그 운영대행", en: "Blog Management",
-    desc: "네이버·티스토리 — 월 8–12편 SEO 키워드 발굴부터 발행·추적까지",
-    price: "₩390,000~/월", days: "월 10편 기준", tags: ["Naver Blog", "SEO", "GA4"],
+    no: "01", id: "blog", title: "블로그 콘텐츠 운영", en: "Blog Content",
+    desc: "업종에 맞는 키워드·주제를 정리하고, 검색에 노출될 수 있는 구조로 콘텐츠를 꾸준히 쌓아드립니다. 상위노출을 보장하는 상품은 아닙니다.",
+    price: "₩149,000~/월", days: "월 4건 기준", tags: ["Naver Blog", "키워드", "원고"],
     href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#10B981", bg: "#F0FDF4",
   },
   {
-    no: "02", id: "sns", title: "SNS 운영대행", en: "SNS Management",
-    desc: "인스타·릴스·틱톡 — 월 20–30컷 컨셉·촬영·편집·발행·반응 분석",
-    price: "₩490,000~/월", days: "월 25컷 기준", tags: ["Instagram", "TikTok", "Reels"],
+    no: "02", id: "sns", title: "SNS 콘텐츠 운영", en: "SNS Content",
+    desc: "업종에 맞는 이미지 콘텐츠·캡션·해시태그를 제작해 SNS 계정을 꾸준히 채워드립니다. 팔로워·조회수 증가를 보장하는 상품은 아닙니다.",
+    price: "₩149,000~/월", days: "월 8건 기준", tags: ["Instagram", "카드뉴스", "캡션"],
     href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#F472B6", bg: "#FDF2F8",
   },
   {
-    no: "03", id: "video-ch", title: "영상채널 운영대행", en: "Video Channel Ops",
-    desc: "유튜브·숏폼 — 월 4–8편 기획·촬영·편집·자막·썸네일·분석",
-    price: "₩590,000~/월", days: "월 6편 기준", tags: ["YouTube", "Shorts", "편집"],
+    no: "03", id: "shorts", title: "유튜브 쇼츠 운영", en: "YouTube Shorts",
+    desc: "쇼츠 형식에 맞는 제목·자막·설명문·해시태그를 구성해 채널에 콘텐츠를 꾸준히 쌓아드립니다. 구독자·조회수 보장 상품이 아닙니다.",
+    price: "₩190,000~/월", days: "월 4개 기준", tags: ["YouTube Shorts", "자막", "썸네일"],
     href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#FB923C", bg: "#FFF7ED",
   },
   {
-    no: "04", id: "ad", title: "광고 운영대행", en: "Ad Management",
-    desc: "Meta·카카오·네이버 광고 — 예산 설정·소재 제작·성과 최적화, 준비 중",
-    price: "준비 중", days: "", tags: ["Meta Ads", "Kakao", "Naver"],
-    href: () => "#", soon: true, accent: "#9CA3AF", bg: "#F9FAFB",
+    no: "04", id: "bundle", title: "통합 콘텐츠 운영", en: "All-in-One",
+    desc: "블로그·SNS·유튜브 쇼츠를 한 번에 운영하고 싶은 고객을 위한 통합 패키지입니다. 여러 채널에 콘텐츠 기반을 함께 쌓아드립니다.",
+    price: "₩390,000~/월", days: "라이트 기준", tags: ["블로그", "SNS", "쇼츠"],
+    href: (l: string) => `/${l}/services/marketing`, soon: false, accent: "#8B5CF6", bg: "#F5F3FF",
   },
 ];
 
+const MK_DIAGNOSIS = [
+  { label: "블로그 콘텐츠 방향 진단", price: "49,000" },
+  { label: "SNS 계정 콘텐츠 방향 진단", price: "49,000" },
+  { label: "유튜브 채널 콘텐츠 방향 진단", price: "49,000" },
+  { label: "쇼핑몰·웹사이트 마케팅 동선 진단", price: "99,000" },
+  { label: "GA4·픽셀·전환추적 점검", price: "149,000" },
+  { label: "광고 계정 기본 세팅", price: "149,000" },
+];
+
+const MK_GROUPS = [
+  {
+    key: "블로그 콘텐츠 운영", accent: "#10B981", bg: "#F0FDF4",
+    items: [
+      { label: "월 4건", price: "149,000", popular: false },
+      { label: "월 8건", price: "290,000", popular: true },
+      { label: "월 12건", price: "390,000", popular: false },
+    ],
+    includes: ["키워드·주제 선정", "제목·본문 구성", "원고 작성·편집", "기본 이미지 배치", "업로드 원고·대행", "월간 리포트"],
+    note: "상위노출 보장 아님 — 검색 노출 가능한 구조로 꾸준히 축적합니다",
+  },
+  {
+    key: "SNS 콘텐츠 운영", accent: "#F472B6", bg: "#FDF2F8",
+    items: [
+      { label: "월 8건", price: "149,000", popular: false },
+      { label: "월 12건", price: "240,000", popular: true },
+      { label: "월 20건", price: "390,000", popular: false },
+    ],
+    includes: ["카드뉴스·이미지 제작", "짧은 캡션 작성", "해시태그 정리", "업로드 이미지 제공", "기본 업로드 대행", "월간 리포트"],
+    note: "팔로워·조회수 증가 보장 아님 — 꾸준히 쌓고 반응 보며 방향을 개선합니다",
+  },
+  {
+    key: "유튜브 쇼츠 운영", accent: "#FB923C", bg: "#FFF7ED",
+    items: [
+      { label: "월 4개", price: "190,000", popular: false },
+      { label: "월 8개", price: "350,000", popular: true },
+      { label: "월 12개", price: "490,000", popular: false },
+    ],
+    includes: ["주제·구성 정리", "고객 자료 기반 편집", "기본 자막", "제목·설명문 작성", "해시태그 정리", "업로드 세팅"],
+    note: "조회수·구독자 보장 아님 — 쇼츠 형식에 맞춘 콘텐츠를 채널에 축적합니다",
+  },
+  {
+    key: "통합 콘텐츠 운영", accent: "#8B5CF6", bg: "#F5F3FF",
+    items: [
+      { label: "라이트 (SNS8·블로그4·쇼츠4)", price: "390,000", popular: false },
+      { label: "스탠다드 (SNS12·블로그8·쇼츠8)", price: "590,000", popular: true },
+      { label: "집중 (SNS20·블로그12·쇼츠12)", price: "890,000", popular: false },
+    ],
+    includes: [],
+    note: "블로그·SNS·쇼츠를 한 번에 운영 — 여러 채널에 콘텐츠 기반을 함께 쌓아드립니다",
+  },
+];
+
+const MK_CUSTOM = [
+  "광고비", "광고 성과 관리", "광고 효율 보장형 운영",
+  "매일 댓글·DM 응대", "인플루언서 섭외", "체험단 운영",
+  "현장 촬영", "제품 촬영", "모델 섭외", "전문 영상 촬영",
+  "고급 카드뉴스 디자인", "상세페이지급 디자인",
+  "장문 전문 원고", "보도자료 작성", "언론홍보",
+  "상위노출 보장형 작업", "조회수·팔로워·매출 보장형 작업",
+  "커뮤니티 바이럴 작업",
+];
+
 const HOW = [
-  { no: "01", title: "주간 리포트", desc: "매주 월요일 KPI 표를 공유합니다 — 방문자·도달·전환 데이터를 실제 수치 그대로", icon: "📊" },
-  { no: "02", title: "월 종합 + 다음 달 계획", desc: "월말 종합 리포트와 다음 달 운영 방향을 함께 제안합니다", icon: "📋" },
-  { no: "03", title: "데이터 기반 운영", desc: "GA4·서치콘솔·픽셀 연동 — 감이 아닌 데이터로 판단합니다", icon: "📈" },
-  { no: "04", title: "월 단위 유연 계약", desc: "최소 3개월 운영 / 해지 30일 전 통보 — 불필요한 장기 구속 없이", icon: "🤝" },
+  { no: "01", title: "현재 상태 확인", desc: "기존 블로그·SNS·유튜브 계정·업종·주요 고객층·참고 채널을 확인하고 현재 콘텐츠 문제점을 정리합니다", icon: "🔍" },
+  { no: "02", title: "콘텐츠 방향 정리", desc: "운영 채널 선정·콘텐츠 주제·키워드/해시태그 방향·게시물 유형·월간 구성을 함께 잡습니다", icon: "🗂️" },
+  { no: "03", title: "콘텐츠 제작", desc: "블로그 원고·SNS 카드뉴스·캡션·쇼츠 편집·제목/설명문/해시태그를 업종에 맞게 제작합니다", icon: "✏️" },
+  { no: "04", title: "업로드 보조 + 리포트", desc: "업로드용 파일 제공·기본 업로드 대행·월간 간단 리포트·다음 콘텐츠 방향 제안까지", icon: "📋" },
 ];
 
 
 const REVIEWS = [
-  { stars: 5, text: "블로그 운영 시작 3개월 만에 네이버 검색 유입이 4배 늘었어요 — 키워드 선정부터 글 퀄리티까지 모두 만족합니다", author: "정*연", service: "블로그 운영대행", date: "2026.04" },
-  { stars: 5, text: "인스타 릴스 운영 후 팔로워가 2배 늘고 DM 문의도 확실히 늘었습니다 — 매주 리포트 보내줘서 진행 상황이 한눈에 보여요", author: "한*미", service: "SNS 운영대행", date: "2026.03" },
-  { stars: 5, text: "유튜브 채널 운영 맡기고 구독자 1,000명 돌파했습니다 — 영상 퀄리티와 썸네일 모두 기대 이상이었어요", author: "윤*석", service: "영상채널 운영대행", date: "2026.05" },
+  { stars: 5, text: "매주 리포트로 진행 상황이 투명하게 보여서 믿고 맡길 수 있었어요 — 어떤 키워드로 글을 쓰는지 함께 공유해줘서 방향이 잡히는 느낌이었습니다", author: "정*연", service: "블로그 콘텐츠 운영", date: "2026.04" },
+  { stars: 5, text: "방치되던 SNS 계정이 꾸준히 채워지니 브랜드가 살아있는 느낌입니다 — 매달 어떤 콘텐츠를 올릴지 같이 정리해줘서 운영이 훨씬 수월해졌어요", author: "한*미", service: "SNS 콘텐츠 운영", date: "2026.03" },
+  { stars: 5, text: "쇼츠가 채널에 차곡차곡 쌓이는 게 보이고, 제목·자막 구성 방향도 같이 잡아줘서 좋았어요 — 처음 혼자 했을 때보다 훨씬 정돈된 채널이 됐습니다", author: "윤*석", service: "유튜브 쇼츠 운영", date: "2026.05" },
 ];
 
 const FAQS = [
-  { q: "최소 계약 기간이 있나요?", a: "최소 3개월 운영을 권장합니다 — 콘텐츠 마케팅은 꾸준함이 핵심이라 단기 계약보다 3개월 이상 운영했을 때 유의미한 성과가 나타납니다" },
-  { q: "월별 발행 수량은 협의 가능한가요?", a: "네 — 기준 수량은 플랜별로 다르며 예산에 맞게 발행 수를 조정한 맞춤 견적도 가능합니다" },
-  { q: "콘텐츠 아이디어는 누가 내나요?", a: "AIO 팀이 키워드 리서치와 트렌드 분석을 바탕으로 콘텐츠 방향을 제안합니다 — 의뢰인의 피드백을 반영해 최종 방향을 확정합니다" },
-  { q: "기존 계정에 이어서 운영 가능한가요?", a: "가능합니다 — 기존 계정 분석 후 현재 상태에 맞는 운영 전략을 수립해 이어서 진행합니다" },
-  { q: "성과 측정은 어떻게 하나요?", a: "GA4·네이버 서치콘솔·Meta 픽셀·유튜브 스튜디오 등 플랫폼별 공식 지표를 기준으로 매주 리포트를 제공합니다" },
-  { q: "결제 방식은 어떻게 되나요?", a: "월 초 계좌이체로 진행합니다 — 첫 달은 착수 확인 후 다음 날 운영을 시작합니다" },
+  { q: "상위노출이 보장되나요?", a: "상위노출은 보장하지 않습니다. 상위노출은 계정 지수·키워드 경쟁도·업종·콘텐츠 누적량·알고리즘 변화 등 여러 요소의 영향을 받습니다. AIO는 상위노출 보장 방식이 아니라, 검색과 노출 가능성을 높일 수 있도록 키워드 기반 콘텐츠를 꾸준히 제작·운영합니다." },
+  { q: "조회수나 팔로워 증가가 보장되나요?", a: "조회수·팔로워 증가·매출 상승은 보장하지 않습니다. 대신 콘텐츠 주제·제목·자막·해시태그·업로드 구조를 정리하고, 반응 데이터를 보며 콘텐츠 방향을 개선합니다." },
+  { q: "광고 운영도 포함인가요?", a: "기본 콘텐츠 운영 상품에는 광고비와 광고 성과 관리가 포함되어 있지 않습니다. 광고 계정 세팅·픽셀/전환추적 점검·광고 운영은 별도 상담 후 안내드립니다." },
+  { q: "블로그 글만 작성해주나요?", a: "블로그 콘텐츠 운영은 원고 작성뿐 아니라 주제·키워드·제목·본문 구성·기본 이미지 배치까지 함께 정리합니다. 업로드 대행이 필요한 경우 계정 권한 또는 업로드 자료 제공이 필요합니다." },
+  { q: "SNS는 어떤 콘텐츠를 만들어주나요?", a: "업종과 상품에 맞는 이미지 콘텐츠·카드뉴스·짧은 캡션·해시태그를 제작합니다. 고급 디자인 작업이나 촬영 콘텐츠는 별도 견적으로 안내드립니다." },
+  { q: "유튜브 롱폼 영상도 포함인가요?", a: "기본 유튜브 운영은 쇼츠 중심입니다. 롱폼 영상 편집·촬영·전문 자막·고급 편집은 별도 견적으로 안내드립니다." },
 ];
 
 const STACK = ["Naver Blog", "Instagram", "TikTok", "YouTube", "GA4", "Meta Ads", "서치콘솔"];
@@ -93,10 +155,10 @@ export function MarketingHub({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              블로그·SNS·영상채널 — 매일 보이는 것이<br />한 달 뒤의 매출이 됩니다
+              상위노출·조회수·팔로워 증가를 보장하지 않습니다<br />대신 업종에 맞는 콘텐츠를 블로그·SNS·유튜브에 꾸준히 쌓아드립니다
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
-              {["주간 KPI 리포트", "데이터 기반 운영", "월 단위 계약", "GA4 연동 포함"].map((b) => (
+              {["블로그·SNS·유튜브 쇼츠", "보장 없는 정직한 운영", "월 단위 계약", "간단 리포트 포함"].map((b) => (
                 <span
                   key={b}
                   className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
@@ -115,7 +177,7 @@ export function MarketingHub({ locale }: { locale: string }) {
               </Link>
             </div>
             <div className="flex justify-center md:justify-start gap-6 sm:gap-8 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-              {[{ v: "+42%", l: "평균 유입 증가" }, { v: "3개월", l: "성과 기준" }, { v: "주 1회", l: "KPI 리포트" }].map((s) => (
+              {[{ v: "4채널", l: "블로그·SNS·유튜브·쇼츠" }, { v: "월 단위", l: "유연한 계약" }, { v: "주 1회", l: "KPI 리포트" }].map((s) => (
                 <div key={s.l} className="text-center md:text-left">
                   <div className="font-bold text-white leading-none" style={{ fontSize: "clamp(20px,2.5vw,30px)", fontFamily: "var(--font-jetbrains)" }}>{s.v}</div>
                   <div className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.40)" }}>{s.l}</div>
@@ -137,16 +199,16 @@ export function MarketingHub({ locale }: { locale: string }) {
             </div>
             <div className="p-5 space-y-4">
               {[
-                { label: "평균 방문자", value: "128,420", delta: "▲ +42%", color: ACCENT },
-                { label: "평균 전환율", value: "3.84%", delta: "▲ +0.9pt", color: ACCENT },
-                { label: "평균 CPC", value: "₩318", delta: "▼ −22%", color: "#F472B6" },
-                { label: "평균 ROAS", value: "412%", delta: "▲ +1.4×", color: ACCENT },
-              ].map((kpi) => (
-                <div key={kpi.label} className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                  <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.40)", fontFamily: "var(--font-jetbrains)" }}>{kpi.label}</span>
+                { label: "운영 채널", value: "블로그·SNS·유튜브·쇼츠", note: "4채널" },
+                { label: "콘텐츠 제작 방식", value: "월 단위 기획·제작·발행", note: "정기" },
+                { label: "리포트 주기", value: "매주 KPI 공유", note: "주 1회" },
+                { label: "계약 방식", value: "월 단위 · 30일 전 해지 통보", note: "유연" },
+              ].map((row) => (
+                <div key={row.label} className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.40)", fontFamily: "var(--font-jetbrains)" }}>{row.label}</span>
                   <div className="text-right">
-                    <div className="text-[13px] font-bold text-white" style={{ fontFamily: "var(--font-jetbrains)" }}>{kpi.value}</div>
-                    <div className="text-[10px]" style={{ color: kpi.color }}>{kpi.delta}</div>
+                    <div className="text-[12px] font-semibold text-white leading-tight">{row.value}</div>
+                    <div className="text-[10px]" style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}>{row.note}</div>
                   </div>
                 </div>
               ))}
@@ -268,9 +330,9 @@ export function MarketingHub({ locale }: { locale: string }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-24 text-center md:text-left">
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
-              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>데이터로 증명하며<br />운영합니다</h2>
+              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>콘텐츠 기반을<br />함께 쌓아갑니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                감이 아닌 수치 — 매주 KPI를 공유하고<br />측정된 결과로만 다음 방향을 결정합니다
+                상위노출·조회수를 보장하지 않습니다<br />방향을 잡고 꾸준히 쌓고 반응 보며 개선합니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "주 1회", l: "KPI 리포트" }, { v: "3개월", l: "성과 기준" }].map((s) => (
@@ -366,11 +428,112 @@ export function MarketingHub({ locale }: { locale: string }) {
         </div>
       </section>
 
+      {/* ── 가격 안내 ── */}
+      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Pricing</p>
+            <h2 className="font-bold text-[#111] mb-2" style={{ fontSize: "clamp(22px,3vw,36px)" }}>마케팅 서비스 가격</h2>
+            <p className="text-[13px] text-[#6B7280]">모든 가격은 시작가 기준 · 상위노출·조회수·팔로워 증가를 보장하는 상품이 아닙니다</p>
+          </div>
+
+          {/* 진단·세팅 */}
+          <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white mb-6">
+            <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: "#F0FDF4" }}>
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}>마케팅 진단·세팅</span>
+              <span className="text-[10px] text-[#9CA3AF]">— 방향 점검 단건 상품</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#F3F4F6]">
+              {MK_DIAGNOSIS.map((item) => (
+                <div key={item.label} className="flex items-center justify-between px-5 py-3 border-b border-[#F3F4F6]">
+                  <span className="text-[13px] text-[#374151]">{item.label}</span>
+                  <div>
+                    <span className="font-bold text-[14px]" style={{ color: ACCENT, fontFamily: "var(--font-jetbrains)" }}>{item.price}</span>
+                    <span className="text-[11px] text-[#9CA3AF] ml-0.5">원~</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 운영 그룹 4개 카드 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+            {MK_GROUPS.map((g) => (
+              <div key={g.key} className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white">
+                <div className="h-1" style={{ background: g.accent }} />
+                <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: g.bg }}>
+                  <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: g.accent, fontFamily: "var(--font-jetbrains)" }}>{g.key}</span>
+                </div>
+                <div className="divide-y divide-[#F3F4F6]">
+                  {g.items.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between px-5 py-3"
+                      style={item.popular ? { background: g.bg } : {}}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-[13px] font-medium text-[#111]">{item.label}</span>
+                        {item.popular && (
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: g.accent, color: "#fff" }}>BEST</span>
+                        )}
+                      </div>
+                      <div>
+                        <span className="font-bold text-[14px]" style={{ color: g.accent, fontFamily: "var(--font-jetbrains)" }}>{item.price}</span>
+                        <span className="text-[11px] text-[#9CA3AF] ml-0.5">원~</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {g.includes.length > 0 && (
+                  <div className="px-5 py-3.5 border-t border-[#F3F4F6]">
+                    <p className="text-[10px] font-bold text-[#9CA3AF] mb-2 uppercase tracking-widest">포함</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {g.includes.map((inc) => (
+                        <span key={inc} className="text-[11px] px-2 py-0.5 rounded-md" style={{ background: g.accent + "12", color: g.accent }}>{inc}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="px-5 py-3 border-t border-[#F3F4F6]">
+                  <p className="text-[11px] text-[#9CA3AF] leading-[1.7]">{g.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 별도견적 */}
+          <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white mb-8">
+            <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: "#F9FAFB" }}>
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#6B7280]" style={{ fontFamily: "var(--font-jetbrains)" }}>별도 견적</span>
+              <span className="text-[10px] text-[#9CA3AF]">— 기본 상품 미포함</span>
+            </div>
+            <div className="px-5 py-4">
+              <div className="flex flex-wrap gap-2">
+                {MK_CUSTOM.map((item) => (
+                  <span key={item} className="text-[11px] px-2.5 py-1 rounded-lg text-[#6B7280]" style={{ background: "#F3F4F6", border: "1px solid #E5E7EB" }}>{item}</span>
+                ))}
+              </div>
+              <p className="text-[11px] text-[#9CA3AF] mt-4 leading-[1.7]">위 항목이 포함된 경우 상담 후 별도 견적으로 안내드립니다 · 광고비는 별도입니다</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link
+              href={`/${locale}/quote`}
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-[14px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              style={{ background: ACCENT }}
+            >
+              운영 견적 받기 →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <ServiceCta
         accentColor={ACCENT}
-        headline={<>꾸준히 보이는 <span style={{ color: ACCENT }}>운영</span>이 필요한가요?</>}
-        sub="지금 문의하면 24시간 안에 견적 · 1주 안에 첫 발행"
+        headline={<>콘텐츠 <span style={{ color: ACCENT }}>기반</span>이 필요한가요?</>}
+        sub="보장 없이도 꾸준히 — 24시간 안에 견적, 1주 안에 방향 정리"
         ctaLabel="운영 문의 →"
         ctaHref={`/${locale}/quote`}
       />

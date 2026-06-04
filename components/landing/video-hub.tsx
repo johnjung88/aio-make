@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AioNav, AioFooter } from "./aio-nav";
 import { ServiceCta } from "@/components/services/service-cta";
@@ -11,20 +10,20 @@ const ACCENT = "#F59E0B";
 const SUB_SERVICES = [
   {
     no: "01", id: "shortform", title: "SNS 숏폼", en: "SNS Short-form",
-    desc: "인스타 릴스·틱톡·페이스북 릴스 — 첫 3초에 멈추고 끝까지 보게 만드는 컷",
-    price: "₩150,000~/편", days: "3–5일", tags: ["Instagram", "TikTok", "Reels"],
+    desc: "고객 자료 + AI 영상 모델로 제작하는 세로형 숏폼 — 인스타 릴스·유튜브 쇼츠·틱톡·네이버 클립용",
+    price: "₩49,000~/편", days: "3–5일", tags: ["Instagram", "TikTok", "Reels"],
     href: (l: string) => `/${l}/services/video`, soon: false, accent: "#F472B6", bg: "#FDF2F8",
   },
   {
     no: "02", id: "youtube", title: "유튜브 채널", en: "YouTube Channel",
     desc: "기획·촬영·편집·자막·썸네일 — 구독과 체류 시간을 끌어올리는 채널 운영",
-    price: "₩290,000~/편", days: "5–7일", tags: ["YouTube", "Shorts", "4K"],
+    price: "₩79,000~/편", days: "5–7일", tags: ["YouTube", "Shorts", "4K"],
     href: (l: string) => `/${l}/services/video`, soon: false, accent: "#EF4444", bg: "#FEF2F2",
   },
   {
     no: "03", id: "brand", title: "브랜드 영상", en: "Brand Video",
-    desc: "제품·서비스·IR 소개 영상 — 브랜드 세계관을 한 컷에 담는 풀 프로덕션",
-    price: "₩490,000~/편", days: "7–14일", tags: ["촬영", "편집", "4K", "색보정"],
+    desc: "AI 영상 모델 + 고객 자료 기반으로 쇼핑몰·상세페이지·홈페이지에 쓸 홍보영상을 빠르게 제작",
+    price: "₩349,000~/편", days: "7–14일", tags: ["촬영", "편집", "4K", "색보정"],
     href: (l: string) => `/${l}/services/video`, soon: false, accent: ACCENT, bg: "#FFFBEB",
   },
   {
@@ -36,10 +35,11 @@ const SUB_SERVICES = [
 ];
 
 const HOW = [
-  { no: "01", title: "레퍼런스 합의", desc: "방향과 레퍼런스를 먼저 시안으로 합의 — 촬영 전 콘티 확인까지", icon: "🎬" },
-  { no: "02", title: "러프 컷 공유", desc: "구조와 호흡을 먼저 확인 — 방향이 맞으면 파인 컷으로 넘어갑니다", icon: "✂️" },
-  { no: "03", title: "파인 컷 완성", desc: "컬러 그레이딩·자막·음악 믹스 — 플랫폼 최적 포맷으로 다듬습니다", icon: "🎨" },
-  { no: "04", title: "마스터 납품", desc: "4K 원본 + 소스 파일 함께 전달 — 추후 재편집·재활용 가능하게", icon: "📦" },
+  { no: "01", title: "고객 자료 확인", desc: "제품 사진·기존 영상·로고·상품 설명·브랜드 컬러·참고 영상을 받아 제작 범위를 확인합니다", icon: "📋" },
+  { no: "02", title: "영상 방향 정리", desc: "활용 채널·영상 길이·주요 메시지·분위기·필요한 장면 구성을 함께 정리합니다", icon: "🎯" },
+  { no: "03", title: "AI 영상 모델 활용", desc: "제품·브랜드 분위기에 맞는 장면을 AI로 생성 — 이미지 기반 영상화·배경·연출컷을 구성합니다", icon: "🤖" },
+  { no: "04", title: "컷편집·자막·BGM", desc: "생성된 장면을 편집으로 정리하고 자막·BGM·모션·화면 비율을 플랫폼에 맞게 다듬습니다", icon: "✂️" },
+  { no: "05", title: "납품", desc: "SNS 세로형·쇼핑몰용·유튜브 쇼츠용 영상 파일로 전달 — 필요 시 썸네일 이미지 포함", icon: "📦" },
 ];
 
 
@@ -50,15 +50,76 @@ const REVIEWS = [
 ];
 
 const FAQS = [
-  { q: "제작 기간이 얼마나 걸리나요?", a: "영상 종류에 따라 다릅니다 — SNS 숏폼 3–5일, 유튜브 영상 5–7일, 브랜드 영상 7–14일이 기준이며 촬영 유무에 따라 납기가 달라집니다" },
-  { q: "촬영이 포함되나요?", a: "기본 패키지는 편집 중심으로 구성되어 있으며 촬영이 필요한 경우 별도 견적으로 안내드립니다 — 소스 영상이 있으면 편집만도 가능합니다" },
-  { q: "원본 파일도 받을 수 있나요?", a: "네 — 4K 마스터 파일과 편집 소스 파일을 함께 납품합니다 — 추후 재편집·재활용이 가능합니다" },
-  { q: "플랫폼별 비율로 납품 가능한가요?", a: "가능합니다 — 인스타 릴스(9:16), 유튜브(16:9), 유튜브 숏츠(9:16) 등 플랫폼에 맞는 비율로 컷 버전을 함께 제공합니다" },
-  { q: "수정은 몇 번까지 가능한가요?", a: "러프 컷 확인 후 2차 수정까지 기본으로 포함됩니다 — 방향이 크게 바뀌는 경우 추가 비용이 발생할 수 있습니다" },
-  { q: "착수금은 어떻게 되나요?", a: "착수 시 50%, 납품 시 나머지 50%를 계좌이체로 진행합니다" },
+  { q: "촬영도 포함인가요?", a: "기본 상품에는 촬영이 포함되어 있지 않습니다. AIO 영상 제작은 고객님이 제공해주시는 사진·영상·로고·상품 정보를 바탕으로 AI 영상 모델과 편집을 활용해 제작하는 방식입니다. 현장 촬영·모델 섭외·스튜디오 촬영이 필요한 경우 별도 상담이 필요합니다." },
+  { q: "모델이나 성우가 나오나요?", a: "기본 상품에는 실제 모델 섭외나 성우 녹음이 포함되어 있지 않습니다. 필요한 경우 AI 영상 모델 활용 장면 구성이나 자막·BGM 중심으로 제작합니다. 실제 모델 촬영·전문 성우 녹음·나레이션 녹음은 별도 견적입니다." },
+  { q: "제품을 보내면 촬영해주시나요?", a: "현재 기본 상품에는 제품 실물 촬영이 포함되어 있지 않습니다. 고객님이 보유한 제품 사진·상세 이미지·기존 영상·로고·상품 설명을 바탕으로 제작합니다." },
+  { q: "조회수나 광고 성과가 보장되나요?", a: "조회수·광고 성과·매출 증가는 보장하지 않습니다. AIO는 고객이 활용할 수 있는 영상 콘텐츠를 제작해드리며, 성과는 채널 상태·업종·업로드 방식·광고 집행 여부에 따라 달라질 수 있습니다." },
+  { q: "어떤 영상에 적합한가요?", a: "SNS 숏폼·유튜브 쇼츠·쇼핑몰 상품 홍보·상세페이지 삽입 영상·홈페이지 소개·랜딩페이지 홍보·브랜드 서비스 소개에 적합합니다. 현장 촬영 광고·인터뷰·실제 모델 출연·전문 성우 나레이션·고급 3D 모션그래픽·TV 광고급 영상은 별도 상담이 필요합니다." },
 ];
 
-const STACK = ["Premiere Pro", "After Effects", "DaVinci Resolve", "Final Cut Pro", "CapCut", "Photoshop"];
+const STACK = ["AI 영상 모델", "Premiere Pro", "After Effects", "DaVinci Resolve", "CapCut", "Photoshop"];
+
+const VIDEO_GROUPS = [
+  {
+    key: "숏폼 / SNS 영상", accent: "#F472B6", bg: "#FDF2F8",
+    items: [
+      { label: "숏폼 1개", price: "49,000", popular: false },
+      { label: "숏폼 3개", price: "129,000", popular: true },
+      { label: "숏폼 10개", price: "350,000", popular: false },
+    ],
+    includes: ["고객 제공 이미지·영상 기반", "AI 영상 모델 활용", "기본 컷편집", "기본 자막", "BGM", "간단 모션", "세로 영상 제작", "수정 1회"],
+    note: "인스타 릴스·유튜브 쇼츠·틱톡·네이버 클립에 활용할 짧은 세로형 영상",
+  },
+  {
+    key: "제품·서비스 홍보영상", accent: "#F59E0B", bg: "#FFFBEB",
+    items: [
+      { label: "30초 홍보영상", price: "89,000", popular: false },
+      { label: "60초 홍보영상", price: "179,000", popular: true },
+      { label: "브랜드·상세 구성형", price: "349,000", popular: false },
+    ],
+    includes: ["제품·서비스 소개 구성", "고객 자료 기반 편집", "AI 영상 모델 활용", "기본 자막", "BGM", "간단 모션", "썸네일 1장", "수정 1회"],
+    note: "쇼핑몰·상세페이지·홈페이지·랜딩페이지용 — 촬영 없이 보유 자료로 빠르게 구성",
+  },
+  {
+    key: "유튜브 편집", accent: "#EF4444", bg: "#FEF2F2",
+    items: [
+      { label: "기본 편집 1편", price: "79,000", popular: false },
+      { label: "기본 편집 4편", price: "290,000", popular: true },
+      { label: "쇼츠 변환 1개", price: "30,000", popular: false },
+      { label: "쇼츠 변환 5개", price: "120,000", popular: false },
+    ],
+    includes: ["원본 30분 이내", "완성본 10분 이내", "컷편집", "기본 자막 일부", "BGM", "제목·설명문 기본 제안"],
+    note: "유튜브 업로드 영상 정리 + 기존 영상 쇼츠 변환 — 길이·자막 범위·난이도에 따라 견적 변동",
+  },
+  {
+    key: "월 영상 콘텐츠", accent: "#8B5CF6", bg: "#F5F3FF",
+    items: [
+      { label: "월 숏폼 8개", price: "290,000", popular: false },
+      { label: "월 숏폼 12개", price: "390,000", popular: true },
+      { label: "월 숏폼 20개", price: "690,000", popular: false },
+    ],
+    includes: [],
+    note: "매월 꾸준히 숏폼을 발행하고 싶은 고객용 — SNS·쇼츠·상세페이지·쇼핑몰 홍보용",
+  },
+];
+
+const VIDEO_OPTIONS = [
+  { label: "비율 추가", price: "20,000~" },
+  { label: "자막 언어 추가", price: "30,000~" },
+  { label: "썸네일 추가", price: "20,000~" },
+  { label: "AI 이미지·연출컷 추가", price: "50,000~" },
+  { label: "추가 수정 1회", price: "30,000~" },
+  { label: "빠른 제작·급행", price: "50,000~" },
+];
+
+const VIDEO_CUSTOM = [
+  "현장 촬영", "제품 실물 촬영", "모델 섭외", "성우 녹음",
+  "전문 나레이션 녹음", "스튜디오 촬영",
+  "고급 모션그래픽", "3D 영상", "60초 초과 영상",
+  "원본 30분 초과 편집", "풀자막 전체 삽입",
+  "광고 소재 대량 제작", "기획·대본 전체 작성",
+  "저작권·초상권 확인 필요 작업",
+];
 
 export function VideoHub({ locale }: { locale: string }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -82,7 +143,7 @@ export function VideoHub({ locale }: { locale: string }) {
               className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-5"
               style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-jetbrains)" }}
             >
-              Video · 영상 제작
+              Video · AI 숏폼·홍보영상 제작
             </p>
             <h1
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
@@ -94,11 +155,11 @@ export function VideoHub({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              브랜드·SNS·마케팅·유튜브<br />
-              첫 3초가 계속 볼지를 결정합니다
+              촬영 없이 — 고객 자료 + AI 영상 모델로<br />
+              SNS·쇼핑몰·유튜브에 바로 쓸 수 있는 영상을 만듭니다
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
-              {["5일 납품 보장", "4K 원본 제공", "플랫폼 최적화", "소스 파일 포함"].map((b) => (
+              {["AI 영상 모델 활용", "촬영 없이 제작", "플랫폼 최적화", "빠른 납기"].map((b) => (
                 <span
                   key={b}
                   className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
@@ -132,17 +193,18 @@ export function VideoHub({ locale }: { locale: string }) {
             style={{ background: "rgba(6,4,2,0.90)", border: "1px solid rgba(245,158,11,0.18)" }}
           >
             <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid rgba(245,158,11,0.12)", background: "rgba(245,158,11,0.05)" }}>
-              <span className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.30)", fontFamily: "var(--font-jetbrains)" }}>aio-video.timeline</span>
+              <span className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.30)", fontFamily: "var(--font-jetbrains)" }}>aio-video.pipeline</span>
               <span className="flex items-center gap-1.5 text-[10px]" style={{ color: "#EF4444", fontFamily: "var(--font-jetbrains)" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" /> ● REC
+                <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444]" /> ● AI
               </span>
             </div>
             <div className="p-5 space-y-3">
               {[
-                { tc: "00:00", label: "레퍼런스·콘티", color: ACCENT },
-                { tc: "01:00", label: "러프 컷", color: ACCENT },
-                { tc: "02:00", label: "파인 컷·색보정", color: ACCENT },
-                { tc: "03:00", label: "마스터 납품", color: ACCENT },
+                { tc: "STEP 1", label: "고객 자료 확인", color: ACCENT },
+                { tc: "STEP 2", label: "영상 방향 정리", color: ACCENT },
+                { tc: "STEP 3", label: "AI 영상 모델 활용", color: "#F472B6" },
+                { tc: "STEP 4", label: "컷편집·자막·BGM", color: ACCENT },
+                { tc: "STEP 5", label: "납품", color: ACCENT },
               ].map((step) => (
                 <div key={step.label} className="flex items-center gap-3 py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
                   <span className="text-[10px] w-12 flex-shrink-0" style={{ color: step.color, fontFamily: "var(--font-jetbrains)" }}>{step.tc}</span>
@@ -272,9 +334,9 @@ export function VideoHub({ locale }: { locale: string }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-24 text-center md:text-left">
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
-              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>컷 중심으로<br />일합니다</h2>
+              <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>AI 모델로<br />빠르게 만듭니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                레퍼런스 합의 → 러프 컷 → 파인 컷 → 마스터<br />단계마다 확인하고 다음 단계로 넘어갑니다
+                고객 자료 확인 → AI 영상 모델 활용 → 편집·납품<br />촬영 없이 보유 자료만으로 온라인용 영상을 완성합니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (
@@ -370,11 +432,112 @@ export function VideoHub({ locale }: { locale: string }) {
         </div>
       </section>
 
+      {/* ── 가격 안내 ── */}
+      <section style={{ background: "#F9FAFB", borderTop: "1px solid #E5E7EB" }}>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
+          <div className="text-center mb-10">
+            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>Pricing</p>
+            <h2 className="font-bold text-[#111] mb-2" style={{ fontSize: "clamp(22px,3vw,36px)" }}>영상 제작 가격</h2>
+            <p className="text-[13px] text-[#6B7280]">모든 가격은 시작가 기준 · 난이도·분량에 따라 달라질 수 있습니다</p>
+          </div>
+
+          {/* 4개 그룹 카드 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+            {VIDEO_GROUPS.map((g) => (
+              <div key={g.key} className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white">
+                <div className="h-1" style={{ background: g.accent }} />
+                <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: g.bg }}>
+                  <span className="text-[11px] font-bold tracking-[0.18em] uppercase" style={{ color: g.accent, fontFamily: "var(--font-jetbrains)" }}>{g.key}</span>
+                </div>
+                <div className="divide-y divide-[#F3F4F6]">
+                  {g.items.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between px-5 py-3"
+                      style={item.popular ? { background: g.bg } : {}}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-[13px] font-medium text-[#111]">{item.label}</span>
+                        {item.popular && (
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: g.accent, color: "#fff" }}>BEST</span>
+                        )}
+                      </div>
+                      <div>
+                        <span className="font-bold text-[14px]" style={{ color: g.accent, fontFamily: "var(--font-jetbrains)" }}>{item.price}</span>
+                        <span className="text-[11px] text-[#9CA3AF] ml-0.5">원~</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {g.includes.length > 0 && (
+                  <div className="px-5 py-3.5 border-t border-[#F3F4F6]">
+                    <p className="text-[10px] font-bold text-[#9CA3AF] mb-2 uppercase tracking-widest">포함</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {g.includes.map((inc) => (
+                        <span key={inc} className="text-[11px] px-2 py-0.5 rounded-md" style={{ background: g.accent + "12", color: g.accent }}>{inc}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="px-5 py-3 border-t border-[#F3F4F6]">
+                  <p className="text-[11px] text-[#9CA3AF] leading-[1.7]">{g.note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 영상 옵션 + 별도견적 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+            {/* 영상 옵션 */}
+            <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white">
+              <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: "#F9FAFB" }}>
+                <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#6B7280]" style={{ fontFamily: "var(--font-jetbrains)" }}>영상 옵션</span>
+                <span className="text-[10px] text-[#9CA3AF]">— 선택 추가</span>
+              </div>
+              <div className="divide-y divide-[#F3F4F6]">
+                {VIDEO_OPTIONS.map((opt) => (
+                  <div key={opt.label} className="flex items-center justify-between px-5 py-3">
+                    <span className="text-[13px] text-[#374151]">{opt.label}</span>
+                    <span className="text-[13px] font-bold text-[#111]" style={{ fontFamily: "var(--font-jetbrains)" }}>{opt.price}<span className="text-[11px] font-normal text-[#9CA3AF] ml-0.5">원</span></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 별도견적 */}
+            <div className="rounded-2xl overflow-hidden border border-[#E5E7EB] bg-white">
+              <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: "1px solid #F3F4F6", background: "#F9FAFB" }}>
+                <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-[#6B7280]" style={{ fontFamily: "var(--font-jetbrains)" }}>별도 견적</span>
+                <span className="text-[10px] text-[#9CA3AF]">— 기본 상품 미포함</span>
+              </div>
+              <div className="px-5 py-4">
+                <div className="flex flex-wrap gap-2">
+                  {VIDEO_CUSTOM.map((item) => (
+                    <span key={item} className="text-[11px] px-2.5 py-1 rounded-lg text-[#6B7280]" style={{ background: "#F3F4F6", border: "1px solid #E5E7EB" }}>{item}</span>
+                  ))}
+                </div>
+                <p className="text-[11px] text-[#9CA3AF] mt-4 leading-[1.7]">위 항목이 포함된 경우 상담 후 별도 견적으로 안내드립니다</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link
+              href={`/${locale}/quote`}
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-[14px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              style={{ background: ACCENT }}
+            >
+              제작 견적 받기 ▶
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <ServiceCta
         accentColor={ACCENT}
-        headline={<>찍을 <span style={{ color: ACCENT }}>한 컷</span>이 있나요?</>}
-        sub="지금 문의하면 24시간 안에 견적 · 5일 안에 첫 컷"
+        headline={<>만들 <span style={{ color: ACCENT }}>영상</span>이 있나요?</>}
+        sub="고객 자료만 있으면 됩니다 — 24시간 안에 견적, AI로 빠르게 제작"
         ctaLabel="제작 문의 ▶"
         ctaHref={`/${locale}/quote`}
       />
