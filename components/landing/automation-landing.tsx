@@ -278,7 +278,7 @@ export function AutomationLanding({ locale }: { locale: string }) {
               color: "#F0F6FC", marginBottom: 24, maxWidth: 560,
               wordBreak: "keep-all",
             }}>
-              반복 업무를<br className="hidden md:block" />
+              업무를<br className="hidden md:block" />
               <span style={{ color: ACCENT }}>코드</span>에게 맡기세요
             </h1>
             <p style={{
@@ -522,21 +522,6 @@ export function AutomationLanding({ locale }: { locale: string }) {
 
       {/* ── PROCESS ── */}
       <ProcessSteps steps={service.process} accentColor={ACCENT} isKo={isKo} />
-
-      {/* ── 포트폴리오 바로가기 ── */}
-      <div style={{ textAlign: "center", padding: "0 0 clamp(40px,6vw,64px)" }}>
-        <Link
-          href={`/${locale}/services/automation-app/portfolio`}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            padding: "13px 28px", border: `1.5px solid ${ACCENT}`,
-            color: ACCENT, borderRadius: 999, fontSize: 14, fontWeight: 600,
-            textDecoration: "none", transition: "background .2s, color .2s",
-          }}
-        >
-          전체 포트폴리오 보기 →
-        </Link>
-      </div>
 
       {/* ── CTA ── */}
       <ServiceCta
