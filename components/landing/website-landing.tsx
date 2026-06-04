@@ -176,13 +176,12 @@ export function WebsiteLanding({ locale }: { locale: string }) {
               position: "absolute", top: 0, left: 0,
               width: "100%", height: "100%",
               objectFit: "cover", objectPosition: "center",
-              opacity: 0.55,
             }}
           />
-          {/* 다크 그라디언트 오버레이 */}
+          {/* 다크 그라디언트 오버레이 — 허브 기준: 좌측 강하게, 우측 이미지 살림 */}
           <div style={{
             position: "absolute", inset: 0, pointerEvents: "none",
-            background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
+            background: "linear-gradient(105deg, rgba(13,17,23,0.93) 0%, rgba(13,17,23,0.72) 50%, rgba(13,17,23,0.35) 100%)",
           }} />
           {/* 텍스트 */}
           <div className="ws-hero-txt" style={{ position: "relative", zIndex: 1 }}>

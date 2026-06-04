@@ -249,12 +249,11 @@ export function AutomationLanding({ locale }: { locale: string }) {
               position: "absolute", top: 0, left: 0,
               width: "100%", height: "100%",
               objectFit: "cover", objectPosition: "center",
-              opacity: 0.55,
             }}
           />
           <div style={{
             position: "absolute", inset: 0, pointerEvents: "none",
-            background: "linear-gradient(105deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.78) 60%, rgba(13,17,23,0.88) 100%)",
+            background: "linear-gradient(105deg, rgba(13,17,23,0.93) 0%, rgba(13,17,23,0.72) 50%, rgba(13,17,23,0.35) 100%)",
           }} />
           <div className="aut-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
