@@ -257,13 +257,11 @@ export function WebsiteLanding({ locale }: { locale: string }) {
                       width: "76.11%", height: "70.85%",
                       overflow: "hidden", zIndex: 0,
                     }}>
-                      <div style={{
-                        width: "100%",
-                        animation: `wsScrollDesktop ${14 + i * 2}s linear 0s infinite`,
-                      }}>
-                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt={s.name} style={{ width: "100%", display: "block" }} />
-                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
-                      </div>
+                      <img
+                        src={`/images/portfolio/ws-${s.id}-desktop.png`}
+                        alt={s.name}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
+                      />
                     </div>
                     <Image
                       src="/mockups/monitor.png" alt="monitor"
