@@ -85,17 +85,15 @@ export function WebsitePricingSection({ tiers, addons, accentColor, ctaHref, sec
                   : { borderColor: "#E5E7EB", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }
               }
             >
-              {/* 추천 배지 */}
-              {tier.recommended && (
-                <div className="mb-1.5">
-                  <span
-                    className="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
-                    style={{ background: accentColor }}
-                  >
-                    추천
-                  </span>
-                </div>
-              )}
+              {/* 추천 배지 — 모든 카드에 공간 확보, 비추천은 invisible */}
+              <div className="mb-1.5">
+                <span
+                  className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full text-white ${tier.recommended ? "" : "invisible"}`}
+                  style={{ background: accentColor }}
+                >
+                  추천
+                </span>
+              </div>
 
               {/* 티어명 */}
               <div className="text-[10px] sm:text-[11px] md:text-[13px] font-semibold text-[#6B7280] mb-1.5 leading-tight" style={{ wordBreak: "keep-all" }}>
