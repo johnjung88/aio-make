@@ -7,6 +7,16 @@ import { PortfolioCard } from "@/components/ui/portfolio-card";
 import { AioNav, AioFooter } from "@/components/landing/aio-nav";
 import { getCategoryNav } from "@/lib/portfolio-nav";
 
+const CATEGORY_ACCENT: Record<string, string> = {
+  "website":             "#4DD4AC",
+  "shopping-mall":       "#FB923C",
+  "automation-app":      "#818CF8",
+  "logo-business-card":  "#5AC8A8",
+  "detail-page":         "#D78A8A",
+  "ppt-design":          "#7AAEEC",
+  "video-content":       "#06B6D4",
+};
+
 const VALID_CATEGORIES = portfolioGroups
   .filter((group) => group.value !== "all")
   .map((group) => group.value as PortfolioGroup);
@@ -52,6 +62,7 @@ export default async function CategoryPortfolioPage({
   const projects = await getProjectsByCategory(group);
   const label = categoryLabels[group][locale as "ko" | "en"];
   const nav = getCategoryNav(group);
+  const accent = CATEGORY_ACCENT[group] ?? "#4DD4AC";
 
   return (
     <div>
@@ -61,8 +72,8 @@ export default async function CategoryPortfolioPage({
         <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-10 bg-primary" />
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
+              <span className="h-px w-10" style={{ background: accent }} />
+              <span className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: accent }}>
                 {t("sectionTitle")}
               </span>
             </div>
@@ -77,7 +88,7 @@ export default async function CategoryPortfolioPage({
               {locale === "ko" ? `${t("comingSoon")} - 5월부터 채워집니다` : t("comingSoon")}
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
               {projects.map((project) => (
                 <PortfolioCard key={project.id} project={project} />
               ))}

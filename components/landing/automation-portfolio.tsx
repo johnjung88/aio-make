@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
-.aioamp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);--gold:#C8A24A;--gold2:#E0BE6A;--mint:#8BE0C2;
+.aioamp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(129,140,248,.22);--line2:rgba(239,233,221,.10);--gold:#818CF8;--gold2:#A5B4FC;--mint:#A5B4FC;
   --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(38px,7vw,82px);--sp-edge:clamp(20px,5vw,64px);--maxw:1180px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;text-align:center;min-height:100vh}
@@ -29,7 +29,7 @@ const CSS = `
 .aioamp .card .v{color:var(--mint)}
 .aioamp .card .meta{margin-top:18px;padding-top:14px;border-top:1px solid var(--line2);font-size:10.5px;color:var(--fg3);letter-spacing:.1em}
 @media(max-width:900px){.aioamp .grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.aioamp .grid{grid-template-columns:1fr}}
+@media(max-width:600px){.aioamp .grid{grid-template-columns:1fr 1fr;gap:12px}}
 .aioamp .ctaS{padding:clamp(60px,9vw,110px) 0;text-align:center}
 .aioamp .ctaS h2{font-family:var(--frau);font-weight:400;font-size:clamp(32px,5vw,58px);margin-bottom:18px;line-height:1.06}
 .aioamp .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
-.aiopptp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);--gold:#C8A24A;--gold2:#E0BE6A;--blue:#7AAEEC;
+.aiopptp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(122,174,236,.22);--line2:rgba(239,233,221,.10);--gold:#7AAEEC;--gold2:#A3CEFF;--blue:#7AAEEC;
   --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(38px,7vw,82px);--sp-edge:clamp(20px,5vw,64px);--maxw:1180px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;text-align:center;min-height:100vh}
@@ -29,7 +29,7 @@ const CSS = `
 .aiopptp .card .nm{font-family:var(--frau);font-size:16px;font-weight:500;display:block}
 .aiopptp .card .ct{font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:.14em;margin-top:4px;display:block}
 @media(max-width:820px){.aiopptp .grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:540px){.aiopptp .grid{grid-template-columns:1fr}}
+@media(max-width:540px){.aiopptp .grid{grid-template-columns:1fr 1fr;gap:10px}}
 .aiopptp .ctaS{padding:clamp(60px,9vw,110px) 0;text-align:center}
 .aiopptp .ctaS h2{font-family:var(--frau);font-weight:400;font-size:clamp(32px,5vw,58px);margin-bottom:18px;line-height:1.06}
 .aiopptp .ctaS h2 em{font-style:normal;color:var(--gold);font-weight:600}

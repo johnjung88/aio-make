@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
-.aiodp2p{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);--gold:#C8A24A;--gold2:#E0BE6A;--rose:#D78A8A;
+.aiodp2p{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;--line:rgba(215,138,138,.22);--line2:rgba(239,233,221,.10);--gold:#D78A8A;--gold2:#E8ACAC;--rose:#D78A8A;
   --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(38px,7vw,82px);--sp-edge:clamp(20px,5vw,64px);--maxw:1180px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;text-align:center;min-height:100vh}

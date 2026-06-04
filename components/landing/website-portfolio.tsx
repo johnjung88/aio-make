@@ -5,7 +5,7 @@ import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
 .aiowsp{--bg:#0E0D0B;--bg2:#17150F;--fg:#EFE9DD;--fg2:#B7B0A2;--fg3:#6F6A5E;
-  --line:rgba(200,162,74,.22);--line2:rgba(239,233,221,.10);--gold:#C8A24A;--gold2:#E0BE6A;
+  --line:rgba(77,212,172,.22);--line2:rgba(239,233,221,.10);--gold:#4DD4AC;--gold2:#7DEEC8;
   --frau:var(--font-fraunces);--pret:var(--font-pretendard);--mono:var(--font-ibm-plex-mono);
   --fs-display:clamp(36px,7vw,76px);--fs-lead:clamp(15px,1.5vw,18px);--sp-sec:clamp(64px,9vw,120px);--sp-edge:clamp(20px,5vw,64px);--maxw:1200px;
   background:var(--bg);color:var(--fg);font-family:var(--pret);word-break:keep-all;text-align:center;min-height:100vh}
@@ -73,7 +73,7 @@ const CSS = `
 .aiowsp .cta-pill:hover{transform:translateY(-2px);background:var(--gold2)}
 .aiowsp .foot{border-top:1px solid var(--line2);padding:38px 0;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg3);line-height:2}
 @media(max-width:900px){.aiowsp .grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.aiowsp .grid{grid-template-columns:1fr}}
+@media(max-width:600px){.aiowsp .grid{grid-template-columns:1fr 1fr;gap:12px}}
 `;
 
 type Item = { cat: string; land: boolean; url: string; nm: string };
