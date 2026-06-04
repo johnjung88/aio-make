@@ -285,7 +285,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 자사몰 / 직접문의</span><h2>가격은 <em>길이별</em></h2><p>자사몰 직접 문의 기준 가격</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>길이별</em></h2><p>직접 문의 기준 · 6월 한정가</p></div>
         <div className="price">
           <div className="prow reveal d1"><div className="pname">10,000PX 이하</div><div className="pnum">129,000<span className="unit">원~</span></div><div className="pdesc">스토리텔링 + 증거 + 비교 + CTA</div></div>
           <div className="prow reveal d2"><div className="pname">20,000PX 이하</div><div className="pnum">249,000<span className="unit">원~</span></div><div className="pdesc">풀 스토리텔링 + Q&amp;A + 후기 + 추천</div></div>
