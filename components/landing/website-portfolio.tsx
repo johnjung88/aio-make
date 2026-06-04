@@ -76,28 +76,21 @@ const CSS = `
 @media(max-width:600px){.aiowsp .grid{grid-template-columns:1fr 1fr;gap:12px}}
 `;
 
-type Item = { cat: string; land: boolean; url: string; nm: string };
+type Item = { cat: string; land: boolean; url: string; nm: string; img: string };
 const ITEMS: Item[] = [
-  { cat: "corp", land: false, url: "chueok-korea.com", nm: "추억코리아 · 회사 홈페이지" },
-  { cat: "corp", land: false, url: "aio-make.com", nm: "AIO · 브랜드 사이트" },
-  { cat: "service", land: true, url: "v-aio.app", nm: "V-AIO · 서비스 랜딩" },
-  { cat: "mkt", land: true, url: "promo.event.kr", nm: "캠페인 · 마케팅 랜딩" },
-  { cat: "service", land: true, url: "app-service.io", nm: "SaaS · 서비스 랜딩" },
-  { cat: "shop", land: false, url: "farm-fresh.cafe24.com", nm: "팜프레시 · 쇼핑몰" },
-  { cat: "corp", land: false, url: "company-official.kr", nm: "제조 · 회사 홈페이지" },
-  { cat: "mkt", land: true, url: "edu-signup.kr", nm: "교육 · 마케팅 랜딩" },
+  { cat: "corp",    land: false, url: "chueok-korea.com", nm: "추억코리아 · 회사 홈페이지", img: "/portfolio/chueok-korea/live.png" },
+  { cat: "corp",    land: false, url: "novatek.co.kr",    nm: "노바텍 · 회사 홈페이지",     img: "/portfolio/corp-novatek/live.png" },
+  { cat: "service", land: true,  url: "v-aio.app",        nm: "V-AIO · 서비스 랜딩",        img: "/portfolio/v-aio-website/live.png" },
+  { cat: "mkt",     land: true,  url: "aura-glow.kr",     nm: "오라 · 마케팅 랜딩",          img: "/portfolio/lp-aura/live.png" },
+  { cat: "corp",    land: false, url: "yuldam.law",       nm: "율담 · 법무사사무소",          img: "/portfolio/law-yuldam/live.png" },
+  { cat: "service", land: true,  url: "ondam.clinic",     nm: "온담 · 한의원 사이트",         img: "/portfolio/med-ondam/live.png" },
+  { cat: "corp",    land: false, url: "jungsan.tax",      nm: "정산 · 세무사사무소",          img: "/portfolio/tax-jungsan/live.png" },
 ];
 const FILTERS = [
   { f: "all", label: "전체" }, { f: "corp", label: "회사 홈페이지" }, { f: "service", label: "서비스 랜딩" },
   { f: "mkt", label: "마케팅 랜딩" }, { f: "shop", label: "쇼핑몰" },
 ];
 
-const Site = ({ land }: { land: boolean }) => (
-  <div className={"dsite" + (land ? " land" : "")}>
-    <div className="sbar"><span className="lg" />{!land && <><span className="mi" /><span className="mi" /></>}<span className="sp" /><span className="bt" /></div>
-    <div className="sbd"><span className="ht" /><span className="ht2" /><span className="pp" /><span className="cta" />{!land && <span className="drow"><span className="cc" /><span className="cc" /><span className="cc" /></span>}</div>
-  </div>
-);
 
 export function WebsitePortfolio({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -142,7 +135,14 @@ export function WebsitePortfolio({ locale }: { locale: string }) {
         {shown.map((it, i) => (
           <a key={i} className="bw reveal" href={`${base}/services/website`}>
             <div className="top"><i /><i /><i /><span className="url">{it.url}</span></div>
-            <div className="shot"><Site land={it.land} /></div>
+            <div className="shot">
+              <img
+                src={it.img}
+                alt={it.nm}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
+                loading="lazy"
+              />
+            </div>
             <div className="cap"><span className="nm">{it.nm}</span><span className="ct">↗ CASE</span></div>
           </a>
         ))}
