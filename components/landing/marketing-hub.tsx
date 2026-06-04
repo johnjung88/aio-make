@@ -93,7 +93,7 @@ export function MarketingHub({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              블로그·SNS·영상채널 — 매일 보이는 것이<br className="hidden md:block" />한 달 뒤의 매출이 됩니다
+              블로그·SNS·영상채널 — 매일 보이는 것이<br />한 달 뒤의 매출이 됩니다
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
               {["주간 KPI 리포트", "데이터 기반 운영", "월 단위 계약", "GA4 연동 포함"].map((b) => (
@@ -270,7 +270,7 @@ export function MarketingHub({ locale }: { locale: string }) {
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
               <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>데이터로 증명하며<br />운영합니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                감이 아닌 수치 — 매주 KPI를 공유하고<br className="hidden md:block" />측정된 결과로만 다음 방향을 결정합니다
+                감이 아닌 수치 — 매주 KPI를 공유하고<br />측정된 결과로만 다음 방향을 결정합니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "주 1회", l: "KPI 리포트" }, { v: "3개월", l: "성과 기준" }].map((s) => (

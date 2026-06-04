@@ -94,7 +94,7 @@ export function VideoHub({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              브랜드·SNS·마케팅·유튜브<br className="hidden md:block" />
+              브랜드·SNS·마케팅·유튜브<br />
               첫 3초가 계속 볼지를 결정합니다
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
@@ -274,7 +274,7 @@ export function VideoHub({ locale }: { locale: string }) {
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
               <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>컷 중심으로<br />일합니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                레퍼런스 합의 → 러프 컷 → 파인 컷 → 마스터<br className="hidden md:block" />단계마다 확인하고 다음 단계로 넘어갑니다
+                레퍼런스 합의 → 러프 컷 → 파인 컷 → 마스터<br />단계마다 확인하고 다음 단계로 넘어갑니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "평균 납기" }].map((s) => (

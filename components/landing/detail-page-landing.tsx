@@ -198,8 +198,8 @@ export function DetailPageLanding({ locale }: { locale: string }) {
           <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Detail Page · N° 04</span>
-            <h1 className="hero2-h1">스크롤을 멈추게<br className="hidden md:block" />만드는 <em>상세페이지</em></h1>
-            <p className="hero2-lead">5,000PX 기본 소개부터 20,000PX 풀 스토리텔링까지<br className="hidden md:block" />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
+            <h1 className="hero2-h1">스크롤을 멈추게<br />만드는 <em>상세페이지</em></h1>
+            <p className="hero2-lead">5,000PX 기본 소개부터 20,000PX 풀 스토리텔링까지<br />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
             <div className="hero2-bdgs">
               {["5일 이내 납품", "원본 PSD 무료", "수정 무제한"].map((b) => (
                 <span key={b} className="hero2-bdg">{b}</span>

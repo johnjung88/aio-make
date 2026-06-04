@@ -105,7 +105,7 @@ export function DevelopmentServices({ locale }: { locale: string }) {
               className="font-bold leading-[1.02] tracking-tight text-white mb-5"
               style={{ fontSize: "clamp(30px,5.5vw,72px)" }}
             >
-              <span style={{ color: ACCENT }}>코드</span>로 만드는<br className="hidden md:block" />{" "}모든 것
+              <span style={{ color: ACCENT }}>코드</span>로 만드는<br />{" "}모든 것
             </h1>
             <p
               className="leading-[1.8] mb-8"

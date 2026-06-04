@@ -238,11 +238,11 @@ export function LogoBusinessCardLanding({ locale }: { locale: string }) {
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Brand Design · N° 06</span>
             <h1 className="hero2-h1">
-              처음 본 사람도<br className="hidden md:block" />
+              처음 본 사람도<br />
               기억하는 <em>브랜드</em>
             </h1>
             <p className="hero2-lead">
-              로고·명함·브랜드 키트 — 창업 첫날부터<br className="hidden md:block" />
+              로고·명함·브랜드 키트 — 창업 첫날부터<br />
               신뢰감 있는 첫인상을 만듭니다
             </p>
             <div className="hero2-bdgs">

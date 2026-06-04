@@ -98,14 +98,14 @@ export function MagazineEditorial({ locale }: Props) {
         >
           AIO는{" "}
           <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>각 분야 전문가</strong>가 직접 작업하는 외주 스튜디오입니다
-          <br className="hidden md:block" />
+          <br />
           의뢰가 들어오면 그 분야의 전문가가 처음부터 끝까지 책임집니다
         </p>
         <p
           style={{ fontFamily: "var(--font-pretendard)", fontSize: "var(--text-lead)", lineHeight: 1.8, color: "var(--tone-magazine-ink-2)", fontWeight: 400 }}
         >
           매주 새 작품이 더해지며 다음 의뢰인의 결정을 돕습니다
-          <br className="hidden md:block" />
+          <br />
           결과물을 먼저 보고, 가격을 확인한 뒤{" "}
           <strong style={{ color: "var(--tone-magazine-ink)", fontWeight: 600 }}>맡겨주세요</strong>
         </p>

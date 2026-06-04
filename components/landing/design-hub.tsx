@@ -102,7 +102,7 @@ export function DesignHub({ locale }: { locale: string }) {
               className="leading-[1.8] mb-8"
               style={{ fontSize: "clamp(14px,1.1vw,16px)", color: "rgba(255,255,255,0.6)" }}
             >
-              로고·명함·상세페이지·PPT<br className="hidden md:block" />
+              로고·명함·상세페이지·PPT<br />
               브랜드의 첫 인사를 다듬습니다
             </p>
             <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
@@ -345,7 +345,7 @@ export function DesignHub({ locale }: { locale: string }) {
               <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-3" style={{ color: "#9CA3AF", fontFamily: "var(--font-jetbrains)" }}>How We Work</p>
               <h2 className="font-bold text-[#111] mb-4" style={{ fontSize: "clamp(22px,3vw,36px)" }}>완성도 중심으로<br />일합니다</h2>
               <p className="text-[#6B7280] text-[13px] leading-[1.8] mb-6">
-                다음 날 착수, 매일 진행 공유 — 원본 파일과 함께<br className="hidden md:block" />만족할 때까지 완성해 납품합니다
+                다음 날 착수, 매일 진행 공유 — 원본 파일과 함께<br />만족할 때까지 완성해 납품합니다
               </p>
               <div className="flex justify-center md:justify-start gap-6 mb-6 pb-6 border-b border-[#E5E7EB]">
                 {[{ v: "1시간", l: "평균 응답" }, { v: "5일", l: "최대 납기" }].map((s) => (
