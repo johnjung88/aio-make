@@ -64,14 +64,18 @@ const CSS = `
 @media(max-width:720px){.aioppt .pgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.aioppt .pgrid{grid-template-columns:1fr}}
 
-.aioppt .price{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px}
+.aioppt .price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
 .aioppt .prow{padding:30px 24px;border:1px solid var(--gold);border-radius:14px;text-align:center}
 .aioppt .prow .pname{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .aioppt .prow .pnum{font-family:var(--frau);font-size:clamp(30px,4vw,44px);margin-bottom:6px}
 .aioppt .prow .pnum .unit{font-size:.55em;color:var(--fg2);margin-left:4px}
-.aioppt .prow .reg{font-family:var(--mono);font-size:10.5px;color:var(--fg3);text-decoration:line-through;letter-spacing:.06em;margin-bottom:6px}
 .aioppt .prow .pdesc{font-size:13px;line-height:1.8;color:var(--fg2);margin-top:8px}
-@media(max-width:680px){.aioppt .price{grid-template-columns:1fr}}
+@media(max-width:760px){.aioppt .price{grid-template-columns:1fr}}
+.aioppt .addon{margin:24px auto 0;padding:18px 22px;border:1px dashed rgba(200,162,74,.22);border-radius:12px;font-size:13px;color:var(--fg2)}
+.aioppt .addon-list{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:6px}
+.aioppt .addon-list li{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(239,233,221,.07)}
+.aioppt .addon-list li:last-child{border-bottom:none}
+.aioppt .addon-price{font-family:var(--mono);font-size:12px;color:var(--gold);white-space:nowrap;margin-left:12px}
 
 .aioppt .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line2);border-radius:14px;overflow:hidden;margin-top:24px;max-width:920px;margin-left:auto;margin-right:auto}
 .aioppt .v{padding:26px 18px;border-right:1px solid var(--line2)}
@@ -256,10 +260,19 @@ export function PptDesignLanding({ locale }: { locale: string }) {
       </section>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>장수별</em></h2><p>표시 가격은 26년 6월까지 한정 · 정상가는 표시가의 3배</p></div>
+        <div className="shead reveal"><span className="kick">Pricing · 한정 (~26년 6월)</span><h2>가격은 <em>장수별</em></h2><p>직접 문의 기준 · 6월 한정가</p></div>
         <div className="price">
-          <div className="prow reveal d1"><div className="pname">표준 · 10페이지 이내</div><div className="pnum">4.9<span className="unit">만원</span></div><div className="reg">정상가 14.7만원</div><div className="pdesc">제안·발표용 / 표지·목차·본문·CTA</div></div>
-          <div className="prow reveal d2"><div className="pname">풀 · 30페이지 이내</div><div className="pnum">9.9<span className="unit">만원</span></div><div className="reg">정상가 29.7만원</div><div className="pdesc">IR·사업계획서 / 그래프·KPI·로드맵·재무</div></div>
+          <div className="prow reveal d1"><div className="pname">디자인 정리형 · 10P 이하</div><div className="pnum">49,000<span className="unit">원~</span></div><div className="pdesc">기존 자료 정리 / 표지·목차·본문·CTA</div></div>
+          <div className="prow reveal d2"><div className="pname">제안서·회사소개서 · 20P 이하</div><div className="pnum">99,000<span className="unit">원~</span></div><div className="pdesc">기획·스토리텔링 / 그래프·비교·후기</div></div>
+          <div className="prow reveal d1"><div className="pname">기획형·IR·사업계획서 · 30P 이하</div><div className="pnum">199,000<span className="unit">원~</span></div><div className="pdesc">KPI·로드맵·재무·투자 유치용 풀 구성</div></div>
+        </div>
+        <div className="addon reveal d2">
+          <b>추가 옵션</b>
+          <ul className="addon-list">
+            <li><span>슬라이드 추가</span><span className="addon-price">+5,000원~/장</span></li>
+            <li><span>도표 / 인포그래픽 고도화</span><span className="addon-price">+30,000원~</span></li>
+            <li><span>빠른 납품 / 급행</span><span className="addon-price">+50,000원~</span></li>
+          </ul>
         </div>
       </section>
 

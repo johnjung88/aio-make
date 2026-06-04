@@ -25,7 +25,7 @@ const SUB_SERVICES = [
   {
     no: "03", id: "ppt-design", title: "PPT 디자인", en: "PPT Design",
     desc: "제안·IR·발표 — 한 장으로 전달되는 슬라이드",
-    price: "₩59,000~", days: "5일 이내", tags: ["PowerPoint", "Keynote", "Figma"],
+    price: "₩49,000~", days: "5일 이내", tags: ["PowerPoint", "Keynote", "Figma"],
     href: (l: string) => `/${l}/services/ppt-design`, soon: false, accent: "#818CF8", bg: "#EEF2FF",
   },
   {
