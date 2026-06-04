@@ -5,6 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { AioNav, AioFooter } from "./aio-nav";
 import { ServiceCta } from "@/components/services/service-cta";
+import { servicesData } from "@/lib/services-data";
+
+function hubPrice(id: string): string {
+  return servicesData.find((s) => s.id === id)?.pricing[0]?.eventPrice ?? "별도 견적";
+}
 
 const ACCENT = "#C8A24A";
 
@@ -12,19 +17,19 @@ const SUB_SERVICES = [
   {
     no: "01", id: "website", title: "웹사이트", en: "Website",
     desc: "랜딩페이지·회사 홈페이지·서비스 사이트 — 스크롤을 멈추게 만드는 완성형 홈페이지",
-    price: "₩99,000~", days: "1–5일", tags: ["Next.js", "WordPress", "카페24"],
+    price: hubPrice("website"), days: "결제 후 5일 내", tags: ["Next.js", "WordPress", "카페24"],
     href: (l: string) => `/${l}/services/website`, soon: false, accent: "#4DD4AC", bg: "#EEF9F5",
   },
   {
     no: "02", id: "shopping-mall", title: "쇼핑몰", en: "Shopping Mall",
     desc: "카페24·독립몰 구축 — 상품 등록·결제 연동·GA4·광고 픽셀까지 한 번에",
-    price: "₩149,000~", days: "2–5일", tags: ["카페24", "결제연동", "GA4·픽셀"],
+    price: hubPrice("shopping-mall"), days: "2–5일", tags: ["카페24", "결제연동", "GA4·픽셀"],
     href: (l: string) => `/${l}/services/shopping-mall`, soon: false, accent: "#FB923C", bg: "#FFF7ED",
   },
   {
     no: "03", id: "automation-app", title: "자동화·프로그램", en: "Automation & Program",
     desc: "엑셀·크롤링·알림·매크로·데스크탑 프로그램 — 반복 업무를 코드에게",
-    price: "₩100,000~", days: "1–7일", tags: ["Python", "n8n", "Electron"],
+    price: hubPrice("automation-app"), days: "1–7일", tags: ["Python", "n8n", "Electron"],
     href: (l: string) => `/${l}/services/automation-app`, soon: false, accent: "#818CF8", bg: "#F5F3FF",
   },
   {
@@ -50,8 +55,8 @@ const REVIEWS = [
 ];
 
 const FAQS = [
-  { q: "제작 기간이 얼마나 걸리나요?", a: "서비스 종류에 따라 다릅니다 — 원페이지 랜딩은 1일, 3–5페이지 홈페이지는 2–5일, 쇼핑몰 기본 세팅은 2–3일, 자동화 프로그램은 1–7일이 기준이며 견적 시 정확한 납기를 안내드립니다" },
-  { q: "수정은 몇 번까지 가능한가요?", a: "플랜별로 수정 횟수가 다르며 라이트 1회, 스탠다드 2회, 프리미엄 3회가 기본이고 납품 후 1달 이내 오류·누락 수정은 무상으로 진행합니다" },
+  { q: "제작 기간이 얼마나 걸리나요?", a: "웹사이트·쇼핑몰 기본 작업은 결제 후 5일 내 완성이 기준입니다. 자동화 프로그램은 1–7일이 기준이며, 기능형(예약·결제·회원 등)은 범위에 따라 별도 협의합니다." },
+  { q: "수정은 몇 번까지 가능한가요?", a: "기본 수정 1회가 포함됩니다. 납품 후 작업 범위 내 오류·누락은 무상으로 처리하며, 이후 추가 수정은 별도 견적으로 진행합니다." },
   { q: "도메인·호스팅도 포함인가요?", a: "도메인과 호스팅은 기본 패키지에 포함되지 않으며 별도 구매가 필요합니다 — 구매 후 연결 세팅은 모두 지원드립니다" },
   { q: "결제·예약·회원가입 기능도 만들 수 있나요?", a: "가능합니다 — 다만 해당 기능은 기본 패키지 외 별도 견적으로 진행되며 필요한 기능을 말씀해주시면 정확한 비용을 안내드립니다" },
   { q: "착수금은 얼마이고 어떻게 결제하나요?", a: "착수 시 50%, 납품 시 나머지 50%를 계좌이체로 진행하며 견적 확정 후 착수금 입금이 확인되면 다음 날 작업을 시작합니다" },
