@@ -26,9 +26,9 @@ const TRUST = [
 ];
 
 const SHOWCASE = [
-  { id: "medical",  label: "병원·의료",  domain: "jaeheon-clinic.com", name: "자연한의원",     kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)" },
-  { id: "legal",    label: "법률·세무",  domain: "seoul-legal.kr",     name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)" },
-  { id: "startup",  label: "스타트업",   domain: "launch-startup.io",  name: "스타트업 서비스", kpi: "전환율 +63%",   gradient: "linear-gradient(135deg,#1a1a3a 0%,#2d2d6a 50%,#4D4DAC 100%)" },
+  { id: "medical",  label: "병원·의료",  domain: "jaeheon-clinic.com", name: "자연한의원",     kpi: "예약 +120%",    gradient: "linear-gradient(135deg,#0f2a3a 0%,#1a4a6a 50%,#2d8aaf 100%)", desktopImg: "/portfolio/med-ondam/live.png",      mobileImg: "/portfolio/med-ondam/mobile-preview.png" },
+  { id: "legal",    label: "법률·세무",  domain: "seoul-legal.kr",     name: "서울법무사사무소", kpi: "상담문의 +85%", gradient: "linear-gradient(135deg,#1a1f0a 0%,#2a3a14 50%,#4a6a28 100%)", desktopImg: "/portfolio/law-yuldam/live.png",     mobileImg: "/images/portfolio/ws-legal-mobile.png" },
+  { id: "startup",  label: "스타트업",   domain: "launch-startup.io",  name: "스타트업 서비스", kpi: "전환율 +63%",   gradient: "linear-gradient(135deg,#1a1a3a 0%,#2d2d6a 50%,#4D4DAC 100%)", desktopImg: "/portfolio/corp-novatek/live.png",   mobileImg: "/portfolio/corp-novatek/mobile-preview.png" },
 ];
 
 const KPI_CARDS = [
@@ -258,8 +258,8 @@ export function WebsiteLanding({ locale }: { locale: string }) {
                       overflow: "hidden", zIndex: 0,
                     }}>
                       <div style={{ width: "100%", animation: `wsScrollDesktop ${12 + i * 4}s linear 0s infinite` }}>
-                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt={s.name} style={{ width: "100%", display: "block" }} />
-                        <img src={`/images/portfolio/ws-${s.id}-desktop.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                        <img src={s.desktopImg} alt={s.name} style={{ width: "100%", display: "block" }} />
+                        <img src={s.desktopImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
                       </div>
                     </div>
                     <Image
@@ -285,9 +285,9 @@ export function WebsiteLanding({ locale }: { locale: string }) {
                           width: "100%",
                           animation: `wsScrollMobile ${10 + i * 2}s linear 0s infinite`,
                         }}>
-                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt={s.name + " 모바일"} style={{ width: "100%", display: "block" }} />
-                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
-                          <img src={`/images/portfolio/ws-${s.id}-mobile.png`} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                          <img src={s.mobileImg} alt={s.name + " 모바일"} style={{ width: "100%", display: "block" }} />
+                          <img src={s.mobileImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
+                          <img src={s.mobileImg} alt="" aria-hidden style={{ width: "100%", display: "block" }} />
                         </div>
                       </div>
                       <img
