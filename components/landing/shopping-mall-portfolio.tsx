@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { AioNav, AioFooter } from "./aio-nav";
 
 const CSS = `
@@ -28,13 +29,12 @@ const CSS = `
 .aiosmp .card .top{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line2);background:#1c1a13}
 .aiosmp .card .top i{width:7px;height:7px;border-radius:50%;background:rgba(239,233,221,.18)}
 .aiosmp .card .top .code{flex:1;text-align:left;font-family:var(--mono);font-size:10.5px;color:var(--fg3);margin-left:8px}
-.aiosmp .card .shot{aspect-ratio:4/3;position:relative;display:flex;align-items:center;justify-content:center}
-.aiosmp .card .shot .concept{font-family:var(--frau);font-size:clamp(12px,1.8vw,16px);color:rgba(239,233,221,.55);text-align:center;padding:0 12px;line-height:1.45}
-.aiosmp .card .shot .swatch{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:32px;height:32px;border-radius:50%;border:2px solid rgba(239,233,221,.18)}
-.aiosmp .card .cap{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;text-align:left}
-.aiosmp .card .nm{font-family:var(--frau);font-size:16px;font-weight:500}
-.aiosmp .card .ct{font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:.16em}
-.aiosmp .card .badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;padding:3px 8px;border-radius:999px;border:1px solid rgba(251,146,60,.35);color:var(--gold)}
+.aiosmp .card .shot{aspect-ratio:4/3;position:relative;overflow:hidden}
+.aiosmp .card .shot img{object-fit:cover;object-position:top;transition:transform .4s}
+.aiosmp .card:hover .shot img{transform:scale(1.04)}
+.aiosmp .card .cap{padding:12px 16px;text-align:left}
+.aiosmp .card .nm{font-family:var(--frau);font-size:15px;font-weight:500;display:block;margin-bottom:3px}
+.aiosmp .card .ct{font-family:var(--mono);font-size:9.5px;color:var(--fg3);letter-spacing:.1em;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:900px){.aiosmp .grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.aiosmp .grid{grid-template-columns:1fr 1fr;gap:12px}}
 .aiosmp .ctaS{padding:clamp(60px,9vw,110px) 0;text-align:center}
@@ -45,13 +45,11 @@ const CSS = `
 `;
 
 interface DesignItem {
-  code: string;      // "D01"
-  nm: string;        // "Minimal Mono"
-  concept: string;   // 1줄 컨셉
-  color: string;     // 대표 컬러 hex
-  ct: string;        // 필터 카테고리 key
-  // TODO(추후): 카페24 디자인센터/데모몰 URL 연결
-  // 원본 경로: 솔로프리너/1_플랫폼관리/카페24/{NN_category}/{DXX}/v2/index.html
+  code: string;
+  nm: string;
+  concept: string;
+  color: string;
+  ct: string;
   demo?: string;
 }
 
@@ -138,13 +136,19 @@ export function ShoppingMallPortfolio({ locale }: { locale: string }) {
             title={`${it.code} ${it.nm} — 카페24 데모 연결 예정`}
           >
             <div className="top"><i /><i /><i /><span className="code">{it.code} · {it.nm}</span></div>
-            <div className="shot" style={{ background: `linear-gradient(135deg, ${it.color}22, ${it.color}08)` }}>
-              <span className="concept">{it.concept}</span>
-              <span className="swatch" style={{ background: it.color }} />
+            <div className="shot">
+              <Image
+                src={`/portfolio/shopping-mall/${it.code.toLowerCase()}.jpg`}
+                alt={`${it.nm} — ${it.concept}`}
+                fill
+                sizes="(max-width:600px) 50vw,(max-width:900px) 33vw,25vw"
+              />
             </div>
             <div className="cap">
-              <span className="nm">{it.nm}</span>
-              <span className="badge">준비중</span>
+              <div>
+                <span className="nm">{it.nm}</span>
+                <div className="ct">{it.concept}</div>
+              </div>
             </div>
           </a>
         ))}
