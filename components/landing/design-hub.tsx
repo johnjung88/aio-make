@@ -19,7 +19,7 @@ const SUB_SERVICES = [
   {
     no: "02", id: "detail-page", title: "상세페이지", en: "Detail Page",
     desc: "스크롤을 멈추게 만드는 한 페이지 — 길이와 깊이를 골라서",
-    price: "₩99,000~", days: "5일 이내", tags: ["Figma", "Photoshop", "HTML/CSS"],
+    price: "₩129,000~", days: "5일 이내", tags: ["Figma", "Photoshop", "HTML/CSS"],
     href: (l: string) => `/${l}/services/detail-page`, soon: false, accent: "#2DD4BF", bg: "#F0FDFA",
   },
   {

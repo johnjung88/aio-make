@@ -99,7 +99,6 @@ const CSS = `
 `;
 
 const PREVIEW_ITEMS = [
-  { id: "vegan-cleanser",   label: "5,000PX",  name: "비건 클렌저",    src: "/portfolio/detail-page/vegan-cleanser/detail.png" },
   { id: "premium-mealkit",  label: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png" },
   { id: "linen-onepiece",   label: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png" },
 ];
@@ -176,7 +175,7 @@ const GALLERY_ITEMS = [
 
 export function DetailPageLanding({ locale }: { locale: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [previewId, setPreviewId] = useState("vegan-cleanser");
+  const [previewId, setPreviewId] = useState("premium-mealkit");
   const activePreview = PREVIEW_ITEMS.find((p) => p.id === previewId) ?? PREVIEW_ITEMS[0];
   useEffect(() => {
     const root = ref.current; if (!root) return;
@@ -202,7 +201,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Detail Page · N° 04</span>
             <h1 className="hero2-h1">스크롤을 멈추게<br />만드는 <em>상세페이지</em></h1>
-            <p className="hero2-lead">5,000PX 기본 소개부터 20,000PX 풀 스토리텔링까지<br />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
+            <p className="hero2-lead">10,000PX 소개형부터 20,000PX 풀 스토리텔링까지<br />시선·증거·CTA를 하나의 흐름으로 설계합니다</p>
             <div className="hero2-bdgs">
               {["5일 이내 납품", "원본 PSD 무료", "수정 무제한"].map((b) => (
                 <span key={b} className="hero2-bdg">{b}</span>
@@ -237,7 +236,7 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       </header>
 
       <section className="sec wrap">
-        <div className="shead reveal"><span className="kick">Studio Preview · 3 sizes</span><h2>화면으로 보는 <em>작업물</em></h2><p>실제 납품된 상세페이지 — PC와 모바일 두 화면으로</p></div>
+        <div className="shead reveal"><span className="kick">Studio Preview · 2 sizes</span><h2>화면으로 보는 <em>작업물</em></h2><p>실제 납품된 상세페이지 — PC와 모바일 두 화면으로</p></div>
 
         <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
           {PREVIEW_ITEMS.map((p) => (
