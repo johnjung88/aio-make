@@ -1,21 +1,55 @@
 import type React from "react";
 import Link from "next/link";
-import { BarChart3, BriefcaseBusiness, DollarSign, Image, Inbox, LayoutDashboard, Link2, LogOut, PieChart, Users, Download, Receipt } from "lucide-react";
+import {
+  BarChart3, BriefcaseBusiness, DollarSign, Image, Inbox,
+  LayoutDashboard, Link2, LogOut, PieChart, Users, Download,
+  Receipt, Bot, Settings, FileText, Megaphone,
+} from "lucide-react";
 import { requireAdminSession } from "@/lib/admin-auth";
 
 type NavItem = { href: string; label: string; icon: React.ComponentType<{ className?: string }>; disabled?: boolean };
+type NavGroup = { title: string; items: NavItem[] };
 
-const navItems: NavItem[] = [
-  { href: "/admin",                       label: "대시보드",     icon: LayoutDashboard },
-  { href: "/admin/contracts",             label: "계약 관리",    icon: BriefcaseBusiness },
-  { href: "/admin/customers",             label: "고객 DB",      icon: Users },
-  { href: "/admin/inbox",                 label: "문의함",       icon: Inbox },
-  { href: "/admin/portfolios",            label: "포트폴리오",   icon: Image },
-  { href: "/admin/marketing/links",       label: "UTM 링크",     icon: Link2 },
-  { href: "/admin/analytics",             label: "방문자 분석",  icon: PieChart },
-  { href: "/admin/kanban",                label: "업무 보드",    icon: BarChart3 },
-  { href: "/admin/revenue",               label: "매출 리포트",  icon: DollarSign },
-  { href: "/admin/expenses",              label: "지출 관리",    icon: Receipt },
+const navGroups: NavGroup[] = [
+  {
+    title: "영업 · 고객",
+    items: [
+      { href: "/admin/inbox",      label: "문의함",    icon: Inbox },
+      { href: "/admin/customers",  label: "고객 DB",   icon: Users },
+      { href: "/admin/contracts",  label: "계약 관리", icon: BriefcaseBusiness },
+    ],
+  },
+  {
+    title: "재무",
+    items: [
+      { href: "/admin/revenue",   label: "매출 리포트", icon: DollarSign },
+      { href: "/admin/expenses",  label: "지출 관리",   icon: Receipt },
+    ],
+  },
+  {
+    title: "마케팅 · 분석",
+    items: [
+      { href: "/admin/analytics",        label: "방문자 분석", icon: PieChart },
+      { href: "/admin/marketing/links",  label: "UTM 링크",    icon: Link2 },
+    ],
+  },
+  {
+    title: "콘텐츠",
+    items: [
+      { href: "/admin/portfolios",  label: "포트폴리오",    icon: Image },
+      { href: "/admin/team",        label: "팀 · 조직도",   icon: Users,         disabled: true },
+      { href: "/admin/services",    label: "서비스 · 가격", icon: Megaphone,     disabled: true },
+      { href: "/admin/magazine",    label: "매거진 · 홈",   icon: FileText,      disabled: true },
+    ],
+  },
+  {
+    title: "시스템",
+    items: [
+      { href: "/admin/kanban",    label: "업무 보드", icon: BarChart3 },
+      { href: "/admin/bot",       label: "봇 관리",   icon: Bot },
+      { href: "/admin/settings",  label: "설정 · 점검", icon: Settings },
+    ],
+  },
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -29,42 +63,66 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <p className="text-xs font-semibold uppercase text-primary">AIO-MAKE</p>
             <h1 className="mt-1 text-lg font-semibold">통합 관리자</h1>
           </div>
-          <nav className="flex-1 space-y-1 px-3 py-4">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              if (item.disabled) {
-                return (
-                  <span
-                    key={item.href}
-                    className="flex h-10 items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground/50"
-                  >
-                    <Icon className="size-4" />
-                    {item.label}
-                    <span className="ml-auto text-[10px]">soon</span>
-                  </span>
-                );
-              }
 
-              return (
-                <Link key={item.href} href={item.href} className="flex h-10 items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
-                  <Icon className="size-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
+          {/* 대시보드 — 그룹 밖 단독 */}
+          <div className="px-3 pt-4 pb-1">
+            <Link href="/admin" className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
+              <LayoutDashboard className="size-4" />
+              대시보드
+            </Link>
+          </div>
+
+          {/* 5개 그룹 네비게이션 */}
+          <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
+            {navGroups.map((group) => (
+              <div key={group.title}>
+                <p className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/50">
+                  {group.title}
+                </p>
+                <div className="space-y-0.5">
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    if (item.disabled) {
+                      return (
+                        <span
+                          key={item.href}
+                          className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground/40 cursor-not-allowed"
+                        >
+                          <Icon className="size-4" />
+                          {item.label}
+                          <span className="ml-auto text-[10px]">soon</span>
+                        </span>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
+                      >
+                        <Icon className="size-4" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
-          <div className="border-t border-white/10 p-3 space-y-1">
+
+          {/* 하단 고정: 엑셀 백업 · 로그아웃 */}
+          <div className="border-t border-white/10 p-3 space-y-0.5">
             <a
               href="/api/admin/export"
               download
-              className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
+              className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
               title="운영 데이터 엑셀 백업"
             >
               <Download className="size-4" />
               엑셀 백업
             </a>
             <form action="/api/admin/logout" method="post">
-              <button className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
+              <button className="flex h-9 w-full items-center gap-3 rounded-lg px-3 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
                 <LogOut className="size-4" />
                 로그아웃
               </button>
