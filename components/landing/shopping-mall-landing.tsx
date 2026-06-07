@@ -163,7 +163,11 @@ export function ShoppingMallLanding({ locale }: { locale: string }) {
           0% { transform: translateY(0); }
           100% { transform: translateY(-33.333%); }
         }
-        .smvc .sm-hero-txt { text-align: left; }
+        .smvc .sm-hero-txt { text-align: center; }
+        .smvc .sm-hero-txt h1, .smvc .sm-hero-txt p { margin-left: auto; margin-right: auto; }
+        .smvc .sm-badges { justify-content: center; }
+        .smvc .hero-grid { grid-template-columns: 1fr !important; }
+        .smvc .hero-cards { display: none !important; }
         @media (max-width: 768px) {
           .smvc .sm-hero-txt { text-align: center; }
           .smvc .sm-hero-txt h1 { max-width: none !important; font-size: clamp(30px,8vw,50px) !important; line-height: 1.15 !important; }

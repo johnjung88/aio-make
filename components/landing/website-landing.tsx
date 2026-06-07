@@ -57,7 +57,11 @@ export function WebsiteLanding({ locale }: { locale: string }) {
   return (
     <div className="wsvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <style dangerouslySetInnerHTML={{ __html: `
-        .wsvc .ws-hero-txt { text-align: left; }
+        .wsvc .ws-hero-txt { text-align: center; }
+        .wsvc .ws-hero-txt h1, .wsvc .ws-hero-txt p { margin-left: auto; margin-right: auto; }
+        .wsvc .ws-badges { justify-content: center; }
+        .wsvc .hero-grid { grid-template-columns: 1fr !important; }
+        .wsvc .hero-cards { display: none !important; }
         @keyframes wsScrollDesktop {
           0% { transform: translateY(0); }
           100% { transform: translateY(-50%); }

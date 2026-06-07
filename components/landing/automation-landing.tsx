@@ -215,7 +215,12 @@ export function AutomationLanding({ locale }: { locale: string }) {
   return (
     <div className="autvc" style={{ fontFamily: "var(--font-pretendard)", wordBreak: "keep-all" }}>
       <style dangerouslySetInnerHTML={{ __html: `
-        .autvc .aut-hero-txt { text-align: left; }
+        .autvc .aut-hero-txt { text-align: center; }
+        .autvc .aut-hero-txt h1, .autvc .aut-hero-txt p { margin-left: auto; margin-right: auto; }
+        .autvc .aut-badges { justify-content: center; }
+        .autvc .aut-hero-btn { display: flex; justify-content: center; }
+        .autvc .hero-grid { grid-template-columns: 1fr !important; }
+        .autvc .hero-cards { display: none !important; }
         @media (max-width: 768px) {
           .autvc .aut-hero-txt { text-align: center; }
           .autvc .aut-hero-txt h1 { max-width: none !important; font-size: clamp(30px,8vw,48px) !important; line-height: 1.18 !important; word-break: keep-all; }
