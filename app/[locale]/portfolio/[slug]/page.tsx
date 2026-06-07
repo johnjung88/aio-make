@@ -74,7 +74,7 @@ export default async function ProjectPage({
   );
 
   const rawGallery = isPptProject ? pptGallery : project.gallery;
-  const dedupedGallery = (isDetailPageProject || isPptProject
+  const dedupedGallery = (isDetailPageProject
     ? rawGallery
     : rawGallery.filter((s) => !heroImages.has(s))
   ).filter((s) => !/\.svg$/i.test(s));

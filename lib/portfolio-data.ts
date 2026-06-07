@@ -1129,10 +1129,6 @@ const pptPortfolioProjects: PortfolioProject[] = [
     duration: "2-4일",
     client: "PPT 제작 의뢰 고객",
     links: { live: null, github: null, case: "/portfolio/ppt-government-grant" },
-    downloads: {
-      planning: "/portfolio/ppt-design/government-grant/planning.md",
-      deck: "/portfolio/ppt-design/government-grant/deck.pptx",
-    },
     cover: "/portfolio/ppt-design/government-grant/cover-slide.png",
     gallery: [
       "/portfolio/ppt-design/government-grant/cover-slide.png",
@@ -1190,10 +1186,6 @@ const pptPortfolioProjects: PortfolioProject[] = [
     duration: "2-4일",
     client: "PPT 제작 의뢰 고객",
     links: { live: null, github: null, case: "/portfolio/ppt-ir-investment" },
-    downloads: {
-      planning: "/portfolio/ppt-design/ir-investment/planning.md",
-      deck: "/portfolio/ppt-design/ir-investment/deck.pptx",
-    },
     cover: "/portfolio/ppt-design/ir-investment/cover-slide.png",
     gallery: [
       "/portfolio/ppt-design/ir-investment/cover-slide.png",
@@ -1252,10 +1244,6 @@ const pptPortfolioProjects: PortfolioProject[] = [
     duration: "1-3일",
     client: "PPT 제작 의뢰 고객",
     links: { live: null, github: null, case: "/portfolio/ppt-brand-proposal" },
-    downloads: {
-      planning: "/portfolio/ppt-design/brand-proposal/planning.md",
-      deck: "/portfolio/ppt-design/brand-proposal/deck.pptx",
-    },
     cover: "/portfolio/ppt-design/brand-proposal/cover-slide.png",
     gallery: [
       "/portfolio/ppt-design/brand-proposal/cover-slide.png",
@@ -1312,10 +1300,6 @@ const pptPortfolioProjects: PortfolioProject[] = [
     duration: "2-4일",
     client: "PPT 제작 의뢰 고객",
     links: { live: null, github: null, case: "/portfolio/ppt-seminar-lecture" },
-    downloads: {
-      planning: "/portfolio/ppt-design/seminar-lecture/planning.md",
-      deck: "/portfolio/ppt-design/seminar-lecture/deck.pptx",
-    },
     cover: "/portfolio/ppt-design/seminar-lecture/cover-slide.png",
     gallery: [
       "/portfolio/ppt-design/seminar-lecture/cover-slide.png",
@@ -1372,10 +1356,6 @@ const pptPortfolioProjects: PortfolioProject[] = [
     duration: "1-3일",
     client: "PPT 제작 의뢰 고객",
     links: { live: null, github: null, case: "/portfolio/ppt-school-assignment" },
-    downloads: {
-      planning: "/portfolio/ppt-design/school-assignment/planning.md",
-      deck: "/portfolio/ppt-design/school-assignment/deck.pptx",
-    },
     cover: "/portfolio/ppt-design/school-assignment/cover-slide.png",
     gallery: [
       "/portfolio/ppt-design/school-assignment/cover-slide.png",
@@ -1410,7 +1390,7 @@ interface AdditionalPptSpec {
 
 const createPptGallery = (assetDir: string, sampleCount: number) => [
   `/portfolio/ppt-design/${assetDir}/cover-slide.png`,
-  ...Array.from({ length: Math.max(sampleCount - 1, 0) }, (_, index) => `/portfolio/ppt-design/${assetDir}/sample-${index + 1}.png`),
+  ...Array.from({ length: sampleCount }, (_, index) => `/portfolio/ppt-design/${assetDir}/sample-${index + 1}.png`),
 ];
 
 const additionalPptSpecs: AdditionalPptSpec[] = [
@@ -2142,10 +2122,6 @@ const additionalPptPortfolioProjects: PortfolioProject[] = additionalPptSpecs.ma
   duration: project.duration,
   client: "PPT 제작 의뢰 고객",
   links: { live: null, github: null, case: `/portfolio/${project.slug}` },
-  downloads: {
-    planning: `/portfolio/ppt-design/${project.assetDir}/planning.md`,
-    deck: `/portfolio/ppt-design/${project.assetDir}/deck.pptx`,
-  },
   cover: `/portfolio/ppt-design/${project.assetDir}/cover-slide.png`,
   gallery: createPptGallery(project.assetDir, project.sampleCount),
   size: "md",
