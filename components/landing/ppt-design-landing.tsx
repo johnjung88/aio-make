@@ -103,10 +103,6 @@ const SLIDE_SETS = [
       { src: "/portfolio/ppt-design/ir-investment/sample-1.png",    cap: "팀 소개" },
       { src: "/portfolio/ppt-design/ir-investment/sample-2.png",    cap: "시장 트랙션" },
       { src: "/portfolio/ppt-design/ir-investment/sample-3.png",    cap: "재무 계획" },
-      { src: "/portfolio/ppt-design/ir-investment/sample-4.png",    cap: "시장 분석" },
-      { src: "/portfolio/ppt-design/ir-investment/sample-5.png",    cap: "수익 모델" },
-      { src: "/portfolio/ppt-design/ir-investment/sample-6.png",    cap: "로드맵" },
-      { src: "/portfolio/ppt-design/ir-investment/sample-7.png",    cap: "투자 요청" },
     ],
   },
   {
@@ -117,9 +113,6 @@ const SLIDE_SETS = [
       { src: "/portfolio/ppt-design/government-grant/sample-1.png",    cap: "사업 구성" },
       { src: "/portfolio/ppt-design/government-grant/sample-2.png",    cap: "추진 계획" },
       { src: "/portfolio/ppt-design/government-grant/sample-3.png",    cap: "기대 효과" },
-      { src: "/portfolio/ppt-design/government-grant/sample-4.png",    cap: "예산 계획" },
-      { src: "/portfolio/ppt-design/government-grant/sample-5.png",    cap: "팀 구성" },
-      { src: "/portfolio/ppt-design/government-grant/sample-6.png",    cap: "마일스톤" },
     ],
   },
   {
@@ -130,8 +123,6 @@ const SLIDE_SETS = [
       { src: "/portfolio/ppt-design/brand-proposal/sample-1.png",    cap: "브랜드 스토리" },
       { src: "/portfolio/ppt-design/brand-proposal/sample-2.png",    cap: "서비스 소개" },
       { src: "/portfolio/ppt-design/brand-proposal/sample-3.png",    cap: "포트폴리오" },
-      { src: "/portfolio/ppt-design/brand-proposal/sample-4.png",    cap: "진행 프로세스" },
-      { src: "/portfolio/ppt-design/brand-proposal/sample-5.png",    cap: "제안" },
     ],
   },
   {
