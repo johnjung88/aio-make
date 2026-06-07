@@ -15,10 +15,10 @@ const CSS = `
 .aiologo .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aiologo .reveal.in{opacity:1;transform:none}
 .aiologo .reveal.d1{transition-delay:.1s}.aiologo .reveal.d2{transition-delay:.2s}.aiologo .reveal.d3{transition-delay:.3s}
 .aiologo .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--teal),var(--gold))}
-.aiologo .hero2{display:grid;grid-template-columns:55% 45%;min-height:100vh}
-.aiologo .hero2-l{position:relative;overflow:hidden;display:flex;align-items:center;padding:clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)}
-.aiologo .hero2-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.55;z-index:0}
-.aiologo .hero2-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,13,11,.92) 0%,rgba(14,13,11,.78) 60%,rgba(14,13,11,.88) 100%);z-index:1;pointer-events:none}
+.aiologo .hero2{position:relative;overflow:hidden;display:grid;grid-template-columns:55% 45%;min-height:100vh}
+.aiologo .hero2-l{position:relative;z-index:2;display:flex;align-items:center;padding:clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)}
+.aiologo .hero2-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.75;z-index:0}
+.aiologo .hero2-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,13,11,.92) 0%,rgba(14,13,11,.72) 50%,rgba(14,13,11,.35) 100%);z-index:1;pointer-events:none}
 .aiologo .hero2-txt{position:relative;z-index:2;text-align:left}
 .aiologo .hero2-hkick{font-family:var(--mono);font-size:11px;letter-spacing:.30em;text-transform:uppercase;color:var(--teal);margin-bottom:24px;display:block}
 .aiologo .hero2-h1{font-family:var(--frau);font-weight:400;font-size:clamp(36px,4.5vw,76px);letter-spacing:-.025em;line-height:1.0;color:#F4ECDC;margin-bottom:24px;max-width:560px}
@@ -27,7 +27,7 @@ const CSS = `
 .aiologo .hero2-bdgs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
 .aiologo .hero2-bdg{font-size:11px;font-weight:600;padding:6px 14px;border:1px solid var(--teal);color:var(--teal);border-radius:999px;letter-spacing:.04em}
 .aiologo .hero2-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--teal);color:#0E0D0B;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none}
-.aiologo .hero2-r{display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px);gap:14px;position:relative}
+.aiologo .hero2-r{display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px);gap:14px;position:relative;z-index:2}
 .aiologo .hero2-r::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(90,200,168,.06),transparent 70%);pointer-events:none}
 .aiologo .kcard-inner{background:rgba(22,27,34,.88);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:14px;min-width:220px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.45)}
 .aiologo .knum-box{border-radius:8px;width:48px;height:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -224,17 +224,18 @@ export function LogoBusinessCardLanding({ locale }: { locale: string }) {
       <div className="prog" />
       <AioNav locale={locale} level="leaf" cat="design" sub="logo-business-card" active="service" />
 
-      {/* ── DARK HERO ── */}
+      {/* ── DARK HERO (풀폭 이미지 배경 + 좌=텍스트, 우=KPI 카드) ── */}
       <header className="hero2">
-        {/* 왼쪽: 배경 이미지 + 텍스트 */}
+        {/* 배경 이미지 — 섹션 전체 덮음 */}
+        <img
+          className="hero2-bg"
+          src="/images/services/logo-team.png"
+          alt=""
+          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+        />
+        <div className="hero2-ov" />
+        {/* 왼쪽: 텍스트 */}
         <div className="hero2-l">
-          <img
-            className="hero2-bg"
-            src="/images/services/logo-team.png"
-            alt=""
-            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-          />
-          <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Brand Design · N° 06</span>
             <h1 className="hero2-h1">

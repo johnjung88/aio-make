@@ -86,36 +86,38 @@ export function WebsiteLanding({ locale }: { locale: string }) {
       ` }} />
       <AioNav locale={locale} level="leaf" sub="website" cat="development" active="service" />
 
-      {/* ── DARK HERO (2열: 좌=팀사진+텍스트, 우=플로팅 KPI 카드) ── */}
-      <section className="hero-grid" style={{
-        background: DARK, minHeight: "100vh",
-        display: "grid", gridTemplateColumns: "55% 45%",
-      }}>
-
-        {/* ── 왼쪽: 팀 사진 배경 + 텍스트 ── */}
+      {/* ── DARK HERO (풀폭 이미지 배경 + 좌=텍스트, 우=KPI 카드) ── */}
+      <section style={{ position: "relative", overflow: "hidden", background: DARK, minHeight: "100vh" }}>
+        {/* 팀 배경 이미지 — 섹션 전체 덮음 */}
+        <Image
+          src="/images/services/website-team.png"
+          alt=""
+          width={1344}
+          height={896}
+          priority
+          style={{
+            position: "absolute", top: 0, left: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "center",
+          }}
+        />
+        {/* 다크 그라디언트 오버레이 — 좌측 강하게, 우측 이미지 살림 */}
         <div style={{
-          position: "relative", overflow: "hidden", minHeight: "100vh",
+          position: "absolute", inset: 0, pointerEvents: "none",
+          background: "linear-gradient(105deg, rgba(13,17,23,0.93) 0%, rgba(13,17,23,0.72) 50%, rgba(13,17,23,0.35) 100%)",
+        }} />
+
+        {/* 2열 콘텐츠 래퍼 (이미지 위) */}
+        <div className="hero-grid" style={{
+          position: "relative", zIndex: 1,
+          display: "grid", gridTemplateColumns: "55% 45%", minHeight: "100vh",
+        }}>
+
+        {/* ── 왼쪽: 텍스트 ── */}
+        <div style={{
           display: "flex", flexDirection: "column", justifyContent: "center",
           padding: "clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)",
         }}>
-          {/* 팀 배경 이미지 */}
-          <Image
-            src="/images/services/website-team.png"
-            alt=""
-            width={1344}
-            height={896}
-            priority
-            style={{
-              position: "absolute", top: 0, left: 0,
-              width: "100%", height: "100%",
-              objectFit: "cover", objectPosition: "center",
-            }}
-          />
-          {/* 다크 그라디언트 오버레이 — 허브 기준: 좌측 강하게, 우측 이미지 살림 */}
-          <div style={{
-            position: "absolute", inset: 0, pointerEvents: "none",
-            background: "linear-gradient(105deg, rgba(13,17,23,0.93) 0%, rgba(13,17,23,0.72) 50%, rgba(13,17,23,0.35) 100%)",
-          }} />
           {/* 텍스트 */}
           <div className="ws-hero-txt" style={{ position: "relative", zIndex: 1 }}>
             <p style={{
@@ -204,6 +206,7 @@ export function WebsiteLanding({ locale }: { locale: string }) {
             </div>
           ))}
         </div>
+        </div>{/* /hero-grid */}
 
       </section>
 

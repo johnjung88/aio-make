@@ -15,10 +15,10 @@ const CSS = `
 .aiodp2 .reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s,transform 1.1s}.aiodp2 .reveal.in{opacity:1;transform:none}
 .aiodp2 .reveal.d1{transition-delay:.1s}.aiodp2 .reveal.d2{transition-delay:.2s}
 .aiodp2 .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:99;background:linear-gradient(90deg,var(--rose),var(--gold))}
-.aiodp2 .hero2{display:grid;grid-template-columns:55% 45%;min-height:100vh}
-.aiodp2 .hero2-l{position:relative;overflow:hidden;display:flex;align-items:center;padding:clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)}
-.aiodp2 .hero2-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.55;z-index:0}
-.aiodp2 .hero2-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,13,11,.92) 0%,rgba(14,13,11,.78) 60%,rgba(14,13,11,.88) 100%);z-index:1;pointer-events:none}
+.aiodp2 .hero2{position:relative;overflow:hidden;display:grid;grid-template-columns:55% 45%;min-height:100vh}
+.aiodp2 .hero2-l{position:relative;z-index:2;display:flex;align-items:center;padding:clamp(80px,10vw,120px) clamp(32px,5vw,72px) clamp(60px,8vw,100px)}
+.aiodp2 .hero2-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.75;z-index:0}
+.aiodp2 .hero2-ov{position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,13,11,.92) 0%,rgba(14,13,11,.72) 50%,rgba(14,13,11,.35) 100%);z-index:1;pointer-events:none}
 .aiodp2 .hero2-txt{position:relative;z-index:2;text-align:left}
 .aiodp2 .hero2-hkick{font-family:var(--mono);font-size:11px;letter-spacing:.30em;text-transform:uppercase;color:var(--rose);margin-bottom:24px;display:block}
 .aiodp2 .hero2-h1{font-family:var(--frau);font-weight:400;font-size:clamp(36px,4.5vw,76px);letter-spacing:-.025em;line-height:1.0;color:#F4ECDC;margin-bottom:24px;max-width:560px}
@@ -27,7 +27,7 @@ const CSS = `
 .aiodp2 .hero2-bdgs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
 .aiodp2 .hero2-bdg{font-size:11px;font-weight:600;padding:6px 14px;border:1px solid var(--rose);color:var(--rose);border-radius:999px;letter-spacing:.04em}
 .aiodp2 .hero2-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--rose);color:#0E0D0B;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none}
-.aiodp2 .hero2-r{display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px);gap:14px;position:relative}
+.aiodp2 .hero2-r{display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,10vw,120px) clamp(24px,4vw,56px) clamp(60px,8vw,100px) clamp(16px,3vw,32px);gap:14px;position:relative;z-index:2}
 .aiodp2 .hero2-r::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(215,138,138,.06),transparent 70%);pointer-events:none}
 .aiodp2 .kcard-inner{background:rgba(22,27,34,.88);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:14px;min-width:220px;max-width:280px;box-shadow:0 8px 32px rgba(0,0,0,.45)}
 .aiodp2 .knum-box{border-radius:8px;width:48px;height:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -112,7 +112,7 @@ const CSS = `
 @media(max-width:480px){.aiodp2 .lc-wrap{gap:12px}}
 
 /* Recent Work — rolling cards */
-.aiodp2 .rw-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.aiodp2 .rw-grid{display:grid;grid-template-columns:1fr;max-width:380px;margin:0 auto;gap:12px}
 .aiodp2 .rw-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:16px;overflow:hidden}
 .aiodp2 .rw-head{padding:14px 16px 10px;display:flex;align-items:center;gap:8px}
 .aiodp2 .rw-px{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,162,74,.8);background:rgba(200,162,74,.08);padding:3px 10px;border-radius:999px}
@@ -126,7 +126,6 @@ const CSS = `
 .aiodp2 .gif-ph{width:150px;aspect-ratio:9/18;overflow:hidden;border-radius:12px;position:relative}
 .aiodp2 .gif-ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .aiodp2 .gif-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);writing-mode:vertical-rl;padding-bottom:8px}
-@media(max-width:560px){.aiodp2 .rw-grid{grid-template-columns:1fr}}
 `;
 
 const COMPARE_SRC = "/portfolio/detail-page/premium-mealkit/detail.png";
@@ -136,8 +135,7 @@ const LENGTH_ITEMS = [
 ];
 
 const ROLL_ITEMS = [
-  { px: "10,000PX", name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s" },
-  { px: "20,000PX", name: "리넨 원피스",    src: "/portfolio/detail-page/linen-onepiece/detail.png",   spd: "20s" },
+  { name: "프리미엄 밀키트", src: "/portfolio/detail-page/premium-mealkit/detail.png", spd: "13s" },
 ];
 
 export function DetailPageLanding({ locale }: { locale: string }) {
@@ -159,10 +157,11 @@ export function DetailPageLanding({ locale }: { locale: string }) {
       <AioNav locale={locale} level="leaf" cat="design" sub="detail-page" active="service" />
 
       <header className="hero2">
-        {/* 왼쪽: 팀 사진 + 텍스트 */}
+        {/* 배경 이미지 — 섹션 전체 덮음 */}
+        <img className="hero2-bg" src="/images/services/detail-page-team.jpg" alt="" />
+        <div className="hero2-ov" />
+        {/* 왼쪽: 텍스트 */}
         <div className="hero2-l">
-          <img className="hero2-bg" src="/images/services/detail-page-team.jpg" alt="" />
-          <div className="hero2-ov" />
           <div className="hero2-txt">
             <span className="hero2-hkick">AIO · Detail Page · N° 04</span>
             <h1 className="hero2-h1">스크롤을 멈추게<br />만드는 <em>상세페이지</em></h1>
@@ -232,10 +231,9 @@ export function DetailPageLanding({ locale }: { locale: string }) {
           <p>실제 납품된 상세페이지 — 스크롤해서 전체 길이를 확인하세요</p>
         </div>
         <div className="rw-grid">
-          {ROLL_ITEMS.map((item, i) => (
-            <div key={item.px} className={`rw-card reveal d${i + 1}`}>
+          {ROLL_ITEMS.map((item) => (
+            <div key={item.name} className="rw-card reveal d1">
               <div className="rw-head">
-                <span className="rw-px">{item.px}</span>
                 <span className="rw-nm">{item.name}</span>
               </div>
               <div className="rw-phone" style={{ "--spd": item.spd } as React.CSSProperties}>
