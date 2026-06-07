@@ -122,7 +122,6 @@ const SLIDE_SETS = [
       { src: "/portfolio/ppt-design/brand-proposal/cover-slide.png", cap: "표지 슬라이드" },
       { src: "/portfolio/ppt-design/brand-proposal/sample-4.png",    cap: "서비스 구조" },
       { src: "/portfolio/ppt-design/brand-proposal/sample-5.png",    cap: "제안" },
-      { src: "/portfolio/ppt-design/vibestack-company-profile/cover-slide.png", cap: "기업 소개" },
     ],
   },
   {
