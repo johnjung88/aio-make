@@ -100,9 +100,9 @@ const SLIDE_SETS = [
     label: "IR 투자유치",
     slides: [
       { src: "/portfolio/ppt-design/ir-investment/cover-slide.png", cap: "표지 슬라이드" },
-      { src: "/portfolio/ppt-design/ir-investment/sample-1.png",    cap: "팀 소개" },
       { src: "/portfolio/ppt-design/ir-investment/sample-2.png",    cap: "시장 트랙션" },
       { src: "/portfolio/ppt-design/ir-investment/sample-3.png",    cap: "재무 계획" },
+      { src: "/portfolio/ppt-design/ir-investment/sample-6.png",    cap: "로드맵" },
     ],
   },
   {
@@ -110,9 +110,9 @@ const SLIDE_SETS = [
     label: "정부지원사업",
     slides: [
       { src: "/portfolio/ppt-design/government-grant/cover-slide.png", cap: "표지 슬라이드" },
-      { src: "/portfolio/ppt-design/government-grant/sample-1.png",    cap: "사업 구성" },
       { src: "/portfolio/ppt-design/government-grant/sample-2.png",    cap: "추진 계획" },
       { src: "/portfolio/ppt-design/government-grant/sample-3.png",    cap: "기대 효과" },
+      { src: "/portfolio/ppt-design/government-grant/sample-4.png",    cap: "예산 계획" },
     ],
   },
   {
@@ -120,9 +120,9 @@ const SLIDE_SETS = [
     label: "회사소개서",
     slides: [
       { src: "/portfolio/ppt-design/brand-proposal/cover-slide.png", cap: "표지 슬라이드" },
-      { src: "/portfolio/ppt-design/brand-proposal/sample-1.png",    cap: "브랜드 스토리" },
-      { src: "/portfolio/ppt-design/brand-proposal/sample-2.png",    cap: "서비스 소개" },
-      { src: "/portfolio/ppt-design/brand-proposal/sample-3.png",    cap: "포트폴리오" },
+      { src: "/portfolio/ppt-design/brand-proposal/sample-4.png",    cap: "서비스 구조" },
+      { src: "/portfolio/ppt-design/brand-proposal/sample-5.png",    cap: "제안" },
+      { src: "/portfolio/ppt-design/vibestack-company-profile/cover-slide.png", cap: "기업 소개" },
     ],
   },
   {
@@ -130,7 +130,6 @@ const SLIDE_SETS = [
     label: "B2B 제안",
     slides: [
       { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/cover-slide.png", cap: "표지 슬라이드" },
-      { src: "/portfolio/ppt-design/beanbrew-b2b-proposal/sample-1.png",    cap: "제안 내용" },
     ],
   },
 ];
