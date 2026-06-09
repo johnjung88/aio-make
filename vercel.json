@@ -5,19 +5,5 @@
       "source": "/make/ppt/:path*",
       "destination": "https://aio-ppt.vercel.app/:path*"
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/cron/daily",
-      "schedule": "0 22 * * *"
-    },
-    {
-      "path": "/api/cron/evening",
-      "schedule": "0 12 * * *"
-    },
-    {
-      "path": "/api/cron/weekly",
-      "schedule": "0 22 * * 0"
-    }
   ]
 }
