@@ -34,6 +34,44 @@ async function getAnalyticsData() {
   const supabase = createSupabaseAdminClient();
   const since30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 
+  let results;
+  try {
+    results = await Promise.all([
+      // KPI
+      supabase.from("visitor_sessions").select("id, has_converted, total_pageviews", { count: "exact" }).gte("first_seen_at", since30),
+      supabase.from("visitor_events").select("id", { count: "exact" }).gte("occurred_at", since30),
+      // 채널 퍼널
+      supabase.from("v_channel_funnel").select("*"),
+      // 카테고리 관심도
+      supabase.from("v_category_interest").select("*"),
+      // 기기별
+      supabase.from("visitor_sessions").select("device").gte("first_seen_at", since30),
+      // 유입 경로 TOP 10
+      supabase.from("visitor_sessions").select("referrer_host").gte("first_seen_at", since30).not("referrer_host", "is", null),
+      // 랜딩 페이지 TOP 10
+      supabase.from("visitor_sessions").select("first_landing_path").gte("first_seen_at", since30).not("first_landing_path", "is", null),
+      // 이벤트 타입별
+      supabase.from("visitor_events").select("event_type").gte("occurred_at", since30),
+      // 일별 트래픽 (최근 14일, 상위 경로 제외하고 합산)
+      supabase.from("v_daily_traffic").select("day, events, unique_visitors").gte("day", new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)).order("day", { ascending: true }),
+      // 최근 세션 10개
+      supabase.from("visitor_sessions").select("id, device, referrer_host, first_landing_path, first_utm_source, total_pageviews, has_converted, first_seen_at").order("first_seen_at", { ascending: false }).limit(10),
+    ]);
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : "분석 데이터를 불러오지 못했습니다.",
+      kpi: { totalSessions: 0, totalEvents: 0, conversions: 0, convRate: "0.0", avgPageviews: "0", returnVisitors: 0 },
+      funnel: [],
+      categoryInterest: [],
+      deviceMap: {},
+      topReferrers: [],
+      topLandings: [],
+      topEvents: [],
+      dailyTraffic: [],
+      recentSessions: [],
+    };
+  }
+
   const [
     sessions,
     events,
@@ -45,27 +83,7 @@ async function getAnalyticsData() {
     eventTypeRows,
     dailyRows,
     recentSessions,
-  ] = await Promise.all([
-    // KPI
-    supabase.from("visitor_sessions").select("id, has_converted, total_pageviews", { count: "exact" }).gte("first_seen_at", since30),
-    supabase.from("visitor_events").select("id", { count: "exact" }).gte("occurred_at", since30),
-    // 채널 퍼널
-    supabase.from("v_channel_funnel").select("*"),
-    // 카테고리 관심도
-    supabase.from("v_category_interest").select("*"),
-    // 기기별
-    supabase.from("visitor_sessions").select("device").gte("first_seen_at", since30),
-    // 유입 경로 TOP 10
-    supabase.from("visitor_sessions").select("referrer_host").gte("first_seen_at", since30).not("referrer_host", "is", null),
-    // 랜딩 페이지 TOP 10
-    supabase.from("visitor_sessions").select("first_landing_path").gte("first_seen_at", since30).not("first_landing_path", "is", null),
-    // 이벤트 타입별
-    supabase.from("visitor_events").select("event_type").gte("occurred_at", since30),
-    // 일별 트래픽 (최근 14일, 상위 경로 제외하고 합산)
-    supabase.from("v_daily_traffic").select("day, events, unique_visitors").gte("day", new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)).order("day", { ascending: true }),
-    // 최근 세션 10개
-    supabase.from("visitor_sessions").select("id, device, referrer_host, first_landing_path, first_utm_source, total_pageviews, has_converted, first_seen_at").order("first_seen_at", { ascending: false }).limit(10),
-  ]);
+  ] = results;
 
   const sessionList = sessions.data ?? [];
   const totalSessions   = sessions.count ?? 0;
@@ -152,6 +170,11 @@ export default async function AnalyticsPage() {
         </p>
       ) : (
         <>
+          {data.error && (
+            <p className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+              분석 데이터 로드 상태: {data.error}
+            </p>
+          )}
           {/* ── KPI 6개 ── */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {[

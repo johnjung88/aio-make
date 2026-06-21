@@ -1,5 +1,5 @@
 import "server-only";
-import { createSupabaseAdminClient } from "@/lib/supabase";
+import { createSupabaseAdminClient, hasSupabaseAdminConfig } from "@/lib/supabase";
 
 // =====================================================
 // 타입
@@ -37,6 +37,17 @@ export type CreateTaskInput = {
   notes?: string;
   relatedProjectId?: string;
   telegramMessageId?: number;
+};
+
+export type UpdateTaskInput = {
+  title?: string;
+  scope?: TaskScope;
+  scopeDate?: string;
+  priority?: TaskPriority;
+  status?: TaskStatus;
+  dueDate?: string | null;
+  notes?: string | null;
+  relatedProjectId?: string | null;
 };
 
 // =====================================================
@@ -121,6 +132,34 @@ export async function updateTaskStatus(id: string, status: TaskStatus): Promise<
   return data as TaskRow;
 }
 
+export async function updateTaskDetails(id: string, input: UpdateTaskInput): Promise<TaskRow> {
+  const supabase = createSupabaseAdminClient();
+  const updates: Record<string, unknown> = {};
+
+  if (input.title !== undefined) updates.title = input.title.trim();
+  if (input.scope !== undefined) updates.scope = input.scope;
+  if (input.scopeDate !== undefined) updates.scope_date = input.scopeDate;
+  if (input.priority !== undefined) updates.priority = input.priority;
+  if (input.status !== undefined) updates.status = input.status;
+  if (input.dueDate !== undefined) updates.due_date = input.dueDate || null;
+  if (input.notes !== undefined) updates.notes = input.notes || null;
+  if (input.relatedProjectId !== undefined) updates.related_project_id = input.relatedProjectId || null;
+
+  if (Object.keys(updates).length === 0) {
+    throw new Error("변경할 항목이 없습니다.");
+  }
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw new Error(`task 수정 실패: ${error.message}`);
+  return data as TaskRow;
+}
+
 export async function deferTask(
   id: string,
   newScope: TaskScope,
@@ -160,6 +199,8 @@ export async function listMonthTasks(now: Date = new Date()): Promise<TaskRow[]>
 }
 
 async function listTasks(scope: TaskScope, scopeDate: string): Promise<TaskRow[]> {
+  if (!hasSupabaseAdminConfig()) return [];
+
   const supabase = createSupabaseAdminClient();
   const { data, error } = await supabase
     .from("tasks")
@@ -173,6 +214,25 @@ async function listTasks(scope: TaskScope, scopeDate: string): Promise<TaskRow[]
 
   if (error) {
     console.error("[tasks] listTasks error:", error.message);
+    return [];
+  }
+  return (data ?? []) as TaskRow[];
+}
+
+export async function listCalendarTasks(startDate: string, endDate: string): Promise<TaskRow[]> {
+  if (!hasSupabaseAdminConfig()) return [];
+
+  const supabase = createSupabaseAdminClient();
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .or(`and(due_date.gte.${startDate},due_date.lte.${endDate}),and(scope_date.gte.${startDate},scope_date.lte.${endDate})`)
+    .in("status", ["pending", "in_progress", "completed", "deferred"])
+    .order("due_date", { ascending: true, nullsFirst: false })
+    .order("scope_date", { ascending: true });
+
+  if (error) {
+    console.error("[tasks] listCalendarTasks error:", error.message);
     return [];
   }
   return (data ?? []) as TaskRow[];

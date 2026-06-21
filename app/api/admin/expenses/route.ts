@@ -82,7 +82,10 @@ export async function PATCH(request: Request) {
   if (body.type === "recurring") {
     const parsed = recurringPatchSchema.safeParse(body);
     if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
-    const { id, type: _, ...updates } = parsed.data;
+    const { id, active, next_charge, amount, notes } = parsed.data;
+    const updates = Object.fromEntries(
+      Object.entries({ active, next_charge, amount, notes }).filter(([, value]) => value !== undefined),
+    );
     const supabase = createSupabaseAdminClient();
     const { error } = await supabase.from("recurring_expenses").update(updates).eq("id", id);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });

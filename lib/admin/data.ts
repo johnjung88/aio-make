@@ -18,6 +18,7 @@ export type InboxItem = {
   budget?: number;
   deadlineText?: string;
   createdAt: string;
+  source?: string;
   entryPath?: string;
   serviceKey?: string;
   assignedPmQueue?: string;
@@ -126,6 +127,7 @@ function toInboxItem(row: Record<string, unknown>): InboxItem {
     budget: typeof row.budget === "number" ? row.budget : undefined,
     deadlineText: row.deadline_text ? String(row.deadline_text) : undefined,
     createdAt: String(row.created_at ?? new Date().toISOString()),
+    source: getLeadMetaField(lead, "source"),
     entryPath: getLeadMetaField(lead, "entry_path"),
     serviceKey: getLeadMetaField(lead, "service_key"),
     assignedPmQueue: getLeadMetaField(lead, "assigned_pm_queue"),

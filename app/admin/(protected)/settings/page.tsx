@@ -1,4 +1,5 @@
-import { CheckCircle, XCircle, AlertCircle, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle, XCircle, AlertCircle, ExternalLink, ArrowRight } from "lucide-react";
 
 type Status = "ok" | "missing" | "warn";
 
@@ -206,6 +207,26 @@ export default function SettingsPage() {
           Vercel 대시보드 열기
           <ExternalLink className="size-3" />
         </a>
+      </section>
+
+      <section className="rounded-lg border border-white/10 bg-card p-5">
+        <h3 className="text-sm font-semibold">대시보드 입력 연동 기준</h3>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          API 키, 토큰, 세션 시크릿 같은 보안값은 대시보드에서 직접 입력해 저장하지 않습니다.
+          반면 서비스 가격, 홈 카피, 팀 소개, 매거진 섹션 같은 비밀이 아닌 콘텐츠는 DB 테이블과 승인 워크플로우를 만들면 입력값을 공개 페이지에 연동할 수 있습니다.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            { href: "/admin/services", label: "서비스 가격 연동 후보" },
+            { href: "/admin/team", label: "팀 조직도 연동 후보" },
+            { href: "/admin/magazine", label: "매거진 홈 연동 후보" },
+          ].map((item) => (
+            <Link key={item.href} href={item.href} className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm hover:bg-white/[0.06]">
+              {item.label}
+              <ArrowRight className="size-4 text-primary" />
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );

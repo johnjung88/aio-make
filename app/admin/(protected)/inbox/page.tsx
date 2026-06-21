@@ -14,7 +14,7 @@ export default async function AdminInboxPage() {
       <div>
         <p className="text-xs font-medium uppercase text-primary">Unified Inbox</p>
         <h2 className="mt-2 text-3xl font-semibold">통합 인박스</h2>
-        <p className="mt-2 text-sm text-muted-foreground">사이트 견적 요청과 외부 플랫폼 응답 초안을 한 곳에서 관리합니다.</p>
+        <p className="mt-2 text-sm text-muted-foreground">자사몰 견적 요청, 챗봇 유입, 상담/견적 진행 상태를 한 곳에서 관리합니다.</p>
       </div>
 
       {adaCount > 0 && (

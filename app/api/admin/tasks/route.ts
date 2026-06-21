@@ -4,6 +4,7 @@ import { getAdminSession } from "@/lib/admin-auth";
 import {
   createTask,
   updateTaskStatus,
+  updateTaskDetails,
   deferTask,
   deleteTask,
   type TaskScope,
@@ -54,6 +55,18 @@ const patchSchema = z.discriminatedUnion("action", [
     scope:     z.enum(["today", "week", "month"]),
     scopeDate: z.string().optional(),
   }),
+  z.object({
+    action:           z.literal("update"),
+    id:               z.string().uuid(),
+    title:            z.string().trim().min(1).max(300).optional(),
+    scope:            z.enum(["today", "week", "month"]).optional(),
+    scopeDate:        z.string().optional(),
+    priority:         z.enum(["P0", "P1", "P2"]).optional(),
+    status:           z.enum(["pending", "in_progress", "completed", "canceled", "deferred"]).optional(),
+    dueDate:          z.string().nullable().optional(),
+    notes:            z.string().max(1000).nullable().optional(),
+    relatedProjectId: z.string().uuid().nullable().optional(),
+  }),
 ]);
 
 export async function PATCH(req: Request) {
@@ -68,10 +81,22 @@ export async function PATCH(req: Request) {
     if (parsed.data.action === "status") {
       const task = await updateTaskStatus(parsed.data.id, parsed.data.status as TaskStatus);
       return NextResponse.json(task);
-    } else {
+    } else if (parsed.data.action === "defer") {
       const task = await deferTask(parsed.data.id, parsed.data.scope as TaskScope, parsed.data.scopeDate);
       return NextResponse.json(task);
     }
+
+    const task = await updateTaskDetails(parsed.data.id, {
+      title: parsed.data.title,
+      scope: parsed.data.scope,
+      scopeDate: parsed.data.scopeDate,
+      priority: parsed.data.priority,
+      status: parsed.data.status,
+      dueDate: parsed.data.dueDate,
+      notes: parsed.data.notes,
+      relatedProjectId: parsed.data.relatedProjectId,
+    });
+    return NextResponse.json(task);
   } catch (e) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "실패" }, { status: 500 });
   }
@@ -92,4 +117,3 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "실패" }, { status: 500 });
   }
 }
-

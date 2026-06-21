@@ -31,7 +31,7 @@ export function PublicChatbot({ locale }: { locale: string }) {
   const accent = usePageAccent();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const email = "";
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);

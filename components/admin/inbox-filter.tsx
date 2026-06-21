@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { FileText, Search } from "lucide-react";
 import type { InboxItem } from "@/lib/admin/data";
 import { InboxStatusActions } from "@/components/admin/inbox-status-actions";
 
@@ -122,7 +123,16 @@ export function InboxFilter({ items }: { items: InboxItem[] }) {
               </div>
 
               <div className="w-full shrink-0 lg:w-72">
-                <InboxStatusActions requestId={item.requestId} responseId={item.responseId} currentStatus={item.status} />
+                <div className="space-y-3">
+                  <Link
+                    href={`/admin/quotes/new?requestId=${encodeURIComponent(item.requestId)}`}
+                    className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg bg-primary px-3 text-xs font-semibold text-primary-foreground transition hover:opacity-85"
+                  >
+                    <FileText className="size-3.5" />
+                    견적서 만들기
+                  </Link>
+                  <InboxStatusActions requestId={item.requestId} responseId={item.responseId} currentStatus={item.status} />
+                </div>
               </div>
             </div>
           </article>

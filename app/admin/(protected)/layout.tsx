@@ -1,9 +1,9 @@
 import type React from "react";
 import Link from "next/link";
 import {
-  BarChart3, BriefcaseBusiness, DollarSign, Image, Inbox,
+  BarChart3, BriefcaseBusiness, CalendarDays, CheckSquare, DollarSign, Image, Inbox,
   LayoutDashboard, Link2, LogOut, PieChart, Users, Download,
-  Receipt, Bot, Settings, FileText, Megaphone,
+  Receipt, Bot, Settings, FileText, Megaphone, ShieldCheck, Wallet,
 } from "lucide-react";
 import { requireAdminSession } from "@/lib/admin-auth";
 
@@ -12,9 +12,18 @@ type NavGroup = { title: string; items: NavItem[] };
 
 const navGroups: NavGroup[] = [
   {
+    title: "지휘센터",
+    items: [
+      { href: "/admin/calendar",  label: "일정 캘린더", icon: CalendarDays },
+      { href: "/admin/approvals", label: "승인 센터", icon: ShieldCheck },
+      { href: "/admin/work",      label: "PM 업무 현황", icon: CheckSquare },
+    ],
+  },
+  {
     title: "영업 · 고객",
     items: [
       { href: "/admin/inbox",      label: "문의함",    icon: Inbox },
+      { href: "/admin/quotes",     label: "견적서",    icon: FileText },
       { href: "/admin/customers",  label: "고객 DB",   icon: Users },
       { href: "/admin/contracts",  label: "계약 관리", icon: BriefcaseBusiness },
     ],
@@ -22,6 +31,7 @@ const navGroups: NavGroup[] = [
   {
     title: "재무",
     items: [
+      { href: "/admin/finance",   label: "종합 관리",   icon: Wallet },
       { href: "/admin/revenue",   label: "매출 리포트", icon: DollarSign },
       { href: "/admin/expenses",  label: "지출 관리",   icon: Receipt },
     ],
@@ -29,6 +39,7 @@ const navGroups: NavGroup[] = [
   {
     title: "마케팅 · 분석",
     items: [
+      { href: "/admin/marketing",        label: "마케팅 관리", icon: Megaphone },
       { href: "/admin/analytics",        label: "방문자 분석", icon: PieChart },
       { href: "/admin/marketing/links",  label: "UTM 링크",    icon: Link2 },
     ],
@@ -37,15 +48,15 @@ const navGroups: NavGroup[] = [
     title: "콘텐츠",
     items: [
       { href: "/admin/portfolios",  label: "포트폴리오",    icon: Image },
-      { href: "/admin/team",        label: "팀 · 조직도",   icon: Users,         disabled: true },
-      { href: "/admin/services",    label: "서비스 · 가격", icon: Megaphone,     disabled: true },
-      { href: "/admin/magazine",    label: "매거진 · 홈",   icon: FileText,      disabled: true },
+      { href: "/admin/team",        label: "팀 · 조직도",   icon: Users },
+      { href: "/admin/services",    label: "서비스 · 가격", icon: Megaphone },
+      { href: "/admin/magazine",    label: "매거진 · 홈",   icon: FileText },
     ],
   },
   {
     title: "시스템",
     items: [
-      { href: "/admin/kanban",    label: "업무 보드", icon: BarChart3 },
+      { href: "/admin/kanban",    label: "업무 칸반", icon: BarChart3 },
       { href: "/admin/bot",       label: "봇 관리",   icon: Bot },
       { href: "/admin/settings",  label: "설정 · 점검", icon: Settings },
     ],
@@ -61,14 +72,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="flex h-full flex-col">
           <div className="border-b border-white/10 px-6 py-5">
             <p className="text-xs font-semibold uppercase text-primary">AIO-MAKE</p>
-            <h1 className="mt-1 text-lg font-semibold">통합 관리자</h1>
+            <h1 className="mt-1 text-lg font-semibold">ERP Command Center</h1>
           </div>
 
           {/* 대시보드 — 그룹 밖 단독 */}
           <div className="px-3 pt-4 pb-1">
             <Link href="/admin" className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
               <LayoutDashboard className="size-4" />
-              대시보드
+              CEO Snapshot
             </Link>
           </div>
 
@@ -141,8 +152,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <Link href="/admin/inbox" className="rounded-lg border border-white/10 px-3 py-2 text-xs">
                 문의함
               </Link>
-              <Link href="/admin/contracts" className="rounded-lg border border-white/10 px-3 py-2 text-xs">
-                계약
+              <Link href="/admin/approvals" className="rounded-lg border border-white/10 px-3 py-2 text-xs">
+                승인
               </Link>
             </div>
           </div>

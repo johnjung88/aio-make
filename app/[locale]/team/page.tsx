@@ -633,7 +633,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
             <MagazineEyebrow className="mb-6">{team.eyebrow}</MagazineEyebrow>
             <h2 className="mb-14" style={H2}>{team.cat} <span style={EM_CORM}>팀</span></h2>
             <div className="mx-auto max-w-[1080px]">
-              {team.subteams.map((st, si) => (
+              {team.subteams.map((st) => (
                 <div key={st.name}>
                   <SubteamDivider name={st.name} />
                   <SubteamGrid members={st.members} />
