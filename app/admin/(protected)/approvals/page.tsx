@@ -19,7 +19,7 @@ const TYPE_LABELS: Record<ApprovalItem["type"], string> = {
 
 const STATUS_META = {
   pending: { label: "대기", icon: ShieldCheck, className: "border-amber-400/20 bg-amber-400/10 text-amber-200" },
-  approved: { label: "승인", icon: CheckCircle2, className: "border-primary/20 bg-primary/10 text-primary" },
+  approved: { label: "확인 완료", icon: CheckCircle2, className: "border-primary/20 bg-primary/10 text-primary" },
   rejected: { label: "반려", icon: XCircle, className: "border-rose-400/20 bg-rose-400/10 text-rose-200" },
   on_hold: { label: "보류", icon: PauseCircle, className: "border-cyan-400/20 bg-cyan-400/10 text-cyan-200" },
 };
@@ -33,7 +33,7 @@ export default async function ApprovalsPage() {
       <div>
         <p className="text-xs font-medium uppercase text-primary">Approval Center</p>
         <h2 className="mt-2 text-3xl font-semibold">승인 센터</h2>
-        <p className="mt-2 text-sm text-muted-foreground">고객 발송, 가격·납기, 계약·정산, 포트폴리오 공개, tracking/live 변경을 승인·보류·반려로 기록합니다.</p>
+        <p className="mt-2 text-sm text-muted-foreground">고객 발송, 가격·납기, 계약·정산, 포트폴리오 공개, tracking/live 변경을 확인 완료·보류·반려로 기록합니다.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">

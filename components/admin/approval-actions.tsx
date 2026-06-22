@@ -13,7 +13,7 @@ const ACTIONS: Array<{
   className: string;
   icon: typeof CheckCircle2;
 }> = [
-  { status: "approved", label: "승인", icon: CheckCircle2, className: "border-primary/30 text-primary hover:bg-primary/10" },
+  { status: "approved", label: "확인 완료", icon: CheckCircle2, className: "border-primary/30 text-primary hover:bg-primary/10" },
   { status: "on_hold", label: "보류", icon: PauseCircle, className: "border-cyan-400/30 text-cyan-200 hover:bg-cyan-400/10" },
   { status: "rejected", label: "반려", icon: XCircle, className: "border-rose-400/30 text-rose-200 hover:bg-rose-400/10" },
 ];
@@ -64,7 +64,7 @@ export function ApprovalActions({ item }: { item: ApprovalItem }) {
   }
 
   if (item.status !== "pending") {
-    return <p className="text-xs text-muted-foreground">처리 완료된 승인 기록입니다.</p>;
+    return <p className="text-xs text-muted-foreground">처리 완료된 확인 기록입니다.</p>;
   }
 
   return (
