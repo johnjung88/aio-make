@@ -92,72 +92,96 @@ export function defaultScopeDate(scope: TaskScope, now: Date = new Date()): stri
   }
 }
 
+function isSupabaseNetworkError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  return /fetch failed|ENOTFOUND|EAI_AGAIN|getaddrinfo|known host|DNS/i.test(error.message);
+}
+
+function taskConnectionError(): Error {
+  return new Error("Supabase 연결 실패: 프로젝트 URL, DNS, 네트워크 상태를 확인해야 합니다.");
+}
+
 // =====================================================
 // CRUD
 // =====================================================
 export async function createTask(input: CreateTaskInput): Promise<TaskRow> {
-  const supabase = createSupabaseAdminClient();
-  const scopeDate = input.scopeDate ?? defaultScopeDate(input.scope);
+  try {
+    const supabase = createSupabaseAdminClient();
+    const scopeDate = input.scopeDate ?? defaultScopeDate(input.scope);
 
-  const { data, error } = await supabase
-    .from("tasks")
-    .insert({
-      title: input.title.trim(),
-      scope: input.scope,
-      scope_date: scopeDate,
-      priority: input.priority ?? "P1",
-      source: input.source ?? "telegram",
-      due_date: input.dueDate ?? null,
-      notes: input.notes ?? null,
-      related_project_id: input.relatedProjectId ?? null,
-      telegram_message_id: input.telegramMessageId ?? null,
-    })
-    .select()
-    .single();
+    const { data, error } = await supabase
+      .from("tasks")
+      .insert({
+        title: input.title.trim(),
+        scope: input.scope,
+        scope_date: scopeDate,
+        priority: input.priority ?? "P1",
+        source: input.source ?? "telegram",
+        due_date: input.dueDate ?? null,
+        notes: input.notes ?? null,
+        related_project_id: input.relatedProjectId ?? null,
+        telegram_message_id: input.telegramMessageId ?? null,
+      })
+      .select()
+      .single();
 
-  if (error) throw new Error(`task 생성 실패: ${error.message}`);
-  return data as TaskRow;
+    if (error) throw new Error(`task 생성 실패: ${error.message}`);
+    return data as TaskRow;
+  } catch (error) {
+    if (isSupabaseNetworkError(error)) throw taskConnectionError();
+    throw error;
+  }
 }
 
 export async function updateTaskStatus(id: string, status: TaskStatus): Promise<TaskRow> {
-  const supabase = createSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("tasks")
-    .update({ status })
-    .eq("id", id)
-    .select()
-    .single();
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { data, error } = await supabase
+      .from("tasks")
+      .update({ status })
+      .eq("id", id)
+      .select()
+      .single();
 
-  if (error) throw new Error(`task 상태 변경 실패: ${error.message}`);
-  return data as TaskRow;
+    if (error) throw new Error(`task 상태 변경 실패: ${error.message}`);
+    return data as TaskRow;
+  } catch (error) {
+    if (isSupabaseNetworkError(error)) throw taskConnectionError();
+    throw error;
+  }
 }
 
 export async function updateTaskDetails(id: string, input: UpdateTaskInput): Promise<TaskRow> {
-  const supabase = createSupabaseAdminClient();
-  const updates: Record<string, unknown> = {};
+  try {
+    const supabase = createSupabaseAdminClient();
+    const updates: Record<string, unknown> = {};
 
-  if (input.title !== undefined) updates.title = input.title.trim();
-  if (input.scope !== undefined) updates.scope = input.scope;
-  if (input.scopeDate !== undefined) updates.scope_date = input.scopeDate;
-  if (input.priority !== undefined) updates.priority = input.priority;
-  if (input.status !== undefined) updates.status = input.status;
-  if (input.dueDate !== undefined) updates.due_date = input.dueDate || null;
-  if (input.notes !== undefined) updates.notes = input.notes || null;
-  if (input.relatedProjectId !== undefined) updates.related_project_id = input.relatedProjectId || null;
+    if (input.title !== undefined) updates.title = input.title.trim();
+    if (input.scope !== undefined) updates.scope = input.scope;
+    if (input.scopeDate !== undefined) updates.scope_date = input.scopeDate;
+    if (input.priority !== undefined) updates.priority = input.priority;
+    if (input.status !== undefined) updates.status = input.status;
+    if (input.dueDate !== undefined) updates.due_date = input.dueDate || null;
+    if (input.notes !== undefined) updates.notes = input.notes || null;
+    if (input.relatedProjectId !== undefined) updates.related_project_id = input.relatedProjectId || null;
 
-  if (Object.keys(updates).length === 0) {
-    throw new Error("변경할 항목이 없습니다.");
+    if (Object.keys(updates).length === 0) {
+      throw new Error("변경할 항목이 없습니다.");
+    }
+
+    const { data, error } = await supabase
+      .from("tasks")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw new Error(`task 수정 실패: ${error.message}`);
+    return data as TaskRow;
+  } catch (error) {
+    if (isSupabaseNetworkError(error)) throw taskConnectionError();
+    throw error;
   }
-
-  const { data, error } = await supabase
-    .from("tasks")
-    .update(updates)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) throw new Error(`task 수정 실패: ${error.message}`);
-  return data as TaskRow;
 }
 
 export async function deferTask(
@@ -165,22 +189,32 @@ export async function deferTask(
   newScope: TaskScope,
   newScopeDate?: string,
 ): Promise<TaskRow> {
-  const supabase = createSupabaseAdminClient();
-  const scopeDate = newScopeDate ?? defaultScopeDate(newScope);
-  const { data, error } = await supabase
-    .from("tasks")
-    .update({ scope: newScope, scope_date: scopeDate, status: "pending" })
-    .eq("id", id)
-    .select()
-    .single();
-  if (error) throw new Error(`task 이월 실패: ${error.message}`);
-  return data as TaskRow;
+  try {
+    const supabase = createSupabaseAdminClient();
+    const scopeDate = newScopeDate ?? defaultScopeDate(newScope);
+    const { data, error } = await supabase
+      .from("tasks")
+      .update({ scope: newScope, scope_date: scopeDate, status: "pending" })
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) throw new Error(`task 이월 실패: ${error.message}`);
+    return data as TaskRow;
+  } catch (error) {
+    if (isSupabaseNetworkError(error)) throw taskConnectionError();
+    throw error;
+  }
 }
 
 export async function deleteTask(id: string): Promise<void> {
-  const supabase = createSupabaseAdminClient();
-  const { error } = await supabase.from("tasks").delete().eq("id", id);
-  if (error) throw new Error(`task 삭제 실패: ${error.message}`);
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { error } = await supabase.from("tasks").delete().eq("id", id);
+    if (error) throw new Error(`task 삭제 실패: ${error.message}`);
+  } catch (error) {
+    if (isSupabaseNetworkError(error)) throw taskConnectionError();
+    throw error;
+  }
 }
 
 // =====================================================
@@ -201,71 +235,87 @@ export async function listMonthTasks(now: Date = new Date()): Promise<TaskRow[]>
 async function listTasks(scope: TaskScope, scopeDate: string): Promise<TaskRow[]> {
   if (!hasSupabaseAdminConfig()) return [];
 
-  const supabase = createSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("tasks")
-    .select("*")
-    .eq("scope", scope)
-    .eq("scope_date", scopeDate)
-    .in("status", ["pending", "in_progress"])
-    .order("priority", { ascending: true })
-    .order("display_order", { ascending: true })
-    .order("created_at", { ascending: true });
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("scope", scope)
+      .eq("scope_date", scopeDate)
+      .in("status", ["pending", "in_progress"])
+      .order("priority", { ascending: true })
+      .order("display_order", { ascending: true })
+      .order("created_at", { ascending: true });
 
-  if (error) {
-    console.error("[tasks] listTasks error:", error.message);
+    if (error) return [];
+    return (data ?? []) as TaskRow[];
+  } catch (error) {
+    if (!isSupabaseNetworkError(error)) console.error("[tasks] listTasks error:", error);
     return [];
   }
-  return (data ?? []) as TaskRow[];
 }
 
 export async function listCalendarTasks(startDate: string, endDate: string): Promise<TaskRow[]> {
   if (!hasSupabaseAdminConfig()) return [];
 
-  const supabase = createSupabaseAdminClient();
-  const { data, error } = await supabase
-    .from("tasks")
-    .select("*")
-    .or(`and(due_date.gte.${startDate},due_date.lte.${endDate}),and(scope_date.gte.${startDate},scope_date.lte.${endDate})`)
-    .in("status", ["pending", "in_progress", "completed", "deferred"])
-    .order("due_date", { ascending: true, nullsFirst: false })
-    .order("scope_date", { ascending: true });
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .or(`and(due_date.gte.${startDate},due_date.lte.${endDate}),and(scope_date.gte.${startDate},scope_date.lte.${endDate})`)
+      .in("status", ["pending", "in_progress", "completed", "deferred"])
+      .order("due_date", { ascending: true, nullsFirst: false })
+      .order("scope_date", { ascending: true });
 
-  if (error) {
-    console.error("[tasks] listCalendarTasks error:", error.message);
+    if (error) return [];
+    return (data ?? []) as TaskRow[];
+  } catch (error) {
+    if (!isSupabaseNetworkError(error)) console.error("[tasks] listCalendarTasks error:", error);
     return [];
   }
-  return (data ?? []) as TaskRow[];
 }
 
 /** 오늘 완료된 할 일 (저녁 점검용) */
 export async function listTodayCompleted(now: Date = new Date()): Promise<TaskRow[]> {
-  const supabase = createSupabaseAdminClient();
-  const today = kstToday(now);
-  const { data, error } = await supabase
-    .from("tasks")
-    .select("*")
-    .eq("scope", "today")
-    .eq("scope_date", today)
-    .eq("status", "completed")
-    .order("completed_at", { ascending: true });
-  if (error) return [];
-  return (data ?? []) as TaskRow[];
+  if (!hasSupabaseAdminConfig()) return [];
+
+  try {
+    const supabase = createSupabaseAdminClient();
+    const today = kstToday(now);
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("scope", "today")
+      .eq("scope_date", today)
+      .eq("status", "completed")
+      .order("completed_at", { ascending: true });
+    if (error) return [];
+    return (data ?? []) as TaskRow[];
+  } catch {
+    return [];
+  }
 }
 
 /** ID 접두사로 task 찾기 (텔레그램 /완료 abc123 같은 명령용) */
 export async function findTaskByIdPrefix(idPrefix: string): Promise<TaskRow | null> {
   if (!idPrefix || idPrefix.length < 4) return null;
-  const supabase = createSupabaseAdminClient();
-  // UUID는 8-4-4-4-12 형식. like 'abc123%' 매칭
-  const { data, error } = await supabase
-    .from("tasks")
-    .select("*")
-    .ilike("id", `${idPrefix.toLowerCase()}%`)
-    .limit(2);
-  if (error || !data || data.length === 0) return null;
-  if (data.length > 1) return null; // 중복 매칭은 거부
-  return data[0] as TaskRow;
+  if (!hasSupabaseAdminConfig()) return null;
+
+  try {
+    const supabase = createSupabaseAdminClient();
+    // UUID는 8-4-4-4-12 형식. like 'abc123%' 매칭
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .ilike("id", `${idPrefix.toLowerCase()}%`)
+      .limit(2);
+    if (error || !data || data.length === 0) return null;
+    if (data.length > 1) return null; // 중복 매칭은 거부
+    return data[0] as TaskRow;
+  } catch {
+    return null;
+  }
 }
 
 /** 활성 할 일을 번호로 찾기 (1, 2, 3 ...) — 목록 표시 순서 기반 */
