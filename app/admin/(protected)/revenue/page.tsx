@@ -1,4 +1,4 @@
-import { TrendingUp, Wallet, BarChart2, CreditCard } from "lucide-react";
+import { BarChart2, BriefcaseBusiness, Receipt, TrendingUp } from "lucide-react";
 import {
   getRevenueReport,
   formatKRW,
@@ -36,28 +36,28 @@ export default async function RevenuePage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                label: "이번 달 매출",
-                value: formatKRW(report.kpi.thisMonthRevenue),
-                sub:   `비용 ${formatKRW(report.kpi.thisMonthExpense)}`,
-                icon:  TrendingUp,
-              },
-              {
-                label: "이번 달 순이익",
+                label: "이번달 순이익",
                 value: formatKRW(report.kpi.thisMonthProfit),
                 sub:   report.kpi.thisMonthProfit >= 0 ? "흑자" : "적자",
                 icon:  BarChart2,
               },
               {
-                label: "누적 실입금",
-                value: formatKRW(report.kpi.totalPaid),
-                sub:   "전체 기간",
-                icon:  Wallet,
+                label: "이번달 매출",
+                value: formatKRW(report.kpi.thisMonthRevenue),
+                sub:   "입금 완료 기준",
+                icon:  TrendingUp,
               },
               {
-                label: "미수금 총액",
-                value: formatKRW(report.kpi.totalOutstanding),
+                label: "이번달 지출",
+                value: formatKRW(report.kpi.thisMonthExpense),
+                sub:   "비용 등록 기준",
+                icon:  Receipt,
+              },
+              {
+                label: "이번달 계약건수",
+                value: `${report.kpi.thisMonthContracts.toLocaleString("ko-KR")}건`,
                 sub:   `평균 계약 ${formatKRW(report.kpi.avgContractAmount)}`,
-                icon:  CreditCard,
+                icon:  BriefcaseBusiness,
               },
             ].map(({ label, value, sub, icon: Icon }) => (
               <div key={label} className="rounded-xl border border-white/10 bg-card p-5">

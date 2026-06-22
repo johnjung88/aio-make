@@ -25,6 +25,12 @@ const CATEGORY_RULES = [
   { category: "video", label: "영상 콘텐츠", price: "15만원부터", days: "2-3일", keywords: "영상, 쇼츠, 릴스, 편집" },
 ];
 
+function maskChatId(value?: string): string {
+  if (!value) return "미설정";
+  if (value.length <= 4) return "설정됨";
+  return `${value.slice(0, 3)}***${value.slice(-3)}`;
+}
+
 export default async function AdminBotPage() {
   const { items, error } = await getInboxItems(80);
   const chatbotItems = items.filter(
@@ -37,6 +43,7 @@ export default async function AdminBotPage() {
     ...rule,
     count: chatbotItems.filter((item) => item.category === rule.category).length,
   }));
+  const telegramReady = Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
 
   return (
     <div className="space-y-8">
@@ -83,6 +90,26 @@ export default async function AdminBotPage() {
         })}
       </section>
 
+      <section className="rounded-lg border border-white/10 bg-card p-5">
+        <h3 className="text-sm font-semibold">텔레그램 알림 연결</h3>
+        <div className="mt-4 grid gap-3 text-sm md:grid-cols-3">
+          <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+            <p className="text-xs text-muted-foreground">상태</p>
+            <p className={`mt-1 font-medium ${telegramReady ? "text-emerald-300" : "text-amber-200"}`}>
+              {telegramReady ? "발송 가능" : "환경변수 확인 필요"}
+            </p>
+          </div>
+          <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+            <p className="text-xs text-muted-foreground">수신 위치</p>
+            <p className="mt-1 font-mono text-xs">{maskChatId(process.env.TELEGRAM_CHAT_ID)}</p>
+          </div>
+          <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+            <p className="text-xs text-muted-foreground">발송 트리거</p>
+            <p className="mt-1">자사몰 봇 문의 접수, 견적 문의, 일일/주간 cron</p>
+          </div>
+        </div>
+      </section>
+
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-lg border border-white/10 bg-card p-5">
           <div className="flex items-center gap-2">
@@ -94,7 +121,7 @@ export default async function AdminBotPage() {
               "방문자가 상담 버튼을 열면 서비스별 빠른 질문을 보여줍니다.",
               "문의 문장을 `/api/chatbot`으로 보내 서비스 카테고리, 예상가, 일정을 자동 안내합니다.",
               "이름과 연락처를 받으면 `leads`, `quote_requests`, `conversations`에 저장합니다.",
-              "저장된 문의는 통합 문의함과 CEO Snapshot에 표시되고, 텔레그램 알림도 발송합니다.",
+              "저장된 문의는 통합 문의함과 대시보드에 표시되고, 텔레그램 알림도 발송합니다.",
               "정확한 견적/납기/고객 발송은 승인센터와 의장님 승인 후 확정합니다.",
             ].map((step, index) => (
               <div key={step} className="flex gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 text-sm">

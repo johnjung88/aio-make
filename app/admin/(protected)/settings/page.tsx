@@ -132,6 +132,9 @@ export default function SettingsPage() {
   const allItems = groups.flatMap((g) => g.items);
   const okCount = allItems.filter((i) => i.status === "ok").length;
   const missingCount = allItems.filter((i) => i.status === "missing").length;
+  const actionItems = allItems
+    .filter((item) => item.status !== "ok")
+    .map((item) => `${item.label}: ${item.note ?? item.key}`);
 
   return (
     <div className="space-y-8">
@@ -156,6 +159,24 @@ export default function SettingsPage() {
         <div className={`rounded-lg border p-5 ${missingCount > 0 ? "border-red-500/20 bg-red-500/5" : "border-white/10 bg-card"}`}>
           <p className="text-sm text-muted-foreground">미설정</p>
           <p className={`mt-3 text-2xl font-semibold ${missingCount > 0 ? "text-red-400/80" : ""}`}>{missingCount}</p>
+        </div>
+      </section>
+
+      <section className={`rounded-lg border p-5 ${actionItems.length > 0 ? "border-amber-500/20 bg-amber-500/10" : "border-emerald-500/20 bg-emerald-500/5"}`}>
+        <div className="flex items-start gap-3">
+          {actionItems.length > 0 ? <AlertCircle className="mt-0.5 size-4 shrink-0 text-amber-300" /> : <CheckCircle className="mt-0.5 size-4 shrink-0 text-emerald-400" />}
+          <div>
+            <h3 className="text-sm font-semibold">지금 해야 할 설정 점검</h3>
+            {actionItems.length === 0 ? (
+              <p className="mt-2 text-sm text-muted-foreground">필수 연결 항목은 모두 설정되어 있습니다. 이후 Supabase Advisor와 Vercel 배포 로그만 주기적으로 확인하면 됩니다.</p>
+            ) : (
+              <ul className="mt-3 space-y-2 text-sm text-amber-100">
+                {actionItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </section>
 

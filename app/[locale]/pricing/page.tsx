@@ -1,12 +1,14 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
-import { servicesData } from "@/lib/services-data";
+import { getServicesWithPriceOverrides } from "@/lib/admin/service-price-overrides";
 import { PricingTable } from "@/components/sections/pricing-table";
 import { AddonsTable } from "@/components/sections/addons-table";
 import { BundleCards } from "@/components/sections/bundle-cards";
 import { ChannelBadges } from "@/components/sections/channel-badges";
 import { TypeBadge } from "@/components/ui/type-badge";
 import type { ServiceCategory } from "@/lib/services-data";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -26,6 +28,7 @@ export default async function PricingPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pricing" });
   const l = locale as "ko" | "en";
+  const servicesData = await getServicesWithPriceOverrides();
 
   return (
     <main className="pb-24 pt-28">

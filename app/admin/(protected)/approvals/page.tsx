@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AlertTriangle, CheckCircle2, PauseCircle, ShieldCheck, XCircle } from "lucide-react";
 import { getCommandCenterData, type ApprovalItem } from "@/lib/admin/command-center";
+import { ApprovalActions } from "@/components/admin/approval-actions";
 
 export const metadata = {
   title: "승인 센터 | AIO 관리자",
@@ -32,7 +33,7 @@ export default async function ApprovalsPage() {
       <div>
         <p className="text-xs font-medium uppercase text-primary">Approval Center</p>
         <h2 className="mt-2 text-3xl font-semibold">승인 센터</h2>
-        <p className="mt-2 text-sm text-muted-foreground">고객 발송, 가격·납기, 계약·정산, 포트폴리오 공개, tracking/live 변경은 여기서 HOLD 상태로 확인합니다.</p>
+        <p className="mt-2 text-sm text-muted-foreground">고객 발송, 가격·납기, 계약·정산, 포트폴리오 공개, tracking/live 변경을 승인·보류·반려로 기록합니다.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -68,7 +69,7 @@ export default async function ApprovalsPage() {
               const status = STATUS_META[item.status];
               const Icon = status.icon;
               return (
-                <div key={item.id} className="grid gap-3 px-5 py-4 text-sm lg:grid-cols-[90px_110px_1fr_130px_110px] lg:items-center">
+                <div key={item.id} className="grid gap-3 px-5 py-4 text-sm xl:grid-cols-[90px_110px_1fr_120px_105px_230px] xl:items-center">
                   <span className={`w-fit rounded-full border px-2 py-1 text-xs ${item.priority === "P0" ? "border-rose-400/30 bg-rose-400/10 text-rose-200" : "border-white/10 text-muted-foreground"}`}>
                     {item.priority}
                   </span>
@@ -82,6 +83,7 @@ export default async function ApprovalsPage() {
                     <Icon className="size-3" />
                     {status.label}
                   </span>
+                  <ApprovalActions item={item} />
                 </div>
               );
             })
@@ -98,7 +100,7 @@ export default async function ApprovalsPage() {
             </div>
           ))}
         </div>
-        <Link href="/admin" className="mt-4 inline-flex text-sm text-primary">CEO Snapshot으로 돌아가기</Link>
+        <Link href="/admin" className="mt-4 inline-flex text-sm text-primary">대시보드로 돌아가기</Link>
       </section>
     </div>
   );

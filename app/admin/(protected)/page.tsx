@@ -35,8 +35,8 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs font-medium uppercase text-primary">CEO Snapshot</p>
-          <h2 className="mt-2 text-3xl font-semibold">AIO Admin ERP Command Center</h2>
+          <p className="text-xs font-medium uppercase text-primary">Dashboard</p>
+          <h2 className="mt-2 text-3xl font-semibold">대시보드</h2>
           <p className="mt-2 text-sm text-muted-foreground">일정, 매출, 문의, 마케팅, 승인대기, PM 진행을 매일 한 화면에서 확인합니다.</p>
         </div>
         <div className="flex items-center gap-3">

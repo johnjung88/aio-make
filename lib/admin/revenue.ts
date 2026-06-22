@@ -35,6 +35,7 @@ export type RevenueReport = {
     thisMonthRevenue:   number;
     thisMonthExpense:   number;
     thisMonthProfit:    number;
+    thisMonthContracts: number;
     totalOutstanding:   number;
     totalPaid:          number;
     avgContractAmount:  number;
@@ -45,6 +46,7 @@ const EMPTY_KPI = {
   thisMonthRevenue:  0,
   thisMonthExpense:  0,
   thisMonthProfit:   0,
+  thisMonthContracts: 0,
   totalOutstanding:  0,
   totalPaid:         0,
   avgContractAmount: 0,
@@ -55,21 +57,29 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
 
   const supabase = createSupabaseAdminClient();
 
-  const [monthlyRes, channelRes, categoryRes] = await Promise.all([
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const nextMonthStart = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+  const [monthlyRes, channelRes, categoryRes, contractCountRes] = await Promise.all([
     supabase.from("v_monthly_revenue").select("*").limit(24),
     supabase.from("v_channel_revenue").select("*"),
     supabase.from("v_category_revenue").select("*"),
+    supabase
+      .from("projects")
+      .select("id", { count: "exact", head: true })
+      .gte("created_at", monthStart.toISOString())
+      .lt("created_at", nextMonthStart.toISOString()),
   ]);
 
   // 뷰가 라이브 DB에 미적용되면 에러가 조용히 0으로 보이는 문제를 방지
-  const dbError = monthlyRes.error?.message || channelRes.error?.message || categoryRes.error?.message;
+  const dbError = monthlyRes.error?.message || channelRes.error?.message || categoryRes.error?.message || contractCountRes.error?.message;
 
   const monthly    = (monthlyRes.data  ?? []) as MonthlyRevenue[];
   const channels   = (channelRes.data  ?? []) as ChannelRevenue[];
   const categories = (categoryRes.data ?? []) as CategoryRevenue[];
 
   // KPI 계산 (이번 달 기준)
-  const now = new Date();
   const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
   const thisMonth = monthly.find((m) => m.month === thisMonthKey);
 
@@ -87,6 +97,7 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
       thisMonthRevenue:  thisMonth?.revenue  ?? 0,
       thisMonthExpense:  thisMonth?.expense  ?? 0,
       thisMonthProfit:   thisMonth?.profit   ?? 0,
+      thisMonthContracts: contractCountRes.count ?? 0,
       totalOutstanding,
       totalPaid,
       avgContractAmount: totalProjects > 0 ? Math.round(totalContracted / totalProjects) : 0,

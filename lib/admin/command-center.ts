@@ -461,7 +461,16 @@ export async function getCommandCenterData(): Promise<CommandCenterData> {
   errors.push(...marketingResult.errors.slice(0, 2));
 
   const virtual = virtualApprovals(inboxResult.items, contractResult.contracts);
-  const approvals = [...approvalResult.approvals, ...virtual].sort((a, b) => {
+  const materializedTargets = new Set(
+    approvalResult.approvals
+      .filter((item) => item.targetType && item.targetId)
+      .map((item) => `${item.targetType}:${item.targetId}:${item.type}`),
+  );
+  const unresolvedVirtual = virtual.filter((item) => {
+    if (!item.targetType || !item.targetId) return true;
+    return !materializedTargets.has(`${item.targetType}:${item.targetId}:${item.type}`);
+  });
+  const approvals = [...approvalResult.approvals, ...unresolvedVirtual].sort((a, b) => {
     const priorityOrder = { P0: 0, P1: 1, P2: 2 };
     return priorityOrder[a.priority] - priorityOrder[b.priority] || b.createdAt.localeCompare(a.createdAt);
   });

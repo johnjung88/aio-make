@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { getServiceById, servicesData, relatedCategoriesMap } from "@/lib/services-data";
 import type { ServiceCategory } from "@/lib/services-data";
+import { getServicesWithPriceOverrides } from "@/lib/admin/service-price-overrides";
 import { TypeBadge } from "@/components/ui/type-badge";
 import { GuaranteeBadge } from "@/components/ui/guarantee-badge";
 import { PricingTable } from "@/components/sections/pricing-table";
@@ -24,6 +25,8 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "video-content": "video",
   "logo-business-card": "design",
 };
+
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return VALID.map((category) => ({ category }));
@@ -62,7 +65,7 @@ export default async function ServiceDetailPage({
 
   if (!VALID.includes(category as ServiceCategory)) notFound();
 
-  const service = getServiceById(category as ServiceCategory);
+  const service = (await getServicesWithPriceOverrides()).find((item) => item.id === category);
   if (!service) notFound();
 
   const t = await getTranslations({ locale, namespace: "common" });

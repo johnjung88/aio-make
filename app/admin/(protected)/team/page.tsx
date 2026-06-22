@@ -100,7 +100,7 @@ export default function AdminTeamPage() {
           { href: "/admin/bot", label: "자사몰 봇" },
           { href: "/admin/inbox", label: "문의함" },
           { href: "/admin/approvals", label: "승인센터" },
-          { href: "/admin/work", label: "PM 업무 현황" },
+          { href: "/admin/work", label: "업무 칸반" },
         ].map((item) => (
           <Link key={item.href} href={item.href} className="flex items-center justify-between rounded-lg border border-white/10 bg-card px-4 py-3 text-sm hover:bg-white/[0.04]">
             {item.label}

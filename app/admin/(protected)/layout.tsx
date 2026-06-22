@@ -1,7 +1,7 @@
 import type React from "react";
 import Link from "next/link";
 import {
-  BarChart3, BriefcaseBusiness, CalendarDays, CheckSquare, DollarSign, Image, Inbox,
+  BriefcaseBusiness, CalendarDays, CheckSquare, DollarSign, Image, Inbox,
   LayoutDashboard, Link2, LogOut, PieChart, Users, Download,
   Receipt, Bot, Settings, FileText, Megaphone, ShieldCheck, Wallet,
 } from "lucide-react";
@@ -16,7 +16,7 @@ const navGroups: NavGroup[] = [
     items: [
       { href: "/admin/calendar",  label: "일정 캘린더", icon: CalendarDays },
       { href: "/admin/approvals", label: "승인 센터", icon: ShieldCheck },
-      { href: "/admin/work",      label: "PM 업무 현황", icon: CheckSquare },
+      { href: "/admin/work",      label: "업무 칸반", icon: CheckSquare },
     ],
   },
   {
@@ -56,7 +56,6 @@ const navGroups: NavGroup[] = [
   {
     title: "시스템",
     items: [
-      { href: "/admin/kanban",    label: "업무 칸반", icon: BarChart3 },
       { href: "/admin/bot",       label: "봇 관리",   icon: Bot },
       { href: "/admin/settings",  label: "설정 · 점검", icon: Settings },
     ],
@@ -79,7 +78,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <div className="px-3 pt-4 pb-1">
             <Link href="/admin" className="flex h-9 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition hover:bg-white/5 hover:text-foreground">
               <LayoutDashboard className="size-4" />
-              CEO Snapshot
+              대시보드
             </Link>
           </div>
 

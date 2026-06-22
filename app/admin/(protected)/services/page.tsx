@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, FileText, Megaphone } from "lucide-react";
-import { metaCategoriesData, servicesData, type ServiceCategory } from "@/lib/services-data";
+import { metaCategoriesData, type ServiceCategory } from "@/lib/services-data";
+import { AddonPriceEditor, TierPriceEditor } from "@/components/admin/service-price-editor";
+import { getServicesWithPriceOverrides } from "@/lib/admin/service-price-overrides";
 
 export const metadata = {
   title: "서비스 가격 | AIO 관리자",
@@ -16,7 +18,8 @@ const PUBLIC_PATH: Record<ServiceCategory, string> = {
   "video-content": "/ko/services/video",
 };
 
-export default function AdminServicesPage() {
+export default async function AdminServicesPage() {
+  const servicesData = await getServicesWithPriceOverrides();
   const liveServices = servicesData.length;
   const tierCount = servicesData.reduce((sum, service) => sum + service.pricing.length, 0);
   const addonCount = servicesData.reduce((sum, service) => sum + (service.addons?.length ?? 0), 0);
@@ -27,7 +30,7 @@ export default function AdminServicesPage() {
         <p className="text-xs font-medium uppercase text-primary">Content Source</p>
         <h2 className="mt-2 text-3xl font-semibold">서비스 · 가격</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          공개 서비스/가격 원본인 `lib/services-data.ts` 기준으로 운영 현황을 정리합니다. 가격 변경과 공개 반영은 승인센터 대상입니다.
+          공개 서비스/가격 원본 위에 admin 수동 수정값을 반영합니다. 최종 가격 확정과 고객 발송은 승인센터 대상입니다.
         </p>
       </div>
 
@@ -99,10 +102,11 @@ export default function AdminServicesPage() {
                       <th className="py-2">가격</th>
                       <th className="py-2">기간</th>
                       <th className="py-2">포함</th>
+                      <th className="py-2">수동 수정</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/10">
-                    {service.pricing.map((tier) => (
+                    {service.pricing.map((tier, index) => (
                       <tr key={`${service.id}-${tier.name.ko}`}>
                         <td className="py-3 font-medium">
                           {tier.name.ko}
@@ -111,6 +115,16 @@ export default function AdminServicesPage() {
                         <td className="py-3 text-primary">{tier.eventPrice || tier.regularPrice || "별도 견적"}</td>
                         <td className="py-3 text-muted-foreground">{tier.duration || "-"}</td>
                         <td className="py-3 text-xs text-muted-foreground">{tier.includes.slice(0, 3).map((item) => item.ko).join(" · ")}</td>
+                        <td className="min-w-[300px] py-3">
+                          <TierPriceEditor
+                            serviceId={service.id}
+                            itemIndex={index}
+                            itemName={tier.name.ko}
+                            eventPrice={tier.eventPrice}
+                            regularPrice={tier.regularPrice}
+                            duration={tier.duration}
+                          />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -124,10 +138,18 @@ export default function AdminServicesPage() {
                     {(service.addons ?? []).length === 0 ? (
                       <p className="text-sm text-muted-foreground">등록된 추가 옵션 없음</p>
                     ) : (
-                      service.addons?.slice(0, 6).map((addon) => (
-                        <div key={`${service.id}-${addon.name.ko}`} className="flex justify-between gap-3 rounded-md bg-white/[0.03] px-3 py-2 text-sm">
-                          <span>{addon.name.ko}</span>
-                          <span className="shrink-0 text-primary">{addon.price}</span>
+                      service.addons?.slice(0, 6).map((addon, index) => (
+                        <div key={`${service.id}-${addon.name.ko}`} className="space-y-2 rounded-md bg-white/[0.03] px-3 py-2 text-sm">
+                          <div className="flex justify-between gap-3">
+                            <span>{addon.name.ko}</span>
+                            <span className="shrink-0 text-primary">{addon.price}</span>
+                          </div>
+                          <AddonPriceEditor
+                            serviceId={service.id}
+                            itemIndex={index}
+                            itemName={addon.name.ko}
+                            price={addon.price}
+                          />
                         </div>
                       ))
                     )}
@@ -144,7 +166,7 @@ export default function AdminServicesPage() {
       </section>
 
       <section className="rounded-lg border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-        이 화면은 현재 원본을 읽어 보여주는 관리 현황판입니다. admin에서 가격을 입력해 공개 페이지에 즉시 반영하려면 `service_pricing_drafts` 테이블, 승인 요청, publish API를 추가해야 합니다.
+        수동 수정값은 DB override로 저장되어 admin 가격표와 견적 작업 기준값으로 관리됩니다. 공개 가격 페이지까지 즉시 반영하려면 현재 정적 생성 구조를 publish/revalidate 흐름으로 한 번 더 연결해야 합니다. 고객에게 견적서를 보내거나 최종 가격을 확정할 때는 승인센터 기록을 먼저 남겨주세요.
       </section>
     </div>
   );

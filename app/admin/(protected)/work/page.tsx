@@ -1,9 +1,18 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, BarChart3, CheckSquare, Clock3 } from "lucide-react";
+import { AlertTriangle, ArrowRight, CheckSquare, Clock3 } from "lucide-react";
 import { getCommandCenterData, type WorkItem } from "@/lib/admin/command-center";
+import {
+  kstMonthStart,
+  kstToday,
+  kstWeekStart,
+  listMonthTasks,
+  listTodayTasks,
+  listWeekTasks,
+} from "@/lib/admin/tasks";
+import { KanbanBoard } from "@/components/admin/kanban-board";
 
 export const metadata = {
-  title: "PM 업무 현황 | AIO 관리자",
+  title: "업무 칸반 | AIO 관리자",
 };
 
 const LANE_LABELS: Record<WorkItem["lane"], string> = {
@@ -19,7 +28,13 @@ function laneItems(items: WorkItem[], lane: WorkItem["lane"]) {
 }
 
 export default async function WorkPage() {
-  const data = await getCommandCenterData();
+  const now = new Date();
+  const [data, todayTasks, weekTasks, monthTasks] = await Promise.all([
+    getCommandCenterData(),
+    listTodayTasks(now),
+    listWeekTasks(now),
+    listMonthTasks(now),
+  ]);
   const lanes: WorkItem["lane"][] = ["today", "week", "month", "project", "blocked"];
 
   return (
@@ -27,14 +42,19 @@ export default async function WorkPage() {
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-xs font-medium uppercase text-primary">Work Board</p>
-          <h2 className="mt-2 text-3xl font-semibold">PM 업무 현황</h2>
-          <p className="mt-2 text-sm text-muted-foreground">텔레그램 할 일과 진행 프로젝트를 같은 운영 보드에서 확인합니다.</p>
+          <h2 className="mt-2 text-3xl font-semibold">업무 칸반</h2>
+          <p className="mt-2 text-sm text-muted-foreground">일정 캘린더와 같은 task 데이터를 사용합니다. 여기서 할 일을 생성·상태변경하고, 아래에서 PM 리스크를 함께 봅니다.</p>
         </div>
-        <Link href="/admin/kanban" className="inline-flex h-9 items-center gap-2 rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground">
-          <BarChart3 className="size-4" />
-          Kanban 열기
-        </Link>
       </div>
+
+      <KanbanBoard
+        todayTasks={todayTasks}
+        weekTasks={weekTasks}
+        monthTasks={monthTasks}
+        today={kstToday(now)}
+        weekStart={kstWeekStart(now)}
+        monthStart={kstMonthStart(now)}
+      />
 
       {data.risks.length > 0 && (
         <section className="rounded-lg border border-rose-500/20 bg-rose-500/10 p-4">
