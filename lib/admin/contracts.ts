@@ -127,8 +127,61 @@ export async function updateContractRecord(payload: UpdateContractPayload): Prom
     if (error) throw new Error(error.message);
   }
 
+  if (payload.status === "canceled") {
+    await cancelProjectInvoices(payload.projectId, payload.invoiceId);
+    return;
+  }
+
+  if (payload.status) {
+    await restoreProjectInvoices(payload.projectId, payload.invoiceId);
+  }
+
   if (payload.invoiceId && payload.paidAmount !== undefined) {
     await updateInvoicePayment(payload.invoiceId, payload.paidAmount);
+  }
+}
+
+async function cancelProjectInvoices(projectId: string, invoiceId?: string): Promise<void> {
+  const supabase = createSupabaseAdminClient();
+  let query = supabase
+    .from("invoices")
+    .update({
+      outstanding_amount: 0,
+      payment_status: "canceled",
+      paid_at: null,
+    })
+    .eq("project_id", projectId);
+
+  if (invoiceId) query = query.eq("id", invoiceId);
+  const { error } = await query;
+  if (error) throw new Error(error.message);
+}
+
+async function restoreProjectInvoices(projectId: string, invoiceId?: string): Promise<void> {
+  const supabase = createSupabaseAdminClient();
+  let readQuery = supabase
+    .from("invoices")
+    .select("id, net_amount, paid_amount, payment_status")
+    .eq("project_id", projectId)
+    .eq("payment_status", "canceled");
+
+  if (invoiceId) readQuery = readQuery.eq("id", invoiceId);
+  const { data, error } = await readQuery;
+  if (error) throw new Error(error.message);
+
+  for (const invoice of data ?? []) {
+    const paidAmount = Math.min(invoice.paid_amount ?? 0, invoice.net_amount ?? 0);
+    const status = paymentStatus(invoice.net_amount ?? 0, paidAmount);
+    const { error: updateError } = await supabase
+      .from("invoices")
+      .update({
+        paid_amount: paidAmount,
+        outstanding_amount: Math.max((invoice.net_amount ?? 0) - paidAmount, 0),
+        payment_status: status,
+        paid_at: status === "paid" ? new Date().toISOString() : null,
+      })
+      .eq("id", invoice.id);
+    if (updateError) throw new Error(updateError.message);
   }
 }
 

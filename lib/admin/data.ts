@@ -186,7 +186,7 @@ export async function getDashboardMetrics(): Promise<{ metrics: DashboardMetrics
         .select("id", { count: "exact", head: true })
         .in("status", ["in_progress", "blocked", "review"])
         .lte("due_date", soon.toISOString().slice(0, 10)),
-      supabase.from("invoices").select("net_amount, paid_amount, outstanding_amount, paid_at, payment_status"),
+      supabase.from("invoices").select("net_amount, paid_amount, outstanding_amount, paid_at, payment_status").neq("payment_status", "canceled"),
     ]);
 
     const invoices = (invoiceRows.data ?? []) as Array<{
@@ -237,6 +237,10 @@ function toContract(row: Record<string, unknown>): AdminContract {
         ? netAmount
         : 0;
 
+  const projectStatus = String(row.status ?? "in_progress");
+  const rawPaymentStatus = String(invoice?.payment_status ?? (invoice?.paid_at ? "paid" : "unpaid"));
+  const isCanceled = projectStatus === "canceled" || rawPaymentStatus === "canceled";
+
   return {
     projectId: String(row.id),
     invoiceId: invoice?.id ? String(invoice.id) : undefined,
@@ -250,10 +254,11 @@ function toContract(row: Record<string, unknown>): AdminContract {
     productName: String(row.product_name ?? "계약명 미입력"),
     contractedAmount: amount,
     paidAmount,
-    outstandingAmount:
-      typeof invoice?.outstanding_amount === "number" ? invoice.outstanding_amount : Math.max(netAmount - paidAmount, 0),
-    paymentStatus: String(invoice?.payment_status ?? (invoice?.paid_at ? "paid" : "unpaid")),
-    projectStatus: String(row.status ?? "in_progress"),
+    outstandingAmount: isCanceled
+      ? 0
+      : typeof invoice?.outstanding_amount === "number" ? invoice.outstanding_amount : Math.max(netAmount - paidAmount, 0),
+    paymentStatus: isCanceled ? "canceled" : rawPaymentStatus,
+    projectStatus,
     startDate: row.start_date ? String(row.start_date) : undefined,
     dueDate: row.due_date ? String(row.due_date) : undefined,
     completedDate: row.completed_date ? String(row.completed_date) : undefined,

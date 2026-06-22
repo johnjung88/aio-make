@@ -119,10 +119,13 @@ export function ContractsManager({ contracts }: { contracts: AdminContract[] }) 
     () =>
       contracts.reduce(
         (acc, contract) => {
-          acc.amount += contract.contractedAmount;
-          acc.paid += contract.paidAmount;
-          acc.unpaid += contract.outstandingAmount;
-          if (contract.projectStatus !== "completed" && contract.projectStatus !== "canceled") acc.active += 1;
+          const canceled = contract.projectStatus === "canceled" || contract.paymentStatus === "canceled";
+          if (!canceled) {
+            acc.amount += contract.contractedAmount;
+            acc.paid += contract.paidAmount;
+            acc.unpaid += contract.outstandingAmount;
+          }
+          if (contract.projectStatus !== "completed" && !canceled) acc.active += 1;
           return acc;
         },
         { amount: 0, paid: 0, unpaid: 0, active: 0 },

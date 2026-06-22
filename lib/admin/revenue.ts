@@ -83,7 +83,8 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
       .lt("created_at", nextMonthStart.toISOString()),
     supabase
       .from("projects")
-      .select("id, channel, category, contracted_amount, created_at, invoices(id, net_amount, paid_amount, outstanding_amount, paid_at)")
+      .select("id, channel, category, contracted_amount, status, created_at, invoices(id, net_amount, paid_amount, outstanding_amount, payment_status, paid_at)")
+      .neq("status", "canceled")
       .order("created_at", { ascending: false })
       .limit(1200),
   ]);
@@ -178,6 +179,7 @@ function buildMonthlyDimensionRevenue(projects: Array<Record<string, unknown>>):
     }
 
     for (const invoice of invoices) {
+      if (String(invoice.payment_status ?? "") === "canceled") continue;
       const paidMonth = monthFrom(invoice.paid_at ? String(invoice.paid_at) : null);
       if (!paidMonth) continue;
       const paidAmount = numberValue(invoice.paid_amount) || numberValue(invoice.net_amount);
