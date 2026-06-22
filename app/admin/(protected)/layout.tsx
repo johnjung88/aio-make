@@ -32,7 +32,7 @@ const navGroups: NavGroup[] = [
     title: "재무",
     items: [
       { href: "/admin/finance",   label: "종합 관리",   icon: Wallet },
-      { href: "/admin/revenue",   label: "매출 리포트", icon: DollarSign },
+      { href: "/admin/revenue",   label: "매출 관리",   icon: DollarSign },
       { href: "/admin/expenses",  label: "지출 관리",   icon: Receipt },
     ],
   },

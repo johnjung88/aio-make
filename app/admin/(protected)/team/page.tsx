@@ -22,7 +22,7 @@ const ORG_LANES = [
     title: "재무 운영",
     owner: "aio_director_finance",
     mission: "매출/지출/미수/정기비용 흐름과 승인대기 재무 판단",
-    items: ["재무 종합", "매출 리포트", "지출 관리", "미수 확인"],
+    items: ["재무 종합", "매출 관리", "지출 관리", "미수 확인"],
   },
   {
     title: "개발/시스템 운영",

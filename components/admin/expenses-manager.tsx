@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Trash2, RefreshCw } from "lucide-react";
 import type { Expense, RecurringExpense } from "@/lib/admin/expenses";
-import { EXPENSE_CATEGORIES, RECURRING_CYCLES } from "@/lib/admin/expenses-config";
+import { RECURRING_CYCLES } from "@/lib/admin/expenses-config";
 
 function formatKRW(n?: number) {
   if (n == null) return "변동";
@@ -12,8 +12,22 @@ function formatKRW(n?: number) {
   return `${n.toLocaleString("ko-KR")}원`;
 }
 
-const CAT_LABELS = Object.fromEntries(EXPENSE_CATEGORIES);
 const CYCLE_LABELS = Object.fromEntries(RECURRING_CYCLES);
+
+const EXPENSE_INPUT_CATEGORIES = [
+  ["tools", "API 비용"],
+  ["marketing", "마케팅비"],
+  ["other", "기타"],
+] as const;
+
+function opsExpenseLabel(expense: Pick<Expense, "category" | "item" | "vendor" | "recurring">) {
+  const text = `${expense.vendor ?? ""} ${expense.item ?? ""}`.toLowerCase();
+  if (expense.recurring) return "정기 구독";
+  if (expense.category === "marketing") return "마케팅비";
+  if (/api|token|usage|openai|anthropic|supabase|vercel|google|gemini|claude|chatgpt|cursor/.test(text)) return "API 비용";
+  if (expense.category === "tools" || expense.category === "platform_fee") return "API 비용";
+  return "기타";
+}
 
 // ── 지출 추가 폼 ─────────────────────────────────────────────
 
@@ -64,7 +78,7 @@ function AddExpenseForm({ onClose, onSaved }: { onClose: () => void; onSaved: ()
         <div>
           <label className="mb-1 block text-xs text-muted-foreground">카테고리 *</label>
           <select name="category" required className="w-full rounded border border-white/10 bg-[#0a0a0a] px-3 py-2 text-sm">
-            {EXPENSE_CATEGORIES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+            {EXPENSE_INPUT_CATEGORIES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
           </select>
         </div>
         <div>
@@ -135,7 +149,7 @@ function ExpenseRow({ expense, onDeleted }: { expense: Expense; onDeleted: () =>
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-medium">{expense.item}</span>
           {expense.vendor && <span className="text-xs text-muted-foreground">· {expense.vendor}</span>}
-          <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-muted-foreground">{CAT_LABELS[expense.category] ?? expense.category}</span>
+          <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-muted-foreground">{opsExpenseLabel(expense)}</span>
           {expense.vatDeductible && <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">부가세↓</span>}
         </div>
         <p className="mt-0.5 text-xs text-muted-foreground">{expense.date}</p>
@@ -211,29 +225,8 @@ export function ExpensesManager({
     return !q || e.item.toLowerCase().includes(q) || (e.vendor ?? "").toLowerCase().includes(q) || (e.notes ?? "").toLowerCase().includes(q);
   });
 
-  const totalThisMonth = (() => {
-    const m = new Date().toISOString().slice(0, 7);
-    return expenses.filter((e) => e.date.startsWith(m)).reduce((s, e) => s + e.amount, 0);
-  })();
-
-  const monthlyRecurringTotal = initialRecurring
-    .filter((r) => r.active && r.cycle === "monthly" && r.amount)
-    .reduce((s, r) => s + (r.amount ?? 0), 0);
-
   return (
     <div className="space-y-6">
-      {/* 요약 카드 */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-white/10 bg-card p-4">
-          <p className="text-xs text-muted-foreground">이번 달 지출</p>
-          <p className="mt-2 text-2xl font-semibold">{formatKRW(totalThisMonth)}</p>
-        </div>
-        <div className="rounded-lg border border-white/10 bg-card p-4">
-          <p className="text-xs text-muted-foreground">월 정기구독 합계</p>
-          <p className="mt-2 text-2xl font-semibold">{formatKRW(monthlyRecurringTotal)}</p>
-        </div>
-      </div>
-
       {/* 탭 */}
       <div className="flex gap-1 rounded-lg border border-white/10 bg-card p-1 w-fit">
         <button onClick={() => setTab("expenses")} className={`rounded px-4 py-1.5 text-sm transition ${tab === "expenses" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>

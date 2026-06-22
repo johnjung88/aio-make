@@ -33,6 +33,31 @@ export type RecurringExpense = {
   createdAt: string;
 };
 
+export type ExpenseOpsCategory = "subscription" | "api" | "marketing" | "other";
+
+export type MonthlyExpenseSummary = {
+  month: string;
+  total: number;
+  subscription: number;
+  api: number;
+  marketing: number;
+  other: number;
+  count: number;
+};
+
+export type ExpenseCategorySummary = {
+  key: ExpenseOpsCategory;
+  label: string;
+  amount: number;
+  count: number;
+};
+
+export const EXPENSE_OPS_CATEGORY_LABELS: Record<ExpenseOpsCategory, string> = {
+  subscription: "정기 구독",
+  api: "API 비용",
+  marketing: "마케팅비",
+  other: "기타",
+};
 
 function toExpense(row: Record<string, unknown>): Expense {
   return {
@@ -98,4 +123,57 @@ export async function getRecurringExpenses(): Promise<{ recurring: RecurringExpe
   } catch (err) {
     return { recurring: [], error: err instanceof Error ? err.message : "정기구독 데이터를 불러오지 못했습니다." };
   }
+}
+
+export function classifyExpenseCategory(expense: Pick<Expense, "category" | "item" | "vendor" | "recurring">): ExpenseOpsCategory {
+  const text = `${expense.vendor ?? ""} ${expense.item ?? ""}`.toLowerCase();
+  if (expense.recurring) return "subscription";
+  if (expense.category === "marketing") return "marketing";
+  if (/api|token|usage|openai|anthropic|supabase|vercel|google|gemini|claude|chatgpt|cursor/.test(text)) return "api";
+  if (expense.category === "tools" || expense.category === "platform_fee") return "api";
+  return "other";
+}
+
+export function buildMonthlyExpenseSummary(expenses: Expense[]): MonthlyExpenseSummary[] {
+  const map = new Map<string, MonthlyExpenseSummary>();
+
+  for (const expense of expenses) {
+    const month = expense.date.slice(0, 7);
+    const existing = map.get(month) ?? {
+      month,
+      total: 0,
+      subscription: 0,
+      api: 0,
+      marketing: 0,
+      other: 0,
+      count: 0,
+    };
+    const category = classifyExpenseCategory(expense);
+    existing.total += expense.amount;
+    existing[category] += expense.amount;
+    existing.count += 1;
+    map.set(month, existing);
+  }
+
+  return [...map.values()].sort((a, b) => b.month.localeCompare(a.month));
+}
+
+export function buildExpenseCategorySummary(expenses: Expense[]): ExpenseCategorySummary[] {
+  const map = new Map<ExpenseOpsCategory, ExpenseCategorySummary>();
+
+  for (const expense of expenses) {
+    const key = classifyExpenseCategory(expense);
+    const existing = map.get(key) ?? {
+      key,
+      label: EXPENSE_OPS_CATEGORY_LABELS[key],
+      amount: 0,
+      count: 0,
+    };
+    existing.amount += expense.amount;
+    existing.count += 1;
+    map.set(key, existing);
+  }
+
+  return (["subscription", "api", "marketing", "other"] as ExpenseOpsCategory[])
+    .map((key) => map.get(key) ?? { key, label: EXPENSE_OPS_CATEGORY_LABELS[key], amount: 0, count: 0 });
 }

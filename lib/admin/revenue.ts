@@ -27,10 +27,21 @@ export type CategoryRevenue = {
   outstanding_amount: number;
 };
 
+export type MonthlyDimensionRevenue = {
+  month:              string;
+  key:                string;
+  projects:           number;
+  contracted_amount:  number;
+  paid_amount:        number;
+  outstanding_amount: number;
+};
+
 export type RevenueReport = {
   monthly:    MonthlyRevenue[];
   channels:   ChannelRevenue[];
   categories: CategoryRevenue[];
+  monthlyChannels: MonthlyDimensionRevenue[];
+  monthlyCategories: MonthlyDimensionRevenue[];
   kpi: {
     thisMonthRevenue:   number;
     thisMonthExpense:   number;
@@ -61,7 +72,7 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
   const nextMonthStart = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-  const [monthlyRes, channelRes, categoryRes, contractCountRes] = await Promise.all([
+  const [monthlyRes, channelRes, categoryRes, contractCountRes, projectRevenueRes] = await Promise.all([
     supabase.from("v_monthly_revenue").select("*").limit(24),
     supabase.from("v_channel_revenue").select("*"),
     supabase.from("v_category_revenue").select("*"),
@@ -70,14 +81,26 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
       .select("id", { count: "exact", head: true })
       .gte("created_at", monthStart.toISOString())
       .lt("created_at", nextMonthStart.toISOString()),
+    supabase
+      .from("projects")
+      .select("id, channel, category, contracted_amount, created_at, invoices(id, net_amount, paid_amount, outstanding_amount, paid_at)")
+      .order("created_at", { ascending: false })
+      .limit(1200),
   ]);
 
   // 뷰가 라이브 DB에 미적용되면 에러가 조용히 0으로 보이는 문제를 방지
-  const dbError = monthlyRes.error?.message || channelRes.error?.message || categoryRes.error?.message || contractCountRes.error?.message;
+  const dbError =
+    monthlyRes.error?.message ||
+    channelRes.error?.message ||
+    categoryRes.error?.message ||
+    contractCountRes.error?.message ||
+    projectRevenueRes.error?.message;
 
   const monthly    = (monthlyRes.data  ?? []) as MonthlyRevenue[];
   const channels   = (channelRes.data  ?? []) as ChannelRevenue[];
   const categories = (categoryRes.data ?? []) as CategoryRevenue[];
+  const projectRows = (projectRevenueRes.data ?? []) as Array<Record<string, unknown>>;
+  const { monthlyChannels, monthlyCategories } = buildMonthlyDimensionRevenue(projectRows);
 
   // KPI 계산 (이번 달 기준)
   const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
@@ -92,6 +115,8 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
     monthly,
     channels,
     categories,
+    monthlyChannels,
+    monthlyCategories,
     dbError,
     kpi: {
       thisMonthRevenue:  thisMonth?.revenue  ?? 0,
@@ -102,6 +127,76 @@ export async function getRevenueReport(): Promise<(RevenueReport & { dbError?: s
       totalPaid,
       avgContractAmount: totalProjects > 0 ? Math.round(totalContracted / totalProjects) : 0,
     },
+  };
+}
+
+function monthFrom(value?: string | null): string | null {
+  return value ? value.slice(0, 7) : null;
+}
+
+function numberValue(value: unknown): number {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+function buildMonthlyDimensionRevenue(projects: Array<Record<string, unknown>>): {
+  monthlyChannels: MonthlyDimensionRevenue[];
+  monthlyCategories: MonthlyDimensionRevenue[];
+} {
+  const channelMap = new Map<string, MonthlyDimensionRevenue>();
+  const categoryMap = new Map<string, MonthlyDimensionRevenue>();
+
+  function ensure(map: Map<string, MonthlyDimensionRevenue>, month: string, key: string): MonthlyDimensionRevenue {
+    const id = `${month}:${key}`;
+    const existing = map.get(id);
+    if (existing) return existing;
+    const row: MonthlyDimensionRevenue = {
+      month,
+      key,
+      projects: 0,
+      contracted_amount: 0,
+      paid_amount: 0,
+      outstanding_amount: 0,
+    };
+    map.set(id, row);
+    return row;
+  }
+
+  for (const project of projects) {
+    const channel = String(project.channel ?? "other");
+    const category = String(project.category ?? "other");
+    const contractedAmount = numberValue(project.contracted_amount);
+    const createdMonth = monthFrom(project.created_at ? String(project.created_at) : null);
+    const invoices = Array.isArray(project.invoices) ? (project.invoices as Array<Record<string, unknown>>) : [];
+
+    if (createdMonth) {
+      const channelRow = ensure(channelMap, createdMonth, channel);
+      const categoryRow = ensure(categoryMap, createdMonth, category);
+      channelRow.projects += 1;
+      categoryRow.projects += 1;
+      channelRow.contracted_amount += contractedAmount;
+      categoryRow.contracted_amount += contractedAmount;
+    }
+
+    for (const invoice of invoices) {
+      const paidMonth = monthFrom(invoice.paid_at ? String(invoice.paid_at) : null);
+      if (!paidMonth) continue;
+      const paidAmount = numberValue(invoice.paid_amount) || numberValue(invoice.net_amount);
+      const outstandingAmount = numberValue(invoice.outstanding_amount);
+      const channelRow = ensure(channelMap, paidMonth, channel);
+      const categoryRow = ensure(categoryMap, paidMonth, category);
+      channelRow.paid_amount += paidAmount;
+      categoryRow.paid_amount += paidAmount;
+      channelRow.outstanding_amount += outstandingAmount;
+      categoryRow.outstanding_amount += outstandingAmount;
+    }
+  }
+
+  const sortRows = (rows: MonthlyDimensionRevenue[]) =>
+    rows.sort((a, b) => b.month.localeCompare(a.month) || b.paid_amount - a.paid_amount);
+
+  return {
+    monthlyChannels: sortRows([...channelMap.values()]),
+    monthlyCategories: sortRows([...categoryMap.values()]),
   };
 }
 
