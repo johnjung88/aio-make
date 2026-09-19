@@ -1,0 +1,17 @@
+# Local verification only. No real provider credentials.
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54339
+NEXT_PUBLIC_SUPABASE_ANON_KEY=local-test-anon
+SUPABASE_SERVICE_ROLE_KEY=local-test-service
+NEXT_PUBLIC_SITE_URL=http://127.0.0.1:3319
+ADMIN_USERNAME=local-review
+ADMIN_PASSWORD=local-test-only-password
+ADMIN_SESSION_SECRET=local-test-only-session-secret-not-production
+MARKETING_INTAKE_ENABLED=true
+MARKETING_CONSENT_VERSION=local-test-v1
+MARKETING_CONSENT_NOTICE=로컬 시험용 동의 안내입니다. 가상 업체 정보만 입력하며 시험 종료 후 폐기합니다. 실제 고객 접수용 안내가 아닙니다.
+MARKETING_EXTERNAL_ENABLED=false
+MARKETING_CONTENT_PUBLISH_ENABLED=false
+MARKETING_SLACK_OWNER=owner-test
+MARKETING_SLACK_TEAM=team-test
+MARKETING_SLACK_CHANNEL=channel-test
+MARKETING_SLACK_SIGNING_SECRET=local-test-signing
