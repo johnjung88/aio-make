@@ -1,36 +1,14 @@
 import type { Metadata } from "next";
-import { hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-
-import { routing } from "@/i18n/routing";
-import { SiteHeader, SiteFooter } from "@/components/sections/site-shell";
-import { PublicChatbot } from "@/components/chatbot/public-chatbot";
-import { AnalyticsInit } from "@/components/analytics-init";
-
+import { MarketingHeader, MarketingFooter } from "@/components/marketing/site";
+import "../marketing.css";
+import { MarketingAttribution } from "@/components/marketing/attribution";
 export const dynamic = "force-dynamic";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "hero" });
-  return {
-    title: {
-      default: `AIO에이전시 | ${t("headline")}`,
-      template: "%s | AIO에이전시",
-    },
-  };
-}
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
-
+export const metadata: Metadata = {
+  title: { default: "AIO | 매장을 위한 통합 마케팅", template: "%s | AIO" },
+  description:
+    "재방문 준비·콘텐츠 운영·유입 측정을 하나의 월간 플랜으로 연결합니다.",
+};
 export default async function LocaleLayout({
   children,
   params,
@@ -38,21 +16,13 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
-  const messages = await getMessages();
-
+  if ((await params).locale !== "ko") notFound();
   return (
-    <NextIntlClientProvider messages={messages}>
-      <AnalyticsInit />
-      <SiteHeader />
+    <div className="m-site">
+      <MarketingAttribution />
+      <MarketingHeader />
       <main>{children}</main>
-      <SiteFooter />
-      <PublicChatbot locale={locale} />
-    </NextIntlClientProvider>
+      <MarketingFooter />
+    </div>
   );
 }

@@ -1,0 +1,18 @@
+
+> aio-agency@0.1.0 test:marketing
+> node tests/marketing/sql.test.mjs && tsx tests/marketing/security.test.ts
+
+PASS: recovery evidence, successful send once, inbound after send, Grok result deduplication, content retirement;
+PASS: transaction rollback, intake deduplication/conflict, approval deduplication, stale draft/reply rejection, reply deduplication, single claim, unknown delivery freeze, content version, anonymous access denial
+PASS: Slack signature/timestamp, owner/team/channel authorization, signed reply routing, English/retired route mapping
+
+PASS: recovery evidence, successful send once, inbound after send, Grok result deduplication, content retirement;
+PASS: transaction rollback, intake deduplication/conflict, approval deduplication, stale draft/reply rejection, reply deduplication, single claim, unknown delivery freeze, content version, anonymous access denial
+PASS: every new table has RLS; anon/authenticated denied across every new table and workflow function
+
+PASS HTTP (production build): root/English/retired/unprefixed routes, legacy sitemap redirect, private APIs, unauthorized Slack approval, idempotent intake, locale/service/consent validation, downloads.
+PASS Chrome: intake -> admin consultation -> human draft v1.
+PASS Chrome: A/B x home/marketing x desktop/mobile; no horizontal overflow; no page errors.
+PASS Chrome (production build): saved-but-lost response, no false success, refresh keeps key, retry returns same quoteId.
+PASS Chrome (production build): content field editing -> versioned draft -> private preview; draft absent from public page.
+NOT RUN: live Supabase migration/advisors, actual Slack/Grok, actual email send/reply, deployment.

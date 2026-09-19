@@ -22,6 +22,8 @@ const navGroups: NavGroup[] = [
   {
     title: "영업 · 고객",
     items: [
+      { href: "/admin/marketing-consultations", label: "마케팅 상담", icon: Inbox },
+      { href: "/admin/marketing-content", label: "사이트 콘텐츠", icon: FileText },
       { href: "/admin/inbox",      label: "문의함",    icon: Inbox },
       { href: "/admin/quotes",     label: "견적서",    icon: FileText },
       { href: "/admin/customers",  label: "고객 DB",   icon: Users },

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import { MarketingPage } from "@/components/marketing/site";
 import { localizedPageMetadata } from "@/lib/seo";
-import { MarketingHub } from "@/components/landing/marketing-hub";
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
-  const { locale } = await params;
-  return localizedPageMetadata({ locale, path: "/services/marketing",
-    title: locale === "ko" ? "마케팅 운영대행 — AIO" : "Marketing — AIO",
-    description: locale === "ko" ? "블로그·SNS·영상채널 운영대행 — 꾸준함이 만드는 유입." : "Blog, SNS, video channel ops." });
-}
-export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params; return <MarketingHub locale={locale} />;
+export const metadata = localizedPageMetadata({
+  locale: "ko",
+  path: "/services/marketing",
+  title: "통합 마케팅 서비스·가격",
+  description:
+    "재방문 준비·콘텐츠 운영·유입 측정. AIO의 통합 마케팅 안내입니다.",
+});
+export default function Page() {
+  return <MarketingPage />;
 }

@@ -22,10 +22,6 @@ export function localizedAlternates(locale: string, path = ""): NonNullable<Meta
   const canonical = localeUrl(locale, path);
   return {
     canonical,
-    languages: {
-      ko: localeUrl("ko", path),
-      "x-default": localeUrl("ko", path),
-    },
   };
 }
 
