@@ -1,0 +1,532 @@
+{
+  "environment": "Windows Chrome responsive emulation, local Next dev. Not physical mobile or live Supabase.",
+  "checks": [
+    {
+      "page": "/",
+      "requestedWidth": 375,
+      "broken": [],
+      "h1": "가능성을 연결해,당신의 일을앞으로.",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/",
+      "requestedWidth": 768,
+      "broken": [],
+      "h1": "가능성을 연결해,당신의 일을앞으로.",
+      "scroll": 753,
+      "width": 753
+    },
+    {
+      "page": "/",
+      "requestedWidth": 1024,
+      "broken": [],
+      "h1": "가능성을 연결해,당신의 일을앞으로.",
+      "scroll": 1009,
+      "width": 1009
+    },
+    {
+      "page": "/",
+      "requestedWidth": 1440,
+      "broken": [],
+      "h1": "가능성을 연결해,당신의 일을앞으로.",
+      "scroll": 1425,
+      "width": 1425
+    },
+    {
+      "page": "/marketing",
+      "requestedWidth": 375,
+      "broken": [],
+      "scroll": 360,
+      "services": 4,
+      "width": 360
+    },
+    {
+      "page": "/marketing",
+      "requestedWidth": 768,
+      "broken": [],
+      "scroll": 753,
+      "services": 4,
+      "width": 753
+    },
+    {
+      "page": "/marketing",
+      "requestedWidth": 1024,
+      "broken": [],
+      "scroll": 1009,
+      "services": 4,
+      "width": 1009
+    },
+    {
+      "page": "/marketing",
+      "requestedWidth": 1440,
+      "broken": [],
+      "scroll": 1425,
+      "services": 4,
+      "width": 1425
+    },
+    {
+      "page": "/lab",
+      "requestedWidth": 375,
+      "broken": [],
+      "scroll": 360,
+      "services": 4,
+      "width": 360
+    },
+    {
+      "page": "/lab",
+      "requestedWidth": 768,
+      "broken": [],
+      "scroll": 753,
+      "services": 4,
+      "width": 753
+    },
+    {
+      "page": "/lab",
+      "requestedWidth": 1024,
+      "broken": [],
+      "scroll": 1009,
+      "services": 4,
+      "width": 1009
+    },
+    {
+      "page": "/lab",
+      "requestedWidth": 1440,
+      "broken": [],
+      "scroll": 1425,
+      "services": 4,
+      "width": 1425
+    },
+    {
+      "page": "/video",
+      "requestedWidth": 375,
+      "broken": [],
+      "scroll": 360,
+      "services": 5,
+      "width": 360
+    },
+    {
+      "page": "/video",
+      "requestedWidth": 768,
+      "broken": [],
+      "scroll": 753,
+      "services": 5,
+      "width": 753
+    },
+    {
+      "page": "/video",
+      "requestedWidth": 1024,
+      "broken": [],
+      "scroll": 1009,
+      "services": 5,
+      "width": 1009
+    },
+    {
+      "page": "/video",
+      "requestedWidth": 1440,
+      "broken": [],
+      "scroll": 1425,
+      "services": 5,
+      "width": 1425
+    },
+    {
+      "page": "/lab/contact?service=shopping-mall",
+      "requestedWidth": 375,
+      "inputs": 6,
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/lab/contact?service=shopping-mall",
+      "requestedWidth": 768,
+      "inputs": 6,
+      "scroll": 753,
+      "width": 753
+    },
+    {
+      "page": "/lab/contact?service=shopping-mall",
+      "requestedWidth": 1024,
+      "inputs": 6,
+      "scroll": 1009,
+      "width": 1009
+    },
+    {
+      "page": "/lab/contact?service=shopping-mall",
+      "requestedWidth": 1440,
+      "inputs": 6,
+      "scroll": 1425,
+      "width": 1425
+    },
+    {
+      "page": "/admin/login",
+      "requestedWidth": 375,
+      "inputs": 2,
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/admin/login",
+      "requestedWidth": 768,
+      "inputs": 2,
+      "scroll": 768,
+      "width": 768
+    },
+    {
+      "page": "/admin/login",
+      "requestedWidth": 1024,
+      "inputs": 2,
+      "scroll": 1024,
+      "width": 1024
+    },
+    {
+      "page": "/admin/login",
+      "requestedWidth": 1440,
+      "inputs": 2,
+      "scroll": 1440,
+      "width": 1440
+    },
+    {
+      "page": "/admin",
+      "view": "대시보드",
+      "requestedWidth": 375,
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/admin",
+      "view": "대시보드",
+      "requestedWidth": 768,
+      "scroll": 753,
+      "width": 753
+    },
+    {
+      "page": "/admin",
+      "view": "대시보드",
+      "requestedWidth": 1024,
+      "scroll": 1009,
+      "width": 1009
+    },
+    {
+      "page": "/admin",
+      "view": "대시보드",
+      "requestedWidth": 1440,
+      "scroll": 1440,
+      "width": 1440
+    },
+    {
+      "page": "/admin",
+      "view": "문의·상담 내역",
+      "requestedWidth": 375,
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/admin",
+      "view": "문의·상담 내역",
+      "requestedWidth": 768,
+      "scroll": 753,
+      "width": 753
+    },
+    {
+      "page": "/admin",
+      "view": "문의·상담 내역",
+      "requestedWidth": 1024,
+      "scroll": 1009,
+      "width": 1009
+    },
+    {
+      "page": "/admin",
+      "view": "문의·상담 내역",
+      "requestedWidth": 1440,
+      "scroll": 1425,
+      "width": 1425
+    },
+    {
+      "page": "/admin",
+      "view": "레퍼런스·인사이트",
+      "requestedWidth": 375,
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/admin",
+      "view": "레퍼런스·인사이트",
+      "requestedWidth": 768,
+      "scroll": 753,
+      "width": 753
+    },
+    {
+      "page": "/admin",
+      "view": "레퍼런스·인사이트",
+      "requestedWidth": 1024,
+      "scroll": 1009,
+      "width": 1009
+    },
+    {
+      "page": "/admin",
+      "view": "레퍼런스·인사이트",
+      "requestedWidth": 1440,
+      "scroll": 1425,
+      "width": 1425
+    },
+    {
+      "page": "/admin",
+      "view": "방문·문의 통계",
+      "requestedWidth": 375,
+      "scroll": 375,
+      "width": 375
+    },
+    {
+      "page": "/admin",
+      "view": "방문·문의 통계",
+      "requestedWidth": 768,
+      "scroll": 768,
+      "width": 768
+    },
+    {
+      "page": "/admin",
+      "view": "방문·문의 통계",
+      "requestedWidth": 1024,
+      "scroll": 1024,
+      "width": 1024
+    },
+    {
+      "page": "/admin",
+      "view": "방문·문의 통계",
+      "requestedWidth": 1440,
+      "scroll": 1440,
+      "width": 1440
+    },
+    {
+      "page": "/marketing/services/integrated",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/marketing/services/integrated",
+      "h1": "통합 마케팅",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/marketing/services/sns",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/marketing/services/sns",
+      "h1": "SNS 대행 운영",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/marketing/services/ai-influencer",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/marketing/services/ai-influencer",
+      "h1": "AI 인플루언서 운영",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/marketing/services/seo",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/marketing/services/seo",
+      "h1": "SEO · AEO · GEO",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/lab/services/website",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/lab/services/website",
+      "h1": "웹사이트 제작",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/lab/services/shopping-mall",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/lab/services/shopping-mall",
+      "h1": "쇼핑몰 제작",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/lab/services/automation",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/lab/services/automation",
+      "h1": "업무 자동화",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/lab/services/program",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/lab/services/program",
+      "h1": "프로그램 개발",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/video/services/webtoon",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/video/services/webtoon",
+      "h1": "웹툰 제작",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/video/services/animation",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/video/services/animation",
+      "h1": "애니메이션",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/video/services/ai-influencer",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/video/services/ai-influencer",
+      "h1": "AI 인플루언서 제작",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/video/services/brand-film",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/video/services/brand-film",
+      "h1": "브랜드 홍보 · SNS 광고",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/video/services/editing",
+      "requestedWidth": 1440,
+      "canonical": "https://aio-make.com/video/services/editing",
+      "h1": "영상 편집",
+      "scroll": 1425,
+      "width": 1425,
+      "note": "Verified actual desktop viewport; initial mobile override targeted another tab."
+    },
+    {
+      "page": "/marketing/services/integrated",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/marketing/services/integrated",
+      "h1": "통합 마케팅",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/marketing/services/sns",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/marketing/services/sns",
+      "h1": "SNS 대행 운영",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/marketing/services/ai-influencer",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/marketing/services/ai-influencer",
+      "h1": "AI 인플루언서 운영",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/marketing/services/seo",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/marketing/services/seo",
+      "h1": "SEO · AEO · GEO",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/lab/services/website",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/lab/services/website",
+      "h1": "웹사이트 제작",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/lab/services/shopping-mall",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/lab/services/shopping-mall",
+      "h1": "쇼핑몰 제작",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/lab/services/automation",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/lab/services/automation",
+      "h1": "업무 자동화",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/lab/services/program",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/lab/services/program",
+      "h1": "프로그램 개발",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/video/services/webtoon",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/video/services/webtoon",
+      "h1": "웹툰 제작",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/video/services/animation",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/video/services/animation",
+      "h1": "애니메이션",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/video/services/ai-influencer",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/video/services/ai-influencer",
+      "h1": "AI 인플루언서 제작",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/video/services/brand-film",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/video/services/brand-film",
+      "h1": "브랜드 홍보 · SNS 광고",
+      "scroll": 360,
+      "width": 360
+    },
+    {
+      "page": "/video/services/editing",
+      "requestedWidth": 375,
+      "canonical": "https://aio-make.com/video/services/editing",
+      "h1": "영상 편집",
+      "scroll": 360,
+      "width": 360
+    }
+  ],
+  "flows": [
+    "Mobile navigation",
+    "Shop theme/cart",
+    "Service auto-selection",
+    "Inquiry receipt",
+    "Admin form login",
+    "Stored notes/status/audit",
+    "Rights gate",
+    "Reference published and unpublished"
+  ]
+}

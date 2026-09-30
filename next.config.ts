@@ -1,20 +1,8 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
-
-const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      { source: "/en", destination: "/ko", permanent: true },
-      { source: "/en/:path*", destination: "/ko/:path*", permanent: true },
-      { source: "/:locale/services/video-content", destination: "/:locale/services/video", permanent: true },
-      { source: "/:locale/services/video-content/:path*", destination: "/:locale/services/video/:path*", permanent: true },
-    ];
-  },
-  // 빌드 안정성 — 새 기능 작업 중 ESLint/TS 에러로 빌드 막히지 않게 임시 허용
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
+const config: NextConfig = {
+  poweredByHeader: false,
+  devIndicators: false,
+  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
   images: {
     remotePatterns: [
       {
@@ -24,6 +12,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "DENY" },
+        ],
+      },
+    ];
+  },
 };
-
-export default withNextIntl(nextConfig);
+export default config;

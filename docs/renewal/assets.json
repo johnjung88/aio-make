@@ -1,0 +1,93 @@
+[
+  {
+    "name": "hero",
+    "file": "exec-ee157384-65dd-4180-bed0-1c24e1a5b36c.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-ee157384-65dd-4180-bed0-1c24e1a5b36c.png",
+    "prompt": "Use case: stylized-concept. Asset type: full-width hero background for AIO MAKE Korean marketing/development/video agency website. Create an exceptionally refined editorial CGI artwork, landscape 1536x1024. A sculptural arrangement of three intersecting, substantial folded ribbons and translucent architectural planes, representing connection of strategy, engineering and moving stories. Composition: the luminous sculptural group occupies the right 55 percent; left 45 percent is nearly empty deep ink for large real HTML headline. Palette deep ink #0D0D12, rich violet #6B4DFF, subtle lavender #A99BFF, occasional matte ivory #F4F3EF. Materials polished anodized violet aluminum, smoked glass, finely textured ivory ceramic. Physically credible studio light, precisely crafted shadows, restrained violet reflections, expensive tactile art direction. Low perspective, depth, asymmetric balanced composition, crisp architectural folds. NO text, letters, logos, UI, people, holographic charts, stock agency computer desk, neon rainbow, watermarks. Entire image opaque with deep ink backdrop. This is abstract conceptual artwork, not a representation of actual customer results.",
+    "kind": "AI-generated conceptual brand visual; not customer reference",
+    "tool": "built-in image_gen",
+    "sha256": "aeede9ec0d9904bc4683ec5b496c25a7fa72c0bab34815c06652d26ccaa3bcd5",
+    "originalWidth": 1536,
+    "output": "/renewal/hero.webp",
+    "webBytes": 95832,
+    "originalProjectPath": "docs/renewal/generated-originals/hero-v01.png"
+  },
+  {
+    "name": "marketing",
+    "file": "exec-caa9679f-feb9-4d5e-8826-5c01d9147b52.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-caa9679f-feb9-4d5e-8826-5c01d9147b52.png",
+    "prompt": "Use case: stylized-concept. Asset: AIO MAKE marketing division hero and service card, square composition high resolution. Premium editorial still-life CGI showing the idea of questions spreading into connected customer touchpoints. A large violet translucent rounded disc surrounds a matte ivory folded speech form at center; three smaller carefully arranged ceramic and smoked-glass discs align into a purposeful outward orbit. Objects substantial, tactile, minimal, sculptural, not tiny icons. Deep ink background #0D0D12, studio floor with soft shadow, #6B4DFF violet and #A99BFF lavender glass with #F4F3EF paper-white ceramic. Precise physically plausible studio lighting, beautifully crafted fine surface textures, sculptural shadows and quiet visual authority. Central subject fits inside central 75 percent so crops work; elegant negative space, no bright rainbow. No text, no letters, no real logos, no people, no charts, no growth metrics, no stock office, no screens, no customer claims or watermarks. An abstract conceptual illustration, same brand world as refined violet aluminum/ivory/glass sculpture.",
+    "kind": "AI-generated conceptual brand visual; not customer reference",
+    "tool": "built-in image_gen",
+    "sha256": "19ef4ebb83a6b4fe0a0fa276371cde8264cf248e5bea4f6023ed5a41fa96502d",
+    "originalWidth": 1254,
+    "output": "/renewal/marketing.webp",
+    "webBytes": 83348,
+    "originalProjectPath": "docs/renewal/generated-originals/marketing-v01.png"
+  },
+  {
+    "name": "lab",
+    "file": "exec-e25024ef-8ae5-4d0a-8000-2af7832020ec.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-e25024ef-8ae5-4d0a-8000-2af7832020ec.png",
+    "prompt": "Use case: stylized-concept. Asset: AIO MAKE LAB development division visual, square composition high resolution. Premium editorial CGI sculpture of an engineered modular system: several precisely fitted ivory ceramic cuboids and violet anodized aluminum frames forming a stepped open structure, with one translucent smoked-glass plane and a single violet glass conduit connecting the modules. Tangible objects with believable construction and design studio craftsmanship, quiet architectural precision, not a digital HUD. The entire structural arrangement floats slightly over a deep ink studio floor with believable soft shadows, close low three-quarter camera perspective, centered inside 80 percent crop-safe composition. Deep ink #0D0D12, rich violet #6B4DFF, lavender #A99BFF accents, matte paper ivory #F4F3EF. Sophisticated physically credible studio lighting, tactile textures, no glowy sci-fi. Same brand world as refined violet/ivory/glass art. NO text, letters, logos, UI screenshots, humans, charts, watermarks, stock office. It is a conceptual brand visual, not a real client project.",
+    "kind": "AI-generated conceptual brand visual; not customer reference",
+    "tool": "built-in image_gen",
+    "sha256": "823420c5d54a03bd06a8f89aa81726e1bfff89646fd2a28c832e1dd80b3ea0f6",
+    "originalWidth": 1254,
+    "output": "/renewal/lab.webp",
+    "webBytes": 58082,
+    "originalProjectPath": "docs/renewal/generated-originals/lab-v01.png"
+  },
+  {
+    "name": "video",
+    "file": "exec-34ab9e2c-4f65-4681-a86b-0ff423ec1fc5.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-34ab9e2c-4f65-4681-a86b-0ff423ec1fc5.png",
+    "prompt": "Use case: stylized-concept. Asset: AIO MAKE VIDEO division square hero/card. Premium cinematic editorial CGI still life representing stories and frames in motion. Three monumental vertical translucent smoked glass frame panels arranged with deliberate parallax and a flowing violet anodized aluminum ribbon threading through them; a folded matte ivory ceramic shape anchors foreground. Beautiful sculptural construction, cinematic framing with depth, not a film clapper or camera stock photo. Quiet deep ink #0D0D12 studio backdrop, selective violet #6B4DFF and lavender #A99BFF light, off-white #F4F3EF ceramic, precise soft shadows and textured metallic highlights. Central composition occupying middle 80 percent, elegant negative space, low three-quarter perspective; objects complete in image. Tactile luxury design-studio quality, visually consistent with architectural violet aluminum/ivory/glass sculptures. No text or letters, no people or character faces, no logos, no icons, no rainbow, no movie posters, no screenshots, no watermarks. Conceptual brand artwork rather than customer reference.",
+    "kind": "AI-generated conceptual brand visual; not customer reference",
+    "tool": "built-in image_gen",
+    "sha256": "905637a8dfe08fec922893176e0070ecc3de09291b5e31ddf156e27e4bd1fc61",
+    "originalWidth": 1254,
+    "output": "/renewal/video.webp",
+    "webBytes": 96602,
+    "originalProjectPath": "docs/renewal/generated-originals/video-v01.png"
+  },
+  {
+    "name": "webtoon-sample",
+    "file": "exec-43e7cd28-7189-411d-ada7-8456f1d06662.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-43e7cd28-7189-411d-ada7-8456f1d06662.png",
+    "prompt": "Use case: illustration-story. Asset: AI-generated webtoon style sample for the AIO MAKE video agency service detail, not a customer work. Create an exquisitely finished single cinematic Korean webtoon illustration, landscape 1536x1024. Two fictional Korean adults in their late twenties, one woman in a lavender overshirt and one man in a charcoal jacket, collaborating at an airy creative studio table; one is showing a small violet paper model while the other thoughtfully smiles and sketches. Clear appealing natural facial anatomy, clean varied ink line weight, professionally controlled cel shading with restrained painterly light, excellent hand anatomy, credible tabletop perspective, complete original character designs. Three-quarter medium-wide scene, strong editorial framing and natural story moment. Palette paper ivory #F4F3EF, ink #0D0D12 shadows, lavender #A99BFF, violet #6B4DFF accents. Soft late-afternoon light through a studio window, subtle urban view with abstract architecture. Beautiful Korean graphic-novel craft, polished illustration rather than photo. NO text, speech bubbles, panels, lettering, brands, logos, watermarks or resemblance to existing artists' named styles, celebrities or copyrighted characters. Entire invented conceptual scene, no claim these are AIO staff.",
+    "kind": "AI-generated service concept/style sample; not automatically published as customer reference",
+    "tool": "built-in image_gen",
+    "originalProjectPath": "docs/renewal/generated-originals/webtoon-sample-v01.png",
+    "sha256": "54a4b1688717d54f28ef6ee608fe05a38373d798bd9c7e92afd4f526629c3ecb",
+    "originalWidth": 1536,
+    "output": "/renewal/webtoon-sample.webp",
+    "webBytes": 147780
+  },
+  {
+    "name": "animation-sample",
+    "file": "exec-5fae07ca-ec03-417c-813c-79e90431e2b2.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-5fae07ca-ec03-417c-813c-79e90431e2b2.png",
+    "prompt": "Use case: stylized-concept. Asset: AIO MAKE animation concept-image style sample, landscape 1536x1024. A gorgeous polished 3D animated-film keyframe, an entirely original small ivory rounded creature with two short asymmetric horn-like ears, tiny kind eyes and a violet knitted scarf, carrying a warm glowing lantern while walking across a miniature pale stone bridge through a fantastical paper city. Expressive curious walking pose, detailed tactile cloth, soft felt-like ivory skin, original creature design not resembling any existing franchise character, elegant small-scale architectural environment. Quiet lavender evening sky, deep ink shadows, paper ivory structures, violet doors and subtle lilac flower details, warm lantern light. Cinematic depth of field, clear appealing subject, beautiful composition, richly crafted 3D animation production lighting. Mood imaginative, hopeful, professional. Brand palette #0D0D12 #F4F3EF #6B4DFF #A99BFF with a restrained warm light accent. NO text, lettering, logos, watermark, posters, captions, humans, known characters or consumer brand packaging. A conceptual still image, not pretend footage from a customer film.",
+    "kind": "AI-generated service concept/style sample; not automatically published as customer reference",
+    "tool": "built-in image_gen",
+    "originalProjectPath": "docs/renewal/generated-originals/animation-sample-v01.png",
+    "sha256": "0a62465280fc4c0467294d5702362070d23df5e3336055edebf4a42b0a1ca3ef",
+    "originalWidth": 1536,
+    "output": "/renewal/animation-sample.webp",
+    "webBytes": 126506
+  },
+  {
+    "name": "influencer-sample",
+    "file": "exec-094d5751-379e-4a10-8808-f68f9ff1a22b.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-094d5751-379e-4a10-8808-f68f9ff1a22b.png",
+    "prompt": "Use case: photorealistic-natural. Asset: Clearly labeled AI-generated fictional influencer campaign-style sample for AIO MAKE video service page, landscape 1536x1024. Create a refined editorial lifestyle photograph of an entirely fictional Korean adult woman around age 27, approachable and natural rather than celebrity-like, with shoulder-length softly waved dark hair, wearing a lavender overshirt over an ivory top. She is at a minimal bright paper-ivory studio table, holding an unbranded matte violet ceramic cup with both hands at chest height, looking slightly past camera with a gentle confident expression. Natural realistic face and skin texture, believable hands and anatomy, subtle makeup, premium clean editorial composition, three-quarter upper-body medium framing with negative space to the right. Soft diffused window light, muted lavender and ivory palette, a discreet violet sculptural object in background, no excessive smoothing, no stock office or tech gimmicks. This is a conceptual fictional AI model, not an actual person, employee or customer. NO logos, text, labels, brands, watermark, known identity resemblance, social-media UI, metrics or testimonials.",
+    "kind": "AI-generated service concept/style sample; not automatically published as customer reference",
+    "tool": "built-in image_gen",
+    "originalProjectPath": "docs/renewal/generated-originals/influencer-sample-v01.png",
+    "sha256": "4d68439b6252aeac580f4c3a6835db03ed94edcb31e6e91a1cbeece93817bcc6",
+    "originalWidth": 1536,
+    "output": "/renewal/influencer-sample.webp",
+    "webBytes": 44222
+  }
+]

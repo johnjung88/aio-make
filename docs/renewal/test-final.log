@@ -1,0 +1,20 @@
+
+> aio-make@1.0.0 test
+> node --experimental-strip-types --test tests/*.test.mjs
+
+✔ candidate migration: atomic inquiries, idempotency, audit and public-content policy (1871.1933ms)
+✔ contact requires reachable address, consent and matching service (3.4061ms)
+✔ public entry requires confirmed rights and safe media (0.726ms)
+✔ media URLs reject credentials, traversal, script and untrusted hosts (0.2068ms)
+✔ legacy locale and service aliases resolve in one step (0.3371ms)
+✔ JSON-LD cannot close the script element (0.1244ms)
+✔ admin session rejects missing credentials, tampering, expiration and wrong password (0.8741ms)
+✔ origin checks the actual Host while respecting HTTPS proxy protocol (18.4628ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2029.6604

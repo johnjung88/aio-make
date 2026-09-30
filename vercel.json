@@ -1,9 +1,1 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    {
-      "source": "/make/ppt/:path*",
-      "destination": "https://aio-ppt.vercel.app/:path*"
-    }
-  ]
-}
+{ "framework": "nextjs" }

@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <defs>
-    <linearGradient id="aioAgencyLine" x1="140" y1="0" x2="372" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#06B6D4"/>
-      <stop offset=".58" stop-color="#2F6BFF"/>
-      <stop offset="1" stop-color="#A8FF3E"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="116" fill="#090D12"/>
-  <text x="256" y="250" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="126" font-weight="950" letter-spacing="-4" fill="#F8FAFC">AIO</text>
-  <rect x="140" y="280" width="232" height="13" rx="6.5" fill="url(#aioAgencyLine)"/>
-  <text x="256" y="344" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="8.5" fill="#A9B5C5">AGENCY</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#0D0D12"/><path d="M15 48 27 16h10l12 32H38l-2-7H27l-2 7Zm15-16h4l-2-8Z" fill="#F4F3EF"/><rect x="48" y="10" width="6" height="6" fill="#6B4DFF"/></svg>
