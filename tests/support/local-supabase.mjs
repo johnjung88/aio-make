@@ -29,6 +29,7 @@ const functions = {
   submit_website_inquiry: ["p_payload"],
   update_website_inquiry: ["p_id", "p_status", "p_note"],
   website_rate_limit: ["p_key", "p_limit", "p_seconds"],
+  list_website_inquiries: ["p_status", "p_search", "p_offset", "p_limit"],
 };
 function identifier(value) {
   if (!/^[a-z_]+$/.test(value)) throw new Error("invalid identifier");
@@ -71,7 +72,9 @@ const server = createServer(async (req, res) => {
           ? ["::jsonb"]
           : name === "update_website_inquiry"
             ? ["::uuid", "::text", "::text"]
-            : ["::text", "::integer", "::integer"];
+            : name === "list_website_inquiries"
+              ? ["::text", "::text", "::integer", "::integer"]
+              : ["::text", "::integer", "::integer"];
       const result = await db.query(
         "SELECT " +
           identifier(name) +

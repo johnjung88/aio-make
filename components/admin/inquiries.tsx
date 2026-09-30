@@ -1,5 +1,6 @@
 "use client";
-import { divisions } from "@/lib/content";
+import { useEffect, useId, useRef } from "react";
+import { divisions, services } from "@/lib/content";
 import { inquiryStatuses, statusLabels } from "@/lib/domain";
 import type { Inquiry, Note, InquiryData } from "./types";
 type Props = {
@@ -13,6 +14,10 @@ type Props = {
   nextStatus: string;
   note: string;
   busy: boolean;
+  loading: boolean;
+  appliedSearch: string;
+  applySearch: () => void;
+  clearSearch: () => void;
   setSearch: (v: string) => void;
   setStatusFilter: (v: string) => void;
   setPage: (v: number) => void;
@@ -33,6 +38,10 @@ export function InquiryPanel({
   nextStatus,
   note,
   busy,
+  loading,
+  appliedSearch,
+  applySearch,
+  clearSearch,
   setSearch,
   setStatusFilter,
   setPage,
@@ -42,20 +51,46 @@ export function InquiryPanel({
   detail,
   saveInquiry,
 }: Props) {
+  const detailHeading = useRef<HTMLHeadingElement>(null),
+    detailId = useId();
+  const openers = useRef<Record<string, HTMLButtonElement | null>>({});
+  const selectedId = selected?.id;
+  useEffect(() => {
+    if (selectedId) detailHeading.current?.focus();
+  }, [selectedId]);
   return (
     <section className="admin-panel">
       <div className="admin-toolbar">
         <h2>문의 목록</h2>
-        <div>
+        <form
+          className="inquiry-search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            applySearch();
+          }}
+        >
           <label>
-            현재 페이지 검색
+            전체 문의 검색
             <input
               aria-label="문의 검색"
               value={search}
+              maxLength={200}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="성함, 회사, 이메일, 내용"
+              placeholder="성함, 회사, 연락처, 내용"
             />
           </label>
+          <button type="submit" className="secondary-button" disabled={loading}>
+            검색
+          </button>
+          {(search || appliedSearch) && (
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={clearSearch}
+            >
+              초기화
+            </button>
+          )}
           <label>
             진행 상태
             <select
@@ -74,7 +109,7 @@ export function InquiryPanel({
               ))}
             </select>
           </label>
-        </div>
+        </form>
       </div>
       {!inquiries.connected ? (
         <div className="admin-message">
@@ -116,7 +151,21 @@ export function InquiryPanel({
                       </span>
                     </td>
                     <td>
-                      <button onClick={() => detail(i.id)}>열기 ↗</button>
+                      <button
+                        ref={(node) => {
+                          openers.current[i.id] = node;
+                        }}
+                        aria-label={
+                          (i.leads?.customer_name ?? "문의") + " 상담 열기"
+                        }
+                        aria-expanded={selected?.id === i.id}
+                        aria-controls={
+                          selected?.id === i.id ? detailId : undefined
+                        }
+                        onClick={() => detail(i.id)}
+                      >
+                        열기 ↗
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -124,16 +173,22 @@ export function InquiryPanel({
             </table>
           </div>
           {!filteredInquiries.length && (
-            <p>이 페이지에 표시할 문의가 없습니다.</p>
+            <p>
+              {appliedSearch || statusFilter !== "all"
+                ? "검색 조건에 맞는 문의가 없습니다. 검색어나 진행 상태를 바꿔보세요."
+                : "아직 접수된 문의가 없습니다."}
+            </p>
           )}
           <div className="admin-toolbar">
             <p>
-              총 {inquiries.total ?? 0}건 · {page}페이지
+              {appliedSearch ? "검색 결과 " : "총 "}
+              {inquiries.total ?? 0}건 · {page} /{" "}
+              {Math.max(1, Math.ceil((inquiries.total ?? 0) / 50))}페이지
             </p>
             <div>
               <button
                 className="secondary-button"
-                disabled={page === 1}
+                disabled={loading || page === 1}
                 onClick={() => {
                   setPage(page - 1);
                   setSelected(null);
@@ -143,7 +198,7 @@ export function InquiryPanel({
               </button>
               <button
                 className="secondary-button"
-                disabled={page * 50 >= (inquiries.total ?? 0)}
+                disabled={loading || page * 50 >= (inquiries.total ?? 0)}
                 onClick={() => {
                   setPage(page + 1);
                   setSelected(null);
@@ -156,12 +211,17 @@ export function InquiryPanel({
         </>
       )}
       {selected && (
-        <div className="admin-detail">
+        <div id={detailId} className="admin-detail">
           <div className="admin-toolbar">
-            <h3>{selected.leads?.customer_name ?? "문의 상세"}</h3>
+            <h3 ref={detailHeading} tabIndex={-1}>
+              {selected.leads?.customer_name ?? "문의 상세"}
+            </h3>
             <button
               className="secondary-button"
-              onClick={() => setSelected(null)}
+              onClick={() => {
+                openers.current[selected.id]?.focus();
+                setSelected(null);
+              }}
             >
               닫기
             </button>
@@ -180,7 +240,13 @@ export function InquiryPanel({
           </div>
           <p>{selected.raw_text}</p>
           <p>
-            서비스: {selected.leads?.source_meta?.service ?? "미분류"} · 유입:{" "}
+            서비스:{" "}
+            {services.find(
+              (service) =>
+                service.id === selected.leads?.source_meta?.service &&
+                service.division === selected.leads?.source_meta?.division,
+            )?.name ?? "미분류"}{" "}
+            · 유입:{" "}
             {selected.leads?.source_meta?.attribution?.utm?.utm_source ??
               selected.leads?.source_meta?.attribution?.landingPath ??
               "기존 기록"}

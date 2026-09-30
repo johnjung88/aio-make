@@ -9,7 +9,7 @@
 - 공개 URL: /, /marketing, /lab, /video, 분야별 services/contact/work/insights, /about, /work, /contact.
 - /ko·/KO·/en 접두사를 301로 제거하고 UTM을 보존합니다. /dev는 /lab로 이전합니다.
 - 서비스 설명과 선택 항목은 lib/content.ts 하나에서 관리합니다.
-- 생성 이미지 7장, 원본/프롬프트/SHA-256은 docs/renewal/assets.json에 기록했습니다.
+- 생성 이미지 8장, 원본/프롬프트/SHA-256은 docs/renewal/assets.json에 기록했습니다.
 - 원본 코드는 legacy/2026-10-01에 보존했습니다. 활성 앱과 검사에서는 제외합니다.
 
 ## 로컬 실행

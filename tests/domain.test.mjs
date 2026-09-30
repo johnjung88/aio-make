@@ -5,6 +5,7 @@ import {
   contactSchema,
   entrySchema,
   isSafeMediaUrl,
+  isSafeImageUrl,
   safeJsonLd,
 } from "../lib/domain.ts";
 import { legacyDestination } from "../lib/redirects.ts";
@@ -42,6 +43,8 @@ test("contact requires reachable address, consent and matching service", () => {
     { website: "spam" },
     { message: "a" },
     { email: "not-an-email" },
+    { email: "", phone: "++++++" },
+    { email: "", phone: "( ) - 12" },
   ])
     assert.equal(
       contactSchema.safeParse({ ...valid, ...value }).success,
@@ -96,6 +99,15 @@ test("media URLs reject credentials, traversal, script and untrusted hosts", () 
     "https://www.youtube.com/watch?v=123",
   ])
     assert.equal(isSafeMediaUrl(url), true);
+});
+test("cover images reject video URLs, foreign storage and private paths", () => {
+  for (const url of [
+    "https://www.youtube.com/watch?v=123",
+    "https://other.supabase.co/storage/v1/object/public/a.webp",
+    "https://rohodabwnabpqkxgxbft.supabase.co/storage/v1/object/authenticated/a.webp",
+  ])
+    assert.equal(isSafeImageUrl(url), false);
+  assert.equal(isSafeImageUrl("/renewal/lab.webp"), true);
 });
 test("legacy locale and service aliases resolve in one step", () => {
   for (const [from, to] of [

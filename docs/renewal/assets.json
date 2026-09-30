@@ -89,5 +89,18 @@
     "originalWidth": 1536,
     "output": "/renewal/influencer-sample.webp",
     "webBytes": 44222
+  },
+  {
+    "name": "shop-products",
+    "file": "exec-fa7aa657-3745-4f59-84e0-af98bcd58a09.png",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f353-626b-77a2-9035-4d3373cd1572\\exec-fa7aa657-3745-4f59-84e0-af98bcd58a09.png",
+    "prompt": "Use case: product-photography. Asset for AIO MAKE LAB Korean agency website's fictional homeware shopping demo. A single cohesive premium product still-life photograph, landscape 3:2 composition, three original unbranded everyday design objects on a warm off-white seamless surface: a matte lavender ceramic mug with a credible curved handle at left, a small brushed dark-violet metal table lamp with warm diffused light in the middle, and a sculptural ivory ceramic vase holding one simple branch at right. Distinct tactile surfaces, believable scale, beautifully controlled soft daylight from the left, refined quiet editorial photography, subtle natural shadows, restrained palette #F4F3EF #6B4DFF #A99BFF #0D0D12. Camera at product eye level slightly above tabletop, objects all fully visible across center horizontal band, empty space around objects. No people, no text, no letters, no logos, no watermarks, no price labels, no UI, no fake collage or sprite sheet. This depicts fictional design products for an explicitly labelled demo, no real brand or customer claim. Opaque background. Output high-resolution landscape image.",
+    "kind": "AI-generated fictional homeware product concept; not real product/customer reference",
+    "tool": "built-in image_gen",
+    "originalProjectPath": "docs/renewal/generated-originals/shop-products-v01.png",
+    "sha256": "2092584e8206f1270ed8090758eb9ea8df2d241ac6a872802497fae11184f959",
+    "originalWidth": 1536,
+    "output": "/renewal/shop-products.webp",
+    "webBytes": 34484
   }
 ]

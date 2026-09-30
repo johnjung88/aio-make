@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { publicEntries, publicEntry } from "@/lib/db";
 import { divisionByPath } from "@/lib/content";
 import { Eyebrow, ContactCTA } from "./ui";
-import { isSafeMediaUrl } from "@/lib/domain";
+import { isSafeImageUrl, isSafeMediaUrl } from "@/lib/domain";
 export async function EntryList({
   division,
   type,
@@ -43,7 +43,7 @@ export async function EntryList({
                   key={e.id}
                   href={"/" + d.path + "/" + segment + "/" + e.slug}
                 >
-                  {e.cover_url && isSafeMediaUrl(e.cover_url) && (
+                  {e.cover_url && isSafeImageUrl(e.cover_url) && (
                     <div className="content-image">
                       <Image
                         src={e.cover_url}
@@ -74,7 +74,7 @@ export async function EntryList({
               </h3>
               <p>
                 {type === "reference"
-                  ? "확인되지 않은 성과와 고객 사례를 게시하지 않습니다. 필요한 작업은 문의를 통해 확인해주세요."
+                  ? "프로젝트별 제공 범위와 제작 방식은 문의 시 안내합니다."
                   : "궁금한 서비스와 작업 방식은 분야별 안내에서 먼저 확인할 수 있습니다."}
               </p>
               <Link href={"/" + d.path + "/contact"}>프로젝트 문의 →</Link>
@@ -125,7 +125,7 @@ export async function EntryDetail({
           </Link>
         </div>
       </div>
-      {entry.cover_url && (
+      {entry.cover_url && isSafeImageUrl(entry.cover_url) && (
         <div className="container">
           <div className="entry-cover">
             <Image
@@ -140,7 +140,7 @@ export async function EntryDetail({
       )}
       <article className="container entry-body">
         <div className="text-body">{entry.body}</div>
-        {entry.video_url && (
+        {entry.video_url && isSafeMediaUrl(entry.video_url) && (
           <p>
             <a
               className="button"

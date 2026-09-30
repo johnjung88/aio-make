@@ -1,0 +1,9 @@
+PASS Search finds an inquiry beyond first 50 rows
+PASS Second page loads independently
+PASS Global search and status filter combine correctly
+PASS Percent search is literal, not a wildcard
+PASS Video and foreign storage URLs cannot be saved as cover images
+PASS Invalid legacy cover does not crash public entry rendering
+PASS Punctuation alone is rejected as a phone number
+PASS Non-image upload is rejected before Storage
+Regression flows 8

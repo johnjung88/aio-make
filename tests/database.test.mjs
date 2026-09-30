@@ -119,7 +119,33 @@ test("candidate migration: atomic inquiries, idempotency, audit and public-conte
         "INSERT INTO website_entries(type,division,service,slug,title,is_published,rights_confirmed) VALUES('reference','development','website','unconfirmed','미확인',true,false);",
       ),
     );
+    for (let i = 0; i < 60; i++)
+      await db.query("SELECT submit_website_inquiry($1::jsonb)", [
+        JSON.stringify({
+          ...payload,
+          idempotencyKey: crypto.randomUUID(),
+          name: "추가 문의 " + i,
+          email: "other" + i + "@example.test",
+        }),
+      ]);
+    const listing = async (status, search, offset = 0) =>
+      (
+        await db.query(
+          "SELECT list_website_inquiries($1::text,$2::text,$3::int,50) AS data",
+          [status, search, offset],
+        )
+      ).rows[0].data;
+    assert.equal((await listing("all", "")).items.length, 50);
+    assert.equal((await listing("all", "", 50)).items.length, 11);
+    const found = await listing("all", "검증 전용");
+    assert.equal(found.total, 1);
+    assert.equal(found.items[0].id, id);
+    assert.equal(found.globalTotal, 61);
+    assert.equal((await listing("replied", "검증 전용")).total, 1);
+    assert.equal((await listing("new", "검증 전용")).total, 0);
+    assert.equal((await listing("all", "%")).total, 0);
     await db.exec("SET ROLE anon");
+    await assert.rejects(() => listing("all", ""));
     assert.equal(
       (await db.query("SELECT * FROM website_entries")).rows.length,
       1,

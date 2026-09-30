@@ -1,6 +1,6 @@
 {
   "environment": "Windows Next dev + loopback REST test adapter + actual PGlite PostgreSQL. Not live Supabase.",
-  "at": "2026-09-30T19:55:32.934Z",
+  "at": "2026-09-30T21:18:27.421Z",
   "results": [
     {
       "test": "Unauthenticated admin APIs return 401",

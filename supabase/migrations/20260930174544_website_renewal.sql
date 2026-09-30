@@ -88,4 +88,27 @@ END $$;
 REVOKE ALL ON FUNCTION public.update_website_inquiry(uuid,text,text) FROM PUBLIC,anon,authenticated;
 GRANT EXECUTE ON FUNCTION public.update_website_inquiry(uuid,text,text) TO service_role;
 INSERT INTO storage.buckets(id,name,public,file_size_limit,allowed_mime_types) VALUES('website-media','website-media',true,5242880,ARRAY['image/webp']) ON CONFLICT(id) DO NOTHING;
+-- Search the full inquiry set before pagination; caller is the authenticated server.
+-- strpos uses a literal parameter, so wildcard/filter syntax is not executable.
+CREATE OR REPLACE FUNCTION public.list_website_inquiries(p_status text,p_search text,p_offset integer,p_limit integer)
+RETURNS jsonb LANGUAGE sql STABLE SECURITY DEFINER SET search_path=public,pg_temp AS $$
+ WITH matching AS (
+  SELECT q.id,q.lead_id,q.raw_text,q.status,q.category,q.created_at,
+   jsonb_build_object('id',l.id,'customer_name',l.customer_name,'company_name',l.company_name,'email',l.email,'phone',l.phone,'source_meta',l.source_meta) AS leads
+  FROM public.quote_requests q LEFT JOIN public.leads l ON l.id=q.lead_id
+  WHERE q.channel='website'
+   AND (COALESCE(p_status,'all')='all' OR q.status=p_status)
+   AND strpos(lower(concat_ws(' ',q.raw_text,l.customer_name,l.company_name,l.email,l.phone)),lower(left(btrim(COALESCE(p_search,'')),200)))>0
+ ), page_items AS (
+  SELECT * FROM matching ORDER BY created_at DESC,id DESC LIMIT LEAST(GREATEST(p_limit,1),50) OFFSET GREATEST(p_offset,0)
+ )
+ SELECT jsonb_build_object(
+  'items',COALESCE((SELECT jsonb_agg(to_jsonb(p) ORDER BY p.created_at DESC,p.id DESC) FROM page_items p),'[]'::jsonb),
+  'total',(SELECT count(*) FROM matching),
+  'globalTotal',(SELECT count(*) FROM public.quote_requests WHERE channel='website'),
+  'newCount',(SELECT count(*) FROM public.quote_requests WHERE channel='website' AND status='new')
+ );
+$$;
+REVOKE ALL ON FUNCTION public.list_website_inquiries(text,text,integer,integer) FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.list_website_inquiries(text,text,integer,integer) TO service_role;
 COMMIT;

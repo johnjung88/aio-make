@@ -15,40 +15,20 @@ export async function GET(request: Request) {
   const url = new URL(request.url),
     page = Math.max(
       1,
-      Math.min(10000, Number(url.searchParams.get("page")) || 1),
+      Math.min(10000, Math.floor(Number(url.searchParams.get("page"))) || 1),
     );
   try {
-    let query = database()
-      .from("quote_requests")
-      .select(
-        "id,lead_id,raw_text,status,category,created_at,leads(id,customer_name,company_name,email,phone,source_meta)",
-        { count: "exact" },
-      )
-      .eq("channel", "website")
-      .order("created_at", { ascending: false })
-      .range((page - 1) * 50, page * 50 - 1);
-    const status = url.searchParams.get("status");
-    if (status && status !== "all") query = query.eq("status", status);
-    const { data, error, count } = await query;
+    const { data, error } = await database().rpc("list_website_inquiries", {
+      p_status: url.searchParams.get("status") ?? "all",
+      p_search: (url.searchParams.get("search") ?? "").trim().slice(0, 200),
+      p_offset: (page - 1) * 50,
+      p_limit: 50,
+    });
     if (error) throw error;
-    const { count: newCount, error: countError } = await database()
-      .from("quote_requests")
-      .select("id", { count: "exact", head: true })
-      .eq("channel", "website")
-      .eq("status", "new");
-    if (countError) throw countError;
-    const { count: globalTotal, error: globalError } = await database()
-      .from("quote_requests")
-      .select("id", { count: "exact", head: true })
-      .eq("channel", "website");
-    if (globalError) throw globalError;
     return NextResponse.json(
       {
         connected: true,
-        items: data,
-        total: count,
-        globalTotal,
-        newCount,
+        ...data,
         page,
       },
       { headers: { "Cache-Control": "no-store" } },

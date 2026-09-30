@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { divisions, divisionByPath } from "@/lib/content";
 export function Brand() {
@@ -16,9 +16,19 @@ export function Brand() {
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const current = divisionByPath(pathname.split("/")[1]);
+  const contactPath = current ? "/" + current.path + "/contact" : "/contact";
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <div className="header-inner">
         <Link href="/" aria-label="AIO MAKE 홈" onClick={() => setOpen(false)}>
           <Brand />
@@ -29,37 +39,42 @@ export function Header() {
               key={d.id}
               href={"/" + d.path}
               className={current?.id === d.id ? "active" : ""}
+              aria-current={current?.id === d.id ? "page" : undefined}
             >
               {d.label}
             </Link>
           ))}
           <Link href="/about">AIO 소개</Link>
         </nav>
-        <Link
-          className="header-cta"
-          href={current ? "/" + current.path + "/contact" : "/contact"}
-        >
+        <Link className="header-cta" href={contactPath}>
           프로젝트 문의 <ArrowUpRight size={16} />
         </Link>
         <button
+          ref={menuButton}
           className="menu-toggle"
           aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
           aria-expanded={open}
+          aria-controls="mobile-navigation"
           onClick={() => setOpen(!open)}
         >
           {open ? <X /> : <Menu />}
         </button>
       </div>
       {open && (
-        <nav className="mobile-nav" aria-label="모바일 메뉴">
+        <nav
+          id="mobile-navigation"
+          className="mobile-nav"
+          aria-label="모바일 메뉴"
+        >
           {[
             ...divisions.map((d) => ({ href: "/" + d.path, label: d.label })),
             { href: "/about", label: "AIO 소개" },
-            { href: "/contact", label: "프로젝트 문의" },
+            { href: contactPath, label: "프로젝트 문의" },
           ].map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
               onClick={() => setOpen(false)}
             >
               {item.label}

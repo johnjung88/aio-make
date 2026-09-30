@@ -1,8 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
+import { contactSchema } from "@/lib/domain";
+function FieldTitle({
+  children,
+  required = false,
+}: {
+  children: React.ReactNode;
+  required?: boolean;
+}) {
+  return (
+    <span className="field-title">
+      {children}
+      {required && <em aria-hidden="true">*</em>}
+    </span>
+  );
+}
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -21,22 +36,53 @@ export function ContactForm({
     ),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
+    [fieldErrors, setFieldErrors] = useState<Record<string, string>>({}),
     [receipt, setReceipt] = useState(""),
     [requestId, setRequestId] = useState("");
+  const formRef = useRef<HTMLFormElement>(null),
+    errorRef = useRef<HTMLParagraphElement>(null),
+    successRef = useRef<HTMLHeadingElement>(null),
+    uid = useId();
   useEffect(() => setRequestId(crypto.randomUUID()), []);
+  useEffect(() => {
+    if (!error) return;
+    const field = formRef.current?.elements.namedItem(
+      Object.keys(fieldErrors)[0],
+    );
+    if (field instanceof HTMLElement) field.focus();
+    else errorRef.current?.focus();
+  }, [error, fieldErrors]);
+  useEffect(() => {
+    if (receipt) successRef.current?.focus();
+  }, [receipt]);
+  const inputProps = (name: string) => ({
+    name,
+    "aria-invalid": !!fieldErrors[name],
+    "aria-describedby": fieldErrors[name]
+      ? uid + "-error"
+      : name === "email" || name === "phone"
+        ? uid + "-contact-hint"
+        : undefined,
+  });
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (busy || !requestId) return;
-    setBusy(true);
     setError("");
+    setFieldErrors({});
     const form = event.currentTarget;
     const data = new FormData(form);
     let sessionUid: string | undefined,
-      landingPath = location.pathname,
-      utm: Record<string, string> = {};
+      landingPath = location.pathname;
+    const utm: Record<string, string> = {};
     try {
       sessionUid =
         sessionStorage.getItem("aio_renewal_session") ?? crypto.randomUUID();
+      if (
+        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+          sessionUid,
+        )
+      )
+        sessionUid = crypto.randomUUID();
       sessionStorage.setItem("aio_renewal_session", sessionUid);
       landingPath =
         sessionStorage.getItem("aio_renewal_landing") ?? location.pathname;
@@ -49,34 +95,63 @@ export function ContactForm({
         "utm_term",
       ]) {
         const value = params.get(key);
-        if (value) utm[key] = value;
+        if (value) utm[key] = value.slice(0, 250);
       }
       const stored = sessionStorage.getItem("aio_renewal_utm");
-      if (stored) utm = JSON.parse(stored);
+      if (stored) {
+        const values: unknown = JSON.parse(stored);
+        if (values && typeof values === "object") {
+          for (const key of [
+            "utm_source",
+            "utm_medium",
+            "utm_campaign",
+            "utm_content",
+            "utm_term",
+          ]) {
+            const value = (values as Record<string, unknown>)[key];
+            if (typeof value === "string") utm[key] = value.slice(0, 250);
+          }
+        }
+      }
     } catch {}
+    const payload = {
+      name: data.get("name"),
+      email: data.get("email"),
+      phone: data.get("phone"),
+      company: data.get("company"),
+      division,
+      service,
+      message: data.get("message"),
+      consent: data.get("consent") === "on",
+      website: data.get("website"),
+      idempotencyKey: requestId,
+      attribution: {
+        landingPath: landingPath.slice(0, 500),
+        submitPath: location.pathname.slice(0, 500),
+        referrer: document.referrer.split("?")[0].slice(0, 500),
+        utm,
+        sessionUid,
+      },
+    };
+    const validated = contactSchema.safeParse(payload);
+    if (!validated.success) {
+      setFieldErrors(
+        Object.fromEntries(
+          validated.error.issues.map((issue) => [
+            String(issue.path[0]),
+            issue.message,
+          ]),
+        ),
+      );
+      setError(validated.error.issues[0].message);
+      return;
+    }
+    setBusy(true);
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          phone: data.get("phone"),
-          company: data.get("company"),
-          division,
-          service,
-          message: data.get("message"),
-          consent: data.get("consent") === "on",
-          website: data.get("website"),
-          idempotencyKey: requestId,
-          attribution: {
-            landingPath,
-            submitPath: location.pathname,
-            referrer: document.referrer.split("?")[0],
-            utm,
-            sessionUid,
-          },
-        }),
+        body: JSON.stringify(validated.data),
       });
       const result = await response.json();
       if (!response.ok || !result.success)
@@ -98,7 +173,9 @@ export function ContactForm({
     return (
       <div className="form-success" role="status">
         <CheckCircle2 size={40} />
-        <h2>문의가 접수되었습니다.</h2>
+        <h2 ref={successRef} tabIndex={-1}>
+          문의가 접수되었습니다.
+        </h2>
         <p>남겨주신 연락처로 요청 범위를 확인하고 안내드리겠습니다.</p>
         <p className="mono">접수번호 {receipt}</p>
         <Link className="button" href="/">
@@ -107,32 +184,46 @@ export function ContactForm({
       </div>
     );
   return (
-    <form className="contact-form" onSubmit={submit}>
+    <form
+      ref={formRef}
+      className="contact-form"
+      onSubmit={submit}
+      aria-busy={busy}
+    >
       <div className="form-row">
         <label>
-          성함 <span>*</span>
-          <input name="name" autoComplete="name" required maxLength={100} />
+          <FieldTitle required>성함</FieldTitle>
+          <input
+            {...inputProps("name")}
+            autoComplete="name"
+            required
+            maxLength={100}
+          />
         </label>
         <label>
-          회사·브랜드
-          <input name="company" autoComplete="organization" maxLength={150} />
+          <FieldTitle>회사·브랜드</FieldTitle>
+          <input
+            {...inputProps("company")}
+            autoComplete="organization"
+            maxLength={150}
+          />
         </label>
       </div>
       <div className="form-row">
         <label>
-          이메일
+          <FieldTitle>이메일</FieldTitle>
           <input
-            name="email"
+            {...inputProps("email")}
             type="email"
             autoComplete="email"
             maxLength={255}
-            placeholder="이메일 또는 전화번호 중 하나는 필수"
+            placeholder="name@example.com"
           />
         </label>
         <label>
-          전화번호
+          <FieldTitle>전화번호</FieldTitle>
           <input
-            name="phone"
+            {...inputProps("phone")}
             type="tel"
             autoComplete="tel"
             maxLength={30}
@@ -140,10 +231,14 @@ export function ContactForm({
           />
         </label>
       </div>
+      <p className="form-hint" id={uid + "-contact-hint"}>
+        답변을 받을 이메일 또는 전화번호 중 하나를 입력해주세요.
+      </p>
       <div className="form-row">
         <label>
-          분야 <span>*</span>
+          <FieldTitle required>분야</FieldTitle>
           <select
+            {...inputProps("division")}
             value={division}
             onChange={(e) => {
               const id = e.target.value as DivisionId;
@@ -159,8 +254,12 @@ export function ContactForm({
           </select>
         </label>
         <label>
-          서비스 <span>*</span>
-          <select value={service} onChange={(e) => setService(e.target.value)}>
+          <FieldTitle required>서비스</FieldTitle>
+          <select
+            {...inputProps("service")}
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+          >
             {divisionServices(division).map((s) => (
               <option value={s.id} key={s.id}>
                 {s.name}
@@ -170,9 +269,9 @@ export function ContactForm({
         </label>
       </div>
       <label>
-        어떤 작업이 필요한가요? <span>*</span>
+        <FieldTitle required>어떤 작업이 필요한가요?</FieldTitle>
         <textarea
-          name="message"
+          {...inputProps("message")}
           rows={6}
           required
           minLength={5}
@@ -208,7 +307,13 @@ export function ContactForm({
         </span>
       </label>
       {error && (
-        <p role="alert" className="form-error">
+        <p
+          ref={errorRef}
+          tabIndex={-1}
+          id={uid + "-error"}
+          role="alert"
+          className="form-error"
+        >
           {error}
         </p>
       )}

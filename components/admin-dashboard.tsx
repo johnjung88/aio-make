@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   LayoutDashboard,
   MessagesSquare,
@@ -47,8 +47,8 @@ const initialEntry = (): EntryDraft => ({
   is_featured: false,
   display_order: 0,
 });
-async function read<T>(path: string): Promise<T> {
-  const res = await fetch(path, { cache: "no-store" });
+async function read<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const res = await fetch(path, { cache: "no-store", signal });
   if (res.status === 401) {
     location.href = "/admin/login";
     throw new Error("로그인이 필요합니다.");
@@ -74,6 +74,7 @@ export function AdminDashboard() {
     [page, setPage] = useState(1),
     [statusFilter, setStatusFilter] = useState("all"),
     [search, setSearch] = useState(""),
+    [appliedSearch, setAppliedSearch] = useState(""),
     [selected, setSelected] = useState<Inquiry | null>(null),
     [notes, setNotes] = useState<Note[]>([]),
     [nextStatus, setNextStatus] = useState("new"),
@@ -83,30 +84,50 @@ export function AdminDashboard() {
     ),
     [busy, setBusy] = useState(false),
     [entryFilter, setEntryFilter] = useState("all");
+  const refreshRequest = useRef<AbortController | null>(null);
+  const [pendingEditor, setPendingEditor] = useState<{
+    next: EntryDraft | null;
+  } | null>(null);
+  const keepEditing = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (pendingEditor) keepEditing.current?.focus();
+  }, [pendingEditor]);
   const refresh = useCallback(async () => {
+    refreshRequest.current?.abort();
+    const controller = new AbortController();
+    refreshRequest.current = controller;
     setLoading(true);
     try {
       const [a, b, c] = await Promise.all([
         read<InquiryData>(
-          "/api/admin/inquiries?page=" + page + "&status=" + statusFilter,
+          "/api/admin/inquiries?" +
+            new URLSearchParams({
+              page: String(page),
+              status: statusFilter,
+              search: appliedSearch,
+            }),
+          controller.signal,
         ),
-        read<EntryData>("/api/admin/entries"),
-        read<GaReport>("/api/admin/analytics"),
+        read<EntryData>("/api/admin/entries", controller.signal),
+        read<GaReport>("/api/admin/analytics", controller.signal),
       ]);
+      if (controller.signal.aborted) return;
       setInquiries(a);
       setEntries(b);
       setGa(c);
     } catch {
+      if (controller.signal.aborted) return;
       setError(true);
       setMessage(
         "데이터 조회를 완료하지 못했습니다. 연결 상태를 확인해주세요.",
       );
     } finally {
-      setLoading(false);
+      if (!controller.signal.aborted) setLoading(false);
     }
-  }, [page, statusFilter]);
+  }, [page, statusFilter, appliedSearch]);
   useEffect(() => {
     void refresh();
+    return () => refreshRequest.current?.abort();
   }, [refresh]);
   async function logout() {
     const res = await fetch("/api/admin/logout", { method: "POST" });
@@ -186,12 +207,33 @@ export function AdminDashboard() {
   ) {
     setEditor((e) => (e ? { ...e, [key]: value } : e));
   }
-  const filteredInquiries = inquiries.items.filter((i) =>
-    [i.leads?.customer_name, i.leads?.company_name, i.leads?.email, i.raw_text]
-      .join(" ")
-      .toLowerCase()
-      .includes(search.toLowerCase()),
-  );
+  const entryFields = Object.keys(initialEntry()) as (keyof EntryDraft)[];
+  const savedEntry = editor?.id
+    ? entries.items.find((e) => e.id === editor.id)
+    : null;
+  const baseline = savedEntry ?? initialEntry();
+  const editorDirty =
+    !!editor && entryFields.some((key) => editor[key] !== baseline[key]);
+  function openEditor(next: EntryDraft | null) {
+    if (busy) return false;
+    if (editorDirty) {
+      setPendingEditor({ next });
+      return false;
+    }
+    setEditor(next);
+    setMessage("");
+    return true;
+  }
+  useEffect(() => {
+    if (!editorDirty) return;
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [editorDirty]);
+  const filteredInquiries = inquiries.items;
   const filteredEntries = entries.items.filter(
     (e) => entryFilter === "all" || e.type === entryFilter,
   );
@@ -241,7 +283,7 @@ export function AdminDashboard() {
         </div>
         {message && (
           <div
-            role="status"
+            role={error ? "alert" : "status"}
             className={"admin-message" + (error ? " error" : "")}
           >
             {message}
@@ -251,6 +293,30 @@ export function AdminDashboard() {
           <p role="status" className="admin-loading">
             데이터 확인 중…
           </p>
+        )}
+        {pendingEditor && (
+          <div className="admin-message confirm-message" role="alert">
+            <p>저장하지 않은 변경이 있습니다. 편집 내용을 버리시겠습니까?</p>
+            <div className="editor-actions">
+              <button
+                ref={keepEditing}
+                className="button"
+                onClick={() => setPendingEditor(null)}
+              >
+                계속 편집
+              </button>
+              <button
+                className="secondary-button"
+                onClick={() => {
+                  setEditor(pendingEditor.next);
+                  setPendingEditor(null);
+                  setMessage("");
+                }}
+              >
+                변경 버리기
+              </button>
+            </div>
+          </div>
         )}
         {view === "overview" && (
           <>
@@ -334,6 +400,20 @@ export function AdminDashboard() {
             nextStatus={nextStatus}
             note={note}
             busy={busy}
+            loading={loading}
+            appliedSearch={appliedSearch}
+            applySearch={() => {
+              if (search.trim() === appliedSearch && page === 1) void refresh();
+              setAppliedSearch(search.trim());
+              setPage(1);
+              setSelected(null);
+            }}
+            clearSearch={() => {
+              setSearch("");
+              setAppliedSearch("");
+              setPage(1);
+              setSelected(null);
+            }}
             setSearch={setSearch}
             setStatusFilter={setStatusFilter}
             setPage={setPage}
@@ -356,6 +436,8 @@ export function AdminDashboard() {
             setMessage={setMessage}
             setError={setError}
             setBusy={setBusy}
+            openEditor={openEditor}
+            savedEntry={savedEntry}
             initialEntry={initialEntry}
             updateEditor={updateEditor}
             saveEntry={saveEntry}

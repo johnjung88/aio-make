@@ -15,7 +15,11 @@ export const contactSchema = z
       .trim()
       .max(30)
       .refine(
-        (v) => !v || /^[+\d\s()-]{6,30}$/.test(v),
+        (v) =>
+          !v ||
+          (/^\+?[\d\s()-]+$/.test(v) &&
+            v.replace(/\D/g, "").length >= 6 &&
+            v.replace(/\D/g, "").length <= 15),
         "전화번호를 확인해주세요.",
       ),
     company: z.string().trim().max(150).default(""),
@@ -89,15 +93,21 @@ export const entrySchema = z
       });
     for (const field of ["cover_url", "video_url"] as const) {
       const url = v[field];
-      if (url && !isSafeMediaUrl(url))
+      if (
+        url &&
+        !(field === "cover_url" ? isSafeImageUrl(url) : isSafeMediaUrl(url))
+      )
         ctx.addIssue({
           code: "custom",
           path: [field],
-          message: "허용된 HTTPS 또는 로컬 이미지 경로가 필요합니다.",
+          message:
+            field === "cover_url"
+              ? "대표 이미지는 사이트 이미지 또는 연결된 저장소의 공개 이미지 주소를 입력해주세요."
+              : "허용된 HTTPS 영상 주소가 필요합니다.",
         });
     }
   });
-export function isSafeMediaUrl(url: string) {
+export function isSafeImageUrl(url: string) {
   if (
     /^\/(renewal|portfolio|images)\/[\w./-]+$/.test(url) &&
     !url.includes("..")
@@ -109,13 +119,24 @@ export function isSafeMediaUrl(url: string) {
       u.protocol === "https:" &&
       !u.username &&
       !u.password &&
-      (/\.supabase\.co$/.test(u.hostname) ||
-        [
-          "www.youtube.com",
-          "youtu.be",
-          "vimeo.com",
-          "player.vimeo.com",
-        ].includes(u.hostname))
+      u.hostname === "rohodabwnabpqkxgxbft.supabase.co" &&
+      u.pathname.startsWith("/storage/v1/object/public/")
+    );
+  } catch {
+    return false;
+  }
+}
+export function isSafeMediaUrl(url: string) {
+  if (isSafeImageUrl(url)) return true;
+  try {
+    const u = new URL(url);
+    return (
+      u.protocol === "https:" &&
+      !u.username &&
+      !u.password &&
+      ["www.youtube.com", "youtu.be", "vimeo.com", "player.vimeo.com"].includes(
+        u.hostname,
+      )
     );
   } catch {
     return false;

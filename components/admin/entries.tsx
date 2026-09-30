@@ -1,4 +1,8 @@
 "use client";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { isSafeImageUrl } from "@/lib/domain";
+import type { Entry } from "@/lib/db";
 import { ArrowUpRight } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
 import type { EntryData, EntryDraft } from "./types";
@@ -8,6 +12,8 @@ type Props = {
   entryFilter: string;
   editor: EntryDraft | null;
   busy: boolean;
+  openEditor: (next: EntryDraft | null) => boolean;
+  savedEntry: Entry | null | undefined;
   setEntryFilter: (v: string) => void;
   setEditor: React.Dispatch<React.SetStateAction<EntryDraft | null>>;
   setMessage: (v: string) => void;
@@ -26,6 +32,8 @@ export function EntryPanel({
   entryFilter,
   editor,
   busy,
+  openEditor,
+  savedEntry,
   setEntryFilter,
   setEditor,
   setMessage,
@@ -35,6 +43,12 @@ export function EntryPanel({
   updateEditor,
   saveEntry,
 }: Props) {
+  const heading = useRef<HTMLHeadingElement>(null),
+    opener = useRef<HTMLButtonElement | null>(null);
+  const editorKey = editor ? (editor.id ?? "new") : null;
+  useEffect(() => {
+    if (editorKey) heading.current?.focus();
+  }, [editorKey]);
   return (
     <section className="admin-panel">
       <div className="admin-toolbar">
@@ -51,9 +65,9 @@ export function EntryPanel({
           </select>
           <button
             className="button"
-            onClick={() => {
-              setEditor(initialEntry());
-              setMessage("");
+            onClick={(event) => {
+              if (openEditor(initialEntry()))
+                opener.current = event.currentTarget;
             }}
           >
             새 콘텐츠 +
@@ -78,6 +92,15 @@ export function EntryPanel({
             </tr>
           </thead>
           <tbody>
+            {!filteredEntries.length && (
+              <tr>
+                <td colSpan={5}>
+                  {entries.connected
+                    ? "등록된 콘텐츠가 없습니다. 새 콘텐츠에서 첫 항목을 작성하세요."
+                    : "데이터 연결 후 등록된 콘텐츠를 확인할 수 있습니다."}
+                </td>
+              </tr>
+            )}
             {filteredEntries.map((e) => (
               <tr key={e.id}>
                 <td className="wrap">{e.title}</td>
@@ -92,9 +115,9 @@ export function EntryPanel({
                 <td>{e.is_published ? "공개" : "초안"}</td>
                 <td>
                   <button
-                    onClick={() => {
-                      setEditor(e);
-                      setMessage("");
+                    aria-label={e.title + " 편집"}
+                    onClick={(event) => {
+                      if (openEditor(e)) opener.current = event.currentTarget;
                     }}
                   >
                     편집 ↗
@@ -107,7 +130,9 @@ export function EntryPanel({
       </div>
       {editor && (
         <form onSubmit={saveEntry} className="entry-editor admin-detail">
-          <h2>{editor.id ? "콘텐츠 편집" : "새 콘텐츠"}</h2>
+          <h2 ref={heading} tabIndex={-1}>
+            {editor.id ? "콘텐츠 편집" : "새 콘텐츠"}
+          </h2>
           <div className="form-row">
             <label>
               콘텐츠 종류
@@ -219,6 +244,22 @@ export function EntryPanel({
               />
             </label>
           </div>
+          {editor.cover_url &&
+            (isSafeImageUrl(editor.cover_url) ? (
+              <Image
+                className="entry-preview"
+                src={editor.cover_url}
+                alt="저장할 대표 이미지 미리보기"
+                width={1200}
+                height={800}
+                sizes="(max-width:640px) 90vw, 560px"
+              />
+            ) : (
+              <p role="alert" className="form-error">
+                사이트 이미지 경로 또는 연결된 저장소의 공개 이미지 주소를
+                입력해주세요.
+              </p>
+            ))}
           <label>
             이미지 업로드
             <input
@@ -319,25 +360,28 @@ export function EntryPanel({
             <button
               type="button"
               className="secondary-button"
-              onClick={() => setEditor(null)}
+              disabled={busy}
+              onClick={() => {
+                if (openEditor(null)) opener.current?.focus();
+              }}
             >
               편집 닫기
             </button>
-            {editor.id && editor.is_published && (
+            {savedEntry?.is_published && (
               <a
                 className="secondary-button"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={
                   "/" +
-                  divisions.find((d) => d.id === editor.division)?.path +
+                  divisions.find((d) => d.id === savedEntry.division)?.path +
                   "/" +
-                  (editor.type === "reference" ? "work" : "insights") +
+                  (savedEntry.type === "reference" ? "work" : "insights") +
                   "/" +
-                  editor.slug
+                  savedEntry.slug
                 }
               >
-                공개 페이지 보기 <ArrowUpRight size={14} />
+                저장된 공개 페이지 보기 <ArrowUpRight size={14} />
               </a>
             )}
           </div>
