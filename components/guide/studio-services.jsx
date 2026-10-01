@@ -5,6 +5,8 @@
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
 import { WebtoonScope } from "./webtoon-scope";
+import { WebtoonDevices } from "./webtoon-devices";
+import { creativeAsset } from "@/lib/creative-assets";
 import {
   GuideLogic,
   GuideImage,
@@ -475,55 +477,6 @@ const SC = {
       }),
     ];
   },
-  webtoon: (t) => {
-    const ph = 0.5 - 0.5 * Math.cos(t * 0.32),
-      n = 4;
-    return [
-      box(
-        "fr",
-        {
-          left: "50%",
-          top: "4%",
-          bottom: "4%",
-          aspectRatio: "9/16",
-          transform: "translateX(-50%)",
-          border: "2px solid #3A3A46",
-          borderRadius: 26,
-          overflow: "hidden",
-          background: "#000",
-        },
-        box(
-          "col",
-          {
-            left: 0,
-            right: 0,
-            top: 0,
-            transform: "translateY(-" + ph * 56 + "%)",
-          },
-          ...Array.from({ length: n }, (_, i) =>
-            rc(
-              "div",
-              {
-                key: "s" + i,
-                style: {
-                  position: "relative",
-                  aspectRatio: "4/5",
-                  borderBottom: "1px solid #1C1C24",
-                },
-              },
-              rc(GuideImage, {
-                id: "svc-webtoon-cut" + N([1, 2, 3, 4, 5, 6, 7, 8, 11, 12][i]),
-                shape: "rect",
-                placeholder: "웹툰 컷 " + (i + 1),
-              }),
-            ),
-          ),
-        ),
-      ),
-      chip("c1", { left: 20, top: 20 }, "제작 방향 예시"),
-      chip("c2", { left: 20, top: 62 }, "한 장면의 구획 = 1컷"),
-    ];
-  },
 };
 class Stage extends React.Component {
   state = { t: 0.5 };
@@ -655,7 +608,7 @@ const SVC = {
     faqs: [
       [
         "회차별 분량은 어떻게 정하나요?",
-        "목적과 채널에 맞춰 필요한 컷 수와 회차별 분량을 먼저 정합니다. 아래 발췌 이미지는 제작 방향을 확인하는 예시입니다",
+        "완성 이미지 1장을 1컷으로 셉니다. 이미지 안에 여러 장면이 있어도 같은 기준이며, 목적과 채널에 맞춰 회차별 이미지 수를 견적에서 정합니다",
       ],
       [
         "수정은 몇 번까지 되나요?",
@@ -973,8 +926,20 @@ const SVC = {
     ],
   },
 };
-const W = (k) =>
-  [1, 2, 3].map((i) => ({ id: "svc-" + k + "-w" + i, n: i - 1 }));
+const W = (k) => {
+  const keys = Object.keys(SVC);
+  const start = keys.indexOf(k);
+  return [0, 1, 2].map((offset) => {
+    const key = keys[(start + offset) % keys.length];
+    const service =
+      { promo: "brand-film", ai: "ai-influencer", edit: "editing" }[key] || key;
+    return {
+      key: service,
+      title: SVC[key].name,
+      image: creativeAsset("video", service),
+    };
+  });
+};
 const KEYS = Object.keys(SVC),
   CUTN = 10;
 const q = () => {
@@ -1062,10 +1027,13 @@ class Component extends GuideLogic {
       heroRatio: h === "phone" ? "9/16" : "4/3",
       heroMax: h === "phone" ? "360px" : "720px",
       procDir: "row",
-      heroAnim: React.createElement(Stage, {
-        kind: k === "ai-influencer" ? "ai" : k,
-        key: k,
-      }),
+      heroAnim:
+        k === "webtoon"
+          ? React.createElement(WebtoonDevices)
+          : React.createElement(Stage, {
+              kind: k === "ai-influencer" ? "ai" : k,
+              key: k,
+            }),
       tabs: KEYS.map((key, i) => {
         const on = key === k;
         return {
@@ -1226,7 +1194,7 @@ class Component extends GuideLogic {
                 <div
                   style={{
                     position: "relative",
-                    aspectRatio: heroRatio,
+                    aspectRatio: isWebtoon ? "auto" : heroRatio,
                     width: "100%",
                     maxWidth: heroMax,
                     overflow: "hidden",
@@ -1531,10 +1499,10 @@ class Component extends GuideLogic {
               }}
             >
               <div
+                className="studio-process-heading"
                 style={{
                   flex: "1 1 320px",
-                  position: "sticky",
-                  top: "120px",
+                  position: "static",
                   display: "flex",
                   flexDirection: "column",
                   gap: "24px",
@@ -1818,8 +1786,7 @@ class Component extends GuideLogic {
                       lineHeight: "1.15",
                     }}
                   >
-                    {s.name}
-                    {" 작업 사례"}
+                    {"함께 살펴볼 제작 예시"}
                   </h2>
                 </div>
                 <GuideLink
@@ -1847,7 +1814,7 @@ class Component extends GuideLogic {
                 {(s.works || []).map((w, __index4) => (
                   <React.Fragment key={__index4}>
                     <GuideLink
-                      href={`/video/work/example-${{ promo: "brand-film", ai: "ai-influencer", edit: "editing" }[s.key] || s.key}`}
+                      href={`/video/work/example-${w.key}`}
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -1862,11 +1829,15 @@ class Component extends GuideLogic {
                           background: "#141418",
                         }}
                       >
-                        <GuideMedia id={w.id} n={w.n} sample={s.key} />
+                        <GuideImage
+                          src={w.image}
+                          alt={w.title + " AI 생성 제작 방향 예시"}
+                        />
                       </div>
-                      <strong style={{ fontSize: "17px" }}>
-                        {"제작 예시"}
-                      </strong>
+                      <strong style={{ fontSize: "17px" }}>{w.title}</strong>
+                      <span style={{ fontSize: "12px", color: "#B9B3CC" }}>
+                        AI 생성 콘셉트 · 제작 방향 예시
+                      </span>
                     </GuideLink>
                   </React.Fragment>
                 ))}

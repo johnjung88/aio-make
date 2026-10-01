@@ -1,0 +1,512 @@
+/* v06: revised user annotations, generated imagery, and service motion. */
+.guide-about .about-centered-hero {
+  align-items: center;
+  text-align: center;
+}
+.guide-about .about-centered-hero [data-fit] {
+  margin-inline: auto;
+}
+.guide-about .about-centered-description {
+  width: 100%;
+  grid-template-columns: 1fr !important;
+  gap: 20px !important;
+  justify-items: center;
+}
+.guide-about .about-centered-description p {
+  max-width: 64ch;
+}
+.guide-about .about-centered-divisions {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center !important;
+  text-align: center;
+  gap: 20px !important;
+}
+.method-line {
+  display: block;
+  white-space: normal;
+}
+.guide-main .method-intro h2 {
+  width: auto;
+  text-wrap: balance;
+}
+.studio-process-heading {
+  position: static !important;
+}
+
+.service-dark .reference-card h3 {
+  color: #f4f3ef;
+}
+.service-dark .reference-card:hover h3,
+.service-dark .reference-all:hover {
+  color: #b2a3ff;
+}
+.service-dark .home-references {
+  background: #101016;
+}
+.service-hero-visual,
+.service-overview .overview-hero {
+  grid-template-columns: 1fr 1.12fr;
+  gap: clamp(28px, 4vw, 56px);
+}
+.service-hero-visual .service-price {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  column-gap: 48px;
+  align-items: start;
+}
+.service-hero-visual .service-price > span,
+.service-hero-visual .service-price > strong,
+.service-hero-visual .service-price > p {
+  grid-column: 1;
+}
+.service-hero-visual .service-price dl {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  margin: 0;
+}
+.service-hero-visual .service-price .service-price-note {
+  grid-column: 1/-1;
+  margin-top: 20px;
+  border-top: 1px solid var(--svc-line);
+  padding-top: 18px;
+}
+.service-motion {
+  min-width: 0;
+  border: 1px solid #33313e;
+  color: #f7f6fa;
+  background: #111118;
+  overflow: hidden;
+}
+.motion-stage {
+  position: relative;
+  aspect-ratio: 1.22;
+  isolation: isolate;
+  overflow: hidden;
+}
+.motion-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms ease;
+  overflow: hidden;
+}
+.motion-scene[data-active="true"] {
+  opacity: 1;
+  z-index: 1;
+}
+.motion-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #09091077,
+    transparent 35%,
+    #09091066 52%,
+    #090910ee 100%
+  );
+}
+.motion-image {
+  object-fit: cover;
+  animation: service-image-drift 19.2s ease-in-out infinite alternate;
+}
+.motion-scene:nth-child(2) .motion-image {
+  animation-delay: -4.8s;
+}
+.motion-scene:nth-child(3) .motion-image {
+  animation-delay: -9.6s;
+}
+.motion-scene:nth-child(4) .motion-image {
+  animation-delay: -14.4s;
+}
+.motion-label {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 24px;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: #eeebfa;
+}
+.motion-caption {
+  position: absolute;
+  inset: auto 28px 52px;
+  z-index: 2;
+  transform: translateY(14px);
+  transition: transform 900ms ease;
+}
+.motion-scene[data-active="true"] .motion-caption {
+  transform: translateY(0);
+}
+.motion-caption > span {
+  display: block;
+  color: #c7bbff;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+.motion-caption strong {
+  display: block;
+  font-size: clamp(24px, 2.7vw, 36px);
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+.motion-caption p {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 42ch;
+  color: #e1dfea;
+}
+.motion-disclosure {
+  position: absolute;
+  bottom: 20px;
+  left: 28px;
+  z-index: 3;
+  font-size: 10px;
+  color: #b8b5c5;
+}
+.motion-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  background: #16161f;
+  border-top: 1px solid #33313e;
+}
+.motion-controls > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.motion-controls button {
+  border: 0;
+  background: transparent;
+  color: #bab7c9;
+  font: inherit;
+  cursor: pointer;
+  padding: 10px 0 4px;
+  min-height: 44px;
+}
+.motion-step-name {
+  display: block;
+  font-size: 10px;
+  line-height: 1.5;
+  margin-top: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.motion-segment {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #46424f;
+  position: relative;
+  overflow: hidden;
+}
+.motion-segment > span {
+  position: absolute;
+  inset: 0;
+  background: #b2a3ff;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.motion-controls button[aria-pressed="true"] {
+  color: #fff;
+}
+.motion-controls button[aria-pressed="true"] .motion-segment > span {
+  transform: scaleX(1);
+}
+.service-motion[data-running="true"]
+  .motion-controls
+  button[aria-pressed="true"]
+  .motion-segment
+  > span {
+  animation: service-progress 4.8s linear infinite;
+}
+.motion-controls .motion-toggle {
+  flex: 0 0 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #5b556b;
+  border-radius: 50%;
+}
+.motion-toggle:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.motion-controls button:focus-visible {
+  outline: 2px solid #c1b2ff;
+  outline-offset: 4px;
+}
+.service-motion[data-running="false"] .motion-image {
+  animation-play-state: paused;
+}
+.service-motion[data-reduced="true"] .motion-image {
+  animation: none;
+}
+.service-motion[data-reduced="true"] .motion-scene,
+.service-motion[data-reduced="true"] .motion-caption {
+  transition: none;
+}
+@keyframes service-image-drift {
+  0% {
+    transform: scale(1.02) translateX(-1%);
+  }
+  100% {
+    transform: scale(1.12) translateX(1%);
+  }
+}
+@keyframes service-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.webtoon-devices {
+  padding: clamp(16px, 3vw, 28px);
+}
+.device-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #bcb8ce;
+}
+.device-preview-heading strong {
+  color: #c2b5ff;
+  font-weight: 600;
+}
+.device-pair {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(12px, 3vw, 26px);
+  align-items: center;
+  padding-top: 24px;
+}
+.device-pair figure {
+  margin: 0;
+  min-width: 0;
+}
+.comic-screen {
+  border: 1px solid #6c657a;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #202029;
+  box-shadow: 0 12px 35px #0005;
+}
+.comic-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 25px;
+  padding: 0 8px;
+  color: #bcb8ce;
+  font-size: 8px;
+}
+.comic-browser-bar i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #82768f;
+}
+.comic-browser-bar span {
+  margin-left: auto;
+}
+.comic-canvas {
+  background: #16161d;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+.comic-canvas img {
+  width: auto;
+  max-width: 100%;
+  height: clamp(135px, 25vw, 300px);
+  object-fit: contain;
+}
+.comic-phone {
+  max-width: 190px;
+  margin: auto;
+  padding: 6px;
+  border: 2px solid #686275;
+  border-radius: 18px;
+  background: #08080d;
+  overflow: hidden;
+  box-shadow: 0 12px 35px #0005;
+}
+.comic-phone-top {
+  height: 8px;
+  width: 25%;
+  margin: 0 auto 5px;
+  background: #393541;
+  border-radius: 4px;
+}
+.comic-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px 4px 10px 10px;
+}
+.device-pair figcaption {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #d1ccdd;
+}
+.webtoon-devices > p {
+  font-size: 11px;
+  text-align: center;
+  color: #a7a3b5;
+  margin: 22px 0 0;
+  line-height: 1.6;
+}
+.one-cut-sample {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.one-cut-sample > div {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #3c374d;
+  background: #15151d;
+}
+.one-cut-sample img {
+  height: 400px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  margin: auto;
+}
+.one-cut-sample figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 15px;
+}
+.one-cut-sample figcaption span {
+  color: #b5afc8;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.episode-cut-grid li {
+  aspect-ratio: 2/3;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  gap: 7px;
+}
+.episode-cut-grid small {
+  font-size: 9px;
+}
+
+@media (max-width: 1000px) {
+  .service-hero-visual,
+  .service-overview .overview-hero {
+    grid-template-columns: 1fr;
+  }
+  .motion-stage {
+    aspect-ratio: 1.65;
+  }
+  .motion-caption {
+    max-width: 70%;
+  }
+  .motion-caption strong {
+    font-size: 30px;
+  }
+  .motion-step-name {
+    font-size: 12px;
+  }
+  .scope-layout {
+    grid-template-columns: 0.8fr 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .guide-about .about-centered-hero {
+    gap: 28px !important;
+  }
+  .about-centered-hero h1 {
+    font-size: clamp(29px, 7.8vw, 42px) !important;
+  }
+  .service-hero-visual .service-price {
+    display: block;
+  }
+  .service-hero-visual .service-price dl {
+    margin-top: 24px;
+  }
+  .motion-stage {
+    aspect-ratio: 0.98;
+  }
+  .motion-label {
+    left: 20px;
+    top: 20px;
+    right: 20px;
+    font-size: 10px;
+  }
+  .motion-caption {
+    inset: auto 20px 46px;
+    max-width: none;
+  }
+  .motion-caption strong {
+    font-size: 27px;
+  }
+  .motion-caption p {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .motion-disclosure {
+    left: 20px;
+    font-size: 9px;
+    bottom: 16px;
+  }
+  .motion-controls {
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .motion-controls > div {
+    gap: 8px;
+  }
+  .motion-step-name {
+    font-size: 9px;
+  }
+  .scope-layout {
+    grid-template-columns: 1fr;
+  }
+  .one-cut-sample img {
+    height: 330px;
+  }
+  .episode-cut-grid li {
+    aspect-ratio: 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-image,
+  .motion-segment > span {
+    animation: none !important;
+  }
+  .motion-scene,
+  .motion-caption {
+    transition: none !important;
+  }
+}

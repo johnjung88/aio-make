@@ -141,6 +141,7 @@ class Component extends GuideLogic {
           }}
         >
           <section
+            className="about-centered-hero"
             style={{
               maxWidth: "1320px",
               width: "100%",
@@ -181,6 +182,7 @@ class Component extends GuideLogic {
               </h1>
             </div>
             <div
+              className="about-centered-description"
               style={{
                 display: "grid",
                 gridTemplateColumns:
@@ -335,6 +337,7 @@ class Component extends GuideLogic {
             }}
           >
             <div
+              className="about-centered-divisions"
               style={{
                 display: "grid",
                 gridTemplateColumns:

@@ -631,18 +631,10 @@ class Component extends GuideLogic {
               <div className="method-intro">
                 <h2 aria-label="AI로 효율을 높이고, 전문가가 품질을 지킵니다">
                   <span className="method-line">
-                    <span>
-                      <em>AI</em>로
-                    </span>
-                    <span>효율을</span>
-                    <span>높이고</span>
+                    <em>AI</em>로 효율을 높이고
                   </span>
                   <span className="method-line">
-                    <span>
-                      <em>전문가</em>가
-                    </span>
-                    <span>품질을</span>
-                    <span>지킵니다</span>
+                    <em>전문가</em>가 품질을 지킵니다
                   </span>
                 </h2>
                 <p>
@@ -812,11 +804,12 @@ class Component extends GuideLogic {
                   textWrap: "balance",
                 }}
               >
-                {"첫 화면의 문구부터 문의 버튼까지, "}
+                {"만드는 일의 끝은,"}
+                <br />
                 <span style={{ color: "#6B4DFF" }}>
-                  {"실제로 사용할 수 있는 결과물"}
+                  {"고객이 쓰기 시작하는 순간"}
                 </span>
-                {"을 기준으로 확인합니다"}
+                {"입니다"}
               </blockquote>
               <div
                 style={{

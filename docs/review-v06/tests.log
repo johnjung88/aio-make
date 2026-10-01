@@ -1,0 +1,28 @@
+
+> aio-make@1.0.0 test
+> node --conditions=react-server --experimental-strip-types --test tests/*.test.mjs
+
+✔ candidate migration: atomic inquiries, idempotency, audit and public-content policy (3412.9388ms)
+✔ contact requires reachable address, consent and matching service (4.464ms)
+✔ public entry requires confirmed rights and safe media (0.7802ms)
+✔ media URLs reject credentials, traversal, script and untrusted hosts (0.237ms)
+✔ cover images reject video URLs, foreign storage and private paths (0.1613ms)
+✔ legacy locale and service aliases resolve in one step (0.4412ms)
+✔ JSON-LD cannot close the script element (0.1313ms)
+✔ admin session rejects missing credentials, tampering, expiration and wrong password (1.0061ms)
+✔ origin checks the actual Host while respecting HTTPS proxy protocol (18.8726ms)
+✔ GA periods reject unsupported values and comparison handles an empty baseline (1.1403ms)
+✔ all query periods are equal length and do not overlap; leads count only generate_lead (1.0029ms)
+✔ aggregate users remain unique; daily data sorts and fills missing days in the property's timezone (22.2515ms)
+✔ malformed reports fail, while threshold and sampling notes survive normalization (1.0864ms)
+✔ GA server contract: missing setup, real response parsing, caching and sanitized failures (122.8437ms)
+✔ every offered service has an explicitly labelled example and a readable guide (1.1887ms)
+✔ a published CMS entry takes precedence without hiding other services (0.2264ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4110.9314

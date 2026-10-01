@@ -3,6 +3,7 @@ import { Header, Footer } from "@/components/site-shell";
 import { Analytics } from "@/components/analytics";
 import "@/components/guide/guide.css";
 import "@/components/guide/review.css";
+import "@/components/guide/creative.css";
 export default function PublicLayout({
   children,
 }: {

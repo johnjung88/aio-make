@@ -1,3 +1,5 @@
+import { creativeAsset } from "@/lib/creative-assets";
+import { ServiceMotion } from "./service-motion";
 import Link from "next/link";
 import { divisionServices } from "@/lib/content";
 import { servicePlans } from "@/lib/service-plans";
@@ -15,21 +17,8 @@ export function ServiceOverview({
   const marketing = division === "marketing";
   const root = marketing ? "marketing" : "lab";
   const items = divisionServices(division);
-  const journey = marketing
-    ? [
-        ["콘텐츠", "고객이 궁금한 것을 설명하고"],
-        ["채널", "브랜드를 만날 곳에 배치하고"],
-        ["문의", "다음 행동으로 이어지게 합니다"],
-      ]
-    : [
-        ["목적", "누가 무엇을 해야 하는지"],
-        ["구현", "어떤 화면과 기능이 필요한지"],
-        ["운영", "완성 후 어떻게 사용할지"],
-      ];
   return (
-    <div
-      className={`guide-page service-detail service-overview ${marketing ? "service-light" : "service-dark"}`}
-    >
+    <div className={`guide-page service-detail service-overview service-dark`}>
       <GuideNav division={root} />
       <section className="overview-hero review-container">
         <div>
@@ -62,25 +51,18 @@ export function ServiceOverview({
             <Link href={`/${root}/contact`}>상담하기 ↗</Link>
           </div>
         </div>
-        <div
-          className="overview-journey"
-          aria-label={
-            marketing ? "마케팅이 연결하는 일" : "개발 전에 함께 정할 일"
+        <ServiceMotion
+          label={
+            marketing
+              ? "브랜드를 알리는 네 가지 방법"
+              : "아이디어를 구현하는 네 가지 방법"
           }
-        >
-          <span>
-            {marketing
-              ? "콘텐츠가 필요한 순간부터, 문의까지"
-              : "만들기 전에 세 가지를 확인합니다"}
-          </span>
-          {journey.map(([title, description], index) => (
-            <div key={title}>
-              <span>0{index + 1}</span>
-              <strong>{title}</strong>
-              <p>{description}</p>
-            </div>
-          ))}
-        </div>
+          frames={items.map((service) => ({
+            image: creativeAsset(division, service.id),
+            title: service.name,
+            copy: service.description,
+          }))}
+        />
       </section>
       <section id="services" className="overview-services review-container">
         <div className="service-section-heading">

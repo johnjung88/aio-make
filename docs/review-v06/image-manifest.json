@@ -1,0 +1,128 @@
+[
+  {
+    "key": "marketing-integrated",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-bcfa74c5-c98e-484f-ada0-7234ce26f479.png",
+    "original": "generated-originals/marketing-integrated.png",
+    "web": "/creative-v06/marketing-integrated.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "4dbd0aad229c19e58b61f773647dfc2e188e1bc60ee9e4d0fe5a0c6f8a377c7f"
+  },
+  {
+    "key": "marketing-sns",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-719a130c-325d-4888-9d22-f75fcb1b943c.png",
+    "original": "generated-originals/marketing-sns.png",
+    "web": "/creative-v06/marketing-sns.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "9c139f7497e056ab001bdcaf1185ca805d3bec046c51649d55e58302c8459355"
+  },
+  {
+    "key": "marketing-ai-influencer",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-b6740df6-9e55-4d24-81f9-be469a4b48ae.png",
+    "original": "generated-originals/marketing-ai-influencer.png",
+    "web": "/creative-v06/marketing-ai-influencer.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "c4af6ab4071aa083d7a39e6a8ed1b7426e24e239d0a6d6d2a38b5b3f2ecab8e6"
+  },
+  {
+    "key": "marketing-seo",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-ffa2b0d9-5339-4ea9-ae0b-5df50b52ed91.png",
+    "original": "generated-originals/marketing-seo.png",
+    "web": "/creative-v06/marketing-seo.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "5cf04794cea8beb50257d0fc2cf490e286eba895acc404ab92d9b472da878153"
+  },
+  {
+    "key": "development-website",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-a6d17965-4cf0-4bc0-b369-2c9b146f7fc3.png",
+    "original": "generated-originals/development-website.png",
+    "web": "/creative-v06/development-website.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "1f8e875a741923a1fe44df03c058d16e91518dc5bdf0196ea81ae5d637fb3e3d"
+  },
+  {
+    "key": "development-shopping-mall",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-72cbe801-b839-46aa-82b3-0591754a6d99.png",
+    "original": "generated-originals/development-shopping-mall.png",
+    "web": "/creative-v06/development-shopping-mall.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "f20315addac878a0ce4db503e3357922a0e770349d958265fa27c8fe87a68ba7"
+  },
+  {
+    "key": "development-automation",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-687bf30b-5657-458d-8a58-0128ed06925b.png",
+    "original": "generated-originals/development-automation.png",
+    "web": "/creative-v06/development-automation.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "c46cf4424e6607851d302163a8e6f33be5f395005e4cfa03f74cb30e203ac9d1"
+  },
+  {
+    "key": "development-program",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-18f44194-c4ad-42f6-a806-f93129c2a043.png",
+    "original": "generated-originals/development-program.png",
+    "web": "/creative-v06/development-program.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "a1da5924f264009f77364ea4db9fc005e8b9888649da71567f54e74ee5e77304"
+  },
+  {
+    "key": "video-webtoon",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-62450a93-5260-4006-83e6-971301c6726a.png",
+    "original": "generated-originals/video-webtoon.png",
+    "web": "/creative-v06/video-webtoon.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "751523d4f055842d8ac9068a02c3ea4819fe9a1e28f2511ef16f3e07f8a24dad"
+  },
+  {
+    "key": "video-animation",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-8cbcb876-112f-435d-bc31-a0f16d0866a2.png",
+    "original": "generated-originals/video-animation.png",
+    "web": "/creative-v06/video-animation.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "4064ad1f3098c5347efb0b2c0dadf9b21b3223018a95e02154676bd123987978"
+  },
+  {
+    "key": "video-ai-influencer",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-179a2b63-64fb-49c6-a922-bd798cfd9c1a.png",
+    "original": "generated-originals/video-ai-influencer.png",
+    "web": "/creative-v06/video-ai-influencer.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "e688be418672ef1096a3ff8369aac5a185c1d59adf0322853259dc14f72ff6e0"
+  },
+  {
+    "key": "video-brand-film",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-6199da29-7c26-438c-826a-1a74824efa76.png",
+    "original": "generated-originals/video-brand-film.png",
+    "web": "/creative-v06/video-brand-film.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "5c74a6f66114cb7436b59e14b3313e6018063a0bc4d93682400d3ca62ecd64f2"
+  },
+  {
+    "key": "video-sns-ad",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-22ab2719-f866-418f-9a23-f57746c922da.png",
+    "original": "generated-originals/video-sns-ad.png",
+    "web": "/creative-v06/video-sns-ad.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "84e0bde5d45e942119cbd43d9c4cab70fe5c6ade4172a17aee5391d29efc06d0"
+  },
+  {
+    "key": "video-editing",
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a0f6ca-fcf3-77d3-880e-05ba9abb92a8\\exec-50339150-782b-4377-8796-52708b6465f9.png",
+    "original": "generated-originals/video-editing.png",
+    "web": "/creative-v06/video-editing.webp",
+    "width": 1586,
+    "height": 992,
+    "sha256": "6f8c4aaaae86b40f4ca81414d4918bb83848a3125fc9b9d340d5e7ca143fd7c5"
+  }
+]

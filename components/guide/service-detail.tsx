@@ -1,3 +1,5 @@
+import { creativeAsset } from "@/lib/creative-assets";
+import { ServiceMotion } from "./service-motion";
 import Link from "next/link";
 import { type Service } from "@/lib/content";
 import { servicePlans } from "@/lib/service-plans";
@@ -42,12 +44,10 @@ export function ServiceDetail({ service }: { service: Service }) {
         ["인계와 운영 안내", plan.handoff],
       ];
   return (
-    <div
-      className={`guide-page service-detail ${marketing ? "service-light" : "service-dark"}`}
-    >
+    <div className={`guide-page service-detail service-dark`}>
       <GuideNav division={root} active="services" />
       <ServiceTabs division={root} className="service-picker" />
-      <section className="service-hero review-container">
+      <section className="service-hero service-hero-visual review-container">
         <div className="service-hero-copy">
           <span className="review-eyebrow">{service.name}</span>
           <h1 aria-label={plan.headline.replace("\n", " ")}>
@@ -63,6 +63,14 @@ export function ServiceDetail({ service }: { service: Service }) {
             <a href="#service-scope">제공 범위 살펴보기 ↓</a>
           </div>
         </div>
+        <ServiceMotion
+          label={service.name + " · 작업 흐름"}
+          frames={plan.example.steps.map(([title, copy]) => ({
+            image: creativeAsset(service.division, service.id),
+            title,
+            copy,
+          }))}
+        />
         <aside className="service-price" aria-label="가격과 제공 기준">
           <span>가격과 제공 기준</span>
           <strong>{plan.price}</strong>

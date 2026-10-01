@@ -1,0 +1,44 @@
+[
+  {
+    "cards": [
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fmarketing-integrated.webp&w=3840&q=75",
+        "title": "통합 마케팅"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fmarketing-sns.webp&w=3840&q=75",
+        "title": "SNS 대행 운영"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fmarketing-ai-influencer.webp&w=3840&q=75",
+        "title": "AI 인플루언서 운영"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fmarketing-seo.webp&w=3840&q=75",
+        "title": "SEO · AEO · GEO"
+      }
+    ],
+    "group": "marketing"
+  },
+  {
+    "cards": [
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fdevelopment-website.webp&w=3840&q=75",
+        "title": "웹사이트 제작"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fdevelopment-shopping-mall.webp&w=3840&q=75",
+        "title": "쇼핑몰 제작"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fdevelopment-automation.webp&w=3840&q=75",
+        "title": "업무 자동화"
+      },
+      {
+        "src": "/_next/image?url=%2Fcreative-v06%2Fdevelopment-program.webp&w=3840&q=75",
+        "title": "프로그램 개발"
+      }
+    ],
+    "group": "development"
+  }
+]

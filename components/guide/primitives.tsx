@@ -311,7 +311,7 @@ export function GuideNav({
   division: string;
   active?: string;
 }) {
-  const dark = division !== "marketing",
+  const dark = true,
     brand =
       division === "video" ? "영상" : division === "lab" ? "개발" : "마케팅";
   const first =

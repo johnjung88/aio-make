@@ -1,0 +1,86 @@
+[
+  {
+    "asset": "/creative-v06/marketing-integrated.webp",
+    "status": 200,
+    "bytes": 199568,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/marketing-sns.webp",
+    "status": 200,
+    "bytes": 348108,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/marketing-ai-influencer.webp",
+    "status": 200,
+    "bytes": 115700,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/marketing-seo.webp",
+    "status": 200,
+    "bytes": 140770,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/development-website.webp",
+    "status": 200,
+    "bytes": 111024,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/development-shopping-mall.webp",
+    "status": 200,
+    "bytes": 178292,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/development-automation.webp",
+    "status": 200,
+    "bytes": 163022,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/development-program.webp",
+    "status": 200,
+    "bytes": 108040,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-webtoon.webp",
+    "status": 200,
+    "bytes": 248230,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-animation.webp",
+    "status": 200,
+    "bytes": 266824,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-ai-influencer.webp",
+    "status": 200,
+    "bytes": 122018,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-brand-film.webp",
+    "status": 200,
+    "bytes": 161412,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-sns-ad.webp",
+    "status": 200,
+    "bytes": 285186,
+    "type": "image/webp"
+  },
+  {
+    "asset": "/creative-v06/video-editing.webp",
+    "status": 200,
+    "bytes": 163074,
+    "type": "image/webp"
+  }
+]

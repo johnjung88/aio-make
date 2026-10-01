@@ -97,61 +97,12 @@ export function HomeReferences({
                 className="reference-card"
               >
                 <div className="reference-image">
-                  {item.kind === "example" &&
-                  item.division === "marketing" &&
-                  ["integrated", "sns", "seo"].includes(item.service) ? (
-                    <div
-                      className={`reference-preview preview-${item.service}`}
-                      aria-hidden="true"
-                    >
-                      <small>
-                        {item.service === "sns"
-                          ? "월간 콘텐츠 계획"
-                          : item.service === "seo"
-                            ? "질문에서 문의까지"
-                            : "콘텐츠 운영의 흐름"}
-                      </small>
-                      <div>
-                        {(item.service === "sns"
-                          ? [
-                              ["01", "제품 소개"],
-                              ["02", "사용 장면"],
-                              ["03", "고객 질문"],
-                            ]
-                          : item.service === "seo"
-                            ? [
-                                ["검색", "고객의 질문"],
-                                ["페이지", "구체적인 답변"],
-                                ["문의", "다음 행동"],
-                              ]
-                            : [
-                                ["기획", "고객 질문 정리"],
-                                ["제작", "채널별 콘텐츠"],
-                                ["운영", "게시와 개선"],
-                              ]
-                        ).map(([tag, label]) => (
-                          <span key={tag}>
-                            <b>{tag}</b>
-                            <strong>{label}</strong>
-                            <i />
-                            <i />
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <Image
-                      src={item.cover_url}
-                      alt=""
-                      fill
-                      sizes="(max-width: 620px) 90vw, (max-width: 1000px) 44vw, 30vw"
-                      style={
-                        item.division === "development"
-                          ? { objectPosition: "top" }
-                          : undefined
-                      }
-                    />
-                  )}
+                  <Image
+                    src={item.cover_url}
+                    alt=""
+                    fill
+                    sizes="(max-width: 620px) 90vw, (max-width: 1000px) 44vw, 30vw"
+                  />
                   <span>
                     {item.kind === "example" ? "제작 예시" : "작업 사례"}
                   </span>

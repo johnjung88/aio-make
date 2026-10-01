@@ -1,3 +1,4 @@
+import { creativeAsset } from "./creative-assets.ts";
 import { divisions, divisionServices } from "./content.ts";
 import type { Entry } from "./db";
 
@@ -63,18 +64,8 @@ export function guideEntries(type: Entry["type"], division?: string): Entry[] {
             `example-${service.id}`,
             `${service.name.replace(/ 제작$/, "")} 제작 방향`,
             service.description,
-            `이 항목은 고객 납품 실적이 아닌 제작 방향 예시입니다.\n\n${service.description}\n\n상담에서 목적과 현재 자료를 확인하고, 결과물과 작업 범위, 일정과 수정 기준을 먼저 정합니다. 생성 이미지 및 제공된 가이드 화면은 콘셉트를 설명하는 용도로 사용합니다. 실제 공개 사례는 고객의 공개 확인을 받은 뒤 별도로 등록합니다.`,
-            service.id === "webtoon"
-              ? "/renewal/webtoon-sample.webp"
-              : service.id === "animation"
-                ? "/renewal/animation-sample.webp"
-                : service.id === "ai-influencer"
-                  ? "/renewal/influencer-sample.webp"
-                  : service.id === "website"
-                    ? "/images/guide/portfolio/corp-novatek/live.png"
-                    : service.id === "shopping-mall"
-                      ? "/images/guide/images/portfolio/ws-shop-desktop.png"
-                      : images[d.id],
+            `이 항목은 고객 납품 실적이 아닌 제작 방향 예시입니다.\n\n${service.description}\n\n상담에서 목적과 현재 자료를 확인하고, 결과물과 작업 범위, 일정과 수정 기준을 먼저 정합니다. 새로 생성한 이미지는 콘셉트를 설명하는 용도로 사용합니다. 실제 공개 사례는 고객의 공개 확인을 받은 뒤 별도로 등록합니다.`,
+            creativeAsset(d.id, service.id),
           ),
           service: service.id,
         }));
