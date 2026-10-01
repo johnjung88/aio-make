@@ -4,7 +4,12 @@ import Image from "next/image";
 import { Pause, Play, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-type Frame = { image: string; title: string; copy: string };
+type Frame = {
+  image: string;
+  title: string;
+  copy: string;
+  visual?: "growth" | "search" | "automation";
+};
 
 export function ServiceMotion({
   label,
@@ -71,6 +76,42 @@ export function ServiceMotion({
               sizes="(max-width: 1000px) 90vw, 48vw"
               className="motion-image"
             />
+            {frame.visual === "growth" && (
+              <div className="motion-graphic motion-graphic-growth" aria-hidden="true">
+                <span>운영 흐름 예시</span>
+                <svg viewBox="0 0 420 170" preserveAspectRatio="none">
+                  <path className="motion-chart-grid" d="M0 40H420M0 85H420M0 130H420" />
+                  <polyline
+                    className="motion-chart-line motion-chart-traffic"
+                    points="0,136 55,127 110,116 165,120 220,91 275,79 330,55 420,24"
+                  />
+                  <polyline
+                    className="motion-chart-line motion-chart-sales"
+                    points="0,154 55,146 110,141 165,126 220,131 275,103 330,94 420,64"
+                  />
+                </svg>
+                <div className="motion-graphic-legend">
+                  <span>● 유입</span>
+                  <span>● 매출</span>
+                </div>
+              </div>
+            )}
+            {frame.visual === "search" && (
+              <div className="motion-graphic motion-graphic-search" aria-hidden="true">
+                <span>SEO · 사이트 구조</span>
+                <span>AEO · 질문과 답</span>
+                <span>GEO · 근거 정보</span>
+              </div>
+            )}
+            {frame.visual === "automation" && (
+              <div className="motion-graphic motion-graphic-automation" aria-hidden="true">
+                <span>입력</span>
+                <i />
+                <span>처리</span>
+                <i />
+                <span>결과</span>
+              </div>
+            )}
             <div className="motion-caption">
               <span>
                 0{i + 1} / 0{frames.length}

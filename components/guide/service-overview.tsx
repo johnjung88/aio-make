@@ -61,6 +61,14 @@ export function ServiceOverview({
             image: creativeAsset(division, service.id),
             title: service.name,
             copy: service.description,
+            visual:
+              service.id === "integrated"
+                ? "growth"
+                : service.id === "automation"
+                  ? "automation"
+                  : service.id === "seo"
+                    ? "search"
+                    : undefined,
           }))}
         />
       </section>
@@ -176,9 +184,17 @@ export function ServiceOverview({
         </span>
         <h2>아직 정리되지 않은 상태여도 괜찮습니다</h2>
         <p>
-          {marketing
-            ? "현재 채널과 가장 해결하고 싶은 문제를 알려주세요. 필요한 서비스와 범위부터 함께 정리합니다."
-            : "만들고 싶은 것과 현재 불편한 일을 알려주세요. 필요한 화면과 기능, 예산에 맞는 범위를 살펴봅니다."}
+          {marketing ? (
+            <>
+              <span>현재 채널과 가장 해결하고 싶은 문제를 알려주세요</span>
+              <span>필요한 서비스와 범위부터 함께 정리합니다</span>
+            </>
+          ) : (
+            <>
+              <span>만들고 싶은 것과 현재 불편한 일을 알려주세요</span>
+              <span>필요한 화면과 기능, 예산에 맞는 범위를 살펴봅니다</span>
+            </>
+          )}
         </p>
         <Link className="service-primary" href={`/${root}/contact`}>
           상담 문의하기 ↗

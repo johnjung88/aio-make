@@ -651,6 +651,9 @@
   max-width: 62ch;
   margin: 24px auto 28px;
 }
+.service-next > p span {
+  display: block;
+}
 @media (max-width: 1000px) {
   .service-hero {
     grid-template-columns: 1fr;

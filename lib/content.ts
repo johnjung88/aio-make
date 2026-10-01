@@ -144,7 +144,7 @@ export const services: Service[] = [
     name: "SEO · AEO · GEO",
     subtitle: "검색과 AI 답변이 이해할 수 있는 정보",
     description:
-      "사이트 구조와 소스·CMS를 점검하고 검색 접근성과 고객 질문에 대한 답변을 개선합니다.",
+      "사이트 구조와 고객 질문을 정리하고, 검색 엔진과 AI 답변이 참고할 정보를 소스·CMS에 적용합니다.",
     audience: "수정 가능한 자사 사이트와 제품·질문 자료를 보유한 사업체",
     outcomes: [
       "기술·콘텐츠 진단",

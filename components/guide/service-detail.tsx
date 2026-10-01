@@ -69,6 +69,14 @@ export function ServiceDetail({ service }: { service: Service }) {
             image: creativeAsset(service.division, service.id),
             title,
             copy,
+            visual:
+              service.id === "integrated"
+                ? "growth"
+                : service.id === "automation"
+                  ? "automation"
+                  : service.id === "seo"
+                    ? "search"
+                    : undefined,
           }))}
         />
         <aside className="service-price" aria-label="가격과 제공 기준">
