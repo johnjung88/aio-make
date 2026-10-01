@@ -169,16 +169,15 @@ class Component extends GuideLogic {
                   margin: "0",
                   fontSize: "clamp(44px,7.4vw,112px)",
                   lineHeight: "1.1",
-                  letterSpacing: "-.045em",
+                  letterSpacing: "-.025em",
                   fontWeight: "800",
                 }}
               >
                 <span data-fit-line="">
-                  {"가격과 속도는 "}
-                  <span style={{ color: "#6B4DFF" }}>{"AI 기준"}</span>
-                  {"으로"}
+                  <span style={{ color: "#6B4DFF" }}>{"AI로"}</span>
+                  {" 제작 효율을 높이고"}
                 </span>
-                <span data-fit-line="">{"품질은 전문가의 기준으로"}</span>
+                <span data-fit-line="">{"결과물은 전문가가 검수합니다"}</span>
               </h1>
             </div>
             <div
@@ -207,7 +206,7 @@ class Component extends GuideLogic {
                 <strong style={{ color: "#6B4DFF" }}>{"AI를 적극 활용"}</strong>
                 {"하는 분야별 전문가 팀입니다"}
                 <br />
-                {"AI로 비용은 낮추고, 전문가 검수로 결과물을 확인합니다"}
+                {"AI는 반복 작업을 돕고, 전문가는 방향과 품질을 확인합니다"}
               </p>
             </div>
           </section>

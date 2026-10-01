@@ -203,7 +203,7 @@ class Component extends GuideLogic {
                     margin: "0",
                     fontSize: "clamp(42px,7vw,104px)",
                     lineHeight: "1.08",
-                    letterSpacing: "-.045em",
+                    letterSpacing: "-.03em",
                     fontWeight: "800",
                     textWrap: "balance",
                   }}
@@ -228,11 +228,9 @@ class Component extends GuideLogic {
                     alignSelf: "center",
                   }}
                 >
-                  {"AI로 줄인 비용은 "}
-                  <strong style={{ color: "#A99BFF" }}>{"가격"}</strong>
-                  {"에, 전문가의 기준은 "}
-                  <strong style={{ color: "#A99BFF" }}>{"결과물"}</strong>
-                  {"에 담습니다"}
+                  {"영상·마케팅·개발, "}
+                  <strong style={{ color: "#A99BFF" }}>{"필요한 일"}</strong>
+                  {"을 골라 맡기고 결과를 함께 확인하세요."}
                 </p>
               </div>
               <div
