@@ -1,0 +1,4 @@
+PASS Content totals and published count include entries beyond 200, with distinct pages
+PASS Content type filters apply on the server; global published count stays stable
+PASS Invalid content pagination, type and analytics period return 400
+PASS 7/28/90 day queries preserve period and never invent metrics without Google authorization

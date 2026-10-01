@@ -8,7 +8,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint app components lib tests",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test": "node --conditions=react-server --experimental-strip-types --test tests/*.test.mjs",
     "format": "prettier --write app components lib tests middleware.ts next.config.ts"
   },
   "dependencies": {

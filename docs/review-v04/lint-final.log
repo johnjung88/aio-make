@@ -1,0 +1,3 @@
+
+> aio-make@1.0.0 lint
+> eslint app components lib tests

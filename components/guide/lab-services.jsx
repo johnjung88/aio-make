@@ -10,6 +10,7 @@ import {
   GuideMedia,
   GuideLink,
   GuideNav,
+  ServiceTabs,
   GuideCloud,
   GuideEffects,
   GuideOffer,
@@ -775,38 +776,7 @@ class Component extends GuideLogic {
                 flexWrap: "wrap",
               }}
             >
-              {(tabs || []).map((t, __index3) => (
-                <React.Fragment key={__index3}>
-                  <button
-                    onClick={t.pick}
-                    style={{
-                      all: "unset",
-                      cursor: "pointer",
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "baseline",
-                      padding: "20px 0 18px",
-                      fontSize: "15px",
-                      fontWeight: "600",
-                      color: t.fg,
-                      borderBottom: "2px solid " + t.bd,
-                      marginBottom: "-1px",
-                    }}
-                    type="button"
-                  >
-                    <span
-                      style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "11px",
-                        color: t.nc,
-                      }}
-                    >
-                      {t.no}
-                    </span>
-                    {t.label}
-                  </button>
-                </React.Fragment>
-              ))}
+              <ServiceTabs division="lab" />
             </div>
           </div>
           {isWeb ? (

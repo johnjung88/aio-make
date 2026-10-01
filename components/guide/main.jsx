@@ -125,7 +125,7 @@ class Component extends GuideLogic {
           <section
             style={{
               position: "relative",
-              minHeight: "max(600px,min(86vh,920px))",
+              minHeight: "min(780px,calc(100svh - 70px))",
               background: "#0D0D12",
               color: "#fff",
               display: "flex",
@@ -217,13 +217,11 @@ class Component extends GuideLogic {
                 <p
                   style={{
                     margin: "0",
-                    width: "0",
-                    minWidth: "100%",
-                    fontSize: "clamp(14px,1.97vw,29px)",
-                    lineHeight: "1.6",
+                    maxWidth: "530px",
+                    fontSize: "clamp(16px,1.5vw,21px)",
+                    lineHeight: "1.75",
                     color: "#D6D6DC",
-                    textAlign: "justify",
-                    textAlignLast: "justify",
+                    textAlign: "left",
                   }}
                 >
                   {"AI로 줄인 비용은 "}
@@ -265,7 +263,7 @@ class Component extends GuideLogic {
                   }}
                   context="main"
                 >
-                  {"작업 사례 보기"}
+                  {"제작 예시 살펴보기"}
                 </GuideLink>
               </div>
             </div>
@@ -645,7 +643,7 @@ class Component extends GuideLogic {
                     lineHeight: "1.08",
                   }}
                 >
-                  {"작업 사례"}
+                  {"제작 방향을 살펴보세요"}
                 </h2>
                 <p
                   style={{

@@ -10,6 +10,7 @@ import {
   GuideMedia,
   GuideLink,
   GuideNav,
+  ServiceTabs,
   GuideCloud,
   GuideEffects,
   GuideOffer,
@@ -59,7 +60,7 @@ const SVC = {
       [
         "콘텐츠 제작·게시",
         "영상 위주 원본 20개를 만들고 채널 형식에 맞게 변형해 게시합니다",
-        "월 100개 게시\n5개 채널 × 20개",
+        "월 100개 게시\n5개 채널 합계",
       ],
       [
         "구글·네이버 스토어",
@@ -1138,13 +1139,13 @@ const TICK = {
 const FEAT = {
   integrated: {
     title: "한 번 만든 영상으로 다섯 채널을 채웁니다",
-    sub: "원본 20개를 채널마다 다른 규격으로 다시 편집해 올립니다. 다섯 채널에 각각 20개씩, 모두 100개가 게시됩니다",
+    sub: "원본 20개를 채널마다 다른 규격으로 다시 편집해 올립니다. 채널별 수량은 월 플랜에서 합계 100개로 합의합니다. 아래는 20개씩 배치한 운영 예시입니다",
     rows: [
-      ["유튜브 숏츠", 1, "월 20개"],
-      ["인스타그램", 1, "월 20개"],
-      ["페이스북", 1, "월 20개"],
-      ["네이버 클립", 1, "월 20개"],
-      ["네이버 블로그", 1, "월 20개"],
+      ["유튜브 숏츠", 1, "배치 예시 · 20개"],
+      ["인스타그램", 1, "배치 예시 · 20개"],
+      ["페이스북", 1, "배치 예시 · 20개"],
+      ["네이버 클립", 1, "배치 예시 · 20개"],
+      ["네이버 블로그", 1, "배치 예시 · 20개"],
     ],
   },
   sns: {
@@ -1199,6 +1200,7 @@ class Component extends GuideLogic {
   featRef = React.createRef();
   stepEls = [];
   componentDidMount() {
+    this.onVw();
     window.addEventListener("resize", this.onVw);
     this.stepIO = new IntersectionObserver(
       (es) =>
@@ -1321,7 +1323,7 @@ class Component extends GuideLogic {
       posts: d.posts.map(([title, img], i) => ({
         title,
         img,
-        date: "2026.12." + String(28 - i * 7).padStart(2, "0"),
+        date: "서비스 안내",
       })),
     };
     const cases = d.caseSvc ? CASES.filter((c) => c.svc === d.caseSvc) : [],
@@ -1438,40 +1440,7 @@ class Component extends GuideLogic {
                 borderBottom: "1px solid #2A2A32",
               }}
             >
-              {(tabs || []).map((t, __index3) => (
-                <React.Fragment key={__index3}>
-                  <button
-                    onClick={t.pick}
-                    style={{
-                      all: "unset",
-                      cursor: "pointer",
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "baseline",
-                      padding: "20px 0 18px",
-                      fontSize: "15px",
-                      fontWeight: "600",
-                      color: t.fg,
-                      borderBottom: "2px solid " + t.bd,
-                      marginBottom: "-1px",
-                      transition: "color .2s",
-                    }}
-                    type="button"
-                  >
-                    <span
-                      style={{
-                        fontFamily: "Unbounded,sans-serif",
-                        fontSize: "11px",
-                        letterSpacing: ".08em",
-                        color: t.nc,
-                      }}
-                    >
-                      {t.no}
-                    </span>
-                    {t.label}
-                  </button>
-                </React.Fragment>
-              ))}
+              <ServiceTabs division="marketing" />
             </div>
             <div
               style={{
@@ -2777,7 +2746,7 @@ class Component extends GuideLogic {
                 {(s.posts || []).map((p, __index4) => (
                   <React.Fragment key={__index4}>
                     <GuideLink
-                      href="Marketing 칼럼 상세.dc.html"
+                      href={p.href}
                       style={{
                         background: "#fff",
                         display: "flex",

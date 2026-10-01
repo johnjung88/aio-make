@@ -34,9 +34,17 @@ class Component extends GuideLogic {
       ["edit", "편집·클리퍼", "보유 영상 편집·클립 · 별도 견적"],
     ];
     return {
-      works: ["웹툰", "애니메이션", "AI 인플루언서", "광고·브랜드 영상"].map(
-        (cat, i) => ({ id: "studio-home-w" + (i + 1), cat, n: 0 }),
-      ),
+      works: [
+        ["웹툰", "webtoon"],
+        ["애니메이션", "animation"],
+        ["AI 인플루언서", "ai-influencer"],
+        ["SNS 광고 영상", "ad"],
+      ].map(([cat, service], i) => ({
+        id: "studio-home-w" + (i + 1),
+        cat,
+        n: 0,
+        href: "/video/work/example-" + service,
+      })),
       services: svc.map(([k, name, line], i) => ({
         no: String(i + 1).padStart(2, "0"),
         name,
@@ -302,7 +310,7 @@ class Component extends GuideLogic {
               </GuideLink>
             </div>
             <GuideLink
-              href="Studio 사례 상세.dc.html"
+              href="/video/work/example-brand-film"
               style={{ display: "flex", flexDirection: "column", gap: "14px" }}
               context="video"
             >
@@ -347,7 +355,7 @@ class Component extends GuideLogic {
               {(works || []).map((w, __index3) => (
                 <React.Fragment key={__index3}>
                   <GuideLink
-                    href="Studio 사례 상세.dc.html"
+                    href={w.href}
                     style={{
                       display: "flex",
                       flexDirection: "column",

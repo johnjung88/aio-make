@@ -13,10 +13,10 @@ export function Brand() {
   );
 }
 const links = [
-  ["Studio", "/video"],
-  ["Marketing", "/marketing"],
-  ["Lab", "/lab"],
-  ["레퍼런스", "/#work"],
+  ["영상 · Studio", "/video"],
+  ["마케팅", "/marketing"],
+  ["개발 · Lab", "/lab"],
+  ["작업 보기", "/work"],
 ];
 export function Header() {
   const path = usePathname(),
@@ -90,7 +90,7 @@ export function Header() {
                     setAbout(false);
                   }}
                 >
-                  팀원소개
+                  일하는 방식
                 </Link>
               </div>
             )}
@@ -100,7 +100,7 @@ export function Header() {
               key={label}
               className={
                 path === href ||
-                (href !== "/#work" && path.startsWith(href + "/"))
+                (href !== "/work" && path.startsWith(href + "/"))
                   ? "is-current"
                   : ""
               }
@@ -112,7 +112,15 @@ export function Header() {
           ))}
           <Link
             className="guide-header-cta"
-            href="/#contact"
+            href={
+              path.startsWith("/marketing")
+                ? "/marketing/contact"
+                : path.startsWith("/video")
+                  ? "/video/contact"
+                  : path.startsWith("/lab")
+                    ? "/lab/contact"
+                    : "/contact"
+            }
             onClick={() => setOpen(false)}
           >
             문의하기
@@ -133,10 +141,10 @@ export function Footer() {
           <nav aria-label="하단 메뉴">
             {[
               ["회사소개", "/about"],
-              ["팀원소개", "/about/team"],
-              ["Studio", "/video"],
-              ["Marketing", "/marketing"],
-              ["Lab", "/lab"],
+              ["일하는 방식", "/about/team"],
+              ["영상 · Studio", "/video"],
+              ["마케팅", "/marketing"],
+              ["개발 · Lab", "/lab"],
               ["개인정보처리방침", "/privacy"],
               ["이용약관", "/terms"],
             ].map(([label, href]) => (

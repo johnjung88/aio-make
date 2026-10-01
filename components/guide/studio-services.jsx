@@ -10,6 +10,7 @@ import {
   GuideMedia,
   GuideLink,
   GuideNav,
+  ServiceTabs,
   GuideCloud,
   GuideEffects,
   GuideOffer,
@@ -1130,40 +1131,7 @@ class Component extends GuideLogic {
                 borderBottom: "1px solid #2A2A32",
               }}
             >
-              {(tabs || []).map((t, __index3) => (
-                <React.Fragment key={__index3}>
-                  <button
-                    onClick={t.pick}
-                    style={{
-                      all: "unset",
-                      cursor: "pointer",
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "baseline",
-                      padding: "20px 0 18px",
-                      fontSize: "15px",
-                      fontWeight: "600",
-                      color: t.fg,
-                      borderBottom: "2px solid " + t.bd,
-                      marginBottom: "-1px",
-                      transition: "color .2s",
-                    }}
-                    type="button"
-                  >
-                    <span
-                      style={{
-                        fontFamily: "Unbounded,sans-serif",
-                        fontSize: "11px",
-                        letterSpacing: ".08em",
-                        color: t.nc,
-                      }}
-                    >
-                      {t.no}
-                    </span>
-                    {t.label}
-                  </button>
-                </React.Fragment>
-              ))}
+              <ServiceTabs division="video" />
             </div>
             <div
               style={{
@@ -2003,7 +1971,7 @@ class Component extends GuideLogic {
                 {(s.works || []).map((w, __index4) => (
                   <React.Fragment key={__index4}>
                     <GuideLink
-                      href="Studio 사례 상세.dc.html"
+                      href={`/video/work/example-${{ promo: "brand-film", ai: "ai-influencer", edit: "editing" }[s.key] || s.key}`}
                       style={{
                         display: "flex",
                         flexDirection: "column",

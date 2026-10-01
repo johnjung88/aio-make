@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { guideEntries } from "@/lib/guide-content";
 import Image from "next/image";
 import { CodeXml, Video, Square } from "lucide-react";
 import suppliedSlots from "./supplied-slots.json";
@@ -142,6 +144,10 @@ export function GuideLink({
 }
 
 const assetSlots: Record<string, string> = {
+  "lead-ceo": "/images/guide/hero/team-meeting.jpg",
+  "lead-video": "/renewal/animation-sample.webp",
+  "lead-mkt": "/renewal/marketing-content-v03.webp",
+  "lead-dev": "/images/guide/images/cards/card-lab.jpg",
   "aio-home-hero": "/images/guide/hero/hero-bg.jpg",
   "main-studio-big": "/renewal/animation-sample.webp",
   "main-studio-s1": "/renewal/influencer-sample.webp",
@@ -319,7 +325,7 @@ export function GuideNav({
         ? "webtoon"
         : "integrated";
   const items = [
-    ["home", "HOME", `/${division}`],
+    ["home", "홈", `/${division}`],
     ["services", "서비스", `/${division}/services/${first}`],
     [
       "cases",
@@ -551,154 +557,74 @@ export function adaptGuideValues(
       },
     ];
   }
-  if (page.endsWith("home")) {
+  if (page.endsWith("home") || page.endsWith("services")) {
+    const division = page.startsWith("studio") ? "video" : page.split("-")[0];
     const actualPosts = (props.entries ?? []).filter(
       (e) => e.type === "insight",
     );
-    values.posts = actualPosts.length
-      ? actualPosts.slice(0, 4).map((e) => ({
-          id: e.cover_url || "guide-insight",
-          title: e.title,
-          date: new Date(e.created_at).toLocaleDateString("ko-KR"),
-          cat: "INSIGHT",
-          img: e.cover_url || "/images/guide/images/cards/card-lab.jpg",
-          href: `/${page.split("-")[0] === "studio" ? "video" : page.split("-")[0]}/insights/${e.slug}`,
-        }))
-      : [
-          {
-            id: "guide-insight-1",
-            title: page.startsWith("studio")
-              ? "영상 제작 전에 준비할 자료"
-              : "진행 전에 범위부터 정하는 이유",
-            date: "제작 가이드",
-            cat: "GUIDE",
-            img: page.startsWith("marketing")
-              ? "/renewal/marketing-content-v03.webp"
-              : "/images/guide/images/cards/card-lab.jpg",
-            href: `/${page.startsWith("studio") ? "video" : page.split("-")[0]}/insights/preparation`,
-          },
-          {
-            id: "guide-insight-2",
-            title: "기획부터 검수와 인계까지",
-            date: "제작 가이드",
-            cat: "PROCESS",
-            img: "/images/guide/hero/team-meeting.jpg",
-            href: `/${page.startsWith("studio") ? "video" : page.split("-")[0]}/insights/process`,
-          },
-          {
-            id: "guide-insight-3",
-            title: "상담에서 확인하는 목적과 결과물",
-            date: "상담 안내",
-            cat: "CONTACT",
-            img: "/images/guide/images/cards/card-marketing.jpg",
-            href: `/${page.startsWith("studio") ? "video" : page.split("-")[0]}/insights/consultation`,
-          },
-        ];
+    const posts = (
+      actualPosts.length
+        ? actualPosts
+        : guideEntries("insight", division === "lab" ? "development" : division)
+    )
+      .slice(0, 3)
+      .map((e) => ({
+        id: e.cover_url,
+        title: e.title,
+        summary: e.summary,
+        date: e.id.startsWith("guide-")
+          ? "서비스 안내"
+          : new Date(e.created_at).toLocaleDateString("ko-KR"),
+        cat: "GUIDE",
+        img: e.cover_url,
+        href: `/${division}/insights/${e.slug}`,
+      }));
+    values.posts = posts;
+    if (page === "marketing-services")
+      values.s = { ...(values.s as object), posts };
   }
+
   return values;
 }
 
-// Keep the guide's aligned headline behavior, with local fonts and scoped cleanup.
+// Natural Korean spacing; selected service remains visible in the mobile rail.
 export function GuideEffects() {
-  const ref = useRef<HTMLSpanElement>(null);
+  return null;
+}
+export function ServiceTabs({ division }: { division: string }) {
+  const pathname = usePathname();
+  const rail = useRef<HTMLElement>(null);
   useEffect(() => {
-    const root = ref.current?.closest(".guide-page");
-    if (!root) return;
-    let timer: ReturnType<typeof setTimeout>;
-    const run = () => {
-      clearTimeout(timer);
-      timer = setTimeout(
-        () =>
-          root.querySelectorAll<HTMLElement>("[data-fit]").forEach((box) => {
-            const lines = [
-              ...box.querySelectorAll<HTMLElement>("[data-fit-line]"),
-            ];
-            if (!lines.length || !box.parentElement) return;
-            lines.forEach((line) => {
-              line.style.fontSize = "";
-              line.style.letterSpacing = "";
-              line.style.display = "block";
-              line.style.whiteSpace = "nowrap";
-              line.style.width = "max-content";
-            });
-            const size = (line: HTMLElement) =>
-              parseFloat(getComputedStyle(line).fontSize);
-            const width = (line: HTMLElement) =>
-              line.getBoundingClientRect().width;
-            const spacing = (line: HTMLElement) => {
-              const value = getComputedStyle(line).letterSpacing;
-              return value === "normal" ? 0 : parseFloat(value);
-            };
-            if (box.dataset.fit === "balance") {
-              const available = box.parentElement.clientWidth;
-              let target = Math.max(...lines.map(width));
-              if (target > available) {
-                const scale = available / target;
-                lines.forEach(
-                  (line) => (line.style.fontSize = size(line) * scale + "px"),
-                );
-                target = Math.max(...lines.map(width));
-              }
-              lines.forEach((line) => {
-                const count = Math.max(
-                  1,
-                  [...(line.textContent ?? "").trim()].length - 1,
-                );
-                let gap = target - width(line);
-                if (gap < 0.5) return;
-                line.style.letterSpacing =
-                  spacing(line) +
-                  Math.min(gap / count, size(line) * 0.06) +
-                  "px";
-                gap = target - width(line);
-                if (gap > 0.5) {
-                  line.style.fontSize =
-                    (size(line) * target) / width(line) + "px";
-                  gap = target - width(line);
-                }
-                if (Math.abs(gap) > 0.5)
-                  line.style.letterSpacing = spacing(line) + gap / count + "px";
-              });
-              return;
-            }
-            const heads = lines.filter(
-              (line) => line.dataset.fitLine !== "sub",
-            );
-            const subs = lines.filter((line) => line.dataset.fitLine === "sub");
-            let target = Math.max(...heads.map(width));
-            const available = box.parentElement.clientWidth;
-            if (target > available) {
-              const scale = available / target;
-              heads.forEach(
-                (line) => (line.style.fontSize = size(line) * scale + "px"),
-              );
-              target = available;
-            }
-            heads.forEach((line) => {
-              const w = width(line);
-              if (w && w < target - 0.5)
-                line.style.fontSize = (size(line) * target) / w + "px";
-            });
-            if (subs.length) {
-              const scale = target / Math.max(...subs.map(width));
-              subs.forEach(
-                (line) => (line.style.fontSize = size(line) * scale + "px"),
-              );
-            }
-          }),
-        30,
+    const current = rail.current?.querySelector<HTMLElement>(
+      '[aria-current="page"]',
+    );
+    if (current && rail.current)
+      rail.current.scrollLeft = Math.max(
+        0,
+        current.offsetLeft - rail.current.offsetLeft - 20,
       );
-    };
-    const resize = new ResizeObserver(run);
-    resize.observe(root);
-    document.fonts.ready.then(run);
-    run();
-    return () => {
-      resize.disconnect();
-      clearTimeout(timer);
-    };
-  }, []);
-  return <span ref={ref} hidden />;
+  }, [pathname]);
+  return (
+    <nav ref={rail} className="guide-service-tabs" aria-label="서비스 선택">
+      {services
+        .filter(
+          (s) => s.division === (division === "lab" ? "development" : division),
+        )
+        .map((s, i) => {
+          const href = `/${division}/services/${s.id}`;
+          return (
+            <Link
+              key={s.id}
+              href={href}
+              aria-current={pathname === href ? "page" : undefined}
+            >
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              {s.name}
+            </Link>
+          );
+        })}
+    </nav>
+  );
 }
 
 export function GuideCloud() {

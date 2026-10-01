@@ -34,7 +34,14 @@ export type InquiryData = {
   page?: number;
   error?: string;
 };
-export type EntryData = { connected: boolean; items: Entry[]; error?: string };
+export type EntryData = {
+  connected: boolean;
+  items: Entry[];
+  total?: number | null;
+  publishedCount?: number | null;
+  page?: number;
+  error?: string;
+};
 
 export type EntryDraft = Omit<Entry, "id" | "created_at" | "updated_at"> & {
   id?: string;

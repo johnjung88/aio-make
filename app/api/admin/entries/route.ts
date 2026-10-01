@@ -3,7 +3,7 @@ import { hasAdmin } from "@/lib/auth";
 import { database, databaseReady } from "@/lib/db";
 import { sameOrigin, readJson } from "@/lib/http";
 import { entrySchema } from "@/lib/domain";
-export async function GET() {
+export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
       { error: "로그인이 필요합니다." },
@@ -11,12 +11,36 @@ export async function GET() {
     );
   if (!databaseReady())
     return NextResponse.json({ connected: false, items: [] });
-  const { data, error } = await database()
+  const params = new URL(request.url).searchParams;
+  const page = Number(params.get("page") || 1);
+  const type = params.get("type") || "all";
+  if (
+    !Number.isSafeInteger(page) ||
+    page < 1 ||
+    page > 100000 ||
+    !["all", "reference", "insight"].includes(type)
+  )
+    return NextResponse.json(
+      { error: "올바른 페이지와 콘텐츠 종류를 선택해주세요." },
+      { status: 400 },
+    );
+  const db = database();
+  let query = db
     .from("website_entries")
-    .select("*")
+    .select("*", { count: "exact" })
     .order("updated_at", { ascending: false })
-    .limit(200);
-  if (error)
+    .order("id", { ascending: false })
+    .range((page - 1) * 50, page * 50 - 1);
+  if (type !== "all") query = query.eq("type", type);
+  const [list, published] = await Promise.all([
+    query,
+    db
+      .from("website_entries")
+      .select("id", { count: "exact", head: true })
+      .eq("is_published", true)
+      .eq("rights_confirmed", true),
+  ]);
+  if (list.error || published.error)
     return NextResponse.json(
       {
         connected: false,
@@ -26,7 +50,13 @@ export async function GET() {
       { status: 503 },
     );
   return NextResponse.json(
-    { connected: true, items: data },
+    {
+      connected: true,
+      items: list.data,
+      total: list.count,
+      page,
+      publishedCount: published.count,
+    },
     { headers: { "Cache-Control": "no-store" } },
   );
 }

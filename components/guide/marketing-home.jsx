@@ -1877,7 +1877,7 @@ class Component extends GuideLogic {
                 {(cases || []).map((c, __index4) => (
                   <React.Fragment key={__index4}>
                     <GuideLink
-                      href="Marketing 사례 상세.dc.html"
+                      href={`/marketing/work/example-${c.type === "feed" ? "sns" : c.type === "search" ? "seo" : "ai-influencer"}`}
                       style={{
                         flex: "none",
                         width: "min(80vw,440px)",
@@ -2953,7 +2953,7 @@ class Component extends GuideLogic {
                 }}
               >
                 <GuideLink
-                  href="Marketing 칼럼 상세.dc.html"
+                  href={posts?.[0]?.href || "/marketing/insights"}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -2964,67 +2964,17 @@ class Component extends GuideLogic {
                   <div
                     style={{
                       aspectRatio: "16/10",
-                      background:
-                        "linear-gradient(90deg,rgba(13,13,18,.92) 0%,rgba(13,13,18,.55) 100%),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=75&auto=format&fit=crop') center/cover #0D0D12",
-                      color: "#fff",
-                      padding: "clamp(24px,3vw,40px)",
-                      boxSizing: "border-box",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
+                      overflow: "hidden",
+                      background: "#e9e7e1",
                     }}
                   >
-                    <span
-                      style={{
-                        fontFamily: "Unbounded,sans-serif",
-                        fontSize: "11px",
-                        letterSpacing: ".16em",
-                        color: "#A99BFF",
-                      }}
-                    >
-                      {"GUIDE · AEO / GEO"}
-                    </span>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                        fontSize: "14px",
-                        lineHeight: "1.6",
-                      }}
-                    >
-                      <span
-                        style={{
-                          alignSelf: "flex-end",
-                          background: "#2A2A32",
-                          padding: "8px 12px",
-                        }}
-                      >
-                        {"우리 동네 세무사 추천해줘"}
-                      </span>
-                      <span style={{ color: "#D6D6DC", maxWidth: "38ch" }}>
-                        {"상담 후기가 많고 절세 사례를 꾸준히 공개하는 "}
-                        <strong
-                          style={{
-                            color: "#fff",
-                            borderBottom: "2px solid #6B4DFF",
-                          }}
-                        >
-                          {"정담세무회계"}
-                        </strong>
-                        {"가 자주 언급됩니다"}
-                      </span>
-                    </div>
+                    <GuideImage
+                      id={posts?.[0]?.img}
+                      placeholder={posts?.[0]?.title || "마케팅 안내"}
+                    />
                   </div>
-                  <span
-                    style={{
-                      fontSize: "13px",
-                      color: "#6B4DFF",
-                      fontFamily: "Unbounded,sans-serif",
-                      letterSpacing: ".08em",
-                    }}
-                  >
-                    {"SEO·AEO·GEO · 2026.12.28"}
+                  <span style={{ fontSize: "13px", color: "#6B4DFF" }}>
+                    {posts?.[0]?.date}
                   </span>
                   <strong
                     style={{
@@ -3033,8 +2983,18 @@ class Component extends GuideLogic {
                       letterSpacing: "-.03em",
                     }}
                   >
-                    {"AI 답변에 우리 브랜드가 나오게 하려면"}
+                    {posts?.[0]?.title}
                   </strong>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "16px",
+                      lineHeight: "1.7",
+                      color: "#5f5f68",
+                    }}
+                  >
+                    {posts?.[0]?.summary}
+                  </p>
                 </GuideLink>
                 <div
                   style={{
@@ -3043,7 +3003,7 @@ class Component extends GuideLogic {
                     borderTop: "1.5px solid #0D0D12",
                   }}
                 >
-                  {(posts || []).map((p, __index5) => (
+                  {(posts || []).slice(1).map((p, __index5) => (
                     <React.Fragment key={__index5}>
                       <GuideLink
                         href={p.href}

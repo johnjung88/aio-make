@@ -1,0 +1,114 @@
+[
+  {
+    "active": "01통합 마케팅",
+    "emptyLinks": 0,
+    "h1": "통합 마케팅",
+    "path": "/marketing/services/integrated",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "02SNS 대행 운영",
+    "emptyLinks": 0,
+    "h1": "SNS 대행 운영",
+    "path": "/marketing/services/sns",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "03AI 인플루언서 운영",
+    "emptyLinks": 0,
+    "h1": "AI 인플루언서 마케팅",
+    "path": "/marketing/services/ai-influencer",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "04SEO · AEO · GEO",
+    "emptyLinks": 0,
+    "h1": "SEO·AEO·GEO",
+    "path": "/marketing/services/seo",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "01웹사이트 제작",
+    "emptyLinks": 0,
+    "h1": "시안이 아닌\n배포된 사이트로 납품합니다",
+    "path": "/lab/services/website",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "02쇼핑몰 제작",
+    "emptyLinks": 0,
+    "h1": "디자인 복사부터\n기본 이미지 세팅까지",
+    "path": "/lab/services/shopping-mall",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "03업무 자동화",
+    "emptyLinks": 0,
+    "h1": "매일 반복하는 작업을\n코드로 넘깁니다",
+    "path": "/lab/services/automation",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "04프로그램 개발",
+    "emptyLinks": 0,
+    "h1": "우리 업무에 맞춘 도구를\n처음부터 끝까지 만듭니다",
+    "path": "/lab/services/program",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "01웹툰 제작",
+    "emptyLinks": 0,
+    "h1": "웹툰",
+    "path": "/video/services/webtoon",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "02애니메이션",
+    "emptyLinks": 0,
+    "h1": "애니메이션",
+    "path": "/video/services/animation",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "03AI 인플루언서 제작",
+    "emptyLinks": 0,
+    "h1": "AI 인플루언서 영상",
+    "path": "/video/services/ai-influencer",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "04브랜드 홍보 영상",
+    "emptyLinks": 0,
+    "h1": "브랜드 홍보 영상",
+    "path": "/video/services/brand-film",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "05SNS 광고 영상",
+    "emptyLinks": 0,
+    "h1": "SNS 광고 영상",
+    "path": "/video/services/ad",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "active": "06영상 편집",
+    "emptyLinks": 0,
+    "h1": "편집·클리퍼",
+    "path": "/video/services/editing",
+    "scroll": 375,
+    "width": 390
+  }
+]

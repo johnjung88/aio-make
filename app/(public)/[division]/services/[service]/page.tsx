@@ -1,3 +1,4 @@
+import { publicEntries } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
@@ -31,16 +32,21 @@ export default async function ServicePage({
     d = divisionByPath(p.division),
     s = d && serviceById(d.id, p.service);
   if (!d || !s) notFound();
+  const entries = await publicEntries("insight", d.id);
   const key = keys[s.id] ?? s.id,
     guideKey = d.path === "marketing" && key === "ai-influencer" ? "ai" : key;
   return (
     <>
       {d.path === "video" ? (
-        <StudioServices key={guideKey} service={guideKey} />
+        <StudioServices key={guideKey} service={guideKey} entries={entries} />
       ) : d.path === "marketing" ? (
-        <MarketingServices key={guideKey} service={guideKey} />
+        <MarketingServices
+          key={guideKey}
+          service={guideKey}
+          entries={entries}
+        />
       ) : (
-        <LabServices key={guideKey} service={guideKey} />
+        <LabServices key={guideKey} service={guideKey} entries={entries} />
       )}
       <JsonLd
         data={{

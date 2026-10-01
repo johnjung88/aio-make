@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { isSafeImageUrl } from "@/lib/domain";
-import type { Entry } from "@/lib/db";
 import { ArrowUpRight } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
 import type { EntryData, EntryDraft } from "./types";
@@ -10,10 +9,13 @@ type Props = {
   entries: EntryData;
   filteredEntries: EntryData["items"];
   entryFilter: string;
+  page: number;
+  setPage: (page: number) => void;
+  loading: boolean;
   editor: EntryDraft | null;
   busy: boolean;
   openEditor: (next: EntryDraft | null) => boolean;
-  savedEntry: Entry | null | undefined;
+  savedEntry: EntryDraft | null;
   setEntryFilter: (v: string) => void;
   setEditor: React.Dispatch<React.SetStateAction<EntryDraft | null>>;
   setMessage: (v: string) => void;
@@ -30,6 +32,9 @@ export function EntryPanel({
   entries,
   filteredEntries,
   entryFilter,
+  page,
+  setPage,
+  loading,
   editor,
   busy,
   openEditor,
@@ -57,6 +62,7 @@ export function EntryPanel({
           <select
             aria-label="콘텐츠 종류"
             value={entryFilter}
+            disabled={!!editor || loading}
             onChange={(e) => setEntryFilter(e.target.value)}
           >
             <option value="all">전체 콘텐츠</option>
@@ -80,7 +86,7 @@ export function EntryPanel({
             "데이터베이스 연결 전입니다. 편집 내용을 입력할 수 있지만 저장에는 연결이 필요합니다."}
         </div>
       )}
-      <div className="admin-table-wrap">
+      <div className="admin-table-wrap" aria-busy={loading}>
         <table className="admin-table">
           <thead>
             <tr>
@@ -128,6 +134,32 @@ export function EntryPanel({
           </tbody>
         </table>
       </div>
+      {entries.connected && (
+        <div className="admin-toolbar">
+          <p>
+            총 {entries.total ?? 0}건 · {page} /{" "}
+            {Math.max(1, Math.ceil((entries.total ?? 0) / 50))}페이지
+          </p>
+          <div>
+            <button
+              className="secondary-button"
+              disabled={loading || !!editor || page === 1}
+              onClick={() => setPage(page - 1)}
+            >
+              이전
+            </button>
+            <button
+              className="secondary-button"
+              disabled={
+                loading || !!editor || page * 50 >= (entries.total ?? 0)
+              }
+              onClick={() => setPage(page + 1)}
+            >
+              다음
+            </button>
+          </div>
+        </div>
+      )}
       {editor && (
         <form onSubmit={saveEntry} className="entry-editor admin-detail">
           <h2 ref={heading} tabIndex={-1}>

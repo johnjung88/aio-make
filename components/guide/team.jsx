@@ -217,9 +217,9 @@ class Component extends GuideLogic {
                   fontWeight: "800",
                 }}
               >
-                <span data-fit-line="">{"AI를 가장 잘 쓰는"}</span>
+                <span data-fit-line="">{"각 분야의 역할이"}</span>
                 <span data-fit-line="" style={{ color: "#6B4DFF" }}>
-                  {"분야별 작업 역할"}
+                  {"하나의 결과물로"}
                 </span>
               </h1>
               <p
@@ -231,13 +231,13 @@ class Component extends GuideLogic {
                 }}
               >
                 <span data-fit-line="sub">
-                  {"분야별 작업 역할가 AI로 효율을 높이고"}
+                  {"기획부터 제작과 검수까지 역할을 나누고"}
                 </span>
                 <span
                   data-fit-line="sub"
                   style={{ color: "#0D0D12", fontWeight: "600" }}
                 >
-                  {"결과물의 품질까지 직접 책임집니다"}
+                  {"합의한 기준으로 결과물을 완성합니다"}
                 </span>
               </p>
             </div>
@@ -272,7 +272,7 @@ class Component extends GuideLogic {
                   letterSpacing: "-.02em",
                 }}
               >
-                {"기획 · 분야별 작업 역할"}
+                {"함께 만드는 네 가지 역할"}
               </h2>
               <span
                 style={{
@@ -306,12 +306,15 @@ class Component extends GuideLogic {
                   >
                     <div
                       style={{
-                        aspectRatio: "4/5",
+                        aspectRatio: "4/3",
                         position: "relative",
                         background: "#E6E4DD",
                       }}
                     >
-                      <GuideImage id={l.id} placeholder="프로필 사진" />
+                      <GuideImage
+                        id={l.id}
+                        placeholder={l.name + " 작업을 설명하는 이미지"}
+                      />
                     </div>
                     <div
                       style={{
@@ -334,9 +337,8 @@ class Component extends GuideLogic {
                       <div
                         style={{
                           display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "baseline",
-                          gap: "12px",
+                          flexDirection: "column",
+                          gap: "6px",
                         }}
                       >
                         <strong style={{ fontSize: "22px" }}>{l.name}</strong>
@@ -391,7 +393,7 @@ class Component extends GuideLogic {
                     lineHeight: "1.1",
                   }}
                 >
-                  {"분야별 팀"}
+                  {"분야별 업무"}
                 </h2>
                 <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
                   {(tabs || []).map((t, __index5) => (

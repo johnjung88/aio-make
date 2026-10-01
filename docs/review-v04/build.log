@@ -1,0 +1,58 @@
+
+> aio-make@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.27
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 24.2s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/15) ...
+   Generating static pages (3/15)
+   Generating static pages (7/15)
+   Generating static pages (11/15)
+ ✓ Generating static pages (15/15)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                    9.78 kB         148 kB
+├ ○ /_not-found                            150 B         103 kB
+├ ƒ /[division]                          21.2 kB         159 kB
+├ ƒ /[division]/contact                  9.78 kB         148 kB
+├ ƒ /[division]/insights                   599 B         139 kB
+├ ƒ /[division]/insights/[slug]            599 B         139 kB
+├ ƒ /[division]/services/[service]       40.4 kB         179 kB
+├ ƒ /[division]/work                       599 B         139 kB
+├ ƒ /[division]/work/[slug]                599 B         139 kB
+├ ○ /about                               8.55 kB         147 kB
+├ ○ /about/team                          7.98 kB         146 kB
+├ ƒ /admin                                 14 kB         144 kB
+├ ƒ /admin/login                         3.01 kB         109 kB
+├ ƒ /api/admin/analytics                   150 B         103 kB
+├ ƒ /api/admin/entries                     150 B         103 kB
+├ ƒ /api/admin/inquiries                   150 B         103 kB
+├ ƒ /api/admin/inquiries/[id]              150 B         103 kB
+├ ƒ /api/admin/login                       150 B         103 kB
+├ ƒ /api/admin/logout                      150 B         103 kB
+├ ƒ /api/admin/media                       150 B         103 kB
+├ ƒ /api/contact                           150 B         103 kB
+├ ○ /contact                             3.09 kB         128 kB
+├ ○ /icon.svg                                0 B            0 B
+├ ○ /privacy                               168 B         106 kB
+├ ○ /robots.txt                            150 B         103 kB
+├ ƒ /sitemap.xml                           150 B         103 kB
+├ ○ /terms                                 168 B         106 kB
+└ ƒ /work                                  590 B         139 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/079cafcb-db0cedce11aeb63b.js  54.2 kB
+  ├ chunks/262-d35b9b58e2a2dc05.js       46.3 kB
+  └ other shared chunks (total)          2.01 kB
+
+
+ƒ Middleware                             34.4 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

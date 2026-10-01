@@ -12,7 +12,8 @@ import {
 import { useRouter } from "next/navigation";
 import { Brand } from "./site-shell";
 import { divisionServices } from "@/lib/content";
-import type { GaReport } from "@/lib/ga";
+import type { GaReport, GaDays } from "@/lib/ga-data";
+import { Overview } from "./admin/overview";
 import type {
   Inquiry,
   Note,
@@ -22,7 +23,7 @@ import type {
 } from "./admin/types";
 import { InquiryPanel } from "./admin/inquiries";
 import { EntryPanel } from "./admin/entries";
-import { AnalyticsPanel } from "./admin/analytics";
+import { AnalyticsPanel, GaConnection } from "./admin/analytics";
 type View = "overview" | "inquiries" | "entries" | "analytics" | "settings";
 const views = [
   { id: "overview", label: "대시보드", icon: LayoutDashboard },
@@ -53,7 +54,9 @@ async function read<T>(path: string, signal?: AbortSignal): Promise<T> {
     location.href = "/admin/login";
     throw new Error("로그인이 필요합니다.");
   }
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "데이터 조회에 실패했습니다.");
+  return data;
 }
 export function AdminDashboard() {
   const router = useRouter(),
@@ -68,6 +71,13 @@ export function AdminDashboard() {
       items: [],
     }),
     [ga, setGa] = useState<GaReport | null>(null),
+    [gaDays, setGaDays] = useState<GaDays>(28),
+    [gaLoading, setGaLoading] = useState(true),
+    [recent, setRecent] = useState<InquiryData>({
+      connected: false,
+      items: [],
+      total: null,
+    }),
     [loading, setLoading] = useState(true),
     [message, setMessage] = useState(""),
     [error, setError] = useState(false),
@@ -83,8 +93,17 @@ export function AdminDashboard() {
       null,
     ),
     [busy, setBusy] = useState(false),
-    [entryFilter, setEntryFilter] = useState("all");
+    [entryFilter, setEntryFilter] = useState("all"),
+    [entryPage, setEntryPage] = useState(1);
   const refreshRequest = useRef<AbortController | null>(null);
+  const navigation = useRef<HTMLElement>(null);
+  const editorBaseline = useRef<EntryDraft | null>(null);
+  useEffect(() => {
+    const rail = navigation.current;
+    const current = rail?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (rail && current && rail.scrollWidth > rail.clientWidth)
+      rail.scrollLeft = Math.max(0, current.offsetLeft - rail.offsetLeft - 12);
+  }, [view]);
   const [pendingEditor, setPendingEditor] = useState<{
     next: EntryDraft | null;
   } | null>(null);
@@ -98,7 +117,7 @@ export function AdminDashboard() {
     refreshRequest.current = controller;
     setLoading(true);
     try {
-      const [a, b, c] = await Promise.all([
+      const [a, b, c] = await Promise.allSettled([
         read<InquiryData>(
           "/api/admin/inquiries?" +
             new URLSearchParams({
@@ -108,13 +127,41 @@ export function AdminDashboard() {
             }),
           controller.signal,
         ),
-        read<EntryData>("/api/admin/entries", controller.signal),
-        read<GaReport>("/api/admin/analytics", controller.signal),
+        read<EntryData>(
+          "/api/admin/entries?" +
+            new URLSearchParams({ page: String(entryPage), type: entryFilter }),
+          controller.signal,
+        ),
+        read<InquiryData>(
+          "/api/admin/inquiries?page=1&status=all",
+          controller.signal,
+        ),
       ]);
       if (controller.signal.aborted) return;
-      setInquiries(a);
-      setEntries(b);
-      setGa(c);
+      setInquiries(
+        a.status === "fulfilled"
+          ? a.value
+          : {
+              connected: false,
+              items: [],
+              total: null,
+              error: "문의 목록을 불러오지 못했습니다. 다시 시도해주세요.",
+            },
+      );
+      setEntries(
+        b.status === "fulfilled"
+          ? b.value
+          : {
+              connected: false,
+              items: [],
+              error: "콘텐츠 목록을 불러오지 못했습니다. 다시 시도해주세요.",
+            },
+      );
+      setRecent(
+        c.status === "fulfilled"
+          ? c.value
+          : { connected: false, items: [], total: null },
+      );
     } catch {
       if (controller.signal.aborted) return;
       setError(true);
@@ -124,11 +171,53 @@ export function AdminDashboard() {
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
-  }, [page, statusFilter, appliedSearch]);
+  }, [page, statusFilter, appliedSearch, entryPage, entryFilter]);
   useEffect(() => {
     void refresh();
     return () => refreshRequest.current?.abort();
   }, [refresh]);
+  const gaRequest = useRef<AbortController | null>(null);
+  const refreshGa = useCallback(async () => {
+    gaRequest.current?.abort();
+    const controller = new AbortController();
+    gaRequest.current = controller;
+    setGaLoading(true);
+    setGa(null);
+    try {
+      const data = await read<GaReport>(
+        "/api/admin/analytics?days=" + gaDays,
+        controller.signal,
+      );
+      if (!controller.signal.aborted) setGa(data);
+    } catch {
+      if (!controller.signal.aborted)
+        setGa({
+          connected: false,
+          status: "unavailable",
+          propertyId: "",
+          measurementId: "",
+          period: `최근 ${gaDays}일`,
+          days: gaDays,
+          error: "통계를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+        });
+    } finally {
+      if (!controller.signal.aborted) setGaLoading(false);
+    }
+  }, [gaDays]);
+  useEffect(() => {
+    void refreshGa();
+    return () => gaRequest.current?.abort();
+  }, [refreshGa]);
+  useEffect(() => {
+    const value = location.hash.slice(1);
+    if (views.some((v) => v.id === value)) setView(value as View);
+  }, []);
+  function navigate(next: View) {
+    setView(next);
+    setMessage("");
+    history.replaceState(null, "", "/admin#" + next);
+    window.scrollTo({ top: 0 });
+  }
   async function logout() {
     const res = await fetch("/api/admin/logout", { method: "POST" });
     if (res.ok) {
@@ -190,6 +279,7 @@ export function AdminDashboard() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      editorBaseline.current = data.item;
       setEditor(data.item);
       await refresh();
       setError(false);
@@ -208,10 +298,7 @@ export function AdminDashboard() {
     setEditor((e) => (e ? { ...e, [key]: value } : e));
   }
   const entryFields = Object.keys(initialEntry()) as (keyof EntryDraft)[];
-  const savedEntry = editor?.id
-    ? entries.items.find((e) => e.id === editor.id)
-    : null;
-  const baseline = savedEntry ?? initialEntry();
+  const baseline = editorBaseline.current ?? initialEntry();
   const editorDirty =
     !!editor && entryFields.some((key) => editor[key] !== baseline[key]);
   function openEditor(next: EntryDraft | null) {
@@ -220,6 +307,7 @@ export function AdminDashboard() {
       setPendingEditor({ next });
       return false;
     }
+    editorBaseline.current = next;
     setEditor(next);
     setMessage("");
     return true;
@@ -243,15 +331,13 @@ export function AdminDashboard() {
         <Link href="/">
           <Brand />
         </Link>
-        <nav aria-label="관리자 메뉴">
+        <nav ref={navigation} aria-label="관리자 메뉴">
           {views.map((v) => (
             <button
               key={v.id}
               className={view === v.id ? "active" : ""}
-              onClick={() => {
-                setView(v.id);
-                setMessage("");
-              }}
+              aria-current={view === v.id ? "page" : undefined}
+              onClick={() => navigate(v.id)}
             >
               <v.icon size={18} />
               {v.label}
@@ -270,15 +356,29 @@ export function AdminDashboard() {
           <div>
             <p className="eyebrow">AIO MAKE / MANAGEMENT</p>
             <h1>{views.find((v) => v.id === view)?.label}</h1>
-            <p>필요한 데이터만, 확인된 상태로.</p>
+            <p>
+              {
+                {
+                  overview:
+                    "새로운 문의와 콘텐츠, 사이트 방문 흐름을 확인하세요.",
+                  inquiries: "접수된 문의를 확인하고 다음 상담을 이어가세요.",
+                  entries: "작업 사례와 서비스 안내 글을 관리하세요.",
+                  analytics: "방문부터 문의까지, 사이트의 흐름을 살펴보세요.",
+                  settings: "사이트에 연결된 데이터 서비스의 상태입니다.",
+                }[view]
+              }
+            </p>
           </div>
           <button
             aria-label="데이터 새로고침"
             className="secondary-button"
-            disabled={loading}
-            onClick={refresh}
+            disabled={loading || gaLoading}
+            onClick={() => {
+              void refresh();
+              void refreshGa();
+            }}
           >
-            <RefreshCw size={18} />
+            <RefreshCw size={16} /> 새로고침
           </button>
         </div>
         {message && (
@@ -289,7 +389,7 @@ export function AdminDashboard() {
             {message}
           </div>
         )}
-        {loading && (
+        {loading && view !== "overview" && (
           <p role="status" className="admin-loading">
             데이터 확인 중…
           </p>
@@ -308,6 +408,7 @@ export function AdminDashboard() {
               <button
                 className="secondary-button"
                 onClick={() => {
+                  editorBaseline.current = pendingEditor.next;
                   setEditor(pendingEditor.next);
                   setPendingEditor(null);
                   setMessage("");
@@ -319,74 +420,21 @@ export function AdminDashboard() {
           </div>
         )}
         {view === "overview" && (
-          <>
-            <div className="admin-cards">
-              {[
-                [
-                  "전체 문의",
-                  inquiries.connected
-                    ? (inquiries.globalTotal ?? inquiries.total)
-                    : null,
-                ],
-                ["신규 문의", inquiries.connected ? inquiries.newCount : null],
-                [
-                  "공개 콘텐츠",
-                  entries.connected
-                    ? entries.items.filter((e) => e.is_published).length
-                    : null,
-                ],
-                [
-                  "최근 28일 방문자",
-                  ga?.connected ? ga.totals?.activeUsers : null,
-                ],
-              ].map(([label, value]) => (
-                <div className="admin-card" key={String(label)}>
-                  <p>{label}</p>
-                  <strong>
-                    {value == null ? "—" : Number(value).toLocaleString()}
-                  </strong>
-                </div>
-              ))}
-            </div>
-            <div className="admin-two-cols">
-              <section className="admin-panel">
-                <h2>문의 확인</h2>
-                <p>
-                  {inquiries.connected
-                    ? "새로운 문의와 진행 중인 상담을 확인하세요."
-                    : "문의 데이터베이스 연결을 준비 중입니다."}
-                </p>
-                <button
-                  className="secondary-button"
-                  onClick={() => setView("inquiries")}
-                >
-                  상담 내역으로 →
-                </button>
-              </section>
-              <section className="admin-panel">
-                <h2>GA4 연결</h2>
-                <p>
-                  {ga?.connected
-                    ? "최근 28일 데이터를 조회했습니다."
-                    : (ga?.error ?? "서버 조회 연결을 확인 중입니다.")}
-                </p>
-                <button
-                  className="secondary-button"
-                  onClick={() => setView("analytics")}
-                >
-                  방문 통계 확인 →
-                </button>
-              </section>
-            </div>
-            <section className="admin-panel">
-              <h2>콘텐츠 공개 기준</h2>
-              <p>
-                고객 사례와 제작 예시를 구분하고, 내용의 사실과 공개 권리를
-                확인한 항목만 공개합니다. 챗봇은 사용자 요청에 따라 보류
-                상태입니다.
-              </p>
-            </section>
-          </>
+          <Overview
+            inquiries={recent}
+            entries={entries}
+            ga={ga}
+            gaLoading={gaLoading}
+            loading={loading}
+            openInquiries={() => navigate("inquiries")}
+            openEntries={() => navigate("entries")}
+            openAnalytics={() => navigate("analytics")}
+            openSettings={() => navigate("settings")}
+            openInquiry={(id) => {
+              navigate("inquiries");
+              void detail(id);
+            }}
+          />
         )}
         {view === "inquiries" && (
           <InquiryPanel
@@ -429,21 +477,35 @@ export function AdminDashboard() {
             entries={entries}
             filteredEntries={filteredEntries}
             entryFilter={entryFilter}
+            page={entryPage}
+            setPage={setEntryPage}
+            loading={loading}
             editor={editor}
             busy={busy}
-            setEntryFilter={setEntryFilter}
+            setEntryFilter={(value) => {
+              setEntryFilter(value);
+              setEntryPage(1);
+            }}
             setEditor={setEditor}
             setMessage={setMessage}
             setError={setError}
             setBusy={setBusy}
             openEditor={openEditor}
-            savedEntry={savedEntry}
+            savedEntry={editorBaseline.current}
             initialEntry={initialEntry}
             updateEditor={updateEditor}
             saveEntry={saveEntry}
           />
         )}
-        {view === "analytics" && <AnalyticsPanel ga={ga} />}
+        {view === "analytics" && (
+          <AnalyticsPanel
+            ga={ga}
+            days={gaDays}
+            onDays={setGaDays}
+            loading={gaLoading}
+            onRetry={refreshGa}
+          />
+        )}
         {view === "settings" && (
           <>
             <section className="admin-panel">
@@ -453,19 +515,11 @@ export function AdminDashboard() {
                 콘텐츠: {entries.connected ? "조회 연결됨" : "연결 대기"}
               </p>
               <p>
-                기존 문의와 고객 자료를 보존하는 추가 마이그레이션을
-                준비했습니다. 운영 DB 적용은 백업과 실제 스키마 확인 뒤
-                진행합니다.
+                문의와 콘텐츠 저장소가 연결돼야 신규 문의 접수와 콘텐츠 편집
+                내용을 저장할 수 있습니다.
               </p>
             </section>
-            <section className="admin-panel">
-              <h2>Google Analytics</h2>
-              <p>속성 536780274 · 웹 스트림 14842217461 · 측정 G-7R9P2N40RW</p>
-              <p>
-                GA4 화면에서 최근 데이터 수집을 확인했습니다. 관리자 API 조회:{" "}
-                {ga?.connected ? "연결됨" : "인증 연결 대기"}.
-              </p>
-            </section>
+            <GaConnection ga={ga} loading={gaLoading} onRetry={refreshGa} />
             <section className="admin-panel">
               <h2>AI 챗봇</h2>
               <p>
