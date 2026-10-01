@@ -70,7 +70,11 @@ export function guideEntries(type: Entry["type"], division?: string): Entry[] {
                 ? "/renewal/animation-sample.webp"
                 : service.id === "ai-influencer"
                   ? "/renewal/influencer-sample.webp"
-                  : images[d.id],
+                  : service.id === "website"
+                    ? "/images/guide/portfolio/corp-novatek/live.png"
+                    : service.id === "shopping-mall"
+                      ? "/images/guide/images/portfolio/ws-shop-desktop.png"
+                      : images[d.id],
           ),
           service: service.id,
         }));

@@ -22,6 +22,7 @@ import {
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
+import { HomeReferences } from "./home-references";
 
 class Component extends GuideLogic {
   state = { service: "", sent: false, open: 0 };
@@ -123,6 +124,7 @@ class Component extends GuideLogic {
           }}
         >
           <section
+            className="main-hero"
             style={{
               position: "relative",
               minHeight: "min(780px,calc(100svh - 70px))",
@@ -145,7 +147,7 @@ class Component extends GuideLogic {
                 inset: "0",
                 pointerEvents: "none",
                 background:
-                  "linear-gradient(90deg,rgba(13,13,18,.92) 0%,rgba(13,13,18,.7) 45%,rgba(13,13,18,.35) 100%)",
+                  "linear-gradient(180deg,rgba(13,13,18,.58),rgba(13,13,18,.75))",
               }}
             ></div>
             <div
@@ -156,11 +158,12 @@ class Component extends GuideLogic {
                 width: "100%",
                 boxSizing: "border-box",
                 margin: "0 auto",
-                padding:
-                  "clamp(72px,10vw,140px) clamp(20px,4vw,48px) clamp(56px,7vw,96px)",
+                padding: "64px clamp(20px,4vw,48px)",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "flex-end",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
                 gap: "32px",
               }}
             >
@@ -221,7 +224,8 @@ class Component extends GuideLogic {
                     fontSize: "clamp(16px,1.5vw,21px)",
                     lineHeight: "1.75",
                     color: "#D6D6DC",
-                    textAlign: "left",
+                    textAlign: "center",
+                    alignSelf: "center",
                   }}
                 >
                   {"AI로 줄인 비용은 "}
@@ -236,6 +240,7 @@ class Component extends GuideLogic {
                   display: "flex",
                   gap: "10px",
                   flexWrap: "wrap",
+                  justifyContent: "center",
                   pointerEvents: "auto",
                 }}
               >
@@ -607,238 +612,12 @@ class Component extends GuideLogic {
               </GuideLink>
             </div>
           </section>
+          <HomeReferences entries={this.props.entries} />
           <section
-            id="work"
-            style={{
-              background: "#fff",
-              borderTop: "1px solid #DAD8D1",
-              borderBottom: "1px solid #DAD8D1",
-            }}
+            id="process"
+            className="main-method"
+            style={{ background: "#0D0D12", color: "#F4F3EF" }}
           >
-            <div
-              style={{
-                maxWidth: "1320px",
-                margin: "0 auto",
-                padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "clamp(56px,7vw,96px)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  gap: "16px",
-                }}
-              >
-                <h2
-                  style={{
-                    margin: "0",
-                    fontSize: "clamp(36px,5.4vw,76px)",
-                    letterSpacing: "-.04em",
-                    fontWeight: "800",
-                    lineHeight: "1.08",
-                  }}
-                >
-                  {"제작 방향을 살펴보세요"}
-                </h2>
-                <p
-                  style={{
-                    margin: "0",
-                    fontSize: "clamp(20px,2vw,26px)",
-                    lineHeight: "1.5",
-                    letterSpacing: "-.02em",
-                    color: "#3A3A42",
-                  }}
-                >
-                  {"결과물을 "}
-                  <strong style={{ color: "#6B4DFF" }}>{"먼저 보고"}</strong>
-                  {" 결정하세요"}
-                </p>
-              </div>
-              {(workGroups || []).map((g, __index3) => (
-                <React.Fragment key={__index3}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "20px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "baseline",
-                        gap: "16px",
-                        flexWrap: "wrap",
-                        borderTop: "1.5px solid #0D0D12",
-                        paddingTop: "18px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "14px",
-                          alignItems: "baseline",
-                          flexWrap: "wrap",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "Unbounded,sans-serif",
-                            fontSize: "clamp(22px,2.4vw,30px)",
-                            fontWeight: "600",
-                            letterSpacing: "-.02em",
-                          }}
-                        >
-                          {g.name}
-                        </span>
-                        <span style={{ fontSize: "15px", color: "#6E6E78" }}>
-                          {g.ko}
-                        </span>
-                      </div>
-                      <GuideLink
-                        href={g.href}
-                        style={{ fontSize: "14px", fontWeight: "600" }}
-                        context="main"
-                      >
-                        {"전체 보기 →"}
-                      </GuideLink>
-                    </div>
-                    <div
-                      style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}
-                    >
-                      <GuideLink
-                        href={g.bigHref}
-                        style={{
-                          flex: "2 1 560px",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "12px",
-                          minWidth: "0",
-                        }}
-                        context="main"
-                      >
-                        <div
-                          style={{
-                            aspectRatio: "16/10",
-                            position: "relative",
-                            background: "#E6E4DD",
-                          }}
-                        >
-                          <GuideImage
-                            id={g.bigId}
-                            placeholder="대표 작업 (1600×1000)"
-                          />
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            gap: "12px",
-                          }}
-                        >
-                          <strong style={{ fontSize: "18px" }}>
-                            {g.bigTitle}
-                          </strong>
-                          <span style={{ fontSize: "14px", color: "#6E6E78" }}>
-                            {g.cat1}
-                          </span>
-                        </div>
-                      </GuideLink>
-                      <div
-                        style={{
-                          flex: "1 1 280px",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "12px",
-                          minWidth: "0",
-                        }}
-                      >
-                        <GuideLink
-                          href={g.s1Href}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "10px",
-                            flex: "1",
-                          }}
-                          context="main"
-                        >
-                          <div
-                            style={{
-                              aspectRatio: "16/10",
-                              position: "relative",
-                              background: "#E6E4DD",
-                            }}
-                          >
-                            <GuideImage
-                              id={g.s1Id}
-                              placeholder="작업 썸네일 (800×500)"
-                            />
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              gap: "12px",
-                              fontSize: "14px",
-                            }}
-                          >
-                            <strong style={{ fontSize: "15px" }}>
-                              {g.s1Title}
-                            </strong>
-                            <span style={{ color: "#6E6E78" }}>{g.cat2}</span>
-                          </div>
-                        </GuideLink>
-                        <GuideLink
-                          href={g.s2Href}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "10px",
-                            flex: "1",
-                          }}
-                          context="main"
-                        >
-                          <div
-                            style={{
-                              aspectRatio: "16/10",
-                              position: "relative",
-                              background: "#E6E4DD",
-                            }}
-                          >
-                            <GuideImage
-                              id={g.s2Id}
-                              placeholder="작업 썸네일 (800×500)"
-                            />
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              gap: "12px",
-                              fontSize: "14px",
-                            }}
-                          >
-                            <strong style={{ fontSize: "15px" }}>
-                              {g.s2Title}
-                            </strong>
-                            <span style={{ color: "#6E6E78" }}>{g.cat3}</span>
-                          </div>
-                        </GuideLink>
-                      </div>
-                    </div>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </section>
-          <section style={{ background: "#0D0D12", color: "#F4F3EF" }}>
             <div
               style={{
                 maxWidth: "1320px",
@@ -849,42 +628,28 @@ class Component extends GuideLogic {
                 gap: "56px",
               }}
             >
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns:
-                    "repeat(auto-fit,minmax(min(100%,420px),1fr))",
-                  gap: "24px 48px",
-                  alignItems: "end",
-                }}
-              >
-                <h2
-                  style={{
-                    margin: "0",
-                    fontSize: "clamp(32px,4.4vw,60px)",
-                    lineHeight: "1.15",
-                    letterSpacing: "-.035em",
-                    fontWeight: "700",
-                    textWrap: "balance",
-                  }}
-                >
-                  <span style={{ color: "#A99BFF" }}>{"AI"}</span>
-                  {"로 효율을 높이고,"}
-                  <br />
-                  {"전문가가 품질을 지킵니다"}
+              <div className="method-intro">
+                <h2 aria-label="AI로 효율을 높이고, 전문가가 품질을 지킵니다">
+                  <span className="method-line">
+                    <span>
+                      <em>AI</em>로
+                    </span>
+                    <span>효율을</span>
+                    <span>높이고</span>
+                  </span>
+                  <span className="method-line">
+                    <span>
+                      <em>전문가</em>가
+                    </span>
+                    <span>품질을</span>
+                    <span>지킵니다</span>
+                  </span>
                 </h2>
-                <p
-                  style={{
-                    margin: "0",
-                    fontSize: "17px",
-                    lineHeight: "1.75",
-                    color: "#C9C9D1",
-                    maxWidth: "42ch",
-                  }}
-                >
-                  {
-                    "반복 작업에 AI를 활용하고, 모든 결과물은 분야별 전문가가 검수한 뒤 납품합니다"
-                  }
+                <p>
+                  <span>AI로 제작 속도를 높이고,</span>
+                  <span>
+                    분야별 전문가가 기획부터 최종 검수까지 책임집니다.
+                  </span>
                 </p>
               </div>
               <ol

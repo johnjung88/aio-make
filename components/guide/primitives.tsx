@@ -313,11 +313,7 @@ export function GuideNav({
 }) {
   const dark = division !== "marketing",
     brand =
-      division === "video"
-        ? "Studio"
-        : division === "lab"
-          ? "Lab"
-          : "Marketing";
+      division === "video" ? "영상" : division === "lab" ? "개발" : "마케팅";
   const first =
     division === "lab"
       ? "website"
@@ -591,7 +587,13 @@ export function adaptGuideValues(
 export function GuideEffects() {
   return null;
 }
-export function ServiceTabs({ division }: { division: string }) {
+export function ServiceTabs({
+  division,
+  className = "",
+}: {
+  division: string;
+  className?: string;
+}) {
   const pathname = usePathname();
   const rail = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -605,7 +607,11 @@ export function ServiceTabs({ division }: { division: string }) {
       );
   }, [pathname]);
   return (
-    <nav ref={rail} className="guide-service-tabs" aria-label="서비스 선택">
+    <nav
+      ref={rail}
+      className={`guide-service-tabs ${className}`}
+      aria-label="서비스 선택"
+    >
       {services
         .filter(
           (s) => s.division === (division === "lab" ? "development" : division),

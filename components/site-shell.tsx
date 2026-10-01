@@ -13,9 +13,9 @@ export function Brand() {
   );
 }
 const links = [
-  ["영상 · Studio", "/video"],
+  ["영상", "/video"],
   ["마케팅", "/marketing"],
-  ["개발 · Lab", "/lab"],
+  ["개발", "/lab"],
   ["작업 보기", "/work"],
 ];
 export function Header() {
@@ -142,9 +142,9 @@ export function Footer() {
             {[
               ["회사소개", "/about"],
               ["일하는 방식", "/about/team"],
-              ["영상 · Studio", "/video"],
+              ["영상", "/video"],
               ["마케팅", "/marketing"],
-              ["개발 · Lab", "/lab"],
+              ["개발", "/lab"],
               ["개인정보처리방침", "/privacy"],
               ["이용약관", "/terms"],
             ].map(([label, href]) => (

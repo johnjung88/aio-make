@@ -121,6 +121,8 @@ class Component extends GuideLogic {
       this.props,
     );
     const { groups, notSent, sent, submit } = values;
+    const isSeo = this.state.service === MAP.seo;
+    const isIntegrated = this.state.service === MAP.integrated;
     return (
       <div className="guide-page guide-marketing-contact">
         <GuideEffects />
@@ -191,7 +193,9 @@ class Component extends GuideLogic {
                 </strong>
                 {"를 정리해 드립니다."}
                 <br />
-                {"계약하시면 사이트 구축·리뉴얼도 제공합니다"}
+                {
+                  "통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회를 제공합니다. 범위와 운영 실비는 견적에서 확인합니다"
+                }
               </p>
               <div
                 style={{
@@ -213,21 +217,12 @@ class Component extends GuideLogic {
                   }}
                 >
                   <span style={{ color: "#6E6E78" }}>{"계약"}</span>
-                  <strong style={{ fontWeight: "600" }}>{"월 단위"}</strong>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    padding: "14px 0",
-                    borderBottom: "1px solid #DAD8D1",
-                    fontSize: "15px",
-                  }}
-                >
-                  <span style={{ color: "#6E6E78" }}>{"해지"}</span>
                   <strong style={{ fontWeight: "600" }}>
-                    {"30일 전 통보"}
+                    {isSeo
+                      ? "프로젝트 단위"
+                      : isIntegrated
+                        ? "최소 3개월"
+                        : "서비스별 확인"}
                   </strong>
                 </div>
                 <div
@@ -240,9 +235,26 @@ class Component extends GuideLogic {
                     fontSize: "15px",
                   }}
                 >
-                  <span style={{ color: "#6E6E78" }}>{"계약 혜택"}</span>
+                  <span style={{ color: "#6E6E78" }}>{"일정·수정"}</span>
                   <strong style={{ fontWeight: "600" }}>
-                    {"사이트 구축·리뉴얼"}
+                    {"견적에서 합의"}
+                  </strong>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    padding: "14px 0",
+                    borderBottom: "1px solid #DAD8D1",
+                    fontSize: "15px",
+                  }}
+                >
+                  <span style={{ color: "#6E6E78" }}>
+                    {isSeo ? "구축 이후" : "월 운영 혜택"}
+                  </span>
+                  <strong style={{ fontWeight: "600" }}>
+                    {isSeo ? "월 유지관리 선택" : "기본 사이트 1회"}
                   </strong>
                 </div>
               </div>

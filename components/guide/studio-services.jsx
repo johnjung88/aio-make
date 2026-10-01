@@ -4,6 +4,7 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import { WebtoonScope } from "./webtoon-scope";
 import {
   GuideLogic,
   GuideImage,
@@ -520,7 +521,7 @@ const SC = {
         ),
       ),
       chip("c1", { left: 20, top: 20 }, "제작 방향 예시"),
-      chip("c2", { left: 20, top: 62 }, "최종 이미지 1장 = 1컷"),
+      chip("c2", { left: 20, top: 62 }, "한 장면의 구획 = 1컷"),
     ];
   },
 };
@@ -665,8 +666,8 @@ const SVC = {
         "초기 상담 자료를 바탕으로 저희가 조사하고 기획해 전달합니다. 이미 쓴 시나리오가 있으면 그것을 기준으로 다듬습니다",
       ],
       [
-        "10회 패키지는 어떻게 쓰나요?",
-        "10회분을 한 번에 계약하고 회차별로 순서대로 진행합니다. 캐릭터 설정은 다음 회차에 이어서 씁니다",
+        "여러 회차를 이어서 제작할 수 있나요?",
+        "필요한 회차 수와 회차별 컷 수를 먼저 합의하고 순서대로 진행합니다. 확정한 캐릭터 설정을 다음 회차에도 이어서 사용합니다",
       ],
     ],
   },
@@ -1406,132 +1407,7 @@ class Component extends GuideLogic {
               </p>
             </div>
           </section>
-          {isWebtoon ? (
-            <React.Fragment>
-              <section
-                style={{
-                  borderTop: "1px solid #2A2A32",
-                  background: "#0D0D12",
-                }}
-              >
-                <div
-                  style={{
-                    maxWidth: "1440px",
-                    margin: "0 auto",
-                    padding: "clamp(80px,10vw,144px) clamp(20px,4vw,56px)",
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "56px clamp(40px,6vw,96px)",
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <div
-                    style={{
-                      flex: "1 1 320px",
-                      position: "sticky",
-                      top: "120px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "24px",
-                    }}
-                  >
-                    <div
-                      data-rv=""
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "16px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "Unbounded,sans-serif",
-                          fontSize: "12px",
-                          letterSpacing: ".16em",
-                          color: "#A99BFF",
-                        }}
-                      >
-                        {"SAMPLE EPISODE"}
-                      </span>
-                      <h2
-                        style={{
-                          margin: "0",
-                          fontSize: "clamp(30px,4vw,56px)",
-                          letterSpacing: "-.045em",
-                          fontWeight: "800",
-                          lineHeight: "1.15",
-                        }}
-                      >
-                        {"웹툰 제작 예시를 살펴보세요"}
-                      </h2>
-                      <p
-                        style={{
-                          margin: "0",
-                          fontSize: "17px",
-                          lineHeight: "1.8",
-                          color: "#C9C9D1",
-                          maxWidth: "44ch",
-                        }}
-                      >
-                        {
-                          "제공된 가이드의 이미지 10장을 발췌해 보여드립니다. 계약 시 회차별 분량과 수정 범위를 먼저 정합니다"
-                        }
-                      </p>
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "Unbounded,sans-serif",
-                        fontSize: "13px",
-                        color: "#A99BFF",
-                      }}
-                    >
-                      {cutNote}
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      flex: "1 1 520px",
-                      maxWidth: "720px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0",
-                      background: "#000",
-                      border: "1px solid #2A2A32",
-                    }}
-                  >
-                    {(cuts || []).map((c, __index5) => (
-                      <React.Fragment key={__index5}>
-                        <div
-                          style={{
-                            position: "relative",
-                            aspectRatio: "4/5",
-                            background: "#101016",
-                            borderBottom: "1px solid #1C1C24",
-                          }}
-                        >
-                          <GuideImage id={c.id} placeholder={c.ph} />
-                          <span
-                            style={{
-                              position: "absolute",
-                              left: "12px",
-                              top: "10px",
-                              fontFamily: "Unbounded,sans-serif",
-                              fontSize: "10.5px",
-                              color: "#9A9AA3",
-                              pointerEvents: "none",
-                            }}
-                          >
-                            {"CUT "}
-                            {c.no}
-                          </span>
-                        </div>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            </React.Fragment>
-          ) : null}
+          {isWebtoon ? <WebtoonScope /> : null}
           <section style={{ borderTop: "1px solid #2A2A32" }}>
             <div
               style={{

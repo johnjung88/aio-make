@@ -3,8 +3,7 @@ import { divisionByPath } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { publicEntries } from "@/lib/db";
 import StudioHome from "@/components/guide/studio-home";
-import MarketingHome from "@/components/guide/marketing-home";
-import LabHome from "@/components/guide/lab-home";
+import { ServiceOverview } from "@/components/guide/service-overview";
 export async function generateMetadata({
   params,
 }: {
@@ -20,12 +19,13 @@ export default async function DivisionPage({
 }) {
   const d = divisionByPath((await params).division);
   if (!d) notFound();
-  const entries = await publicEntries("insight", d.id);
+  const entries = await publicEntries(
+    d.path === "video" ? "insight" : "reference",
+    d.id,
+  );
   return d.path === "video" ? (
     <StudioHome entries={entries} />
-  ) : d.path === "marketing" ? (
-    <MarketingHome entries={entries} />
   ) : (
-    <LabHome entries={entries} />
+    <ServiceOverview key={d.id} division={d.id} entries={entries} />
   );
 }

@@ -4,8 +4,7 @@ import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
 import StudioServices from "@/components/guide/studio-services";
-import MarketingServices from "@/components/guide/marketing-services";
-import LabServices from "@/components/guide/lab-services";
+import { ServiceDetail } from "@/components/guide/service-detail";
 const keys: Record<string, string> = {
   "shopping-mall": "shop",
   "brand-film": "promo",
@@ -39,14 +38,8 @@ export default async function ServicePage({
     <>
       {d.path === "video" ? (
         <StudioServices key={guideKey} service={guideKey} entries={entries} />
-      ) : d.path === "marketing" ? (
-        <MarketingServices
-          key={guideKey}
-          service={guideKey}
-          entries={entries}
-        />
       ) : (
-        <LabServices key={guideKey} service={guideKey} entries={entries} />
+        <ServiceDetail service={s} />
       )}
       <JsonLd
         data={{

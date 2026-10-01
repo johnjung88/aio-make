@@ -449,7 +449,7 @@ class Component extends GuideLogic {
           no: "01",
           en: "INTEGRATED",
           name: "통합 마케팅",
-          price: "월 200만 원부터 · VAT 별도",
+          price: "월 200만 원부터",
           desc: "콘텐츠 제작·게시부터 구글·네이버 스토어, 검색·AI 답변 관리까지 한 번에 맡깁니다",
           items: [
             "월 원본 콘텐츠 20개 제작 (영상 위주)",
@@ -467,7 +467,7 @@ class Component extends GuideLogic {
           no: "02",
           en: "SNS",
           name: "SNS 대행 운영",
-          price: "월 100만 원 · VAT 별도",
+          price: "월 100만 원",
           desc: "이미지와 영상 콘텐츠를 제작하고 원본 소스를 채널마다 바꿔 게시합니다",
           items: [
             "월 12회 이미지 콘텐츠 제작·게시",
@@ -485,7 +485,7 @@ class Component extends GuideLogic {
           no: "03",
           en: "AI INFLUENCER",
           name: "AI 인플루언서 마케팅",
-          price: "월 100만 원 · VAT 별도",
+          price: "월 100만 원",
           desc: "브랜드 전용 가상 인물로 콘텐츠를 만들어 게시합니다",
           items: [
             "캐릭터 구축 서비스 제공 (구축비 없음)",
@@ -2456,11 +2456,12 @@ class Component extends GuideLogic {
                   }}
                 >
                   {
-                    "필요한 범위에 맞춰 하나로 시작합니다. 모든 서비스는 월 단위로 운영하고 금액은 부가세 별도입니다"
+                    "콘텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다. 필요한 범위에 맞춰 선택하세요. 금액은 부가세 별도입니다"
                   }
                 </p>
               </div>
               <div
+                className="marketing-offer-grid"
                 style={{
                   display: "grid",
                   gridTemplateColumns:
@@ -2483,7 +2484,7 @@ class Component extends GuideLogic {
                         background: s.bg,
                         boxSizing: "border-box",
                       }}
-                      className="gh-840862dd"
+                      className="gh-840862dd marketing-offer-card"
                       context="marketing"
                     >
                       <span
@@ -2497,6 +2498,7 @@ class Component extends GuideLogic {
                         }}
                       ></span>
                       <div
+                        className="offer-summary"
                         style={{
                           display: "flex",
                           flexDirection: "column",
@@ -2535,6 +2537,7 @@ class Component extends GuideLogic {
                         </span>
                       </div>
                       <div
+                        className="offer-price"
                         style={{
                           display: "flex",
                           flexDirection: "column",
@@ -2600,7 +2603,7 @@ class Component extends GuideLogic {
                           marginTop: "auto",
                         }}
                       >
-                        {"VIEW SERVICE →"}
+                        {"서비스 자세히 보기 →"}
                       </span>
                     </GuideLink>
                   </React.Fragment>
