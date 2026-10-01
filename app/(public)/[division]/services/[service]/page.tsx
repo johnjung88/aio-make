@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
+import { breadcrumbSchema } from "@/lib/seo";
 import StudioServices from "@/components/guide/studio-services";
 import { ServiceDetail } from "@/components/guide/service-detail";
 const keys: Record<string, string> = {
@@ -45,11 +46,21 @@ export default async function ServicePage({
         data={{
           "@context": "https://schema.org",
           "@type": "Service",
+          "@id": siteUrl + "/" + d.path + "/services/" + s.id + "#service",
           name: s.name,
           description: s.description,
           provider: { "@id": siteUrl + "/#organization" },
+          serviceType: s.name,
+          areaServed: { "@type": "Country", name: "대한민국" },
           url: siteUrl + "/" + d.path + "/services/" + s.id,
         }}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "AIO MAKE", path: "/" },
+          { name: d.label, path: "/" + d.path },
+          { name: s.name, path: "/" + d.path + "/services/" + s.id },
+        ])}
       />
     </>
   );

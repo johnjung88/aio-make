@@ -1,0 +1,15 @@
+.git
+.next
+.next-dev
+node_modules
+.qa
+.env*
+docs
+legacy
+tests
+scripts
+design-system
+*.md
+**/*.log
+*.tsbuildinfo
+public/renewal/*.png

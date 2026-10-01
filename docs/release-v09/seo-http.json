@@ -1,0 +1,687 @@
+{
+  "base": "http://127.0.0.1:3100",
+  "checkedAt": "2026-10-01T16:06:40.254Z",
+  "pageCount": 56,
+  "internalLinkCount": 144,
+  "shareImageCount": 4,
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "AIO MAKE · 마케팅 대행·웹 개발·영상 제작",
+      "description": "마케팅 대행, 웹사이트·업무 자동화 개발, 영상 제작. 분야별 전문가가 AI를 활용해 기획부터 제작·검수·운영까지 연결합니다.",
+      "canonical": "https://aio-make.com",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "WebSite",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/about",
+      "status": 200,
+      "title": "회사소개 | AIO MAKE",
+      "description": "영상·마케팅·개발, 분야별 전문가와 AI가 함께 일합니다.",
+      "canonical": "https://aio-make.com/about",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/about/team",
+      "status": 200,
+      "title": "일하는 방식 | AIO MAKE",
+      "description": "마케팅·개발·영상의 기획, 제작, 검수 역할을 소개합니다.",
+      "canonical": "https://aio-make.com/about/team",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "title": "프로젝트 문의 | AIO MAKE",
+      "description": "목표와 필요한 작업을 알려주세요. 범위를 확인한 뒤 견적과 일정을 안내합니다.",
+      "canonical": "https://aio-make.com/contact",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/work",
+      "status": 200,
+      "title": "레퍼런스 | AIO MAKE",
+      "description": "분야별 제작 방향 예시와 공개 확인을 마친 고객 사례.",
+      "canonical": "https://aio-make.com/work",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "개인정보처리방침 | AIO MAKE",
+      "description": "AIO MAKE 프로젝트 문의의 개인정보 수집과 이용 안내.",
+      "canonical": "https://aio-make.com/privacy",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "이용 안내 | AIO MAKE",
+      "description": "프로젝트 문의, 견적, 제작과 검수에 관한 AIO MAKE 이용 안내.",
+      "canonical": "https://aio-make.com/terms",
+      "image": "https://aio-make.com/social/main-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing",
+      "status": 200,
+      "title": "마케팅 대행 | AIO MAKE",
+      "description": "고객의 질문에서 출발해 콘텐츠, 채널, 검색과 문의를 하나의 흐름으로 연결합니다.",
+      "canonical": "https://aio-make.com/marketing",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/contact",
+      "status": 200,
+      "title": "마케팅 문의 | AIO MAKE",
+      "description": "필요한 작업과 준비된 자료를 알려주세요.",
+      "canonical": "https://aio-make.com/marketing/contact",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/work",
+      "status": 200,
+      "title": "마케팅 레퍼런스 | AIO MAKE",
+      "description": "고객의 질문에서 출발해 콘텐츠, 채널, 검색과 문의를 하나의 흐름으로 연결합니다.",
+      "canonical": "https://aio-make.com/marketing/work",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/insights",
+      "status": 200,
+      "title": "마케팅 인사이트 | AIO MAKE",
+      "description": "고객의 질문에서 출발해 콘텐츠, 채널, 검색과 문의를 하나의 흐름으로 연결합니다.",
+      "canonical": "https://aio-make.com/marketing/insights",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab",
+      "status": 200,
+      "title": "개발 대행 | AIO MAKE",
+      "description": "웹사이트부터 반복 업무까지. 필요한 기능을 분명하게 정하고 실제로 사용할 수 있는 결과물을 만듭니다.",
+      "canonical": "https://aio-make.com/lab",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/contact",
+      "status": 200,
+      "title": "개발 문의 | AIO MAKE",
+      "description": "필요한 작업과 준비된 자료를 알려주세요.",
+      "canonical": "https://aio-make.com/lab/contact",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/work",
+      "status": 200,
+      "title": "개발 레퍼런스 | AIO MAKE",
+      "description": "웹사이트부터 반복 업무까지. 필요한 기능을 분명하게 정하고 실제로 사용할 수 있는 결과물을 만듭니다.",
+      "canonical": "https://aio-make.com/lab/work",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/insights",
+      "status": 200,
+      "title": "개발 인사이트 | AIO MAKE",
+      "description": "웹사이트부터 반복 업무까지. 필요한 기능을 분명하게 정하고 실제로 사용할 수 있는 결과물을 만듭니다.",
+      "canonical": "https://aio-make.com/lab/insights",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video",
+      "status": 200,
+      "title": "영상 대행 | AIO MAKE",
+      "description": "웹툰, 애니메이션, AI 인플루언서. 전달할 메시지에 맞는 형식을 찾아 이야기를 완성합니다.",
+      "canonical": "https://aio-make.com/video",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/contact",
+      "status": 200,
+      "title": "영상 문의 | AIO MAKE",
+      "description": "필요한 작업과 준비된 자료를 알려주세요.",
+      "canonical": "https://aio-make.com/video/contact",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work",
+      "status": 200,
+      "title": "영상 레퍼런스 | AIO MAKE",
+      "description": "웹툰, 애니메이션, AI 인플루언서. 전달할 메시지에 맞는 형식을 찾아 이야기를 완성합니다.",
+      "canonical": "https://aio-make.com/video/work",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/insights",
+      "status": 200,
+      "title": "영상 인사이트 | AIO MAKE",
+      "description": "웹툰, 애니메이션, AI 인플루언서. 전달할 메시지에 맞는 형식을 찾아 이야기를 완성합니다.",
+      "canonical": "https://aio-make.com/video/insights",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/services/integrated",
+      "status": 200,
+      "title": "통합 마케팅 | AIO MAKE",
+      "description": "분석과 전략, 영상 중심 콘텐츠, 채널 운영과 검색·문의 접점 개선을 함께 설계합니다.",
+      "canonical": "https://aio-make.com/marketing/services/integrated",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/services/sns",
+      "status": 200,
+      "title": "SNS 대행 운영 | AIO MAKE",
+      "description": "브랜드의 사진과 제품 자료를 고객의 질문에 맞는 이미지·영상으로 만들고 채널을 운영합니다.",
+      "canonical": "https://aio-make.com/marketing/services/sns",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/services/ai-influencer",
+      "status": 200,
+      "title": "AI 인플루언서 운영 | AIO MAKE",
+      "description": "브랜드 전용 캐릭터와 반복 영상 콘텐츠를 구축하고 채널 운영으로 연결합니다.",
+      "canonical": "https://aio-make.com/marketing/services/ai-influencer",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/services/seo",
+      "status": 200,
+      "title": "SEO · AEO · GEO | AIO MAKE",
+      "description": "사이트 구조와 고객 질문을 정리하고, 검색 엔진과 AI 답변이 참고할 정보를 소스·CMS에 적용합니다.",
+      "canonical": "https://aio-make.com/marketing/services/seo",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/services/website",
+      "status": 200,
+      "title": "웹사이트 제작 | AIO MAKE",
+      "description": "사업 소개와 서비스, 신뢰 자료, 문의 흐름을 정리한 반응형 웹사이트를 제작합니다.",
+      "canonical": "https://aio-make.com/lab/services/website",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/services/shopping-mall",
+      "status": 200,
+      "title": "쇼핑몰 제작 | AIO MAKE",
+      "description": "카페24 스킨 구조에 맞는 쇼핑몰 디자인과 기본 브랜드 이미지를 제작·적용합니다.",
+      "canonical": "https://aio-make.com/lab/services/shopping-mall",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/services/automation",
+      "status": 200,
+      "title": "업무 자동화 | AIO MAKE",
+      "description": "입력과 처리, 결과 확인의 흐름을 살펴 반복 업무에 필요한 자동화를 건별로 설계합니다.",
+      "canonical": "https://aio-make.com/lab/services/automation",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/services/program",
+      "status": 200,
+      "title": "프로그램 개발 | AIO MAKE",
+      "description": "관리 화면과 권한, 데이터 연동 등 필요한 기능을 정의하고 맞춤 프로그램을 개발합니다.",
+      "canonical": "https://aio-make.com/lab/services/program",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/webtoon",
+      "status": 200,
+      "title": "웹툰 제작 | AIO MAKE",
+      "description": "소재와 캐릭터를 바탕으로 사건과 선택, 반응이 이어지는 웹툰을 기획·제작합니다.",
+      "canonical": "https://aio-make.com/video/services/webtoon",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/animation",
+      "status": 200,
+      "title": "애니메이션 | AIO MAKE",
+      "description": "이야기와 캐릭터의 장면을 설계하고 목적과 형식에 맞는 애니메이션을 제작합니다.",
+      "canonical": "https://aio-make.com/video/services/animation",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/ai-influencer",
+      "status": 200,
+      "title": "AI 인플루언서 제작 | AIO MAKE",
+      "description": "브랜드 전용 가상 인물을 구축하고 제품·메시지의 사실에 맞는 반복 영상을 제작합니다.",
+      "canonical": "https://aio-make.com/video/services/ai-influencer",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/brand-film",
+      "status": 200,
+      "title": "브랜드 홍보 영상 | AIO MAKE",
+      "description": "제품과 서비스의 확인된 정보를 바탕으로 홍보 영상과 채널별 광고 소재를 제작합니다.",
+      "canonical": "https://aio-make.com/video/services/brand-film",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/ad",
+      "status": 200,
+      "title": "SNS 광고 영상 | AIO MAKE",
+      "description": "확인된 제품 정보를 채널별 광고 영상으로 구성합니다. 길이와 버전, 수정 범위는 상담에서 정합니다.",
+      "canonical": "https://aio-make.com/video/services/ad",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/services/editing",
+      "status": 200,
+      "title": "영상 편집 | AIO MAKE",
+      "description": "제공된 적법한 영상 원본을 정리하고 목적에 맞는 편집·자막·클립을 제작합니다.",
+      "canonical": "https://aio-make.com/video/services/editing",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "Service",
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/work/example-integrated",
+      "status": 200,
+      "title": "통합 마케팅 제작 방향 | AIO MAKE",
+      "description": "분석과 전략, 영상 중심 콘텐츠, 채널 운영과 검색·문의 접점 개선을 함께 설계합니다.",
+      "canonical": "https://aio-make.com/marketing/work/example-integrated",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/work/example-sns",
+      "status": 200,
+      "title": "SNS 대행 운영 제작 방향 | AIO MAKE",
+      "description": "브랜드의 사진과 제품 자료를 고객의 질문에 맞는 이미지·영상으로 만들고 채널을 운영합니다.",
+      "canonical": "https://aio-make.com/marketing/work/example-sns",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/work/example-ai-influencer",
+      "status": 200,
+      "title": "AI 인플루언서 운영 제작 방향 | AIO MAKE",
+      "description": "브랜드 전용 캐릭터와 반복 영상 콘텐츠를 구축하고 채널 운영으로 연결합니다.",
+      "canonical": "https://aio-make.com/marketing/work/example-ai-influencer",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/work/example-seo",
+      "status": 200,
+      "title": "SEO · AEO · GEO 제작 방향 | AIO MAKE",
+      "description": "사이트 구조와 고객 질문을 정리하고, 검색 엔진과 AI 답변이 참고할 정보를 소스·CMS에 적용합니다.",
+      "canonical": "https://aio-make.com/marketing/work/example-seo",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/work/example-website",
+      "status": 200,
+      "title": "웹사이트 제작 방향 | AIO MAKE",
+      "description": "사업 소개와 서비스, 신뢰 자료, 문의 흐름을 정리한 반응형 웹사이트를 제작합니다.",
+      "canonical": "https://aio-make.com/lab/work/example-website",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/work/example-shopping-mall",
+      "status": 200,
+      "title": "쇼핑몰 제작 방향 | AIO MAKE",
+      "description": "카페24 스킨 구조에 맞는 쇼핑몰 디자인과 기본 브랜드 이미지를 제작·적용합니다.",
+      "canonical": "https://aio-make.com/lab/work/example-shopping-mall",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/work/example-automation",
+      "status": 200,
+      "title": "업무 자동화 제작 방향 | AIO MAKE",
+      "description": "입력과 처리, 결과 확인의 흐름을 살펴 반복 업무에 필요한 자동화를 건별로 설계합니다.",
+      "canonical": "https://aio-make.com/lab/work/example-automation",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/work/example-program",
+      "status": 200,
+      "title": "프로그램 개발 제작 방향 | AIO MAKE",
+      "description": "관리 화면과 권한, 데이터 연동 등 필요한 기능을 정의하고 맞춤 프로그램을 개발합니다.",
+      "canonical": "https://aio-make.com/lab/work/example-program",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-webtoon",
+      "status": 200,
+      "title": "웹툰 제작 방향 | AIO MAKE",
+      "description": "소재와 캐릭터를 바탕으로 사건과 선택, 반응이 이어지는 웹툰을 기획·제작합니다.",
+      "canonical": "https://aio-make.com/video/work/example-webtoon",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-animation",
+      "status": 200,
+      "title": "애니메이션 제작 방향 | AIO MAKE",
+      "description": "이야기와 캐릭터의 장면을 설계하고 목적과 형식에 맞는 애니메이션을 제작합니다.",
+      "canonical": "https://aio-make.com/video/work/example-animation",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-ai-influencer",
+      "status": 200,
+      "title": "AI 인플루언서 제작 방향 | AIO MAKE",
+      "description": "브랜드 전용 가상 인물을 구축하고 제품·메시지의 사실에 맞는 반복 영상을 제작합니다.",
+      "canonical": "https://aio-make.com/video/work/example-ai-influencer",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-brand-film",
+      "status": 200,
+      "title": "브랜드 홍보 영상 제작 방향 | AIO MAKE",
+      "description": "제품과 서비스의 확인된 정보를 바탕으로 홍보 영상과 채널별 광고 소재를 제작합니다.",
+      "canonical": "https://aio-make.com/video/work/example-brand-film",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-ad",
+      "status": 200,
+      "title": "SNS 광고 영상 제작 방향 | AIO MAKE",
+      "description": "확인된 제품 정보를 채널별 광고 영상으로 구성합니다. 길이와 버전, 수정 범위는 상담에서 정합니다.",
+      "canonical": "https://aio-make.com/video/work/example-ad",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/work/example-editing",
+      "status": 200,
+      "title": "영상 편집 제작 방향 | AIO MAKE",
+      "description": "제공된 적법한 영상 원본을 정리하고 목적에 맞는 편집·자막·클립을 제작합니다.",
+      "canonical": "https://aio-make.com/video/work/example-editing",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/insights/preparation",
+      "status": 200,
+      "title": "마케팅 운영 전에 준비할 자료 | AIO MAKE",
+      "description": "마케팅 가이드. 상담에 필요한 자료와 범위를 정리하는 방법을 안내합니다.",
+      "canonical": "https://aio-make.com/marketing/insights/preparation",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/insights/process",
+      "status": 200,
+      "title": "마케팅 기획부터 검수와 인계까지 | AIO MAKE",
+      "description": "마케팅 가이드. 마케팅 작업의 범위 합의, 제작·검수와 결과물 인계 과정을 안내합니다.",
+      "canonical": "https://aio-make.com/marketing/insights/process",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/marketing/insights/consultation",
+      "status": 200,
+      "title": "마케팅 상담에서 확인하는 목적과 결과물 | AIO MAKE",
+      "description": "마케팅 가이드. 마케팅 의뢰 전에 정리할 현재 상황, 참고 자료와 필요한 결과물을 확인하세요.",
+      "canonical": "https://aio-make.com/marketing/insights/consultation",
+      "image": "https://aio-make.com/social/marketing-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/insights/preparation",
+      "status": 200,
+      "title": "개발 상담 전에 준비할 자료 | AIO MAKE",
+      "description": "개발 가이드. 상담에 필요한 자료와 범위를 정리하는 방법을 안내합니다.",
+      "canonical": "https://aio-make.com/lab/insights/preparation",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/insights/process",
+      "status": 200,
+      "title": "개발 기획부터 검수와 인계까지 | AIO MAKE",
+      "description": "개발 가이드. 개발 작업의 범위 합의, 제작·검수와 결과물 인계 과정을 안내합니다.",
+      "canonical": "https://aio-make.com/lab/insights/process",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/lab/insights/consultation",
+      "status": 200,
+      "title": "개발 상담에서 확인하는 목적과 결과물 | AIO MAKE",
+      "description": "개발 가이드. 개발 의뢰 전에 정리할 현재 상황, 참고 자료와 필요한 결과물을 확인하세요.",
+      "canonical": "https://aio-make.com/lab/insights/consultation",
+      "image": "https://aio-make.com/social/lab-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/insights/preparation",
+      "status": 200,
+      "title": "영상 제작 전에 준비할 자료 | AIO MAKE",
+      "description": "영상 가이드. 상담에 필요한 자료와 범위를 정리하는 방법을 안내합니다.",
+      "canonical": "https://aio-make.com/video/insights/preparation",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/insights/process",
+      "status": 200,
+      "title": "영상 기획부터 검수와 인계까지 | AIO MAKE",
+      "description": "영상 가이드. 영상 작업의 범위 합의, 제작·검수와 결과물 인계 과정을 안내합니다.",
+      "canonical": "https://aio-make.com/video/insights/process",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    },
+    {
+      "path": "/video/insights/consultation",
+      "status": 200,
+      "title": "영상 상담에서 확인하는 목적과 결과물 | AIO MAKE",
+      "description": "영상 가이드. 영상 의뢰 전에 정리할 현재 상황, 참고 자료와 필요한 결과물을 확인하세요.",
+      "canonical": "https://aio-make.com/video/insights/consultation",
+      "image": "https://aio-make.com/social/video-v09.png",
+      "schema": [
+        "BreadcrumbList",
+        "Article",
+        "Organization"
+      ]
+    }
+  ],
+  "errors": []
+}

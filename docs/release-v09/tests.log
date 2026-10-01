@@ -1,0 +1,24 @@
+✔ candidate migration: atomic inquiries, idempotency, audit and public-content policy (1912.6388ms)
+✔ contact requires reachable address, consent and matching service (4.0117ms)
+✔ public entry requires confirmed rights and safe media (0.7275ms)
+✔ media URLs reject credentials, traversal, script and untrusted hosts (0.2378ms)
+✔ cover images reject video URLs, foreign storage and private paths (0.2868ms)
+✔ legacy locale and service aliases resolve in one step (0.3898ms)
+✔ JSON-LD cannot close the script element (0.1557ms)
+✔ admin session rejects missing credentials, tampering, expiration and wrong password (0.9351ms)
+✔ origin checks the actual Host while respecting HTTPS proxy protocol (18.288ms)
+✔ GA periods reject unsupported values and comparison handles an empty baseline (0.6981ms)
+✔ all query periods are equal length and do not overlap; leads count only generate_lead (0.8424ms)
+✔ aggregate users remain unique; daily data sorts and fills missing days in the property's timezone (19.3555ms)
+✔ malformed reports fail, while threshold and sampling notes survive normalization (0.7588ms)
+✔ GA server contract: missing setup, real response parsing, caching and sanitized failures (111.6047ms)
+✔ every offered service has an explicitly labelled example and a readable guide (1.1479ms)
+✔ a published CMS entry takes precedence without hiding other services (0.211ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3040.2968

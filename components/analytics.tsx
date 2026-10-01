@@ -2,7 +2,13 @@
 import Script from "next/script";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-export function Analytics({ measurementId }: { measurementId: string }) {
+export function Analytics({
+  measurementId,
+  canonicalHost,
+}: {
+  measurementId: string;
+  canonicalHost: string;
+}) {
   const pathname = usePathname(),
     params = useSearchParams(),
     [enabled, setEnabled] = useState(false),
@@ -10,9 +16,10 @@ export function Analytics({ measurementId }: { measurementId: string }) {
   useEffect(() => {
     setEnabled(
       Boolean(measurementId) &&
+        location.hostname === canonicalHost &&
         !["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname),
     );
-  }, [measurementId]);
+  }, [measurementId, canonicalHost]);
   useEffect(() => {
     try {
       if (!sessionStorage.getItem("aio_renewal_landing"))

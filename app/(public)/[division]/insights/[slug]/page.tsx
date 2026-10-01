@@ -16,7 +16,22 @@ export async function generateMetadata({
       ((await publicEntry("insight", d.id, p.slug)) ??
         guideEntries("insight", d.id).find((entry) => entry.slug === p.slug));
   return d && e
-    ? pageMetadata(e.title, e.summary, "/" + d.path + "/insights/" + e.slug)
+    ? {
+        ...pageMetadata(
+          e.title,
+          `${d.label} 가이드. ${e.summary}`,
+          "/" + d.path + "/insights/" + e.slug,
+        ),
+        openGraph: {
+          ...pageMetadata(
+            e.title,
+            `${d.label} 가이드. ${e.summary}`,
+            "/" + d.path + "/insights/" + e.slug,
+          ).openGraph,
+          type: "article",
+          modifiedTime: e.updated_at,
+        },
+      }
     : {};
 }
 export default async function Page({

@@ -1915,6 +1915,7 @@ class Component extends GuideLogic {
                         }}
                         type="button"
                         aria-expanded={f.open}
+                        aria-controls={`studio-faq-answer-${__index4}`}
                       >
                         {f.q}
                         <span
@@ -1928,21 +1929,19 @@ class Component extends GuideLogic {
                           {f.sign}
                         </span>
                       </button>
-                      {f.open ? (
-                        <React.Fragment>
-                          <p
-                            style={{
-                              margin: "0 0 28px",
-                              color: "#C9C9D1",
-                              fontSize: "16px",
-                              lineHeight: "1.85",
-                              maxWidth: "56ch",
-                            }}
-                          >
-                            {f.a}
-                          </p>
-                        </React.Fragment>
-                      ) : null}
+                      <p
+                        id={`studio-faq-answer-${__index4}`}
+                        hidden={!f.open}
+                        style={{
+                          margin: "0 0 28px",
+                          color: "#C9C9D1",
+                          fontSize: "16px",
+                          lineHeight: "1.85",
+                          maxWidth: "56ch",
+                        }}
+                      >
+                        {f.a}
+                      </p>
                     </div>
                   </React.Fragment>
                 ))}

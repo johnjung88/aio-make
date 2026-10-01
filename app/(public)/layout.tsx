@@ -1,6 +1,9 @@
 import { Suspense } from "react";
 import { Header, Footer } from "@/components/site-shell";
 import { Analytics } from "@/components/analytics";
+import { JsonLd } from "@/components/ui";
+import { organizationSchema } from "@/lib/seo";
+import { siteUrl } from "@/lib/metadata";
 import "@/components/guide/guide.css";
 import "@/components/guide/review.css";
 import "@/components/guide/creative.css";
@@ -19,8 +22,10 @@ export default function PublicLayout({
         {children}
       </main>
       <Footer />
+      <JsonLd data={organizationSchema} />
       <Suspense fallback={null}>
         <Analytics
+          canonicalHost={new URL(siteUrl).hostname}
           measurementId={
             process.env.NODE_ENV === "production"
               ? (process.env.NEXT_PUBLIC_GA_ID ?? "")

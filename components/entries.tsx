@@ -7,6 +7,9 @@ import { guideEntries, mergeGuideEntries } from "@/lib/guide-content";
 import { isSafeImageUrl, isSafeMediaUrl } from "@/lib/domain";
 import { GuideNav } from "./guide/primitives";
 import { ReferenceFilters } from "./guide/reference-filters";
+import { JsonLd } from "./ui";
+import { breadcrumbSchema } from "@/lib/seo";
+import { siteName, siteUrl, socialImage } from "@/lib/metadata";
 
 export function GuideEntryCard({
   entry,
@@ -167,6 +170,7 @@ export async function EntryDetail({
     guideEntries(type, d.id).find((e) => e.slug === slug);
   if (!entry) notFound();
   const segment = type === "reference" ? "work" : "insights";
+  const pagePath = `/${division}/${segment}/${entry.slug}`;
   return (
     <div
       className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} ${division === "marketing" ? "is-light" : "is-dark"}`}
@@ -176,6 +180,45 @@ export async function EntryDetail({
         active={type === "reference" ? "cases" : "insights"}
       />
       <article className="guide-article">
+        <JsonLd
+          data={breadcrumbSchema([
+            { name: siteName, path: "/" },
+            { name: d.label, path: `/${division}` },
+            {
+              name: type === "reference" ? "작업 사례" : "인사이트",
+              path: `/${division}/${segment}`,
+            },
+            { name: entry.title, path: pagePath },
+          ])}
+        />
+        {type === "insight" && (
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "@id": siteUrl + pagePath + "#article",
+              mainEntityOfPage: siteUrl + pagePath,
+              headline: entry.title,
+              description: entry.summary,
+              image:
+                entry.cover_url && isSafeImageUrl(entry.cover_url)
+                  ? new URL(entry.cover_url, siteUrl).href
+                  : socialImage(pagePath),
+              inLanguage: "ko-KR",
+              dateModified: entry.updated_at,
+              ...(!entry.id.startsWith("guide-")
+                ? { datePublished: entry.created_at }
+                : {}),
+              author: {
+                "@type": "Organization",
+                "@id": siteUrl + "/#organization",
+                name: siteName,
+                url: siteUrl + "/about",
+              },
+              publisher: { "@id": siteUrl + "/#organization" },
+            }}
+          />
+        )}
         <Link className="guide-article-back" href={`/${division}/${segment}`}>
           ← {type === "reference" ? "작업 사례" : "인사이트"}
         </Link>
@@ -188,6 +231,19 @@ export async function EntryDetail({
         </span>
         <h1>{entry.title}</h1>
         <p className="guide-article-summary">{entry.summary}</p>
+        {type === "insight" && (
+          <p className="guide-article-byline">
+            <Link href="/about">AIO MAKE</Link> · 최종 정리{" "}
+            <time dateTime={entry.updated_at}>
+              {new Intl.DateTimeFormat("ko-KR", {
+                timeZone: "Asia/Seoul",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }).format(new Date(entry.updated_at))}
+            </time>
+          </p>
+        )}
         {entry.cover_url && isSafeImageUrl(entry.cover_url) && (
           <div className="guide-article-cover">
             <Image

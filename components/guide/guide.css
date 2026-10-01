@@ -635,6 +635,15 @@ html:has(.guide-public) {
   font-size: 18px;
   line-height: 1.8;
 }
+.guide-article-byline {
+  color: var(--ge-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.guide-article-byline a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .guide-article-cover {
   position: relative;
   aspect-ratio: 16/9;
