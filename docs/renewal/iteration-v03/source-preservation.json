@@ -1,0 +1,90 @@
+{
+  "immutableGuideCopies": [
+    {
+      "file": "AIO 메인 시안.dc.html",
+      "original": "ec55ff37a9758ab2fe6fa75842bd6628583f0a0cd0aa775ebf9ff6aa831878ae",
+      "copy": "ec55ff37a9758ab2fe6fa75842bd6628583f0a0cd0aa775ebf9ff6aa831878ae",
+      "manifest": "ec55ff37a9758ab2fe6fa75842bd6628583f0a0cd0aa775ebf9ff6aa831878ae",
+      "pass": true
+    },
+    {
+      "file": "AIO 회사소개 시안.dc.html",
+      "original": "abb96457961c44b8b6ec17a165d03f185d1060e5e9f8661a62c17028c074a0aa",
+      "copy": "abb96457961c44b8b6ec17a165d03f185d1060e5e9f8661a62c17028c074a0aa",
+      "manifest": "abb96457961c44b8b6ec17a165d03f185d1060e5e9f8661a62c17028c074a0aa",
+      "pass": true
+    },
+    {
+      "file": "AIO 팀원소개 시안.dc.html",
+      "original": "60db7dbe86f4c6ecd5ed24a6ed8a781f2904c03adcc2185ee4efbe269f726940",
+      "copy": "60db7dbe86f4c6ecd5ed24a6ed8a781f2904c03adcc2185ee4efbe269f726940",
+      "manifest": "60db7dbe86f4c6ecd5ed24a6ed8a781f2904c03adcc2185ee4efbe269f726940",
+      "pass": true
+    },
+    {
+      "file": "Studio 홈.dc.html",
+      "original": "315c1f92a2861416ea686a763e842f979f32dadb561e45f2a8dcc7fa495d6d12",
+      "copy": "315c1f92a2861416ea686a763e842f979f32dadb561e45f2a8dcc7fa495d6d12",
+      "manifest": "315c1f92a2861416ea686a763e842f979f32dadb561e45f2a8dcc7fa495d6d12",
+      "pass": true
+    },
+    {
+      "file": "Marketing 홈.dc.html",
+      "original": "b612251903ea1d9bfa9bf30effdc5c2dbaeb0d40d5cd897027cd5632aa86b9be",
+      "copy": "b612251903ea1d9bfa9bf30effdc5c2dbaeb0d40d5cd897027cd5632aa86b9be",
+      "manifest": "b612251903ea1d9bfa9bf30effdc5c2dbaeb0d40d5cd897027cd5632aa86b9be",
+      "pass": true
+    },
+    {
+      "file": "Lab 홈 v4.dc.html",
+      "original": "1e247d523a0d1c9b4d102dcc4d932e8a831f4d115016e5e693ed97df22a3c984",
+      "copy": "1e247d523a0d1c9b4d102dcc4d932e8a831f4d115016e5e693ed97df22a3c984",
+      "manifest": "1e247d523a0d1c9b4d102dcc4d932e8a831f4d115016e5e693ed97df22a3c984",
+      "pass": true
+    },
+    {
+      "file": "Studio 서비스 상세.dc.html",
+      "original": "fc4e01f86743c8f21b21e174da26a828514fbcdfd87d76dfd3adc05ba01b027c",
+      "copy": "fc4e01f86743c8f21b21e174da26a828514fbcdfd87d76dfd3adc05ba01b027c",
+      "manifest": "fc4e01f86743c8f21b21e174da26a828514fbcdfd87d76dfd3adc05ba01b027c",
+      "pass": true
+    },
+    {
+      "file": "Marketing 서비스 상세.dc.html",
+      "original": "4cb38f18baaf7f45bddc736f49746bd8821235369b4dce3c7469fb7c134b93ab",
+      "copy": "4cb38f18baaf7f45bddc736f49746bd8821235369b4dce3c7469fb7c134b93ab",
+      "manifest": "4cb38f18baaf7f45bddc736f49746bd8821235369b4dce3c7469fb7c134b93ab",
+      "pass": true
+    },
+    {
+      "file": "Lab 서비스 상세 v3.dc.html",
+      "original": "1c58a6c39e20a57123f4da98aac8a4d3700b7965712a83f18ea0c2d1a16c0fb7",
+      "copy": "1c58a6c39e20a57123f4da98aac8a4d3700b7965712a83f18ea0c2d1a16c0fb7",
+      "manifest": "1c58a6c39e20a57123f4da98aac8a4d3700b7965712a83f18ea0c2d1a16c0fb7",
+      "pass": true
+    },
+    {
+      "file": "Studio 문의.dc.html",
+      "original": "bb5ec9f30e0754cc1cdf4c281b27f1baddaebeaf487123bb19201da3ba52ea28",
+      "copy": "bb5ec9f30e0754cc1cdf4c281b27f1baddaebeaf487123bb19201da3ba52ea28",
+      "manifest": "bb5ec9f30e0754cc1cdf4c281b27f1baddaebeaf487123bb19201da3ba52ea28",
+      "pass": true
+    },
+    {
+      "file": "Marketing 문의.dc.html",
+      "original": "2bbe6e1107a6732eb55ee99f40b9d18b77d40153956f5dc9d522222402d6c46c",
+      "copy": "2bbe6e1107a6732eb55ee99f40b9d18b77d40153956f5dc9d522222402d6c46c",
+      "manifest": "2bbe6e1107a6732eb55ee99f40b9d18b77d40153956f5dc9d522222402d6c46c",
+      "pass": true
+    },
+    {
+      "file": "Lab 문의 v3.dc.html",
+      "original": "83726bc74ae3f11e54054edaef613015de0377e50cdd8550bfe2a8dd7797f27d",
+      "copy": "83726bc74ae3f11e54054edaef613015de0377e50cdd8550bfe2a8dd7797f27d",
+      "manifest": "83726bc74ae3f11e54054edaef613015de0377e50cdd8550bfe2a8dd7797f27d",
+      "pass": true
+    }
+  ],
+  "localEnvironmentRestored": true,
+  "productionSecretsIncluded": false
+}

@@ -2,9 +2,18 @@ import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/metadata";
 import { divisions, divisionServices } from "@/lib/content";
 import { publicEntries } from "@/lib/db";
+import { guideEntries } from "@/lib/guide-content";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const paths = ["/", "/about", "/contact", "/work", "/privacy", "/terms"];
+  const paths = [
+    "/",
+    "/about",
+    "/about/team",
+    "/contact",
+    "/work",
+    "/privacy",
+    "/terms",
+  ];
   for (const d of divisions) {
     paths.push(
       "/" + d.path,
@@ -20,7 +29,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     publicEntries("reference"),
     publicEntries("insight"),
   ]);
-  for (const e of rows.flat()) {
+  for (const e of [
+    ...rows.flat(),
+    ...guideEntries("reference"),
+    ...guideEntries("insight"),
+  ]) {
     const d = divisions.find((d) => d.id === e.division);
     if (d)
       paths.push(

@@ -4,11 +4,11 @@ export const divisions = [
     path: "marketing",
     label: "마케팅",
     brand: "Marketing",
-    number: "01",
+    number: "02",
     headline: "좋은 브랜드가\n고객을 만나는 방법.",
     summary:
       "고객의 질문에서 출발해 콘텐츠, 채널, 검색과 문의를 하나의 흐름으로 연결합니다.",
-    image: "/renewal/marketing.webp",
+    image: "/renewal/marketing-content-v03.webp",
     tagline: "고객을 이해하고, 관계를 설계합니다.",
     process: ["현황 진단", "질문과 전략", "콘텐츠 제작", "운영과 개선"],
   },
@@ -17,11 +17,11 @@ export const divisions = [
     path: "lab",
     label: "개발",
     brand: "Lab",
-    number: "02",
+    number: "03",
     headline: "아이디어를\n작동하는 서비스로.",
     summary:
       "웹사이트부터 반복 업무까지. 필요한 기능을 분명하게 정하고 실제로 사용할 수 있는 결과물을 만듭니다.",
-    image: "/renewal/lab.webp",
+    image: "/images/guide/images/services/development-hero.png",
     tagline: "목적을 정의하고, 필요한 기능을 만듭니다.",
     process: [
       "요구사항 정리",
@@ -35,11 +35,11 @@ export const divisions = [
     path: "video",
     label: "영상",
     brand: "Studio",
-    number: "03",
+    number: "01",
     headline: "이야기가\n브랜드의 장면이 되도록.",
     summary:
       "웹툰, 애니메이션, AI 인플루언서. 전달할 메시지에 맞는 형식을 찾아 이야기를 완성합니다.",
-    image: "/renewal/video.webp",
+    image: "/renewal/brand-film-v03.webp",
     tagline: "메시지를 정하고, 기억에 남는 장면을 만듭니다.",
     process: [
       "메시지와 권리 확인",
@@ -321,7 +321,7 @@ export const services: Service[] = [
   {
     id: "brand-film",
     division: "video",
-    name: "브랜드 홍보 · SNS 광고",
+    name: "브랜드 홍보 영상",
     subtitle: "한 장면에 담는 브랜드의 이유",
     description:
       "제품과 서비스의 확인된 정보를 바탕으로 홍보 영상과 채널별 광고 소재를 제작합니다.",
@@ -337,6 +337,27 @@ export const services: Service[] = [
       "원본 이용권",
       "목표와 채널",
       "길이·버전·수정 범위",
+    ],
+  },
+  {
+    id: "ad",
+    division: "video",
+    name: "SNS 광고 영상",
+    subtitle: "짧은 장면에서 분명한 메시지로",
+    description:
+      "확인된 제품 정보를 채널별 광고 영상으로 구성합니다. 길이와 버전, 수정 범위는 상담에서 정합니다.",
+    audience: "소셜 채널에 맞는 짧은 광고 영상이 필요한 브랜드",
+    outcomes: [
+      "메시지와 장면 기획",
+      "합의된 영상 제작",
+      "채널별 출력",
+      "제품 사실과 권리 검수",
+    ],
+    inputs: [
+      "제품 자료와 이용권",
+      "광고 채널",
+      "영상 길이와 버전",
+      "희망 일정",
     ],
   },
   {

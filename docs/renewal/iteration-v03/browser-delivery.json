@@ -1,0 +1,19 @@
+{
+  "environment": "Windows Chrome / local dev / no operational database",
+  "loginWindowToDashboard": true,
+  "dashboardMetrics": "—",
+  "cmsConnected": false,
+  "gaConnected": false,
+  "contact": {
+    "initial": "webtoon",
+    "selected": "ad",
+    "receiptShown": false,
+    "errorVisible": true,
+    "emailFallback": true
+  },
+  "mobileMenuEscape": true,
+  "shopDemo": {
+    "cart": "장바구니 1",
+    "themeChanged": true
+  }
+}

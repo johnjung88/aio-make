@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { credentialsReady, verifyCredentials, setSession } from "@/lib/auth";
 import { sameOrigin, readJson, rateLimit } from "@/lib/http";
+import { databaseReady } from "@/lib/db";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
     return NextResponse.json(
@@ -10,6 +11,11 @@ export async function POST(request: Request) {
   if (!credentialsReady())
     return NextResponse.json(
       { error: "관리자 계정 설정이 필요합니다." },
+      { status: 503 },
+    );
+  if (process.env.NODE_ENV === "production" && !databaseReady())
+    return NextResponse.json(
+      { error: "관리자 로그인 보호를 위한 데이터베이스 연결이 필요합니다." },
       { status: 503 },
     );
   if (!(await rateLimit(request, "admin-login", 5, 900)))

@@ -10,7 +10,8 @@
     "originalWidth": 1536,
     "output": "/renewal/hero.webp",
     "webBytes": 95832,
-    "originalProjectPath": "docs/renewal/generated-originals/hero-v01.png"
+    "originalProjectPath": "docs/renewal/generated-originals/hero-v01.png",
+    "v03Usage": "preserved from v02; not a v03 page visual"
   },
   {
     "name": "marketing",
@@ -23,7 +24,8 @@
     "originalWidth": 1254,
     "output": "/renewal/marketing.webp",
     "webBytes": 83348,
-    "originalProjectPath": "docs/renewal/generated-originals/marketing-v01.png"
+    "originalProjectPath": "docs/renewal/generated-originals/marketing-v01.png",
+    "v03Usage": "preserved from v02; not a v03 page visual"
   },
   {
     "name": "lab",
@@ -36,7 +38,8 @@
     "originalWidth": 1254,
     "output": "/renewal/lab.webp",
     "webBytes": 58082,
-    "originalProjectPath": "docs/renewal/generated-originals/lab-v01.png"
+    "originalProjectPath": "docs/renewal/generated-originals/lab-v01.png",
+    "v03Usage": "preserved from v02; not a v03 page visual"
   },
   {
     "name": "video",
@@ -49,7 +52,8 @@
     "originalWidth": 1254,
     "output": "/renewal/video.webp",
     "webBytes": 96602,
-    "originalProjectPath": "docs/renewal/generated-originals/video-v01.png"
+    "originalProjectPath": "docs/renewal/generated-originals/video-v01.png",
+    "v03Usage": "preserved from v02; not a v03 page visual"
   },
   {
     "name": "webtoon-sample",
@@ -62,7 +66,8 @@
     "sha256": "54a4b1688717d54f28ef6ee608fe05a38373d798bd9c7e92afd4f526629c3ecb",
     "originalWidth": 1536,
     "output": "/renewal/webtoon-sample.webp",
-    "webBytes": 147780
+    "webBytes": 147780,
+    "v03Usage": "applied as explicitly labelled conceptual examples"
   },
   {
     "name": "animation-sample",
@@ -75,7 +80,8 @@
     "sha256": "0a62465280fc4c0467294d5702362070d23df5e3336055edebf4a42b0a1ca3ef",
     "originalWidth": 1536,
     "output": "/renewal/animation-sample.webp",
-    "webBytes": 126506
+    "webBytes": 126506,
+    "v03Usage": "applied as explicitly labelled conceptual examples"
   },
   {
     "name": "influencer-sample",
@@ -88,7 +94,8 @@
     "sha256": "4d68439b6252aeac580f4c3a6835db03ed94edcb31e6e91a1cbeece93817bcc6",
     "originalWidth": 1536,
     "output": "/renewal/influencer-sample.webp",
-    "webBytes": 44222
+    "webBytes": 44222,
+    "v03Usage": "applied as explicitly labelled conceptual examples"
   },
   {
     "name": "shop-products",
@@ -101,6 +108,35 @@
     "sha256": "2092584e8206f1270ed8090758eb9ea8df2d241ac6a872802497fae11184f959",
     "originalWidth": 1536,
     "output": "/renewal/shop-products.webp",
-    "webBytes": 34484
+    "webBytes": 34484,
+    "v03Usage": "applied as explicitly labelled conceptual examples"
+  },
+  {
+    "name": "brand-film-v03",
+    "tool": "built-in image_gen",
+    "kind": "AI-generated conceptual product still, not client work or actual film",
+    "promptBrief": "Cream ceramic bottle, ribbed glass and lavender flowers in cinematic product lighting, matching the black Studio hero.",
+    "originalProjectPath": "docs/renewal/generated-originals/brand-film-v03.png",
+    "sha256": "8612b04c95bacbda2cccbd46a69524ab78ea29b615056301211cd4c4696771bc",
+    "originalWidth": 1586,
+    "originalHeight": 992,
+    "output": "/renewal/brand-film-v03.webp",
+    "webBytes": 95570,
+    "webSha256": "f98a9b49165fd0dcf6054cca71a52056ff262449b87d787924225b11504acb7f",
+    "v03Usage": "applied to guide image slots; root agent inspected the actual generated image"
+  },
+  {
+    "name": "marketing-content-v03",
+    "tool": "built-in image_gen",
+    "kind": "AI-generated conceptual product still, not client work or actual film",
+    "promptBrief": "Ivory ceramic homeware and lavender linen in warm window light, matching the white Marketing page.",
+    "originalProjectPath": "docs/renewal/generated-originals/marketing-content-v03.png",
+    "sha256": "d55fa19de902b4b2deadd11f8a5e1c8e88e9c8ff13d2a57c65c1a927c013b400",
+    "originalWidth": 1586,
+    "originalHeight": 992,
+    "output": "/renewal/marketing-content-v03.webp",
+    "webBytes": 124804,
+    "webSha256": "e64461f67a044279b5cadec6036e2d34d389f489a26191e3776f5b090ab6fa8c",
+    "v03Usage": "applied to guide image slots; root agent inspected the actual generated image"
   }
 ]

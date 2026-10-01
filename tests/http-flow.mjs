@@ -213,7 +213,8 @@ assert.equal(
 pass("Logout expires server cookie");
 await mkdir("docs/renewal", { recursive: true });
 await writeFile(
-  "docs/renewal/http-qa.json",
+  (process.env.AIO_QA_OUTPUT_DIR || "docs/renewal/iteration-v03") +
+    "/http-qa.json",
   JSON.stringify(
     {
       environment:

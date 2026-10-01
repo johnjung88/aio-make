@@ -199,7 +199,8 @@ assert.equal(
 );
 pass("Non-image upload is rejected before Storage");
 await writeFile(
-  "docs/renewal/iteration-v02/http-usability.json",
+  (process.env.AIO_QA_OUTPUT_DIR || "docs/renewal/iteration-v03") +
+    "/http-usability.json",
   JSON.stringify(
     {
       at: new Date().toISOString(),

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&display=swap">
+<style>
+body{margin:0;background:#fff;color:#0D0D12;font-family:'Pretendard Variable',Pretendard,sans-serif;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:hover{color:#6B4DFF}
+input,textarea,button,select{font-family:inherit}
+textarea::placeholder,input::placeholder{color:#A8A69E}
+p,blockquote{text-wrap:pretty}
+</style>
+<script src="./fit-lines.js"></script>
+</helmet>
+<div style="background:#fff;min-height:100vh;display:flex;flex-direction:column">
+<dc-import name="AioHeader" active="marketing" hint-size="100%,72px"></dc-import>
+<dc-import name="MarketingNav" active="contact" hint-size="100%,56px"></dc-import>
+
+<section style="max-width:1440px;width:100%;box-sizing:border-box;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(20px,4vw,56px) clamp(80px,10vw,140px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:56px">
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <span style="font-family:Unbounded,sans-serif;font-size:12px;letter-spacing:.16em;color:#6B4DFF">START MARKETING</span>
+    <div data-fit="balance" style="width:fit-content;max-width:100%"><h1 style="margin:0;font-size:clamp(34px,4.6vw,62px);letter-spacing:-.04em;font-weight:800;line-height:1.14"><span data-fit-line="">상담만 남기셔도</span><span data-fit-line="">분석 자료를 드립니다</span></h1></div>
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#3A3A42">업종과 운영 중인 채널을 남겨주시면 <strong style="color:#6B4DFF">시장, 경쟁사, 운영 방향 분석 자료</strong>를 정리해 드립니다.<br>계약하시면 사이트 구축·리뉴얼도 제공합니다</p>
+    <div style="display:flex;flex-direction:column;border-top:1.5px solid #0D0D12;margin-top:12px;max-width:420px">
+      <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #DAD8D1;font-size:15px"><span style="color:#6E6E78">계약</span><strong style="font-weight:600">월 단위</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #DAD8D1;font-size:15px"><span style="color:#6E6E78">해지</span><strong style="font-weight:600">30일 전 통보</strong></div>
+      <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #DAD8D1;font-size:15px"><span style="color:#6E6E78">계약 혜택</span><strong style="font-weight:600">사이트 구축·리뉴얼</strong></div>
+    </div>
+  </div>
+  <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid #6B4DFF;padding:40px;display:flex;flex-direction:column;gap:12px;justify-content:center"><strong style="font-size:24px">문의가 접수되었습니다</strong><span style="color:#3A3A42">마케팅 담당자가 확인한 뒤 연락드리겠습니다</span></div>
+  </sc-if>
+  <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+    <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:22px">
+        <label style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#6E6E78">고객명 *<input required="" placeholder="홍길동" style="border:none;border-bottom:1.5px solid #A8A69E;padding:10px 0;font-size:17px;outline:none;background:transparent;color:#0D0D12"></label>
+        <label style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#6E6E78">연락처 *<input required="" type="tel" placeholder="010-0000-0000" style="border:none;border-bottom:1.5px solid #A8A69E;padding:10px 0;font-size:17px;outline:none;background:transparent;color:#0D0D12"></label>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#6E6E78">이메일 *<input required="" type="email" placeholder="name@company.com" style="border:none;border-bottom:1.5px solid #A8A69E;padding:10px 0;font-size:17px;outline:none;background:transparent;color:#0D0D12"></label>
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:#6E6E78">{{ g.label }}
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="4">
+              <button type="button" onClick="{{ o.pick }}" style="cursor:pointer;padding:10px 16px;font-size:15px;border-radius:999px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#6E6E78">운영 중인 채널·계정 URL<input placeholder="인스타그램, 블로그, 홈페이지 주소 등" style="border:none;border-bottom:1.5px solid #A8A69E;padding:10px 0;font-size:17px;outline:none;background:transparent;color:#0D0D12"></label>
+      <label style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:#6E6E78">요청 내용<textarea rows="5" placeholder="브랜드 소개와 원하는 방향을 자유롭게 적어주세요" style="border:1px solid #A8A69E;padding:16px;font-size:16px;line-height:1.7;outline:none;background:transparent;color:#0D0D12;resize:vertical"></textarea></label>
+      <label style="display:flex;gap:10px;align-items:center;font-size:14px;color:#3A3A42;cursor:pointer"><input required="" type="checkbox" style="width:18px;height:18px;accent-color:#6B4DFF">개인정보 수집·이용에 동의합니다 (필수)</label>
+      <button type="submit" style="cursor:pointer;border:none;background:#6B4DFF;color:#fff;padding:20px;font-size:16px;font-weight:600">문의 보내기</button>
+    </form>
+  </sc-if>
+</section>
+<dc-import name="AioFooter" hint-size="100%,300px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const MAP = { integrated: '통합 마케팅 (월 200만 원, 부가세 별도)', sns: 'SNS 대행 운영 (월 100만 원, 부가세 별도)', ai: 'AI 인플루언서 마케팅 (월 100만 원, 부가세 별도)', seo: 'SEO·AEO·GEO (별도 견적)' };
+const G = [
+  ['service', '원하는 서비스 *', [...Object.values(MAP), '아직 모르겠어요']],
+  ['ind', '업종 *', ['요식', '뷰티', '병원·의원', '교육·학원', '쇼핑몰', '부동산', '숙박·여행', '전문직(법률·세무)', '기타']],
+  ['pain', '현재 고민 (여러 개 선택 가능)', ['유입이 적다', '문의·구매로 이어지지 않는다', '계정이 방치돼 있다', '검색에 나오지 않는다', 'AI 답변에 나오지 않는다', '운영할 사람이 없다']],
+  ['when', '희망 시작일', ['바로', '2주 이내', '1개월 이내', '협의']]
+];
+const MULTI = { pain: true };
+class Component extends DCLogic {
+  state = { service: (() => { try { return MAP[new URLSearchParams(location.search).get('s')] || ''; } catch (e) { return ''; } })(), ind: '', pain: [], when: '', sent: false };
+  renderVals() {
+    return {
+      groups: G.map(([key, label, opts]) => ({ label, opts: opts.map(o => {
+        const multi = MULTI[key];
+        const on = multi ? this.state[key].includes(o) : this.state[key] === o;
+        return { label: o, bg: on ? '#6B4DFF' : 'transparent', fg: on ? '#fff' : '#0D0D12', bd: on ? '#6B4DFF' : '#A8A69E',
+          pick: () => this.setState(s => multi ? { [key]: on ? s[key].filter(x => x !== o) : [...s[key], o] } : { [key]: o }) };
+      }) })),
+      sent: this.state.sent, notSent: !this.state.sent,
+      submit: e => { e.preventDefault(); this.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

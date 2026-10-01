@@ -1,0 +1,10 @@
+PASS Unauthenticated admin APIs return 401
+PASS Admin page redirects without session
+PASS Legacy 301 destinations preserve UTM
+PASS Login validates credentials and creates HttpOnly strict cookie
+PASS Inquiry consent/source checks, transaction and duplicate protection
+PASS Admin joins inquiry, changes status, persists and reads audit/notes
+PASS Rights gate, actual save, public page and unpublish
+PASS GA disconnected state never fabricates zero metrics
+PASS Logout expires server cookie
+HTTP flow PASS: 9

@@ -1,80 +1,48 @@
-import Image from "next/image";
 import Link from "next/link";
 import { publicEntries } from "@/lib/db";
 import { divisions } from "@/lib/content";
-import { Eyebrow, ContactCTA } from "@/components/ui";
+import { mergeGuideEntries } from "@/lib/guide-content";
+import { GuideEntryCard } from "@/components/entries";
 import { pageMetadata } from "@/lib/metadata";
 export const dynamic = "force-dynamic";
 export const metadata = pageMetadata(
   "레퍼런스",
-  "공개 권리와 내용을 확인한 고객 사례와 제작 예시.",
+  "분야별 제작 방향 예시와 공개 확인을 마친 고객 사례.",
   "/work",
 );
 export default async function Work() {
-  const entries = await publicEntries("reference");
+  const entries = mergeGuideEntries(
+    await publicEntries("reference"),
+    "reference",
+  );
   return (
-    <>
-      <div className="container page-intro">
-        <Eyebrow>SELECTED WORK</Eyebrow>
-        <h1>
-          무엇을, 어떻게
-          <br />
-          만들었는지.
-        </h1>
-        <p>고객 사례와 제작 예시를 구분해 소개합니다.</p>
-      </div>
-      <section className="section paper">
-        <div className="container">
-          <div className="reference-tabs">
-            {divisions.map((d) => (
-              <Link key={d.id} href={"/" + d.path + "/work"}>
-                {d.label} 레퍼런스 ↗
-              </Link>
-            ))}
+    <div className="guide-page guide-editorial is-light is-work">
+      <section className="guide-list-wrap">
+        <div className="guide-list-heading">
+          <div>
+            <span className="guide-kicker">SELECTED WORK</span>
+            <h1>레퍼런스</h1>
           </div>
-          {entries.length ? (
-            <div className="content-grid">
-              {entries.map((e) => {
-                const d = divisions.find((d) => d.id === e.division);
-                return d ? (
-                  <Link
-                    key={e.id}
-                    href={"/" + d.path + "/work/" + e.slug}
-                    className="content-card"
-                  >
-                    {e.cover_url && (
-                      <div className="content-image">
-                        <Image
-                          src={e.cover_url}
-                          alt={e.title}
-                          fill
-                          sizes="(max-width:768px) 100vw,33vw"
-                        />
-                      </div>
-                    )}
-                    <Eyebrow>
-                      {d.label} /{" "}
-                      {e.kind === "example" ? "제작 예시" : "고객 사례"}
-                    </Eyebrow>
-                    <h3>{e.title}</h3>
-                    <p>{e.summary}</p>
-                  </Link>
-                ) : null;
-              })}
-            </div>
-          ) : (
-            <div className="empty-state">
-              <h3>공개할 결과물을 정리하고 있습니다.</h3>
-              <p>
-                내용과 공개 권리를 확인한 항목부터 소개합니다. 필요한 작업
-                범위는 서비스 안내와 문의에서 확인해주세요.
-              </p>
-              <Link href="/contact">프로젝트 문의 →</Link>
-            </div>
-          )}
+          <p>마케팅, 개발, 영상의 제작 방향과 작업물을 살펴보세요.</p>
+        </div>
+        <nav className="guide-reference-tabs" aria-label="레퍼런스 분야">
+          {divisions.map((d) => (
+            <Link key={d.id} href={`/${d.path}/work`}>
+              {d.brand} · {d.label} →
+            </Link>
+          ))}
+        </nav>
+        <div className="guide-work-grid">
+          {entries.map((entry) => (
+            <GuideEntryCard
+              key={entry.id}
+              entry={entry}
+              path={divisions.find((d) => d.id === entry.division)!.path}
+              type="reference"
+            />
+          ))}
         </div>
       </section>
-      <ContactCTA />
-    </>
+    </div>
   );
 }

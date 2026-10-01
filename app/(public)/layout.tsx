@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Header, Footer } from "@/components/site-shell";
 import { Analytics } from "@/components/analytics";
+import "@/components/guide/guide.css";
 export default function PublicLayout({
   children,
 }: {
@@ -12,7 +13,9 @@ export default function PublicLayout({
         본문 바로가기
       </a>
       <Header />
-      <main id="main-content">{children}</main>
+      <main id="main-content" className="guide-public">
+        {children}
+      </main>
       <Footer />
       <Suspense fallback={null}>
         <Analytics

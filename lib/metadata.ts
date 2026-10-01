@@ -20,9 +20,9 @@ export function pageMetadata(
       type: "website",
       images: [
         {
-          url: siteUrl + "/renewal/hero.webp",
-          width: 1536,
-          height: 1024,
+          url: siteUrl + "/images/guide/hero/hero-bg.jpg",
+          width: 1872,
+          height: 1248,
           alt: "AIO MAKE · 마케팅 개발 영상",
         },
       ],
@@ -31,7 +31,7 @@ export function pageMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: [siteUrl + "/renewal/hero.webp"],
+      images: [siteUrl + "/images/guide/hero/hero-bg.jpg"],
     },
   };
 }

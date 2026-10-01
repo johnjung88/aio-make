@@ -1,0 +1,27 @@
+{
+  "environment": "production build on loopback only, PGlite synthetic database",
+  "inquiry": {
+    "receipt": "12507ca4-fde4-457a-9157-697dad19d9df",
+    "initial": "webtoon",
+    "selected": "ad",
+    "savedService": "SNS 광고 영상",
+    "state": "상담중",
+    "notePersisted": true
+  },
+  "cms": {
+    "slug": "local-guide-check",
+    "featuredHomeLink": "/marketing/work/local-guide-check",
+    "bodyVisible": true,
+    "syntheticOnly": true
+  },
+  "filter": {
+    "selected": "SNS 광고 영상",
+    "visibleCount": 1
+  },
+  "serviceNavigation": {
+    "from": "/video/services/webtoon",
+    "to": "/video/services/ad",
+    "back": "/video/services/webtoon"
+  },
+  "mobileMenuEscape": true
+}

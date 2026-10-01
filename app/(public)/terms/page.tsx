@@ -7,7 +7,7 @@ export const metadata = pageMetadata(
 );
 export default function Terms() {
   return (
-    <>
+    <div className="guide-page guide-utility">
       <div className="container page-intro">
         <Eyebrow>TERMS</Eyebrow>
         <h1>이용 안내</h1>
@@ -45,6 +45,6 @@ export default function Terms() {
           수 있습니다. 서비스 관련 문의는 aiomake2023@gmail.com으로 보내주세요.
         </p>
       </article>
-    </>
+    </div>
   );
 }

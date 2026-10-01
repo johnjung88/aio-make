@@ -8,7 +8,7 @@ export const metadata = pageMetadata(
 );
 export default function Contact() {
   return (
-    <>
+    <div className="guide-page guide-utility">
       <div className="container page-intro">
         <Eyebrow>LET’S MAKE YOUR NEXT</Eyebrow>
         <h1>
@@ -38,6 +38,6 @@ export default function Contact() {
         </aside>
         <ContactForm />
       </div>
-    </>
+    </div>
   );
 }

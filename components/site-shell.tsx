@@ -2,129 +2,160 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { divisions, divisionByPath } from "@/lib/content";
+import { ChevronDown, Menu, X } from "lucide-react";
 export function Brand() {
   return (
-    <span className="brand">
+    <span className="brand guide-brand">
       <b>AIO</b>
       <span>MAKE</span>
       <i aria-hidden="true" />
     </span>
   );
 }
+const links = [
+  ["Studio", "/video"],
+  ["Marketing", "/marketing"],
+  ["Lab", "/lab"],
+  ["레퍼런스", "/#work"],
+];
 export function Header() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
-  const current = divisionByPath(pathname.split("/")[1]);
-  const contactPath = current ? "/" + current.path + "/contact" : "/contact";
+  const path = usePathname(),
+    [open, setOpen] = useState(false),
+    [about, setAbout] = useState(false);
+  const menu = useRef<HTMLButtonElement>(null);
   return (
     <header
-      className="site-header"
-      onKeyDown={(event) => {
-        if (event.key === "Escape" && open) {
+      className="guide-header"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
           setOpen(false);
-          menuButton.current?.focus();
+          setAbout(false);
+          menu.current?.focus();
         }
       }}
     >
-      <div className="header-inner">
+      <div className="guide-header-inner">
         <Link href="/" aria-label="AIO MAKE 홈" onClick={() => setOpen(false)}>
           <Brand />
         </Link>
-        <nav className="desktop-nav" aria-label="주 메뉴">
-          {divisions.map((d) => (
-            <Link
-              key={d.id}
-              href={"/" + d.path}
-              className={current?.id === d.id ? "active" : ""}
-              aria-current={current?.id === d.id ? "page" : undefined}
-            >
-              {d.label}
-            </Link>
-          ))}
-          <Link href="/about">AIO 소개</Link>
-        </nav>
-        <Link className="header-cta" href={contactPath}>
-          프로젝트 문의 <ArrowUpRight size={16} />
-        </Link>
         <button
-          ref={menuButton}
-          className="menu-toggle"
+          ref={menu}
+          className="guide-mobile-toggle"
           aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
           aria-expanded={open}
-          aria-controls="mobile-navigation"
+          aria-controls="guide-main-nav"
           onClick={() => setOpen(!open)}
         >
-          {open ? <X /> : <Menu />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
-      </div>
-      {open && (
         <nav
-          id="mobile-navigation"
-          className="mobile-nav"
-          aria-label="모바일 메뉴"
+          className={"guide-main-nav" + (open ? " is-open" : "")}
+          id="guide-main-nav"
+          aria-label="주 메뉴"
         >
-          {[
-            ...divisions.map((d) => ({ href: "/" + d.path, label: d.label })),
-            { href: "/about", label: "AIO 소개" },
-            { href: contactPath, label: "프로젝트 문의" },
-          ].map((item) => (
+          <div
+            className="guide-about-menu"
+            onMouseEnter={() => setAbout(true)}
+            onMouseLeave={() => setAbout(false)}
+          >
+            <button
+              aria-expanded={about}
+              aria-controls="guide-about-links"
+              className={path.startsWith("/about") ? "is-current" : ""}
+              onClick={(event) =>
+                setAbout(
+                  event.detail && matchMedia("(hover:hover)").matches
+                    ? true
+                    : !about,
+                )
+              }
+            >
+              AIO 소개 <ChevronDown size={11} />
+            </button>
+            {about && (
+              <div id="guide-about-links">
+                <Link
+                  href="/about"
+                  onClick={() => {
+                    setOpen(false);
+                    setAbout(false);
+                  }}
+                >
+                  회사소개
+                </Link>
+                <Link
+                  href="/about/team"
+                  onClick={() => {
+                    setOpen(false);
+                    setAbout(false);
+                  }}
+                >
+                  팀원소개
+                </Link>
+              </div>
+            )}
+          </div>
+          {links.map(([label, href]) => (
             <Link
-              key={item.href}
-              href={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
+              key={label}
+              className={
+                path === href ||
+                (href !== "/#work" && path.startsWith(href + "/"))
+                  ? "is-current"
+                  : ""
+              }
+              href={href}
               onClick={() => setOpen(false)}
             >
-              {item.label}
-              <ArrowUpRight size={18} />
+              {label}
             </Link>
           ))}
-        </nav>
-      )}
-      {current && (
-        <nav className="division-nav" aria-label={current.label + " 메뉴"}>
-          <Link className="division-brand" href={"/" + current.path}>
-            {current.brand}
+          <Link
+            className="guide-header-cta"
+            href="/#contact"
+            onClick={() => setOpen(false)}
+          >
+            문의하기
           </Link>
-          <Link href={"/" + current.path + "#services"}>서비스</Link>
-          <Link href={"/" + current.path + "/work"}>레퍼런스</Link>
-          <Link href={"/" + current.path + "/insights"}>인사이트</Link>
-          <Link href={"/" + current.path + "/contact"}>문의</Link>
         </nav>
-      )}
+      </div>
     </header>
   );
 }
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="footer-top">
-        <Link href="/">
-          <Brand />
-        </Link>
-        <p>
-          마케팅 · 개발 · 영상
-          <br />
-          필요한 일을, 하나의 방향으로.
-        </p>
-        <a href="mailto:aiomake2023@gmail.com">
-          aiomake2023@gmail.com <ArrowUpRight size={18} />
-        </a>
-      </div>
-      <div className="footer-bottom">
-        <p>
-          에이아이오 (AIO) · 사업자등록번호 682-01-02748
-          <br />
-          통신판매업신고 제 2026-경기김포-3656 호 · 경기도 김포시 대곶면
-          흥신로67
-        </p>
-        <div>
-          <Link href="/privacy">개인정보처리방침</Link>
-          <Link href="/terms">이용 안내</Link>
-          <Link href="/admin/login">관리자</Link>
-          <span>© {new Date().getFullYear()} AIO MAKE</span>
+    <footer className="guide-footer">
+      <div className="guide-footer-inner">
+        <div className="guide-footer-top">
+          <Link href="/" aria-label="AIO MAKE 홈">
+            <Brand />
+          </Link>
+          <nav aria-label="하단 메뉴">
+            {[
+              ["회사소개", "/about"],
+              ["팀원소개", "/about/team"],
+              ["Studio", "/video"],
+              ["Marketing", "/marketing"],
+              ["Lab", "/lab"],
+              ["개인정보처리방침", "/privacy"],
+              ["이용약관", "/terms"],
+            ].map(([label, href]) => (
+              <Link key={href} href={href}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div className="guide-business-info">
+          <span>사업자명: 에이아이오 (AIO) | 사업자번호: 682-01-02748</span>
+          <span>통신판매업신고: 제 2026-경기김포-3656 호</span>
+          <span>주소: 경기도 김포시 대곶면 흥신로67</span>
+          <a href="mailto:AIOMAKE2023@GMAIL.COM">
+            이메일: AIOMAKE2023@GMAIL.COM
+          </a>
+          <span className="guide-copyright">
+            © 2026 AIO-MAKE. All rights reserved.
+          </span>
         </div>
       </div>
     </footer>

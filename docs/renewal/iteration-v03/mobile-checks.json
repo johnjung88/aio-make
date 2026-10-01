@@ -1,0 +1,132 @@
+{
+  "home": [
+    {
+      "path": "/marketing",
+      "title": "고객이 먼저 찾아오는마케팅 구조를 만듭니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 425
+    },
+    {
+      "path": "/lab",
+      "title": "필요한 것을 만들고,소스까지 넘겨드립니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/video",
+      "title": "AI가 속도를 내고전문가가 완성합니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/about",
+      "title": "가격과 속도는 AI 기준으로품질은 전문가의 기준으로",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/about/team",
+      "title": "AI를 가장 잘 쓰는분야별 작업 역할",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/contact",
+      "title": "당신의 다음 일을들려주세요.",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    }
+  ],
+  "forms": [
+    {
+      "path": "/video/contact",
+      "title": "어떤 영상이필요하신가요",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/marketing/contact",
+      "title": "상담만 남기셔도분석 자료를 드립니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/lab/contact",
+      "title": "만들고 싶은 것을 알려주시면범위와 일정을 먼저 공유드립니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/video/services/webtoon",
+      "title": "웹툰",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/marketing/services/integrated",
+      "title": "통합 마케팅",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/lab/services/website",
+      "title": "시안이 아닌배포된 사이트로 납품합니다",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/video/work",
+      "title": "작업 사례",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    },
+    {
+      "path": "/lab/insights/preparation",
+      "title": "개발 상담 전에 준비할 자료",
+      "viewport": [
+        375,
+        812
+      ],
+      "width": 360
+    }
+  ]
+}

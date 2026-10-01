@@ -7,7 +7,7 @@ export const metadata = pageMetadata(
 );
 export default function Privacy() {
   return (
-    <>
+    <div className="guide-page guide-utility">
       <div className="container page-intro">
         <Eyebrow>PRIVACY</Eyebrow>
         <h1>개인정보처리방침</h1>
@@ -51,6 +51,6 @@ export default function Privacy() {
         <h2>6. 연락 창구</h2>
         <p>개인정보 관련 문의: 에이아이오(AIO) · aiomake2023@gmail.com</p>
       </article>
-    </>
+    </div>
   );
 }
