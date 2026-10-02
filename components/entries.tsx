@@ -245,7 +245,9 @@ export async function EntryDetail({
           </p>
         )}
         {entry.cover_url && isSafeImageUrl(entry.cover_url) && (
-          <div className="guide-article-cover">
+          <div
+            className={`guide-article-cover${entry.id === "guide-video-example-webtoon" ? " webtoon-reference-cover" : ""}`}
+          >
             <Image
               src={entry.cover_url}
               alt={entry.title}

@@ -1084,7 +1084,9 @@ class Component extends GuideLogic {
           }}
         >
           <ServiceNavigation division="video" />
-          <section className={isWebtoon ? "webtoon-service-intro" : undefined}>
+          <section
+            className={`video-service-intro${isWebtoon ? " webtoon-service-intro" : ""}`}
+          >
             <div
               style={{
                 maxWidth: "1440px",
@@ -1098,6 +1100,7 @@ class Component extends GuideLogic {
               }}
             >
               <div
+                className="video-service-hero-copy"
                 style={{
                   flex: "1 1 440px",
                   minWidth: "0",

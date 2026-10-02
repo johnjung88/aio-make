@@ -67,14 +67,29 @@ html:has(.guide-public) {
 .webtoon-service-intro > div > div:last-child > div {
   max-width: none !important;
 }
-.webtoon-service-intro > div > div:first-child {
+.video-service-hero-copy {
   width: 100%;
   margin-inline: auto;
   align-items: center;
   text-align: center;
 }
-.webtoon-service-intro > div > div:first-child > div {
+.video-service-hero-copy > div {
   justify-content: center;
+}
+.service-detail .service-hero-copy {
+  text-align: center;
+}
+.service-detail .service-hero-copy > p {
+  margin-inline: auto;
+}
+.service-detail .service-hero-copy .service-actions {
+  justify-content: center;
+}
+.guide-article-cover.webtoon-reference-cover {
+  aspect-ratio: 2 / 3;
+}
+.guide-article-cover.webtoon-reference-cover img {
+  object-fit: contain;
 }
 .webtoon-devices {
   padding: clamp(18px, 2.2vw, 34px);

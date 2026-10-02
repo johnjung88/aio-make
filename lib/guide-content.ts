@@ -87,6 +87,15 @@ export function guideEntries(type: Entry["type"], division?: string): Entry[] {
             creativeAsset(d.id, service.id),
           ),
           service: service.id,
+          ...(d.id === "video" && service.id === "webtoon"
+            ? {
+                title: "1억의 구단주 · 웹툰 제작",
+                summary:
+                  "《1억의 구단주》로 살펴보는 캐릭터와 장면 연출, 웹툰 제작 레퍼런스",
+                body: "《1억의 구단주》에 적용한 캐릭터와 장면 연출을 살펴보세요 웹툰 서비스에서 소개한 제작 레퍼런스입니다\n\n시나리오를 바탕으로 인물의 표정과 대사, 배경과 장면 흐름을 구성합니다 캐릭터 설정부터 연출과 최종 이미지까지 한 회차씩 완성하며, 1회분은 완성 이미지 24컷을 기준으로 제작합니다",
+                cover_url: "/images/guide/webtoon-svc-webtoon-cut01.webp",
+              }
+            : {}),
         }));
       return [
         base(

@@ -10,7 +10,7 @@ const videos = {
     label: "AIO MAKE 브랜드 소개 영상",
     src: "/videos/brand-intro-v01.mp4",
     poster: "/videos/brand-intro-poster.jpg",
-    duration: "30초",
+    action: "회사 소개 보기",
   },
   webtoon: {
     title: "이야기가 웹툰이 되는 순간",
@@ -18,7 +18,7 @@ const videos = {
     label: "1억의 구단주 웹툰 제작 소개 영상",
     src: "/videos/webtoon-reference-v02.mp4",
     poster: "/videos/webtoon-reference-poster.jpg",
-    duration: "21초",
+    action: "웹툰 서비스 소개",
   },
 };
 
@@ -65,14 +65,12 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
           <button
             className="showcase-video-play"
             onClick={play}
-            aria-label={`${video.label} 재생`}
+            aria-label={`${video.action} 재생`}
           >
             <span className="showcase-play-icon">
               <Play size={28} fill="currentColor" aria-hidden="true" />
             </span>
-            <span>
-              영상 보기 <small>{video.duration} · 소리와 함께 재생</small>
-            </span>
+            <span>{video.action}</span>
           </button>
         )}
       </div>
