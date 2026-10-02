@@ -1,5 +1,5 @@
 import "@/components/local-admin.css";
-import { localRequest } from "@/lib/auth";
+import { adminRequest } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import "@/components/admin/admin.css";
@@ -12,6 +12,6 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!(await localRequest())) notFound();
+  if (!(await adminRequest())) notFound();
   return <div className="admin-body">{children}</div>;
 }

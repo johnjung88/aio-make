@@ -22,6 +22,6 @@ export async function GET(
       headers: { "Cache-Control": "no-store" },
     });
   } catch {
-    return NextResponse.json({ error: "로컬 문의 조회 실패" }, { status: 503 });
+    return NextResponse.json({ error: "문의 조회 실패" }, { status: 503 });
   }
 }

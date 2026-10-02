@@ -19,7 +19,7 @@ export default async function Login() {
             <br />
             다음 프로젝트까지
           </h1>
-          <p>이 PC에서 문의와 상담 내역, 방문 통계를 관리합니다</p>
+          <p>접수된 문의와 상담 내역, 방문 통계를 관리합니다</p>
         </div>
         <span className="mono">AIO MAKE / MANAGEMENT</span>
       </div>

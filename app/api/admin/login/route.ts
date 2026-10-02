@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { credentialsReady, verifyCredentials, setSession } from "@/lib/auth";
 import { sameOrigin, readJson, rateLimit } from "@/lib/http";
-import {localRequest} from "@/lib/auth";
+import { adminRequest } from "@/lib/auth";
 export async function POST(request: Request) {
- if(!await localRequest())return NextResponse.json({error:"로컬 관리자에서 로그인해주세요"},{status:404});
+  if (!(await adminRequest()))
+    return NextResponse.json(
+      { error: "관리자 연결 설정을 확인해주세요" },
+      { status: 404 },
+    );
   if (!sameOrigin(request))
     return NextResponse.json(
       { error: "허용되지 않은 요청입니다" },

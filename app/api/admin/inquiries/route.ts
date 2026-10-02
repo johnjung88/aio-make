@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     );
   } catch {
     return NextResponse.json(
-      { error: "로컬 문의 저장소를 확인해주세요" },
+      { error: "문의 저장소를 확인해주세요" },
       { status: 503 },
     );
   }

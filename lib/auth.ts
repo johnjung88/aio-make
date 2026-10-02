@@ -1,5 +1,6 @@
 import "server-only";
 import { localMode } from "./local-store";
+import { cloudAdminEnabled } from "./inquiry-db";
 import { headers } from "next/headers";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -10,8 +11,11 @@ export async function localRequest() {
   return localMode() && /^(127\.0\.0\.1|localhost)(:\d+)?$/.test(host);
 }
 export async function hasAdmin() {
-  if (!(await localRequest())) return false;
+  if (!(await adminRequest())) return false;
   return verifyToken((await cookies()).get(sessionCookie)?.value ?? "");
+}
+export async function adminRequest() {
+  return cloudAdminEnabled() || (await localRequest());
 }
 export async function requireAdmin() {
   if (!(await hasAdmin())) redirect("/admin/login");

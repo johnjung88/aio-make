@@ -346,6 +346,20 @@ html:has(.guide-public) {
 .guide-inquiry textarea {
   min-width: 0;
   width: 100%;
+  color: inherit;
+  caret-color: currentColor;
+  -webkit-text-fill-color: currentColor;
+}
+.guide-inquiry input::placeholder,
+.guide-inquiry textarea::placeholder {
+  color: #73737d;
+  opacity: 1;
+  -webkit-text-fill-color: #73737d;
+}
+.guide-inquiry input:autofill {
+  -webkit-text-fill-color: #0d0d12;
+  box-shadow: 0 0 0 1000px #fff inset;
+  caret-color: #0d0d12;
 }
 .guide-inquiry button[type="submit"] {
   transition: opacity 0.2s;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasAdmin } from "@/lib/auth";
-import { localDb, validEnvelope, type Envelope } from "@/lib/local-store";
+import { inquiryDb, validEnvelope, type Envelope } from "@/lib/local-store";
 import { sameOrigin, readJson } from "@/lib/http";
 import { z } from "zod";
 import { inquiryStatuses } from "@/lib/domain";
@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 const rowSchema = z.object({
   id: z.string().uuid(),
   envelope: z.custom<Envelope>(validEnvelope),
-  gmail_id: z.string().max(300),
+  gmail_id: z.string().max(300).nullable(),
   status: z.enum(inquiryStatuses),
   created_at: z.string().refine((s) => Number.isFinite(Date.parse(s))),
 });
@@ -32,7 +32,7 @@ function csv(value: unknown) {
 export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json({ error: "로그인이 필요합니다" }, { status: 401 });
-  const db = await localDb();
+  const db = await inquiryDb();
   const dump = await db.transaction(async (tx) => ({
     version: 1,
     inquiries: (
@@ -101,7 +101,7 @@ export async function POST(request: Request) {
     const data = backupSchema.parse(await readJson(request, 20 * 1024 * 1024));
     for (const row of data.inquiries)
       if (row.id !== row.envelope.id) throw Error();
-    const db = await localDb();
+    const db = await inquiryDb();
     await db.transaction(async (tx) => {
       for (const r of data.inquiries)
         await tx.query(

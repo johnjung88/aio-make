@@ -5,6 +5,12 @@ import { randomUUID, createHash } from "node:crypto";
 import path from "node:path";
 import type { z } from "zod";
 import { contactSchema } from "./domain.ts";
+import {
+  cloudDb,
+  cloudStoreReady,
+  inquirySchema,
+  type InquiryDb,
+} from "./inquiry-db.ts";
 export type Contact = z.infer<typeof contactSchema>;
 export type Envelope = {
   version: 1;
@@ -31,16 +37,20 @@ export async function localDb() {
       const dir = dataDirectory();
       await mkdir(dir, { recursive: true });
       const db = new PGlite(path.join(dir, "database"));
-      await db.exec(`CREATE TABLE IF NOT EXISTS inquiries(id uuid PRIMARY KEY, envelope jsonb NOT NULL, gmail_id text UNIQUE, status text NOT NULL DEFAULT 'new', created_at timestamptz NOT NULL);
-  CREATE TABLE IF NOT EXISTS notes(id uuid PRIMARY KEY, inquiry_id uuid NOT NULL REFERENCES inquiries(id), content text NOT NULL, status text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
-  CREATE TABLE IF NOT EXISTS settings(key text PRIMARY KEY,value jsonb NOT NULL);
-  CREATE TABLE IF NOT EXISTS limits(key text PRIMARY KEY,count integer NOT NULL,reset_at bigint NOT NULL);`);
+      await db.exec(inquirySchema);
       return db;
     })().catch((e) => {
       delete globalDb.aioLocalDb;
       throw e;
     });
   return globalDb.aioLocalDb;
+}
+export async function inquiryDb(): Promise<InquiryDb> {
+  if (localMode()) return localDb();
+  return cloudDb();
+}
+export function inquiryStoreReady() {
+  return localMode() || cloudStoreReady();
 }
 export function validEnvelope(value: unknown): value is Envelope {
   if (!value || typeof value !== "object") return false;
@@ -89,7 +99,7 @@ function present(row: {
   };
 }
 export async function inquiryList(status = "all", search = "", page = 1) {
-  const db = await localDb();
+  const db = await inquiryDb();
   const values: unknown[] = [];
   const conditions: string[] = [];
   if (status !== "all") {
@@ -130,7 +140,7 @@ export async function inquiryList(status = "all", search = "", page = 1) {
   };
 }
 export async function inquiryDetail(id: string) {
-  const db = await localDb();
+  const db = await inquiryDb();
   const r = await db.query<{
     id: string;
     envelope: Envelope;
@@ -145,7 +155,7 @@ export async function inquiryDetail(id: string) {
   return { item: present(r.rows[0]), notes: notes.rows };
 }
 export async function updateInquiry(id: string, status: string, note: string) {
-  const db = await localDb();
+  const db = await inquiryDb();
   return db.transaction(async (tx) => {
     const r = await tx.query(
       "UPDATE inquiries SET status=$2 WHERE id=$1 RETURNING id",
@@ -180,7 +190,7 @@ export async function persistentLimit(
   limit: number,
   seconds: number,
 ) {
-  const db = await localDb(),
+  const db = await inquiryDb(),
     now = Date.now(),
     key = createHash("sha256")
       .update(bucket + ":" + address)

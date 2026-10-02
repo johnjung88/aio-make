@@ -5,14 +5,13 @@ import type { GaReport, GaDays } from "@/lib/ga-data";
 import type { Inquiry, Note } from "./admin/types";
 import { inquiryStatuses, statusLabels } from "@/lib/domain";
 type Connection = {
-  configured: boolean;
-  read: boolean;
-  send: boolean;
-  lastSync?: { syncedAt?: string };
+  storage: string;
+  emailConfigured: boolean;
+  notificationCounts: Record<string, number>;
 };
 export function LocalAdmin() {
   const [items, setItems] = useState<Inquiry[]>([]),
-    [total, setTotal] = useState(0),
+    [total, setTotal] = useState<number | null>(null),
     [selected, setSelected] = useState<Inquiry | null>(null),
     [notes, setNotes] = useState<Note[]>([]),
     [status, setStatus] = useState("new"),
@@ -52,6 +51,7 @@ export function LocalAdmin() {
       if (request !== listRequest.current) return;
       setItems(d.items);
       setTotal(d.total);
+      setError("");
     } catch (e) {
       setError(String(e instanceof Error ? e.message : e));
     }
@@ -61,21 +61,14 @@ export function LocalAdmin() {
     loadRef.current = load;
   }, [load]);
   const connectStatus = useCallback(async () => {
-    const r = await fetch("/api/admin/google/status");
+    const r = await fetch("/api/admin/inquiry-status");
     if (r.ok) setConnection(await r.json());
   }, []);
-  const sync = useCallback(async () => {
+  const refresh = useCallback(async () => {
     setBusy(true);
-    setError("");
     try {
-      const r = await fetch("/api/admin/google/sync", { method: "POST" });
-      const d = await r.json();
-      if (!r.ok) throw Error(d.error);
-      setMessage("새 문의 " + d.imported + "건 가져옴");
       await loadRef.current();
       await connectStatus();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "가져오기 실패");
     } finally {
       setBusy(false);
     }
@@ -104,11 +97,11 @@ export function LocalAdmin() {
     void readGa();
   }, [connectStatus, readGa]);
   useEffect(() => {
-    if (!connection?.read) return;
-    void sync();
-    const t = setInterval(() => void sync(), 300000);
-    return () => clearInterval(t);
-  }, [connection?.read, sync]);
+    const timer = setInterval(() => {
+      if (document.visibilityState === "visible") void refresh();
+    }, 30000);
+    return () => clearInterval(timer);
+  }, [refresh]);
   async function detail(id: string) {
     try {
       const d = await api("/api/admin/inquiries/" + id);
@@ -166,9 +159,9 @@ export function LocalAdmin() {
     <div className="local-admin">
       <header>
         <div>
-          <span>AIO MAKE · LOCAL</span>
+          <span>AIO MAKE · ADMIN</span>
           <h1>문의와 방문 통계</h1>
-          <p>이 PC에 문의와 상담 내역을 저장합니다</p>
+          <p>사이트에서 접수된 문의와 상담 내역을 확인합니다</p>
         </div>
         <button
           onClick={async () => {
@@ -204,20 +197,15 @@ export function LocalAdmin() {
         <>
           <section className="admin-panel">
             <div className="local-toolbar">
-              <h2>문의 {total}건</h2>
-              <button onClick={sync} disabled={busy}>
-                이메일에서 가져오기
+              <h2>문의 {total === null ? "—" : total + "건"}</h2>
+              <button onClick={refresh} disabled={busy}>
+                새로고침
               </button>
               <a download href="/api/admin/local-data?format=csv">
                 CSV 내려받기
               </a>
             </div>
-            <p>
-              마지막 가져오기{" "}
-              {connection?.lastSync?.syncedAt
-                ? new Date(connection.lastSync.syncedAt).toLocaleString("ko-KR")
-                : "아직 없음"}
-            </p>
+            <p>새 문의는 이 화면에 직접 접수됩니다 · 30초마다 자동 새로고침</p>
             <div className="local-toolbar">
               <label>
                 검색
@@ -280,8 +268,10 @@ export function LocalAdmin() {
                 </tbody>
               </table>
             </div>
-            {!items.length && (
-              <p>표시할 문의가 없습니다 Google 연결 후 새 문의를 가져오세요</p>
+            {!items.length && !error && total !== null && (
+              <p>
+                표시할 문의가 없습니다 사이트에서 접수되면 이곳에 표시됩니다
+              </p>
             )}
             <div className="local-toolbar">
               <button
@@ -292,7 +282,7 @@ export function LocalAdmin() {
               </button>
               <span>{page}페이지</span>
               <button
-                disabled={page * 50 >= total}
+                disabled={total === null || page * 50 >= total}
                 onClick={() => setPage((p) => p + 1)}
               >
                 다음
@@ -356,38 +346,46 @@ export function LocalAdmin() {
       {tab === "settings" && (
         <>
           <section className="admin-panel">
-            <h2>Google 이메일 연결</h2>
-            <p>수신 계정: aiomake2023@gmail.com</p>
+            <h2>문의 접수와 이메일 알림</h2>
+            <p>저장소: {connection?.storage ?? "확인 중"}</p>
+            <p>알림 수신: aiomake2023@gmail.com</p>
             <p>
-              읽기 {connection?.read ? "연결됨" : "연결 필요"} · 발송{" "}
-              {connection?.send ? "연결됨" : "연결 필요"}
+              이메일 설정:{" "}
+              {connection?.emailConfigured ? "설정됨" : "연결 필요"}
             </p>
-            {!connection?.configured ? (
-              <p>
-                Google OAuth 클라이언트 설정이 필요합니다 아래 운영 안내의 연결
-                절차를 완료하면 연결 버튼이 활성화됩니다
-              </p>
-            ) : (
-              <div className="local-toolbar">
-                <button
-                  onClick={() => {
-                    location.href = "/api/admin/google/connect?mode=read";
-                  }}
-                >
-                  문의 가져오기 연결
-                </button>
-                <button
-                  onClick={() => {
-                    location.href = "/api/admin/google/connect?mode=send";
-                  }}
-                >
-                  사이트 발송 연결
-                </button>
-              </div>
-            )}
             <p>
-              PC가 꺼져 있어도 Gmail에 문의가 남으며 관리자를 다시 열면
-              가져옵니다
+              설정됨은 실제 수신 확인과 다릅니다 이메일 오류가 있어도 문의는
+              관리자에 보관됩니다
+            </p>
+            <p>
+              발송 요청 완료 {connection?.notificationCounts.sent ?? 0}건 · 대기{" "}
+              {connection?.notificationCounts.pending ?? 0}건 · 실패{" "}
+              {connection?.notificationCounts.failed ?? 0}건 · 결과 확인 필요{" "}
+              {(connection?.notificationCounts.unknown ?? 0) +
+                (connection?.notificationCounts.sending ?? 0)}
+              건
+            </p>
+            <button
+              disabled={busy || !connection?.emailConfigured}
+              onClick={async () => {
+                setBusy(true);
+                setError("");
+                try {
+                  await api("/api/admin/inquiry-status", { method: "POST" });
+                  await connectStatus();
+                  setMessage("대기 및 명시적 실패 알림을 처리했습니다");
+                } catch (e) {
+                  setError(e instanceof Error ? e.message : "알림 처리 실패");
+                } finally {
+                  setBusy(false);
+                }
+              }}
+            >
+              대기 알림 보내기
+            </button>
+            <p>
+              발송 결과가 불명확한 건은 중복 발송 방지를 위해 다시 보내지
+              않습니다
             </p>
           </section>
           <section className="admin-panel">
