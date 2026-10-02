@@ -168,10 +168,12 @@ export function InquiryBridge({
         if (text) utm[name] = text.slice(0, 250);
       }
     } catch {}
+    const quickContact = quick ? String(data.get("phone") ?? "").trim() : "";
+    const quickEmail = quickContact.includes("@");
     const payload = contactSchema.safeParse({
       name: String(data.get("name") ?? ""),
-      email: String(data.get("email") ?? ""),
-      phone: String(data.get("phone") ?? ""),
+      email: quickEmail ? quickContact : String(data.get("email") ?? ""),
+      phone: quickEmail ? "" : String(data.get("phone") ?? ""),
       company: String(data.get("company") ?? ""),
       division,
       service: selectedService.id,
@@ -190,7 +192,9 @@ export function InquiryBridge({
     if (!payload.success) {
       setError(payload.error.issues[0].message);
       const field = formRef.current?.elements.namedItem(
-        String(payload.error.issues[0].path[0]),
+        quick && payload.error.issues[0].path[0] === "email"
+          ? "phone"
+          : String(payload.error.issues[0].path[0]),
       );
       if (field instanceof HTMLElement) {
         field.setAttribute("aria-invalid", "true");

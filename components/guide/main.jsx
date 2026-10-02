@@ -1041,7 +1041,7 @@ class Component extends GuideLogic {
                     >
                       {"연락처"}
                       <input
-                        placeholder="010-0000-0000"
+                        placeholder="이메일 또는 전화번호"
                         style={{
                           border: "none",
                           borderBottom: "1.5px solid #0D0D12",
@@ -1050,7 +1050,7 @@ class Component extends GuideLogic {
                           outline: "none",
                           background: "transparent",
                         }}
-                        type="tel"
+                        type="text"
                         name="phone"
                       />
                     </label>
