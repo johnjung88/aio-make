@@ -40,7 +40,9 @@ export function HomeReferences({
   return (
     <section id="work" className="home-references">
       <div className="review-container">
-        <div className="reference-heading">
+        <div
+          className={`reference-heading ${fixedDivision ? "" : "reference-heading-centered"}`}
+        >
           <div>
             <span className="review-eyebrow">결과물 살펴보기</span>
             <h2>
@@ -48,11 +50,9 @@ export function HomeReferences({
                 ? "작업 방향을 예시로 살펴보세요"
                 : "필요한 작업을 먼저 살펴보세요"}
             </h2>
-            <p>
-              {fixedDivision
-                ? "원하는 분위기와 구성을 찾고, 상담할 때 함께 알려주세요"
-                : "영상의 분위기부터 운영 방식과 개발 기능까지, 원하는 방향을 찾아보세요"}
-            </p>
+            {fixedDivision && (
+              <p>원하는 분위기와 구성을 찾고, 상담할 때 함께 알려주세요</p>
+            )}
           </div>
           <Link href={allHref} className="reference-all">
             작업 전체 보기 <span aria-hidden="true">↗</span>

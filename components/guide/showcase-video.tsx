@@ -39,13 +39,16 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
   return (
     <section
       className={`showcase-video showcase-video-${kind}`}
-      aria-labelledby={`${kind}-video-title`}
+      aria-label={kind === "brand" ? video.label : undefined}
+      aria-labelledby={kind === "webtoon" ? `${kind}-video-title` : undefined}
     >
-      <div className="showcase-video-heading">
-        <span>{kind === "brand" ? "AIO MAKE" : "WEBTOON SHOWREEL"}</span>
-        <h2 id={`${kind}-video-title`}>{video.title}</h2>
-        <p>{video.copy}</p>
-      </div>
+      {kind === "webtoon" && (
+        <div className="showcase-video-heading centered-copy">
+          <span>WEBTOON SHOWREEL</span>
+          <h2 id={`${kind}-video-title`}>{video.title}</h2>
+          <p>{video.copy}</p>
+        </div>
+      )}
       <div className="showcase-video-frame">
         <video
           ref={ref}

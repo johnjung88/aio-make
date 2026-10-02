@@ -241,6 +241,7 @@ class Component extends GuideLogic {
             }}
           >
             <p
+              className="centered-copy studio-expertise"
               style={{
                 margin: "0",
                 fontSize: "clamp(22px,2.8vw,40px)",
@@ -255,7 +256,11 @@ class Component extends GuideLogic {
                 {"로 빠르게 만들고"}
               </span>
               <span style={{ display: "block", color: "#77777F" }}>
-                {"연출과 검수는 영상 전문가가 직접 합니다"}
+                {"연출과 검수는 "}
+                <strong style={{ color: "#A99BFF", fontWeight: "inherit" }}>
+                  영상 전문가
+                </strong>
+                {"가 직접 합니다"}
               </span>
             </p>
           </section>
@@ -370,7 +375,14 @@ class Component extends GuideLogic {
                         background: "#141418",
                       }}
                     >
-                      <GuideMedia id={w.id} n={w.n} sample={w.cat} />
+                      {w.id === "studio-home-w1" ? (
+                        <GuideImage
+                          src="/images/guide/webtoon-svc-webtoon-cut01.webp"
+                          placeholder="1억의 구단주 웹툰 제작 시안"
+                        />
+                      ) : (
+                        <GuideMedia id={w.id} n={w.n} sample={w.cat} />
+                      )}
                     </div>
                     <div
                       style={{
@@ -725,7 +737,7 @@ class Component extends GuideLogic {
                     lineHeight: "1.08",
                   }}
                 >
-                  {"어떤 영상이 필요하신가요"}
+                  {"어떤 영상이 필요 하신가요?"}
                 </h2>
                 <span style={{ fontSize: "17px" }}>
                   {"내용을 남겨주시면 영상 담당자가 견적과 일정을 안내드립니다"}

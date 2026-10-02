@@ -157,7 +157,7 @@ class Component extends GuideLogic {
               >
                 {"어떤 영상이"}
                 <br />
-                {"필요하신가요"}
+                {"필요 하신가요?"}
               </h1>
               <p
                 style={{

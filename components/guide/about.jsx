@@ -210,7 +210,10 @@ class Component extends GuideLogic {
               </p>
             </div>
           </section>
-          <section style={{ background: "#0D0D12", color: "#F4F3EF" }}>
+          <section
+            className="about-brand-section"
+            style={{ background: "#0D0D12", color: "#F4F3EF" }}
+          >
             <div
               style={{
                 maxWidth: "1320px",
@@ -224,6 +227,7 @@ class Component extends GuideLogic {
               }}
             >
               <div
+                className="centered-copy about-brand-copy"
                 style={{
                   display: "flex",
                   flexDirection: "column",

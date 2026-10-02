@@ -924,6 +924,7 @@ class Component extends GuideLogic {
               }}
             >
               <div
+                className="centered-copy main-contact-copy"
                 style={{
                   display: "flex",
                   flexDirection: "column",

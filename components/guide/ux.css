@@ -275,3 +275,23 @@ html:has(.guide-public) {
   max-width: 1328px;
   margin-inline: auto;
 }
+
+/* v13: user-requested copy alignment and showcase cleanup */
+.centered-copy {
+  text-align: center;
+}
+.main-contact-copy,
+.about-brand-copy {
+  align-items: center;
+}
+.reference-heading.reference-heading-centered {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.reference-heading-centered > div {
+  width: 100%;
+}
+.showcase-video-brand {
+  padding-top: clamp(32px, 4vw, 64px);
+}
