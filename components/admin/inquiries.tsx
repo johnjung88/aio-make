@@ -256,7 +256,7 @@ export function InquiryPanel({
               <div key={n.id}>
                 <small>
                   {new Date(n.created_at).toLocaleString("ko-KR")} ·{" "}
-                  {n.role === "agent"
+                  {n.role === "agent" || n.role === "admin"
                     ? "상담 메모"
                     : n.role === "system"
                       ? "변경 기록"

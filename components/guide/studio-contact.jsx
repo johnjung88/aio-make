@@ -26,9 +26,9 @@ import LAB_DATA from "./lab-data";
 const MAP = {
   webtoon: "웹툰",
   animation: "애니메이션",
-  "ai-influencer": "AI 인플루언서 영상",
-  promo: "브랜드 홍보 영상",
-  ad: "SNS 광고 영상",
+  "ai-influencer": "AI 인플루언서 컨텐츠",
+  promo: "브랜드 홍보 컨텐츠",
+  ad: "SNS 광고 컨텐츠",
   edit: "편집·클리퍼",
 };
 const G = [
@@ -41,7 +41,7 @@ const G = [
   [
     "assets",
     "보유 자료 (여러 개 선택 가능)",
-    ["로고", "제품 사진·영상", "캐릭터", "시나리오·웹툰", "없음"],
+    ["로고", "제품 사진·컨텐츠", "캐릭터", "시나리오·웹툰", "없음"],
   ],
   [
     "channel",
@@ -155,7 +155,7 @@ class Component extends GuideLogic {
                   lineHeight: "1.08",
                 }}
               >
-                {"어떤 영상이"}
+                {"어떤 컨텐츠가"}
                 <br />
                 {"필요 하신가요?"}
               </h1>
@@ -172,7 +172,7 @@ class Component extends GuideLogic {
                   {"견적이 정확해집니다"}
                 </strong>
                 <br />
-                {"영상 담당자가 확인 후 연락드립니다"}
+                {"컨텐츠 담당자가 확인 후 연락드립니다"}
               </p>
             </div>
             {sent ? (
@@ -191,7 +191,7 @@ class Component extends GuideLogic {
                     {"문의가 접수되었습니다"}
                   </strong>
                   <span style={{ color: "#C9C9D1" }}>
-                    {"영상 담당자가 확인 후 연락드리겠습니다"}
+                    {"컨텐츠 담당자가 확인 후 연락드리겠습니다"}
                   </span>
                 </div>
               </React.Fragment>
@@ -346,7 +346,7 @@ class Component extends GuideLogic {
                       color: "#9A9AA3",
                     }}
                   >
-                    {"참고 영상 링크"}
+                    {"참고 컨텐츠 링크"}
                     <input
                       placeholder="https://"
                       style={{
@@ -372,7 +372,7 @@ class Component extends GuideLogic {
                   >
                     {"요청 내용 *"}
                     <textarea
-                      placeholder="회사·브랜드 소개와 영상의 목적을 자유롭게 적어주세요"
+                      placeholder="회사·브랜드 소개와 컨텐츠의 목적을 자유롭게 적어주세요"
                       required={true}
                       rows={6}
                       style={{

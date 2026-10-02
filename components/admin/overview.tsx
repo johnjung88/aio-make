@@ -35,7 +35,7 @@ export function Overview({
 }) {
   const missing = [
     !inquiries.connected && "문의 저장소",
-    !entries.connected && "콘텐츠 저장소",
+    !entries.connected && "컨텐츠 저장소",
     !gaLoading && !ga?.connected && "Google 방문 통계",
   ].filter(Boolean);
   const cards = [
@@ -56,9 +56,9 @@ export function Overview({
       action: openInquiries,
     },
     {
-      title: "공개 콘텐츠",
+      title: "공개 컨텐츠",
       value: entries.connected ? entries.publishedCount : null,
-      hint: "관리자가 등록한 공개 콘텐츠",
+      hint: "관리자가 등록한 공개 컨텐츠",
       icon: Images,
       action: openEntries,
     },
@@ -192,7 +192,7 @@ export function Overview({
           <button onClick={openEntries}>
             <Images size={20} />
             <span>
-              <strong>콘텐츠 관리</strong>
+              <strong>컨텐츠 관리</strong>
               <small>레퍼런스·인사이트 등록 및 수정</small>
             </span>
             <ArrowUpRight size={18} />
@@ -213,7 +213,7 @@ export function Overview({
                 (inquiries.connected && entries.connected ? "connected" : "")
               }
             >
-              문의·콘텐츠{" "}
+              문의·컨텐츠{" "}
               {inquiries.connected && entries.connected
                 ? "연결됨"
                 : "확인 필요"}

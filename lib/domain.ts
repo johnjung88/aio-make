@@ -103,7 +103,7 @@ export const entrySchema = z
           message:
             field === "cover_url"
               ? "대표 이미지는 사이트 이미지 또는 연결된 저장소의 공개 이미지 주소를 입력해주세요"
-              : "허용된 HTTPS 영상 주소가 필요합니다",
+              : "허용된 HTTPS 컨텐츠 주소가 필요합니다",
         });
     }
   });

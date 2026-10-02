@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     !["all", "reference", "insight"].includes(type)
   )
     return NextResponse.json(
-      { error: "올바른 페이지와 콘텐츠 종류를 선택해주세요" },
+      { error: "올바른 페이지와 컨텐츠 종류를 선택해주세요" },
       { status: 400 },
     );
   const db = database();
@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       {
         connected: false,
         items: [],
-        error: "콘텐츠 데이터 연결을 확인해주세요",
+        error: "컨텐츠 데이터 연결을 확인해주세요",
       },
       { status: 503 },
     );
@@ -97,14 +97,14 @@ export async function POST(request: Request) {
           error:
             error.code === "23505"
               ? "같은 주소가 이미 있습니다 슬러그를 바꿔주세요"
-              : "콘텐츠 저장을 완료하지 못했습니다",
+              : "컨텐츠 저장을 완료하지 못했습니다",
         },
         { status: 409 },
       );
     return NextResponse.json({ success: true, item: data });
   } catch {
     return NextResponse.json(
-      { error: "콘텐츠 요청 형식을 확인해주세요" },
+      { error: "컨텐츠 요청 형식을 확인해주세요" },
       { status: 400 },
     );
   }

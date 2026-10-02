@@ -6,8 +6,8 @@ import { Play } from "lucide-react";
 const videos = {
   brand: {
     title: "AIO MAKE를 만나보세요",
-    copy: "영상 제작부터 마케팅, 개발까지 필요한 일을 함께 완성합니다",
-    label: "AIO MAKE 브랜드 소개 영상",
+    copy: "컨텐츠 제작부터 마케팅, 개발까지 필요한 일을 함께 완성합니다",
+    label: "AIO MAKE 브랜드 소개 컨텐츠",
     src: "/videos/brand-intro-v01.mp4",
     poster: "/videos/brand-intro-poster.jpg",
     action: "회사 소개 보기",
@@ -15,7 +15,7 @@ const videos = {
   webtoon: {
     title: "이야기가 웹툰이 되는 순간",
     copy: "캐릭터와 장면, 이야기를 담은 웹툰 제작을 만나보세요",
-    label: "1억의 구단주 웹툰 제작 소개 영상",
+    label: "1억의 구단주 웹툰 제작 소개 컨텐츠",
     src: "/videos/webtoon-reference-v02.mp4",
     poster: "/videos/webtoon-reference-poster.jpg",
     action: "웹툰 서비스 소개",
@@ -76,7 +76,7 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
       </div>
       {error && (
         <p role="alert" className="showcase-video-error">
-          영상을 재생하지 못했습니다 <a href={video.src}>영상 파일 열기</a>
+          컨텐츠를 재생하지 못했습니다 <a href={video.src}>컨텐츠 파일 열기</a>
         </p>
       )}
     </section>

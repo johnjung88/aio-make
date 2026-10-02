@@ -65,7 +65,7 @@ export function InquiryBridge({
     let division = initialDivision;
     if (quick)
       division =
-        selection.service === "영상"
+        selection.service === "컨텐츠"
           ? "video"
           : selection.service === "개발"
             ? "development"
@@ -241,7 +241,6 @@ export function InquiryBridge({
       >
         <h2>문의가 접수되었습니다</h2>
         <p>담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다</p>
-        <small>접수번호 {receipt}</small>
         <Link href="/">홈으로 돌아가기 →</Link>
       </div>
     );

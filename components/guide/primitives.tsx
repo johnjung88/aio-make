@@ -284,7 +284,7 @@ export function GuideMedia({
         alt={
           sample
             ? sample + " 제작 방향 예시 이미지"
-            : "브랜드 영상 제작 방향 예시 이미지"
+            : "브랜드 컨텐츠 제작 방향 예시 이미지"
         }
         fill
         sizes={
@@ -298,7 +298,7 @@ export function GuideMedia({
         style={{ objectFit: "cover" }}
       />
       <span className="guide-media-caption">
-        콘셉트 이미지 · 실제 영상은 등록 후 공개
+        콘셉트 이미지 · 실제 컨텐츠는 등록 후 공개
       </span>
     </span>
   );
@@ -331,7 +331,7 @@ export function GuideNav({
   }, []);
   const dark = true,
     brand =
-      division === "video" ? "영상" : division === "lab" ? "개발" : "마케팅";
+      division === "video" ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
   const first =
     division === "lab"
       ? "website"
@@ -394,11 +394,11 @@ export function GuideNav({
 
 export const marketingExamples = [
   {
-    client: "홈리빙 콘텐츠 구성",
+    client: "홈리빙 컨텐츠 구성",
     ind: "홈리빙 · 운영 예시",
     type: "feed",
     img: "/renewal/marketing-content-v03.webp",
-    handle: "콘텐츠 구성 예시",
+    handle: "컨텐츠 구성 예시",
     reel: "SHORTS",
     tiles: [
       "/renewal/marketing-content-v03.webp",
@@ -409,7 +409,7 @@ export const marketingExamples = [
     title: "제품의 쓰임을 고객의 질문으로",
     result: "제작 방향 예시",
     metric: "운영 설계",
-    desc: "촬영 소재를 이미지와 짧은 영상으로 구성합니다",
+    desc: "촬영 소재를 이미지와 짧은 컨텐츠로 구성합니다",
     tags: ["소재 기획", "채널별 변형"],
   },
   {
@@ -434,11 +434,11 @@ export const marketingExamples = [
     img: "/renewal/influencer-sample.webp",
     q: "제품을 어떻게 사용하나요?",
     a1: "브랜드의 자료를 바탕으로 ",
-    a2: "의 사용 장면을 콘텐츠로 기획합니다",
+    a2: "의 사용 장면을 컨텐츠로 기획합니다",
     service: "AI 인플루언서",
     title: "일관된 인물과 브랜드의 이야기",
     result: "AI 생성 이미지",
-    metric: "콘텐츠 설계",
+    metric: "컨텐츠 설계",
     desc: "전용 인물의 외형과 말투부터 정리합니다",
     tags: ["인물 설정", "권리 확인"],
   },
@@ -472,8 +472,8 @@ export function adaptGuideValues(
       },
       {
         id: "lead-video",
-        tag: "STUDIO · VIDEO",
-        name: "영상",
+        tag: "STUDIO · CONTENT",
+        name: "컨텐츠",
         role: "장면 기획 · 제작 · 편집",
         desc: "콘셉트부터 채널별 최종 편집까지 구성합니다",
         bg: "#fff",
@@ -484,8 +484,8 @@ export function adaptGuideValues(
         id: "lead-mkt",
         tag: "MARKETING",
         name: "마케팅",
-        role: "콘텐츠 · 채널 · 분석",
-        desc: "고객의 질문을 콘텐츠와 문의 경로로 연결합니다",
+        role: "컨텐츠 · 채널 · 분석",
+        desc: "고객의 질문을 컨텐츠와 문의 경로로 연결합니다",
         bg: "#fff",
         fg: "#0D0D12",
         accent: "#6B4DFF",
@@ -553,7 +553,7 @@ export function adaptGuideValues(
   if (page.startsWith("marketing")) {
     values.reviews = [
       {
-        text: "고객의 질문을 정리해 채널과 콘텐츠의 역할을 먼저 합의합니다",
+        text: "고객의 질문을 정리해 채널과 컨텐츠의 역할을 먼저 합의합니다",
         author: "01 · 기획 기준",
         service: "현황 분석 · 월간 플랜",
         date: "AIO MAKE",
@@ -561,11 +561,11 @@ export function adaptGuideValues(
       {
         text: "독립 원본과 채널별 게시 수량을 구분하고, 진행 결과를 보고합니다",
         author: "02 · 운영 기준",
-        service: "콘텐츠 · 채널 운영",
+        service: "컨텐츠 · 채널 운영",
         date: "AIO MAKE",
       },
       {
-        text: "콘텐츠와 검색 접점, 문의 경로를 함께 점검해 다음 운영에 반영합니다",
+        text: "컨텐츠와 검색 접점, 문의 경로를 함께 점검해 다음 운영에 반영합니다",
         author: "03 · 개선 기준",
         service: "검색 · 문의 · 다음 계획",
         date: "AIO MAKE",

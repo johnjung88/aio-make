@@ -177,7 +177,6 @@ export function ContactForm({
           문의가 접수되었습니다
         </h2>
         <p>남겨주신 연락처로 요청 범위를 확인하고 안내드리겠습니다</p>
-        <p className="mono">접수번호 {receipt}</p>
         <Link className="button" href="/">
           홈으로 돌아가기 <ArrowUpRight size={18} />
         </Link>

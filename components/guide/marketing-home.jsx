@@ -47,7 +47,7 @@ const STEPS = [
   },
   {
     title: "제작·게시",
-    desc: "채널 형식에 맞춰 콘텐츠를 만들고 게시합니다",
+    desc: "채널 형식에 맞춰 컨텐츠를 만들고 게시합니다",
     ai: "원고·이미지·자막 초안 생성",
     pro: "브랜드 톤 검수 후 채널별 게시",
   },
@@ -60,7 +60,7 @@ const STEPS = [
 ];
 const ease = (t) => 1 - Math.pow(1 - t, 3);
 const BANDS = [
-  { s: 0.2, a: 62, c: "#6B4DFF", k: 1, t: "+ 콘텐츠 유입" },
+  { s: 0.2, a: 62, c: "#6B4DFF", k: 1, t: "+ 컨텐츠 유입" },
   { s: 0.45, a: 72, c: "#8C74FF", k: 2, t: "+ 지도·플레이스 유입" },
   { s: 0.7, a: 80, c: "#A99BFF", k: 3, t: "+ 검색·AI 답변 유입" },
 ];
@@ -82,9 +82,9 @@ const STAGES = [
     sw: "#4A4A56",
   },
   {
-    name: "콘텐츠 제작·게시",
+    name: "컨텐츠 제작·게시",
     sub: "원본 20개 → 5개 채널 100개 게시",
-    tag: "+ 콘텐츠 유입",
+    tag: "+ 컨텐츠 유입",
     sw: "#6B4DFF",
   },
   {
@@ -450,9 +450,9 @@ class Component extends GuideLogic {
           en: "INTEGRATED",
           name: "통합 마케팅",
           price: "월 200만 원부터",
-          desc: "콘텐츠 제작·게시부터 구글·네이버 스토어, 검색·AI 답변 관리까지 한 번에 맡깁니다",
+          desc: "컨텐츠 제작·게시부터 구글·네이버 스토어, 검색·AI 답변 관리까지 한 번에 맡깁니다",
           items: [
-            "월 원본 콘텐츠 20개 제작 (영상 위주)",
+            "월 원본 컨텐츠 20개 제작 (컨텐츠 위주)",
             "5개 채널 변형·게시, 월 100개: 유튜브 숏츠, 인스타그램, 페이스북, 네이버 클립, 네이버 블로그",
             "구글·네이버 스토어 월 1회 분석·개선",
             "SEO·AEO·GEO 월 1회 분석·개선",
@@ -468,10 +468,10 @@ class Component extends GuideLogic {
           en: "SNS",
           name: "SNS 대행 운영",
           price: "월 100만 원",
-          desc: "이미지와 영상 콘텐츠를 제작하고 원본 소스를 채널마다 바꿔 게시합니다",
+          desc: "이미지와 컨텐츠를 제작하고 원본 소스를 채널마다 바꿔 게시합니다",
           items: [
-            "월 12회 이미지 콘텐츠 제작·게시",
-            "월 4회 영상 콘텐츠 제작·게시",
+            "월 12회 이미지 컨텐츠 제작·게시",
+            "월 4회 컨텐츠 제작·게시",
             "원본 소스 멀티 유즈",
             "기본 채널: 유튜브 숏츠, 인스타그램, 네이버 블로그",
           ],
@@ -486,11 +486,11 @@ class Component extends GuideLogic {
           en: "AI INFLUENCER",
           name: "AI 인플루언서 마케팅",
           price: "월 100만 원",
-          desc: "브랜드 전용 가상 인물로 콘텐츠를 만들어 게시합니다",
+          desc: "브랜드 전용 가상 인물로 컨텐츠를 만들어 게시합니다",
           items: [
             "캐릭터 구축 서비스 제공 (구축비 없음)",
-            "월 8회 콘텐츠 제작·게시",
-            "콘텐츠 1회 30초 기준",
+            "월 8회 컨텐츠 제작·게시",
+            "컨텐츠 1회 30초 기준",
           ],
           note: "",
           bd: L,
@@ -993,7 +993,7 @@ class Component extends GuideLogic {
                                     color: "#9A9AA3",
                                   }}
                                 >
-                                  {"경쟁 브랜드의 채널과 콘텐츠"}
+                                  {"경쟁 브랜드의 채널과 컨텐츠"}
                                 </span>
                               </span>
                               <span
@@ -1035,7 +1035,7 @@ class Component extends GuideLogic {
                                     color: "#9A9AA3",
                                   }}
                                 >
-                                  {"채널 역할과 콘텐츠 방향"}
+                                  {"채널 역할과 컨텐츠 방향"}
                                 </span>
                               </span>
                               <span
@@ -1087,7 +1087,7 @@ class Component extends GuideLogic {
                                 color: "#A99BFF",
                               }}
                             >
-                              {"STEP 02 · 콘텐츠 제작·게시"}
+                              {"STEP 02 · 컨텐츠 제작·게시"}
                             </span>
                             <strong
                               style={{
@@ -1098,7 +1098,7 @@ class Component extends GuideLogic {
                               }}
                             >
                               {
-                                "영상 위주 원본 20개를 5개 채널 100개 게시물로 만듭니다"
+                                "컨텐츠 위주 원본 20개를 5개 채널 100개 게시물로 만듭니다"
                               }
                             </strong>
                           </div>
@@ -1116,7 +1116,7 @@ class Component extends GuideLogic {
                             <span
                               style={{ fontSize: "14px", color: "#C9C9D1" }}
                             >
-                              {"원본 콘텐츠 → 채널별 변형·게시"}
+                              {"원본 컨텐츠 → 채널별 변형·게시"}
                             </span>
                             <span
                               style={{
@@ -1530,7 +1530,7 @@ class Component extends GuideLogic {
                             }}
                           >
                             {
-                              "분석 결과는 다음 달 콘텐츠와 페이지 개선에 반영합니다"
+                              "분석 결과는 다음 달 컨텐츠와 페이지 개선에 반영합니다"
                             }
                           </span>
                         </div>
@@ -1826,7 +1826,7 @@ class Component extends GuideLogic {
                     {"Results"}
                   </h2>
                   <span style={{ fontSize: "17px", color: "#C9C9D1" }}>
-                    {"서비스별 콘텐츠와 검색 접점의 구성 예시"}
+                    {"서비스별 컨텐츠와 검색 접점의 구성 예시"}
                   </span>
                 </div>
                 <div
@@ -2456,7 +2456,7 @@ class Component extends GuideLogic {
                   }}
                 >
                   {
-                    "콘텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다 필요한 범위에 맞춰 선택하세요 금액은 부가세 별도입니다"
+                    "컨텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다 필요한 범위에 맞춰 선택하세요 금액은 부가세 별도입니다"
                   }
                 </p>
               </div>

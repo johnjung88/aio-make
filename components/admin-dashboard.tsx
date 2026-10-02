@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { Brand } from "./site-shell";
 import { divisionServices } from "@/lib/content";
 import type { GaReport, GaDays } from "@/lib/ga-data";
+import { InquiryConnection } from "./admin/inquiry-connection";
 import { Overview } from "./admin/overview";
 import type {
   Inquiry,
@@ -154,7 +155,7 @@ export function AdminDashboard() {
           : {
               connected: false,
               items: [],
-              error: "콘텐츠 목록을 불러오지 못했습니다 다시 시도해주세요",
+              error: "컨텐츠 목록을 불러오지 못했습니다 다시 시도해주세요",
             },
       );
       setRecent(
@@ -165,9 +166,7 @@ export function AdminDashboard() {
     } catch {
       if (controller.signal.aborted) return;
       setError(true);
-      setMessage(
-        "데이터 조회를 완료하지 못했습니다 연결 상태를 확인해주세요",
-      );
+      setMessage("데이터 조회를 완료하지 못했습니다 연결 상태를 확인해주세요");
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
@@ -176,6 +175,13 @@ export function AdminDashboard() {
     void refresh();
     return () => refreshRequest.current?.abort();
   }, [refresh]);
+  useEffect(() => {
+    if (view !== "overview" && view !== "inquiries") return;
+    const timer = setInterval(() => {
+      if (document.visibilityState === "visible" && !busy) void refresh();
+    }, 30000);
+    return () => clearInterval(timer);
+  }, [refresh, view, busy]);
   const gaRequest = useRef<AbortController | null>(null);
   const refreshGa = useCallback(async () => {
     gaRequest.current?.abort();
@@ -283,7 +289,7 @@ export function AdminDashboard() {
       setEditor(data.item);
       await refresh();
       setError(false);
-      setMessage("콘텐츠를 저장했습니다");
+      setMessage("컨텐츠를 저장했습니다");
     } catch (e) {
       setError(true);
       setMessage(e instanceof Error ? e.message : "저장에 실패했습니다");
@@ -360,7 +366,7 @@ export function AdminDashboard() {
               {
                 {
                   overview:
-                    "새로운 문의와 콘텐츠, 사이트 방문 흐름을 확인하세요",
+                    "새로운 문의와 컨텐츠, 사이트 방문 흐름을 확인하세요",
                   inquiries: "접수된 문의를 확인하고 다음 상담을 이어가세요",
                   entries: "작업 사례와 서비스 안내 글을 관리하세요",
                   analytics: "방문부터 문의까지, 사이트의 흐름을 살펴보세요",
@@ -509,16 +515,17 @@ export function AdminDashboard() {
         {view === "settings" && (
           <>
             <section className="admin-panel">
-              <h2>데이터베이스</h2>
+              <h2>저장소 연결</h2>
               <p>
                 문의: {inquiries.connected ? "조회 연결됨" : "연결 대기"} ·
-                콘텐츠: {entries.connected ? "조회 연결됨" : "연결 대기"}
+                컨텐츠: {entries.connected ? "조회 연결됨" : "연결 대기"}
               </p>
               <p>
-                문의와 콘텐츠 저장소가 연결돼야 신규 문의 접수와 콘텐츠 편집
-                내용을 저장할 수 있습니다
+                문의는 운영 문의 저장소에 직접 접수됩니다. 레퍼런스 편집
+                저장소는 별도로 연결 상태를 확인합니다.
               </p>
             </section>
+            <InquiryConnection />
             <GaConnection ga={ga} loading={gaLoading} onRetry={refreshGa} />
             <section className="admin-panel">
               <h2>AI 챗봇</h2>

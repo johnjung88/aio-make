@@ -31,11 +31,11 @@ class Component extends GuideLogic {
     const faqData = [
       [
         "AIO MAKE는 어떤 회사인가요?",
-        "영상·마케팅·개발 분야의 전문가들이 AI를 적극 활용해 일하는 올인원 에이전시입니다",
+        "컨텐츠·마케팅·개발 분야의 전문가들이 AI를 적극 활용해 일하는 올인원 에이전시입니다",
       ],
       [
         "어떤 일을 맡길 수 있나요?",
-        "영상(웹툰, 애니메이션, AI 인플루언서, 브랜드 영상), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
+        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 브랜드 컨텐츠), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
       ],
       [
         "견적은 어떻게 받나요?",
@@ -54,14 +54,14 @@ class Component extends GuideLogic {
       workGroups: [
         {
           name: "Studio",
-          ko: "영상",
+          ko: "컨텐츠",
           href: "Studio 작업 사례.dc.html",
           bigId: "main-studio-big",
           s1Id: "main-studio-s1",
           s2Id: "main-studio-s2",
           cat1: "애니메이션",
           cat2: "AI 인플루언서",
-          cat3: "브랜드 영상",
+          cat3: "브랜드 컨텐츠",
         },
         {
           name: "Marketing",
@@ -93,7 +93,7 @@ class Component extends GuideLogic {
         sign: this.state.open === i ? "−" : "+",
         toggle: () => this.setState({ open: this.state.open === i ? -1 : i }),
       })),
-      services: ["영상", "마케팅", "개발", "아직 모르겠어요"].map((label) => {
+      services: ["컨텐츠", "마케팅", "개발", "아직 모르겠어요"].map((label) => {
         const on = this.state.service === label;
         return {
           label,
@@ -229,7 +229,7 @@ class Component extends GuideLogic {
                     alignSelf: "center",
                   }}
                 >
-                  {"영상·마케팅·개발, "}
+                  {"컨텐츠·마케팅·개발, "}
                   <strong style={{ color: "#A99BFF" }}>{"필요한 일"}</strong>
                   {"을 골라 맡기고 결과를 함께 확인하세요"}
                 </p>
@@ -326,7 +326,7 @@ class Component extends GuideLogic {
                   }}
                 >
                   <img
-                    alt="영상 제작 스튜디오"
+                    alt="컨텐츠 제작 스튜디오"
                     src={guideAsset("public/images/cards/card-video.jpg")}
                     style={{
                       width: "100%",
@@ -361,7 +361,7 @@ class Component extends GuideLogic {
                         color: "#A99BFF",
                       }}
                     >
-                      {"01 · VIDEO"}
+                      {"01 · CONTENT"}
                     </span>
                     <span
                       style={{
@@ -403,9 +403,9 @@ class Component extends GuideLogic {
                       marginBottom: "24px",
                     }}
                   >
-                    {"웹툰 · 애니메이션 · AI 인플루언서 · 브랜드 영상"}
+                    {"웹툰 · 애니메이션 · AI 인플루언서 · 브랜드 컨텐츠"}
                   </span>
-                  <span style={{ fontWeight: "600" }}>{"영상 상담하기 →"}</span>
+                  <span style={{ fontWeight: "600" }}>{"컨텐츠 상담하기 →"}</span>
                 </div>
               </GuideLink>
               <GuideLink

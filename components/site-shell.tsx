@@ -13,7 +13,7 @@ export function Brand() {
   );
 }
 const links = [
-  ["영상", "/video"],
+  ["컨텐츠", "/video"],
   ["마케팅", "/marketing"],
   ["개발", "/lab"],
   ["작업 보기", "/work"],
@@ -142,7 +142,7 @@ export function Footer() {
             {[
               ["회사소개", "/about"],
               ["일하는 방식", "/about/team"],
-              ["영상", "/video"],
+              ["컨텐츠", "/video"],
               ["마케팅", "/marketing"],
               ["개발", "/lab"],
               ["개인정보처리방침", "/privacy"],

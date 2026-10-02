@@ -272,7 +272,7 @@ export async function EntryDetail({
             target="_blank"
             rel="noopener noreferrer"
           >
-            영상 보기 ↗
+            컨텐츠 보기 ↗
           </a>
         )}
         <div className="guide-article-actions">

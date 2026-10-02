@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "AIO MAKE · 마케팅 개발 영상",
+    name: "AIO MAKE · 마케팅 개발 컨텐츠",
     short_name: "AIO MAKE",
     lang: "ko",
     start_url: "/",

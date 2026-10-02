@@ -73,7 +73,7 @@ class Component extends GuideLogic {
           no: "03",
           title: "제작",
           en: "PRODUCTION",
-          body: "영상·마케팅·개발 담당, 전문가가 AI로 제작하고 직접 검수해 완성합니다",
+          body: "컨텐츠·마케팅·개발 담당, 전문가가 AI로 제작하고 직접 검수해 완성합니다",
         },
         {
           no: "04",
@@ -84,7 +84,7 @@ class Component extends GuideLogic {
       ],
       stacks: [
         {
-          name: "Studio · 영상",
+          name: "Studio · 컨텐츠",
           tools: [
             "After Effects",
             "DaVinci Resolve",
@@ -95,7 +95,7 @@ class Component extends GuideLogic {
         },
         {
           name: "Marketing · 마케팅",
-          tools: ["GA4", "A/B 테스트", "SEO", "콘텐츠 캘린더", "카드뉴스·숏폼"],
+          tools: ["GA4", "A/B 테스트", "SEO", "컨텐츠 캘린더", "카드뉴스·숏폼"],
         },
         {
           name: "Lab · 개발",
@@ -267,7 +267,7 @@ class Component extends GuideLogic {
                     maxWidth: "46ch",
                   }}
                 >
-                  {"영상·마케팅·개발을 한 곳에서 맡습니다"}
+                  {"컨텐츠·마케팅·개발을 한 곳에서 맡습니다"}
                   <br />
                   {"필요한 작업을 "}
                   <strong style={{ color: "#fff" }}>
@@ -411,7 +411,7 @@ class Component extends GuideLogic {
                   </span>
                 </div>
                 <span style={{ color: "#A99BFF", fontSize: "15px" }}>
-                  {"장면을 담는 분야 · 영상"}
+                  {"장면을 담는 분야 · 컨텐츠"}
                 </span>
                 <span
                   style={{
@@ -420,7 +420,7 @@ class Component extends GuideLogic {
                     lineHeight: "1.75",
                   }}
                 >
-                  {"웹툰, 애니메이션, AI 인플루언서, 광고 및 브랜드 홍보 영상"}
+                  {"웹툰, 애니메이션, AI 인플루언서, 광고 및 브랜드 홍보 컨텐츠"}
                 </span>
               </div>
               <div

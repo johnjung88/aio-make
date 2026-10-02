@@ -16,7 +16,7 @@ export default function Contact() {
           <br />
           들려주세요
         </h1>
-        <p>마케팅, 개발, 영상 중 필요한 분야부터 시작합니다</p>
+        <p>마케팅, 개발, 컨텐츠 중 필요한 분야부터 시작합니다</p>
       </div>
       <div className="container contact-layout">
         <aside className="contact-notes">

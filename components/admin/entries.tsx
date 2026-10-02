@@ -60,12 +60,12 @@ export function EntryPanel({
         <h2>레퍼런스·인사이트</h2>
         <div>
           <select
-            aria-label="콘텐츠 종류"
+            aria-label="컨텐츠 종류"
             value={entryFilter}
             disabled={!!editor || loading}
             onChange={(e) => setEntryFilter(e.target.value)}
           >
-            <option value="all">전체 콘텐츠</option>
+            <option value="all">전체 컨텐츠</option>
             <option value="reference">레퍼런스</option>
             <option value="insight">인사이트</option>
           </select>
@@ -76,7 +76,7 @@ export function EntryPanel({
                 opener.current = event.currentTarget;
             }}
           >
-            새 콘텐츠 +
+            새 컨텐츠 +
           </button>
         </div>
       </div>
@@ -102,8 +102,8 @@ export function EntryPanel({
               <tr>
                 <td colSpan={5}>
                   {entries.connected
-                    ? "등록된 콘텐츠가 없습니다 새 콘텐츠에서 첫 항목을 작성하세요"
-                    : "데이터 연결 후 등록된 콘텐츠를 확인할 수 있습니다"}
+                    ? "등록된 컨텐츠가 없습니다 새 컨텐츠에서 첫 항목을 작성하세요"
+                    : "데이터 연결 후 등록된 컨텐츠를 확인할 수 있습니다"}
                 </td>
               </tr>
             )}
@@ -163,11 +163,11 @@ export function EntryPanel({
       {editor && (
         <form onSubmit={saveEntry} className="entry-editor admin-detail">
           <h2 ref={heading} tabIndex={-1}>
-            {editor.id ? "콘텐츠 편집" : "새 콘텐츠"}
+            {editor.id ? "컨텐츠 편집" : "새 컨텐츠"}
           </h2>
           <div className="form-row">
             <label>
-              콘텐츠 종류
+              컨텐츠 종류
               <select
                 value={editor.type}
                 onChange={(e) =>
@@ -267,7 +267,7 @@ export function EntryPanel({
               />
             </label>
             <label>
-              영상 주소
+              컨텐츠 주소
               <input
                 maxLength={1500}
                 value={editor.video_url}
@@ -366,7 +366,7 @@ export function EntryPanel({
                 })
               }
             />
-            내용의 사실과 이미지·영상·고객 사례의 공개 권리를 확인했습니다
+            내용의 사실과 이미지·컨텐츠·고객 사례의 공개 권리를 확인했습니다
           </label>
           <label className="check-label">
             <input
@@ -387,7 +387,7 @@ export function EntryPanel({
           </label>
           <div className="editor-actions">
             <button className="button" disabled={busy}>
-              {busy ? "저장 중…" : "콘텐츠 저장"}
+              {busy ? "저장 중…" : "컨텐츠 저장"}
             </button>
             <button
               type="button"

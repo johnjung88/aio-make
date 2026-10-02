@@ -9,7 +9,7 @@ import type { Entry } from "@/lib/db";
 
 const groups = [
   { id: "all", label: "전체" },
-  { id: "video", label: "영상" },
+  { id: "video", label: "컨텐츠" },
   { id: "marketing", label: "마케팅" },
   { id: "development", label: "개발" },
 ];

@@ -28,17 +28,17 @@ class Component extends GuideLogic {
     const svc = [
       ["webtoon", "웹툰", "맞춤 제작"],
       ["animation", "애니메이션", "맞춤 제작"],
-      ["ai-influencer", "AI 인플루언서 영상", "맞춤 제작"],
-      ["promo", "브랜드 홍보 영상", "맞춤 제작"],
-      ["ad", "SNS 광고 영상", "맞춤 제작"],
-      ["edit", "편집·클리퍼", "보유 영상 편집·클립"],
+      ["ai-influencer", "AI 인플루언서 컨텐츠", "맞춤 제작"],
+      ["promo", "브랜드 홍보 컨텐츠", "맞춤 제작"],
+      ["ad", "SNS 광고 컨텐츠", "맞춤 제작"],
+      ["edit", "편집·클리퍼", "보유 컨텐츠 편집·클립"],
     ];
     return {
       works: [
         ["웹툰", "webtoon"],
         ["애니메이션", "animation"],
         ["AI 인플루언서", "ai-influencer"],
-        ["SNS 광고 영상", "ad"],
+        ["SNS 광고 컨텐츠", "ad"],
       ].map(([cat, service], i) => ({
         id: "studio-home-w" + (i + 1),
         cat,
@@ -70,7 +70,7 @@ class Component extends GuideLogic {
         {
           no: "04",
           title: "제작·수정",
-          desc: "영상을 제작하고 합의한 범위 안에서 보완합니다",
+          desc: "컨텐츠를 제작하고 합의한 범위 안에서 보완합니다",
         },
         {
           no: "05",
@@ -258,7 +258,7 @@ class Component extends GuideLogic {
               <span style={{ display: "block", color: "#77777F" }}>
                 {"연출과 검수는 "}
                 <strong style={{ color: "#A99BFF", fontWeight: "inherit" }}>
-                  영상 전문가
+                  컨텐츠 전문가
                 </strong>
                 {"가 직접 합니다"}
               </span>
@@ -737,10 +737,10 @@ class Component extends GuideLogic {
                     lineHeight: "1.08",
                   }}
                 >
-                  {"어떤 영상이 필요 하신가요?"}
+                  {"어떤 컨텐츠가 필요 하신가요?"}
                 </h2>
                 <span style={{ fontSize: "17px" }}>
-                  {"내용을 남겨주시면 영상 담당자가 견적과 일정을 안내드립니다"}
+                  {"내용을 남겨주시면 컨텐츠 담당자가 견적과 일정을 안내드립니다"}
                 </span>
               </div>
               <GuideLink

@@ -11,7 +11,7 @@ const pretendard = localFont({
 });
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "AIO MAKE · 마케팅 개발 영상", template: "%s | AIO MAKE" },
+  title: { default: "AIO MAKE | 올인원 에이전시", template: "%s | AIO MAKE" },
   description: siteDescription,
   applicationName: siteName,
   category: "business",
