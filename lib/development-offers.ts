@@ -29,7 +29,7 @@ const quoted = {
   lines: [],
 };
 export const developmentQuoteTerms =
-  "VAT 포함 여부, 외부 서비스 비용, 납기·수정·지원·결제 일정은 개별 견적에서 정합니다.";
+  "VAT 포함 여부, 외부 서비스 비용, 납기·수정·지원·결제 일정은 개별 견적에서 정합니다";
 export function developmentOffer(service: string) {
   return service === "website"
     ? website

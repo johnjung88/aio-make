@@ -4,14 +4,14 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 export const siteName = "AIO MAKE";
 export const siteDescription =
-  "마케팅 대행, 웹사이트·업무 자동화 개발, 영상 제작. 분야별 전문가가 AI를 활용해 기획부터 제작·검수·운영까지 연결합니다.";
+  "영상 제작부터 마케팅, 개발까지 필요한 일을 함께 완성합니다";
 export const indexable = process.env.VERCEL_ENV !== "preview";
 export function socialImage(path: string) {
   const division = path.split("/")[1];
   const key = ["marketing", "lab", "video"].includes(division)
     ? division
     : "main";
-  return siteUrl + `/social/${key}-v09.png`;
+  return siteUrl + `/social/${key}-v11.png`;
 }
 export function pageMetadata(
   title: string,

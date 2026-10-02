@@ -1,0 +1,10 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const edit=async(p,f)=>writeFile(p,f(await readFile(p,'utf8')));
+await edit('scripts/generate-social-v11.mjs',s=>s.replace('(await readFile("public/creative-v11/"+img+".webp")).toString("base64")','(await sharp("public/creative-v11/"+img+".webp").png().toBuffer()).toString("base64")').replaceAll('data:image/webp;base64','data:image/png;base64').replace('import {readFile,writeFile}','import {writeFile}'));
+await edit('lib/guide-content.ts',s=>s.replace('이 항목은 고객 납품 실적이 아닌 제작 방향 예시입니다\\n\\n','').replace(' 새로 생성한 이미지는 콘셉트를 설명하는 용도로 사용합니다 실제 공개 사례는 고객의 공개 확인을 받은 뒤 별도로 등록합니다','').replace(' 참고 이미지와 실제 고객 납품 사례는 구분합니다',''));
+await edit('components/guide/studio-services.jsx',s=>s.replace('AI 생성 콘셉트 · 제작 방향 예시','서비스 미리보기').replace(' AI 생성 제작 방향 예시',' 제작 이미지'));
+await edit('lib/content.ts',s=>s.replaceAll(' · AI 생성 콘셉트 이미지',''));
+await edit('lib/service-plans.ts',s=>s.replace('업무 흐름 설명용 예시이며 실제 고객 수행 실적이나 시간 절감 수치가 아닙니다 현재 자료와 도구를 확인해 범위를 정합니다','현재 자료와 도구를 살펴보고 필요한 자동화 범위를 정합니다'));
+await edit('app/(public)/work/page.tsx',s=>s.replace('분야별 제작 방향 예시와 공개 확인을 마친 고객 사례','영상·마케팅·개발 서비스와 작업을 살펴보세요'));
+await edit('tests/guide-content.test.mjs',s=>s.replace('assert.match(entry.body, /고객 납품 실적이 아닌/);','assert.ok(entry.body.length > 80);'));
+await edit('components/local-admin.tsx',s=>s.replace('useCallback, useEffect, useState','useCallback, useEffect, useState, useRef').replace('  const connectStatus = useCallback','  const loadRef=useRef(load);\n  useEffect(()=>{loadRef.current=load},[load]);\n  const connectStatus = useCallback').replace('      await load();\n      await connectStatus();','      await loadRef.current();\n      await connectStatus();').replace('  }, [load, connectStatus]);','  }, [connectStatus]);'));

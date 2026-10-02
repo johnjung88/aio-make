@@ -57,9 +57,9 @@ export function ContactCTA({ path = "/contact" }: { path?: string }) {
           </h2>
           <div>
             <p>
-              아이디어가 아직 정리되지 않아도 괜찮습니다.
+              아이디어가 아직 정리되지 않아도 괜찮습니다
               <br />
-              목표와 상황을 들려주세요.
+              목표와 상황을 들려주세요
             </p>
             <Action href={path} light>
               프로젝트 문의

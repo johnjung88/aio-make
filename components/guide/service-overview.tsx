@@ -16,9 +16,21 @@ export function ServiceOverview({
 }) {
   const marketing = division === "marketing";
   const root = marketing ? "marketing" : "lab";
-  const items = divisionServices(division);
+  const items = divisionServices(division)
+    .filter((s) => marketing || ["shopping-mall", "website"].includes(s.id))
+    .sort((a, b) =>
+      marketing
+        ? 0
+        : a.id === "shopping-mall"
+          ? -1
+          : b.id === "shopping-mall"
+            ? 1
+            : 0,
+    );
   return (
-    <div className={`guide-page service-detail service-overview service-dark`}>
+    <div
+      className={`guide-page service-detail service-overview service-dark ${marketing ? "" : "lab-specialist"}`}
+    >
       <GuideNav division={root} />
       <section className="overview-hero review-container">
         <div>
@@ -34,15 +46,16 @@ export function ServiceOverview({
               </>
             ) : (
               <>
-                필요한 범위를 정하고
-                <br />실제로 쓰는 결과물을 만듭니다
+                사업에 맞는 웹사이트와
+                <br />
+                쇼핑몰을 만듭니다
               </>
             )}
           </h1>
           <p>
             {marketing
-              ? "콘텐츠 제작과 채널 운영, 검색 개선까지. 현재 필요한 일을 고르고 브랜드에 맞는 운영을 시작하세요."
-              : "홈페이지와 카페24 쇼핑몰부터 업무 자동화와 프로그램까지. 범위와 가격, 인계 방법을 먼저 맞춥니다."}
+              ? "콘텐츠 제작과 채널 운영, 검색 개선까지 현재 필요한 일을 고르고 브랜드에 맞는 운영을 시작하세요"
+              : "브랜드를 소개하는 웹사이트부터 판매를 시작하는 쇼핑몰까지, 기획·디자인·제작을 함께합니다"}
           </p>
           <div className="service-actions">
             <a className="service-primary" href="#services">
@@ -55,7 +68,7 @@ export function ServiceOverview({
           label={
             marketing
               ? "브랜드를 알리는 네 가지 방법"
-              : "아이디어를 구현하는 네 가지 방법"
+              : "웹사이트와 쇼핑몰, 두 가지 제작 서비스"
           }
           frames={items.map((service) => ({
             image: creativeAsset(division, service.id),
@@ -82,8 +95,8 @@ export function ServiceOverview({
           </h2>
           <p>
             {marketing
-              ? "콘텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다. 금액은 부가세 별도입니다."
-              : "홈페이지·카페24는 아래 가격 기준으로, 자동화·프로그램은 요청별 범위를 확인해 견적을 안내합니다."}
+              ? "콘텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다 금액은 부가세 별도입니다"
+              : "웹사이트와 카페24 쇼핑몰의 제작 범위와 가격을 살펴보세요"}
           </p>
         </div>
         <div className="marketing-offer-grid overview-offers">
@@ -117,9 +130,9 @@ export function ServiceOverview({
                 </ul>
                 <p className="overview-card-note">
                   {service.id === "shopping-mall"
-                    ? "상품 등록·PG·배송 등 오픈 설정은 포함되지 않습니다."
+                    ? "상품 등록·PG·배송 등 오픈 설정은 포함되지 않습니다"
                     : service.id === "website"
-                      ? "이미지 자료가 없으면 AI 이미지 제작·적용 포함. 대시보드 추가 +3만 원은 기능 범위를 먼저 합의합니다."
+                      ? "이미지 자료가 없으면 AI 이미지 제작·적용 포함 대시보드 추가 +3만 원은 기능 범위를 먼저 합의합니다"
                       : service.audience}
                 </p>
                 <span className="overview-card-link">
@@ -132,11 +145,18 @@ export function ServiceOverview({
         {marketing && (
           <p className="overview-footnote">
             통합·SNS·AI 인플루언서 월 운영 상품에는 기본 소개·문의 사이트 구축
-            또는 리뉴얼 1회 혜택이 있습니다. 페이지·수정·추가 기능과 운영 실비는
-            견적에서 구분합니다.
+            또는 리뉴얼 1회 혜택이 있습니다 페이지·수정·추가 기능과 운영 실비는
+            견적에서 구분합니다
           </p>
         )}
       </section>
+      {!marketing && (
+        <div className="lab-secondary review-container">
+          <span>추가 개발이 필요하다면</span>
+          <Link href="/lab/services/automation">업무 자동화 ↗</Link>
+          <Link href="/lab/services/program">프로그램 개발 ↗</Link>
+        </div>
+      )}
       <HomeReferences entries={entries} division={division} />
       <section className="service-process review-container">
         <div className="service-section-heading">
@@ -148,26 +168,26 @@ export function ServiceOverview({
             [
               "현재 상황 확인",
               marketing
-                ? "고객·브랜드·자료와 운영 중인 채널을 살펴봅니다."
-                : "현재 도구와 자료, 필요한 페이지·기능을 확인합니다.",
+                ? "고객·브랜드·자료와 운영 중인 채널을 살펴봅니다"
+                : "현재 도구와 자료, 필요한 페이지·기능을 확인합니다",
             ],
             [
               "범위와 견적 합의",
               marketing
-                ? "제작 수량·채널·운영 기간 또는 사이트 적용 범위를 정합니다."
-                : "작업 목록과 가격·납기·수정·인계 방법을 정합니다.",
+                ? "제작 수량·채널·운영 기간 또는 사이트 적용 범위를 정합니다"
+                : "작업 목록과 가격·납기·수정·인계 방법을 정합니다",
             ],
             [
               "제작과 검수",
               marketing
-                ? "브랜드의 사실과 표현을 확인하고 콘텐츠 또는 사이트 개선안을 적용합니다."
-                : "합의한 환경에서 실제 화면과 기능, 오류 상황을 검수합니다.",
+                ? "브랜드의 사실과 표현을 확인하고 콘텐츠 또는 사이트 개선안을 적용합니다"
+                : "합의한 환경에서 실제 화면과 기능, 오류 상황을 검수합니다",
             ],
             [
               marketing ? "보고와 개선" : "인계와 사용 안내",
               marketing
-                ? "수행 내역과 확인 가능한 반응을 정리해 다음 운영에 반영합니다."
-                : "완성된 결과와 사용 방법을 전달하고 계약에 따른 지원 범위를 안내합니다.",
+                ? "수행 내역과 확인 가능한 반응을 정리해 다음 운영에 반영합니다"
+                : "완성된 결과와 사용 방법을 전달하고 계약에 따른 지원 범위를 안내합니다",
             ],
           ].map(([title, desc], index) => (
             <li key={title}>
@@ -178,6 +198,35 @@ export function ServiceOverview({
           ))}
         </ol>
       </section>
+      {!marketing && (
+        <section className="service-faq review-container">
+          <span className="review-eyebrow">FAQ</span>
+          <h2>제작 전에 궁금한 점</h2>
+          {[
+            [
+              "기획서가 없어도 의뢰할 수 있나요?",
+              "원하는 사이트와 참고 자료만 알려주셔도 됩니다 필요한 페이지와 기능부터 함께 정리합니다",
+            ],
+            [
+              "웹사이트와 쇼핑몰의 차이는 무엇인가요?",
+              "사업 소개와 상담이 목적이면 웹사이트, 상품 판매가 목적이면 쇼핑몰을 권합니다",
+            ],
+            [
+              "비용과 기간은 어떻게 정하나요?",
+              "아래 공개 가격을 기준으로 페이지·기능·자료와 일정을 확인한 뒤 견적을 안내합니다",
+            ],
+            [
+              "완성 후 수정과 관리는 어떻게 하나요?",
+              "수정과 유지보수의 범위, 운영 비용과 인계 방법은 견적 단계에서 함께 정합니다",
+            ],
+          ].map(([q, a]) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </section>
+      )}
       <section className="service-next review-container">
         <span className="review-eyebrow">
           {marketing ? "마케팅" : "개발"} 상담

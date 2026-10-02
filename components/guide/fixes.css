@@ -1,0 +1,336 @@
+/* v11: page-scoped surfaces, desktop scale and accessible interactions */
+:root {
+  --max: 1440px;
+}
+select {
+  color-scheme: light;
+}
+select option,
+select optgroup {
+  background: #fff;
+  color: #0d0d12;
+}
+.service-dark select,
+.guide-editorial select {
+  color-scheme: dark;
+}
+.service-dark option,
+.guide-editorial option {
+  background: #202029;
+  color: #f4f3ef;
+}
+.guide-utility option,
+.admin-main option {
+  background: #fff;
+  color: #0d0d12;
+}
+.review-container,
+.guide-list-wrap,
+.guide-entry-wrap {
+  max-width: 1440px;
+}
+.guide-editorial {
+  --ge-bg: #0d0d12;
+  --ge-fg: #f4f3ef;
+  --ge-muted: #b5b5bd;
+  --ge-border: #34343e;
+  background: var(--ge-bg);
+  color: var(--ge-fg);
+}
+.guide-editorial .guide-subnav {
+  background: #0d0d12;
+  color: #f4f3ef;
+  border-color: #34343e;
+}
+.guide-editorial .guide-entry-copy p {
+  color: var(--ge-muted);
+}
+.scope-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 32px;
+}
+.one-cut-sample {
+  border: 1px solid #3c374d;
+  background: #15151d;
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+.one-cut-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 600px;
+  padding: 16px;
+  border: 0;
+  background: #15151d;
+  overflow: hidden;
+}
+.one-cut-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 850px;
+  object-fit: contain;
+}
+.episode-comparison {
+  display: flex;
+  flex-direction: column;
+}
+.episode-intro {
+  color: #c9c9d1;
+  margin-bottom: 20px;
+}
+.episode-cut-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  flex: 1;
+}
+.episode-cut-grid li {
+  padding: 0;
+  border: 0;
+  background: none;
+  aspect-ratio: auto;
+  display: block;
+  min-width: 0;
+}
+.episode-cut-grid button {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 1px solid #41414b;
+  background: #202029;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.episode-cut-grid img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2/3;
+  object-fit: contain;
+  display: block;
+}
+.episode-cut-grid button span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #0d0d12dd;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+}
+.comic-canvas {
+  padding: 0;
+  display: block;
+  max-height: 650px;
+  overflow: auto;
+}
+.comic-canvas img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+}
+.comic-desktop {
+  align-self: stretch;
+}
+.webtoon-devices {
+  width: 100%;
+}
+.device-pair {
+  grid-template-columns: minmax(0, 2.5fr) minmax(120px, 1fr);
+}
+.cut-dialog,
+.faq-dialog {
+  border: 1px solid #575160;
+  border-radius: 16px;
+  background: #17151e;
+  color: #f4f3ef;
+  padding: 24px;
+  max-width: min(94vw, 760px);
+  max-height: 90dvh;
+  overflow: auto;
+}
+.cut-dialog::backdrop,
+.faq-dialog::backdrop {
+  background: #000b;
+  backdrop-filter: blur(5px);
+}
+.cut-dialog form,
+.faq-dialog form {
+  text-align: right;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.cut-dialog form button,
+.faq-dialog form button {
+  border: 1px solid #655e78;
+  background: #17151e;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 18px;
+}
+.cut-dialog img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.faq-dialog h2 {
+  font-size: 30px;
+  margin: 12px 0 28px;
+}
+.faq-dialog details {
+  padding: 20px 0;
+  border-top: 1px solid #3c374d;
+}
+.faq-dialog summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.faq-dialog p {
+  color: #cbc6d6;
+  margin-top: 16px;
+}
+.faq-dialog .button {
+  margin-top: 20px;
+}
+.floating-contact {
+  position: fixed;
+  z-index: 90;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #dedbe5;
+  border-radius: 24px;
+  box-shadow: 0 8px 35px #0003;
+  white-space: nowrap;
+}
+.floating-contact[hidden] {
+  display: none;
+}
+.floating-contact button,
+.floating-contact a {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 23px;
+  border: 0;
+  border-radius: 16px;
+  font-weight: 650;
+  font-size: 14px;
+  background: #eeedf2;
+  color: #17151e;
+}
+.floating-contact a {
+  background: #6b4dff;
+  color: white;
+}
+.site-footer, .guide-footer {
+  padding-bottom: 130px;
+}
+.lab-specialist .overview-hero {
+  grid-template-columns: 1fr;
+  text-align: center;
+  padding-top: 90px;
+}
+.lab-specialist .overview-hero h1 {
+  font-size: clamp(40px, 5.2vw, 76px) !important;
+  max-width: 1100px;
+  margin: auto;
+}
+.lab-specialist .overview-hero > div > p {
+  max-width: 650px;
+  margin: 28px auto;
+}
+.lab-specialist .service-actions {
+  justify-content: center;
+}
+.lab-specialist .motion-stage {
+  aspect-ratio: 2.5;
+  min-height: 400px;
+}
+.lab-specialist .overview-offers {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.lab-secondary {
+  padding-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  color: #c9c9d1;
+}
+.lab-secondary a {
+  border-bottom: 1px solid #736d83;
+}
+@media (min-width: 1440px) {
+  .guide-page section[style*="max-width: 1320px"] {
+    max-width: 1536px !important;
+  }
+}
+@media (max-width: 900px) {
+  .scope-layout {
+    grid-template-columns: 1fr;
+  }
+  .one-cut-image {
+    min-height: 0;
+  }
+  .one-cut-image img {
+    max-height: 720px;
+  }
+  .episode-cut-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .episode-cut-grid img {
+    max-height: 260px;
+  }
+  .lab-specialist .overview-offers {
+    grid-template-columns: 1fr;
+  }
+  .lab-specialist .motion-stage {
+    min-height: 300px;
+    aspect-ratio: 1.5;
+  }
+  .lab-specialist .overview-hero {
+    padding-top: 48px;
+  }
+  .device-pair {
+    grid-template-columns: minmax(0, 2fr) minmax(90px, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .floating-contact {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding: 6px;
+    border-radius: 20px;
+    max-width: calc(100vw - 24px);
+  }
+  .floating-contact button,
+  .floating-contact a {
+    padding: 12px 17px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+  .episode-comparison {
+    padding: 18px;
+  }
+  .scope-layout {
+    gap: 24px;
+  }
+  .comic-canvas {
+    max-height: 420px;
+  }
+}

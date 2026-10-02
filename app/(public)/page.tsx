@@ -6,11 +6,11 @@ import { publicEntries } from "@/lib/db";
 export const dynamic = "force-dynamic";
 export const metadata = {
   ...pageMetadata(
-    "AIO MAKE · 마케팅 대행·웹 개발·영상 제작",
+    "AIO MAKE | 영상·마케팅·웹사이트 제작",
     siteDescription,
     "/",
   ),
-  title: { absolute: "AIO MAKE · 마케팅 대행·웹 개발·영상 제작" },
+  title: { absolute: "AIO MAKE | 영상·마케팅·웹사이트 제작" },
 };
 export default async function HomePage() {
   const entries = await publicEntries("reference");

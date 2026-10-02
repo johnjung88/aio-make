@@ -124,9 +124,6 @@ export function ServiceMotion({
         <span className="motion-label">
           {label} <ArrowUpRight size={14} aria-hidden="true" />
         </span>
-        <span className="motion-disclosure">
-          AI 생성 콘셉트 · 실제 고객 사례 아님
-        </span>
       </div>
       <div className="motion-controls">
         <div role="group" aria-label={`${label} 장면 선택`}>

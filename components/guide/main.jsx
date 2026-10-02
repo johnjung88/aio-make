@@ -230,7 +230,7 @@ class Component extends GuideLogic {
                 >
                   {"영상·마케팅·개발, "}
                   <strong style={{ color: "#A99BFF" }}>{"필요한 일"}</strong>
-                  {"을 골라 맡기고 결과를 함께 확인하세요."}
+                  {"을 골라 맡기고 결과를 함께 확인하세요"}
                 </p>
               </div>
               <div
@@ -638,7 +638,7 @@ class Component extends GuideLogic {
                 <p>
                   <span>AI로 제작 속도를 높이고,</span>
                   <span>
-                    분야별 전문가가 기획부터 최종 검수까지 책임집니다.
+                    분야별 전문가가 기획부터 최종 검수까지 책임집니다
                   </span>
                 </p>
               </div>

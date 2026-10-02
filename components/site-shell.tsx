@@ -162,7 +162,7 @@ export function Footer() {
             이메일: AIOMAKE2023@GMAIL.COM
           </a>
           <span className="guide-copyright">
-            © 2026 AIO-MAKE. All rights reserved.
+            © 2026 AIO MAKE · All rights reserved
           </span>
         </div>
       </div>

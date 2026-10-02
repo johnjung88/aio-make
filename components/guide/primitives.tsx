@@ -144,10 +144,10 @@ export function GuideLink({
 }
 
 const assetSlots: Record<string, string> = {
-  "lead-ceo": "/images/guide/hero/team-meeting.jpg",
-  "lead-video": "/renewal/animation-sample.webp",
-  "lead-mkt": "/renewal/marketing-content-v03.webp",
-  "lead-dev": "/images/guide/images/cards/card-lab.jpg",
+  "lead-ceo": "/creative-v11/planning.webp",
+  "lead-video": "/creative-v11/video.webp",
+  "lead-mkt": "/creative-v11/marketing.webp",
+  "lead-dev": "/creative-v11/development.webp",
   "aio-home-hero": "/images/guide/hero/hero-bg.jpg",
   "main-studio-big": "/renewal/animation-sample.webp",
   "main-studio-s1": "/renewal/influencer-sample.webp",

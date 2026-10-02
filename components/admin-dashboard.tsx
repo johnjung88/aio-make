@@ -52,10 +52,10 @@ async function read<T>(path: string, signal?: AbortSignal): Promise<T> {
   const res = await fetch(path, { cache: "no-store", signal });
   if (res.status === 401) {
     location.href = "/admin/login";
-    throw new Error("로그인이 필요합니다.");
+    throw new Error("로그인이 필요합니다");
   }
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "데이터 조회에 실패했습니다.");
+  if (!res.ok) throw new Error(data.error || "데이터 조회에 실패했습니다");
   return data;
 }
 export function AdminDashboard() {
@@ -145,7 +145,7 @@ export function AdminDashboard() {
               connected: false,
               items: [],
               total: null,
-              error: "문의 목록을 불러오지 못했습니다. 다시 시도해주세요.",
+              error: "문의 목록을 불러오지 못했습니다 다시 시도해주세요",
             },
       );
       setEntries(
@@ -154,7 +154,7 @@ export function AdminDashboard() {
           : {
               connected: false,
               items: [],
-              error: "콘텐츠 목록을 불러오지 못했습니다. 다시 시도해주세요.",
+              error: "콘텐츠 목록을 불러오지 못했습니다 다시 시도해주세요",
             },
       );
       setRecent(
@@ -166,7 +166,7 @@ export function AdminDashboard() {
       if (controller.signal.aborted) return;
       setError(true);
       setMessage(
-        "데이터 조회를 완료하지 못했습니다. 연결 상태를 확인해주세요.",
+        "데이터 조회를 완료하지 못했습니다 연결 상태를 확인해주세요",
       );
     } finally {
       if (!controller.signal.aborted) setLoading(false);
@@ -198,7 +198,7 @@ export function AdminDashboard() {
           measurementId: "",
           period: `최근 ${gaDays}일`,
           days: gaDays,
-          error: "통계를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+          error: "통계를 불러오지 못했습니다 잠시 후 다시 시도해주세요",
         });
     } finally {
       if (!controller.signal.aborted) setGaLoading(false);
@@ -225,7 +225,7 @@ export function AdminDashboard() {
       router.refresh();
     } else {
       setError(true);
-      setMessage("로그아웃을 완료하지 못했습니다.");
+      setMessage("로그아웃을 완료하지 못했습니다");
     }
   }
   async function detail(id: string) {
@@ -242,7 +242,7 @@ export function AdminDashboard() {
       setNote("");
     } catch (e) {
       setError(true);
-      setMessage(e instanceof Error ? e.message : "문의 조회에 실패했습니다.");
+      setMessage(e instanceof Error ? e.message : "문의 조회에 실패했습니다");
     }
   }
   async function saveInquiry() {
@@ -259,10 +259,10 @@ export function AdminDashboard() {
       await detail(selected.id);
       await refresh();
       setError(false);
-      setMessage("상담 내역을 저장했습니다.");
+      setMessage("상담 내역을 저장했습니다");
     } catch (e) {
       setError(true);
-      setMessage(e instanceof Error ? e.message : "저장에 실패했습니다.");
+      setMessage(e instanceof Error ? e.message : "저장에 실패했습니다");
     } finally {
       setBusy(false);
     }
@@ -283,10 +283,10 @@ export function AdminDashboard() {
       setEditor(data.item);
       await refresh();
       setError(false);
-      setMessage("콘텐츠를 저장했습니다.");
+      setMessage("콘텐츠를 저장했습니다");
     } catch (e) {
       setError(true);
-      setMessage(e instanceof Error ? e.message : "저장에 실패했습니다.");
+      setMessage(e instanceof Error ? e.message : "저장에 실패했습니다");
     } finally {
       setBusy(false);
     }
@@ -360,11 +360,11 @@ export function AdminDashboard() {
               {
                 {
                   overview:
-                    "새로운 문의와 콘텐츠, 사이트 방문 흐름을 확인하세요.",
-                  inquiries: "접수된 문의를 확인하고 다음 상담을 이어가세요.",
-                  entries: "작업 사례와 서비스 안내 글을 관리하세요.",
-                  analytics: "방문부터 문의까지, 사이트의 흐름을 살펴보세요.",
-                  settings: "사이트에 연결된 데이터 서비스의 상태입니다.",
+                    "새로운 문의와 콘텐츠, 사이트 방문 흐름을 확인하세요",
+                  inquiries: "접수된 문의를 확인하고 다음 상담을 이어가세요",
+                  entries: "작업 사례와 서비스 안내 글을 관리하세요",
+                  analytics: "방문부터 문의까지, 사이트의 흐름을 살펴보세요",
+                  settings: "사이트에 연결된 데이터 서비스의 상태입니다",
                 }[view]
               }
             </p>
@@ -396,7 +396,7 @@ export function AdminDashboard() {
         )}
         {pendingEditor && (
           <div className="admin-message confirm-message" role="alert">
-            <p>저장하지 않은 변경이 있습니다. 편집 내용을 버리시겠습니까?</p>
+            <p>저장하지 않은 변경이 있습니다 편집 내용을 버리시겠습니까?</p>
             <div className="editor-actions">
               <button
                 ref={keepEditing}
@@ -516,15 +516,15 @@ export function AdminDashboard() {
               </p>
               <p>
                 문의와 콘텐츠 저장소가 연결돼야 신규 문의 접수와 콘텐츠 편집
-                내용을 저장할 수 있습니다.
+                내용을 저장할 수 있습니다
               </p>
             </section>
             <GaConnection ga={ga} loading={gaLoading} onRetry={refreshGa} />
             <section className="admin-panel">
               <h2>AI 챗봇</h2>
               <p>
-                사용자 요청에 따라 보류했습니다. 공개 사이트에 챗봇 버튼과 API를
-                설치하지 않았습니다.
+                사용자 요청에 따라 보류했습니다 공개 사이트에 챗봇 버튼과 API를
+                설치하지 않았습니다
               </p>
             </section>
           </>

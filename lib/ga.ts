@@ -37,7 +37,7 @@ async function credentials() {
     } catch {
       throw new GaError(
         "invalid_config",
-        "등록된 Google 인증 파일을 읽을 수 없습니다. 서버의 파일 경로와 서비스 계정 형식을 확인해주세요.",
+        "등록된 Google 인증 파일을 읽을 수 없습니다 서버의 파일 경로와 서비스 계정 형식을 확인해주세요",
       );
     }
   }
@@ -49,7 +49,7 @@ async function credentials() {
   if (!email || !key)
     throw new GaError(
       "not_configured",
-      "방문 통계를 가져오는 Google 읽기 연결이 필요합니다.",
+      "방문 통계를 가져오는 Google 읽기 연결이 필요합니다",
     );
   return { email, key };
 }
@@ -76,7 +76,7 @@ async function accessToken() {
   } catch {
     throw new GaError(
       "invalid_config",
-      "Google 인증 정보의 형식을 확인해주세요.",
+      "Google 인증 정보의 형식을 확인해주세요",
     );
   }
   const res = await fetch("https://oauth2.googleapis.com/token", {
@@ -90,12 +90,12 @@ async function accessToken() {
     signal: AbortSignal.timeout(10000),
   });
   if (!res.ok)
-    throw new GaError("authentication", "Google 인증 설정을 확인해주세요.");
+    throw new GaError("authentication", "Google 인증 설정을 확인해주세요");
   const result = await res.json();
   if (!result.access_token)
     throw new GaError(
       "authentication",
-      "Google 인증 응답을 확인할 수 없습니다.",
+      "Google 인증 응답을 확인할 수 없습니다",
     );
   return result.access_token as string;
 }
@@ -122,10 +122,10 @@ async function query(
     if (response.status === 429)
       throw new GaError(
         "quota",
-        "Google의 조회 한도에 도달했습니다. 잠시 후 다시 확인해주세요.",
+        "Google의 조회 한도에 도달했습니다 잠시 후 다시 확인해주세요",
       );
     if (response.status === 401)
-      throw new GaError("authentication", "Google 인증을 다시 확인해주세요.");
+      throw new GaError("authentication", "Google 인증을 다시 확인해주세요");
     if (response.status === 403) {
       const disabled = JSON.stringify(body.error?.details ?? []).includes(
         "SERVICE_DISABLED",
@@ -133,18 +133,18 @@ async function query(
       throw new GaError(
         disabled ? "api_disabled" : "permission",
         disabled
-          ? "Google Analytics Data API 사용 설정이 필요합니다."
-          : "이 사이트의 GA4 속성을 읽을 권한이 필요합니다.",
+          ? "Google Analytics Data API 사용 설정이 필요합니다"
+          : "이 사이트의 GA4 속성을 읽을 권한이 필요합니다",
       );
     }
     if (response.status === 404)
       throw new GaError(
         "invalid_config",
-        "GA4 속성을 찾을 수 없습니다. 속성 ID와 읽기 권한을 확인해주세요.",
+        "GA4 속성을 찾을 수 없습니다 속성 ID와 읽기 권한을 확인해주세요",
       );
     throw new GaError(
       "unavailable",
-      "Google 통계를 불러오지 못했습니다. 잠시 후 다시 확인해주세요.",
+      "Google 통계를 불러오지 못했습니다 잠시 후 다시 확인해주세요",
     );
   }
   const result = await response.json();
@@ -154,7 +154,7 @@ async function query(
   )
     throw new GaError(
       "unavailable",
-      "Google 보고서가 일부 누락됐습니다. 다시 조회해주세요.",
+      "Google 보고서가 일부 누락됐습니다 다시 조회해주세요",
     );
   return result.reports;
 }
@@ -183,13 +183,13 @@ export async function gaReport(days: GaDays = 28): Promise<GaReport> {
     return {
       ...base,
       status: "invalid_config",
-      error: "사이트의 GA4 속성 ID를 설정해주세요.",
+      error: "사이트의 GA4 속성 ID를 설정해주세요",
     };
   if (!configuration.credentials)
     return {
       ...base,
       error:
-        "방문 기록을 보내는 설정은 조회 연결과 별개입니다. 대시보드에서 통계를 읽을 Google 연결을 완료해주세요.",
+        "방문 기록을 보내는 설정은 조회 연결과 별개입니다 대시보드에서 통계를 읽을 Google 연결을 완료해주세요",
     };
   const key = `${propertyId}:${days}`;
   const cached = cache.get(key);
@@ -220,7 +220,7 @@ export async function gaReport(days: GaDays = 28): Promise<GaReport> {
         error:
           error instanceof GaError
             ? error.message
-            : "Google 통계에 연결하지 못했습니다. 네트워크와 연결 설정을 확인한 뒤 다시 시도해주세요.",
+            : "Google 통계에 연결하지 못했습니다 네트워크와 연결 설정을 확인한 뒤 다시 시도해주세요",
       };
     }
   })();

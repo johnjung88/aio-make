@@ -106,7 +106,7 @@ function metric(report: ApiReport, row: number, column: number) {
   const raw = report.rows?.[row]?.metricValues?.[column]?.value;
   if (raw == null) {
     if (!report.rows?.length) return 0;
-    throw new Error("GA4 응답에 필요한 지표가 없습니다.");
+    throw new Error("GA4 응답에 필요한 지표가 없습니다");
   }
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0)
@@ -161,12 +161,12 @@ export function normalizeReports(
   const warnings: string[] = [];
   if (reports.some((r) => r.metadata?.subjectToThresholding))
     warnings.push(
-      "개인정보 보호 기준으로 일부 데이터가 표시되지 않을 수 있습니다.",
+      "개인정보 보호 기준으로 일부 데이터가 표시되지 않을 수 있습니다",
     );
   if (reports.some((r) => r.metadata?.dataLossFromOtherRow))
-    warnings.push("일부 항목이 기타 행으로 묶여 집계됐습니다.");
+    warnings.push("일부 항목이 기타 행으로 묶여 집계됐습니다");
   if (reports.some((r) => r.metadata?.samplingMetadatas?.length))
-    warnings.push("일부 통계에 표본 추출이 적용됐습니다.");
+    warnings.push("일부 통계에 표본 추출이 적용됐습니다");
   return {
     totals: totals(0, 2),
     previous: totals(1, 3),

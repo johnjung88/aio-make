@@ -3,11 +3,11 @@ import { services } from "./content.ts";
 export const divisionSchema = z.enum(["marketing", "development", "video"]);
 export const contactSchema = z
   .object({
-    name: z.string().trim().min(1, "성함을 입력해주세요.").max(100),
+    name: z.string().trim().min(1, "성함을 입력해주세요").max(100),
     email: z
       .string()
       .trim()
-      .email("이메일을 확인해주세요.")
+      .email("이메일을 확인해주세요")
       .max(255)
       .or(z.literal("")),
     phone: z
@@ -20,7 +20,7 @@ export const contactSchema = z
           (/^\+?[\d\s()-]+$/.test(v) &&
             v.replace(/\D/g, "").length >= 6 &&
             v.replace(/\D/g, "").length <= 15),
-        "전화번호를 확인해주세요.",
+        "전화번호를 확인해주세요",
       ),
     company: z.string().trim().max(150).default(""),
     division: divisionSchema,
@@ -28,10 +28,10 @@ export const contactSchema = z
     message: z
       .string()
       .trim()
-      .min(5, "요청 내용을 5자 이상 입력해주세요.")
+      .min(5, "요청 내용을 5자 이상 입력해주세요")
       .max(4000),
     consent: z.literal(true, {
-      errorMap: () => ({ message: "개인정보 수집·이용에 동의해주세요." }),
+      errorMap: () => ({ message: "개인정보 수집·이용에 동의해주세요" }),
     }),
     website: z.string().max(0),
     idempotencyKey: z.string().uuid(),
@@ -48,13 +48,13 @@ export const contactSchema = z
       ctx.addIssue({
         code: "custom",
         path: ["email"],
-        message: "이메일 또는 전화번호를 입력해주세요.",
+        message: "이메일 또는 전화번호를 입력해주세요",
       });
     if (!services.some((s) => s.division === v.division && s.id === v.service))
       ctx.addIssue({
         code: "custom",
         path: ["service"],
-        message: "해당 분야의 서비스를 선택해주세요.",
+        message: "해당 분야의 서비스를 선택해주세요",
       });
   });
 export const entrySchema = z
@@ -83,13 +83,13 @@ export const entrySchema = z
       ctx.addIssue({
         code: "custom",
         path: ["service"],
-        message: "분야와 서비스가 맞지 않습니다.",
+        message: "분야와 서비스가 맞지 않습니다",
       });
     if (v.is_published && !v.rights_confirmed)
       ctx.addIssue({
         code: "custom",
         path: ["rights_confirmed"],
-        message: "공개 권리와 내용의 사실을 확인해주세요.",
+        message: "공개 권리와 내용의 사실을 확인해주세요",
       });
     for (const field of ["cover_url", "video_url"] as const) {
       const url = v[field];
@@ -102,8 +102,8 @@ export const entrySchema = z
           path: [field],
           message:
             field === "cover_url"
-              ? "대표 이미지는 사이트 이미지 또는 연결된 저장소의 공개 이미지 주소를 입력해주세요."
-              : "허용된 HTTPS 영상 주소가 필요합니다.",
+              ? "대표 이미지는 사이트 이미지 또는 연결된 저장소의 공개 이미지 주소를 입력해주세요"
+              : "허용된 HTTPS 영상 주소가 필요합니다",
         });
     }
   });

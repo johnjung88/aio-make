@@ -196,7 +196,7 @@ class Component extends GuideLogic {
                 color: "#6E6E78",
               }}
             >
-              {"PROJECT ROLES"}
+              {"OUR EXPERTISE"}
             </span>
             <div
               data-fit=""
@@ -272,7 +272,7 @@ class Component extends GuideLogic {
                   letterSpacing: "-.02em",
                 }}
               >
-                {"함께 만드는 네 가지 역할"}
+                {"기획부터 완성까지 함께합니다"}
               </h2>
               <span
                 style={{
@@ -282,7 +282,7 @@ class Component extends GuideLogic {
                   color: "#6E6E78",
                 }}
               >
-                {"PROJECT ROLES"}
+                {"OUR EXPERTISE"}
               </span>
             </div>
             <div
@@ -499,17 +499,7 @@ class Component extends GuideLogic {
                                   {r.role}
                                 </strong>
                               </div>
-                              <span
-                                style={{
-                                  fontFamily: "Unbounded,sans-serif",
-                                  fontSize: "13px",
-                                  fontWeight: "600",
-                                  color: "#6B4DFF",
-                                  whiteSpace: "nowrap",
-                                }}
-                              >
-                                {"작업 역할"}
-                              </span>
+
                             </div>
                             <span
                               style={{

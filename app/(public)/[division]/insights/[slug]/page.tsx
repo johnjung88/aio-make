@@ -19,13 +19,13 @@ export async function generateMetadata({
     ? {
         ...pageMetadata(
           e.title,
-          `${d.label} 가이드. ${e.summary}`,
+          `${d.label} 가이드 ${e.summary}`,
           "/" + d.path + "/insights/" + e.slug,
         ),
         openGraph: {
           ...pageMetadata(
             e.title,
-            `${d.label} 가이드. ${e.summary}`,
+            `${d.label} 가이드 ${e.summary}`,
             "/" + d.path + "/insights/" + e.slug,
           ).openGraph,
           type: "article",

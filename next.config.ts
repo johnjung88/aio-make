@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
+  serverExternalPackages: ["@electric-sql/pglite"],
   devIndicators: false,
   distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
   images: {

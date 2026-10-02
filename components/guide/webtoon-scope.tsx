@@ -1,10 +1,15 @@
 "use client";
-
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-
 export function WebtoonScope() {
-  const [cuts, setCuts] = useState(20);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [selected, setSelected] = useState(1);
+  const source = (n: number) =>
+    `/webtoon-v11/cut-${String(n).padStart(2, "0")}.webp`;
+  function show(n: number) {
+    setSelected(n);
+    dialog.current?.showModal();
+  }
   return (
     <section
       id="webtoon-scope"
@@ -12,65 +17,74 @@ export function WebtoonScope() {
       aria-labelledby="webtoon-scope-title"
     >
       <div className="review-container">
-        <span className="review-eyebrow">웹툰 분량 가이드</span>
-        <h2 id="webtoon-scope-title">1컷부터 1회분까지, 이렇게 셉니다</h2>
+        <span className="review-eyebrow">웹툰 제작 기준</span>
+        <h2 id="webtoon-scope-title">웹툰 1회분은 24컷으로 제작합니다</h2>
         <p className="scope-intro">
-          이 서비스의 컷 수는 《1억의 구단주》의 이미지 단위로 셉니다. 여러
-          장면이 담겨 있어도 완성된 이미지 1장이 1컷입니다.
+          완성 이미지 1장이 1컷이며 24장의 이미지로 한 회를 구성합니다
         </p>
         <div className="scope-layout">
           <figure className="one-cut-sample">
-            <div>
+            <button
+              className="one-cut-image"
+              onClick={() => show(1)}
+              aria-label="1컷 예시 크게 보기"
+            >
               <Image
-                src="/images/guide/webtoon-svc-webtoon-cut01.webp"
+                src={source(1)}
                 width={800}
                 height={1200}
-                sizes="(max-width: 620px) 70vw, 300px"
-                alt="여러 장면이 담긴 1억의 구단주 이미지 한 장 전체가 1컷"
+                sizes="(max-width: 900px) 90vw, 620px"
+                alt="1억의 구단주 완성 이미지 1컷"
               />
-            </div>
+            </button>
             <figcaption>
               <strong>이 이미지 전체가 1컷</strong>
-              <span>안쪽 장면을 따로 나누어 계산하지 않습니다.</span>
+              <span>이미지 안의 장면을 따로 나누어 세지 않습니다</span>
             </figcaption>
           </figure>
           <div className="episode-comparison">
-            <h3>1회분 구성을 비교해보세요</h3>
-            <div
-              className="scope-choices"
-              role="group"
-              aria-label="회차 구성 예시 컷 수"
-            >
-              {[10, 20, 30].map((count) => (
-                <button
-                  key={count}
-                  type="button"
-                  aria-pressed={cuts === count}
-                  onClick={() => setCuts(count)}
-                >
-                  {count}컷
-                </button>
-              ))}
-            </div>
-            <p className="episode-total" aria-live="polite">
-              <strong>{cuts}컷</strong>
-              <span>· 이미지 {cuts}장으로 구성한 1회분 예시</span>
-            </p>
-            <ol className="episode-cut-grid" aria-label={`${cuts}컷 구성도`}>
-              {Array.from({ length: cuts }, (_, i) => (
+            <h3>1회분 · 24컷</h3>
+            <p className="episode-intro">《1억의 구단주》로 살펴보는 구성</p>
+            <ol className="episode-cut-grid" aria-label="24컷 구성">
+              {Array.from({ length: 24 }, (_, i) => (
                 <li key={i}>
-                  <span>{i + 1}</span>
-                  <small>이미지 1장</small>
+                  <button
+                    onClick={() => show(i + 1)}
+                    aria-label={`${i + 1}컷 크게 보기`}
+                  >
+                    <Image
+                      src={source(i + 1)}
+                      width={160}
+                      height={240}
+                      sizes="(max-width: 900px) 28vw, 110px"
+                      alt={`1억의 구단주 샘플 ${i + 1}컷`}
+                    />
+                    <span>{String(i + 1).padStart(2, "0")}</span>
+                  </button>
                 </li>
               ))}
             </ol>
-            <p className="scope-note">
-              1컷은 위 예시와 같은 완성 이미지 1장입니다. 수량은 분량
-              비교용이며, 실제 1회분의 컷 수·회차 수·수정 범위는 기획과 견적에서
-              함께 정합니다.
-            </p>
+            <p className="scope-note">각 이미지를 누르면 크게 볼 수 있습니다</p>
           </div>
         </div>
+        <dialog
+          ref={dialog}
+          className="cut-dialog"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) dialog.current?.close();
+          }}
+        >
+          <form method="dialog">
+            <button aria-label="확대 이미지 닫기">닫기 ×</button>
+          </form>
+          <Image
+            src={source(selected)}
+            width={800}
+            height={1200}
+            sizes="90vw"
+            alt={`1억의 구단주 샘플 ${selected}컷 확대`}
+          />
+        </dialog>
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ export function GuideEntryCard({
         <span className="guide-kicker">
           {type === "reference"
             ? entry.kind === "example"
-              ? "제작 방향 예시"
+              ? "서비스 미리보기"
               : "고객 사례"
             : entry.id.startsWith("guide-")
               ? "GUIDE"
@@ -71,7 +71,7 @@ export function GuideListLayout({
   const reference = type === "reference";
   return (
     <div
-      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} ${division === "marketing" ? "is-light" : "is-dark"} ${reference ? "is-work" : "is-insight"}`}
+      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} is-dark ${reference ? "is-work" : "is-insight"}`}
     >
       <GuideNav division={division} active={reference ? "cases" : "insights"} />
       <section className="guide-list-wrap">
@@ -92,7 +92,7 @@ export function GuideListLayout({
           </div>
           <p>
             {reference
-              ? "제작 방향 예시와 공개 확인을 마친 고객 사례를 소개합니다."
+              ? "서비스별 작업과 제작 방향을 살펴보세요"
               : `전체 ${entries.length}건`}
           </p>
         </div>
@@ -132,7 +132,7 @@ export function GuideEditorialCTA({ path }: { path: string }) {
     <section className="guide-editorial-cta">
       <div>
         <h2>필요한 작업이 있다면</h2>
-        <p>만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다.</p>
+        <p>만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다</p>
       </div>
       <Link href={`/${path}/contact`}>프로젝트 문의 →</Link>
     </section>
@@ -173,7 +173,7 @@ export async function EntryDetail({
   const pagePath = `/${division}/${segment}/${entry.slug}`;
   return (
     <div
-      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} ${division === "marketing" ? "is-light" : "is-dark"}`}
+      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} is-dark`}
     >
       <GuideNav
         division={division}
@@ -225,7 +225,7 @@ export async function EntryDetail({
         <span className="guide-kicker">
           {type === "reference"
             ? entry.kind === "example"
-              ? "제작 방향 예시"
+              ? "서비스 미리보기"
               : "고객 사례"
             : "INSIGHT"}
         </span>

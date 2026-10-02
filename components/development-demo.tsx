@@ -40,13 +40,13 @@ export function DevelopmentDemo({ service = "website" }: { service?: string }) {
             height={1024}
             sizes="(max-width:767px) 100vw, 80vw"
           />
-          <h3>매일의 공간을 바꾸는 작은 선택.</h3>
+          <h3>매일의 공간을 바꾸는 작은 선택</h3>
           <button className="button" onClick={() => setCart(cart + 1)}>
             담아보기 <span>+</span>
           </button>
           <p>
-            장바구니와 디자인 전환을 보여주는 UI 예시입니다. 실제 결제는
-            없습니다.
+            장바구니와 디자인 전환을 보여주는 UI 예시입니다 실제 결제는
+            없습니다
           </p>
         </div>
       ) : service === "automation" ? (
@@ -70,10 +70,10 @@ export function DevelopmentDemo({ service = "website" }: { service?: string }) {
                 처리 결과를 확인할 수 있는 화면 예시
               </>
             ) : (
-              "파일 입력과 처리 결과를 구분해 보여줍니다."
+              "파일 입력과 처리 결과를 구분해 보여줍니다"
             )}
           </div>
-          <p>설명용 UI이며 실제 파일을 수집하거나 처리하지 않습니다.</p>
+          <p>설명용 UI이며 실제 파일을 수집하거나 처리하지 않습니다</p>
         </div>
       ) : (
         <div className="dashboard-demo">
@@ -88,8 +88,8 @@ export function DevelopmentDemo({ service = "website" }: { service?: string }) {
             <p className="eyebrow">YOUR WORKSPACE</p>
             <h3>
               {service === "program"
-                ? "업무가 보이는 관리 화면."
-                : "소개에서 문의까지."}
+                ? "업무가 보이는 관리 화면"
+                : "소개에서 문의까지"}
             </h3>
             <div className="demo-metrics">
               <span>
@@ -110,7 +110,7 @@ export function DevelopmentDemo({ service = "website" }: { service?: string }) {
                 <span key={i} style={{ height: n + "%" }} />
               ))}
             </div>
-            <p>기능 구성을 설명하는 제작 예시이며 실제 운영 지표가 아닙니다.</p>
+            <p>기능 구성을 설명하는 제작 예시이며 실제 운영 지표가 아닙니다</p>
           </div>
         </div>
       )}

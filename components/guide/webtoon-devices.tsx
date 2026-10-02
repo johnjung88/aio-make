@@ -27,7 +27,7 @@ export function WebtoonDevices() {
                 width={800}
                 height={1200}
                 alt="PC 화면에 표시한 1억의 구단주 원본 이미지 한 컷 전체"
-                sizes="(max-width: 620px) 40vw, 300px"
+                sizes="(max-width: 620px) 60vw, 600px"
               />
             </div>
           </div>
@@ -47,7 +47,7 @@ export function WebtoonDevices() {
           <figcaption>모바일</figcaption>
         </figure>
       </div>
-      <p>화면 크기가 달라도 같은 이미지 1장이 1컷입니다.</p>
+      <p>화면 크기가 달라도 같은 이미지 1장이 1컷입니다</p>
     </div>
   );
 }

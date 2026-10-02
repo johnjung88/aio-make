@@ -155,7 +155,7 @@ export function ContactForm({
       });
       const result = await response.json();
       if (!response.ok || !result.success)
-        throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다.");
+        throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
       if (
         !result.data.duplicate &&
@@ -164,7 +164,7 @@ export function ContactForm({
       )
         window.gtag?.("event", "generate_lead", { division, service });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다.");
+      setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {
       setBusy(false);
     }
@@ -174,9 +174,9 @@ export function ContactForm({
       <div className="form-success" role="status">
         <CheckCircle2 size={40} />
         <h2 ref={successRef} tabIndex={-1}>
-          문의가 접수되었습니다.
+          문의가 접수되었습니다
         </h2>
-        <p>남겨주신 연락처로 요청 범위를 확인하고 안내드리겠습니다.</p>
+        <p>남겨주신 연락처로 요청 범위를 확인하고 안내드리겠습니다</p>
         <p className="mono">접수번호 {receipt}</p>
         <Link className="button" href="/">
           홈으로 돌아가기 <ArrowUpRight size={18} />
@@ -232,7 +232,7 @@ export function ContactForm({
         </label>
       </div>
       <p className="form-hint" id={uid + "-contact-hint"}>
-        답변을 받을 이메일 또는 전화번호 중 하나를 입력해주세요.
+        답변을 받을 이메일 또는 전화번호 중 하나를 입력해주세요
       </p>
       <div className="form-row">
         <label>
@@ -278,10 +278,10 @@ export function ContactForm({
           maxLength={4000}
           placeholder={
             division === "marketing"
-              ? "업종, 운영 중인 채널, 목표와 희망 일정을 알려주세요."
+              ? "업종, 운영 중인 채널, 목표와 희망 일정을 알려주세요"
               : division === "development"
-                ? "필요한 기능, 현재 사이트·업무 파일, 희망 일정을 알려주세요."
-                : "장르, 분량, 준비된 원본·캐릭터, 희망 일정을 알려주세요."
+                ? "필요한 기능, 현재 사이트·업무 파일, 희망 일정을 알려주세요"
+                : "장르, 분량, 준비된 원본·캐릭터, 희망 일정을 알려주세요"
           }
         />
       </label>
@@ -303,7 +303,7 @@ export function ContactForm({
           <Link href="/privacy" target="_blank" rel="noopener noreferrer">
             개인정보 수집·이용
           </Link>
-          에 동의합니다.
+          에 동의합니다
         </span>
       </label>
       {error && (
@@ -322,7 +322,7 @@ export function ContactForm({
         <ArrowUpRight size={18} />
       </button>
       <p className="form-hint">
-        작업 범위를 확인한 뒤 견적과 납기를 안내합니다.
+        작업 범위를 확인한 뒤 견적과 납기를 안내합니다
       </p>
     </form>
   );

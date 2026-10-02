@@ -82,9 +82,9 @@ export function GaConnection({
       </div>
       <p>
         {ga?.connected
-          ? "선택한 기간의 실제 Google Analytics 데이터를 조회했습니다."
+          ? "선택한 기간의 실제 Google Analytics 데이터를 조회했습니다"
           : ga?.error ||
-            "사이트 방문 기록을 대시보드로 가져오는 연결 상태를 확인합니다."}
+            "사이트 방문 기록을 대시보드로 가져오는 연결 상태를 확인합니다"}
       </p>
       {!ga?.connected && setup && (
         <ol className="connection-steps">
@@ -111,8 +111,8 @@ export function GaConnection({
             <div>
               <strong>Google 읽기 연결</strong>
               <span>
-                방문 기록을 보내는 설정과 통계를 읽는 권한은 별개입니다. 서버용
-                인증과 이 속성의 보기 권한을 연결합니다.
+                방문 기록을 보내는 설정과 통계를 읽는 권한은 별개입니다 서버용
+                인증과 이 속성의 보기 권한을 연결합니다
               </span>
             </div>
           </li>
@@ -122,7 +122,7 @@ export function GaConnection({
               <strong>데이터 조회 확인</strong>
               <span>
                 연결 후 방문자·유입 경로·문의 완료 추이를 이 화면에서
-                확인합니다.
+                확인합니다
               </span>
             </div>
           </li>
@@ -152,11 +152,11 @@ export function GaConnection({
           <summary>연결 담당자를 위한 설정 안내</summary>
           <p>
             Google Analytics Data API를 활성화하고 해당 속성에 서버용 서비스
-            계정을 뷰어로 추가합니다. 서버 환경에 GA4_PROPERTY_ID와
+            계정을 뷰어로 추가합니다 서버 환경에 GA4_PROPERTY_ID와
             GOOGLE_APPLICATION_CREDENTIALS(인증 JSON 파일 경로) 또는
             GOOGLE_SERVICE_ACCOUNT_EMAIL·GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY를
-            설정한 뒤 서버를 재시작합니다. 비밀키를 이 화면이나 문의 양식에
-            입력하지 마세요.
+            설정한 뒤 서버를 재시작합니다 비밀키를 이 화면이나 문의 양식에
+            입력하지 마세요
           </p>
           <a
             href="https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart"
@@ -196,7 +196,7 @@ export function TrafficTrend({
           <div
             className="traffic-chart"
             role="img"
-            aria-label={`${ga.days}일간 일별 방문 횟수. 아래 데이터 표에서 정확한 값을 볼 수 있습니다.`}
+            aria-label={`${ga.days}일간 일별 방문 횟수 아래 데이터 표에서 정확한 값을 볼 수 있습니다`}
           >
             <span className="chart-max">{number(max)}</span>
             <div className="traffic-bars" style={{ gap: ga.days > 28 ? 1 : 4 }}>
@@ -245,7 +245,7 @@ export function TrafficTrend({
       ) : (
         <div className="admin-empty">
           <BarChart3 />
-          <p>선택한 기간에 방문 데이터가 없습니다.</p>
+          <p>선택한 기간에 방문 데이터가 없습니다</p>
         </div>
       )}
     </section>
@@ -282,7 +282,7 @@ function MetricList({
     </ol>
   ) : (
     <div className="admin-empty small">
-      <p>해당 기간의 데이터가 없습니다.</p>
+      <p>해당 기간의 데이터가 없습니다</p>
     </div>
   );
 }
@@ -404,9 +404,9 @@ export function AnalyticsPanel({
               : ""}{" "}
             조회 · 속성 시간대 {ga.timeZone} · 최대 5분 간격 갱신
             <br />
-            문의 완료는 브라우저에서 전송한 이벤트입니다. 저장된 문의 건수와
+            문의 완료는 브라우저에서 전송한 이벤트입니다 저장된 문의 건수와
             집계 기준이 다르며, 일부 데이터는 Google 처리 지연으로 달라질 수
-            있습니다.
+            있습니다
           </p>
         </>
       ) : (

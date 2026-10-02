@@ -25,7 +25,7 @@ export function AdminLogin() {
       router.replace("/admin");
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "로그인에 실패했습니다.");
+      setError(e instanceof Error ? e.message : "로그인에 실패했습니다");
     } finally {
       setBusy(false);
     }
@@ -63,7 +63,7 @@ export function AdminLogin() {
       <button type="submit" disabled={busy} className="button">
         {busy ? "로그인 중…" : "로그인 →"}
       </button>
-      <p>관리 권한이 있는 담당자만 로그인할 수 있습니다.</p>
+      <p>관리 권한이 있는 담당자만 로그인할 수 있습니다</p>
       <Link href="/">← 사이트로 돌아가기</Link>
     </form>
   );

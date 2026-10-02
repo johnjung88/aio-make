@@ -83,7 +83,7 @@ export function EntryPanel({
       {!entries.connected && (
         <div className="admin-message">
           {entries.error ??
-            "데이터베이스 연결 전입니다. 편집 내용을 입력할 수 있지만 저장에는 연결이 필요합니다."}
+            "데이터베이스 연결 전입니다 편집 내용을 입력할 수 있지만 저장에는 연결이 필요합니다"}
         </div>
       )}
       <div className="admin-table-wrap" aria-busy={loading}>
@@ -102,8 +102,8 @@ export function EntryPanel({
               <tr>
                 <td colSpan={5}>
                   {entries.connected
-                    ? "등록된 콘텐츠가 없습니다. 새 콘텐츠에서 첫 항목을 작성하세요."
-                    : "데이터 연결 후 등록된 콘텐츠를 확인할 수 있습니다."}
+                    ? "등록된 콘텐츠가 없습니다 새 콘텐츠에서 첫 항목을 작성하세요"
+                    : "데이터 연결 후 등록된 콘텐츠를 확인할 수 있습니다"}
                 </td>
               </tr>
             )}
@@ -253,7 +253,7 @@ export function EntryPanel({
               maxLength={30000}
               value={editor.body}
               onChange={(e) => updateEditor("body", e.target.value)}
-              placeholder="본문을 입력하세요. 입력한 내용은 일반 텍스트로 표시됩니다."
+              placeholder="본문을 입력하세요 입력한 내용은 일반 텍스트로 표시됩니다"
             />
           </label>
           <div className="form-row">
@@ -289,7 +289,7 @@ export function EntryPanel({
             ) : (
               <p role="alert" className="form-error">
                 사이트 이미지 경로 또는 연결된 저장소의 공개 이미지 주소를
-                입력해주세요.
+                입력해주세요
               </p>
             ))}
           <label>
@@ -313,14 +313,14 @@ export function EntryPanel({
                   updateEditor("cover_url", data.url);
                   setError(false);
                   setMessage(
-                    "이미지를 업로드했습니다. 공개 권리를 확인한 뒤 게시해주세요.",
+                    "이미지를 업로드했습니다 공개 권리를 확인한 뒤 게시해주세요",
                   );
                 } catch (e) {
                   setError(true);
                   setMessage(
                     e instanceof Error
                       ? e.message
-                      : "이미지 업로드에 실패했습니다.",
+                      : "이미지 업로드에 실패했습니다",
                   );
                 } finally {
                   setBusy(false);
@@ -366,7 +366,7 @@ export function EntryPanel({
                 })
               }
             />
-            내용의 사실과 이미지·영상·고객 사례의 공개 권리를 확인했습니다.
+            내용의 사실과 이미지·영상·고객 사례의 공개 권리를 확인했습니다
           </label>
           <label className="check-label">
             <input
@@ -375,7 +375,7 @@ export function EntryPanel({
               checked={editor.is_published}
               onChange={(e) => updateEditor("is_published", e.target.checked)}
             />
-            공개 사이트에 게시합니다. 체크를 해제하면 비공개로 보관합니다.
+            공개 사이트에 게시합니다 체크를 해제하면 비공개로 보관합니다
           </label>
           <label className="check-label">
             <input

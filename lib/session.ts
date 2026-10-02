@@ -22,7 +22,7 @@ export function verifyCredentials(user: string, password: string) {
   );
 }
 export function createToken() {
-  if (!credentialsReady()) throw new Error("관리자 인증 설정이 필요합니다.");
+  if (!credentialsReady()) throw new Error("관리자 인증 설정이 필요합니다");
   const payload = Buffer.from(
     JSON.stringify({
       role: "admin",

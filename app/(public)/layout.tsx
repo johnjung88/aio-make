@@ -1,3 +1,4 @@
+import { FloatingContact } from "@/components/floating-contact";
 import { Suspense } from "react";
 import { Header, Footer } from "@/components/site-shell";
 import { Analytics } from "@/components/analytics";
@@ -7,6 +8,7 @@ import { siteUrl } from "@/lib/metadata";
 import "@/components/guide/guide.css";
 import "@/components/guide/review.css";
 import "@/components/guide/creative.css";
+import "@/components/guide/fixes.css";
 export default function PublicLayout({
   children,
 }: {
@@ -22,6 +24,7 @@ export default function PublicLayout({
         {children}
       </main>
       <Footer />
+      <FloatingContact />
       <JsonLd data={organizationSchema} />
       <Suspense fallback={null}>
         <Analytics

@@ -2,12 +2,12 @@ import "server-only";
 import { createClient } from "@supabase/supabase-js";
 export function databaseReady() {
   return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.ENABLE_LEGACY_SUPABASE === "true" && process.env.NEXT_PUBLIC_SUPABASE_URL &&
       process.env.SUPABASE_SERVICE_ROLE_KEY,
   );
 }
 export function database() {
-  if (!databaseReady()) throw new Error("데이터베이스 연결이 필요합니다.");
+  if (!databaseReady()) throw new Error("데이터베이스 연결이 필요합니다");
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,

@@ -76,10 +76,10 @@ export function Overview({
         <div className="setup-banner">
           <CircleAlert size={20} />
           <div>
-            <strong>{missing.join(" · ")} 연결을 확인해주세요.</strong>
+            <strong>{missing.join(" · ")} 연결을 확인해주세요</strong>
             <p>
-              조회할 수 없는 항목은 ‘—’로 표시됩니다. 연결된 데이터는 계속
-              확인할 수 있습니다.
+              조회할 수 없는 항목은 ‘—’로 표시됩니다 연결된 데이터는 계속
+              확인할 수 있습니다
             </p>
           </div>
           <button onClick={openSettings}>
@@ -130,7 +130,7 @@ export function Overview({
             <div className="admin-empty">
               <MessagesSquare size={28} />
               <strong>문의 저장소 연결이 필요합니다</strong>
-              <p>연결이 완료되면 새로운 문의부터 이곳에 표시됩니다.</p>
+              <p>연결이 완료되면 새로운 문의부터 이곳에 표시됩니다</p>
               <button className="secondary-button" onClick={openSettings}>
                 연결 상태 확인
               </button>
@@ -169,7 +169,7 @@ export function Overview({
               <MessagesSquare size={28} />
               <strong>아직 접수된 문의가 없습니다</strong>
               <p>
-                사이트에서 문의가 접수되면 이곳에서 상담을 시작할 수 있습니다.
+                사이트에서 문의가 접수되면 이곳에서 상담을 시작할 수 있습니다
               </p>
             </div>
           )}
@@ -242,7 +242,7 @@ export function Overview({
             <h2>어디에서 방문하고, 무엇을 보는지</h2>
             <p>
               Google Analytics를 연결하면 방문 추이와 유입 경로를 확인할 수
-              있습니다.
+              있습니다
             </p>
           </div>
           <button className="secondary-button" onClick={openAnalytics}>

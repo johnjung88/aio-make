@@ -1,6 +1,6 @@
 import "server-only";
 import { createHash } from "node:crypto";
-import { database, databaseReady } from "./db";
+import { localMode, persistentLimit } from "./local-store";
 export { sameOrigin } from "./origin";
 export async function readJson(request: Request, maxBytes = 50000) {
   if (Number(request.headers.get("content-length") ?? 0) > maxBytes)
@@ -21,16 +21,11 @@ export async function rateLimit(
   const key = createHash("sha256")
     .update(bucket + ":" + address)
     .digest("hex");
-  if (databaseReady()) {
-    const { data, error } = await database().rpc("website_rate_limit", {
-      p_key: key,
-      p_limit: limit,
-      p_seconds: seconds,
-    });
-    return !error && data === true;
-  }
-  if (process.env.NODE_ENV === "production") return false;
+  if (localMode()) return persistentLimit(address, bucket, limit, seconds);
+  if (bucket !== "contact" || process.env.CONTACT_PUBLIC_ENABLED !== "true")
+    return false;
   const now = Date.now();
+  for (const [k, v] of localLimits) if (v.reset < now) localLimits.delete(k);
   let item = localLimits.get(key);
   if (!item || item.reset < now) {
     item = { count: 0, reset: now + seconds * 1000 };

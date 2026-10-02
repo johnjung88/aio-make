@@ -6,7 +6,7 @@ import { entrySchema } from "@/lib/domain";
 export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
-      { error: "로그인이 필요합니다." },
+      { error: "로그인이 필요합니다" },
       { status: 401 },
     );
   if (!databaseReady())
@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     !["all", "reference", "insight"].includes(type)
   )
     return NextResponse.json(
-      { error: "올바른 페이지와 콘텐츠 종류를 선택해주세요." },
+      { error: "올바른 페이지와 콘텐츠 종류를 선택해주세요" },
       { status: 400 },
     );
   const db = database();
@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       {
         connected: false,
         items: [],
-        error: "콘텐츠 데이터 연결을 확인해주세요.",
+        error: "콘텐츠 데이터 연결을 확인해주세요",
       },
       { status: 503 },
     );
@@ -63,17 +63,17 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
-      { error: "로그인이 필요합니다." },
+      { error: "로그인이 필요합니다" },
       { status: 401 },
     );
   if (!sameOrigin(request))
     return NextResponse.json(
-      { error: "허용되지 않은 요청입니다." },
+      { error: "허용되지 않은 요청입니다" },
       { status: 403 },
     );
   if (!databaseReady())
     return NextResponse.json(
-      { error: "데이터베이스 연결이 필요합니다." },
+      { error: "데이터베이스 연결이 필요합니다" },
       { status: 503 },
     );
   try {
@@ -96,15 +96,15 @@ export async function POST(request: Request) {
         {
           error:
             error.code === "23505"
-              ? "같은 주소가 이미 있습니다. 슬러그를 바꿔주세요."
-              : "콘텐츠 저장을 완료하지 못했습니다.",
+              ? "같은 주소가 이미 있습니다 슬러그를 바꿔주세요"
+              : "콘텐츠 저장을 완료하지 못했습니다",
         },
         { status: 409 },
       );
     return NextResponse.json({ success: true, item: data });
   } catch {
     return NextResponse.json(
-      { error: "콘텐츠 요청 형식을 확인해주세요." },
+      { error: "콘텐츠 요청 형식을 확인해주세요" },
       { status: 400 },
     );
   }

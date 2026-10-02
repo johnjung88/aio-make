@@ -16,30 +16,30 @@ export function ServiceDetail({ service }: { service: Service }) {
     ? [
         [
           "목표와 자료 확인",
-          "고객·브랜드·채널과 자료의 이용 범위를 확인합니다.",
+          "고객·브랜드·채널과 자료의 이용 범위를 확인합니다",
         ],
         [
           "월간 계획 합의",
-          "원본 수량과 채널별 게시 계획, 검토 일정을 정합니다.",
+          "원본 수량과 채널별 게시 계획, 검토 일정을 정합니다",
         ],
-        ["제작과 게시", "초안과 결과물을 검수하고 합의한 채널에서 운영합니다."],
+        ["제작과 게시", "초안과 결과물을 검수하고 합의한 채널에서 운영합니다"],
         [
           "보고와 다음 계획",
-          "운영 내역과 확인 가능한 반응을 바탕으로 다음 계획을 조정합니다.",
+          "운영 내역과 확인 가능한 반응을 바탕으로 다음 계획을 조정합니다",
         ],
       ]
     : [
         [
           "요구사항 정리",
-          "현재 환경과 자료를 보고 작업 범위·견적·일정을 합의합니다.",
+          "현재 환경과 자료를 보고 작업 범위·견적·일정을 합의합니다",
         ],
         [
           "구조와 작업안 확인",
-          "필요한 화면 또는 작업 흐름과 고객 확인 항목을 정합니다.",
+          "필요한 화면 또는 작업 흐름과 고객 확인 항목을 정합니다",
         ],
         [
           "구현과 실제 검수",
-          "합의한 환경에서 화면과 기능, 오류 상황을 확인합니다.",
+          "합의한 환경에서 화면과 기능, 오류 상황을 확인합니다",
         ],
         ["인계와 운영 안내", plan.handoff],
       ];
@@ -93,9 +93,9 @@ export function ServiceDetail({ service }: { service: Service }) {
           </dl>
           <p className="service-price-note">
             {monthly
-              ? "세부 제작·수정·게시 범위는 상담 후 견적과 운영 계획에서 정합니다."
+              ? "세부 제작·수정·게시 범위는 상담 후 견적과 운영 계획에서 정합니다"
               : marketing
-                ? "사이트 진단과 실제 적용·검수 범위는 접근 가능한 환경을 확인한 뒤 견적에서 정합니다."
+                ? "사이트 진단과 실제 적용·검수 범위는 접근 가능한 환경을 확인한 뒤 견적에서 정합니다"
                 : developmentQuoteTerms}
           </p>
         </aside>
@@ -115,7 +115,7 @@ export function ServiceDetail({ service }: { service: Service }) {
         <div className="service-section-heading">
           <span className="review-eyebrow">제공 범위</span>
           <h2>맡길 일과 준비할 일을 분명하게</h2>
-          <p>포함 항목과 추가 협의 사항을 먼저 맞춥니다.</p>
+          <p>포함 항목과 추가 협의 사항을 먼저 맞춥니다</p>
         </div>
         <div className="service-scope-grid">
           <div>
@@ -144,8 +144,8 @@ export function ServiceDetail({ service }: { service: Service }) {
               ))}
             </ul>
             <p>
-              현재 준비된 자료부터 알려주세요. 부족한 부분은 상담에서 함께
-              정리합니다.
+              현재 준비된 자료부터 알려주세요 부족한 부분은 상담에서 함께
+              정리합니다
             </p>
           </div>
         </div>
@@ -155,9 +155,9 @@ export function ServiceDetail({ service }: { service: Service }) {
               월 운영 상품 혜택 · 기본 소개·문의 사이트 구축 또는 리뉴얼 1회
             </strong>
             <p>
-              페이지 수와 수정·유지 범위는 견적에서 정합니다.
+              페이지 수와 수정·유지 범위는 견적에서 정합니다
               쇼핑몰·정기결제·추가 기능과 지속 운영 실비는 별도이며, 상품 결합
-              시 혜택 중복 적용은 별도 확인합니다.
+              시 혜택 중복 적용은 별도 확인합니다
             </p>
           </div>
         )}
@@ -220,7 +220,7 @@ export function ServiceDetail({ service }: { service: Service }) {
         <h2>현재 상황부터 알려주세요</h2>
         <p>
           현재 상황과 필요한 결과물, 참고 자료를 알려주시면 범위와 견적을
-          안내합니다.
+          안내합니다
         </p>
         <Link href={contact} className="service-primary">
           이 서비스 문의하기 ↗

@@ -8,22 +8,22 @@ export const runtime = "nodejs";
 export async function POST(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
-      { error: "로그인이 필요합니다." },
+      { error: "로그인이 필요합니다" },
       { status: 401 },
     );
   if (!sameOrigin(request))
     return NextResponse.json(
-      { error: "허용되지 않은 요청입니다." },
+      { error: "허용되지 않은 요청입니다" },
       { status: 403 },
     );
   if (!databaseReady())
     return NextResponse.json(
-      { error: "데이터베이스 연결이 필요합니다." },
+      { error: "데이터베이스 연결이 필요합니다" },
       { status: 503 },
     );
   if (Number(request.headers.get("content-length") ?? 0) > 6 * 1024 * 1024)
     return NextResponse.json(
-      { error: "이미지는 5MB 이하로 준비해주세요." },
+      { error: "이미지는 5MB 이하로 준비해주세요" },
       { status: 413 },
     );
   try {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       file.size > 5 * 1024 * 1024
     )
       return NextResponse.json(
-        { error: "5MB 이하의 PNG, JPEG, WebP 이미지를 선택해주세요." },
+        { error: "5MB 이하의 PNG, JPEG, WebP 이미지를 선택해주세요" },
         { status: 400 },
       );
     const bytes = await sharp(Buffer.from(await file.arrayBuffer()), {
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "이미지 저장을 완료하지 못했습니다. 연결과 파일 형식을 확인해주세요.",
+          "이미지 저장을 완료하지 못했습니다 연결과 파일 형식을 확인해주세요",
       },
       { status: 503 },
     );

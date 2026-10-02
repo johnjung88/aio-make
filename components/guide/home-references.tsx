@@ -50,8 +50,8 @@ export function HomeReferences({
             </h2>
             <p>
               {fixedDivision
-                ? "원하는 분위기와 구성을 찾고, 상담할 때 함께 알려주세요."
-                : "영상의 분위기부터 운영 방식과 개발 기능까지, 원하는 방향을 찾아보세요."}
+                ? "원하는 분위기와 구성을 찾고, 상담할 때 함께 알려주세요"
+                : "영상의 분위기부터 운영 방식과 개발 기능까지, 원하는 방향을 찾아보세요"}
             </p>
           </div>
           <Link href={allHref} className="reference-all">
@@ -124,10 +124,6 @@ export function HomeReferences({
             );
           })}
         </div>
-        <p className="reference-disclosure">
-          ‘제작 예시’는 작업 방향을 설명하기 위한 이미지와 구성입니다. 공개가
-          확인된 고객 작업은 ‘작업 사례’로 표시합니다.
-        </p>
       </div>
     </section>
   );

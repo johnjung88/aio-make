@@ -114,7 +114,7 @@ export function InquiryPanel({
       {!inquiries.connected ? (
         <div className="admin-message">
           {inquiries.error ??
-            "데이터베이스 연결이 필요합니다. 연결 전에는 실제 문의 수를 표시하지 않습니다."}
+            "데이터베이스 연결이 필요합니다 연결 전에는 실제 문의 수를 표시하지 않습니다"}
         </div>
       ) : (
         <>
@@ -175,8 +175,8 @@ export function InquiryPanel({
           {!filteredInquiries.length && (
             <p>
               {appliedSearch || statusFilter !== "all"
-                ? "검색 조건에 맞는 문의가 없습니다. 검색어나 진행 상태를 바꿔보세요."
-                : "아직 접수된 문의가 없습니다."}
+                ? "검색 조건에 맞는 문의가 없습니다 검색어나 진행 상태를 바꿔보세요"
+                : "아직 접수된 문의가 없습니다"}
             </p>
           )}
           <div className="admin-toolbar">
@@ -297,7 +297,7 @@ export function InquiryPanel({
               maxLength={4000}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="내부 상담 내용을 기록합니다. 고객에게 발송되지 않습니다."
+              placeholder="내부 상담 내용을 기록합니다 고객에게 발송되지 않습니다"
             />
           </label>
           <button className="button" disabled={busy} onClick={saveInquiry}>

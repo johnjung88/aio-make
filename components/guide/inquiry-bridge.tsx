@@ -74,7 +74,7 @@ export function InquiryBridge({
     const serviceChoice = String(selection.service ?? "");
     if (!quick && !serviceChoice && !initialService) {
       setError(
-        "요청 서비스를 선택해주세요. 아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다.",
+        "요청 서비스를 선택해주세요 아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다",
       );
       return;
     }
@@ -210,7 +210,7 @@ export function InquiryBridge({
       });
       const result = await response.json();
       if (!response.ok || !result.success)
-        throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다.");
+        throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
       if (
         !result.data.duplicate &&
@@ -221,7 +221,7 @@ export function InquiryBridge({
           service: selectedService.id,
         });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다.");
+      setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {
       setBusy(false);
     }
@@ -236,7 +236,7 @@ export function InquiryBridge({
         style={style}
       >
         <h2>문의가 접수되었습니다</h2>
-        <p>담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다.</p>
+        <p>담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다</p>
         <small>접수번호 {receipt}</small>
         <Link href="/">홈으로 돌아가기 →</Link>
       </div>
@@ -259,7 +259,7 @@ export function InquiryBridge({
         </label>
       </div>
       <p className="guide-form-note">
-        이메일 또는 전화번호를 입력해주세요.{" "}
+        이메일 또는 전화번호를 입력해주세요{" "}
         <Link href="/privacy" target="_blank" rel="noopener noreferrer">
           개인정보 수집·이용 안내
         </Link>
