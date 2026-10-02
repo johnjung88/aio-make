@@ -2,6 +2,9 @@
   --site-header-height: 74px;
   --service-nav-height: 0px;
 }
+html:has(.guide-subnav) {
+  --service-nav-height: 55px;
+}
 html:has(.service-navigation) {
   --service-nav-height: 109px;
 }
@@ -13,11 +16,18 @@ html:has(.guide-public) {
     var(--site-header-height) + var(--service-nav-height) + 24px
   ) !important;
 }
+.guide-subnav,
 .service-navigation {
   position: sticky;
   top: var(--site-header-height);
   z-index: 25;
   width: 100%;
+  flex-shrink: 0;
+}
+.service-navigation .guide-subnav {
+  position: static;
+}
+.service-navigation {
   background: #0d0d12;
   border-bottom: 1px solid #34343e;
   box-shadow: 0 8px 20px #0002;

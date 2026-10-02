@@ -311,6 +311,24 @@ export function GuideNav({
   division: string;
   active?: string;
 }) {
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = navRef.current;
+    // The service wrapper measures both menu rows together on detail pages.
+    if (!nav || nav.closest(".service-navigation")) return;
+    const measure = () =>
+      document.documentElement.style.setProperty(
+        "--service-nav-height",
+        `${nav.getBoundingClientRect().height}px`,
+      );
+    const observer = new ResizeObserver(measure);
+    observer.observe(nav);
+    measure();
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--service-nav-height");
+    };
+  }, []);
   const dark = true,
     brand =
       division === "video" ? "영상" : division === "lab" ? "개발" : "마케팅";
@@ -336,6 +354,7 @@ export function GuideNav({
   ];
   return (
     <nav
+      ref={navRef}
       className={"guide-subnav" + (dark ? " is-dark" : "")}
       aria-label={brand + " 메뉴"}
     >
