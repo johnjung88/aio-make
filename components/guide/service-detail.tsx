@@ -4,7 +4,7 @@ import Link from "next/link";
 import { type Service } from "@/lib/content";
 import { servicePlans } from "@/lib/service-plans";
 import { developmentQuoteTerms } from "@/lib/development-offers";
-import { GuideNav, ServiceTabs } from "./primitives";
+import { ServiceNavigation } from "./service-navigation";
 
 export function ServiceDetail({ service }: { service: Service }) {
   const plan = servicePlans[service.id];
@@ -45,8 +45,7 @@ export function ServiceDetail({ service }: { service: Service }) {
       ];
   return (
     <div className={`guide-page service-detail service-dark`}>
-      <GuideNav division={root} active="services" />
-      <ServiceTabs division={root} className="service-picker" />
+      <ServiceNavigation division={root} />
       <section className="service-hero service-hero-visual review-container">
         <div className="service-hero-copy">
           <span className="review-eyebrow">{service.name}</span>
@@ -218,10 +217,7 @@ export function ServiceDetail({ service }: { service: Service }) {
       <section className="service-next review-container">
         <span className="review-eyebrow">{service.name} 상담</span>
         <h2>현재 상황부터 알려주세요</h2>
-        <p>
-          현재 상황과 필요한 결과물, 참고 자료를 알려주시면 범위와 견적을
-          안내합니다
-        </p>
+        <p>현재 상황과 필요한 결과물, 참고 자료를 알려주세요</p>
         <Link href={contact} className="service-primary">
           이 서비스 문의하기 ↗
         </Link>

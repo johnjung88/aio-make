@@ -24,7 +24,7 @@ const shop = {
   ],
 };
 const quoted = {
-  title: "범위 확인 후 견적",
+  title: "맞춤 제작",
   summary: "요청별 개별 견적",
   lines: [],
 };

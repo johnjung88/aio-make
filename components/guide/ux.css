@@ -1,0 +1,277 @@
+:root {
+  --site-header-height: 74px;
+  --service-nav-height: 0px;
+}
+html:has(.service-navigation) {
+  --service-nav-height: 109px;
+}
+html:has(.guide-public) {
+  scroll-padding-top: 0;
+}
+.guide-public [id] {
+  scroll-margin-top: calc(
+    var(--site-header-height) + var(--service-nav-height) + 24px
+  ) !important;
+}
+.service-navigation {
+  position: sticky;
+  top: var(--site-header-height);
+  z-index: 25;
+  width: 100%;
+  background: #0d0d12;
+  border-bottom: 1px solid #34343e;
+  box-shadow: 0 8px 20px #0002;
+}
+.service-navigation-rail {
+  max-width: 1440px;
+  margin: auto;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+.service-navigation .guide-service-tabs a[aria-current="page"] {
+  color: #b2a3ff;
+  border-bottom-color: #b2a3ff;
+}
+.back-to-top {
+  position: fixed;
+  z-index: 90;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(28px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #676175;
+  border-radius: 50%;
+  background: #1c1c22;
+  color: #f4f3ef;
+  box-shadow: 0 6px 24px #0004;
+  cursor: pointer;
+}
+.back-to-top[hidden] {
+  display: none;
+}
+.back-to-top:hover {
+  background: #6b4dff;
+}
+.back-to-top:focus-visible,
+.showcase-video-play:focus-visible {
+  outline: 3px solid #b2a3ff;
+  outline-offset: 5px;
+}
+.webtoon-service-intro > div {
+  display: grid !important;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.6fr);
+  gap: clamp(28px, 3vw, 56px) !important;
+  max-width: 1600px !important;
+}
+.webtoon-service-intro > div > div:last-child > div {
+  max-width: none !important;
+}
+.webtoon-devices {
+  padding: clamp(18px, 2.2vw, 34px);
+}
+.webtoon-devices .device-pair {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+  align-items: center;
+  padding-top: 28px;
+}
+.webtoon-devices .comic-desktop {
+  align-self: center;
+}
+.webtoon-devices .comic-canvas {
+  aspect-ratio: 1;
+  max-height: none;
+  overflow: hidden;
+}
+.webtoon-devices .comic-canvas img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.webtoon-devices .comic-phone {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 24px;
+  padding: 9px;
+}
+.webtoon-devices .comic-phone-top {
+  height: 10px;
+  margin-bottom: 9px;
+}
+.webtoon-devices .device-pair figcaption {
+  font-size: 13px;
+  margin-top: 16px;
+}
+.marketing-contact-dark {
+  background: #0d0d12;
+  color: #f4f3ef;
+  color-scheme: dark;
+}
+.marketing-contact-dark :is(input, textarea) {
+  border-color: #575763 !important;
+  caret-color: #b2a3ff;
+}
+.marketing-contact-dark :is(input, textarea)::placeholder {
+  color: #a5a5b3;
+  opacity: 1;
+}
+.marketing-contact-dark :is(input, textarea, button):focus-visible {
+  outline: 2px solid #b2a3ff !important;
+  outline-offset: 4px;
+}
+.marketing-contact-dark [aria-pressed="true"] {
+  border-color: #b2a3ff !important;
+  box-shadow: 0 0 0 1px #b2a3ff;
+}
+.marketing-contact-dark .guide-form-note,
+.marketing-contact-dark .guide-form-note a {
+  color: #c5bedf;
+}
+.marketing-contact-dark .guide-form-error {
+  color: #ffd6dc;
+  background: #361b27;
+  border-color: #c7748a;
+}
+.marketing-contact-dark .guide-form-error a {
+  color: #fff;
+}
+.marketing-contact-dark [aria-invalid="true"] {
+  border-color: #ff9cae !important;
+}
+.marketing-contact-dark input:-webkit-autofill {
+  -webkit-text-fill-color: #f4f3ef;
+  box-shadow: inset 0 0 0 1000px #202029;
+}
+.showcase-video {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  padding: clamp(56px, 6vw, 96px) clamp(20px, 4vw, 56px);
+  color: #f4f3ef;
+}
+.showcase-video-heading {
+  margin-bottom: 32px;
+}
+.showcase-video-heading > span {
+  color: #b2a3ff;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+.showcase-video-heading h2 {
+  margin: 14px 0;
+  font-size: clamp(30px, 3.5vw, 52px);
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+}
+.showcase-video-heading p {
+  color: #b5b5c2;
+  line-height: 1.7;
+  margin: 0;
+}
+.showcase-video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid #34343e;
+  border-radius: 12px;
+  background: #0d0d12;
+}
+.showcase-video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.showcase-video-play {
+  position: absolute;
+  bottom: clamp(16px, 3vw, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 22px 12px 12px;
+  border: 1px solid #ffffff60;
+  border-radius: 50px;
+  background: #0d0d12ed;
+  color: #fff;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 16px;
+  cursor: pointer;
+}
+.showcase-play-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #6b4dff;
+}
+.showcase-video-play small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ccc8da;
+}
+.showcase-video-error {
+  color: #ffcad3;
+}
+.showcase-video-error a {
+  text-decoration: underline;
+}
+@media (max-width: 1100px) {
+  .webtoon-service-intro > div {
+    grid-template-columns: 1fr;
+  }
+  .webtoon-service-intro > div > div:first-child {
+    max-width: 660px;
+  }
+}
+@media (max-width: 700px) {
+  .back-to-top {
+    right: 16px;
+    bottom: calc(102px + env(safe-area-inset-bottom));
+  }
+  .webtoon-devices .device-pair {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .webtoon-devices .comic-phone {
+    width: 82%;
+    max-width: 280px;
+  }
+  .device-preview-heading strong {
+    display: none;
+  }
+  .showcase-video-heading {
+    margin-bottom: 22px;
+  }
+  .showcase-video-play {
+    padding: 7px 16px 7px 7px;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .showcase-play-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .showcase-play-icon svg {
+    width: 20px;
+  }
+  .showcase-video-play small {
+    font-size: 10px;
+  }
+}
+
+.showcase-video-brand {
+  max-width: none;
+  background: #0d0d12;
+}
+.showcase-video-brand > * {
+  max-width: 1328px;
+  margin-inline: auto;
+}

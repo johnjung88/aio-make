@@ -502,7 +502,7 @@ class Component extends GuideLogic {
           no: "04",
           en: "SEO · AEO · GEO",
           name: "SEO·AEO·GEO",
-          price: "별도 견적",
+          price: "맞춤 제작",
           desc: "기존 사이트를 진단하고 실제 코드·CMS에 적용해 검색과 AI 답변에서 잘 보이게 합니다",
           items: [
             "현재 상태 진단",

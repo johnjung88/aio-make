@@ -26,12 +26,12 @@ import LAB_DATA from "./lab-data";
 class Component extends GuideLogic {
   renderVals() {
     const svc = [
-      ["webtoon", "웹툰", "범위 확인 후 견적"],
-      ["animation", "애니메이션", "범위 확인 후 견적"],
-      ["ai-influencer", "AI 인플루언서 영상", "범위 확인 후 견적"],
-      ["promo", "브랜드 홍보 영상", "범위 확인 후 견적"],
-      ["ad", "SNS 광고 영상", "범위 확인 후 견적"],
-      ["edit", "편집·클리퍼", "보유 영상 편집·클립 · 별도 견적"],
+      ["webtoon", "웹툰", "맞춤 제작"],
+      ["animation", "애니메이션", "맞춤 제작"],
+      ["ai-influencer", "AI 인플루언서 영상", "맞춤 제작"],
+      ["promo", "브랜드 홍보 영상", "맞춤 제작"],
+      ["ad", "SNS 광고 영상", "맞춤 제작"],
+      ["edit", "편집·클리퍼", "보유 영상 편집·클립"],
     ];
     return {
       works: [

@@ -4,6 +4,7 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import { ShowcaseVideo } from "./showcase-video";
 import {
   GuideLogic,
   GuideImage,
@@ -271,6 +272,7 @@ class Component extends GuideLogic {
               </div>
             </div>
           </section>
+          <ShowcaseVideo kind="brand" />
           <section
             id="divisions"
             style={{
@@ -637,9 +639,7 @@ class Component extends GuideLogic {
                 </h2>
                 <p>
                   <span>AI로 제작 속도를 높이고,</span>
-                  <span>
-                    분야별 전문가가 기획부터 최종 검수까지 책임집니다
-                  </span>
+                  <span>분야별 전문가가 기획부터 최종 검수까지 책임집니다</span>
                 </p>
               </div>
               <ol

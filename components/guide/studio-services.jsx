@@ -4,6 +4,8 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import { ServiceNavigation } from "./service-navigation";
+import { ShowcaseVideo } from "./showcase-video";
 import { WebtoonScope } from "./webtoon-scope";
 import { WebtoonDevices } from "./webtoon-devices";
 import { creativeAsset } from "@/lib/creative-assets";
@@ -548,7 +550,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -556,15 +558,14 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         0,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       [
         "캐릭터·세계관 설정",
@@ -633,7 +634,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -641,7 +642,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -649,15 +650,14 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         0,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       ["타깃·메시지 조사", "상담 자료로 시청자와 전달할 메시지를 정리합니다"],
       [
@@ -701,7 +701,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -709,15 +709,14 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         0,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       [
         "브랜드·타깃 조사",
@@ -767,15 +766,14 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         1,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       ["브랜드 메시지 정리", "상담 자료에서 꼭 전할 한 문장과 근거를 뽑습니다"],
       [
@@ -822,7 +820,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -830,15 +828,14 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         0,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       ["제품·고객 조사", "상담 자료로 제품의 강점과 구매 이유를 정리합니다"],
       [
@@ -885,15 +882,14 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "범위 확인 후 견적",
+        "맞춤 제작",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
         1,
       ),
     ],
-    priceNote:
-      "사용 목적, 분량과 수정 범위를 확인한 뒤 견적과 일정을 안내합니다",
+    priceNote: "만들고 싶은 영상과 참고 자료를 알려주세요",
     research: [
       ["원본 확인", "보유 영상의 길이와 화질, 사용 목적을 확인합니다"],
       [
@@ -1087,21 +1083,8 @@ class Component extends GuideLogic {
             flexDirection: "column",
           }}
         >
-          <GuideNav division="video" active="services" />
-          <section style={{}}>
-            <div
-              style={{
-                maxWidth: "1440px",
-                margin: "0 auto",
-                padding: "0 clamp(20px,4vw,56px)",
-                display: "flex",
-                gap: "clamp(18px,2.6vw,40px)",
-                flexWrap: "wrap",
-                borderBottom: "1px solid #2A2A32",
-              }}
-            >
-              <ServiceTabs division="video" />
-            </div>
+          <ServiceNavigation division="video" />
+          <section className={isWebtoon ? "webtoon-service-intro" : undefined}>
             <div
               style={{
                 maxWidth: "1440px",
@@ -1207,6 +1190,7 @@ class Component extends GuideLogic {
               </div>
             </div>
           </section>
+          {isWebtoon && <ShowcaseVideo kind="webtoon" />}
           <section id="price" style={{ borderTop: "1px solid #2A2A32" }}>
             <div
               style={{
@@ -1982,9 +1966,7 @@ class Component extends GuideLogic {
                   {", 견적부터 받아보세요"}
                 </h2>
                 <span style={{ fontSize: "17px", lineHeight: "1.7" }}>
-                  {
-                    "사용 목적과 보유 자료를 알려주시면 범위와 견적을 안내드립니다"
-                  }
+                  {"만들고 싶은 영상과 보유 자료를 알려주세요"}
                 </span>
               </div>
               <GuideLink

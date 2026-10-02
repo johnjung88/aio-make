@@ -322,7 +322,7 @@ export function ContactForm({
         <ArrowUpRight size={18} />
       </button>
       <p className="form-hint">
-        작업 범위를 확인한 뒤 견적과 납기를 안내합니다
+        필요한 작업과 희망 일정을 알려주세요
       </p>
     </form>
   );

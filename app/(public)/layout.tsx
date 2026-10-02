@@ -1,3 +1,4 @@
+import { PageNavigation } from "@/components/page-navigation";
 import { FloatingContact } from "@/components/floating-contact";
 import { Suspense } from "react";
 import { Header, Footer } from "@/components/site-shell";
@@ -9,6 +10,7 @@ import "@/components/guide/guide.css";
 import "@/components/guide/review.css";
 import "@/components/guide/creative.css";
 import "@/components/guide/fixes.css";
+import "@/components/guide/ux.css";
 export default function PublicLayout({
   children,
 }: {
@@ -25,6 +27,7 @@ export default function PublicLayout({
       </main>
       <Footer />
       <FloatingContact />
+      <PageNavigation />
       <JsonLd data={organizationSchema} />
       <Suspense fallback={null}>
         <Analytics

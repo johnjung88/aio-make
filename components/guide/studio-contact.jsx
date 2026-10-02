@@ -24,12 +24,12 @@ import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
 
 const MAP = {
-  webtoon: "웹툰 (범위 확인 후 견적)",
-  animation: "애니메이션 (범위 확인 후 견적)",
-  "ai-influencer": "AI 인플루언서 영상 (범위 확인 후 견적)",
-  promo: "브랜드 홍보 영상 (범위 확인 후 견적)",
-  ad: "SNS 광고 영상 (범위 확인 후 견적)",
-  edit: "편집·클리퍼 (별도 견적)",
+  webtoon: "웹툰",
+  animation: "애니메이션",
+  "ai-influencer": "AI 인플루언서 영상",
+  promo: "브랜드 홍보 영상",
+  ad: "SNS 광고 영상",
+  edit: "편집·클리퍼",
 };
 const G = [
   ["service", "요청 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],

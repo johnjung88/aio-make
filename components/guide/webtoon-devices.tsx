@@ -6,11 +6,11 @@ export function WebtoonDevices() {
   return (
     <div
       className="webtoon-devices"
-      aria-label="같은 웹툰 이미지의 PC와 모바일 보기 예시"
+      aria-label="웹툰 제작 서비스의 PC와 모바일 대표 시안"
     >
       <div className="device-preview-heading">
         <span>1억의 구단주 · 제작 예시</span>
-        <strong>이미지 1장 = 1컷</strong>
+        <strong>WEBTOON DESIGN</strong>
       </div>
       <div className="device-pair">
         <figure className="comic-desktop">
@@ -26,8 +26,8 @@ export function WebtoonDevices() {
                 src={sample}
                 width={800}
                 height={1200}
-                alt="PC 화면에 표시한 1억의 구단주 원본 이미지 한 컷 전체"
-                sizes="(max-width: 620px) 60vw, 600px"
+                alt="PC 정사각형 화면에 구성한 1억의 구단주 대표 장면"
+                sizes="(max-width: 700px) 85vw, (max-width: 1100px) 55vw, 520px"
               />
             </div>
           </div>
@@ -40,14 +40,13 @@ export function WebtoonDevices() {
               src={sample}
               width={800}
               height={1200}
-              alt="모바일 화면에 표시한 같은 원본 이미지 한 컷 전체"
-              sizes="(max-width: 620px) 30vw, 220px"
+              alt="모바일 화면에 구성한 1억의 구단주 웹툰 시안"
+              sizes="(max-width: 700px) 65vw, 280px"
             />
           </div>
           <figcaption>모바일</figcaption>
         </figure>
       </div>
-      <p>화면 크기가 달라도 같은 이미지 1장이 1컷입니다</p>
     </div>
   );
 }

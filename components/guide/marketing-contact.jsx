@@ -27,7 +27,7 @@ const MAP = {
   integrated: "통합 마케팅 (월 200만 원부터 · VAT 별도)",
   sns: "SNS 대행 운영 (월 100만 원 · VAT 별도)",
   ai: "AI 인플루언서 마케팅 (월 100만 원 · VAT 별도)",
-  seo: "SEO·AEO·GEO (별도 견적)",
+  seo: "SEO·AEO·GEO",
 };
 const G = [
   ["service", "원하는 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],
@@ -90,8 +90,8 @@ class Component extends GuideLogic {
             selected: on,
             label: o,
             bg: on ? "#6B4DFF" : "transparent",
-            fg: on ? "#fff" : "#0D0D12",
-            bd: on ? "#6B4DFF" : "#A8A69E",
+            fg: on ? "#fff" : "#F4F3EF",
+            bd: on ? "#6B4DFF" : "#575763",
             pick: () =>
               this.setState((s) =>
                 multi
@@ -124,11 +124,11 @@ class Component extends GuideLogic {
     const isSeo = this.state.service === MAP.seo;
     const isIntegrated = this.state.service === MAP.integrated;
     return (
-      <div className="guide-page guide-marketing-contact">
+      <div className="guide-page guide-marketing-contact marketing-contact-dark">
         <GuideEffects />
         <div
           style={{
-            background: "#fff",
+            background: "#0D0D12",
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
@@ -157,7 +157,7 @@ class Component extends GuideLogic {
                   fontFamily: "Unbounded,sans-serif",
                   fontSize: "12px",
                   letterSpacing: ".16em",
-                  color: "#6B4DFF",
+                  color: "#B2A3FF",
                 }}
               >
                 {"START MARKETING"}
@@ -184,11 +184,11 @@ class Component extends GuideLogic {
                   margin: "0",
                   fontSize: "17px",
                   lineHeight: "1.75",
-                  color: "#3A3A42",
+                  color: "#D6D6DC",
                 }}
               >
                 {"업종과 운영 중인 채널을 남겨주시면 "}
-                <strong style={{ color: "#6B4DFF" }}>
+                <strong style={{ color: "#B2A3FF" }}>
                   {"시장, 경쟁사, 운영 방향 분석 자료"}
                 </strong>
                 {"를 정리해 드립니다"}
@@ -216,7 +216,7 @@ class Component extends GuideLogic {
                     fontSize: "15px",
                   }}
                 >
-                  <span style={{ color: "#6E6E78" }}>{"계약"}</span>
+                  <span style={{ color: "#B5B5C2" }}>{"계약"}</span>
                   <strong style={{ fontWeight: "600" }}>
                     {isSeo
                       ? "프로젝트 단위"
@@ -235,7 +235,7 @@ class Component extends GuideLogic {
                     fontSize: "15px",
                   }}
                 >
-                  <span style={{ color: "#6E6E78" }}>{"일정·수정"}</span>
+                  <span style={{ color: "#B5B5C2" }}>{"일정·수정"}</span>
                   <strong style={{ fontWeight: "600" }}>
                     {"견적에서 합의"}
                   </strong>
@@ -250,7 +250,7 @@ class Component extends GuideLogic {
                     fontSize: "15px",
                   }}
                 >
-                  <span style={{ color: "#6E6E78" }}>
+                  <span style={{ color: "#B5B5C2" }}>
                     {isSeo ? "구축 이후" : "월 운영 혜택"}
                   </span>
                   <strong style={{ fontWeight: "600" }}>
@@ -274,7 +274,7 @@ class Component extends GuideLogic {
                   <strong style={{ fontSize: "24px" }}>
                     {"문의가 접수되었습니다"}
                   </strong>
-                  <span style={{ color: "#3A3A42" }}>
+                  <span style={{ color: "#D6D6DC" }}>
                     {"마케팅 담당자가 확인한 뒤 연락드리겠습니다"}
                   </span>
                 </div>
@@ -307,7 +307,7 @@ class Component extends GuideLogic {
                         flexDirection: "column",
                         gap: "8px",
                         fontSize: "13.5px",
-                        color: "#6E6E78",
+                        color: "#B5B5C2",
                       }}
                     >
                       {"고객명 *"}
@@ -321,7 +321,7 @@ class Component extends GuideLogic {
                           fontSize: "17px",
                           outline: "none",
                           background: "transparent",
-                          color: "#0D0D12",
+                          color: "#F4F3EF",
                         }}
                         name="name"
                       />
@@ -332,7 +332,7 @@ class Component extends GuideLogic {
                         flexDirection: "column",
                         gap: "8px",
                         fontSize: "13.5px",
-                        color: "#6E6E78",
+                        color: "#B5B5C2",
                       }}
                     >
                       {"연락처 "}
@@ -345,7 +345,7 @@ class Component extends GuideLogic {
                           fontSize: "17px",
                           outline: "none",
                           background: "transparent",
-                          color: "#0D0D12",
+                          color: "#F4F3EF",
                         }}
                         type="tel"
                         name="phone"
@@ -358,7 +358,7 @@ class Component extends GuideLogic {
                       flexDirection: "column",
                       gap: "8px",
                       fontSize: "13.5px",
-                      color: "#6E6E78",
+                      color: "#B5B5C2",
                     }}
                   >
                     {"이메일 "}
@@ -371,7 +371,7 @@ class Component extends GuideLogic {
                         fontSize: "17px",
                         outline: "none",
                         background: "transparent",
-                        color: "#0D0D12",
+                        color: "#F4F3EF",
                       }}
                       type="email"
                       name="email"
@@ -385,7 +385,7 @@ class Component extends GuideLogic {
                           flexDirection: "column",
                           gap: "10px",
                           fontSize: "13.5px",
-                          color: "#6E6E78",
+                          color: "#B5B5C2",
                         }}
                       >
                         {g.label}
@@ -427,7 +427,7 @@ class Component extends GuideLogic {
                       flexDirection: "column",
                       gap: "8px",
                       fontSize: "13.5px",
-                      color: "#6E6E78",
+                      color: "#B5B5C2",
                     }}
                   >
                     {"운영 중인 채널·계정 URL"}
@@ -440,7 +440,7 @@ class Component extends GuideLogic {
                         fontSize: "17px",
                         outline: "none",
                         background: "transparent",
-                        color: "#0D0D12",
+                        color: "#F4F3EF",
                       }}
                       name="detail3"
                     />
@@ -451,7 +451,7 @@ class Component extends GuideLogic {
                       flexDirection: "column",
                       gap: "8px",
                       fontSize: "13.5px",
-                      color: "#6E6E78",
+                      color: "#B5B5C2",
                     }}
                   >
                     {"요청 내용"}
@@ -465,7 +465,7 @@ class Component extends GuideLogic {
                         lineHeight: "1.7",
                         outline: "none",
                         background: "transparent",
-                        color: "#0D0D12",
+                        color: "#F4F3EF",
                         resize: "vertical",
                       }}
                       name="message"
@@ -477,7 +477,7 @@ class Component extends GuideLogic {
                       gap: "10px",
                       alignItems: "center",
                       fontSize: "14px",
-                      color: "#3A3A42",
+                      color: "#D6D6DC",
                       cursor: "pointer",
                     }}
                   >

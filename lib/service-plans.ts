@@ -193,7 +193,7 @@ export const servicePlans: Record<string, ServicePlan> = {
     headline: "검색과 AI가 이해하기 쉬운\n웹사이트로 개선합니다",
     intro:
       "고객의 질문에 답하는 정보 구조와 검색 접근성을 점검하고, 제안에서 끝나지 않도록 실제 사이트에 적용합니다",
-    price: "범위 확인 후 견적",
+    price: "맞춤 제작",
     term: "프로젝트 단위 구축 · VAT 별도 · 월 유지관리 선택",
     facts: [
       ["진단", "기술 · 콘텐츠 · 질문"],
@@ -367,7 +367,7 @@ export const servicePlans: Record<string, ServicePlan> = {
     headline: "반복하는 업무를\n하나의 흐름으로 연결합니다",
     intro:
       "자료가 들어오는 곳부터 최종 결과를 확인하는 순간까지 살펴보고, 필요한 처리와 예외 상황을 함께 설계합니다",
-    price: "업무 범위 확인 후 견적",
+    price: "맞춤 제작",
     term: "입출력 · 연결 서비스 · 실행 환경 기준",
     facts: [
       ["입력", "엑셀 · CSV · 연결 서비스"],

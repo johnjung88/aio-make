@@ -964,7 +964,7 @@ class Component extends GuideLogic {
                   color: "#B5B5BD",
                 }}
               >
-                {"범위 확인 후 견적 · 납기·지원 범위는 견적 시 합의"}
+                {"프로젝트 문의하기"}
               </span>
             </div>
           </section>
