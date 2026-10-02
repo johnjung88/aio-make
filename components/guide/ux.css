@@ -67,6 +67,15 @@ html:has(.guide-public) {
 .webtoon-service-intro > div > div:last-child > div {
   max-width: none !important;
 }
+.webtoon-service-intro > div > div:first-child {
+  width: 100%;
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+.webtoon-service-intro > div > div:first-child > div {
+  justify-content: center;
+}
 .webtoon-devices {
   padding: clamp(18px, 2.2vw, 34px);
 }
