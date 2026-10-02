@@ -18,7 +18,7 @@ export const servicePlans: Record<string, ServicePlan> = {
   integrated: {
     headline: "컨텐츠와 채널을\n하나의 운영으로 연결합니다",
     intro:
-      "브랜드의 고객과 질문을 정리하고, 컨텐츠 중심 컨텐츠를 여러 채널과 문의 접점에 맞춰 운영합니다",
+      "브랜드의 고객과 질문을 정리하고, 브랜드 컨텐츠를 여러 채널과 문의 접점에 맞춰 운영합니다",
     price: "월 200만 원부터",
     term: "VAT 별도 · 착수일부터 최소 3개월",
     facts: [
