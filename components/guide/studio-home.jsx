@@ -22,6 +22,7 @@ import {
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
+import { HomeReferences } from "./home-references";
 
 class Component extends GuideLogic {
   renderVals() {
@@ -264,146 +265,7 @@ class Component extends GuideLogic {
               </span>
             </p>
           </section>
-          <section
-            style={{
-              maxWidth: "1440px",
-              width: "100%",
-              boxSizing: "border-box",
-              margin: "0 auto",
-              padding:
-                "clamp(40px,5vw,64px) clamp(20px,4vw,56px) clamp(80px,10vw,140px)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "32px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-                gap: "20px",
-                flexWrap: "wrap",
-                borderBottom: "1px solid #2A2A32",
-                paddingBottom: "20px",
-              }}
-            >
-              <h2
-                style={{
-                  margin: "0",
-                  fontFamily: "Unbounded,sans-serif",
-                  fontSize: "clamp(36px,5vw,72px)",
-                  fontWeight: "800",
-                  letterSpacing: "-.04em",
-                  lineHeight: "1",
-                }}
-              >
-                {"Works"}
-              </h2>
-              <GuideLink
-                href="Studio 작업 사례.dc.html"
-                style={{
-                  fontFamily: "Unbounded,sans-serif",
-                  fontSize: "13px",
-                  letterSpacing: ".1em",
-                  borderBottom: "1px solid #fff",
-                  paddingBottom: "4px",
-                }}
-                context="video"
-              >
-                {"ALL WORKS →"}
-              </GuideLink>
-            </div>
-            <GuideLink
-              href="/content/work/example-brand-film"
-              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
-              context="video"
-            >
-              <div
-                style={{
-                  aspectRatio: "21/9",
-                  position: "relative",
-                  background: "#141418",
-                }}
-              >
-                <GuideMedia id="studio-home-w0" n="2" sample="brand-film" />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "16px",
-                  flexWrap: "wrap",
-                }}
-              >
-                <strong
-                  style={{
-                    fontSize: "clamp(20px,2vw,26px)",
-                    letterSpacing: "-.02em",
-                  }}
-                >
-                  {"제작 예시"}
-                </strong>
-                <span style={{ color: "#9A9AA3", fontSize: "14px" }}>
-                  {"서비스 · 2026"}
-                </span>
-              </div>
-            </GuideLink>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fill,minmax(min(100%,380px),1fr))",
-                gap: "40px 16px",
-              }}
-            >
-              {(works || []).map((w, __index3) => (
-                <React.Fragment key={__index3}>
-                  <GuideLink
-                    href={w.href}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
-                    }}
-                    context="video"
-                  >
-                    <div
-                      style={{
-                        aspectRatio: "16/9",
-                        position: "relative",
-                        background: "#141418",
-                      }}
-                    >
-                      {w.id === "studio-home-w1" ? (
-                        <GuideImage
-                          src="/images/guide/webtoon-svc-webtoon-cut01.webp"
-                          placeholder="1억의 구단주 웹툰 제작 시안"
-                        />
-                      ) : (
-                        <GuideMedia id={w.id} n={w.n} sample={w.cat} />
-                      )}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "12px",
-                      }}
-                    >
-                      <strong style={{ fontSize: "17px" }}>
-                        {"제작 예시"}
-                      </strong>
-                      <span style={{ color: "#9A9AA3", fontSize: "13.5px" }}>
-                        {w.cat}
-                        {" · 2026"}
-                      </span>
-                    </div>
-                  </GuideLink>
-                </React.Fragment>
-              ))}
-            </div>
-          </section>
+          <HomeReferences division="video" entries={this.props.referenceEntries} />
           <section style={{ borderTop: "1px solid #2A2A32" }}>
             <div
               style={{

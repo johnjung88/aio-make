@@ -13,7 +13,7 @@ export async function generateMetadata({
   return d
     ? pageMetadata(
         d.label + " 문의",
-        "필요한 작업과 준비된 자료를 알려주세요",
+        `${d.label} 프로젝트에 필요한 작업, 준비 자료, 일정과 예산을 알려주세요 담당자가 범위를 확인해 안내합니다`,
         "/" + d.path + "/contact",
       )
     : {};

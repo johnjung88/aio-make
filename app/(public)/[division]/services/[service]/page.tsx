@@ -8,7 +8,7 @@ import StudioServices from "@/components/guide/studio-services";
 import { ServiceDetail } from "@/components/guide/service-detail";
 import { WorkCard } from "@/components/work-portfolio";
 import { mergeGuideEntries } from "@/lib/guide-content";
-import { publicWorkCatalog, workMatchesService } from "@/lib/work-catalog";
+import { displayWorkCatalog, workMatchesService } from "@/lib/work-catalog";
 import Link from "next/link";
 const keys: Record<string, string> = {
   "shopping-mall": "shop",
@@ -37,17 +37,19 @@ export default async function ServicePage({
     s = d && serviceById(d.id, p.service);
   if (!d || !s) notFound();
   const entries = await publicEntries("insight", d.id);
-  const works = publicWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => workMatchesService(work, s.id, s.division)).slice(0, 2);
+  const works = displayWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => workMatchesService(work, s.id, s.division)).slice(0, 2);
   const key = keys[s.id] ?? s.id,
     guideKey = d.path === "marketing" && key === "ai-influencer" ? "ai" : key;
+  const references = (works.length > 0 && <section className="work-service-strip work-page"><div className="work-service-strip-inner"><div><span className="work-eyebrow">RELATED WORK</span><h2>관련 작업</h2><Link href={`/${d.path}/work?service=${s.id}`}>이 서비스 작업 더 보기 ↗</Link></div><div className="work-grid">{works.map((work) => <WorkCard key={work.id} work={work} heading="h3" />)}</div></div></section>
+  );
   return (
     <>
       {d.id === "video" ? (
-        <StudioServices key={guideKey} service={guideKey} entries={entries} />
+        <StudioServices key={guideKey} service={guideKey} entries={entries} references={references} />
       ) : (
-        <ServiceDetail service={s} />
+        <ServiceDetail service={s} references={references} />
       )}
-      {works.length > 0 && <section className="work-service-strip work-page"><div className="work-service-strip-inner"><div><span className="work-eyebrow">RELATED WORK</span><h2>관련 작업</h2><Link href={`/${d.path}/work?service=${s.id}`}>이 서비스 작업 더 보기 ↗</Link></div><div className="work-grid">{works.map((work) => <WorkCard key={work.id} work={work} />)}</div></div></section>}
+
       <JsonLd
         data={{
           "@context": "https://schema.org",

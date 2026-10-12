@@ -67,4 +67,5 @@ next-env.d.ts
 /.qa/
 
 /local-data/
+/public/reference-review/
 *.backup.json

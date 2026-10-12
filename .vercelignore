@@ -1,4 +1,5 @@
 .git
+public/reference-review
 .next
 .next-dev
 node_modules

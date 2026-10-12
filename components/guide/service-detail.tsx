@@ -6,7 +6,7 @@ import { servicePlans } from "@/lib/service-plans";
 import { developmentQuoteTerms } from "@/lib/development-offers";
 import { ServiceNavigation } from "./service-navigation";
 
-export function ServiceDetail({ service }: { service: Service }) {
+export function ServiceDetail({ service, references }: { service: Service; references?: React.ReactNode }) {
   const plan = servicePlans[service.id];
   const marketing = service.division === "marketing";
   const monthly = marketing && service.id !== "seo";
@@ -177,6 +177,7 @@ export function ServiceDetail({ service }: { service: Service }) {
         </ol>
         <p className="service-example-note">{plan.example.note}</p>
       </section>
+      {references}
       <section className="service-process review-container">
         <div className="service-section-heading">
           <span className="review-eyebrow">진행 방법</span>

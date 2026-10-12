@@ -41,7 +41,7 @@ export function GuideOffer({ service }: { service: string }) {
   );
 }
 
-export type GuideProps = { service?: string; entries?: GuideEntry[] };
+export type GuideProps = { service?: string; entries?: GuideEntry[]; referenceEntries?: GuideEntry[]; references?: React.ReactNode };
 export type GuideEntry = {
   id: string;
   title: string;

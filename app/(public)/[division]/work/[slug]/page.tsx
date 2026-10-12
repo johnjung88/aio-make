@@ -16,7 +16,7 @@ export async function generateMetadata({
       ((await publicEntry("reference", d.id, p.slug)) ??
         guideEntries("reference", d.id).find((entry) => entry.slug === p.slug));
   return d && e
-    ? pageMetadata(e.title, e.summary, "/" + d.path + "/work/" + e.slug)
+    ? pageMetadata(e.title, e.kind === "example" ? `${e.title}의 화면 구성과 제작 방향을 살펴보세요 ${e.summary}` : e.summary, "/" + d.path + "/work/" + e.slug)
     : {};
 }
 export default async function Page({

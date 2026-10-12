@@ -3,7 +3,7 @@ import { divisionByPath } from "@/lib/content";
 import { publicEntries } from "@/lib/db";
 import { mergeGuideEntries } from "@/lib/guide-content";
 import { pageMetadata } from "@/lib/metadata";
-import { publicWorkCatalog } from "@/lib/work-catalog";
+import { displayWorkCatalog } from "@/lib/work-catalog";
 import { WorkIndex, workPageSize } from "@/components/work-portfolio";
 import { workMatchesService } from "@/lib/work-catalog";
 
@@ -14,7 +14,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const d = divisionByPath((await params).division);
   if (!d) return {};
   const { service, page } = await searchParams;
-  const works = publicWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => work.division === d.id || work.relatedServices.some((item) => item.division === d.id));
+  const works = displayWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => work.division === d.id || work.relatedServices.some((item) => item.division === d.id));
   const number = Number(page);
   const base = `/${d.path}/work`;
   const total = service ? works.filter((work) => workMatchesService(work, service, d.id)).length : works.length;
@@ -27,7 +27,7 @@ export default async function DivisionWork({ params, searchParams }: Props) {
   const d = divisionByPath((await params).division);
   if (!d) notFound();
   const query = await searchParams;
-  const works = publicWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => work.division === d.id || work.relatedServices.some((item) => item.division === d.id));
+  const works = displayWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => work.division === d.id || work.relatedServices.some((item) => item.division === d.id));
   const total = query.service ? works.filter((work) => workMatchesService(work, query.service!, d.id)).length : works.length;
   const page = query.page === undefined ? 1 : Number(query.page);
   if (!Number.isInteger(page) || page < 1 || page > Math.max(1, Math.ceil(total / workPageSize))) notFound();

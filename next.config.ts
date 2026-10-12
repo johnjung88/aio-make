@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+if (process.env.VERCEL && process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1") {
+  throw new Error("Customer reference review is local only. Confirm publication rights before release.");
+}
 const config: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["@electric-sql/pglite"],
@@ -24,6 +27,8 @@ const config: NextConfig = {
       {
         source: "/:path*",
         headers: [
+          ...(process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" || process.env.VERCEL_ENV === "preview"
+            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }] : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-Frame-Options", value: "DENY" },

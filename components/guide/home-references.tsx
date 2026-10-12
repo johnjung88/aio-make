@@ -1,129 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { mergeGuideEntries } from "@/lib/guide-content";
-import { publicWorkCatalog } from "@/lib/work-catalog";
-import { divisions, services } from "@/lib/content";
+import { displayWorkCatalog } from "@/lib/work-catalog";
+import { WorkCard } from "@/components/work-portfolio";
+import type { DivisionId } from "@/lib/content";
 import type { Entry } from "@/lib/db";
 
 const groups = [
   { id: "all", label: "전체" },
   { id: "video", label: "컨텐츠" },
-  { id: "marketing", label: "마케팅" },
   { id: "development", label: "개발" },
+  { id: "marketing", label: "마케팅" },
 ];
 
-export function HomeReferences({
-  entries = [],
-  division: fixedDivision,
-}: {
+export function HomeReferences({ entries = [], division: fixedDivision }: {
   entries?: Entry[];
-  division?: "marketing" | "development";
+  division?: DivisionId;
 }) {
   const [selected, setCategory] = useState("all");
   const category = fixedDivision ?? selected;
-  const allHref = fixedDivision
-    ? `/${fixedDivision === "development" ? "lab" : fixedDivision}/work`
-    : "/work";
-  const available = publicWorkCatalog(mergeGuideEntries(entries, "reference"));
-  const items =
-    category === "all"
-      ? groups
-          .slice(1)
-          .flatMap((group) =>
-            available.filter((item) => item.division === group.id).slice(0, 2),
-          )
-      : available
-          .filter((item) => item.division === category)
-          .slice(0, fixedDivision ? 3 : 6);
-  return (
-    <section id="work" className="home-references">
-      <div className="review-container">
-        <div
-          className={`reference-heading ${fixedDivision ? "" : "reference-heading-centered"}`}
-        >
-          <div>
-            <span className="review-eyebrow">결과물 살펴보기</span>
-            <h2>
-              {fixedDivision
-                ? "작업 방향을 예시로 살펴보세요"
-                : "필요한 작업을 먼저 살펴보세요"}
-            </h2>
-            {fixedDivision && (
-              <p>원하는 분위기와 구성을 찾고, 상담할 때 함께 알려주세요</p>
-            )}
-          </div>
-          <Link href={allHref} className="reference-all">
-            작업 전체 보기 <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        {!fixedDivision && (
-          <>
-            <div
-              className="reference-filters"
-              role="group"
-              aria-label="제작 예시 분야"
-            >
-              {groups.map((group) => (
-                <button
-                  key={group.id}
-                  type="button"
-                  aria-pressed={category === group.id}
-                  onClick={() => setCategory(group.id)}
-                >
-                  {group.label}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-        <div className="reference-grid" aria-live="polite">
-          {items.map((item) => {
-            const division = divisions.find(
-              (division) => division.id === item.division,
-            );
-            const service = services.find(
-              (service) =>
-                service.id === item.primaryService &&
-                service.division === item.division,
-            );
-            return (
-              <Link
-                key={item.id}
-                href={item.canonicalPath}
-                className="reference-card"
-              >
-                <div className="reference-image">
-                  <Image
-                    src={item.media[0]?.src || "/renewal/brand-film-v03.webp"}
-                    alt=""
-                    fill
-                    sizes="(max-width: 620px) 90vw, (max-width: 1000px) 44vw, 30vw"
-                  />
-                  <span>
-                    {item.productionStatus}
-                  </span>
-                </div>
-                <div className="reference-meta">
-                  <span>
-                    {division?.label ||
-                      groups.find((g) => g.id === item.division)?.label}
-                  </span>
-                  <span aria-hidden="true">↗</span>
-                </div>
-                <h3>
-                  {item.productionStatus === "제작 예시"
-                    ? service?.name || item.title
-                    : item.title}
-                </h3>
-                <p>{item.description}</p>
-              </Link>
-            );
-          })}
-        </div>
+  const divisionPath = fixedDivision === "development" ? "lab" : fixedDivision === "video" ? "content" : fixedDivision;
+  const allHref = fixedDivision ? `/${divisionPath}/work` : "/work";
+  const available = displayWorkCatalog(mergeGuideEntries(entries, "reference", fixedDivision));
+  const items = available.filter(work => category === "all" || work.division === category).slice(0, fixedDivision ? 4 : 6);
+  return <section id="work" className="home-references work-page work-home">
+    <div className="review-container">
+      <div className="reference-heading">
+        <div><span className="work-eyebrow">SELECTED WORK</span><h2>브랜드의 이야기를<br />이렇게 만들었습니다</h2><p>영상과 웹툰부터 웹사이트와 쇼핑몰까지, 실제 작업을 살펴보세요</p></div>
+        <Link href={allHref} className="reference-all">레퍼런스 전체 보기 <span aria-hidden="true">↗</span></Link>
       </div>
-    </section>
-  );
+      {!fixedDivision && <div className="reference-filters" role="group" aria-label="레퍼런스 분야">{groups.map(group => <button key={group.id} type="button" aria-pressed={category === group.id} onClick={() => setCategory(group.id)}>{group.label}</button>)}</div>}
+      <div className="work-grid" aria-live="polite">{items.map(work => <WorkCard key={work.id} work={work} heading="h3" />)}</div>
+      {!items.length && <p>이 분야의 작업은 준비 중입니다</p>}
+    </div>
+  </section>;
 }

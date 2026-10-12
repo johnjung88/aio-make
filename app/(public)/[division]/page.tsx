@@ -23,8 +23,9 @@ export default async function DivisionPage({
     d.id === "video" ? "insight" : "reference",
     d.id,
   );
+  const referenceEntries = d.id === "video" ? await publicEntries("reference", d.id) : entries;
   return d.id === "video" ? (
-    <StudioHome entries={entries} />
+    <StudioHome entries={entries} referenceEntries={referenceEntries} />
   ) : (
     <ServiceOverview key={d.id} division={d.id} entries={entries} />
   );
