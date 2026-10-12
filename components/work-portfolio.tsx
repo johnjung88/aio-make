@@ -6,7 +6,7 @@ import { breadcrumbSchema } from "@/lib/seo";
 import { JsonLd } from "./ui";
 import { GuideNav } from "./guide/primitives";
 
-const pageSize = 12;
+export const workPageSize = 12;
 
 export function WorkCard({ work }: { work: WorkItem }) {
   const cover = work.media[0];
@@ -46,9 +46,9 @@ export function WorkIndex({
 }) {
   const available = works.filter((work) => !division || work.division === division);
   const filtered = available.filter((work) => !service || workMatchesService(work, service));
-  const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const pages = Math.max(1, Math.ceil(filtered.length / workPageSize));
   const current = Math.min(Math.max(1, page), pages);
-  const selected = filtered.slice((current - 1) * pageSize, current * pageSize);
+  const selected = filtered.slice((current - 1) * workPageSize, current * workPageSize);
   const filters = division ? divisionServices(division) : services;
   const title = division ? `${divisions.find((item) => item.id === division)?.label} 작업` : "레퍼런스";
   return (
