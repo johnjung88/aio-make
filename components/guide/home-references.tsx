@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { mergeGuideEntries } from "@/lib/guide-content";
+import { publicWorkCatalog } from "@/lib/work-catalog";
 import { divisions, services } from "@/lib/content";
 import type { Entry } from "@/lib/db";
 
@@ -26,7 +27,7 @@ export function HomeReferences({
   const allHref = fixedDivision
     ? `/${fixedDivision === "development" ? "lab" : fixedDivision}/work`
     : "/work";
-  const available = mergeGuideEntries(entries, "reference");
+  const available = publicWorkCatalog(mergeGuideEntries(entries, "reference"));
   const items =
     category === "all"
       ? groups
@@ -85,26 +86,24 @@ export function HomeReferences({
             );
             const service = services.find(
               (service) =>
-                service.id === item.service &&
+                service.id === item.primaryService &&
                 service.division === item.division,
             );
-            const prefix =
-              item.division === "development" ? "lab" : item.division;
             return (
               <Link
                 key={item.id}
-                href={`/${prefix}/work/${item.slug}`}
+                href={item.canonicalPath}
                 className="reference-card"
               >
                 <div className="reference-image">
                   <Image
-                    src={item.cover_url}
+                    src={item.media[0]?.src || "/renewal/brand-film-v03.webp"}
                     alt=""
                     fill
                     sizes="(max-width: 620px) 90vw, (max-width: 1000px) 44vw, 30vw"
                   />
                   <span>
-                    {item.kind === "example" ? "제작 예시" : "작업 사례"}
+                    {item.productionStatus}
                   </span>
                 </div>
                 <div className="reference-meta">
@@ -115,11 +114,11 @@ export function HomeReferences({
                   <span aria-hidden="true">↗</span>
                 </div>
                 <h3>
-                  {item.kind === "example"
+                  {item.productionStatus === "제작 예시"
                     ? service?.name || item.title
                     : item.title}
                 </h3>
-                <p>{item.summary}</p>
+                <p>{item.description}</p>
               </Link>
             );
           })}

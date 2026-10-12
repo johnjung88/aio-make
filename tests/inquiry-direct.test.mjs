@@ -43,7 +43,7 @@ test("direct submission survives notification failure, deduplicates concurrently
         idempotencyKey: id,
         attribution: {
           landingPath: "/",
-          submitPath: "/video/contact",
+          submitPath: "/content/contact",
           referrer: "",
           utm: {},
         },

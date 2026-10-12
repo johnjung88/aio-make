@@ -74,8 +74,9 @@ const serviceKeys: Record<string, string> = {
   ai: "ai-influencer",
   seo: "seo",
 };
+const publicPath = (division: string) => division === "video" ? "content" : division;
 export function guideServiceHref(division: string, key: string) {
-  return `/${division}/services/${serviceKeys[key] ?? key}`;
+  return `/${publicPath(division)}/services/${serviceKeys[key] ?? key}`;
 }
 export function guideContactKey(key?: string, division?: string) {
   return key
@@ -88,7 +89,7 @@ export function guideContactKey(key?: string, division?: string) {
     : "";
 }
 export function guideHref(href: string, context = "main") {
-  if (href === "#") return context === "main" ? "/work" : `/${context}/work`;
+  if (href === "#") return context === "main" ? "/work" : `/${publicPath(context)}/work`;
   if (href === "AIO 메인 시안.dc.html") return "/";
   if (href.startsWith("AIO 메인 시안.dc.html#"))
     return "/" + href.slice(href.indexOf("#"));
@@ -118,14 +119,14 @@ export function guideHref(href: string, context = "main") {
     );
   if (href.includes("문의"))
     return (
-      `/${division}/contact` +
+      `/${publicPath(division)}/contact` +
       (key ? "?service=" + (serviceKeys[key] ?? key) : "")
     );
   if (href.includes("인사이트") || href.includes("칼럼"))
-    return `/${division}/insights`;
+    return `/${publicPath(division)}/insights`;
   if (href.includes("사례") || href.includes("레퍼런스"))
-    return `/${division}/work`;
-  return `/${division}`;
+    return `/${publicPath(division)}/work`;
+  return `/${publicPath(division)}`;
 }
 export function GuideLink({
   href = "/contact",
@@ -329,28 +330,29 @@ export function GuideNav({
       document.documentElement.style.removeProperty("--service-nav-height");
     };
   }, []);
+  const studio = division === "video" || division === "content";
   const dark = true,
     brand =
-      division === "video" ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
+      studio ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
   const first =
     division === "lab"
       ? "website"
-      : division === "video"
+      : studio
         ? "webtoon"
         : "integrated";
   const items = [
-    ["home", "홈", `/${division}`],
-    ["services", "서비스", `/${division}/services/${first}`],
+    ["home", "홈", `/${publicPath(division)}`],
+    ["services", "서비스", `/${publicPath(division)}/services/${first}`],
     [
       "cases",
       division === "marketing"
         ? "운영 사례"
-        : division === "video"
+        : studio
           ? "작업 사례"
           : "레퍼런스",
-      `/${division}/work`,
+      `/${publicPath(division)}/work`,
     ],
-    ["insights", "인사이트", `/${division}/insights`],
+    ["insights", "인사이트", `/${publicPath(division)}/insights`],
   ];
   return (
     <nav
@@ -359,10 +361,10 @@ export function GuideNav({
       aria-label={brand + " 메뉴"}
     >
       <div>
-        <Link className="guide-subbrand" href={`/${division}`}>
+        <Link className="guide-subbrand" href={`/${publicPath(division)}`}>
           {division === "lab" ? (
             <CodeXml size={20} />
-          ) : division === "video" ? (
+          ) : studio ? (
             <Video size={20} />
           ) : (
             <Square size={10} fill="currentColor" />
@@ -379,7 +381,7 @@ export function GuideNav({
               {label}
             </Link>
           ))}
-          <Link className="guide-nav-cta" href={`/${division}/contact`}>
+          <Link className="guide-nav-cta" href={`/${publicPath(division)}/contact`}>
             {division === "marketing"
               ? "운영 문의"
               : division === "lab"
@@ -525,7 +527,7 @@ export function adaptGuideValues(
         Lab: ["website", "shopping-mall", "automation"],
       };
       const target = (n: number) =>
-        `/${roots[group.name]}/work/${entries[n]?.slug || "example-" + samples[group.name][n]}`;
+        `/${publicPath(roots[group.name])}/work/${entries[n]?.slug || "example-" + samples[group.name][n]}`;
       const category = (n: number) =>
         services.find(
           (service) =>
@@ -592,7 +594,7 @@ export function adaptGuideValues(
           : new Date(e.created_at).toLocaleDateString("ko-KR"),
         cat: "GUIDE",
         img: e.cover_url,
-        href: `/${division}/insights/${e.slug}`,
+        href: `/${publicPath(division)}/insights/${e.slug}`,
       }));
     values.posts = posts;
     if (page === "marketing-services")
@@ -636,7 +638,7 @@ export function ServiceTabs({
           (s) => s.division === (division === "lab" ? "development" : division),
         )
         .map((s, i) => {
-          const href = `/${division}/services/${s.id}`;
+          const href = `/${publicPath(division)}/services/${s.id}`;
           return (
             <Link
               key={s.id}

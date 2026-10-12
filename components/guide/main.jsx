@@ -309,7 +309,7 @@ class Component extends GuideLogic {
               }}
             >
               <GuideLink
-                href="/video"
+                href="/content"
                 style={{
                   background: "#0D0D12",
                   color: "#fff",

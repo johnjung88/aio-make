@@ -43,7 +43,7 @@ class Component extends GuideLogic {
         id: "studio-home-w" + (i + 1),
         cat,
         n: 0,
-        href: "/video/work/example-" + service,
+        href: "/content/work/example-" + service,
       })),
       services: svc.map(([k, name, line], i) => ({
         no: String(i + 1).padStart(2, "0"),
@@ -315,7 +315,7 @@ class Component extends GuideLogic {
               </GuideLink>
             </div>
             <GuideLink
-              href="/video/work/example-brand-film"
+              href="/content/work/example-brand-film"
               style={{ display: "flex", flexDirection: "column", gap: "14px" }}
               context="video"
             >

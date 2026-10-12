@@ -1801,7 +1801,7 @@ class Component extends GuideLogic {
                 {(s.works || []).map((w, __index4) => (
                   <React.Fragment key={__index4}>
                     <GuideLink
-                      href={`/video/work/example-${w.key}`}
+                      href={`/content/work/example-${w.key}`}
                       style={{
                         display: "flex",
                         flexDirection: "column",

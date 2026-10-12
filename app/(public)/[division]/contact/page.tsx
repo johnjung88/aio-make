@@ -29,7 +29,7 @@ export default async function ContactPage({
   if (!d) notFound();
   const id = (await searchParams).service,
     service = id && serviceById(d.id, id);
-  return d.path === "video" ? (
+  return d.id === "video" ? (
     <StudioContact service={service ? service.id : undefined} />
   ) : d.path === "marketing" ? (
     <MarketingContact service={service ? service.id : undefined} />

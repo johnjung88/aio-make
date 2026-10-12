@@ -4,12 +4,12 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 export const siteName = "AIO MAKE";
 export const siteDescription =
-  "aio make 올인원 에이전시";
+  "AIO MAKE는 컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 연결하는 에이전시입니다";
 export const indexable = process.env.VERCEL_ENV !== "preview";
 export function socialImage(path: string) {
   const division = path.split("/")[1];
-  const key = ["marketing", "lab", "video"].includes(division)
-    ? division
+  const key = ["marketing", "lab", "content"].includes(division)
+    ? division === "content" ? "video" : division
     : "main";
   return siteUrl + `/social/${key}-v19.png`;
 }

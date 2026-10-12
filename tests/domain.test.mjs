@@ -118,6 +118,10 @@ test("legacy locale and service aliases resolve in one step", () => {
     ["/dev", "/lab"],
     ["/ko/quote", "/contact"],
     ["/ko/services/development", "/lab"],
+    ["/video", "/content"],
+    ["/video/work/example-webtoon", "/content/work/example-webtoon"],
+    ["/ko/video/services/webtoon", "/content/services/webtoon"],
+    ["/en/services/video-content/insights", "/content/insights"],
   ])
     assert.equal(legacyDestination(from), to);
   assert.equal(legacyDestination("/lab"), null);

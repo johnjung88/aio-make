@@ -32,7 +32,7 @@ export const divisions = [
   },
   {
     id: "video",
-    path: "video",
+    path: "content",
     label: "컨텐츠",
     brand: "Studio",
     number: "01",

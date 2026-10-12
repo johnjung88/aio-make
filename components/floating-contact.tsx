@@ -32,7 +32,7 @@ export function FloatingContact() {
     return () => v?.removeEventListener("resize", change);
   }, []);
   const parts = path.split("/").filter(Boolean);
-  const division = ["video", "marketing", "lab"].includes(parts[0])
+  const division = ["content", "marketing", "lab"].includes(parts[0])
     ? parts[0]
     : "";
   const href =

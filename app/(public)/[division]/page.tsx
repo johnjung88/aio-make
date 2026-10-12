@@ -20,10 +20,10 @@ export default async function DivisionPage({
   const d = divisionByPath((await params).division);
   if (!d) notFound();
   const entries = await publicEntries(
-    d.path === "video" ? "insight" : "reference",
+    d.id === "video" ? "insight" : "reference",
     d.id,
   );
-  return d.path === "video" ? (
+  return d.id === "video" ? (
     <StudioHome entries={entries} />
   ) : (
     <ServiceOverview key={d.id} division={d.id} entries={entries} />

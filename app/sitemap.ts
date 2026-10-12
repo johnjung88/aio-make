@@ -3,6 +3,7 @@ import { siteUrl } from "@/lib/metadata";
 import { divisions, divisionServices } from "@/lib/content";
 import { publicEntries } from "@/lib/db";
 import { guideEntries } from "@/lib/guide-content";
+import { publicWorkCatalog } from "@/lib/work-catalog";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const paths = [
@@ -45,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           e.slug,
       );
   }
+  paths.push(...publicWorkCatalog([]).map((work) => work.canonicalPath));
   return [...new Set(paths)].map((path) => ({
     url: siteUrl + path,
     changeFrequency: "monthly",

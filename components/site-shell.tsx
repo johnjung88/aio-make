@@ -13,7 +13,7 @@ export function Brand() {
   );
 }
 const links = [
-  ["컨텐츠", "/video"],
+  ["컨텐츠", "/content"],
   ["마케팅", "/marketing"],
   ["개발", "/lab"],
   ["작업 보기", "/work"],
@@ -115,8 +115,8 @@ export function Header() {
             href={
               path.startsWith("/marketing")
                 ? "/marketing/contact"
-                : path.startsWith("/video")
-                  ? "/video/contact"
+                : path.startsWith("/content")
+                  ? "/content/contact"
                   : path.startsWith("/lab")
                     ? "/lab/contact"
                     : "/contact"
@@ -142,7 +142,7 @@ export function Footer() {
             {[
               ["회사소개", "/about"],
               ["일하는 방식", "/about/team"],
-              ["컨텐츠", "/video"],
+              ["컨텐츠", "/content"],
               ["마케팅", "/marketing"],
               ["개발", "/lab"],
               ["개인정보처리방침", "/privacy"],

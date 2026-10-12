@@ -55,7 +55,7 @@ test("local inquiry persistence, authenticated envelope, retries and Gmail failu
       idempotencyKey: id,
       attribution: {
         landingPath: "/",
-        submitPath: "/video/contact",
+        submitPath: "/content/contact",
         referrer: "",
         utm: {},
       },

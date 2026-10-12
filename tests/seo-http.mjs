@@ -201,7 +201,8 @@ check(() => {
 for (const [oldPath, newPath] of [
   ["/ko/marketing?utm_source=qa", "/marketing?utm_source=qa"],
   ["/KO/lab", "/lab"],
-  ["/en/video", "/video"],
+  ["/en/video", "/content"],
+  ["/video/work/example-webtoon?ref=legacy", "/content/work/example-webtoon?ref=legacy"],
   ["/dev/services/website", "/lab/services/website"],
   ["/portfolio", "/work"],
 ]) {
@@ -214,7 +215,7 @@ for (const [oldPath, newPath] of [
 for (const path of [
   "/missing-release-page",
   "/lab/services/missing",
-  "/video/work/missing",
+  "/content/work/missing",
 ]) {
   const response = await fetch(base + path, {
     headers: { "User-Agent": "Googlebot" },
@@ -272,7 +273,7 @@ for (const s of services.filter((s) => s.division === "video"))
       assert.ok(
         (
           bodies
-            .get(`/video/services/${s.id}`)
+            .get(`/content/services/${s.id}`)
             .match(/id="studio-faq-answer-/g) || []
         ).length >= 3,
       ),
