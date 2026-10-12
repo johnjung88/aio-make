@@ -14,7 +14,7 @@ export type WorkItem = {
   brand: string;
   title: string;
   primaryService: string;
-  relatedServices: string[];
+  relatedServices: { division: DivisionId; id: string }[];
   division: DivisionId;
   canonicalPath: string;
   description: string;
@@ -35,7 +35,7 @@ export const reviewWorks: WorkItem[] = [
     brand: "BWL · DR's Secret",
     title: "DR's Secret 쇼핑몰 레퍼런스",
     primaryService: "shopping-mall",
-    relatedServices: ["website", "brand-film", "webtoon"],
+    relatedServices: [{ division: "development", id: "website" }, { division: "video", id: "brand-film" }, { division: "video", id: "webtoon" }],
     division: "development",
     canonicalPath: "/work/bwl-store",
     description: "제품 탐색과 브랜드 소개를 함께 살펴볼 수 있는 쇼핑몰 레퍼런스",
@@ -52,7 +52,7 @@ export const reviewWorks: WorkItem[] = [
     brand: "힐러넷",
     title: "힐러넷 기업 웹사이트 시안",
     primaryService: "website",
-    relatedServices: ["brand-film"],
+    relatedServices: [{ division: "video", id: "brand-film" }],
     division: "development",
     canonicalPath: "/work/healernet-website",
     description: "연구부터 제품까지의 방향을 설명하는 기업 웹사이트 검토 시안",
@@ -103,6 +103,6 @@ export function publicWorkCatalog(entries: Entry[]): WorkItem[] {
   return catalog.filter((work) => work.visibility === "public").sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
 }
 
-export function workMatchesService(work: WorkItem, service: string) {
-  return work.primaryService === service || work.relatedServices.includes(service);
+export function workMatchesService(work: WorkItem, service: string, division?: string) {
+  return (work.primaryService === service && (!division || work.division === division)) || work.relatedServices.some((item) => item.id === service && (!division || item.division === division));
 }

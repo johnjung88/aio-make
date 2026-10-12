@@ -71,7 +71,7 @@ export function GuideListLayout({
   const reference = type === "reference";
   return (
     <div
-      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} is-dark ${reference ? "is-work" : "is-insight"}`}
+      className={`guide-page guide-editorial ${d.id === "video" ? "is-studio" : ""} is-dark ${reference ? "is-work" : "is-insight"}`}
     >
       <GuideNav division={division} active={reference ? "cases" : "insights"} />
       <section className="guide-list-wrap">
@@ -173,7 +173,7 @@ export async function EntryDetail({
   const pagePath = `/${division}/${segment}/${entry.slug}`;
   return (
     <div
-      className={`guide-page guide-editorial ${division === "video" ? "is-studio" : ""} is-dark`}
+      className={`guide-page guide-editorial ${d.id === "video" ? "is-studio" : ""} is-dark`}
     >
       <GuideNav
         division={division}

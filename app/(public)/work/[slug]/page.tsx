@@ -14,6 +14,6 @@ export async function generateMetadata({ params }: Props) {
 export default async function CatalogWorkDetail({ params }: Props) {
   const work = workForSlug((await params).slug);
   if (!work) notFound();
-  const related = publicWorkCatalog([]).filter((item) => item.id !== work.id && (item.division === work.division || item.relatedServices.includes(work.primaryService)));
+  const related = publicWorkCatalog([]).filter((item) => item.id !== work.id && (item.division === work.division || item.relatedServices.some((service) => service.id === work.primaryService && service.division === work.division)));
   return <WorkDetail work={work} related={related} />;
 }

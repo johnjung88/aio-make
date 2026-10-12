@@ -37,7 +37,7 @@ export default async function ServicePage({
     s = d && serviceById(d.id, p.service);
   if (!d || !s) notFound();
   const entries = await publicEntries("insight", d.id);
-  const works = publicWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => workMatchesService(work, s.id)).slice(0, 2);
+  const works = publicWorkCatalog(mergeGuideEntries(await publicEntries("reference", d.id), "reference", d.id)).filter((work) => workMatchesService(work, s.id, s.division)).slice(0, 2);
   const key = keys[s.id] ?? s.id,
     guideKey = d.path === "marketing" && key === "ai-influencer" ? "ai" : key;
   return (

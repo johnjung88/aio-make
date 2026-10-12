@@ -10,7 +10,7 @@ export const workPageSize = 12;
 
 export function WorkCard({ work }: { work: WorkItem }) {
   const cover = work.media[0];
-  const label = services.find((service) => service.id === work.primaryService)?.name ?? "작업";
+  const label = services.find((service) => service.id === work.primaryService && service.division === work.division)?.name ?? "작업";
   return (
     <Link className="work-card" href={work.canonicalPath}>
       <div className="work-card-media">
@@ -24,9 +24,10 @@ export function WorkCard({ work }: { work: WorkItem }) {
   );
 }
 
-function pageHref(base: string, service: string, page: number) {
+function pageHref(base: string, service: string, page: number, filterDivision?: string) {
   const query = new URLSearchParams();
   if (service) query.set("service", service);
+  if (service && filterDivision) query.set("division", filterDivision);
   if (page > 1) query.set("page", String(page));
   return base + (query.size ? `?${query}` : "");
 }
@@ -36,16 +37,18 @@ export function WorkIndex({
   base = "/work",
   division,
   service = "",
+  filterDivision,
   page = 1,
 }: {
   works: WorkItem[];
   base?: string;
   division?: DivisionId;
   service?: string;
+  filterDivision?: string;
   page?: number;
 }) {
-  const available = works.filter((work) => !division || work.division === division);
-  const filtered = available.filter((work) => !service || workMatchesService(work, service));
+  const available = works.filter((work) => !division || work.division === division || work.relatedServices.some((item) => item.division === division));
+  const filtered = available.filter((work) => !service || workMatchesService(work, service, filterDivision ?? division));
   const pages = Math.max(1, Math.ceil(filtered.length / workPageSize));
   const current = Math.min(Math.max(1, page), pages);
   const selected = filtered.slice((current - 1) * workPageSize, current * workPageSize);
@@ -65,7 +68,7 @@ export function WorkIndex({
             <summary>서비스 필터 <span aria-hidden="true">⌄</span></summary>
             <nav aria-label="서비스 필터">
               <Link aria-current={!service ? "page" : undefined} href={pageHref(base, "", 1)}>전체</Link>
-              {filters.map((item) => <Link key={`${item.division}-${item.id}`} aria-current={service === item.id ? "page" : undefined} href={pageHref(base, item.id, 1)}>{item.name}</Link>)}
+              {filters.map((item) => <Link key={`${item.division}-${item.id}`} aria-current={service === item.id && (division || filterDivision) === item.division ? "page" : undefined} href={pageHref(base, item.id, 1, division ? undefined : item.division)}>{item.name}</Link>)}
             </nav>
           </details>
           <span>{filtered.length}개 작업</span>
@@ -75,7 +78,7 @@ export function WorkIndex({
         </div>
         {!selected.length && <p className="work-empty">이 서비스에 공개된 작업은 아직 없습니다</p>}
         {pages > 1 && <nav className="work-pagination" aria-label="작업 페이지">
-          {Array.from({ length: pages }, (_, index) => index + 1).map((number) => <Link key={number} aria-current={number === current ? "page" : undefined} href={pageHref(base, service, number)}>{number}</Link>)}
+          {Array.from({ length: pages }, (_, index) => index + 1).map((number) => <Link key={number} aria-current={number === current ? "page" : undefined} href={pageHref(base, service, number, filterDivision)}>{number}</Link>)}
         </nav>}
       </section>
     </div>
@@ -84,7 +87,7 @@ export function WorkIndex({
 
 export function WorkDetail({ work, related }: { work: WorkItem; related: WorkItem[] }) {
   const hero = work.media[0];
-  const service = services.find((item) => item.id === work.primaryService);
+  const service = services.find((item) => item.id === work.primaryService && item.division === work.division);
   const division = divisions.find((item) => item.id === work.division)!;
   return <div className="work-page">
     <article className="work-detail">
