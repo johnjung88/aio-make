@@ -29,7 +29,7 @@
 }
 .work-index-heading h1 {
   margin: 33px 0 23px;
-  font-family: Unbounded, "Pretendard Variable", sans-serif;
+  font-family: Unbounded, var(--font-body, Pretendard), sans-serif;
   font-size: clamp(68px, 8vw, 124px);
   font-weight: 780;
   letter-spacing: -.085em;
@@ -99,6 +99,7 @@
   transition: background-color .25s ease;
 }
 .work-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; object-fit: contain; }
+.work-card-picture, .work-detail-picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .work-card:hover .work-card-media { background-color: #dcd6ed; }
 .work-media-site { background: #e1dfdc; }
 .work-media-site img { padding: 28px 12px 12px; }
@@ -167,7 +168,7 @@
 .work-back:hover { text-decoration: underline; }
 .work-detail-heading { display: grid; grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr); column-gap: 42px; padding: 90px 0 48px; }
 .work-detail-heading .work-eyebrow { grid-column: 1 / -1; }
-.work-detail-heading h1 { margin: 22px 0 0; font-family: Unbounded, "Pretendard Variable", sans-serif; font-size: clamp(50px, 6vw, 94px); line-height: 1.1; letter-spacing: -.07em; word-break: keep-all; overflow-wrap: anywhere; }
+.work-detail-heading h1 { margin: 22px 0 0; font-family: Unbounded, var(--font-body, Pretendard), sans-serif; font-size: clamp(50px, 6vw, 94px); line-height: 1.1; letter-spacing: -.07em; word-break: keep-all; overflow-wrap: anywhere; }
 .work-detail-heading p { align-self: end; margin: 20px 0 0; font-size: clamp(17px, 1.6vw, 24px); letter-spacing: -.03em; line-height: 1.5; }
 .work-detail-hero { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 0; overflow: hidden; background: #e8e5e0; }
 .work-detail-hero img, .work-detail-hero video { width: 100%; height: 100%; object-fit: contain; }
@@ -179,6 +180,8 @@
 .work-detail-facts h2 { margin: 26px 0 12px; font-size: clamp(25px, 2.9vw, 40px); letter-spacing: -.05em; }
 .work-detail-facts p { max-width: 54ch; color: #5c5b60; line-height: 1.7; }
 .work-gallery, .work-related { border-top: 1px solid var(--work-ink); padding: 28px 0 95px; }
+.work-read-link { display: inline-block; margin: -28px 0 48px; border: 1px solid var(--work-ink); border-radius: 100px; padding: 13px 18px; color: var(--work-ink); font-size: 13px; font-weight: 730; text-decoration: none; }
+.work-read-link:hover, .work-read-link:focus-visible { color: var(--work-paper); background: var(--work-ink); }
 .work-gallery h2, .work-related h2 { margin: 0 0 30px; font-size: clamp(30px, 3.4vw, 48px); letter-spacing: -.05em; }
 .work-gallery figure { margin: 0 auto 24px; max-width: 1100px; }
 .work-gallery figure:has(figcaption) { max-width: 760px; }

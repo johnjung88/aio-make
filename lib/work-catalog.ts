@@ -6,6 +6,7 @@ export type WorkMedia = {
   src: string;
   alt: string;
   poster?: string;
+  mobileSrc?: string;
   presentation?: "site" | "wide" | "portrait" | "webtoon" | "square";
 };
 
