@@ -326,6 +326,24 @@ check(
     ),
   "main FAQ server HTML",
 );
+check(() => {
+  // /content 컨텐츠 분과 홈: 서버 HTML(목록 모드)에 서비스 6종이 모두 있고 고객 작품 흔적이 없다.
+  const html = bodies.get("/content");
+  assert.match(html, /id="services"/);
+  assert.match(html, /id="process"/);
+  assert.match(html, /data-mode="list"/);
+  for (const s of services.filter((s) => s.division === "video"))
+    assert.ok(
+      html.includes(`href="/content/services/${s.id}"`),
+      `/content links ${s.id}`,
+    );
+  assert.equal((html.match(/class="ch-price /g) || []).length, 6);
+  assert.doesNotMatch(
+    html,
+    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|87언니|home-references|work-card|작업 사례|맞춤 견적|Blender/,
+  );
+  assert.doesNotMatch(html, /href="\/content\/work/);
+}, "/content home server HTML");
 for (const s of services.filter((s) => s.division === "video"))
   check(() => {
     const html = bodies.get(`/content/services/${s.id}`);

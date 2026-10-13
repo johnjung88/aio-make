@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { divisionByPath } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { publicEntries } from "@/lib/db";
-import StudioHome from "@/components/guide/studio-home";
+import { ContentHome } from "@/components/content-home/content-home";
 import { ServiceOverview } from "@/components/guide/service-overview";
 export async function generateMetadata({
   params,
@@ -19,14 +19,8 @@ export default async function DivisionPage({
 }) {
   const d = divisionByPath((await params).division);
   if (!d) notFound();
-  const entries = await publicEntries(
-    d.id === "video" ? "insight" : "reference",
-    d.id,
-  );
-  const referenceEntries = d.id === "video" ? await publicEntries("reference", d.id) : entries;
-  return d.id === "video" ? (
-    <StudioHome entries={entries} referenceEntries={referenceEntries} />
-  ) : (
-    <ServiceOverview key={d.id} division={d.id} entries={entries} />
-  );
+  // 컨텐츠 분과 홈은 레퍼런스·인사이트 목록을 쓰지 않는다.
+  if (d.id === "video") return <ContentHome />;
+  const entries = await publicEntries("reference", d.id);
+  return <ServiceOverview key={d.id} division={d.id} entries={entries} />;
 }

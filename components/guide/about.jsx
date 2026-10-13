@@ -416,7 +416,7 @@ class Component extends GuideLogic {
                   }}
                 >
                   {
-                    "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상"
+                    "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 영상 · SNS 광고 영상"
                   }
                 </span>
               </div>

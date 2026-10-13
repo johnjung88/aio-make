@@ -1,0 +1,804 @@
+/* /content 컨텐츠 분과 홈 (P3).
+ * 글자 크기·굵기·행간·자간·서체는 W2 역할 클래스(.t-*, .eyebrow)와 역할 토큰(var(--type-*), var(--ff-*))만 쓴다.
+ * 예외 두 가지: .ch-price-amount font-weight 700, .ch-display-num font-family var(--ff-display). */
+
+.content-home {
+  --ch-bg: var(--ink);
+  --ch-surface: #15141c;
+  --ch-text: #ffffff;
+  --ch-text-2: #c9c9d1;
+  --ch-text-3: #9a9aa3;
+  --ch-line: #2a2a32;
+  --ch-accent: var(--lavender);
+  --ch-action: var(--violet);
+  --ch-action-hover: #5b3df0;
+  --ch-glow: rgba(107, 77, 255, 0.28);
+  --ch-s1: 8px;
+  --ch-s2: 12px;
+  --ch-s3: 16px;
+  --ch-s4: 24px;
+  --ch-s5: 32px;
+  --ch-s6: 48px;
+  --ch-s7: 64px;
+  /* 캐러셀 배치 변수(레이아웃 값이라 @media에서 바꾼다) */
+  --ch-stage-h: 560px;
+  --ch-card-w: 340px;
+  --ch-card-h: 460px;
+  --ch-shift: 380px;
+  --ch-z1: -170px;
+  --ch-z2: -300px;
+  --ch-hero-pad: clamp(40px, 6vw, 80px);
+  background: var(--ch-bg);
+  color: var(--ch-text);
+}
+
+.content-home :where(h1, h2, h3, p, ul, ol, li, figure, figcaption, dl, dt, dd) {
+  margin: 0;
+  padding: 0;
+}
+.content-home :where(ul, ol) {
+  list-style: none;
+}
+.content-home .eyebrow {
+  margin: 0;
+}
+
+/* W2 .l-container와 같은 규칙(별칭). JSX에는 l-container를 함께 붙인다. */
+.content-home .ch-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.content-home .ch-nowrap {
+  white-space: nowrap;
+}
+.content-home .ch-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 공통 글자 색·줄바꿈 */
+.content-home .ch-hero-title,
+.content-home .ch-title {
+  color: var(--ch-text);
+  white-space: pre-line;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+.content-home .ch-accent {
+  color: var(--ch-accent);
+}
+.content-home .ch-eyebrow,
+.content-home .ch-kicker,
+.content-home .ch-num {
+  color: var(--ch-accent);
+}
+.content-home .ch-lead {
+  max-width: 34em;
+  color: var(--ch-text-2);
+  word-break: keep-all;
+}
+.content-home .ch-caption {
+  color: var(--ch-text-3);
+}
+
+.content-home .ch-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius);
+  background: rgba(13, 13, 18, 0.72);
+  color: var(--ch-text-2);
+  white-space: nowrap;
+}
+
+/* 버튼·링크: .guide-page a:hover(lavender)를 이 범위에서 다시 정한다 */
+.content-home .ch-button {
+  gap: 8px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--ch-action);
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.content-home .ch-button:hover {
+  background: var(--ch-action-hover);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------- 히어로 */
+.content-home .ch-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+  height: calc(
+    100svh - var(--site-header-height) - var(--service-nav-height)
+  );
+  min-height: 560px;
+  max-height: 920px;
+  padding-bottom: var(--ch-hero-pad);
+  overflow: hidden;
+  background: var(--ch-bg);
+}
+.content-home .ch-hero-media {
+  position: absolute;
+  inset: 0;
+}
+.content-home .ch-hero-img {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.content-home .ch-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.content-home .ch-hero-video.is-playing {
+  opacity: 1;
+}
+.content-home .ch-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13, 13, 18, 0.78) 0%,
+      rgba(13, 13, 18, 0.25) 70%
+    ),
+    linear-gradient(0deg, rgba(13, 13, 18, 0.85) 0%, rgba(13, 13, 18, 0) 55%);
+}
+.content-home .ch-hero-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.content-home .ch-hero-copy .ch-hero-title {
+  margin-top: var(--ch-s4);
+}
+.content-home .ch-hero-copy .ch-lead {
+  margin-top: var(--ch-s4);
+}
+.content-home .ch-hero-services {
+  margin-top: var(--ch-s2);
+  max-width: 40em;
+  color: var(--ch-text-2);
+}
+.content-home .ch-hero-copy .ch-button {
+  margin-top: var(--ch-s5);
+}
+.content-home .ch-hero-tag,
+.content-home .ch-hero-pause {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--ch-hero-pad);
+  z-index: 3;
+}
+.content-home .ch-hero-pause {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  background: rgba(13, 13, 18, 0.6);
+  color: #fff;
+}
+.content-home .ch-hero-pause:hover {
+  border-color: #fff;
+}
+
+/* ------------------------------------------------------------ 섹션 머리 */
+.content-home .ch-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ch-s4);
+  margin-bottom: var(--ch-s6);
+}
+.content-home .ch-head-copy > .ch-title {
+  margin-top: var(--ch-s3);
+}
+.content-home .ch-head-copy > .ch-lead {
+  margin-top: var(--ch-s4);
+}
+
+/* -------------------------------------------------------------- 서비스 */
+.content-home .ch-services {
+  position: relative;
+  padding-block: var(--section-y);
+  overflow-x: clip;
+  background: var(--ch-surface);
+  scroll-margin-top: calc(
+    var(--site-header-height) + var(--service-nav-height)
+  );
+}
+.content-home .ch-toggle,
+.content-home .ch-tabs .ch-tab {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.content-home .ch-toggle {
+  flex: none;
+  border: 1px solid var(--ch-line);
+  background: transparent;
+  color: var(--ch-text);
+}
+.content-home .ch-toggle:hover {
+  border-color: var(--ch-accent);
+}
+.content-home .ch-toggle[aria-pressed="true"] {
+  border-color: var(--ch-action);
+  background: rgba(107, 77, 255, 0.16);
+}
+
+/* ServiceDetail (목록·캐러셀 공용) */
+.content-home .ch-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 40em;
+}
+.content-home .ch-detail-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ch-s2);
+}
+.content-home .ch-detail .ch-svc-title {
+  margin-top: var(--ch-s2);
+  color: var(--ch-text);
+}
+.content-home .ch-detail .ch-svc-line {
+  margin-top: var(--ch-s2);
+  color: var(--ch-text);
+}
+.content-home .ch-detail .ch-body {
+  margin-top: var(--ch-s3);
+  color: var(--ch-text-2);
+}
+.content-home .ch-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ch-s1);
+  margin-top: var(--ch-s4);
+}
+.content-home .ch-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--ch-line);
+  border-radius: var(--radius);
+  color: var(--ch-text-2);
+  white-space: nowrap;
+}
+.content-home .ch-detail .ch-price {
+  margin-top: var(--ch-s4);
+  color: var(--ch-text-2);
+}
+.content-home .ch-price-amount {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ch-text);
+}
+.content-home .ch-detail .ch-price-note,
+.content-home .ch-detail .ch-note {
+  margin-top: 4px;
+  color: var(--ch-text-3);
+}
+.content-home .ch-detail .ch-link {
+  justify-content: flex-start;
+  gap: 4px;
+  min-height: 44px;
+  margin-top: var(--ch-s4);
+  padding: 0;
+  color: var(--ch-accent);
+  text-decoration: none;
+}
+.content-home .ch-detail .ch-link:hover {
+  color: #fff;
+}
+
+/* 목록 모드 */
+.content-home .ch-list {
+  display: grid;
+}
+.content-home .ch-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ch-s4);
+  padding-block: var(--ch-s6);
+}
+.content-home .ch-item:first-child {
+  padding-top: 0;
+}
+.content-home .ch-item + .ch-item {
+  border-top: 1px solid var(--ch-line);
+}
+.content-home .ch-item-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #1d1c25;
+}
+.content-home .ch-item-media .ch-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+}
+.content-home .ch-img {
+  object-fit: cover;
+}
+.content-home .ch-focus-webtoon {
+  object-position: 25% 50%;
+}
+.content-home .ch-focus-animation {
+  object-position: 45% 50%;
+}
+.content-home .ch-focus-ai-influencer {
+  object-position: 55% 40%;
+}
+.content-home .ch-focus-motion-graphics {
+  object-position: 50% 50%;
+}
+.content-home .ch-focus-brand-film {
+  object-position: 45% 50%;
+}
+.content-home .ch-focus-ad {
+  object-position: 50% 50%;
+}
+
+/* 캐러셀 모드 */
+.content-home .ch-carousel {
+  position: relative;
+}
+.content-home .ch-stage {
+  position: relative;
+  height: var(--ch-stage-h);
+  perspective: 1300px;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.content-home .ch-stage::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(720px, 90vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--ch-glow), transparent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.content-home .ch-card {
+  position: absolute;
+  top: calc((var(--ch-stage-h) - var(--ch-card-h)) / 2);
+  left: 50%;
+  display: block;
+  width: var(--ch-card-w);
+  height: var(--ch-card-h);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #1d1c25;
+  color: #fff;
+  text-decoration: none;
+  -webkit-user-drag: none;
+  transition:
+    transform 0.6s cubic-bezier(0.22, 0.75, 0.23, 1),
+    opacity 0.4s ease;
+}
+.content-home .ch-card:hover {
+  color: #fff;
+}
+.content-home .ch-card .ch-img {
+  transition: transform 0.6s ease;
+}
+.content-home .ch-card[data-pos="0"]:hover .ch-img {
+  transform: scale(1.03);
+}
+.content-home .ch-card[data-pos="0"] {
+  z-index: 6;
+  opacity: 1;
+  transform: translateX(-50%) translateZ(0) rotateY(0deg) scale(1);
+}
+.content-home .ch-card[data-pos="1"] {
+  z-index: 5;
+  opacity: 0.8;
+  transform: translateX(calc(-50% + var(--ch-shift))) translateZ(var(--ch-z1))
+    rotateY(-38deg) scale(0.88);
+}
+.content-home .ch-card[data-pos="-1"] {
+  z-index: 5;
+  opacity: 0.8;
+  transform: translateX(calc(-50% - var(--ch-shift))) translateZ(var(--ch-z1))
+    rotateY(38deg) scale(0.88);
+}
+.content-home .ch-card[data-pos="2"] {
+  z-index: 4;
+  opacity: 0.5;
+  transform: translateX(calc(-50% + var(--ch-shift) * 1.85))
+    translateZ(var(--ch-z2)) rotateY(-38deg) scale(0.74);
+}
+.content-home .ch-card[data-pos="-2"] {
+  z-index: 4;
+  opacity: 0.5;
+  transform: translateX(calc(-50% - var(--ch-shift) * 1.85))
+    translateZ(var(--ch-z2)) rotateY(38deg) scale(0.74);
+}
+.content-home .ch-card[data-pos="off"] {
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(calc(-50% + var(--ch-shift) * 2.4))
+    translateZ(var(--ch-z2)) rotateY(-38deg) scale(0.6);
+}
+.content-home .ch-card-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 18, 0.1) 0%,
+    rgba(13, 13, 18, 0) 40%,
+    rgba(13, 13, 18, 0.85) 100%
+  );
+}
+.content-home .ch-card-top {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  left: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ch-s1);
+}
+.content-home .ch-card-top .ch-num {
+  color: #fff;
+}
+.content-home .ch-card-bottom {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.content-home .ch-card .ch-svc-title {
+  display: block;
+  color: #fff;
+}
+
+.content-home .ch-controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "num tabs arrows";
+  align-items: center;
+  gap: var(--ch-s4);
+  margin-top: var(--ch-s5);
+}
+.content-home .ch-counter {
+  grid-area: num;
+  color: var(--ch-text-3);
+  white-space: nowrap;
+}
+.content-home .ch-tabs {
+  grid-area: tabs;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px var(--ch-s1);
+}
+.content-home .ch-tabs .ch-tab {
+  position: relative;
+  border: 0;
+  background: transparent;
+  color: var(--ch-text-3);
+}
+.content-home .ch-tabs .ch-tab:hover {
+  color: var(--ch-text);
+}
+.content-home .ch-tabs .ch-tab[aria-selected="true"] {
+  color: var(--ch-text);
+}
+.content-home .ch-tabs .ch-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  bottom: 4px;
+  left: 14px;
+  height: 2px;
+  background: var(--ch-action);
+}
+.content-home .ch-arrows {
+  grid-area: arrows;
+  display: flex;
+  gap: var(--ch-s1);
+}
+.content-home .ch-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ch-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ch-text);
+}
+.content-home .ch-arrow:hover {
+  border-color: var(--ch-accent);
+}
+.content-home .ch-panel {
+  margin-top: var(--ch-s6);
+}
+.content-home .ch-services-note {
+  margin-top: var(--ch-s6);
+}
+
+/* ------------------------------------------------------------ 제작 과정 */
+.content-home .ch-process {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--ch-line);
+  background: var(--ch-bg);
+}
+.content-home .ch-process-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ch-s5);
+}
+.content-home .ch-step-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ch-s1);
+}
+.content-home .ch-step-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ch-s2);
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--ch-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ch-text-3);
+  text-align: left;
+  white-space: nowrap;
+}
+.content-home .ch-step-tab .ch-num {
+  color: var(--ch-text-3);
+}
+.content-home .ch-step-tab:hover {
+  color: var(--ch-text);
+}
+.content-home .ch-step-tab[aria-selected="true"] {
+  border-color: var(--ch-action);
+  color: var(--ch-text);
+}
+.content-home .ch-step-tab[aria-selected="true"] .ch-num {
+  color: var(--ch-accent);
+}
+.content-home .ch-step-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--radius);
+  background: var(--ch-surface);
+}
+/* 다섯 단계 내용을 한 칸에 겹쳐 가장 긴 단계 높이로 고정한다(탭을 바꿔도 아래가 움직이지 않는다). */
+.content-home .ch-step-stack {
+  display: grid;
+}
+.content-home .ch-step-content {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 40em;
+}
+.content-home .ch-step-content.is-sizer {
+  visibility: hidden;
+  pointer-events: none;
+}
+.content-home .ch-step-title {
+  display: block;
+  padding-right: calc(var(--type-h1-size) * 1.7);
+  color: var(--ch-text);
+}
+.content-home .ch-step-content > .ch-body {
+  margin-top: var(--ch-s3);
+  color: var(--ch-text-2);
+}
+.content-home .ch-step-output {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--ch-s4);
+}
+.content-home .ch-step-output .ch-body {
+  color: var(--ch-text);
+}
+.content-home .ch-step-panel .ch-display-num {
+  position: absolute;
+  top: clamp(16px, 3vw, 32px);
+  right: clamp(24px, 4vw, 48px);
+  font-family: var(--ff-display);
+  font-size: var(--type-h1-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-h1-leading);
+  letter-spacing: var(--type-h1-tracking);
+  color: var(--ch-accent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ CTA */
+.content-home .ch-cta {
+  padding-block: var(--section-y-sm);
+  background: var(--ch-action);
+  color: #fff;
+}
+.content-home .ch-cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ch-s5);
+}
+.content-home .ch-cta .ch-title {
+  color: #fff;
+}
+.content-home .ch-cta .ch-lead {
+  margin-top: var(--ch-s4);
+  color: #fff;
+}
+.content-home .ch-cta .ch-button {
+  flex: none;
+  background: #fff;
+  color: var(--ink);
+}
+.content-home .ch-cta .ch-button:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+/* 보라 띠 위에서는 lavender 외곽선 바깥에 흰 테를 더한다
+ * (guide.css의 :focus-visible outline은 강제 규칙이라 색을 바꾸지 않고 덧댄다). */
+.content-home .ch-cta .ch-button:focus-visible {
+  box-shadow:
+    0 0 0 7px var(--ch-action),
+    0 0 0 9px #fff;
+}
+
+/* ------------------------------------------------------------- 반응형 */
+@media (min-width: 768px) {
+  .content-home .ch-item {
+    grid-template-columns: 220px minmax(0, 1fr);
+    column-gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+  .content-home .ch-item-media {
+    aspect-ratio: 4 / 5;
+  }
+}
+@media (min-width: 1024px) {
+  .content-home .ch-head--services {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .content-home .ch-item {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+  .content-home .ch-process-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(32px, 4vw, 72px);
+    align-items: start;
+  }
+  .content-home .ch-step-tabs {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    border-top: 1px solid var(--ch-line);
+  }
+  .content-home .ch-step-tab {
+    width: 100%;
+    padding: var(--ch-s5) var(--ch-s4);
+    border: 0;
+    border-bottom: 1px solid var(--ch-line);
+    border-radius: 0;
+  }
+  .content-home .ch-step-tab[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--ch-action);
+  }
+  .content-home .ch-cta-inner {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 1023px) {
+  .content-home {
+    --ch-stage-h: 500px;
+    --ch-card-w: 300px;
+    --ch-card-h: 410px;
+    --ch-shift: 320px;
+  }
+}
+@media (max-width: 767px) {
+  .content-home {
+    --ch-stage-h: 420px;
+    --ch-card-w: 248px;
+    --ch-card-h: 336px;
+    --ch-shift: 210px;
+    --ch-z1: -95px;
+    --ch-z2: -170px;
+  }
+  .content-home .ch-controls {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "tabs tabs"
+      "num arrows";
+    row-gap: var(--ch-s3);
+  }
+  /* 좁은 화면에서는 버튼·문구와 겹치지 않게 오른쪽 위로 옮긴다 */
+  .content-home .ch-hero-tag,
+  .content-home .ch-hero-pause {
+    top: var(--ch-s3);
+    bottom: auto;
+  }
+}
+
+/* ---------------------------------------------------- 움직임 줄이기 */
+@media (prefers-reduced-motion: reduce) {
+  .content-home *,
+  .content-home *::before,
+  .content-home *::after {
+    transition: none;
+    animation: none;
+  }
+  .content-home .ch-card[data-pos] {
+    transform: translateX(-50%);
+  }
+  .content-home .ch-card:not([data-pos="0"]) {
+    display: none;
+  }
+  .content-home .ch-card[data-pos="0"]:hover .ch-img {
+    transform: none;
+  }
+}

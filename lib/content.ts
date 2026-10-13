@@ -38,7 +38,7 @@ export const divisions = [
     number: "01",
     headline: "이야기가\n브랜드의 장면이 되도록",
     summary:
-      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상으로 메시지를 전합니다",
+      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 영상 · SNS 광고 영상을 기획하고 제작합니다",
     image: "/renewal/brand-film-v03.webp",
     tagline: "메시지를 정하고, 기억에 남는 장면을 만듭니다",
     process: [

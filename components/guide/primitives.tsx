@@ -13,6 +13,7 @@ import {
   developmentOffer,
   developmentQuoteTerms,
 } from "@/lib/development-offers";
+import type { HomeJourneyData } from "@/lib/home-journey";
 export { developmentOffer };
 
 export function GuideOffer({ service }: { service: string }) {
@@ -46,6 +47,8 @@ export type GuideProps = {
   entries?: GuideEntry[];
   referenceEntries?: GuideEntry[];
   references?: React.ReactNode;
+  // Main page journey media, selected on the server (lib/home-journey-data.ts).
+  journey?: HomeJourneyData;
 };
 export type GuideEntry = {
   id: string;
@@ -296,7 +299,7 @@ export function GuideMedia({
         alt={
           sample
             ? sample + " 제작 방향 예시 이미지"
-            : "브랜드 컨텐츠 제작 방향 예시 이미지"
+            : "브랜드 홍보 영상 제작 방향 예시 이미지"
         }
         fill
         sizes={

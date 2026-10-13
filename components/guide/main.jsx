@@ -4,7 +4,6 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
-import "./studio-p1.css";
 import { ShowcaseVideo } from "./showcase-video";
 import {
   GuideLogic,
@@ -24,7 +23,18 @@ import {
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
-import { HomeReferences } from "./home-references";
+import { WorkflowJourney } from "@/components/home/workflow-journey";
+
+// Keep each service name on one line; wrapping happens only between items.
+const divisionServiceItems = (text) => {
+  const items = text.split(" · ");
+  return items.map((item, index) => (
+    <React.Fragment key={item}>
+      <span>{index < items.length - 1 ? `${item} ·` : item}</span>
+      {index < items.length - 1 ? " " : null}
+    </React.Fragment>
+  ));
+};
 
 class Component extends GuideLogic {
   state = { service: "", sent: false, open: 0 };
@@ -36,7 +46,7 @@ class Component extends GuideLogic {
       ],
       [
         "어떤 일을 맡길 수 있나요?",
-        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 모션그래픽, 브랜드 홍보 및 SNS 광고 영상), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
+        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 모션그래픽, 브랜드 홍보 영상, SNS 광고 영상), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
       ],
       [
         "견적은 어떻게 받나요?",
@@ -62,7 +72,7 @@ class Component extends GuideLogic {
           s2Id: "main-studio-s2",
           cat1: "애니메이션",
           cat2: "AI 인플루언서",
-          cat3: "브랜드 컨텐츠",
+          cat3: "브랜드 홍보 영상",
         },
         {
           name: "Marketing",
@@ -385,10 +395,10 @@ class Component extends GuideLogic {
                   >
                     {"Studio"}
                   </span>
-                  <span className="p1-content-service-list">
-                    {
-                      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상"
-                    }
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 영상 · SNS 광고 영상",
+                    )}
                   </span>
                   <span style={{ fontWeight: "600" }}>
                     {"컨텐츠 상담하기 →"}
@@ -480,15 +490,10 @@ class Component extends GuideLogic {
                   >
                     {"Marketing"}
                   </span>
-                  <span
-                    className="t-wrap"
-                    style={{
-                      fontSize: "clamp(12px,1.06vw,14px)",
-                      color: "#C9C9D1",
-                      marginBottom: "24px",
-                    }}
-                  >
-                    {"통합 마케팅 · SNS 대행 운영 · SEO·AEO·GEO"}
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "통합 마케팅 · SNS 대행 운영 · SEO·AEO·GEO",
+                    )}
                   </span>
                   <span style={{ fontWeight: "600" }}>
                     {"마케팅 상담하기 →"}
@@ -580,175 +585,17 @@ class Component extends GuideLogic {
                   >
                     {"Lab"}
                   </span>
-                  <span
-                    className="t-wrap"
-                    style={{
-                      fontSize: "clamp(12px,1.06vw,14px)",
-                      color: "#C9C9D1",
-                      marginBottom: "24px",
-                    }}
-                  >
-                    {"업무 자동화 · 프로그램 · 웹사이트 · 쇼핑몰"}
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "업무 자동화 · 프로그램 · 웹사이트 · 쇼핑몰",
+                    )}
                   </span>
                   <span style={{ fontWeight: "600" }}>{"개발 상담하기 →"}</span>
                 </div>
               </GuideLink>
             </div>
           </section>
-          <HomeReferences entries={this.props.entries} />
-          <section
-            id="process"
-            className="main-method"
-            style={{ background: "#0D0D12", color: "#F4F3EF" }}
-          >
-            <div
-              style={{
-                maxWidth: "1320px",
-                margin: "0 auto",
-                padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "56px",
-              }}
-            >
-              <div className="method-intro">
-                <h2 aria-label="AI로 효율을 높이고, 전문가가 품질을 지킵니다">
-                  <span className="method-line">
-                    <em>AI</em>로 효율을 높이고
-                  </span>
-                  <span className="method-line">
-                    <em>전문가</em>가 품질을 지킵니다
-                  </span>
-                </h2>
-                <p>
-                  <span>AI로 제작 속도를 높이고,</span>
-                  <span>분야별 전문가가 기획부터 최종 검수까지 책임집니다</span>
-                </p>
-              </div>
-              <ol
-                style={{
-                  margin: "0",
-                  padding: "0",
-                  listStyle: "none",
-                  display: "grid",
-                  gridTemplateColumns:
-                    "repeat(auto-fit,minmax(min(100%,240px),1fr))",
-                  gap: "32px 24px",
-                  borderTop: "1px solid #2A2A32",
-                  paddingTop: "32px",
-                }}
-              >
-                <li
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "Unbounded,sans-serif",
-                      fontSize: "13px",
-                      color: "#A99BFF",
-                    }}
-                  >
-                    {"01"}
-                  </span>
-                  <strong style={{ fontSize: "20px" }}>{"기획"}</strong>
-                  <span
-                    style={{
-                      color: "#B5B5BD",
-                      fontSize: "15px",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    {"전문가가 목표와 결과물을 먼저 정리합니다"}
-                  </span>
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "Unbounded,sans-serif",
-                      fontSize: "13px",
-                      color: "#A99BFF",
-                    }}
-                  >
-                    {"02"}
-                  </span>
-                  <strong style={{ fontSize: "20px" }}>{"AI 활용 제작"}</strong>
-                  <span
-                    style={{
-                      color: "#B5B5BD",
-                      fontSize: "15px",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    {"전문가가 AI로 초안과 시안을 빠르게 만듭니다"}
-                  </span>
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "Unbounded,sans-serif",
-                      fontSize: "13px",
-                      color: "#A99BFF",
-                    }}
-                  >
-                    {"03"}
-                  </span>
-                  <strong style={{ fontSize: "20px" }}>{"전문가 검수"}</strong>
-                  <span
-                    style={{
-                      color: "#B5B5BD",
-                      fontSize: "15px",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    {"분야별 전문가가 품질을 검수하고 완성합니다"}
-                  </span>
-                </li>
-                <li
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "Unbounded,sans-serif",
-                      fontSize: "13px",
-                      color: "#A99BFF",
-                    }}
-                  >
-                    {"04"}
-                  </span>
-                  <strong style={{ fontSize: "20px" }}>{"납품·관리"}</strong>
-                  <span
-                    style={{
-                      color: "#B5B5BD",
-                      fontSize: "15px",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    {"납품 후에도 수정과 유지보수를 이어갑니다"}
-                  </span>
-                </li>
-              </ol>
-            </div>
-          </section>
+          <WorkflowJourney data={this.props.journey} />
           <section
             style={{ background: "#fff", borderBottom: "1px solid #DAD8D1" }}
           >

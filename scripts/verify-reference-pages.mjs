@@ -295,7 +295,9 @@ try {
       await visit(
         path,
         390,
-        path.split("/").length === 2
+        path === "/content"
+          ? "#services"
+          : path.split("/").length === 2
           ? "#work"
           : path.startsWith("/content/")
             ? ".content-service-hero"

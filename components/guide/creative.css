@@ -22,14 +22,6 @@
   text-align: center;
   gap: 20px !important;
 }
-.method-line {
-  display: block;
-  white-space: normal;
-}
-.guide-main .method-intro h2 {
-  width: auto;
-  text-wrap: balance;
-}
 
 .service-dark .reference-card h3 {
   color: #f4f3ef;

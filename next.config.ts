@@ -3,6 +3,14 @@ if (process.env.VERCEL && process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1") 
   throw new Error("Customer reference review is local only. Confirm publication rights before release.");
 }
 const config: NextConfig = {
+  // Unset means off. Next inlines only NEXT_PUBLIC_ values that exist, so an
+  // unset flag would leave `process.env…` in client code and keep review-only
+  // literals in the bundle. Always inline "1" or "0" so every `=== "1"` gate
+  // folds at build time.
+  env: {
+    NEXT_PUBLIC_AIO_REFERENCE_REVIEW:
+      process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ? "1" : "0",
+  },
   poweredByHeader: false,
   serverExternalPackages: ["@electric-sql/pglite"],
   devIndicators: false,

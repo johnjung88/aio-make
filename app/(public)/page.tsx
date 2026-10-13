@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/ui";
 import { pageMetadata, siteDescription } from "@/lib/metadata";
 import { websiteSchema } from "@/lib/seo";
 import { publicEntries } from "@/lib/db";
+import { homeJourneyData } from "@/lib/home-journey-data";
 export const dynamic = "force-dynamic";
 export const metadata = {
   ...pageMetadata(
@@ -16,7 +17,7 @@ export default async function HomePage() {
   const entries = await publicEntries("reference");
   return (
     <>
-      <MainGuide entries={entries} />
+      <MainGuide entries={entries} journey={homeJourneyData(entries)} />
       <JsonLd data={websiteSchema} />
     </>
   );

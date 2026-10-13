@@ -1,8 +1,0 @@
-.p1-content-service-list {
-  min-width: 0;
-  font-size: clamp(12px, 1.06vw, 14px);
-  white-space: normal;
-  overflow-wrap: anywhere;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
