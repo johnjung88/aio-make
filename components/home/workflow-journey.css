@@ -14,6 +14,7 @@
   --wj-step-gap: clamp(96px, 11vw, 160px);
   --wj-rail-w: 240px;
   --wj-col-gap: clamp(40px, 5vw, 88px);
+  --wj-s0: 4px;
   --wj-s1: 8px;
   --wj-s2: 12px;
   --wj-s3: 16px;
@@ -121,8 +122,11 @@
   flex-wrap: wrap;
   gap: var(--wj-s1) var(--wj-s5);
 }
+/* .t-button is inline-flex, so the JSX space before the arrow collapses;
+ * the gap keeps label and arrow apart (same 4px as /content .ch-link). */
 .guide-page .wj .wj-link {
   justify-content: flex-start;
+  gap: var(--wj-s0);
   min-height: 44px;
   padding: 0;
   color: var(--wj-ink);
@@ -697,7 +701,10 @@
   position: relative;
 }
 
-/* Main page #divisions service lists (three cards, one class) */
+/* Main page #divisions service lists (three cards, one class).
+ * Card bodies stack from the top (main.jsx grid rows: head, kicker, title,
+ * list, 1fr spacer, CTA), so titles share one y even when a list wraps to two
+ * lines; the spacer only pushes the CTA to the card bottom. */
 .home-division-services {
   color: #c9c9d1;
   margin-bottom: 24px;

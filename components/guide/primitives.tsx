@@ -312,9 +312,6 @@ export function GuideMedia({
         }
         style={{ objectFit: "cover" }}
       />
-      <span className="guide-media-caption">
-        콘셉트 이미지 · 실제 컨텐츠는 등록 후 공개
-      </span>
     </span>
   );
 }
@@ -515,59 +512,6 @@ export function adaptGuideValues(
         accent: "#6B4DFF",
       },
     ];
-  }
-  if (page === "main") {
-    const groups = values.workGroups as
-      | {
-          name: string;
-          bigId: string;
-          s1Id: string;
-          s2Id: string;
-          href: string;
-        }[]
-      | undefined;
-    values.workGroups = groups?.map((group) => {
-      const division =
-        roots[group.name] === "lab" ? "development" : roots[group.name];
-      const entries = (props.entries ?? []).filter(
-        (e) =>
-          e.type === "reference" && e.division === division && e.is_featured,
-      );
-      const samples: Record<string, string[]> = {
-        Studio: ["animation", "ai-influencer", "brand-film"],
-        Marketing: ["sns", "integrated", "ai-influencer"],
-        Lab: ["website", "shopping-mall", "automation"],
-      };
-      const target = (n: number) =>
-        roots[group.name] === "video"
-          ? guideServiceHref(
-              "video",
-              entries[n]?.service || samples[group.name][n],
-            )
-          : `/${publicPath(roots[group.name])}/work/${entries[n]?.slug || "example-" + samples[group.name][n]}`;
-      const category = (n: number) =>
-        services.find(
-          (service) =>
-            service.division === division &&
-            service.id === (entries[n]?.service || samples[group.name][n]),
-        )?.name || "작업 사례";
-      return {
-        ...group,
-        cat1: category(0),
-        cat2: category(1),
-        cat3: category(2),
-        bigId: entries[0]?.cover_url || group.bigId,
-        s1Id: entries[1]?.cover_url || group.s1Id,
-        s2Id: entries[2]?.cover_url || group.s2Id,
-        href: group.href,
-        bigHref: target(0),
-        s1Href: target(1),
-        s2Href: target(2),
-        bigTitle: entries[0]?.title || "제작 방향 예시",
-        s1Title: entries[1]?.title || "제작 방향 예시",
-        s2Title: entries[2]?.title || "제작 방향 예시",
-      };
-    });
   }
   if (page.startsWith("marketing")) {
     values.reviews = [

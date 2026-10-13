@@ -300,7 +300,7 @@ try {
           : path.split("/").length === 2
           ? "#work"
           : path.startsWith("/content/")
-            ? ".content-service-hero"
+            ? '[data-cs-section="hero"]'
             : ".work-service-strip",
         path.replaceAll("/", "-").slice(1) + ".png",
       );

@@ -1,13 +1,8 @@
 /* /content 컨텐츠 분과 홈 데이터. JSX 없이 순수 데이터와 선택 함수만 둔다.
  * 가격은 PRICING_FINAL_2026-10-14.md 3~9번 정본 값만 쓴다(부가세 별도). */
 
-export type ContentServiceId =
-  | "webtoon"
-  | "animation"
-  | "ai-influencer"
-  | "motion-graphics"
-  | "brand-film"
-  | "ad";
+import type { ContentServiceId } from "./content-site/types.ts";
+export type { ContentServiceId } from "./content-site/types.ts";
 
 export type HeroVideo = { src: string; poster: string };
 
@@ -191,144 +186,12 @@ export const contentHomeCta = {
 
 export const pad2 = (n: number) => String(n).padStart(2, "0");
 
-/* ---------------------------------------------------------------------------
- * 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본). 모든 금액은 부가세 별도.
- * SHOW_STARTING_PRICE가 시작가 표시의 유일한 끄기 스위치다.
- * ------------------------------------------------------------------------- */
-export const SHOW_STARTING_PRICE = true;
-
-export const contentPricing = {
-  "ai-influencer": {
-    plans: [
-      { label: "캐릭터 1명 세팅 + 이미지 5장", amount: 100000 },
-      { label: "세팅 + 30초 영상 1편", amount: 300000 },
-      { label: "세팅 + 이미지 총 20장 + 30초 영상 4편", amount: 1000000 },
-    ],
-    notes: [
-      "총 20장에 세팅용 이미지 포함. 주 이미지 5장·영상 1편 구성 가능.",
-      "계정 게시·운영 및 대량 제작은 별도 견적.",
-    ],
-  },
-  "brand-film": {
-    plans: [
-      { label: "30초", amount: 250000 },
-      { label: "60초", amount: 450000 },
-    ],
-  },
-  animation: {
-    plans: [
-      { label: "30초", amount: 300000 },
-      { label: "60초", amount: 550000 },
-    ],
-  },
-  "motion-graphics": {
-    plans: [
-      { label: "단순형 30초", amount: 100000 },
-      { label: "단순형 60초", amount: 180000 },
-      { label: "맞춤형 30초", amount: 150000 },
-      { label: "맞춤형 60초", amount: 270000 },
-    ],
-    notes: ["맞춤형은 브랜드 전용 캐릭터 제작 서비스 포함."],
-  },
-  webtoon: {
-    plans: [
-      { label: "12컷", amount: 100000 },
-      { label: "24컷", amount: 180000 },
-    ],
-  },
-  "motion-comic": {
-    plans: [
-      { label: "30초", amount: 75000 },
-      { label: "60초", amount: 120000 },
-    ],
-    bundles: [
-      { label: "웹툰 12컷 + 모션코믹 30초", amount: 175000 },
-      { label: "웹툰 24컷 + 모션코믹 60초", amount: 300000 },
-    ],
-    notes: ["기존 웹툰을 영상화하는 가격. 웹툰 신규 제작은 별도."],
-  },
-  ad: {
-    plans: [
-      { label: "30초", amount: 250000 },
-      { label: "60초", amount: 450000 },
-    ],
-    notes: [
-      "제품·서비스 1개, 콘셉트 1개 기준. 세로형 9:16·1080p, 기본 자막·BGM 포함.",
-      "다른 화면비 추가·광고 집행·계정 운영·매체비는 별도.",
-    ],
-  },
-  common: {
-    vat: "부가세 별도",
-    revisions: ["기획안 전달 후 수정 2회", "최종안 전달 후 수정 1회"],
-    bulk: "브랜드 홍보영상·애니메이션·모션그래픽·웹툰·모션코믹·SNS 숏폼의 대량·정기 제작은 별도 견적",
-  },
-} as const;
-
-/** 만 원 단위, 소수 첫째 자리까지. 100000 → "10만 원", 75000 → "7.5만 원" */
-export function formatWon(amount: number): string {
-  const man = Math.round(amount / 1000) / 10;
-  return `${Number.isInteger(man) ? man : man.toFixed(1)}만 원`;
-}
-
-export type StartingPrice = {
-  amount: number;
-  amountText: string;
-  /** 굵게 보이는 앞부분. 예: "25만 원부터", "웹툰 제작 12컷 10만 원부터" */
-  head: string;
-  /** " · "로 이어지는 나머지 단위. 마지막은 항상 "부가세 별도" */
-  rest: string[];
-  /** 화면 한 줄 전체 문자열 */
-  line: string;
-  note?: string;
-};
-
-const startingBasis: Record<
-  ContentServiceId,
-  { amount: number; prefix?: string; basis?: string; note?: string }
-> = {
-  webtoon: {
-    amount: contentPricing.webtoon.plans[0].amount,
-    prefix: "웹툰 제작 12컷",
-    note: `모션코믹 영상화 옵션 · 30초 ${formatWon(contentPricing["motion-comic"].plans[0].amount)}부터`,
-  },
-  animation: {
-    amount: contentPricing.animation.plans[0].amount,
-    basis: "30초",
-  },
-  "ai-influencer": {
-    amount: contentPricing["ai-influencer"].plans[0].amount,
-    basis: "캐릭터 1명 세팅 + 이미지 5장",
-  },
-  "motion-graphics": {
-    amount: contentPricing["motion-graphics"].plans[0].amount,
-    basis: "단순형 30초",
-  },
-  "brand-film": {
-    amount: contentPricing["brand-film"].plans[0].amount,
-    basis: "30초",
-  },
-  ad: { amount: contentPricing.ad.plans[0].amount, basis: "30초" },
-};
-
-export function startingPrice(
-  id: ContentServiceId,
-  show: boolean = SHOW_STARTING_PRICE,
-): StartingPrice | null {
-  if (!show) return null;
-  const s = startingBasis[id];
-  if (!s) return null;
-  const amountText = formatWon(s.amount);
-  const head = `${s.prefix ? s.prefix + " " : ""}${amountText}부터`;
-  const rest = [
-    ...(s.basis ? [`${s.basis} 기준`] : []),
-    contentPricing.common.vat,
-  ];
-  return {
-    amount: s.amount,
-    amountText,
-    head,
-    rest,
-    line: [head, ...rest].join(" · "),
-    ...(s.note ? { note: s.note } : {}),
-  };
-}
+/* 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본)은 lib/content-pricing.ts로 옮겼다(P2R WP0).
+ * 기존 import와 테스트를 위해 같은 이름을 그대로 다시 내보낸다. */
+export {
+  SHOW_STARTING_PRICE,
+  contentPricing,
+  formatWon,
+  startingPrice,
+} from "./content-pricing.ts";
+export type { StartingPrice } from "./content-pricing.ts";

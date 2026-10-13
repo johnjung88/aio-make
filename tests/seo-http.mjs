@@ -115,6 +115,13 @@ for (const path of paths) {
           schema.some((s) => s["@type"] === "BreadcrumbList"),
       );
     if (path.startsWith("/content/services/")) {
+      // P2R 컨텐츠 사이트 서비스 랜딩: Service(offers) · FAQPage · BreadcrumbList · Organization
+      const service = schema.find((s) => s["@type"] === "Service");
+      assert.ok(service?.offers?.length >= 2, "content service offers");
+      for (const offer of service.offers) {
+        assert.equal(offer.priceCurrency, "KRW");
+        assert.equal(offer.priceSpecification?.valueAddedTaxIncluded, false);
+      }
       const faq = schema.find((s) => s["@type"] === "FAQPage");
       assert.ok(faq?.mainEntity?.length >= 4, "content service FAQ schema");
       for (const item of faq.mainEntity) {
@@ -127,28 +134,19 @@ for (const path of paths) {
           "FAQ answer matches server HTML",
         );
       }
-      for (const section of [
-        "hero",
-        "fit",
-        "scope",
-        "process",
-        "uses",
-        "quote",
-        "faq",
-        "cta",
-      ])
+      const crumbs = schema.find((s) => s["@type"] === "BreadcrumbList");
+      assert.deepEqual(
+        crumbs?.itemListElement?.map((i) => new URL(i.item).pathname),
+        ["/", "/content", path],
+      );
+      for (const section of ["hero", "pricing", "process", "faq", "inquiry"])
         assert.ok(
-          html.includes(`data-content-section="${section}"`),
+          html.includes(`data-cs-section="${section}"`),
           `${section} section`,
         );
-      if (path.endsWith("/webtoon")) {
-        assert.ok(html.includes('aria-label="12컷 구성"'));
-        assert.ok(!/24컷|24장/.test(html));
-        assert.equal(
-          (html.match(/aria-label="\d+컷 크게 보기"/g) || []).length,
-          12,
-        );
-      }
+      assert.ok(html.includes('class="cs-site"'), "content site shell");
+      assert.doesNotMatch(html, /guide-header|guide-footer|floating-contact/);
+      assert.doesNotMatch(html, /\sautoplay[\s=>]/i, "no autoplay attribute");
     }
     if (/\/insights\/./.test(path))
       assert.ok(
@@ -348,13 +346,11 @@ for (const s of services.filter((s) => s.division === "video"))
   check(() => {
     const html = bodies.get(`/content/services/${s.id}`);
     assert.doesNotMatch(html, /content-service-anchors/);
-    assert.match(html, /id="scope"/);
+    assert.match(html, /id="pricing"/);
+    assert.match(html, /id="inquiry"/);
     assert.ok(
-      (
-        bodies
-          .get(`/content/services/${s.id}`)
-          .match(/id="content-service-faq-answer-/g) || []
-      ).length >= 4,
+      (html.match(new RegExp(`id="cs-faq-${s.id}-[0-9]+"`, "g")) || [])
+        .length >= 4,
     );
   }, `${s.id} FAQ server HTML`);
 const llms = await (await fetch(base + "/llms.txt")).text();

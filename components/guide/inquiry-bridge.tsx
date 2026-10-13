@@ -12,6 +12,10 @@ type Props = {
   quick?: boolean;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  /** 접수 화면의 돌아가기 링크(기본 "/"). 컨텐츠 사이트는 "/content" */
+  homeHref?: string;
+  /** 접수 화면의 돌아가기 문구(기본 "홈으로 돌아가기") */
+  homeLabel?: string;
 };
 const selectionKeys = [
   "service",
@@ -46,6 +50,8 @@ export function InquiryBridge({
   quick = false,
   children,
   style,
+  homeHref = "/",
+  homeLabel = "홈으로 돌아가기",
 }: Props) {
   const [key, setKey] = useState(""),
     [busy, setBusy] = useState(false),
@@ -243,7 +249,7 @@ export function InquiryBridge({
         <p className="t-body">
           담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다
         </p>
-        <Link href="/">홈으로 돌아가기 →</Link>
+        <Link href={homeHref}>{`${homeLabel} →`}</Link>
       </div>
     );
   return (

@@ -6,6 +6,7 @@ import { servicePlans } from "@/lib/service-plans";
 import type { Entry } from "@/lib/db";
 import { GuideNav } from "./primitives";
 import { HomeReferences } from "./home-references";
+import { homeReferenceWorks } from "@/lib/home-references-data";
 
 export function ServiceOverview({
   division,
@@ -157,7 +158,10 @@ export function ServiceOverview({
           <Link href="/lab/services/program">프로그램 개발 ↗</Link>
         </div>
       )}
-      <HomeReferences entries={entries} division={division} />
+      <HomeReferences
+        works={homeReferenceWorks(entries, division)}
+        division={division}
+      />
       <section className="service-process review-container">
         <div className="service-section-heading">
           <span className="review-eyebrow">함께 일하는 방법</span>

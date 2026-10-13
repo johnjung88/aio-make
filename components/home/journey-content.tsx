@@ -9,6 +9,8 @@ import {
   type ContentSelection,
   type JourneyMedia,
 } from "@/lib/home-journey";
+import { newTabProps } from "@/lib/new-tab";
+import { NewTabHint } from "@/components/new-tab-hint";
 import { JourneyTabList, panelId, tabId } from "./journey-tabs";
 
 const PREFIX = "wj-content";
@@ -135,8 +137,10 @@ export function JourneyContent({
                 <Link
                   className="wj-link t-button"
                   href={`/content/services/${tab.id}`}
+                  {...newTabProps}
                 >
                   {contentCopy.serviceLink} <span aria-hidden="true">→</span>
+                  <NewTabHint />
                 </Link>
                 {work && (
                   <Link className="wj-link t-button" href={work.canonicalPath}>

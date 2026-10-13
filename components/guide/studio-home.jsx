@@ -244,10 +244,7 @@ class Component extends GuideLogic {
               </span>
             </p>
           </section>
-          <HomeReferences
-            division="video"
-            entries={this.props.referenceEntries}
-          />
+          <HomeReferences division="video" works={this.props.referenceWorks} />
           <section style={{ borderTop: "1px solid #2A2A32" }}>
             <div
               className="l-container"

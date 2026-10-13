@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { mergeGuideEntries } from "@/lib/guide-content";
-import { displayWorkCatalog } from "@/lib/work-catalog";
-import { WorkCard } from "@/components/work-portfolio";
+import { WorkCard } from "@/components/work-card";
 import type { DivisionId } from "@/lib/content";
-import type { Entry } from "@/lib/db";
+import type { WorkItem } from "@/lib/work-catalog";
 
 const groups = [
   { id: "all", label: "전체" },
@@ -15,11 +13,13 @@ const groups = [
   { id: "marketing", label: "마케팅" },
 ];
 
+// Works are selected on the server (lib/home-references-data.ts) and arrive
+// as plain props; this client module imports only the WorkItem type.
 export function HomeReferences({
-  entries = [],
+  works = [],
   division: fixedDivision,
 }: {
-  entries?: Entry[];
+  works?: WorkItem[];
   division?: DivisionId;
 }) {
   const [selected, setCategory] = useState("all");
@@ -30,10 +30,7 @@ export function HomeReferences({
       : fixedDivision === "marketing"
         ? "/marketing/work"
         : null;
-  const available = displayWorkCatalog(
-    mergeGuideEntries(entries, "reference", fixedDivision),
-  );
-  const items = available
+  const items = works
     .filter((work) => category === "all" || work.division === category)
     .slice(0, fixedDivision ? 4 : 6);
   return (

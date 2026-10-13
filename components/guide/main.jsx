@@ -24,6 +24,8 @@ import {
 import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
 import { WorkflowJourney } from "@/components/home/workflow-journey";
+import { NewTabHint } from "@/components/new-tab-hint";
+import { newTabProps } from "@/lib/new-tab";
 
 // Keep each service name on one line; wrapping happens only between items.
 const divisionServiceItems = (text) => {
@@ -62,41 +64,6 @@ class Component extends GuideLogic {
       ],
     ];
     return {
-      workGroups: [
-        {
-          name: "Studio",
-          ko: "컨텐츠",
-          href: "Studio 작업 사례.dc.html",
-          bigId: "main-studio-big",
-          s1Id: "main-studio-s1",
-          s2Id: "main-studio-s2",
-          cat1: "애니메이션",
-          cat2: "AI 인플루언서",
-          cat3: "브랜드 홍보 영상",
-        },
-        {
-          name: "Marketing",
-          ko: "마케팅",
-          href: "/marketing/work",
-          bigId: "main-mkt-big",
-          s1Id: "main-mkt-s1",
-          s2Id: "main-mkt-s2",
-          cat1: "SNS 대행 운영",
-          cat2: "통합 마케팅",
-          cat3: "SNS 대행 운영",
-        },
-        {
-          name: "Lab",
-          ko: "개발",
-          href: "/lab/work",
-          bigId: "main-lab-big",
-          s1Id: "main-lab-s1",
-          s2Id: "main-lab-s2",
-          cat1: "웹사이트",
-          cat2: "쇼핑몰",
-          cat3: "업무 자동화",
-        },
-      ],
       faqs: faqData.map(([q, a], i) => ({
         q,
         a,
@@ -124,7 +91,7 @@ class Component extends GuideLogic {
 
   render() {
     const values = adaptGuideValues("main", this.renderVals(), this.props);
-    const { faqs, notSent, sent, services, submit, workGroups } = values;
+    const { faqs, notSent, sent, services, submit } = values;
     return (
       <div className="guide-page guide-main">
         <GuideEffects />
@@ -310,8 +277,10 @@ class Component extends GuideLogic {
                 gap: "12px",
               }}
             >
+              {/* The content site opens in a new tab (lib/new-tab.ts). */}
               <GuideLink
                 href="/content"
+                {...newTabProps}
                 style={{
                   background: "#0D0D12",
                   color: "#fff",
@@ -343,7 +312,7 @@ class Component extends GuideLogic {
                     flex: "1",
                     padding: "28px 32px 32px",
                     display: "grid",
-                    gridTemplateRows: "auto 1fr auto auto auto auto",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
                   }}
                 >
                   <div
@@ -374,7 +343,6 @@ class Component extends GuideLogic {
                       {"바로 의뢰 가능"}
                     </span>
                   </div>
-                  <span></span>
                   <span
                     className="t-small"
                     style={{
@@ -400,9 +368,11 @@ class Component extends GuideLogic {
                       "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 영상 · SNS 광고 영상",
                     )}
                   </span>
+                  <span aria-hidden="true"></span>
                   <span style={{ fontWeight: "600" }}>
                     {"컨텐츠 상담하기 →"}
                   </span>
+                  <NewTabHint />
                 </div>
               </GuideLink>
               <GuideLink
@@ -438,7 +408,7 @@ class Component extends GuideLogic {
                     flex: "1",
                     padding: "28px 32px 32px",
                     display: "grid",
-                    gridTemplateRows: "auto 1fr auto auto auto auto",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
                   }}
                 >
                   <div
@@ -469,7 +439,6 @@ class Component extends GuideLogic {
                       {"문의 가능"}
                     </span>
                   </div>
-                  <span></span>
                   <span
                     className="t-small"
                     style={{
@@ -495,6 +464,7 @@ class Component extends GuideLogic {
                       "통합 마케팅 · SNS 대행 운영 · SEO·AEO·GEO",
                     )}
                   </span>
+                  <span aria-hidden="true"></span>
                   <span style={{ fontWeight: "600" }}>
                     {"마케팅 상담하기 →"}
                   </span>
@@ -533,7 +503,7 @@ class Component extends GuideLogic {
                     flex: "1",
                     padding: "28px 32px 32px",
                     display: "grid",
-                    gridTemplateRows: "auto 1fr auto auto auto auto",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
                   }}
                 >
                   <div
@@ -564,7 +534,6 @@ class Component extends GuideLogic {
                       {"문의 가능"}
                     </span>
                   </div>
-                  <span></span>
                   <span
                     className="t-small"
                     style={{
@@ -590,6 +559,7 @@ class Component extends GuideLogic {
                       "업무 자동화 · 프로그램 · 웹사이트 · 쇼핑몰",
                     )}
                   </span>
+                  <span aria-hidden="true"></span>
                   <span style={{ fontWeight: "600" }}>{"개발 상담하기 →"}</span>
                 </div>
               </GuideLink>

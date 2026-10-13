@@ -4,8 +4,6 @@ import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
 import { breadcrumbSchema } from "@/lib/seo";
-import { ContentService } from "@/components/content-service/content-service";
-import { contentServicePlans } from "@/lib/content-service-plans";
 import { ServiceDetail } from "@/components/guide/service-detail";
 import { WorkCard } from "@/components/work-portfolio";
 import { mergeGuideEntries } from "@/lib/guide-content";
@@ -19,14 +17,8 @@ export async function generateMetadata({
   const p = await params,
     d = divisionByPath(p.division),
     s = d && serviceById(d.id, p.service);
-  return d && s
-    ? pageMetadata(
-        s.name,
-        d.id === "video"
-          ? contentServicePlans[s.id].description
-          : s.description,
-        "/" + d.path + "/services/" + s.id,
-      )
+  return d && s && d.id !== "video"
+    ? pageMetadata(s.name, s.description, "/" + d.path + "/services/" + s.id)
     : {};
 }
 export default async function ServicePage({
@@ -37,7 +29,8 @@ export default async function ServicePage({
   const p = await params,
     d = divisionByPath(p.division),
     s = d && serviceById(d.id, p.service);
-  if (!d || !s) notFound();
+  // /content/services/*는 컨텐츠 사이트 라우트 그룹이 처리한다. 이 분기는 도달하지 않는다.
+  if (!d || !s || d.id === "video") notFound();
   const matching = displayWorkCatalog(
     mergeGuideEntries(
       await publicEntries("reference", d.id),
@@ -45,26 +38,7 @@ export default async function ServicePage({
       d.id,
     ),
   ).filter((work) => workMatchesService(work, s.id, s.division));
-  // Editorial direction images are hero fallbacks, not customer case studies.
-  // Webtoon pages take precedence over related motion-comic extensions.
-  const works =
-    d.id === "video"
-      ? matching
-          .filter(
-            (work) =>
-              work.productionStatus !== "제작 예시" && work.media.length > 0,
-          )
-          .sort((a, b) => {
-            const preferred = (work: typeof a) =>
-              Number(
-                s.id === "webtoon"
-                  ? work.media[0]?.kind === "webtoon"
-                  : work.media[0]?.kind === "video",
-              );
-            return preferred(b) - preferred(a) || a.order - b.order;
-          })
-          .slice(0, 4)
-      : matching.slice(0, 2);
+  const works = matching.slice(0, 2);
   const references = works.length > 0 && (
     <section className="work-service-strip work-page">
       <div className="work-service-strip-inner">
@@ -85,11 +59,7 @@ export default async function ServicePage({
   );
   return (
     <>
-      {d.id === "video" ? (
-        <ContentService service={s} works={works} />
-      ) : (
-        <ServiceDetail service={s} references={references} />
-      )}
+      <ServiceDetail service={s} references={references} />
 
       <JsonLd
         data={{
@@ -97,10 +67,7 @@ export default async function ServicePage({
           "@type": "Service",
           "@id": siteUrl + "/" + d.path + "/services/" + s.id + "#service",
           name: s.name,
-          description:
-            d.id === "video"
-              ? contentServicePlans[s.id].description
-              : s.description,
+          description: s.description,
           provider: { "@id": siteUrl + "/#organization" },
           serviceType: s.name,
           areaServed: { "@type": "Country", name: "대한민국" },

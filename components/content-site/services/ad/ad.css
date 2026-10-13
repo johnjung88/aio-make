@@ -1,0 +1,6 @@
+/* ad 서비스 고유 스타일 — WP0 스텁. 이후 WP-C 소유.
+ * 선택자는 모두 .cs-svc-ad로 시작한다. 장식용 색은 맨 위 .cs-svc-ad { --svc-*: … } 한 블록에만 둔다.
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0.
+ * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다. */
+.cs-svc-ad {
+}

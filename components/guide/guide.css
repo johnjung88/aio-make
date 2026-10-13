@@ -321,16 +321,6 @@ html:has(.guide-public) {
   width: 100%;
   z-index: 2;
 }
-.guide-media-caption {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  background: rgba(13, 13, 18, 0.75);
-  color: #fff;
-  font-size: var(--type-caption-size);
-  line-height: 1.5;
-  padding: 5px 8px;
-}
 .guide-inquiry .guide-form-fields {
   border: 0;
   margin: 0;
@@ -445,10 +435,6 @@ html:has(.guide-public) {
   }
   .guide-footer nav {
     gap: 18px;
-  }
-  .guide-media-caption {
-    font-size: var(--type-caption-size);
-    max-width: 75%;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { contentLinkProps } from "@/lib/new-tab";
+import { NewTabHint } from "./new-tab-hint";
 export function Brand() {
   return (
     <span className="brand guide-brand">
@@ -94,18 +96,26 @@ export function Header() {
               </div>
             )}
           </div>
-          {links.map(([label, href]) => (
-            <Link
-              key={label}
-              className={
-                path === href || path.startsWith(href + "/") ? "is-current" : ""
-              }
-              href={href}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
+          {links.map(([label, href]) => {
+            // 컨텐츠 opens the content site in a new tab from the main site.
+            const newTab = contentLinkProps(href, path);
+            return (
+              <Link
+                key={label}
+                className={
+                  path === href || path.startsWith(href + "/")
+                    ? "is-current"
+                    : ""
+                }
+                href={href}
+                {...newTab}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+                {newTab.target && <NewTabHint />}
+              </Link>
+            );
+          })}
           <Link
             className="guide-header-cta t-button t-button--sm"
             href={
@@ -127,6 +137,7 @@ export function Header() {
   );
 }
 export function Footer() {
+  const path = usePathname();
   return (
     <footer className="guide-footer">
       <div className="guide-footer-inner">
@@ -143,11 +154,15 @@ export function Footer() {
               ["개발", "/lab"],
               ["개인정보처리방침", "/privacy"],
               ["이용약관", "/terms"],
-            ].map(([label, href]) => (
-              <Link key={href} href={href}>
-                {label}
-              </Link>
-            ))}
+            ].map(([label, href]) => {
+              const newTab = contentLinkProps(href, path);
+              return (
+                <Link key={href} href={href} {...newTab}>
+                  {label}
+                  {newTab.target && <NewTabHint />}
+                </Link>
+              );
+            })}
           </nav>
         </div>
         <div className="guide-business-info">

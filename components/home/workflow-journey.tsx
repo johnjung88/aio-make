@@ -17,6 +17,8 @@ import {
   type JourneyLink,
   type JourneyStepId,
 } from "@/lib/home-journey";
+import { contentLinkProps } from "@/lib/new-tab";
+import { NewTabHint } from "@/components/new-tab-hint";
 import { JourneyContent } from "./journey-content";
 import { JourneyDev } from "./journey-dev";
 import "./workflow-journey.css";
@@ -30,13 +32,18 @@ function JourneyAnchor({
   className: string;
   children: ReactNode;
 }) {
-  return href.startsWith("#") ? (
-    <a className={className} href={href}>
+  if (href.startsWith("#"))
+    return (
+      <a className={className} href={href}>
+        {children}
+      </a>
+    );
+  // Links into /content open the content site in a new tab.
+  const newTab = contentLinkProps(href);
+  return (
+    <Link className={className} href={href} {...newTab}>
       {children}
-    </a>
-  ) : (
-    <Link className={className} href={href}>
-      {children}
+      {newTab.target && <NewTabHint />}
     </Link>
   );
 }
@@ -214,9 +221,7 @@ export function WorkflowJourney({
     "journey-consult": <ConsultBody />,
     "journey-brand": <BrandBody />,
     "journey-dev": <JourneyDev projects={data.devProjects} />,
-    "journey-content": (
-      <JourneyContent selections={data.contentSelections} />
-    ),
+    "journey-content": <JourneyContent selections={data.contentSelections} />,
     "journey-marketing": <MarketingBody />,
   };
   const links: Record<JourneyStepId, JourneyLink[]> = {

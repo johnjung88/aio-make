@@ -212,7 +212,8 @@ test("6. 컨텐츠 분과 summary", () => {
 });
 
 test("7. /content는 ContentHome을 렌더한다", () => {
-  const page = read("app/(public)/[division]/page.tsx");
+  // P2R WP0: /content는 컨텐츠 사이트 라우트 그룹이 처리한다.
+  const page = read("app/(content-site)/content/page.tsx");
   assert.match(page, /import \{ ContentHome \} from "@\/components\/content-home\/content-home"/);
   assert.doesNotMatch(page, /StudioHome|studio-home/);
   assert.ok(existsSync("components/guide/studio-home.jsx"), "file kept");
