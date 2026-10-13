@@ -528,7 +528,7 @@ test("7. CSS: 역할 토큰만·@media 안 글자 속성 0·!important 0·서비
     assert.match(theme, new RegExp(`\\.cs-site \\.cs-t-${role} \\{`), role);
 });
 
-test("7-1. CSS: /content 홈(components/content-home)", { todo: "WP-D가 content-home.css를 var(--cs-t-…)로 옮기면 todo를 지운다" }, () => {
+test("7-1. CSS: /content 홈(components/content-home)", () => {
   for (const path of homeFiles.filter((f) => f.endsWith(".css"))) checkCss(path);
 });
 
@@ -578,7 +578,7 @@ test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적
     assert.doesNotMatch(read(path), /\bautoPlay\b/, path);
 });
 
-test("8-1. 소스: /content 홈은 GuideNav를 쓰지 않는다", { todo: "WP-D가 content-home.tsx에서 GuideNav를 지우면 todo를 지운다" }, () => {
+test("8-1. 소스: /content 홈은 GuideNav를 쓰지 않는다", () => {
   for (const path of homeFiles)
     assert.doesNotMatch(read(path), /import[^;]*\b(GuideNav|ServiceNavigation)\b/, path);
 });

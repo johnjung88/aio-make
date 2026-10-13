@@ -1,6 +1,291 @@
-/* ad 서비스 고유 스타일 — WP0 스텁. 이후 WP-C 소유.
+/* ad 서비스 고유 스타일(WP-C 소유).
  * 선택자는 모두 .cs-svc-ad로 시작한다. 장식용 색은 맨 위 .cs-svc-ad { --svc-*: … } 한 블록에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0.
- * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다. */
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
+ * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다
+ * (콜라주 레일 왕복은 collage-motion.tsx의 Web Animations API가 맡는다).
+ * 공통 규칙(theme.css, 명시도 0,2,0)을 덮는 곳은 .cs-svc-ad .<고유 클래스>.<공통 클래스>(0,3,0)로 쓴다. */
 .cs-svc-ad {
+  --svc-glow: rgba(255, 90, 130, 0.3);
+  --svc-mask: #000;
+  --svc-ui-track: rgba(255, 255, 255, 0.34);
+  --svc-ui-fill: rgba(255, 255, 255, 0.95);
+  --svc-ui-line: rgba(255, 255, 255, 0.86);
+  --svc-ui-band: rgba(14, 13, 18, 0.58);
+  --svc-scene-shade: rgba(14, 13, 18, 0.62);
+
+  /* 콜라주 크기: 모바일은 화면 폭 122%를 3열로 나눈다 */
+  --svc-card-gap: 12px;
+  --svc-card-w: calc((122vw - 2 * var(--svc-card-gap)) / 3);
+  --svc-collage-h: 440px;
+  --svc-column-offset: 72px;
+}
+@media (min-width: 768px) {
+  .cs-svc-ad {
+    --svc-card-gap: 16px;
+    /* 기울어진 무대가 콜라주 영역 모서리까지 덮는 최소 폭 */
+    --svc-card-w: 37vw;
+    --svc-collage-h: 560px;
+  }
+}
+@media (min-width: 1024px) {
+  .cs-svc-ad {
+    --svc-card-gap: 20px;
+    --svc-card-w: clamp(220px, 22vw, 360px);
+  }
+}
+
+/* ---------------------------------------------------------------- 히어로: 문구 + 9:16 콜라주 */
+.cs-svc-ad .cs-svc-ad-hero.cs-hero {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding-block: var(--cs-s8) 0;
+}
+@media (min-width: 1024px) {
+  .cs-svc-ad .cs-svc-ad-hero.cs-hero {
+    padding-block: var(--cs-s8);
+  }
+  .cs-svc-ad .cs-svc-ad-hero .cs-hero-copy {
+    padding-right: var(--cs-s6);
+  }
+}
+.cs-svc-ad .cs-svc-ad-glow {
+  position: absolute;
+  left: -180px;
+  bottom: -220px;
+  z-index: 0;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--svc-glow), transparent);
+  pointer-events: none;
+}
+.cs-svc-ad .cs-svc-ad-collage {
+  position: relative;
+  z-index: 0;
+  height: var(--svc-collage-h);
+  margin-top: var(--cs-s7);
+  overflow: clip;
+}
+@media (min-width: 1024px) {
+  /* 섹션 오른쪽 절반을 끝까지 채운다 */
+  .cs-svc-ad .cs-svc-ad-collage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    height: auto;
+    margin-top: 0;
+  }
+}
+.cs-svc-ad .cs-svc-ad-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 10%, var(--svc-mask) 90%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 10%, var(--svc-mask) 90%, transparent 100%);
+}
+.cs-svc-ad .cs-svc-ad-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--svc-card-gap);
+  transform: translate(-50%, -50%) rotate(-12deg);
+}
+.cs-svc-ad .cs-svc-ad-column {
+  flex-shrink: 0;
+  width: var(--svc-card-w);
+}
+.cs-svc-ad .cs-svc-ad-column[data-column="2"] {
+  transform: translateY(var(--svc-column-offset));
+}
+.cs-svc-ad .cs-svc-ad-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--svc-card-gap);
+  will-change: transform;
+}
+.cs-svc-ad .cs-svc-ad-card.cs-media {
+  width: 100%;
+  border-radius: var(--cs-r-md);
+}
+.cs-svc-ad .cs-svc-ad-card--type {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  padding: var(--cs-s4);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+  overflow: clip;
+}
+/* 역할 클래스의 기본 글자색(--cs-fg)을 강조색 위 글자색으로 바꾼다 */
+.cs-svc-ad .cs-svc-ad-card--type .cs-t-h2 {
+  color: var(--cs-on-accent);
+}
+/* 타이포 카드 장식: 오른쪽 위 원 */
+.cs-svc-ad .cs-svc-ad-card--type::after {
+  content: "";
+  position: absolute;
+  top: var(--cs-s4);
+  right: var(--cs-s4);
+  width: 28%;
+  aspect-ratio: 1;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+/* 콜라주 태그: 모바일은 문구 왼쪽 끝과 맞춘다 */
+.cs-svc-ad .cs-svc-ad-collage > .cs-tag {
+  left: var(--cs-gutter);
+  bottom: var(--cs-s4);
+}
+@media (min-width: 1024px) {
+  .cs-svc-ad .cs-svc-ad-collage > .cs-tag {
+    left: var(--cs-s5);
+    bottom: var(--cs-s5);
+  }
+}
+
+/* ---------------------------------------------------------------- signature: 첫 장면 설계 */
+.cs-svc-ad .cs-svc-ad-frames {
+  display: grid;
+  gap: var(--cs-s6);
+}
+.cs-svc-ad .cs-svc-ad-frame {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--cs-s5);
+}
+@media (min-width: 768px) {
+  .cs-svc-ad .cs-svc-ad-frames {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--cs-s5);
+  }
+  .cs-svc-ad .cs-svc-ad-frame {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.cs-svc-ad .cs-svc-ad-phone {
+  width: 100%;
+  max-width: 320px;
+  padding: 6px;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-lg);
+  background: var(--cs-surface);
+}
+.cs-svc-ad .cs-svc-ad-screen {
+  position: relative;
+  overflow: clip;
+  border-radius: calc(var(--cs-r-lg) - 6px);
+}
+.cs-svc-ad .cs-svc-ad-screen > .cs-media {
+  border-radius: inherit;
+}
+/* 같은 이미지를 장면마다 다르게 자른다: 첫 장면은 빛과 천을 가까이, 제품 장면은 제품을 크게 */
+.cs-svc-ad .cs-svc-ad-frame[data-scene="1"] .cs-media > img {
+  transform: scale(1.9);
+  transform-origin: 26% 16%;
+}
+.cs-svc-ad .cs-svc-ad-frame[data-scene="2"] .cs-media > img {
+  object-position: 57% 50%;
+  transform: scale(1.2);
+  transform-origin: 57% 34%;
+}
+.cs-svc-ad .cs-svc-ad-frame[data-scene="3"] .cs-media > img {
+  object-position: 57% 50%;
+}
+.cs-svc-ad .cs-svc-ad-frame-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-s2);
+}
+.cs-svc-ad .cs-svc-ad-frame-text .cs-t-small {
+  color: var(--cs-fg-2);
+}
+
+/* 화면 위 장식 요소(진행 막대·첫 문구·버튼·자막 띠). 태그(왼쪽 아래)를 가리지 않게 위쪽에 둔다 */
+.cs-svc-ad .cs-svc-ad-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.cs-svc-ad .cs-svc-ad-frame[data-scene="3"] .cs-svc-ad-ui {
+  background: linear-gradient(0deg, var(--svc-scene-shade) 0%, transparent 62%);
+}
+.cs-svc-ad .cs-svc-ad-progress {
+  position: absolute;
+  top: 8%;
+  left: 8%;
+  right: 8%;
+  display: flex;
+  gap: 4px;
+}
+.cs-svc-ad .cs-svc-ad-progress > i {
+  flex: 1;
+  height: 3px;
+  border-radius: var(--cs-r-pill);
+  background: var(--svc-ui-track);
+}
+.cs-svc-ad .cs-svc-ad-progress > i[data-on] {
+  background: var(--svc-ui-fill);
+}
+.cs-svc-ad .cs-svc-ad-headline {
+  position: absolute;
+  top: 18%;
+  left: 10%;
+  right: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 6%;
+  height: 10%;
+}
+.cs-svc-ad .cs-svc-ad-headline > i {
+  display: block;
+  flex: 1;
+  border-radius: var(--cs-r-sm);
+  background: var(--svc-ui-fill);
+}
+.cs-svc-ad .cs-svc-ad-headline > i:last-child {
+  width: 62%;
+}
+.cs-svc-ad .cs-svc-ad-caption {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 21%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 8px;
+  border-radius: var(--cs-r-sm);
+  background: var(--svc-ui-band);
+}
+.cs-svc-ad .cs-svc-ad-caption > i {
+  display: block;
+  width: 84%;
+  height: 4px;
+  border-radius: var(--cs-r-pill);
+  background: var(--svc-ui-line);
+}
+.cs-svc-ad .cs-svc-ad-caption > i:last-child {
+  width: 52%;
+}
+.cs-svc-ad .cs-svc-ad-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 33%;
+  width: 56%;
+  height: 7%;
+  border-radius: var(--cs-r-pill);
+  background: var(--cs-accent);
+  transform: translateX(-50%);
 }

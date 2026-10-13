@@ -1,6 +1,292 @@
-/* brand-film 서비스 고유 스타일 — WP0 스텁. 이후 WP-C 소유.
+/* brand-film 서비스 고유 스타일(WP-C 소유).
  * 선택자는 모두 .cs-svc-brand-film로 시작한다. 장식용 색은 맨 위 .cs-svc-brand-film { --svc-*: … } 한 블록에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0.
- * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다. */
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
+ * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * 공통 규칙(theme.css, 명시도 0,2,0)을 덮는 곳은 .cs-svc-brand-film .<고유 클래스>.<공통 클래스>(0,3,0)로 쓴다. */
 .cs-svc-brand-film {
+  --svc-shade-x: rgba(8, 8, 16, 0.72);
+  --svc-shade-y: rgba(8, 8, 16, 0.88);
+  --svc-shade-all: rgba(8, 8, 16, 0.38);
+  --svc-control-bg: rgba(14, 13, 18, 0.56);
+  --svc-control-line: rgba(255, 255, 255, 0.42);
+  --svc-seg: color-mix(in srgb, var(--cs-accent) 34%, transparent);
+  --svc-seg-lead: var(--cs-accent);
+}
+
+/* ---------------------------------------------------------------- 히어로: 화면 전체 배경 영상 */
+.cs-svc-brand-film .cs-svc-brand-film-hero.cs-hero {
+  align-items: stretch;
+  min-height: 640px;
+  padding-block: var(--cs-s6) var(--cs-s7);
+}
+@media (min-width: 768px) {
+  .cs-svc-brand-film .cs-svc-brand-film-hero.cs-hero {
+    min-height: clamp(560px, calc(100svh - var(--cs-header-h)), 900px);
+    padding-block: var(--cs-s8);
+  }
+}
+/* 배경층: 비율 상자 대신 섹션을 꽉 채운다 */
+.cs-svc-brand-film .cs-svc-brand-film-backdrop.cs-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: var(--cs-bg);
+}
+.cs-svc-brand-film .cs-svc-brand-film-backdrop.cs-media > img,
+.cs-svc-brand-film .cs-svc-brand-film-backdrop.cs-media > video {
+  object-position: 68% 50%;
+}
+/* 글자가 놓이는 쪽(왼쪽·아래)을 어둡게 */
+.cs-svc-brand-film .cs-svc-brand-film-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(0deg, var(--svc-shade-y) 0%, transparent 78%),
+    linear-gradient(0deg, var(--svc-shade-all), var(--svc-shade-all));
+}
+@media (min-width: 768px) {
+  .cs-svc-brand-film .cs-svc-brand-film-shade {
+    background:
+      linear-gradient(90deg, var(--svc-shade-x) 0%, transparent 72%),
+      linear-gradient(0deg, var(--svc-shade-y) 0%, transparent 40%);
+  }
+}
+.cs-svc-brand-film .cs-svc-brand-film-hero > .cs-container {
+  display: flex;
+  flex-direction: column;
+}
+.cs-svc-brand-film .cs-svc-brand-film-hero-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--cs-s7);
+}
+.cs-svc-brand-film .cs-svc-brand-film-hero-inner .cs-hero-copy {
+  max-width: 760px;
+}
+/* 메타(태그 + 일시정지): 모바일은 문구 위 첫 줄, 768 이상은 오른쪽 아래 */
+.cs-svc-brand-film .cs-svc-brand-film-meta {
+  order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cs-s3);
+}
+.cs-svc-brand-film .cs-svc-brand-film-meta .cs-tag {
+  max-width: none;
+}
+@media (min-width: 768px) {
+  .cs-svc-brand-film .cs-svc-brand-film-hero-inner {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-meta {
+    order: 0;
+    flex-shrink: 0;
+    justify-content: flex-end;
+  }
+}
+
+/* 일시정지 버튼 44×44: 두 막대(재생 중) ↔ 삼각형(멈춤) */
+.cs-svc-brand-film .cs-svc-brand-film-control {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--svc-control-line);
+  border-radius: var(--cs-r-pill);
+  background: var(--svc-control-bg);
+  color: var(--cs-fg);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control-icon {
+  position: relative;
+  display: block;
+  width: 12px;
+  height: 14px;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control-icon::before,
+.cs-svc-brand-film .cs-svc-brand-film-control-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 14px;
+  border-radius: 1px;
+  background: currentColor;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control-icon::before {
+  left: 0;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control-icon::after {
+  right: 0;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control[data-state="paused"] .cs-svc-brand-film-control-icon::before {
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: transparent;
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent currentColor;
+}
+.cs-svc-brand-film .cs-svc-brand-film-control[data-state="paused"] .cs-svc-brand-film-control-icon::after {
+  display: none;
+}
+@media (hover: hover) {
+  .cs-svc-brand-film .cs-svc-brand-film-control:hover {
+    border-color: var(--cs-fg);
+  }
+}
+
+/* ---------------------------------------------------------------- signature ① 이야기 순서 */
+.cs-svc-brand-film .cs-svc-brand-film-story-grid {
+  row-gap: var(--cs-s7);
+  align-items: start;
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-list {
+  border-bottom: 1px solid var(--cs-line);
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--cs-s4);
+  padding-block: var(--cs-s6);
+  border-top: 1px solid var(--cs-line);
+}
+@media (min-width: 768px) {
+  .cs-svc-brand-film .cs-svc-brand-film-story-row {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--cs-s5);
+    padding-block: var(--cs-s7);
+  }
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-row .cs-t-num {
+  color: var(--cs-accent-text);
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-s3);
+  padding-top: var(--cs-s1);
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-text .cs-t-body {
+  max-width: 34em;
+  color: var(--cs-fg-2);
+}
+.cs-svc-brand-film .cs-svc-brand-film-story-media {
+  width: 100%;
+  max-width: 420px;
+}
+@media (min-width: 1024px) {
+  .cs-svc-brand-film .cs-svc-brand-film-story-media {
+    max-width: none;
+  }
+}
+
+/* ---------------------------------------------------------------- signature ② 길이별 구성 */
+.cs-svc-brand-film .cs-svc-brand-film-lengths {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--cs-line);
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-row {
+  display: grid;
+  gap: var(--cs-s5);
+  padding-block: var(--cs-s6);
+  border-top: 1px solid var(--cs-line);
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--cs-s2) var(--cs-s4);
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-head .cs-link {
+  min-height: 44px;
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--cs-s2);
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-price .cs-t-small {
+  color: var(--cs-fg-2);
+}
+/* 타임라인: 모바일은 세로(왼쪽 막대), 768 이상은 가로(위 막대). 칸 폭은 줄 안에서 균등 */
+.cs-svc-brand-film .cs-svc-brand-film-parts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-s2);
+}
+.cs-svc-brand-film .cs-svc-brand-film-parts > li {
+  position: relative;
+  padding-left: var(--cs-s5);
+  color: var(--cs-fg);
+}
+.cs-svc-brand-film .cs-svc-brand-film-parts > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 4px;
+  border-radius: var(--cs-r-pill);
+  background: var(--svc-seg);
+}
+.cs-svc-brand-film .cs-svc-brand-film-parts > li:first-child::before {
+  background: var(--svc-seg-lead);
+}
+@media (min-width: 768px) {
+  .cs-svc-brand-film .cs-svc-brand-film-length-row {
+    grid-template-columns: minmax(200px, 3fr) minmax(0, 9fr);
+    align-items: start;
+    gap: var(--cs-s6);
+    padding-block: var(--cs-s7);
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-length-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-parts {
+    flex-direction: row;
+    gap: var(--cs-s1);
+    padding-top: var(--cs-s2);
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-parts[data-span="half"] {
+    width: calc(50% - var(--cs-s1) / 2);
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-parts > li {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: 0;
+    padding-top: var(--cs-s4);
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-parts > li::before {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    height: 8px;
+  }
+}
+.cs-svc-brand-film .cs-svc-brand-film-length-note {
+  margin-top: var(--cs-s5);
+  color: var(--cs-fg-2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-svc-brand-film .cs-svc-brand-film-control {
+    transition: border-color var(--cs-dur-1) var(--cs-ease);
+  }
 }

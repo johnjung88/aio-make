@@ -1,7 +1,58 @@
-/* 애니메이션 서비스 랜딩 데이터. WP0 초안(BRIEF_P2R_SERVICES 2절 카피 그대로) → 이후 WP-A 소유.
- * signature는 WP-A가 채운다(움직이기 전 확인 3탭). */
+/* 애니메이션 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 2절 초안을 다듬은 것이다.
+ * signature 문자열도 카피 테스트 대상이다. 금액은 쓰지 않고 lib/content-pricing.ts로 렌더한다.
+ * 이미지 경로·alt는 components/content-site/services/animation/landing.tsx 상단 상수에 둔다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
+
+/** 서비스 고유 섹션 문구(그림체 · 움직이기 전 확인 탭) */
+export const animationSignature = {
+  styles: {
+    eyebrow: "STYLE",
+    title: "브랜드에 맞는\n그림체를 고릅니다",
+    lead: "기획안 단계에서 캐릭터와 배경의 그림체를 함께 정합니다",
+    items: [
+      {
+        title: "입체 캐릭터",
+        body: "둥근 형태와 매끈한 재질로 친근한 인상을 만듭니다.",
+      },
+      {
+        title: "동화풍 장면",
+        body: "빛과 날씨를 살린 배경으로 이야기의 분위기를 잡습니다.",
+      },
+      {
+        title: "포근한 질감",
+        body: "털과 천의 결을 살려 따뜻한 느낌을 줍니다.",
+      },
+    ],
+  },
+  beforeMotion: {
+    eyebrow: "BEFORE MOTION",
+    title: "움직이기 전에\n장면을 맞춥니다",
+    lead: "기획안 단계에서 이야기와 캐릭터, 장면 구성을 먼저 확인합니다",
+    tabsLabel: "움직이기 전에 확인하는 것",
+    items: [
+      {
+        title: "이야기",
+        body: "누가 무엇을 하는지 한 문장으로 정리하고 장면 순서를 나눕니다.",
+      },
+      {
+        title: "캐릭터",
+        body: "생김새와 표정, 움직임의 범위를 그림으로 먼저 정합니다.",
+      },
+      {
+        title: "장면 구성",
+        body: "장면마다 화면 구도와 길이를 정해 기획안에 담습니다.",
+      },
+    ],
+    story: {
+      label: "한 문장 이야기",
+      line: "작은 캐릭터가 새 제품을 만나 하루가 달라집니다",
+      beats: ["시작", "전개", "마무리"],
+    },
+    views: ["정면", "측면"],
+    frames: ["전체", "인물", "제품", "마무리"],
+  },
+} as const;
 
 export const animation: ServiceLandingData = {
   id: "animation",
@@ -14,7 +65,7 @@ export const animation: ServiceLandingData = {
   hero: {
     eyebrow: "ANIMATION",
     title: "캐릭터가\n움직이는 장면",
-    lead: "캐릭터와 배경을 설계하고 장면을 이어 30초와 60초 애니메이션으로 완성합니다",
+    lead: "캐릭터와 배경을 설계하고 장면을 이어 30초나 60초 애니메이션으로 완성합니다",
     facts: ["30초 · 60초", "캐릭터·배경 설계", "기획안 수정 2회"],
   },
   types: {
@@ -82,6 +133,14 @@ export const animation: ServiceLandingData = {
       "제작 중에 무엇을 확인하나요?",
       "기획안에서 이야기와 캐릭터, 장면 구성을 먼저 확인합니다. 최종안을 받은 뒤 한 번 더 수정할 수 있습니다.",
     ],
+    [
+      "이미 있는 캐릭터로도 만들 수 있나요?",
+      "네. 캐릭터 원본 파일을 보내주시면 기획안에서 생김새와 움직임을 먼저 맞춥니다.",
+    ],
+    [
+      "그림체는 어떻게 정하나요?",
+      "브랜드 분위기와 쓰일 곳을 듣고 기획안 단계에서 함께 정합니다. 참고하고 싶은 영상이 있으면 같이 보내주세요.",
+    ],
     ...COMMON_FAQ,
   ],
   inquiry: {
@@ -89,5 +148,5 @@ export const animation: ServiceLandingData = {
     lead: "알리고 싶은 내용을 남겨주시면 장면 구성과 견적을 안내합니다",
     placeholder: "예: 브랜드 캐릭터가 제품을 소개하는 30초 영상이 필요해요",
   },
-  signature: {},
+  signature: animationSignature,
 };

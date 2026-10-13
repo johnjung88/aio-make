@@ -1,7 +1,34 @@
-/* 웹툰 서비스 랜딩 데이터. WP0 초안(BRIEF_P2R_SERVICES 1절 카피 그대로) → 이후 WP-A 소유.
- * signature는 WP-A가 채운다(세로 리더 · 웹툰 + 모션코믹). */
+/* 웹툰 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 1절 초안을 다듬은 것이다.
+ * signature 문자열도 카피 테스트 대상이다. 금액은 쓰지 않고 lib/content-pricing.ts로 렌더한다.
+ * 이미지 경로·alt는 components/content-site/services/webtoon/landing.tsx 상단 상수에 둔다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
+
+/** 서비스 고유 섹션 문구(표지 · 세로 리더 · 웹툰 + 모션코믹) */
+export const webtoonSignature = {
+  cover: {
+    title: "1억의 구단주",
+    read: "웹툰 읽어보기",
+  },
+  reader: {
+    eyebrow: "READ",
+    title: "12컷 한 회를\n직접 읽어보세요",
+    lead: "《1억의 구단주》 1회 12컷입니다. 컷마다 완성 이미지 1장으로 셉니다.",
+    chip: "12컷 한 회",
+    hint: "화면 안을 내리면 다음 컷이 이어집니다",
+    label: "1억의 구단주 12컷 세로 보기",
+  },
+  motionComic: {
+    eyebrow: "MOTION COMIC",
+    title: "완성한 웹툰을\n영상으로 잇습니다",
+    lead: "모션코믹은 완성한 웹툰을 움직이는 영상으로 바꾸는 작업입니다",
+    videoLabel: "《1억의 구단주》 소개 영상",
+    caption: "직접 그린 웹툰 《1억의 구단주》 소개 영상",
+    bundlesLabel: "웹툰과 함께 맡길 때",
+    soloLabel: "모션코믹만 맡길 때",
+    note: "기존 웹툰을 영상화하는 가격입니다. 웹툰을 새로 그리는 비용은 별도입니다.",
+  },
+} as const;
 
 export const webtoon: ServiceLandingData = {
   id: "webtoon",
@@ -14,8 +41,8 @@ export const webtoon: ServiceLandingData = {
   hero: {
     eyebrow: "WEBTOON",
     title: "브랜드 이야기를\n읽히는 컷으로",
-    lead: "제품을 쓰는 인물의 이야기를 12컷이나 24컷으로 그리고 원하시면 모션코믹 영상으로 이어갑니다",
-    facts: ["12컷 · 24컷", "완성 이미지 1장 = 1컷", "모션코믹 영상화 옵션"],
+    lead: "제품을 쓰는 인물의 이야기를 12컷이나 24컷으로 그리고 원하시면 모션코믹 영상까지 이어갑니다",
+    facts: ["12컷 · 24컷 한 회", "완성 이미지 1장 = 1컷", "모션코믹 영상화 옵션"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",
@@ -66,7 +93,7 @@ export const webtoon: ServiceLandingData = {
       "줄거리·대사·작화",
       "기획안 수정 2회 · 최종안 수정 1회",
     ],
-    separate: ["모션코믹 영상화(옵션 가격)", "대량·정기 제작"],
+    separate: ["모션코믹 영상화(옵션)", "대량·정기 제작"],
     prepare: [
       "제품 정보와 알리고 싶은 내용",
       "등장시키고 싶은 인물이나 상황",
@@ -88,7 +115,7 @@ export const webtoon: ServiceLandingData = {
     ],
     [
       "이미 있는 웹툰도 모션코믹으로 만들 수 있나요?",
-      "네. 모션코믹 가격은 기존 웹툰을 영상화하는 기준입니다. 웹툰을 새로 그리는 비용은 따로입니다.",
+      "네. 모션코믹 가격은 기존 웹툰을 영상화하는 기준입니다. 웹툰을 새로 그리는 비용은 별도입니다.",
     ],
     ...COMMON_FAQ,
   ],
@@ -97,5 +124,5 @@ export const webtoon: ServiceLandingData = {
     lead: "제품과 독자를 알려주시면 콘티 방향과 견적을 안내합니다",
     placeholder: "예: 우리 제품을 쓰는 직장인 이야기를 12컷으로 그리고 싶어요",
   },
-  signature: {},
+  signature: webtoonSignature,
 };

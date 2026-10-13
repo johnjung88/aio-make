@@ -325,23 +325,53 @@ check(
   "main FAQ server HTML",
 );
 check(() => {
-  // /content 컨텐츠 분과 홈: 서버 HTML(목록 모드)에 서비스 6종이 모두 있고 고객 작품 흔적이 없다.
+  // /content 컨텐츠 사이트 홈(P2R WP-D): 컨텐츠 셸 안, 서버 HTML(목록 모드)에 서비스 6종·시작가·링크가 모두 있고
+  // 고객 작품 흔적·옛 셸·자리표시 문구가 없다.
   const html = bodies.get("/content");
+  assert.match(html, /class="cs-site"/);
+  assert.match(html, /class="cs-home"/);
+  assert.doesNotMatch(html, /guide-page|guide-subnav|guide-header|floating-contact/);
   assert.match(html, /id="services"/);
   assert.match(html, /id="process"/);
   assert.match(html, /data-mode="list"/);
+  assert.match(html, /data-cs-section="hero"/);
   for (const s of services.filter((s) => s.division === "video"))
     assert.ok(
       html.includes(`href="/content/services/${s.id}"`),
       `/content links ${s.id}`,
     );
   assert.equal((html.match(/class="ch-price /g) || []).length, 6);
+  assert.match(html, /연출 예시/);
+  assert.doesNotMatch(html, /<video\b|\sautoplay[\s=>]/i, "reel slot is empty");
   assert.doesNotMatch(
     html,
-    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|87언니|home-references|work-card|작업 사례|맞춤 견적|Blender/,
+    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|87언니|home-references|work-card|작업 사례|맞춤 견적|Blender|준비 중|공개 예정|coming soon/i,
   );
-  assert.doesNotMatch(html, /href="\/content\/work/);
+  assert.doesNotMatch(html, /href="\/content\/work|href="\/content\/insights/);
 }, "/content home server HTML");
+{
+  // /content/contact (P2R WP-D): 서비스 선택 6개(폼 밖)·가격 기준·문의 폼, 없는 선택지 문구 없음
+  const plain = bodies.get("/content/contact");
+  const webtoon = await (
+    await fetch(base + "/content/contact?service=webtoon", {
+      headers: { "User-Agent": "Googlebot" },
+    })
+  ).text();
+  check(() => {
+    for (const html of [plain, webtoon]) {
+      assert.match(html, /class="cs-site"/);
+      assert.match(html, /data-cs-section="hero"/);
+      assert.match(html, /id="inquiry"/);
+      assert.equal((html.match(/<input[^>]*type="radio"/g) || []).length, 6);
+      assert.ok(html.indexOf('type="radio"') < html.indexOf("<form"), "chooser outside form");
+      assert.match(html, /가격 기준/);
+      assert.match(html, /표시 금액은 모두 부가세 별도입니다\./);
+      assert.doesNotMatch(html, /모르겠어요|맞춤 견적/);
+    }
+    assert.doesNotMatch(plain, /<input[^>]*type="radio"[^>]*checked/);
+    assert.match(webtoon, /<input[^>]*value="webtoon"[^>]*checked|<input[^>]*checked[^>]*value="webtoon"/);
+  }, "/content/contact server HTML");
+}
 for (const s of services.filter((s) => s.division === "video"))
   check(() => {
     const html = bodies.get(`/content/services/${s.id}`);

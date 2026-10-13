@@ -1,7 +1,39 @@
-/* SNS 광고 영상 서비스 랜딩 데이터. WP0 초안(BRIEF_P2R_SERVICES 6절 카피 그대로) → 이후 WP-C 소유.
- * signature는 WP-C가 채운다(콜라주 타이포 카드 · 첫 장면 설계 9:16 프레임 3개). */
+/* SNS 광고 영상 서비스 랜딩 데이터(WP-C 소유, BRIEF_P2R_SERVICES 6절).
+ * signature = 9:16 카드 콜라주 히어로 문구 · 첫 장면 설계 프레임 3개.
+ * 광고 성과(클릭률·전환·노출 수치)는 근거가 없어 쓰지 않는다. 숫자로 된 초 단위 표현도 쓰지 않는다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
+
+export const adSignature = {
+  collage: {
+    label: "SNS 광고 영상 연출 예시",
+    cards: ["첫 장면", "제품 장면", "마지막 장면"],
+  },
+  hook: {
+    eyebrow: "HOOK",
+    title: "첫 장면에서\n멈추게 합니다",
+    lead: "한 편 안에서 장면마다 맡은 일을 나눠 기획안에 담습니다",
+    frames: [
+      {
+        title: "첫 장면",
+        body: "시선을 붙잡는 장면과 문구를 먼저 정합니다.",
+        alt: "빛이 스치는 보라색 천을 가까이 담은 첫 장면 연출 예시",
+      },
+      {
+        title: "제품 장면",
+        body: "제품이 하는 일을 한 장면에 하나씩 보여줍니다.",
+        alt: "돌 받침 위 향수병을 크게 보여주는 제품 장면 연출 예시",
+      },
+      {
+        title: "마지막 장면",
+        body: "구매나 문의로 이어질 문구로 마무리합니다.",
+        alt: "향수병 아래로 문의 버튼이 놓인 마지막 장면 연출 예시",
+      },
+    ],
+  },
+};
+
+export type AdSignature = typeof adSignature;
 
 export const ad: ServiceLandingData = {
   id: "ad",
@@ -94,5 +126,5 @@ export const ad: ServiceLandingData = {
     lead: "제품과 올릴 채널을 알려주시면 기획 범위와 견적을 안내합니다",
     placeholder: "예: 새로 나온 세럼을 릴스 광고로 알리고 싶어요",
   },
-  signature: {},
+  signature: adSignature,
 };

@@ -1,39 +1,182 @@
-/* ad 서비스 모듈 — WP0 스텁(기본 2열 히어로 + 공통 블록만). 이후 WP-C 소유.
- * WP-C가 채울 것: 9:16 카드 콜라주 히어로 · 첫 장면 설계 9:16 프레임 3개.
- * 규칙: 서비스 고유 스타일은 ./ad.css 한 파일, 선택자는 모두 .cs-svc-ad로 시작. 자산 경로는 이 파일 상단 상수 한 곳에. */
-import { CsHero } from "../../blocks/hero";
+/* SNS 광고 영상 서비스 모듈(WP-C 소유, BRIEF_P2R_SERVICES 6절).
+ * - Hero: 왼쪽 문구 + 오른쪽 끝까지 닿는 9:16 카드 콜라주(3열 9장, 전체 -12도, 가운데 열 72px 아래).
+ *   레일 왕복은 CollageMotion(고유 client 섬 1개)이 맡고 헤더 움직임 토글·reduced-motion에서 멈춘다.
+ *   콜라주는 장식이라 카드 이미지 alt는 비우고 컨테이너 하나에만 aria-label을 둔다. 사람이 나오는 이미지는 쓰지 않는다.
+ * - Signature: 첫 장면 설계. 같은 연출 예시 이미지를 장면마다 다르게 잘라 한 편 안의 세 장면(첫 장면·제품 장면·마지막 장면)을
+ *   9:16 휴대폰 틀에 보여주고, 틀 위 화면 요소(진행 막대·문구 띠·버튼)는 CSS 장식(aria-hidden)이다.
+ * 스타일은 ./ad.css(.cs-svc-ad로 시작), 자산 경로는 아래 ASSETS 한 곳. 광고 성과 수치는 쓰지 않는다. */
+import type { AdSignature } from "@/lib/content-site/services/ad";
+import { CONTENT_SITE_ASSETS, MEDIA_TAGS } from "@/lib/content-site/types";
+import { CsHeroCopy, HERO_TITLE_ID } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
-import { MEDIA_TAGS } from "@/lib/content-site/types";
+import { CsSectionHead } from "../../ui/section-head";
+import { CsTag } from "../../ui/tag";
+import { CollageMotion } from "./collage-motion";
 import "./ad.css";
 
-const HERO_MEDIA = {
-  src: "/creative-v06/video-sns-ad.webp",
-  alt: "물방울이 튀는 보라색 음료 캔 광고 장면 연출 예시",
-  tag: MEDIA_TAGS.staged,
-};
+/** 공개 연출 예시 이미지(사람 없음). 같은 원본은 한 곳에서만 같은 sizes로 쓴다(/_next/image 중복 요청 0). */
+const ASSETS = {
+  can: "/creative-v06/video-sns-ad.webp",
+  products: "/renewal/shop-products.webp",
+  cafe: "/creative-v06/marketing-sns.webp",
+  bottle: "/renewal/brand-film-v03.webp",
+  glass: "/renewal/video.webp",
+  /** 첫 장면 설계 프레임 3개가 함께 쓰는 세로 이미지 */
+  hook: CONTENT_SITE_ASSETS.brand.src,
+} as const;
+
+type CollageCard =
+  | { kind: "image"; src: string }
+  | { kind: "type"; index: 0 | 1 | 2 };
+
+/** 3열 × 3장. 타이포 카드(첫 장면·제품 장면·마지막 장면)는 열마다 다른 높이에 둔다. */
+const COLLAGE: CollageCard[][] = [
+  [
+    { kind: "image", src: ASSETS.can },
+    { kind: "type", index: 0 },
+    { kind: "image", src: ASSETS.products },
+  ],
+  [
+    { kind: "image", src: ASSETS.cafe },
+    { kind: "image", src: ASSETS.bottle },
+    { kind: "type", index: 1 },
+  ],
+  [
+    { kind: "type", index: 2 },
+    { kind: "image", src: ASSETS.glass },
+    { kind: "image", src: ASSETS.can },
+  ],
+];
+
+const COLLAGE_SIZES = "(max-width: 767px) 40vw, (max-width: 1023px) 37vw, 22vw";
+const HOOK_SIZES = "(max-width: 767px) 132px, (max-width: 1023px) 30vw, 320px";
+
+const sig = (data: ServiceSectionProps["data"]) => data.signature as AdSignature;
 
 function Hero({ data }: ServiceSectionProps) {
+  const { collage } = sig(data);
   return (
-    <CsHero
-      id={data.id}
-      hero={data.hero}
-      className="cs-svc-ad-hero"
-      media={
-        <CsMedia
-          ratio="4x5"
-          src={HERO_MEDIA.src}
-          alt={HERO_MEDIA.alt}
-          tag={HERO_MEDIA.tag}
-          sizes="(max-width: 1023px) 90vw, 40vw"
-          priority
+    <section
+      className="cs-hero cs-svc-ad-hero"
+      data-cs-section="hero"
+      aria-labelledby={HERO_TITLE_ID}
+    >
+      <div className="cs-svc-ad-glow" aria-hidden="true" />
+      <div className="cs-container">
+        <div className="cs-grid cs-hero-grid">
+          <div className="cs-col-6">
+            <CsHeroCopy id={data.id} hero={data.hero} />
+          </div>
+        </div>
+      </div>
+      <div className="cs-svc-ad-collage">
+        <CollageMotion className="cs-svc-ad-viewport" label={collage.label}>
+          <div className="cs-svc-ad-stage">
+            {COLLAGE.map((column, c) => (
+              <div key={c} className="cs-svc-ad-column" data-column={c + 1}>
+                <div className="cs-svc-ad-rail" data-rail>
+                  {column.map((card, r) =>
+                    card.kind === "image" ? (
+                      <CsMedia
+                        key={r}
+                        ratio="9x16"
+                        className="cs-svc-ad-card"
+                        src={card.src}
+                        alt=""
+                        sizes={COLLAGE_SIZES}
+                        priority={c === 0 && r === 0}
+                      />
+                    ) : (
+                      <div
+                        key={r}
+                        className="cs-svc-ad-card cs-svc-ad-card--type"
+                      >
+                        <span className="cs-t-h2">
+                          {collage.cards[card.index]}
+                        </span>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </CollageMotion>
+        <CsTag overlay>{MEDIA_TAGS.staged}</CsTag>
+      </div>
+    </section>
+  );
+}
+
+function Hook({ data }: ServiceSectionProps) {
+  const { hook } = sig(data);
+  return (
+    <section
+      className="cs-section cs-section--alt cs-svc-ad-hook"
+      data-cs-section="signature"
+      aria-labelledby="cs-svc-ad-hook-title"
+    >
+      <div className="cs-container">
+        <CsSectionHead
+          id="cs-svc-ad-hook-title"
+          eyebrow={hook.eyebrow}
+          title={hook.title}
+          lead={hook.lead}
         />
-      }
-    />
+        <ol className="cs-svc-ad-frames">
+          {hook.frames.map((frame, i) => (
+            <li
+              key={frame.title}
+              className="cs-svc-ad-frame"
+              data-scene={i + 1}
+              data-reveal
+            >
+              <div className="cs-svc-ad-phone">
+                <div className="cs-svc-ad-screen">
+                  <CsMedia
+                    ratio="9x16"
+                    src={ASSETS.hook}
+                    alt={frame.alt}
+                    tag={MEDIA_TAGS.staged}
+                    sizes={HOOK_SIZES}
+                  />
+                  <div className="cs-svc-ad-ui" aria-hidden="true">
+                    <span className="cs-svc-ad-progress">
+                      {hook.frames.map((_, n) => (
+                        <i key={n} data-on={n <= i ? "" : undefined} />
+                      ))}
+                    </span>
+                    {i === 0 ? (
+                      <span className="cs-svc-ad-headline">
+                        <i />
+                        <i />
+                      </span>
+                    ) : null}
+                    {i === hook.frames.length - 1 ? (
+                      <span className="cs-svc-ad-cta" />
+                    ) : null}
+                    <span className="cs-svc-ad-caption">
+                      <i />
+                      <i />
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="cs-svc-ad-frame-text">
+                <h3 className="cs-t-h3">{frame.title}</h3>
+                <p className="cs-t-small">{frame.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }
 
 export const adLanding: ServiceModule = {
   Hero,
+  Signature: Hook,
   worksLayout: "vertical",
 };

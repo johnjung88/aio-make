@@ -1,9 +1,16 @@
 "use client";
-
+/* 서비스 6종(#services): 목록 모드와 3D 캐러셀 모드.
+ * - 서버 렌더와 첫 클라이언트 렌더는 목록 모드(JS 없이도 6개 서비스·가격·링크가 모두 보인다).
+ *   마운트 후 reduced-motion이 아니면 캐러셀. 사용자가 토글을 누르면 그 선택이 우선한다.
+ * - 캐러셀: 탭(roving tabindex, ←/→·Home/End), 이전·다음 버튼, 스와이프(48px), 옆 카드 클릭 → 그 카드 선택,
+ *   가운데 카드 클릭 → 서비스 페이지. 자동 넘김·wheel·scroll-snap 없음.
+ * - 무대(.ch-stage)는 탭·패널을 시각적으로 되풀이하므로 aria-hidden이다. 카드는 Tab으로 닿지 않고(tabIndex -1)
+ *   마우스로 눌러도 포커스를 받지 않는다(aria-hidden 안 포커스 경고 방지). */
 import { useEffect, useRef, useState } from "react";
 import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import {
   contentHomeServices as services,
   contentHomeServicesHead as head,
@@ -28,7 +35,6 @@ function position(index: number, current: number): string {
 }
 
 export function ServiceShowcase() {
-  // 서버 렌더와 첫 클라이언트 렌더는 항상 목록 모드다(JS 없이도 6개가 모두 보인다).
   const [mode, setMode] = useState<Mode>("list");
   const [reduced, setReduced] = useState(false);
   const [current, setCurrent] = useState(0);
@@ -98,31 +104,33 @@ export function ServiceShowcase() {
     <section
       id="services"
       className="ch-services"
+      data-cs-section="services"
       aria-labelledby="ch-services-title"
       data-mode={mode}
     >
-      <header className="ch-container l-container ch-head ch-head--services">
-        <div className="ch-head-copy">
-          <p className="ch-eyebrow eyebrow">{head.eyebrow}</p>
-          <h2 id="ch-services-title" className="ch-title t-h2">
-            {head.title}
-          </h2>
-          <p className="ch-lead t-lead">{head.lead}</p>
-        </div>
-        <button
-          type="button"
-          className="ch-toggle t-chip"
-          aria-pressed={mode === "list"}
-          aria-controls="ch-services-body"
-          onClick={toggle}
-        >
-          {head.toggle}
-        </button>
-      </header>
+      <div className="cs-container">
+        <CsSectionHead
+          id="ch-services-title"
+          eyebrow={head.eyebrow}
+          title={head.title}
+          lead={head.lead}
+          aside={
+            <button
+              type="button"
+              className="ch-toggle cs-t-chip"
+              aria-pressed={mode === "list"}
+              aria-controls="ch-services-body"
+              onClick={toggle}
+            >
+              {head.toggle}
+            </button>
+          }
+        />
+      </div>
 
       <div id="ch-services-body" className="ch-services-body">
         {mode === "list" ? (
-          <ol className="ch-container l-container ch-list">
+          <ol className="cs-container ch-list">
             {services.map((s, i) => (
               <li key={s.id} className="ch-item">
                 <figure className="ch-item-media">
@@ -133,7 +141,9 @@ export function ServiceShowcase() {
                     sizes={IMAGE_SIZES}
                     className={`ch-img ch-focus-${s.id}`}
                   />
-                  <figcaption className="ch-tag t-caption">{s.imageTag}</figcaption>
+                  <figcaption className="cs-tag cs-t-caption ch-media-tag">
+                    {s.imageTag}
+                  </figcaption>
                 </figure>
                 <ServiceDetail service={s} index={i} />
               </li>
@@ -169,6 +179,7 @@ export function ServiceShowcase() {
                     data-pos={pos}
                     tabIndex={-1}
                     draggable={false}
+                    onMouseDown={(event) => event.preventDefault()}
                     onClick={(event) => {
                       if (pos === "0") return;
                       event.preventDefault();
@@ -185,20 +196,22 @@ export function ServiceShowcase() {
                     />
                     <span className="ch-card-shade" />
                     <span className="ch-card-top">
-                      <span className="ch-tag t-caption">{s.imageTag}</span>
-                      <span className="ch-num eyebrow">{pad2(i + 1)}</span>
+                      <span className="cs-tag cs-t-caption">{s.imageTag}</span>
+                      <span className="ch-card-num cs-t-eyebrow">
+                        {pad2(i + 1)}
+                      </span>
                     </span>
                     <span className="ch-card-bottom">
-                      <span className="ch-kicker eyebrow">{s.kicker}</span>
-                      <span className="ch-svc-title t-h3">{s.label}</span>
+                      <span className="cs-t-eyebrow">{s.kicker}</span>
+                      <span className="ch-card-title cs-t-h3">{s.label}</span>
                     </span>
                   </Link>
                 );
               })}
             </div>
 
-            <div className="ch-container l-container ch-controls">
-              <span className="ch-num ch-counter eyebrow" aria-hidden="true">
+            <div className="cs-container ch-controls">
+              <span className="ch-counter cs-t-eyebrow" aria-hidden="true">
                 {pad2(current + 1)} / {pad2(COUNT)}
               </span>
               <div
@@ -215,7 +228,7 @@ export function ServiceShowcase() {
                     type="button"
                     role="tab"
                     id={tabId(s.id)}
-                    className="ch-tab t-chip"
+                    className="ch-tab cs-t-chip"
                     aria-selected={i === current}
                     aria-controls={PANEL_ID}
                     tabIndex={i === current ? 0 : -1}
@@ -228,7 +241,7 @@ export function ServiceShowcase() {
               <div className="ch-arrows">
                 <button
                   type="button"
-                  className="ch-arrow"
+                  className="ch-arrow cs-t-button"
                   aria-label={head.prev}
                   onClick={() => select(current - 1)}
                 >
@@ -236,7 +249,7 @@ export function ServiceShowcase() {
                 </button>
                 <button
                   type="button"
-                  className="ch-arrow"
+                  className="ch-arrow cs-t-button"
                   aria-label={head.next}
                   onClick={() => select(current + 1)}
                 >
@@ -245,26 +258,37 @@ export function ServiceShowcase() {
               </div>
             </div>
 
-            <div className="ch-container l-container">
+            <div className="cs-container">
+              {/* 여섯 설명을 같은 칸에 겹쳐 가장 긴 설명 높이로 고정한다(서비스를 바꿔도 아래가 움직이지 않는다).
+                  선택되지 않은 설명은 visibility:hidden + inert라 읽히거나 포커스되지 않는다. */}
               <div
                 className="ch-panel"
                 role="tabpanel"
                 id={PANEL_ID}
                 aria-labelledby={tabId(active.id)}
               >
-                <ServiceDetail service={active} index={current} />
+                {services.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className="ch-panel-item"
+                    data-active={i === current ? "" : undefined}
+                    inert={i !== current}
+                  >
+                    <ServiceDetail service={s} index={i} />
+                  </div>
+                ))}
               </div>
             </div>
-            <p className="ch-sr-only" aria-live="polite">
+            <p className="cs-sr-only" aria-live="polite">
               {`${COUNT}개 중 ${current + 1}번째 · ${active.label}`}
             </p>
           </div>
         )}
       </div>
 
-      <p className="ch-container l-container ch-caption ch-services-note t-small">
-        {head.note}
-      </p>
+      <div className="cs-container">
+        <p className="ch-services-note cs-t-small">{head.note}</p>
+      </div>
     </section>
   );
 }

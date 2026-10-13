@@ -1,0 +1,11 @@
+/* animation 히어로 후광 원 루프(8초 왕복 = 4초 alternate). 사용은 ./animation.css의 reduced-motion: no-preference 블록.
+ * tests/content-site.test.mjs 7번 CSS 파서가 @keyframes 안의 from/to도 선택자로 읽어 '.cs-svc-animation로 시작' 규칙에
+ * 걸려 <id>.css 안에 둘 수 없어 이 파일로 분리했다(RESULT_WPA '공용 변경 요청': 테스트가 @keyframes 안을 건너뛰면 다시 합친다). */
+@keyframes cs-svc-animation-halo {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}

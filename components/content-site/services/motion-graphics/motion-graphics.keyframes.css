@@ -1,0 +1,52 @@
+/* motion-graphics 키프레임(WP-B). 스타일 규칙은 ./motion-graphics.css에 있다.
+ * 키프레임 단계 선택자(from/to)는 tests/content-site.test.mjs 7번의 '서비스 선택자는 .cs-svc-<id>로 시작' 검사에
+ * 걸려 <id>.css 안에 둘 수 없어 이 파일로 분리했다(RESULT_WPB '공용 변경 요청': 테스트가 @keyframes 안을 건너뛰면 다시 합친다).
+ * 이름은 모두 cs-svc-motion-graphics-로 시작하고, from은 정지 구도(기본 transform)와 같다. 사용은 reduced-motion: no-preference 안에서만. */
+@keyframes cs-svc-motion-graphics-line1 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10%);
+  }
+}
+@keyframes cs-svc-motion-graphics-line2 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-6%);
+  }
+}
+@keyframes cs-svc-motion-graphics-circle {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-22%, 30%) scale(0.78);
+  }
+}
+@keyframes cs-svc-motion-graphics-square {
+  from {
+    transform: rotate(18deg);
+  }
+  to {
+    transform: translate(-60%, -70%) rotate(150deg);
+  }
+}
+@keyframes cs-svc-motion-graphics-bar {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0.4);
+  }
+}
+@keyframes cs-svc-motion-graphics-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

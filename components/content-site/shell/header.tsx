@@ -1,6 +1,6 @@
 "use client";
-/* 컨텐츠 사이트 헤더. 왼쪽 로고 잠금(AIO MAKE | CONTENT STUDIO) → /content,
- * 가운데(≥1180) 서비스 6개, <1180은 '서비스' 버튼 → 시트(시작가 한 줄 포함), 오른쪽 움직임 토글 + 상담 신청.
+/* 컨텐츠 사이트 헤더. 왼쪽 로고 잠금(AIO MAKE | CONTENT STUDIO, <768은 두 줄) → /content,
+ * 가운데(≥1180) 서비스 6개, <1180은 '서비스' 버튼 → 시트(시작가 한 줄 포함, <480은 아이콘만), 오른쪽 움직임 토글 + 상담 신청.
  * 메인 사이트 링크는 헤더에 두지 않는다(푸터 'AIO MAKE 홈' 하나). */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -79,7 +79,7 @@ export function ContentSiteHeader() {
             <Brand />
           </span>
           <span className="cs-lockup-divider" aria-hidden="true" />
-          <span className="cs-lockup-label cs-t-eyebrow" aria-hidden="true">
+          <span className="cs-lockup-label cs-t-lockup" aria-hidden="true">
             {CS_COPY.header.studio}
           </span>
         </Link>
@@ -112,8 +112,10 @@ export function ContentSiteHeader() {
             }
             onClick={() => setOpen((v) => !v)}
           >
-            {CS_COPY.header.sheetButton}
-            <span aria-hidden="true">{open ? "×" : "↓"}</span>
+            <span className="cs-sheet-toggle-text">
+              {CS_COPY.header.sheetButton}
+            </span>
+            <span className="cs-sheet-toggle-icon" aria-hidden="true" />
           </button>
           <MotionToggle />
           {route.page === "service" ? (

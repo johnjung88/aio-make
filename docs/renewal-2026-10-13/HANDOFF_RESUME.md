@@ -48,8 +48,9 @@ AIO MAKE 홈페이지(aio-make.com) 리뉴얼. 더 전문적으로, 작업물 �
 
 12. (2026-10-14 추가) 메인 사이트에서 '컨텐츠'로 가는 링크(헤더·메인 카드·워크플로우·푸터·소개)는 **새 탭으로 연다**(target=_blank, rel noopener). 컨텐츠 사이트 내부 링크와 마케팅·개발 링크는 그대로.
 
-## 지금 실행 중 (재개 후, HEAD `7711303`)
-- 병렬 서브에이전트 2개: (a) P4 수정 + 컨텐츠 새 탭 링크 → `RESULT_P4FIX.md` (b) P2R WP0 컨텐츠 사이트 공통 셸 → `RESULT_WP0.md`. 둘 다 끝나면 Sonnet 검증(G0+P4FIX) → 커밋 → WP-A/B/C/D 병렬.
+## 지금 실행 중 (HEAD `c0ab7d9` = WP0 + P4FIX 커밋, VERIFY_G0: P4FIX PASS, WP0 FAIL 2건)
+- 병렬 서브에이전트 5개: WP0FIX(공용 셸: 문의 카드 grid span, 모바일 헤더 넘침, CONTENT STUDIO 모바일 표기) / WP-A 웹툰·애니메이션 / WP-B AI 인플루언서·모션그래픽 / WP-C 브랜드 홍보 영상·SNS 광고 / WP-D /content 홈·문의(VERIFY_P34 P3-1~5, 문의 오류 문구 포함). 각자 `RESULT_WP0FIX/WPA/WPB/WPC/WPD.md`.
+- 모두 끝나면: Sonnet 최종 검증(BRIEF_P2R 완료 기준 + 모션 토글 재확인) → 재지시/커밋 → 미리보기 띄우고 사용자 디자인 확인.
 
 ## 다음에 바로 할 일 (2026-10-14 사용량 한도 도달 시점, HEAD `8f24d16`, 작업트리 깨끗함, 실행 중 에이전트 없음) — 위 '지금 실행 중'으로 진행됨
 1. 병렬 서브에이전트 2개 동시 실행: (a) **P4 수정**(opus): `VERIFY_P34.md`의 P4-1 화살표 간격(`workflow-journey.css:124`), P4-2 `#divisions` 카드 제목 높이(`main.jsx:398`), P4-3 미사용 `workGroups`(`main.jsx:65`)·옛 문구(`primitives.tsx:316`), FIX-1 `home-references.tsx` 클라이언트 import 정리. 빌드 금지. (b) **P2R WP0**(opus): `BRIEF_P2R.md`의 WP0(컨텐츠 사이트 공통 셸·토큰·블록·라우트·테스트, 서비스별 자리 파일), 결정 10-1 반영. 빌드 금지, 파일 소유 분리.

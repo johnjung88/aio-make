@@ -1,8 +1,42 @@
-/* 모션그래픽 서비스 랜딩 데이터. WP0 초안(BRIEF_P2R_SERVICES 4절 카피) → 이후 WP-B 소유.
- * signature는 WP-B가 채운다(키네틱 타이포 문자열 · 단순형과 맞춤형 · 정지 화면 → 움직임).
+/* 모션그래픽 서비스 랜딩 데이터(WP-B 소유). 금액은 lib/content-pricing.ts에서만 렌더한다.
  * WP0 수정: seo.description 마지막 문장을 마침표 규칙에 맞게 `…10만 원부터, 부가세 별도.`로 바꿨다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
+
+/** 서비스 고유 섹션 문구. 키네틱 타이포 문자열도 여기 둔다(카피 테스트 대상). */
+export const motionGraphicsSignature = {
+  /** 히어로 무대의 키네틱 타이포(aria-hidden 장식) */
+  stage: { title: "움직이는\n메시지" },
+  compare: {
+    eyebrow: "COMPARE",
+    title: "단순형과 맞춤형\n무엇이 다를까요",
+    lead: "두 구성 모두 30초와 60초 중에서 길이를 고릅니다",
+    plans: [
+      {
+        id: "simple",
+        name: "단순형",
+        body: "로고와 이미지, 문구를 움직여 만듭니다.",
+        items: ["로고", "제품 이미지", "핵심 문구"],
+      },
+      {
+        id: "custom",
+        name: "맞춤형",
+        body: "브랜드 전용 캐릭터 제작이 포함됩니다. 캐릭터가 장면에 함께 등장합니다.",
+        items: ["로고", "제품 이미지", "핵심 문구", "전용 캐릭터"],
+      },
+    ],
+    itemsLabel: "들어가는 요소",
+    priceLink: "가격 보기",
+  },
+  frame: {
+    eyebrow: "STYLE FRAME",
+    title: "멈춘 화면을\n먼저 맞춥니다",
+    lead: "움직이기 전에 색과 글자 배치를 정지 화면으로 기획안에 담습니다",
+    still: { label: "스타일 프레임", caption: "기획안에서 색과 배치를 확인합니다" },
+    moving: { label: "모션 적용", caption: "확정한 화면에 움직임을 입힙니다" },
+    word: "움직이는\n메시지",
+  },
+} as const;
 
 export const motionGraphics: ServiceLandingData = {
   id: "motion-graphics",
@@ -86,5 +120,5 @@ export const motionGraphics: ServiceLandingData = {
     lead: "넣고 싶은 문구와 자료를 알려주시면 구성과 견적을 안내합니다",
     placeholder: "예: 신제품 소개 문구를 30초 모션그래픽으로 만들고 싶어요",
   },
-  signature: {},
+  signature: motionGraphicsSignature,
 };

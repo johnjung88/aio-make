@@ -1,6 +1,307 @@
-/* motion-graphics 서비스 고유 스타일 — WP0 스텁. 이후 WP-B 소유.
- * 선택자는 모두 .cs-svc-motion-graphics로 시작한다. 장식용 색은 맨 위 .cs-svc-motion-graphics { --svc-*: … } 한 블록에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0.
- * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다. */
+/* motion-graphics 서비스 고유 스타일(WP-B).
+ * 선택자는 모두 .cs-svc-motion-graphics로 시작한다. 장식용 색은 맨 위 한 블록(--svc-*)에만 둔다.
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
+ * 애니메이션은 @media (prefers-reduced-motion: no-preference) 안에서만, 롱핸드로만 선언한다
+ * (animation 축약형은 theme.css 움직임 토글의 animation-play-state를 덮기 때문).
+ * @keyframes는 ./motion-graphics.keyframes.css에 있다(RESULT_WPB '공용 변경 요청' 참고).
+ * theme.css 규칙(.cs-site .x = 0,2,0)을 덮을 때는 클래스 3개 이상으로 명시도를 높인다. */
 .cs-svc-motion-graphics {
+  --svc-lime: #e9edb2;
+  --svc-violet: #7551bd;
+  --svc-cream: #f7f5f2;
+  --svc-glow: rgba(117, 81, 189, 0.42);
+  --svc-stage-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+  --svc-card-shadow: 0 24px 48px rgba(0, 0, 0, 0.32);
+  --svc-loop: 6s;
+}
+
+/* ---------------------------------------------------------------- 히어로 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-glow {
+  position: absolute;
+  top: -20%;
+  right: -16%;
+  width: min(90vw, 980px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--svc-glow) 0%, transparent 64%);
+  pointer-events: none;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-stage-wrap {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--cs-s5);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-stage {
+  position: relative;
+  width: 92%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--cs-r-lg);
+  box-shadow: var(--svc-stage-shadow);
+  transform: rotate(-4deg);
+}
+@media (min-width: 1024px) {
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-stage-wrap {
+    justify-content: flex-end;
+    padding: var(--cs-s6) var(--cs-s3) var(--cs-s6) 0;
+  }
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-stage {
+    width: 100%;
+    transform: rotate(-5deg);
+  }
+}
+
+/* ---------------------------------------------------------------- 구도(무대·비교·스타일 프레임 공통, 장식) */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  border-radius: inherit;
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-shape {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: auto;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-shape[data-shape="circle"] {
+  top: 8%;
+  right: 8%;
+  height: 38%;
+  border-radius: 50%;
+  background: var(--svc-lime);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-shape[data-shape="square"] {
+  right: 16%;
+  bottom: 12%;
+  height: 18%;
+  border-radius: 6%;
+  background: var(--svc-violet);
+  transform: rotate(18deg);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp:has(.cs-svc-motion-graphics-character) [data-shape="square"] {
+  top: 12%;
+  right: auto;
+  bottom: auto;
+  left: 42%;
+  height: 14%;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp .cs-svc-motion-graphics-word {
+  position: absolute;
+  left: 8%;
+  bottom: 14%;
+  z-index: 1;
+  display: grid;
+  justify-items: start;
+  color: var(--cs-on-accent);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-line {
+  display: block;
+  white-space: nowrap;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-line[data-line="2"] {
+  background: linear-gradient(transparent 62%, var(--svc-lime) 62%, var(--svc-lime) 92%, transparent 92%);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-bars {
+  position: absolute;
+  top: 9%;
+  left: 8%;
+  display: grid;
+  gap: 6px;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-bars > span {
+  display: block;
+  width: 64px;
+  height: 6px;
+  border-radius: var(--cs-r-pill);
+  background: var(--cs-on-accent);
+  opacity: 0.72;
+  transform-origin: left center;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-bars > span + span {
+  width: 40px;
+}
+/* 맞춤형: 둥근 캐릭터 실루엣(머리 + 몸) */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-character {
+  position: absolute;
+  right: 24%;
+  bottom: 0;
+  height: 48%;
+  aspect-ratio: 0.72 / 1;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-character::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 62%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 52%, var(--cs-on-accent) 0 7%, transparent 8%),
+    radial-gradient(circle at 64% 52%, var(--cs-on-accent) 0 7%, transparent 8%),
+    var(--svc-cream);
+  transform: translateX(-50%);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-character::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50%;
+  border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+  background: var(--svc-cream);
+}
+/* 모션 적용 칸: 아래쪽 진행 막대 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-variant="moving"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--cs-on-accent);
+  transform-origin: left center;
+}
+
+/* ---------------------------------------------------------------- 단순형과 맞춤형 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plans {
+  display: grid;
+  gap: var(--cs-s5);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan {
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-lg);
+  background: var(--cs-surface);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-art {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cs-s3);
+  padding: var(--cs-s6) var(--cs-s5);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body .cs-t-body {
+  color: var(--cs-fg-2);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body .cs-t-label {
+  margin-top: var(--cs-s3);
+  color: var(--cs-fg-3);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body .cs-link {
+  margin-top: auto;
+  padding-top: var(--cs-s3);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-s2);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-items > li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--cs-s4);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-pill);
+  color: var(--cs-fg);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan[data-plan-type="custom"] .cs-svc-motion-graphics-items > li:last-child {
+  border-color: var(--cs-accent);
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+@media (min-width: 768px) {
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-plans {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body {
+    padding: var(--cs-s7) var(--cs-s6);
+  }
+}
+
+/* ---------------------------------------------------------------- 스타일 프레임 → 모션 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-panes {
+  display: grid;
+  gap: var(--cs-s7);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-pane {
+  display: grid;
+  gap: var(--cs-s2);
+  min-width: 0;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-pane-art {
+  position: relative;
+  margin-bottom: var(--cs-s3);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--cs-r-md);
+  box-shadow: var(--svc-card-shadow);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-pane .cs-t-label {
+  color: var(--cs-fg);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-pane .cs-t-small {
+  color: var(--cs-fg-2);
+}
+@media (min-width: 768px) {
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-panes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cs-s5);
+  }
+}
+
+/* ---------------------------------------------------------------- 사례(검토 빌드만): 세로 소재는 카드 안 9:16 */
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 {
+  aspect-ratio: 16 / 9;
+}
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 > video,
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 > img {
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------------- 움직임
+ * 첫 프레임(from) = 위의 정지 구도. 무대·모션 적용 칸만 움직이고 스타일 프레임 칸(still)은 멈춰 있다. */
+@media (prefers-reduced-motion: no-preference) {
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where(.cs-svc-motion-graphics-line, .cs-svc-motion-graphics-shape, .cs-svc-motion-graphics-bars > span, .cs-svc-motion-graphics-character) {
+    animation-duration: var(--svc-loop);
+    animation-timing-function: var(--cs-ease);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-line="1"]) {
+    animation-name: cs-svc-motion-graphics-line1;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-line="2"]) {
+    animation-name: cs-svc-motion-graphics-line2;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-shape="circle"]) {
+    animation-name: cs-svc-motion-graphics-circle;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-shape="square"]) {
+    animation-name: cs-svc-motion-graphics-square;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where(.cs-svc-motion-graphics-bars > span) {
+    animation-name: cs-svc-motion-graphics-bar;
+  }
+  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="moving"])::after {
+    animation-name: cs-svc-motion-graphics-progress;
+    animation-duration: calc(var(--svc-loop) * 2);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  /* 움직임 토글로 멈추면 정지 구도로 돌아간다(같은 구도 = 첫 프레임) */
+  .cs-svc-motion-graphics:where([data-motion="paused"] *) .cs-svc-motion-graphics-comp *,
+  .cs-svc-motion-graphics:where([data-motion="paused"] *) .cs-svc-motion-graphics-comp::after {
+    animation-name: none;
+  }
 }

@@ -75,6 +75,11 @@
   --cs-t-chip-weight: 500;
   --cs-t-chip-leading: 1.2;
   --cs-t-chip-tracking: 0;
+  /* 헤더 로고 옆(모바일은 아래) CONTENT STUDIO. 360px에서 헤더 버튼과 겹치지 않게 자간만 clamp로 줄인다 */
+  --cs-t-lockup-size: 12px;
+  --cs-t-lockup-weight: 650;
+  --cs-t-lockup-leading: 1.2;
+  --cs-t-lockup-tracking: clamp(0.5px, calc(0.9vw - 2.4px), 1.68px);
 
   /* 간격·격자·모양 */
   --cs-header-h: 60px;
@@ -409,6 +414,12 @@ body:has(.cs-site) {
   line-height: var(--cs-t-chip-leading);
   letter-spacing: var(--cs-t-chip-tracking);
 }
+.cs-site .cs-t-lockup {
+  font-size: var(--cs-t-lockup-size);
+  font-weight: var(--cs-t-lockup-weight);
+  line-height: var(--cs-t-lockup-leading);
+  letter-spacing: var(--cs-t-lockup-tracking);
+}
 /* 제목류 줄바꿈: 데이터의 \n에서만, 균형 있게 */
 .cs-site .cs-t-display,
 .cs-site .cs-t-h2,
@@ -478,7 +489,15 @@ body:has(.cs-site) {
   grid-template-columns: repeat(var(--cs-grid-cols), minmax(0, 1fr));
   gap: var(--cs-grid-gap);
 }
+/* 열 유틸리티: 폭(.cs-col-N)과 시작(.cs-col-start-M)은 변수만 정하고
+ * grid-column 한 선언에서 합친다. 시작만 따로 grid-column-start로 쓰면 앞의 span이 사라진다(VERIFY_G0 WP0-1).
+ * 변수는 격자 자식마다 기본값으로 되돌려 중첩 격자에 상속되지 않게 한다.
+ *   .cs-col-6               → auto / span 6
+ *   .cs-col-start-7          → 7 / -1 (끝까지)
+ *   .cs-col-6.cs-col-start-7 → 7 / span 6 */
 .cs-site .cs-grid > * {
+  --cs-col-start: auto;
+  --cs-col-end: -1;
   grid-column: 1 / -1;
   min-width: 0;
 }
@@ -489,31 +508,34 @@ body:has(.cs-site) {
 }
 @media (min-width: 1024px) {
   .cs-site .cs-grid > .cs-col-3 {
-    grid-column: span 3;
+    --cs-col-end: span 3;
   }
   .cs-site .cs-grid > .cs-col-4 {
-    grid-column: span 4;
+    --cs-col-end: span 4;
   }
   .cs-site .cs-grid > .cs-col-5 {
-    grid-column: span 5;
+    --cs-col-end: span 5;
   }
   .cs-site .cs-grid > .cs-col-6 {
-    grid-column: span 6;
+    --cs-col-end: span 6;
   }
   .cs-site .cs-grid > .cs-col-7 {
-    grid-column: span 7;
+    --cs-col-end: span 7;
   }
   .cs-site .cs-grid > .cs-col-8 {
-    grid-column: span 8;
+    --cs-col-end: span 8;
   }
   .cs-site .cs-grid > .cs-col-start-7 {
-    grid-column-start: 7;
+    --cs-col-start: 7;
   }
   .cs-site .cs-grid > .cs-col-start-8 {
-    grid-column-start: 8;
+    --cs-col-start: 8;
   }
   .cs-site .cs-grid > .cs-col-start-9 {
-    grid-column-start: 9;
+    --cs-col-start: 9;
+  }
+  .cs-site .cs-grid > :is(.cs-col-3, .cs-col-4, .cs-col-5, .cs-col-6, .cs-col-7, .cs-col-8, .cs-col-start-7, .cs-col-start-8, .cs-col-start-9) {
+    grid-column: var(--cs-col-start) / var(--cs-col-end);
   }
 }
 .cs-site .cs-section {
@@ -759,6 +781,38 @@ body:has(.cs-site) {
   background: var(--cs-fg);
   color: var(--cs-bg);
 }
+/* 메뉴(두 줄) ↔ 닫기(×) 아이콘: border로 그려 고대비 모드에서도 보인다 */
+.cs-site .cs-sheet-toggle-icon {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 14px;
+  height: 10px;
+}
+.cs-site .cs-sheet-toggle-icon::before,
+.cs-site .cs-sheet-toggle-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-top: 2px solid currentColor;
+  border-radius: 1px;
+}
+.cs-site .cs-sheet-toggle-icon::before {
+  top: 1px;
+}
+.cs-site .cs-sheet-toggle-icon::after {
+  top: 7px;
+}
+.cs-site .cs-sheet-toggle[aria-expanded="true"] .cs-sheet-toggle-icon::before {
+  top: 4px;
+  transform: rotate(45deg);
+}
+.cs-site .cs-sheet-toggle[aria-expanded="true"] .cs-sheet-toggle-icon::after {
+  top: 4px;
+  transform: rotate(-45deg);
+}
 .cs-site .cs-motion-toggle {
   display: inline-grid;
   place-items: center;
@@ -868,16 +922,37 @@ body:has(.cs-site) {
     display: none;
   }
 }
-@media (max-width: 479px) {
-  .cs-site .cs-lockup-divider,
-  .cs-site .cs-lockup-label {
+/* <768: 로고 잠금을 두 줄(AIO MAKE / CONTENT STUDIO)로 쌓아 폭을 로고 하나 수준으로 줄인다.
+ * <480: '서비스' 버튼은 아이콘만(이름은 aria-label), 간격·CTA 안쪽 여백을 줄인다.
+ * 360px 기준 합계 ≈ 로고 116 + 8 + (44 + 4 + 44 + 4 + CTA 86) ≈ 306 ≤ 320(360 − 거터 2×20). */
+@media (max-width: 767px) {
+  .cs-site .cs-lockup {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
+  }
+  .cs-site .cs-lockup-divider {
     display: none;
   }
+}
+@media (max-width: 479px) {
   .cs-site .cs-header-inner {
-    gap: var(--cs-s3);
+    gap: var(--cs-s2);
   }
   .cs-site .cs-header-actions {
     gap: var(--cs-s1);
+  }
+  .cs-site .cs-sheet-toggle {
+    justify-content: center;
+    width: 44px;
+    padding: 0;
+  }
+  .cs-site .cs-sheet-toggle-text {
+    display: none;
+  }
+  .cs-site .cs-header-cta.cs-btn--sm {
+    padding: 0 var(--cs-s3);
   }
 }
 
@@ -1730,80 +1805,4 @@ body:has(.cs-site) {
     transition: none;
     scroll-behavior: auto;
   }
-}
-
-/* ---------------------------------------------------------------- /content 홈 임시 다리
- * WP-D가 components/content-home을 컨텐츠 사이트 체계로 옮기기 전까지만 둔다(WP-D가 이 블록을 지운다).
- * P3 홈의 W2 역할 클래스(.t-*, .eyebrow)를 같은 이름의 cs 역할 토큰으로 맞추고 메인용 서브 내비를 숨긴다. */
-.cs-site .content-home {
-  --site-header-height: var(--cs-header-h);
-  --service-nav-height: 0px;
-}
-.cs-site .content-home > .guide-subnav {
-  display: none;
-}
-.cs-site .content-home .t-h1 {
-  font-size: var(--cs-t-display-size);
-  font-weight: var(--cs-t-display-weight);
-  line-height: var(--cs-t-display-leading);
-  letter-spacing: var(--cs-t-display-tracking);
-}
-.cs-site .content-home .t-h2 {
-  font-size: var(--cs-t-h2-size);
-  font-weight: var(--cs-t-h2-weight);
-  line-height: var(--cs-t-h2-leading);
-  letter-spacing: var(--cs-t-h2-tracking);
-}
-.cs-site .content-home .t-h3 {
-  font-size: var(--cs-t-h3-size);
-  font-weight: var(--cs-t-h3-weight);
-  line-height: var(--cs-t-h3-leading);
-  letter-spacing: var(--cs-t-h3-tracking);
-}
-.cs-site .content-home .t-lead {
-  font-size: var(--cs-t-lead-size);
-  font-weight: var(--cs-t-lead-weight);
-  line-height: var(--cs-t-lead-leading);
-  letter-spacing: var(--cs-t-lead-tracking);
-}
-.cs-site .content-home .t-body {
-  font-size: var(--cs-t-body-size);
-  font-weight: var(--cs-t-body-weight);
-  line-height: var(--cs-t-body-leading);
-  letter-spacing: var(--cs-t-body-tracking);
-}
-.cs-site .content-home .t-small {
-  font-size: var(--cs-t-small-size);
-  font-weight: var(--cs-t-small-weight);
-  line-height: var(--cs-t-small-leading);
-  letter-spacing: var(--cs-t-small-tracking);
-}
-.cs-site .content-home .t-caption {
-  font-size: var(--cs-t-caption-size);
-  font-weight: var(--cs-t-caption-weight);
-  line-height: var(--cs-t-caption-leading);
-  letter-spacing: var(--cs-t-caption-tracking);
-}
-.cs-site .content-home .eyebrow {
-  margin: 0;
-  font-size: var(--cs-t-eyebrow-size);
-  font-weight: var(--cs-t-eyebrow-weight);
-  line-height: var(--cs-t-eyebrow-leading);
-  letter-spacing: var(--cs-t-eyebrow-tracking);
-  text-transform: uppercase;
-}
-.cs-site .content-home .t-chip {
-  font-size: var(--cs-t-chip-size);
-  font-weight: var(--cs-t-chip-weight);
-  line-height: var(--cs-t-chip-leading);
-  letter-spacing: var(--cs-t-chip-tracking);
-}
-.cs-site .content-home .t-button {
-  font-size: var(--cs-t-button-size);
-  font-weight: var(--cs-t-button-weight);
-  line-height: var(--cs-t-button-leading);
-  letter-spacing: var(--cs-t-button-tracking);
-}
-.cs-site .content-home .t-button--lg {
-  font-size: var(--cs-t-button-lg-size);
 }

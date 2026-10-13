@@ -1,6 +1,459 @@
-/* animation 서비스 고유 스타일 — WP0 스텁. 이후 WP-A 소유.
+/* animation 서비스 고유 스타일(WP-A 소유).
  * 선택자는 모두 .cs-svc-animation로 시작한다. 장식용 색은 맨 위 .cs-svc-animation { --svc-*: … } 한 블록에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0.
- * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다. */
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0. 텍스트 색은 var(--cs-*)만.
+ * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * theme.css 공통 규칙(.cs-site .x, 0,2,0)을 덮을 때는 .cs-svc-animation + 클래스 2개 이상(0,3,0)으로 쓴다. */
 .cs-svc-animation {
+  --svc-halo: rgba(255, 255, 255, 0.92);
+  --svc-char: #bda8ea;
+  --svc-char-shade: #a48cdc;
+  --svc-ink: #2e2233;
+  --svc-ground: rgba(239, 178, 122, 0.45);
+  --svc-prop: #efb27a;
+  --svc-guide: rgba(46, 34, 51, 0.18);
+  --svc-card-shadow: rgba(138, 75, 18, 0.12);
+}
+
+/* ---------------------------------------------------------------- 히어로: 캐릭터 장면이 화면을 채운다 */
+/* <1024: 문구 → 장면(위쪽 그라데이션) */
+.cs-svc-animation .cs-hero.cs-svc-animation-hero {
+  flex-direction: column;
+  align-items: stretch;
+  padding-bottom: 0;
+}
+.cs-svc-animation .cs-svc-animation-hero > .cs-container {
+  order: 1;
+}
+.cs-svc-animation .cs-svc-animation-stage {
+  position: relative;
+  order: 2;
+  width: 100%;
+  height: clamp(340px, 58svh, 640px);
+  margin-top: var(--cs-s7);
+}
+.cs-svc-animation .cs-svc-animation-stage .cs-svc-animation-stage-media {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: transparent;
+}
+/* 캐릭터 머리가 장면 높이의 약 27% 자리에 오도록(object-position y = 머리 위치) */
+.cs-svc-animation .cs-svc-animation-stage-media > img {
+  object-position: 54% 28%;
+}
+.cs-svc-animation .cs-svc-animation-stage-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, var(--cs-bg) 0%, transparent 16%);
+  pointer-events: none;
+}
+.cs-svc-animation .cs-svc-animation-stage .cs-svc-animation-stage-media > .cs-tag {
+  left: auto;
+  right: 12px;
+}
+.cs-svc-animation .cs-svc-animation-halo {
+  position: absolute;
+  left: 54%;
+  top: 27%;
+  z-index: 2;
+  width: clamp(96px, 24%, 240px);
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--svc-halo);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* ≥1024: 오른쪽 70%를 장면이 채우고 왼쪽은 바탕색에서 투명으로 */
+@media (min-width: 1024px) {
+  .cs-svc-animation .cs-hero.cs-svc-animation-hero {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: var(--cs-s8);
+  }
+  .cs-svc-animation .cs-svc-animation-stage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 70%;
+    height: auto;
+    margin-top: 0;
+  }
+  .cs-svc-animation .cs-svc-animation-stage-media::after {
+    background: linear-gradient(
+      90deg,
+      var(--cs-bg) 0%,
+      color-mix(in srgb, var(--cs-bg) 72%, transparent) 22%,
+      transparent 52%
+    );
+  }
+}
+
+/* ---------------------------------------------------------------- ① 그림체 */
+.cs-svc-animation .cs-svc-animation-style-list {
+  display: grid;
+  gap: var(--cs-s7) var(--cs-s5);
+}
+.cs-svc-animation .cs-svc-animation-style {
+  display: flex;
+  flex-direction: column;
+}
+.cs-svc-animation .cs-svc-animation-style .cs-t-h3 {
+  margin-top: var(--cs-s5);
+}
+.cs-svc-animation .cs-svc-animation-style .cs-t-small {
+  margin-top: var(--cs-s2);
+  color: var(--cs-fg-2);
+}
+.cs-svc-animation .cs-svc-animation-style[data-look="1"] .cs-media > img {
+  object-position: 50% 24%;
+}
+.cs-svc-animation .cs-svc-animation-style[data-look="2"] .cs-media > img {
+  object-position: 40% 50%;
+}
+.cs-svc-animation .cs-svc-animation-style[data-look="3"] .cs-media > img {
+  object-position: 38% 50%;
+}
+/* <768은 한 줄에 하나라 가로 3:2로 낮춘다(세로 4:5 세 장이 길게 쌓이지 않게) */
+@media (max-width: 767px) {
+  .cs-svc-animation .cs-svc-animation-style .cs-ratio-4x5 {
+    aspect-ratio: 3 / 2;
+  }
+}
+@media (min-width: 768px) {
+  .cs-svc-animation .cs-svc-animation-style-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------------------------------------------------------------- ② 움직이기 전 확인 */
+.cs-svc-animation .cs-svc-animation-before[data-mode="list"] {
+  display: grid;
+  gap: var(--cs-s8);
+}
+.cs-svc-animation .cs-svc-animation-before[data-mode="tabs"] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cs-s6);
+}
+.cs-svc-animation .cs-svc-animation-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--cs-s1);
+  max-width: 100%;
+  padding: var(--cs-s1);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-pill);
+  background: var(--cs-surface);
+}
+.cs-svc-animation .cs-svc-animation-tabs .cs-svc-animation-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--cs-s5);
+  border-radius: var(--cs-r-pill);
+  color: var(--cs-fg-2);
+  cursor: pointer;
+}
+.cs-svc-animation .cs-svc-animation-tabs .cs-svc-animation-tab[aria-selected="true"] {
+  background: var(--cs-fg);
+  color: var(--cs-bg);
+}
+.cs-svc-animation .cs-svc-animation-panel {
+  align-self: stretch;
+  border-radius: var(--cs-r-lg);
+}
+.cs-svc-animation .cs-svc-animation-stack {
+  display: grid;
+}
+.cs-svc-animation .cs-svc-animation-stack > * {
+  grid-area: 1 / 1;
+}
+.cs-svc-animation .cs-svc-animation-stack > .is-sizer {
+  visibility: hidden;
+}
+
+/* 항목: <1024 문구 → 그림, ≥1024 문구 5칸 · 그림 7칸 */
+.cs-svc-animation .cs-svc-animation-item {
+  display: grid;
+  gap: var(--cs-s6);
+  align-items: center;
+}
+.cs-svc-animation .cs-svc-animation-item-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cs-s3);
+}
+.cs-svc-animation .cs-svc-animation-item-num {
+  color: var(--cs-accent-text);
+  font-variant-numeric: tabular-nums;
+}
+.cs-svc-animation .cs-svc-animation-item-copy .cs-t-body {
+  max-width: 28em;
+  color: var(--cs-fg-2);
+}
+@media (min-width: 1024px) {
+  .cs-svc-animation .cs-svc-animation-item {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--cs-grid-gap);
+  }
+  .cs-svc-animation .cs-svc-animation-item > .cs-svc-animation-item-copy {
+    grid-column: 1 / span 4;
+  }
+  .cs-svc-animation .cs-svc-animation-item > .cs-svc-animation-art {
+    grid-column: 6 / -1;
+  }
+}
+
+/* 그림 상자(CSS 도형, aria-hidden) */
+.cs-svc-animation .cs-svc-animation-art {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: clip;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-surface);
+}
+.cs-svc-animation .cs-svc-animation-art-inner {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--cs-s5) var(--cs-s4) var(--cs-s7);
+}
+@media (min-width: 768px) {
+  .cs-svc-animation .cs-svc-animation-art-inner {
+    padding: var(--cs-s6) var(--cs-s6) var(--cs-s8);
+  }
+}
+
+/* 이야기: 문장 카드 한 장 */
+.cs-svc-animation .cs-svc-animation-story {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cs-s3);
+  width: min(100%, 440px);
+  padding: var(--cs-s5);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-bg);
+  box-shadow: 0 18px 40px var(--svc-card-shadow);
+}
+.cs-svc-animation .cs-svc-animation-story .cs-svc-animation-story-line {
+  color: var(--cs-fg);
+}
+.cs-svc-animation .cs-svc-animation-beats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-s2);
+  margin-top: var(--cs-s2);
+}
+.cs-svc-animation .cs-svc-animation-beats .cs-svc-animation-beat {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 var(--cs-s3);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-pill);
+  background: var(--cs-surface);
+  color: var(--cs-fg-2);
+}
+.cs-svc-animation .cs-svc-animation-beats .cs-svc-animation-beat:first-child {
+  border-color: transparent;
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+
+/* 캐릭터: 정면·측면 실루엣 + 기준선 */
+.cs-svc-animation .cs-svc-animation-sheet {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(24px, 8%, 72px);
+  width: 100%;
+  height: 100%;
+}
+.cs-svc-animation .cs-svc-animation-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 8% 0 26%;
+  border-block: 1px dashed var(--svc-guide);
+  background: linear-gradient(var(--svc-guide), var(--svc-guide)) center / 100% 1px no-repeat;
+}
+.cs-svc-animation .cs-svc-animation-figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(64px, 24%, 136px);
+}
+.cs-svc-animation .cs-svc-animation-figure-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16%;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--svc-char);
+}
+.cs-svc-animation .cs-svc-animation-figure-eye {
+  width: 15%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--svc-ink);
+}
+.cs-svc-animation .cs-svc-animation-figure-body {
+  width: 84%;
+  aspect-ratio: 1 / 0.86;
+  margin-top: -14%;
+  border-radius: 42% 42% 30% 30%;
+  background: var(--svc-char-shade);
+}
+.cs-svc-animation .cs-svc-animation-figure[data-view="side"] .cs-svc-animation-figure-head {
+  justify-content: flex-end;
+  padding-right: 18%;
+}
+.cs-svc-animation .cs-svc-animation-figure[data-view="side"] .cs-svc-animation-figure-eye:first-child {
+  display: none;
+}
+.cs-svc-animation .cs-svc-animation-figure[data-view="side"] .cs-svc-animation-figure-head::after {
+  content: "";
+  position: absolute;
+  top: 46%;
+  right: -7%;
+  width: 18%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--svc-char);
+}
+.cs-svc-animation .cs-svc-animation-figure[data-view="side"] .cs-svc-animation-figure-body {
+  width: 66%;
+}
+.cs-svc-animation .cs-svc-animation-figure .cs-svc-animation-figure-label {
+  margin-top: var(--cs-s3);
+  color: var(--cs-fg-3);
+}
+
+/* 장면 구성: 16:9 콘티 칸 4개 */
+.cs-svc-animation .cs-svc-animation-frames {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--cs-s3);
+  width: 100%;
+}
+.cs-svc-animation .cs-svc-animation-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px dashed var(--svc-guide);
+  border-radius: var(--cs-r-sm);
+  background: var(--cs-bg);
+}
+.cs-svc-animation .cs-svc-animation-frame .cs-svc-animation-frame-num,
+.cs-svc-animation .cs-svc-animation-frame .cs-svc-animation-frame-label {
+  position: absolute;
+  z-index: 1;
+  color: var(--cs-fg-3);
+}
+.cs-svc-animation .cs-svc-animation-frame .cs-svc-animation-frame-num {
+  top: 4px;
+  left: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.cs-svc-animation .cs-svc-animation-frame .cs-svc-animation-frame-label {
+  top: 4px;
+  right: 8px;
+}
+.cs-svc-animation .cs-svc-animation-frame-ground {
+  position: absolute;
+  inset: auto 0 0;
+  height: 24%;
+  background: var(--svc-ground);
+}
+.cs-svc-animation .cs-svc-animation-frame-char {
+  position: absolute;
+  bottom: 18%;
+  left: 30%;
+  width: 12%;
+  aspect-ratio: 1 / 1.2;
+  border-radius: 50% 50% 40% 40%;
+  background: var(--svc-char-shade);
+}
+.cs-svc-animation .cs-svc-animation-frame-prop {
+  position: absolute;
+  bottom: 22%;
+  left: 60%;
+  width: 8%;
+  height: 22%;
+  border-radius: 4px;
+  background: var(--svc-prop);
+}
+/* 02 인물: 캐릭터를 크게 */
+.cs-svc-animation .cs-svc-animation-frame[data-frame="2"] .cs-svc-animation-frame-ground {
+  height: 0;
+}
+.cs-svc-animation .cs-svc-animation-frame[data-frame="2"] .cs-svc-animation-frame-char {
+  bottom: -30%;
+  left: 32%;
+  width: 36%;
+}
+.cs-svc-animation .cs-svc-animation-frame[data-frame="2"] .cs-svc-animation-frame-prop {
+  display: none;
+}
+/* 03 제품: 제품을 가운데 크게 */
+.cs-svc-animation .cs-svc-animation-frame[data-frame="3"] .cs-svc-animation-frame-char {
+  left: 14%;
+  width: 10%;
+}
+.cs-svc-animation .cs-svc-animation-frame[data-frame="3"] .cs-svc-animation-frame-prop {
+  bottom: 16%;
+  left: 40%;
+  width: 22%;
+  height: 56%;
+  border-radius: 8px;
+}
+/* 04 마무리: 캐릭터와 제품을 함께 */
+.cs-svc-animation .cs-svc-animation-frame[data-frame="4"] .cs-svc-animation-frame-char {
+  left: 32%;
+  width: 18%;
+}
+.cs-svc-animation .cs-svc-animation-frame[data-frame="4"] .cs-svc-animation-frame-prop {
+  left: 54%;
+  width: 12%;
+  height: 36%;
+}
+
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  /* 후광: 8초 왕복(4초 alternate). 움직임 토글(data-motion="paused")은 theme.css가 animation-play-state로 멈춘다.
+   * 축약형 animation은 play-state를 running으로 되돌리므로 쓰지 않는다. */
+  .cs-svc-animation .cs-svc-animation-halo {
+    animation-name: cs-svc-animation-halo;
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-animation .cs-svc-animation-tabs .cs-svc-animation-tab {
+    transition:
+      background-color var(--cs-dur-1) var(--cs-ease),
+      color var(--cs-dur-1) var(--cs-ease);
+  }
+}
+@media (hover: hover) {
+  .cs-svc-animation .cs-svc-animation-tabs .cs-svc-animation-tab:hover {
+    color: var(--cs-fg);
+  }
+  .cs-svc-animation .cs-svc-animation-tabs .cs-svc-animation-tab[aria-selected="true"]:hover {
+    color: var(--cs-bg);
+  }
 }

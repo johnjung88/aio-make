@@ -1,7 +1,50 @@
-/* 브랜드 홍보 영상 서비스 랜딩 데이터. WP0 초안(BRIEF_P2R_SERVICES 5절 카피 그대로) → 이후 WP-C 소유.
- * signature는 WP-C가 채운다(이야기 순서 · 길이별 구성 예시). 현장 촬영 포함 여부는 쓰지 않는다(Q6). */
+/* 브랜드 홍보 영상 서비스 랜딩 데이터(WP-C 소유, BRIEF_P2R_SERVICES 5절).
+ * signature = 배경 영상 히어로 문구 · 이야기 순서 · 길이별 구성 예시. 현장 촬영 포함 여부는 쓰지 않는다(Q6).
+ * 길이별 구성의 length 값은 lib/content-pricing.ts 플랜 라벨("30초"·"60초")과 같아야 금액·상담 링크가 이어진다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
+
+export const brandFilmSignature = {
+  hero: {
+    videoLabel: "브랜드 홍보 영상 연출 예시 · 보라색 유리 곡면이 천천히 흐르는 무음 영상",
+    pause: "영상 일시정지",
+    play: "영상 재생",
+  },
+  story: {
+    eyebrow: "STORY",
+    title: "이야기 순서부터\n정합니다",
+    lead: "세 가지 질문에 차례로 답하는 구성으로 기획안을 씁니다",
+    rows: [
+      {
+        statement: "왜 시작했는지",
+        body: "브랜드가 풀고 싶은 고객의 문제를 먼저 정리합니다.",
+      },
+      {
+        statement: "지금 무엇을 하는지",
+        body: "제품과 서비스가 하는 일을 장면으로 보여줍니다.",
+      },
+      {
+        statement: "다음에 무엇을 할지",
+        body: "영상을 본 사람이 이어서 볼 정보와 문의 경로를 담습니다.",
+      },
+    ],
+    mediaAlt: "보라색 천이 흐르는 물 위에 놓인 향수병 연출 예시",
+  },
+  length: {
+    eyebrow: "LENGTH",
+    title: "30초와 60초\n이렇게 나눕니다",
+    note: "길이별 구성 예시입니다. 실제 구성은 기획안에서 정합니다.",
+    rows: [
+      { length: "30초", parts: ["도입", "핵심 메시지", "마무리"] },
+      {
+        length: "60초",
+        parts: ["도입", "고객의 문제", "제품과 서비스", "일하는 방식", "마무리"],
+      },
+    ],
+  },
+};
+
+export type BrandFilmSignature = typeof brandFilmSignature;
 
 export const brandFilm: ServiceLandingData = {
   id: "brand-film",
@@ -13,7 +56,7 @@ export const brandFilm: ServiceLandingData = {
   },
   hero: {
     eyebrow: "BRAND FILM",
-    title: "브랜드의 이유를\n한 편에 담습니다",
+    title: "브랜드 이야기를\n한 편에 담습니다",
     lead: "브랜드 자료와 제품 정보를 정리해 30초와 60초 홍보 영상으로 만듭니다",
     facts: ["30초 · 60초", "기획안 수정 2회", "최종안 수정 1회"],
   },
@@ -89,5 +132,5 @@ export const brandFilm: ServiceLandingData = {
     lead: "회사와 제품을 알려주시면 이야기 구성과 견적을 안내합니다",
     placeholder: "예: 회사 소개용 60초 영상을 홈페이지에 올리고 싶어요",
   },
-  signature: {},
+  signature: brandFilmSignature,
 };
