@@ -56,7 +56,7 @@ export const brandFilm: ServiceLandingData = {
   },
   hero: {
     eyebrow: "BRAND FILM",
-    title: "브랜드 이야기를\n한 편에 담습니다",
+    title: "한 편의 영상에\n브랜드를 담습니다",
     lead: "브랜드 자료와 제품 정보를 정리해 30초와 60초 홍보 영상으로 만듭니다",
     facts: ["30초 · 60초", "기획안 수정 2회", "최종안 수정 1회"],
   },

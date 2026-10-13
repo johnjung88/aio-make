@@ -3,7 +3,8 @@
  *   레일 왕복은 ./ad.css의 CSS 키프레임(reduced-motion: no-preference 안)이 맡고 헤더 움직임 토글·reduced-motion에서 멈춘다.
  *   콜라주는 장식이라 카드 이미지 alt는 비우고 컨테이너 하나에만 aria-label을 둔다. 사람이 나오는 이미지는 쓰지 않는다.
  * - Signature: 첫 장면 설계. 같은 연출 예시 이미지를 장면마다 다르게 잘라 한 편 안의 세 장면(첫 장면·제품 장면·마지막 장면)을
- *   9:16 휴대폰 틀에 보여주고, 틀 위 화면 요소(진행 막대·문구 띠·버튼)는 CSS 장식(aria-hidden)이다.
+ *   9:16 휴대폰 틀에 보여주고, 틀 위 화면 요소(진행 막대 + 장면마다 실제 문구 하나: 첫 장면 큰 문구·제품 장면 자막·
+ *   마지막 장면 버튼)는 장식(aria-hidden)이다. 내용은 이미지 alt가 설명한다. 틀은 ≥768에서 3칸 양 끝에 맞춰 퍼진다.
  * 스타일은 ./ad.css(.cs-svc-ad로 시작), 자산 경로는 아래 ASSETS 한 곳. 광고 성과 수치는 쓰지 않는다. */
 import type { AdSignature } from "@/lib/content-site/services/ad";
 import { CONTENT_SITE_ASSETS, MEDIA_TAGS } from "@/lib/content-site/types";
@@ -49,7 +50,14 @@ const COLLAGE: CollageCard[][] = [
 ];
 
 const COLLAGE_SIZES = "(max-width: 767px) 40vw, (max-width: 1023px) 37vw, 22vw";
-const HOOK_SIZES = "(max-width: 767px) 132px, (max-width: 1023px) 30vw, 320px";
+const HOOK_SIZES = "(max-width: 767px) 132px, (max-width: 1023px) 30vw, 360px";
+
+/** 휴대폰 화면 위 문구(frames[i].screen)의 모양과 글자 역할. 장면 순서대로 첫 장면 큰 문구 · 자막 띠 · 버튼 */
+const SCREEN_TEXT = [
+  { kind: "headline", role: "cs-t-h3" },
+  { kind: "caption", role: "cs-t-caption" },
+  { kind: "cta", role: "cs-t-label" },
+] as const;
 
 const sig = (data: ServiceSectionProps["data"]) => data.signature as AdSignature;
 
@@ -146,19 +154,14 @@ function Hook({ data }: ServiceSectionProps) {
                         <i key={n} data-on={n <= i ? "" : undefined} />
                       ))}
                     </span>
-                    {i === 0 ? (
-                      <span className="cs-svc-ad-headline">
-                        <i />
-                        <i />
+                    {SCREEN_TEXT[i] ? (
+                      <span
+                        className={`cs-svc-ad-screen-text ${SCREEN_TEXT[i].role}`}
+                        data-kind={SCREEN_TEXT[i].kind}
+                      >
+                        {frame.screen}
                       </span>
                     ) : null}
-                    {i === hook.frames.length - 1 ? (
-                      <span className="cs-svc-ad-cta" />
-                    ) : null}
-                    <span className="cs-svc-ad-caption">
-                      <i />
-                      <i />
-                    </span>
                   </div>
                 </div>
               </div>

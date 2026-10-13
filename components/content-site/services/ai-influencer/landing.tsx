@@ -79,11 +79,10 @@ function Signature() {
           title={s.title}
           lead={s.lead}
         />
+        {/* ≥1024: 기준 이미지 네 장을 한 줄(턴어라운드)로, 그 아래 프로필 5/12 + 설정 7/12.
+            사진 2×2 옆에 짧은 글 열을 두면 오른쪽 아래가 크게 비어서(VERIFY_FINAL_P2R WP-B-2) 위아래로 나눴다. */}
         <div className="cs-grid cs-svc-ai-influencer-sheet-grid">
-          <ul
-            className="cs-col-7 cs-svc-ai-influencer-views"
-            aria-label={s.viewsLabel}
-          >
+          <ul className="cs-svc-ai-influencer-views" aria-label={s.viewsLabel}>
             {s.views.map((view) => (
               <li
                 key={view.id}
@@ -95,28 +94,26 @@ function Signature() {
                   src={ASSETS.views[view.id]}
                   alt={view.alt}
                   tag={MEDIA_TAGS.aiPerson}
-                  sizes="(max-width: 1023px) 46vw, 24vw"
+                  sizes="(max-width: 1023px) 46vw, 22vw"
                 />
                 <p className="cs-t-label">{view.label}</p>
               </li>
             ))}
           </ul>
-          <div className="cs-col-5 cs-svc-ai-influencer-profile">
-            <div className="cs-svc-ai-influencer-profile-head">
-              <p className="cs-t-caption">{s.profile.role}</p>
-              <h3 className="cs-t-h3">{s.profile.name}</h3>
-              <p className="cs-t-body">{s.profile.body}</p>
-            </div>
-            <dl className="cs-svc-ai-influencer-rows">
-              {s.rows.map((row) => (
-                <div key={row.term} className="cs-svc-ai-influencer-row">
-                  <dt className="cs-t-label">{row.term}</dt>
-                  <dd className="cs-t-body">{row.detail}</dd>
-                </div>
-              ))}
-            </dl>
+          <div className="cs-col-5 cs-svc-ai-influencer-profile-head">
+            <p className="cs-t-caption">{s.profile.role}</p>
+            <h3 className="cs-t-h3">{s.profile.name}</h3>
+            <p className="cs-t-body">{s.profile.body}</p>
             <p className="cs-svc-ai-influencer-note cs-t-small">{s.note}</p>
           </div>
+          <dl className="cs-col-7 cs-svc-ai-influencer-rows">
+            {s.rows.map((row) => (
+              <div key={row.term} className="cs-svc-ai-influencer-row">
+                <dt className="cs-t-label">{row.term}</dt>
+                <dd className="cs-t-body">{row.detail}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

@@ -4,7 +4,8 @@
  * - 마운트 후: APG 탭(←/→/↑/↓·Home·End, 끝에서 순환). 패널 높이는 세 항목을 같은 칸에 겹쳐 가장 긴 것에 맞추고,
  *   보이지 않는 사본은 heading 없는 요소 + aria-hidden으로 둔다(P3 방식).
  * 문구는 서버(landing.tsx)가 props로 넘긴다. 서버 전용 데이터·전체 랜딩 데이터는 import하지 않는다.
- * 그림은 CSS 도형(aria-hidden) + '연출 예시' 태그. */
+ * 그림은 CSS 도형(aria-hidden) + '연출 예시' 태그. 이야기 그림은 문장 카드 + 시작·전개·마무리 장면 3칸으로 상자를 채운다.
+ * 패널 안 문구는 그림 윗선에 맞춘다(animation.css, VERIFY_FINAL_P2R WP-A-3). */
 import { useEffect, useRef, useState } from "react";
 import type React from "react";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
@@ -47,14 +48,21 @@ function Art({
       <div className="cs-svc-animation-art-inner" aria-hidden="true">
         {kind === "story" ? (
           <div className="cs-svc-animation-story">
-            <span className="cs-t-caption">{props.story.label}</span>
-            <span className="cs-svc-animation-story-line cs-t-h3">
-              {props.story.line}
+            <span className="cs-svc-animation-story-card">
+              <span className="cs-t-caption">{props.story.label}</span>
+              <span className="cs-svc-animation-story-line cs-t-h3">
+                {props.story.line}
+              </span>
             </span>
             <span className="cs-svc-animation-beats">
-              {props.story.beats.map((beat) => (
-                <span key={beat} className="cs-svc-animation-beat cs-t-caption">
-                  {beat}
+              {props.story.beats.map((beat, i) => (
+                <span key={beat} className="cs-svc-animation-beat" data-beat={i + 1}>
+                  <span className="cs-svc-animation-beat-frame">
+                    <span className="cs-svc-animation-frame-ground" />
+                    <span className="cs-svc-animation-frame-char" />
+                    <span className="cs-svc-animation-frame-prop" />
+                  </span>
+                  <span className="cs-t-caption">{beat}</span>
                 </span>
               ))}
             </span>

@@ -13,7 +13,8 @@ const BUSINESS_INFO = [
   "통신판매업신고: 제 2026-경기김포-3656 호",
   "주소: 경기도 김포시 대곶면 흥신로67",
 ] as const;
-const EMAIL = "AIOMAKE2023@GMAIL.COM";
+/* 표시·mailto 모두 소문자(SHARED-4). 메인 푸터의 대문자 표기와는 다르다(주소는 대소문자 구분 없음). */
+const EMAIL = "aiomake2023@gmail.com";
 
 export function ContentSiteFooter() {
   const f = CS_COPY.footer;

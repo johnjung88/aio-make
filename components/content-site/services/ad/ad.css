@@ -9,7 +9,6 @@
   --svc-mask: #000;
   --svc-ui-track: rgba(255, 255, 255, 0.34);
   --svc-ui-fill: rgba(255, 255, 255, 0.95);
-  --svc-ui-line: rgba(255, 255, 255, 0.86);
   --svc-ui-band: rgba(14, 13, 18, 0.58);
   --svc-scene-shade: rgba(14, 13, 18, 0.62);
 
@@ -163,8 +162,10 @@
   gap: var(--cs-s5);
 }
 @media (min-width: 768px) {
+  /* 틀은 칸 폭을 채우되 최대 360px. 첫 틀은 섹션 머리 왼쪽 선, 마지막 틀은 오른쪽 끝에 맞추고 남는 폭은 사이 간격으로 나눈다 */
   .cs-svc-ad .cs-svc-ad-frames {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 360px));
+    justify-content: space-between;
     gap: var(--cs-s5);
   }
   .cs-svc-ad .cs-svc-ad-frame {
@@ -174,7 +175,6 @@
 }
 .cs-svc-ad .cs-svc-ad-phone {
   width: 100%;
-  max-width: 320px;
   padding: 6px;
   border: 1px solid var(--cs-line);
   border-radius: var(--cs-r-lg);
@@ -237,56 +237,46 @@
 .cs-svc-ad .cs-svc-ad-progress > i[data-on] {
   background: var(--svc-ui-fill);
 }
-.cs-svc-ad .cs-svc-ad-headline {
+/* 장면마다 실제 문구 하나(장식, aria-hidden). 글자 크기·굵기는 역할 클래스(.cs-t-h3/.cs-t-caption/.cs-t-label)가 정한다 */
+.cs-svc-ad .cs-svc-ad-screen-text {
   position: absolute;
-  top: 18%;
-  left: 10%;
-  right: 10%;
-  display: flex;
-  flex-direction: column;
-  gap: 6%;
-  height: 10%;
+  left: 8%;
+  right: 8%;
+  color: var(--cs-fg);
+  overflow-wrap: anywhere;
 }
-.cs-svc-ad .cs-svc-ad-headline > i {
-  display: block;
-  flex: 1;
-  border-radius: var(--cs-r-sm);
-  background: var(--svc-ui-fill);
+/* 첫 장면: 화면 위쪽 큰 문구. 밝은 천 위에서도 읽히게 위쪽에 그림자를 깐다 */
+.cs-svc-ad .cs-svc-ad-frame[data-scene="1"] .cs-svc-ad-ui {
+  background: linear-gradient(180deg, var(--svc-scene-shade) 0%, transparent 46%);
 }
-.cs-svc-ad .cs-svc-ad-headline > i:last-child {
-  width: 62%;
+.cs-svc-ad .cs-svc-ad-screen-text[data-kind="headline"] {
+  top: 15%;
 }
-.cs-svc-ad .cs-svc-ad-caption {
-  position: absolute;
-  left: 14%;
-  right: 14%;
+/* 제품 장면: 아래쪽 가운데 자막 띠 */
+.cs-svc-ad .cs-svc-ad-screen-text[data-kind="caption"] {
+  left: 50%;
+  right: auto;
   bottom: 21%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 8px;
+  max-width: 84%;
+  padding: var(--cs-s1) var(--cs-s3);
   border-radius: var(--cs-r-sm);
   background: var(--svc-ui-band);
+  text-align: center;
+  white-space: nowrap;
+  transform: translateX(-50%);
 }
-.cs-svc-ad .cs-svc-ad-caption > i {
-  display: block;
-  width: 84%;
-  height: 4px;
-  border-radius: var(--cs-r-pill);
-  background: var(--svc-ui-line);
-}
-.cs-svc-ad .cs-svc-ad-caption > i:last-child {
-  width: 52%;
-}
-.cs-svc-ad .cs-svc-ad-cta {
-  position: absolute;
+/* 마지막 장면: 문의 버튼 모양 */
+.cs-svc-ad .cs-svc-ad-screen-text[data-kind="cta"] {
   left: 50%;
-  bottom: 33%;
-  width: 56%;
-  height: 7%;
+  right: auto;
+  bottom: 24%;
+  min-width: 56%;
+  padding: var(--cs-s1) var(--cs-s4);
   border-radius: var(--cs-r-pill);
   background: var(--cs-accent);
+  color: var(--cs-on-accent);
+  text-align: center;
+  white-space: nowrap;
   transform: translateX(-50%);
 }
 

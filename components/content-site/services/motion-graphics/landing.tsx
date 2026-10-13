@@ -11,19 +11,27 @@ import { motionGraphicsSignature as sig } from "@/lib/content-site/services/moti
 import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./motion-graphics.css";
 
-/** 장식 무대: 글자 두 줄 + 원 + 사각 + 글자 막대. variant는 CSS가 움직임 여부를 정한다. */
+/** 장식 무대: 글자 두 줄 + 원 + 사각 + 글자 막대. variant는 CSS가 움직임 여부를, tone은 바탕색을 정한다
+ * (accent = 보라 · light = 밝은 크림 · lime = 연두). 같은 보라 카드가 되풀이되지 않게 섹션마다 글자와 바탕을 바꾼다. */
 function Composition({
   word,
   variant,
+  tone = "accent",
   character = false,
 }: {
   word: string;
   variant: "stage" | "still" | "moving";
+  tone?: "accent" | "light" | "lime";
   character?: boolean;
 }) {
   const [first, second] = word.split("\n");
   return (
-    <div className="cs-svc-motion-graphics-comp" data-variant={variant} aria-hidden="true">
+    <div
+      className="cs-svc-motion-graphics-comp"
+      data-variant={variant}
+      data-tone={tone}
+      aria-hidden="true"
+    >
       <span className="cs-svc-motion-graphics-shape" data-shape="circle" />
       <span className="cs-svc-motion-graphics-shape" data-shape="square" />
       {character ? <span className="cs-svc-motion-graphics-character" /> : null}
@@ -93,8 +101,9 @@ function Compare() {
             <li key={plan.id} className="cs-svc-motion-graphics-plan" data-plan-type={plan.id}>
               <div className="cs-svc-motion-graphics-plan-art">
                 <Composition
-                  word={sig.stage.title}
+                  word={plan.word}
                   variant="still"
+                  tone={plan.id === "custom" ? "accent" : "light"}
                   character={plan.id === "custom"}
                 />
                 <CsTag overlay>{MEDIA_TAGS.staged}</CsTag>
@@ -145,7 +154,7 @@ function StyleFrame() {
           {panes.map((pane) => (
             <li key={pane.key} className="cs-svc-motion-graphics-pane">
               <div className="cs-svc-motion-graphics-pane-art">
-                <Composition word={f.word} variant={pane.variant} />
+                <Composition word={f.word} variant={pane.variant} tone="lime" />
                 <CsTag overlay>{MEDIA_TAGS.staged}</CsTag>
               </div>
               <p className="cs-t-label">{pane.label}</p>

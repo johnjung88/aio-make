@@ -1,5 +1,5 @@
 /* 브랜드 홍보 영상 서비스 모듈(WP-C 소유, BRIEF_P2R_SERVICES 5절).
- * - Hero: 화면 전체 배경 영상(아래층 이미지가 LCP, 위층 12초 무음 영상은 frame.tsx가 마운트 후 재생).
+ * - Hero: 화면 전체 배경 영상(아래층 이미지가 LCP, 같은 정지 화면을 poster로도 지정, 위층 12초 무음 영상은 frame.tsx가 마운트 후 재생).
  *   문구는 왼쪽 아래, 오른쪽 아래에 `연출 예시 · 무음` 태그와 영상 일시정지 버튼(고유 client 섬 1개).
  * - Signature: 이야기 순서(큰 문장 3행 + 세로 이미지) → 길이별 구성 예시(30초·60초 타임라인 + 해당 금액·상담 링크).
  * 스타일은 ./brand-film.css(.cs-svc-brand-film로 시작), 자산 경로는 아래 ASSETS 한 곳. */
@@ -16,7 +16,7 @@ import { FilmControl } from "./film-control";
 import "./brand-film.css";
 
 const ASSETS = {
-  /** 배경 영상 아래층(LCP·재생 전 화면) */
+  /** 배경 영상 아래층(LCP·재생 전 화면)이자 영상 poster. 영상 첫 프레임과 같은 장면(SSIM 0.968, 2026-10-14 대조) */
   heroStill: CONTENT_SITE_ASSETS.hero.src,
   /** 12초 무음 반복 영상 */
   heroMotion: CONTENT_SITE_ASSETS.brandMotion.src,
@@ -41,6 +41,7 @@ function Hero({ data }: ServiceSectionProps) {
         className="cs-svc-brand-film-backdrop"
         src={ASSETS.heroMotion}
         alt={s.videoLabel}
+        poster={ASSETS.heroStill}
         autoplay
         preload="metadata"
         under={{ src: ASSETS.heroStill, sizes: "100vw", priority: true }}

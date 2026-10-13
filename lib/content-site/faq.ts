@@ -1,4 +1,5 @@
-/* 모든 서비스 FAQ의 마지막 3개(BRIEF_P2R_SERVICES 0-4, 문자열 그대로). 서비스 데이터가 끝에 펼쳐 넣는다. */
+/* 모든 서비스 FAQ의 마지막 3개(BRIEF_P2R_SERVICES 0-4). 서비스 데이터가 끝에 펼쳐 넣는다.
+ * 세 번째 답은 가격 주석의 '대량 제작과 정기 제작은 따로 견적을 드립니다.'를 되풀이하지 않게 바꿨다(VERIFY_FINAL_P2R SHARED-2). */
 export const COMMON_FAQ: readonly [question: string, answer: string][] = [
   [
     "수정은 몇 번까지 할 수 있나요?",
@@ -10,6 +11,6 @@ export const COMMON_FAQ: readonly [question: string, answer: string][] = [
   ],
   [
     "여러 편을 정기적으로 맡길 수 있나요?",
-    "대량 제작과 정기 제작은 따로 견적을 드립니다. 편수와 일정을 알려주시면 범위를 안내합니다.",
+    "네. 편수와 일정을 알려주시면 범위와 견적을 따로 안내합니다.",
   ],
 ];

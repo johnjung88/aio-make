@@ -1,6 +1,7 @@
 /* AI 인플루언서 서비스 랜딩 데이터(WP-B 소유). 사실 기준은 FACTS_AI_INFLUENCER.md.
  * 87언니는 AIO가 직접 만든 AI 가상인물(자체 IP)이라 공개 가능(HANDOFF 결정 10-1). 계정 게시물·성과는 없으므로
- * 팔로워·게시·운영 표현을 쓰지 않는다. 고객 시안(제안용) 문자열은 이 파일에 두지 않는다(works.server.ts 게이트). */
+ * 팔로워·게시·운영 표현을 쓰지 않는다. 고객 시안(제안용) 문자열은 이 파일에 두지 않는다(works.server.ts 게이트).
+ * 계정 게시·운영 별도 견적은 가격 주석(lib/content-pricing.ts) 한 곳에만 둔다(VERIFY_FINAL_P2R WP-B-1). */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
@@ -57,7 +58,6 @@ export const aiInfluencer: ServiceLandingData = {
     title: "브랜드 전용\nAI 가상인물",
     lead: "얼굴과 스타일을 일정하게 유지한 가상인물로 제품 이미지와 9:16 숏폼 영상을 만듭니다",
     facts: ["캐릭터 1명 세팅", "이미지 · 30초 영상", "AI 가상인물 표기 안내"],
-    note: "계정 게시·운영 및 대량 제작은 별도 견적",
   },
   types: {
     eyebrow: "WHAT WE MAKE",
@@ -108,7 +108,7 @@ export const aiInfluencer: ServiceLandingData = {
       "구성에 따른 이미지와 30초 영상",
       "기획안 수정 2회 · 최종안 수정 1회",
     ],
-    separate: ["계정 게시와 운영", "대량 제작"],
+    separate: ["구성 밖의 추가 이미지와 영상", "대량·정기 제작"],
     prepare: [
       "제품 사진과 정보",
       "원하는 인물의 분위기",
@@ -123,10 +123,6 @@ export const aiInfluencer: ServiceLandingData = {
     [
       "이미지 20장 구성은 어떻게 되나요?",
       "총 20장에는 캐릭터 세팅에 쓰는 이미지가 포함됩니다. 주 이미지 5장과 영상 1편으로 구성할 수도 있습니다.",
-    ],
-    [
-      "SNS 계정 운영도 맡길 수 있나요?",
-      "계정 게시와 운영은 별도 견적으로 안내합니다.",
     ],
     [
       "AI 가상인물이라는 표시가 필요한가요?",

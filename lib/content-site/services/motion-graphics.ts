@@ -3,7 +3,9 @@
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
-/** 서비스 고유 섹션 문구. 키네틱 타이포 문자열도 여기 둔다(카피 테스트 대상). */
+/** 서비스 고유 섹션 문구. 키네틱 타이포 문자열도 여기 둔다(카피 테스트 대상).
+ * 장식 구도의 글자는 히어로·단순형·맞춤형·스타일 프레임마다 다르다(같은 구도가 되풀이되지 않게, VERIFY_FINAL_P2R WP-B-4).
+ * 스타일 프레임의 두 칸(정지·모션 적용)은 같은 화면의 전후라 같은 글자를 쓴다. */
 export const motionGraphicsSignature = {
   /** 히어로 무대의 키네틱 타이포(aria-hidden 장식) */
   stage: { title: "움직이는\n메시지" },
@@ -17,12 +19,14 @@ export const motionGraphicsSignature = {
         name: "단순형",
         body: "로고와 이미지, 문구를 움직여 만듭니다.",
         items: ["로고", "제품 이미지", "핵심 문구"],
+        word: "로고와\n핵심 문구",
       },
       {
         id: "custom",
         name: "맞춤형",
         body: "브랜드 전용 캐릭터 제작이 포함됩니다. 캐릭터가 장면에 함께 등장합니다.",
         items: ["로고", "제품 이미지", "핵심 문구", "전용 캐릭터"],
+        word: "캐릭터가\n안내해요",
       },
     ],
     itemsLabel: "들어가는 요소",
@@ -34,7 +38,7 @@ export const motionGraphicsSignature = {
     lead: "움직이기 전에 색과 글자 배치를 정지 화면으로 기획안에 담습니다",
     still: { label: "스타일 프레임", caption: "기획안에서 색과 배치를 확인합니다" },
     moving: { label: "모션 적용", caption: "확정한 화면에 움직임을 입힙니다" },
-    word: "움직이는\n메시지",
+    word: "한 장면\n한 메시지",
   },
 } as const;
 

@@ -1,5 +1,6 @@
 /* webtoon 서비스 모듈(WP-A, 서버 컴포넌트만 · 고유 client 섬 0개).
- * 히어로: 기울어진 《1억의 구단주》 표지 카드 / 고유 섹션: ① 12컷 세로 리더(#reader, CSS 스크롤) ② 웹툰 + 모션코믹 묶음.
+ * 히어로: 기울어진 《1억의 구단주》 표지 카드 / 고유 섹션: ① 12컷 세로 리더(#reader, CSS 스크롤) ② 웹툰 + 모션코믹(영상 + 맡기는 방법).
+ * 금액은 이 파일에 없다. 웹툰·모션코믹·함께 제작 금액은 #pricing(CsPricing) 한 곳에서만 보인다(VERIFY_FINAL_P2R WP-A-1).
  * 스타일은 ./webtoon.css 한 파일(.cs-svc-webtoon로 시작). 자산 경로와 alt는 아래 상수 한 곳에 둔다. */
 import Image from "next/image";
 import { CsHero } from "../../blocks/hero";
@@ -7,8 +8,6 @@ import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
 import { CsTag } from "../../ui/tag";
-import { formatWon, pricingPlans } from "@/lib/content-pricing";
-import { CS_COPY } from "@/lib/content-site/copy";
 import { webtoonSignature as sig } from "@/lib/content-site/services/webtoon";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./webtoon.css";
@@ -43,9 +42,11 @@ const COVER = {
   alt: `${WORK_TITLE} 1회 첫 컷을 표지로 쓴 카드. 독립구단 창단식 무대와 객석의 두 주인공`,
 };
 
+/** poster는 같은 영상 17.6초 프레임(《1억의 구단주》 제목 + 장면)을 ffmpeg로 뽑은 1280×720 webp다.
+ * 기존 /videos/webtoon-reference-poster.jpg(로고 엔드카드)는 메인 사이트가 쓰므로 그대로 둔다. */
 const MOTION_COMIC_VIDEO = {
   src: "/videos/webtoon-reference-v02.mp4",
-  poster: "/videos/webtoon-reference-poster.jpg",
+  poster: "/webtoon-v11/motion-comic-poster.webp",
 };
 
 /* ---------------------------------------------------------------- 히어로 */
@@ -141,8 +142,6 @@ function Reader() {
 /* ---------------------------------------------------------------- ② 웹툰 + 모션코믹 */
 function MotionComic() {
   const m = sig.motionComic;
-  const [webtoonGroup, motionGroup, bundleGroup] = pricingPlans("webtoon").groups;
-  const c = CS_COPY.pricing;
   return (
     <section
       className="cs-section cs-svc-webtoon-motion"
@@ -171,52 +170,30 @@ function MotionComic() {
             />
             <figcaption className="cs-t-small">{m.caption}</figcaption>
           </figure>
-          <div className="cs-col-5 cs-svc-webtoon-bundles">
-            <p className="cs-t-label" id="cs-webtoon-bundles-label">
-              {m.bundlesLabel}
+          <div className="cs-col-5 cs-svc-webtoon-ways">
+            <p className="cs-t-label" id="cs-webtoon-ways-label">
+              {m.waysLabel}
             </p>
-            <ul
-              className="cs-svc-webtoon-bundle-list"
-              aria-labelledby="cs-webtoon-bundles-label"
+            <ol
+              className="cs-svc-webtoon-way-list"
+              aria-labelledby="cs-webtoon-ways-label"
             >
-              {bundleGroup.plans.map((plan, i) => {
-                const parts = [webtoonGroup.plans[i], motionGroup.plans[i]];
-                return (
-                  <li key={plan.key} className="cs-plan cs-plan--bundle" data-reveal>
-                    <span className="cs-plan-badge cs-t-caption">{c.bundle}</span>
-                    <h3 className="cs-t-h3">{plan.label}</h3>
-                    <p className="cs-plan-amount">
-                      <span className="cs-t-price">{formatWon(plan.amount)}</span>
-                      <span className="cs-t-small">{c.vat}</span>
-                    </p>
-                    <p className="cs-svc-webtoon-sum cs-t-small">
-                      <span className="cs-nowrap">
-                        {parts[0].option} {formatWon(parts[0].amount)}
-                      </span>{" "}
-                      <span className="cs-nowrap">
-                        + {parts[1].option} {formatWon(parts[1].amount)}
-                      </span>
-                    </p>
-                    <a href="#inquiry" className="cs-link" data-plan={plan.key}>
-                      {c.cta} <span aria-hidden="true">↓</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-            <dl className="cs-svc-webtoon-solo">
-              <dt>
-                <span className="cs-t-label">{m.soloLabel}</span>
-                <span className="cs-t-caption">{c.vat}</span>
-              </dt>
-              {motionGroup.plans.map((plan) => (
-                <dd key={plan.key}>
-                  <span className="cs-t-small">{plan.label}</span>
-                  <span className="cs-t-price-sm">{formatWon(plan.amount)}</span>
-                </dd>
+              {m.ways.map((way, i) => (
+                <li key={way.title} className="cs-svc-webtoon-way" data-reveal>
+                  <span
+                    className="cs-svc-webtoon-way-num cs-t-caption"
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="cs-t-h3">{way.title}</h3>
+                  <p className="cs-t-body">{way.body}</p>
+                </li>
               ))}
-            </dl>
-            <p className="cs-svc-webtoon-note cs-t-small">{m.note}</p>
+            </ol>
+            <a href="#pricing" className="cs-link cs-svc-webtoon-price-link">
+              {m.priceLink} <span aria-hidden="true">↓</span>
+            </a>
           </div>
         </div>
       </div>

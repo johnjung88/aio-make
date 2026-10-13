@@ -4,6 +4,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { pricingPlans } from "../lib/content-pricing.ts";
 import { contentLandings } from "../lib/content-site/index.ts";
 import { aiInfluencerSignature } from "../lib/content-site/services/ai-influencer.ts";
 import { motionGraphicsSignature } from "../lib/content-site/services/motion-graphics.ts";
@@ -47,8 +48,18 @@ test("B-2. AI 가상인물 표기: 사람 이미지마다 aiPerson 태그와 'AI
   assert.match(sig.persona.role, /AI 가상인물/);
   assert.match(sig.sheet.profile.role, /AI 가상인물/);
   assert.deepEqual(sig.disclosure.items.slice(0, 2), ["AI 가상인물 표기", "광고 표기"]);
-  // 계정 운영은 별도 견적 한 줄(히어로 note)로만
-  assert.equal(contentLandings["ai-influencer"].hero.note, "계정 게시·운영 및 대량 제작은 별도 견적");
+  // 계정 게시·운영 별도 견적은 가격 주석 한 곳에만(VERIFY_FINAL_P2R WP-B-1). 랜딩 데이터(히어로·범위·FAQ)에는 없다
+  const ai = contentLandings["ai-influencer"];
+  assert.equal(ai.hero.note, undefined);
+  const notes = pricingPlans("ai-influencer").notes.filter((n) => /계정/.test(n));
+  assert.deepEqual(notes, ["계정 게시·운영 및 대량 제작은 별도 견적."]);
+  const flat = JSON.stringify({ ...ai, signature: undefined });
+  assert.doesNotMatch(flat, /계정 (게시|운영)|게시와 운영|게시·운영/);
+  // 캐릭터 시트: 사진 줄 + 프로필 5/12 + 설정 7/12(오른쪽 열만 길게 비지 않게, WP-B-2)
+  assert.match(landing, /className="cs-col-5 cs-svc-ai-influencer-profile-head"/);
+  assert.match(landing, /className="cs-col-7 cs-svc-ai-influencer-rows"/);
+  // 가격 카드 금액 기준선: subgrid로 이름·금액·링크 행을 맞춘다(WP-B-3)
+  assert.match(read(`${AI}/ai-influencer.css`), /grid-template-rows:\s*subgrid/);
   assert.match(landing, /id="sheet"/);
   assert.match(landing, /href="#sheet"/);
 });
@@ -93,8 +104,16 @@ test("B-4. 모션그래픽 움직임: 축약형 animation 0, 루프는 reduced-m
 test("B-5. 모션그래픽 장식 무대: aria-hidden, 문자열은 데이터에서, 태그 '연출 예시'", () => {
   const landing = read(`${MG}/landing.tsx`);
   assert.match(landing, /className="cs-svc-motion-graphics-comp"[^>]*aria-hidden="true"/);
-  assert.equal(motionGraphicsSignature.stage.title, motionGraphicsSignature.frame.word);
-  assert.equal(motionGraphicsSignature.stage.title.split("\n").length, 2);
+  // 구도 글자는 히어로·단순형·맞춤형·스타일 프레임마다 다르고 모두 두 줄(WP-B-4)
+  const words = [
+    motionGraphicsSignature.stage.title,
+    ...motionGraphicsSignature.compare.plans.map((p) => p.word),
+    motionGraphicsSignature.frame.word,
+  ];
+  assert.equal(new Set(words).size, words.length, "composition words differ");
+  for (const w of words) assert.equal(w.split("\n").length, 2, w);
+  assert.match(landing, /word=\{plan\.word\}/);
+  assert.match(landing, /tone="lime"/);
   const tags = landing.match(/<CsTag overlay>\{MEDIA_TAGS\.(\w+)\}<\/CsTag>/g) ?? [];
   assert.equal(tags.length, 3);
   for (const t of tags) assert.match(t, /MEDIA_TAGS\.staged/);

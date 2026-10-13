@@ -9,7 +9,7 @@ export const animationSignature = {
   styles: {
     eyebrow: "STYLE",
     title: "브랜드에 맞는\n그림체를 고릅니다",
-    lead: "기획안 단계에서 캐릭터와 배경의 그림체를 함께 정합니다",
+    lead: "캐릭터의 생김새부터 배경의 질감까지 브랜드 분위기에 맞춥니다",
     items: [
       {
         title: "입체 캐릭터",
@@ -66,7 +66,7 @@ export const animation: ServiceLandingData = {
     eyebrow: "ANIMATION",
     title: "캐릭터가\n움직이는 장면",
     lead: "캐릭터와 배경을 설계하고 장면을 이어 30초나 60초 애니메이션으로 완성합니다",
-    facts: ["30초 · 60초", "캐릭터·배경 설계", "기획안 수정 2회"],
+    facts: ["30초 · 60초", "그림체 함께 결정", "장면 먼저 확인"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",
@@ -126,12 +126,8 @@ export const animation: ServiceLandingData = {
   },
   faq: [
     [
-      "길이와 가격은 어떻게 되나요?",
-      "30초는 30만 원, 60초는 55만 원입니다. 모두 부가세 별도입니다.",
-    ],
-    [
-      "제작 중에 무엇을 확인하나요?",
-      "기획안에서 이야기와 캐릭터, 장면 구성을 먼저 확인합니다. 최종안을 받은 뒤 한 번 더 수정할 수 있습니다.",
+      "길이는 어떻게 정하나요?",
+      "어디에 올릴 영상인지 듣고 30초와 60초 중에서 고릅니다.",
     ],
     [
       "이미 있는 캐릭터로도 만들 수 있나요?",

@@ -57,7 +57,26 @@
   inset: 0;
   overflow: clip;
   border-radius: inherit;
+  /* 바탕(tone)마다 바뀌는 장식 색. 기본 = 보라 바탕 */
+  --svc-comp-ink: var(--cs-on-accent);
+  --svc-comp-dot: var(--svc-lime);
+  --svc-comp-mark: var(--svc-lime);
   background: var(--cs-accent);
+  color: var(--cs-on-accent);
+}
+/* 밝은 크림 바탕(단순형): 글자는 페이지 바탕색(가장 어두운 색) */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-tone="light"] {
+  --svc-comp-ink: var(--cs-bg);
+  --svc-comp-dot: var(--cs-accent);
+  --svc-comp-mark: var(--cs-accent);
+  background: var(--cs-fg);
+  color: var(--cs-bg);
+}
+/* 연두 바탕(스타일 프레임) */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-tone="lime"] {
+  --svc-comp-dot: var(--cs-accent);
+  --svc-comp-mark: var(--cs-accent);
+  background: var(--svc-lime);
   color: var(--cs-on-accent);
 }
 .cs-svc-motion-graphics .cs-svc-motion-graphics-shape {
@@ -70,7 +89,7 @@
   right: 8%;
   height: 38%;
   border-radius: 50%;
-  background: var(--svc-lime);
+  background: var(--svc-comp-dot);
 }
 .cs-svc-motion-graphics .cs-svc-motion-graphics-shape[data-shape="square"] {
   right: 16%;
@@ -94,14 +113,14 @@
   z-index: 1;
   display: grid;
   justify-items: start;
-  color: var(--cs-on-accent);
+  color: inherit;
 }
 .cs-svc-motion-graphics .cs-svc-motion-graphics-line {
   display: block;
   white-space: nowrap;
 }
 .cs-svc-motion-graphics .cs-svc-motion-graphics-line[data-line="2"] {
-  background: linear-gradient(transparent 62%, var(--svc-lime) 62%, var(--svc-lime) 92%, transparent 92%);
+  background: linear-gradient(transparent 62%, var(--svc-comp-mark) 62%, var(--svc-comp-mark) 92%, transparent 92%);
 }
 .cs-svc-motion-graphics .cs-svc-motion-graphics-bars {
   position: absolute;
@@ -115,7 +134,7 @@
   width: 64px;
   height: 6px;
   border-radius: var(--cs-r-pill);
-  background: var(--cs-on-accent);
+  background: var(--svc-comp-ink);
   opacity: 0.72;
   transform-origin: left center;
 }
@@ -162,7 +181,7 @@
   right: 0;
   bottom: 0;
   height: 4px;
-  background: var(--cs-on-accent);
+  background: var(--svc-comp-ink);
   transform-origin: left center;
 }
 

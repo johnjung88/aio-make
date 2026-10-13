@@ -289,7 +289,7 @@ test("4. FAQ·SEO", () => {
     ],
     [
       "여러 편을 정기적으로 맡길 수 있나요?",
-      "대량 제작과 정기 제작은 따로 견적을 드립니다. 편수와 일정을 알려주시면 범위를 안내합니다.",
+      "네. 편수와 일정을 알려주시면 범위와 견적을 따로 안내합니다.",
     ],
   ];
   const titles = new Set(),
@@ -298,6 +298,15 @@ test("4. FAQ·SEO", () => {
     const { faq, seo } = contentLandings[id];
     assert.ok(faq.length >= 4, `${id} FAQ >= 4`);
     assert.deepEqual(faq.slice(-3), common, `${id} ends with common FAQ`);
+    // 가격 주석 문장은 페이지에서 한 번만(VERIFY_FINAL_P2R SHARED-2)
+    for (const [, answer] of faq)
+      for (const line of PRICING_COMMON_LINES)
+        assert.ok(!answer.includes(line), `${id} FAQ repeats pricing note: ${line}`);
+    assert.doesNotMatch(
+      read("components/content-site/blocks/process.tsx"),
+      /PRICING_COMMON/,
+      "process block does not repeat pricing note",
+    );
     assert.equal(new Set(faq.map(([q]) => q)).size, faq.length, `${id} FAQ unique`);
     assert.ok(faq.some(([, a]) => /수정/.test(a)), `${id} revision FAQ`);
     assert.ok(faq.some(([, a]) => /부가세 별도/.test(a)), `${id} VAT FAQ`);
@@ -349,9 +358,10 @@ test("5. AI 인플루언서 범위·표기(FACTS_AI_INFLUENCER)", () => {
   const ai = contentLandings["ai-influencer"];
   const all = strings(ai).map((s) => s.value);
   assert.ok(
-    all.includes("계정 게시·운영 및 대량 제작은 별도 견적"),
-    "account operation note",
+    !all.some((s) => /계정 (게시|운영)|게시와 운영|게시·운영/.test(s)),
+    "account operation note only in pricing notes",
   );
+  assert.ok(pricingPlans("ai-influencer").notes.includes("계정 게시·운영 및 대량 제작은 별도 견적."));
   for (const text of all)
     assert.doesNotMatch(
       text,

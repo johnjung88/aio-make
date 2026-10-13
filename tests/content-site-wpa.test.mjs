@@ -2,6 +2,7 @@
 // 공통 규칙(카피·CSS 역할 토큰·client 섬·고객 문자열)은 tests/content-site.test.mjs가 6개 서비스에 함께 적용한다.
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { contentLandings } from "../lib/content-site/index.ts";
@@ -30,11 +31,14 @@ test("A-1. 웹툰 가격: 함께 제작 합계 = 웹툰 제작 + 모션코믹(PR
       `${plan.label} = ${webtoon.plans[i].option} + ${motion.plans[i].option}`,
     ),
   );
-  // 화면 분해 줄(웹툰 제작 12컷 10만 원 + 모션코믹 30초 7.5만 원)은 가격 파일에서만 계산한다
+  // 금액은 #pricing(CsPricing) 한 곳에서만 보인다(VERIFY_FINAL_P2R WP-A-1): 모션코믹 섹션은 금액 0, 가격 섹션으로 링크만
   const landing = code(`${WT}/landing.tsx`);
-  assert.match(landing, /pricingPlans\("webtoon"\)\.groups/);
-  assert.match(landing, /data-plan=\{plan\.key\}/);
+  assert.doesNotMatch(landing, /pricingPlans|formatWon|content-pricing/);
   assert.doesNotMatch(landing, /\d+(\.\d)?만 원/);
+  assert.match(landing, /href="#pricing"/);
+  // 서비스 데이터(FAQ·고유 섹션)에도 금액 문장이 없다
+  for (const id of ["webtoon", "animation"])
+    assert.doesNotMatch(JSON.stringify(contentLandings[id]), /\d+(\.\d)?만 원(?!부터)/, id);
 });
 
 test("A-2. 웹툰 리더: 《1억의 구단주》 cut-01..12, 첫 컷은 표지와 같은 sizes, 스크롤 영역 접근성", () => {
@@ -67,9 +71,14 @@ test("A-2. 웹툰 리더: 《1억의 구단주》 cut-01..12, 첫 컷은 표지�
 test("A-3. 웹툰 모션코믹 영상: 소개 영상 · poster · controls · preload none · 태그", () => {
   const landing = read(`${WT}/landing.tsx`);
   assert.match(landing, /"\/videos\/webtoon-reference-v02\.mp4"/);
-  assert.match(landing, /"\/videos\/webtoon-reference-poster\.jpg"/);
+  // poster는 영상 속 《1억의 구단주》 장면 프레임(로고 엔드카드 jpg는 메인 사이트용으로 남긴다)
+  assert.match(landing, /poster: "\/webtoon-v11\/motion-comic-poster\.webp"/);
+  assert.doesNotMatch(code(`${WT}/landing.tsx`), /webtoon-reference-poster/);
   assert.ok(existsSync("public/videos/webtoon-reference-v02.mp4"));
-  assert.ok(existsSync("public/videos/webtoon-reference-poster.jpg"));
+  assert.equal(
+    createHash("sha256").update(readFileSync("public/webtoon-v11/motion-comic-poster.webp")).digest("hex"),
+    "83933fce9da7b4ab80cba45abf36580da6561c3d48a961df754faf12f81fb305",
+  );
   const video = landing.match(/<CsMedia\s+kind="video"[\s\S]*?\/>/)?.[0] ?? "";
   assert.match(video, /\bcontrols\b/);
   assert.match(video, /preload="none"/);
@@ -166,8 +175,37 @@ test("A-8. 데이터: 고유 섹션 문구가 랜딩 데이터 signature와 같�
   assert.equal(contentLandings.webtoon.signature, webtoonSignature);
   assert.equal(contentLandings.animation.signature, animationSignature);
   assert.equal(webtoonSignature.cover.title, "1억의 구단주");
-  assert.equal(
-    webtoonSignature.motionComic.note,
-    "기존 웹툰을 영상화하는 가격입니다. 웹툰을 새로 그리는 비용은 별도입니다.",
+  // 모션코믹 섹션은 맡기는 방법 2개 + 가격 링크. '신규 제작은 별도' 문장은 가격 주석 한 곳에만 둔다(WP-A-1)
+  assert.deepEqual(
+    webtoonSignature.motionComic.ways.map((w) => w.title),
+    ["웹툰과 함께 맡길 때", "모션코믹만 맡길 때"],
   );
+  assert.equal("note" in webtoonSignature.motionComic, false);
+  for (const id of ["webtoon", "animation"]) {
+    const text = JSON.stringify(contentLandings[id]);
+    assert.doesNotMatch(text, /새로 그리는 비용|신규 제작은 별도/, id);
+  }
+  // 한 페이지 안에서 같은 문장(마침표로 끝나는 문장)이 두 번 나오지 않는다(서비스 데이터 범위, 칩·제목 제외)
+  for (const id of ["webtoon", "animation"]) {
+    const all = [];
+    const walk = (v) =>
+      typeof v === "string"
+        ? all.push(...v.split(/(?<=[.?!])\s+/).map((s) => s.trim()).filter((s) => /[.?!]$/.test(s) && s.length > 4))
+        : Array.isArray(v)
+          ? v.forEach(walk)
+          : v && typeof v === "object"
+            ? Object.values(v).forEach(walk)
+            : null;
+    walk(contentLandings[id]);
+    const seen = new Set();
+    for (const s of all) {
+      assert.ok(!seen.has(s), `${id} repeats: ${s}`);
+      seen.add(s);
+    }
+  }
+  // 줄바꿈 제목의 마지막 줄은 3글자 이상(WP-A-4), 웹툰 h1은 브랜드 홍보 영상 h1과 같은 구절로 시작하지 않는다(WP-A-6)
+  for (const id of ["webtoon", "animation"])
+    for (const title of [contentLandings[id].hero.title, contentLandings[id].types.title])
+      assert.ok(title.split("\n").at(-1).replace(/\s/g, "").length >= 3, `${id}: ${title}`);
+  assert.doesNotMatch(contentLandings.webtoon.hero.title, /^브랜드 이야기를/);
 });

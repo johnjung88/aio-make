@@ -172,45 +172,43 @@
 .cs-svc-webtoon .cs-svc-webtoon-video .cs-svc-webtoon-video-media {
   background: var(--svc-frame);
 }
-.cs-svc-webtoon .cs-svc-webtoon-bundles {
+/* 오른쪽: 맡기는 방법 2개 + 가격 링크(금액은 #pricing에만). 영상 열과 높이가 비슷해 아래 공백이 남지 않는다. */
+.cs-svc-webtoon .cs-svc-webtoon-ways {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--cs-s4);
 }
-.cs-svc-webtoon .cs-svc-webtoon-bundles > .cs-t-label {
+.cs-svc-webtoon .cs-svc-webtoon-ways > .cs-t-label {
   color: var(--cs-fg);
 }
-.cs-svc-webtoon .cs-svc-webtoon-bundle-list {
+.cs-svc-webtoon .cs-svc-webtoon-way-list {
   display: grid;
-  gap: var(--cs-s4);
+  align-self: stretch;
+  border-bottom: 1px solid var(--cs-line);
 }
-.cs-svc-webtoon .cs-svc-webtoon-bundle-list .cs-svc-webtoon-sum {
-  color: var(--cs-fg-2);
-}
-.cs-svc-webtoon .cs-svc-webtoon-solo {
-  display: grid;
+.cs-svc-webtoon .cs-svc-webtoon-way {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--cs-s2);
-  margin-top: var(--cs-s4);
-  padding-top: var(--cs-s5);
+  padding-block: var(--cs-s5);
   border-top: 1px solid var(--cs-line);
 }
-.cs-svc-webtoon .cs-svc-webtoon-solo > dt,
-.cs-svc-webtoon .cs-svc-webtoon-solo > dd {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--cs-s4);
-  margin: 0;
-  color: var(--cs-fg-2);
-}
-.cs-svc-webtoon .cs-svc-webtoon-solo > dt .cs-t-label {
-  color: var(--cs-fg);
-}
-.cs-svc-webtoon .cs-svc-webtoon-solo .cs-t-price-sm {
+.cs-svc-webtoon .cs-svc-webtoon-way .cs-svc-webtoon-way-num {
+  color: var(--cs-accent-text);
   font-variant-numeric: tabular-nums;
 }
-.cs-svc-webtoon .cs-svc-webtoon-note {
+.cs-svc-webtoon .cs-svc-webtoon-way .cs-t-body {
   color: var(--cs-fg-2);
+}
+.cs-svc-webtoon .cs-svc-webtoon-ways .cs-svc-webtoon-price-link {
+  margin-top: var(--cs-s2);
+}
+@media (min-width: 1024px) {
+  .cs-svc-webtoon .cs-svc-webtoon-way {
+    padding-block: var(--cs-s6);
+  }
 }
 
 /* ---------------------------------------------------------------- 움직임 */

@@ -109,7 +109,9 @@
   }
 }
 
-/* ---------------------------------------------------------------- 캐릭터 시트(#sheet) */
+/* ---------------------------------------------------------------- 캐릭터 시트(#sheet)
+ * <1024: 사진 2×2 → 프로필 → 설정 순서로 쌓는다.
+ * ≥1024: 사진 네 장을 한 줄로 두고, 아래에 프로필(5/12)과 설정(7/12)을 나란히 둔다(오른쪽 빈 공간 없음). */
 .cs-svc-ai-influencer .cs-svc-ai-influencer-sheet-grid {
   row-gap: var(--cs-s7);
   align-items: start;
@@ -137,10 +139,6 @@
 .cs-svc-ai-influencer .cs-svc-ai-influencer-view[data-view="full"] img {
   object-position: 50% 40%;
 }
-.cs-svc-ai-influencer .cs-svc-ai-influencer-profile {
-  display: grid;
-  gap: var(--cs-s6);
-}
 .cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head {
   display: grid;
   gap: var(--cs-s2);
@@ -151,6 +149,10 @@
 .cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head .cs-t-body {
   margin-top: var(--cs-s2);
   color: var(--cs-fg-2);
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head .cs-svc-ai-influencer-note {
+  margin-top: var(--cs-s4);
+  color: var(--cs-fg-3);
 }
 .cs-svc-ai-influencer .cs-svc-ai-influencer-rows {
   display: grid;
@@ -168,9 +170,6 @@
 .cs-svc-ai-influencer .cs-svc-ai-influencer-row dd {
   color: var(--cs-fg-2);
 }
-.cs-svc-ai-influencer .cs-svc-ai-influencer-note {
-  color: var(--cs-fg-3);
-}
 @media (min-width: 768px) {
   .cs-svc-ai-influencer .cs-svc-ai-influencer-views {
     gap: var(--cs-s6) var(--cs-s5);
@@ -183,10 +182,33 @@
   }
 }
 @media (min-width: 1024px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-profile {
-    position: sticky;
-    top: calc(var(--cs-header-h) + var(--cs-s6));
-    padding-left: var(--cs-s5);
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-views {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--cs-s5);
+  }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head {
+    padding-right: var(--cs-s6);
+  }
+}
+
+/* ---------------------------------------------------------------- 가격: 금액 기준선 맞춤
+ * 세 번째 플랜 이름이 두 줄이 되면 금액이 아래로 밀린다(VERIFY_FINAL_P2R WP-B-3).
+ * 카드를 subgrid(이름 · 금액 · 링크 3행)로 바꿔 한 줄에 있는 카드끼리 이름 행 높이를 맞춘다.
+ * subgrid를 모르는 브라우저는 공통 flex 카드 그대로 둔다. */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 768px) {
+    .cs-svc-ai-influencer .cs-pricing-grid > .cs-plan {
+      display: grid;
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+      row-gap: var(--cs-s3);
+      justify-items: start;
+      align-items: start;
+    }
+    .cs-svc-ai-influencer .cs-pricing-grid > .cs-plan > .cs-link {
+      align-self: end;
+      margin-top: 0;
+    }
   }
 }
 

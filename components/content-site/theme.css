@@ -570,7 +570,12 @@ body:has(.cs-site) {
   gap: var(--cs-s4);
   margin-top: var(--cs-s5);
 }
-.cs-site .cs-head-aside .cs-t-lead {
+/* lead는 eyebrow·h2와 같은 왼쪽 선에 둔다(SHARED-3, BRIEF_P2R 9절 정렬). h2→lead 간격 s5 = 열 gap s4 + s1 */
+.cs-site .cs-head-lead {
+  margin-top: var(--cs-s1);
+  max-width: 36em;
+}
+.cs-site .cs-head .cs-t-lead {
   color: var(--cs-fg-2);
 }
 @media (min-width: 1024px) {
@@ -1029,6 +1034,7 @@ body:has(.cs-site) {
   color: var(--cs-fg-2);
 }
 .cs-site .cs-footer-legal .cs-footer-home {
+  gap: var(--cs-s2);
   color: var(--cs-fg);
 }
 .cs-site .cs-footer-copy {
@@ -1179,10 +1185,34 @@ body:has(.cs-site) {
 .cs-site .cs-price-unit {
   white-space: nowrap;
 }
-.cs-site .cs-price-unit + .cs-price-unit::before {
+/* 이전 마크업(단위가 .cs-price 바로 아래): 두 번째 단위부터 앞에 '·' */
+.cs-site .cs-price > .cs-price-unit + .cs-price-unit::before {
   content: "·";
   display: inline-block;
   padding-inline: var(--cs-s2);
+  color: var(--cs-fg-3);
+}
+/* CsPrice 마크업(SHARED-1): 모든 단위 앞에 같은 폭의 '·'를 두고 행을 그 폭만큼 왼쪽으로 당긴 뒤
+ * .cs-price-units에서 잘라낸다. 줄 머리에 온 구분점은 잘려 보이지 않고 줄 끝에는 구분점이 생기지 않는다.
+ * 폭은 글자 크기와 무관한 px 토큰이라 head(price-sm)와 나머지(small)가 같은 값을 쓴다. */
+.cs-site .cs-price-units {
+  --cs-price-sep: var(--cs-s5);
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+}
+.cs-site .cs-price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--cs-s1) 0;
+  margin-inline-start: calc(-1 * var(--cs-price-sep));
+}
+.cs-site .cs-price-row > .cs-price-unit::before {
+  content: "·";
+  display: inline-block;
+  width: var(--cs-price-sep);
+  text-align: center;
   color: var(--cs-fg-3);
 }
 .cs-site .cs-price .cs-t-small {
@@ -1370,10 +1400,6 @@ body:has(.cs-site) {
 }
 .cs-site .cs-step-check .cs-t-small {
   color: var(--cs-fg);
-}
-.cs-site .cs-process-note {
-  margin-top: var(--cs-s6);
-  color: var(--cs-fg-2);
 }
 
 /* ---------------------------------------------------------------- scope */
