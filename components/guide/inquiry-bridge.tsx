@@ -16,6 +16,9 @@ type Props = {
   homeHref?: string;
   /** 접수 화면의 돌아가기 문구(기본 "홈으로 돌아가기") */
   homeLabel?: string;
+  /** 서비스를 고르지 않고 제출했을 때 문구. 기본 문장은 '아직 모르겠어요' 선택지가 있는 폼(메인·개발 등)용이다.
+   * 그 선택지가 없는 폼(컨텐츠 사이트)은 반드시 자기 문구를 넘긴다. */
+  unselectedMessage?: string;
 };
 const selectionKeys = [
   "service",
@@ -52,6 +55,7 @@ export function InquiryBridge({
   style,
   homeHref = "/",
   homeLabel = "홈으로 돌아가기",
+  unselectedMessage = "요청 서비스를 선택해주세요 아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다",
 }: Props) {
   const [key, setKey] = useState(""),
     [busy, setBusy] = useState(false),
@@ -79,9 +83,7 @@ export function InquiryBridge({
     const options = divisionServices(division);
     const serviceChoice = String(selection.service ?? "");
     if (!quick && !serviceChoice && !initialService) {
-      setError(
-        "요청 서비스를 선택해주세요 아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다",
-      );
+      setError(unselectedMessage);
       return;
     }
     const serviceAliases: Record<string, string[]> = {

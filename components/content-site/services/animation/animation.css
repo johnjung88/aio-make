@@ -433,6 +433,15 @@
 }
 
 /* ---------------------------------------------------------------- 움직임 */
+/* 후광 원 루프 단계. 사용은 아래 reduced-motion: no-preference 블록에서만 한다. */
+@keyframes cs-svc-animation-halo {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   /* 후광: 8초 왕복(4초 alternate). 움직임 토글(data-motion="paused")은 theme.css가 animation-play-state로 멈춘다.
    * 축약형 animation은 play-state를 running으로 되돌리므로 쓰지 않는다. */

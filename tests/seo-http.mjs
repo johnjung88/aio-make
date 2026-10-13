@@ -345,7 +345,7 @@ check(() => {
   assert.doesNotMatch(html, /<video\b|\sautoplay[\s=>]/i, "reel slot is empty");
   assert.doesNotMatch(
     html,
-    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|87언니|home-references|work-card|작업 사례|맞춤 견적|Blender|준비 중|공개 예정|coming soon/i,
+    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|제안용 시안|home-references|work-card|작업 사례|맞춤 견적|Blender|준비 중|공개 예정|coming soon/i,
   );
   assert.doesNotMatch(html, /href="\/content\/work|href="\/content\/insights/);
 }, "/content home server HTML");

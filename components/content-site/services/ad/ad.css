@@ -2,7 +2,7 @@
  * 선택자는 모두 .cs-svc-ad로 시작한다. 장식용 색은 맨 위 .cs-svc-ad { --svc-*: … } 한 블록에만 둔다.
  * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
  * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다
- * (콜라주 레일 왕복은 collage-motion.tsx의 Web Animations API가 맡는다).
+ * (콜라주 레일 왕복도 이 파일 끝 '움직임' 절의 CSS 키프레임이다).
  * 공통 규칙(theme.css, 명시도 0,2,0)을 덮는 곳은 .cs-svc-ad .<고유 클래스>.<공통 클래스>(0,3,0)로 쓴다. */
 .cs-svc-ad {
   --svc-glow: rgba(255, 90, 130, 0.3);
@@ -288,4 +288,29 @@
   border-radius: var(--cs-r-pill);
   background: var(--cs-accent);
   transform: translateX(-50%);
+}
+
+/* ---------------------------------------------------------------- 움직임
+ * 콜라주 레일이 위아래로 천천히 왕복한다(한 방향 12초, 왕복 24초). 가운데 열은 반대 방향.
+ * 정지 상태(reduced-motion·키프레임 전)는 레일 이동 0. 움직임 토글(data-motion="paused")은 theme.css가
+ * animation-play-state로 멈추므로 축약형 animation은 쓰지 않는다(WCAG 2.2.2). */
+@keyframes cs-svc-ad-rail {
+  from {
+    transform: translate3d(0, -4%, 0);
+  }
+  to {
+    transform: translate3d(0, 4%, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cs-svc-ad .cs-svc-ad-collage .cs-svc-ad-rail {
+    animation-name: cs-svc-ad-rail;
+    animation-duration: 12s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-ad .cs-svc-ad-column[data-column="2"] .cs-svc-ad-rail {
+    animation-direction: alternate-reverse;
+  }
 }

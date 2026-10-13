@@ -78,13 +78,14 @@ test("B-4. 모션그래픽 움직임: 축약형 animation 0, 루프는 reduced-m
   const used = new Set(
     [...motionBlock[1].matchAll(/animation-name:\s*([\w-]+)/g)].map((m) => m[1]).filter((n) => n !== "none"),
   );
-  const keyframes = read(`${MG}/motion-graphics.keyframes.css`).replace(/\/\*[\s\S]*?\*\//g, "");
-  const defined = new Set([...keyframes.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1]));
+  // 키프레임은 서비스 CSS 한 파일 안(분리 파일 없음)
+  assert.equal(existsSync(`${MG}/motion-graphics.keyframes.css`), false);
+  const defined = new Set([...css.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1]));
   for (const name of defined) assert.match(name, /^cs-svc-motion-graphics-/);
   assert.deepEqual([...used].sort(), [...defined].sort());
-  // 키프레임 파일에는 @keyframes 말고 다른 규칙이 없다
-  const stripped = keyframes.replace(/@keyframes[\s\S]*?\{(?:[^{}]*\{[^{}]*\})*\s*\}/g, "").trim();
-  assert.equal(stripped, "");
+  // @keyframes 단계에는 transform 말고 다른 속성이 없다(첫 프레임 = 정지 구도)
+  for (const block of css.matchAll(/@keyframes[\s\S]*?\{((?:[^{}]*\{[^{}]*\})*)\s*\}/g))
+    for (const decl of block[1].matchAll(/([\w-]+)\s*:/g)) assert.equal(decl[1], "transform");
   // 움직임 토글로 멈추면 정지 구도(animation-name: none)
   assert.match(motionBlock[1], /\[data-motion="paused"\][\s\S]*animation-name:\s*none/);
 });
@@ -101,5 +102,5 @@ test("B-5. 모션그래픽 장식 무대: aria-hidden, 문자열은 데이터에
     motionGraphicsSignature.compare.plans.map((p) => p.name),
     ["단순형", "맞춤형"],
   );
-  assert.ok(existsSync(`${MG}/motion-graphics.keyframes.css`));
+  assert.doesNotMatch(landing, /keyframes\.css/);
 });

@@ -2,7 +2,7 @@
  * 히어로: 기울어진 정사각 무대 + 키네틱 타이포 · 시그니처: 단순형과 맞춤형 비교, 스타일 프레임 → 모션.
  * 무대·일러스트는 모두 장식(aria-hidden)이고 근처에 `연출 예시` 태그를 둔다. 첫 프레임이 완성된 정지 구도이며
  * reduced-motion·움직임 토글이면 그 구도로 멈춘다. 고객 사례는 공통 CsWorks(서버 게이트)만 그린다.
- * 스타일은 ./motion-graphics.css(키프레임만 ./motion-graphics.keyframes.css), 선택자는 .cs-svc-motion-graphics로 시작. */
+ * 스타일은 ./motion-graphics.css(@keyframes 포함), 선택자는 .cs-svc-motion-graphics로 시작. */
 import { HERO_TITLE_ID, CsHeroCopy } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsSectionHead } from "../../ui/section-head";
@@ -10,7 +10,6 @@ import { CsTag } from "../../ui/tag";
 import { motionGraphicsSignature as sig } from "@/lib/content-site/services/motion-graphics";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./motion-graphics.css";
-import "./motion-graphics.keyframes.css";
 
 /** 장식 무대: 글자 두 줄 + 원 + 사각 + 글자 막대. variant는 CSS가 움직임 여부를 정한다. */
 function Composition({

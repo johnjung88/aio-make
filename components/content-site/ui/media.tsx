@@ -1,6 +1,8 @@
 /* 미디어 박스(서버). 이미지는 next/image fill + 비율 박스(aspect-ratio로 자리를 먼저 잡아 CLS 0),
  * 영상은 <video muted loop playsInline>. 자동재생은 서버 HTML에 autoplay 속성 없이 data-cs-autoplay만 두고
- * frame.tsx가 마운트 후 움직임 상태·reduced-motion을 보고 play()/pause()한다. 태그는 왼쪽 아래 12px. */
+ * frame.tsx가 마운트 후 움직임 상태·reduced-motion을 보고 play()/pause()한다.
+ * 태그: 이미지·자동재생 영상은 박스 안 왼쪽 아래 12px. 브라우저 조작 막대가 있는 영상(controls)은 막대·모서리 버튼을
+ * 가리지 않도록 박스 밖(바로 아래)에 둔다(.cs-media-stack). 자막은 captions(WebVTT)를 줄 때만 <track>을 넣는다. */
 import Image from "next/image";
 import { CsTag } from "./tag";
 
@@ -37,6 +39,8 @@ type VideoProps = Common & {
   preload?: "metadata" | "none";
   /** 영상 아래층 이미지(LCP·재생 전 화면) */
   under?: { src: string; sizes: string; priority?: boolean };
+  /** 자막 트랙(선택). WebVTT 경로와 자막 이름(예: 한국어 자막). 언어 기본값 ko */
+  captions?: { src: string; label: string; srcLang?: string; default?: boolean };
 };
 
 export function CsMedia(props: ImageProps | VideoProps) {
@@ -46,7 +50,8 @@ export function CsMedia(props: ImageProps | VideoProps) {
     (props.contain ? " cs-media--contain" : "") +
     (props.className ? " " + props.className : "");
   if (props.kind === "video") {
-    return (
+    const controls = props.controls ?? !props.autoplay;
+    const video = (
       <div className={box}>
         {props.under ? (
           <Image
@@ -61,15 +66,31 @@ export function CsMedia(props: ImageProps | VideoProps) {
           muted={props.autoplay ? true : undefined}
           loop={props.autoplay ? true : undefined}
           playsInline
-          controls={props.controls ?? !props.autoplay}
+          controls={controls}
           preload={props.preload ?? "none"}
           poster={props.poster}
           aria-label={props.alt}
           data-cs-autoplay={props.autoplay ? "" : undefined}
         >
           <source src={props.src} type="video/mp4" />
+          {props.captions ? (
+            <track
+              kind="captions"
+              src={props.captions.src}
+              srcLang={props.captions.srcLang ?? "ko"}
+              label={props.captions.label}
+              default={props.captions.default}
+            />
+          ) : null}
         </video>
-        {props.tag ? <CsTag>{props.tag}</CsTag> : null}
+        {props.tag && !controls ? <CsTag>{props.tag}</CsTag> : null}
+      </div>
+    );
+    if (!props.tag || !controls) return video;
+    return (
+      <div className="cs-media-stack">
+        {video}
+        <CsTag>{props.tag}</CsTag>
       </div>
     );
   }

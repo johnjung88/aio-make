@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { spawnSync } from "node:child_process";
 import { contentLandings } from "../lib/content-site/index.ts";
 import {
   CONTENT_SERVICES,
@@ -400,7 +401,42 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
   }
 });
 
-/* CSS 파서: 주석 제거 후 규칙(선택자, 선언, @media 안 여부)을 돌려준다. */
+/** works.server.ts를 검토 플래그(undefined = 미설정)로 자식 프로세스에서 불러 서비스별 사례 slug를 받는다. */
+function selectedWorks(flag) {
+  const url = new URL("../lib/content-site/works.server.ts", import.meta.url).href;
+  const source = `const m = await import(${JSON.stringify(url)}); const out = {}; for (const id of ${JSON.stringify(ORDER)}) out[id] = { max: m.maxContentWorks(id), slugs: (await m.selectContentWorks(id)).map((w) => w.slug) }; console.log(JSON.stringify(out));`;
+  const env = { ...process.env };
+  delete env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW;
+  delete env.ENABLE_LEGACY_SUPABASE;
+  if (flag !== undefined) env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW = flag;
+  const result = spawnSync(
+    process.execPath,
+    ["--conditions=react-server", "--experimental-strip-types", "--input-type=module", "-e", source],
+    { env, encoding: "utf8", windowsHide: true },
+  );
+  assert.equal(result.status, 0, result.stderr);
+  return JSON.parse(result.stdout);
+}
+
+test("6-1. 사례 상한: 기본 4, SNS 광고만 6(명세 6-4 매핑 전체). 기본 빌드는 0", () => {
+  const review = selectedWorks("1");
+  for (const id of ORDER) {
+    assert.equal(review[id].max, id === "ad" ? 6 : 4, id);
+    assert.ok(review[id].slugs.length <= review[id].max, id);
+  }
+  assert.deepEqual(
+    [...review.ad.slugs].sort(),
+    ["bwl-aqua-ad", "bwl-brand-ad", "bwl-cleanser-ad", "bwl-cplus-ad", "yofree-mg-short", "yofree-mg30"],
+  );
+  for (const flag of [undefined, "0", "true"]) {
+    const off = selectedWorks(flag);
+    for (const id of ORDER) assert.deepEqual(off[id].slugs, [], `${flag} ${id}`);
+  }
+});
+
+/* CSS 파서: 주석 제거 후 규칙(선택자, 선언, @media 안 여부)을 돌려준다.
+ * @keyframes 본문의 단계(from·to·N%)는 선택자가 아니므로 규칙으로 내지 않는다. 키프레임 이름은 cssKeyframes()가 따로 돌려준다. */
+const KEYFRAMES_HEAD = /^@(?:-webkit-)?keyframes\b/;
 function cssRules(css) {
   const body = css.replace(/\/\*[\s\S]*?\*\//g, "");
   const rules = [];
@@ -414,11 +450,15 @@ function cssRules(css) {
       const top = stack.pop();
       if (top) {
         top.decls += chunk;
-        if (!top.head.startsWith("@"))
+        const inKeyframes = stack.some((s) => KEYFRAMES_HEAD.test(s.head));
+        if (!top.head.startsWith("@") && !inKeyframes)
           rules.push({
             selector: top.head,
             decls: top.decls,
             inMedia: stack.some((s) => s.head.startsWith("@media")),
+            inMotionOk: stack.some((s) =>
+              /^@media[^{]*prefers-reduced-motion:\s*no-preference/.test(s.head),
+            ),
           });
       }
       chunk = "";
@@ -432,6 +472,11 @@ function cssRules(css) {
   }
   return rules;
 }
+/** @keyframes 이름 목록(주석 제거 후) */
+const cssKeyframes = (css) =>
+  [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/@(?:-webkit-)?keyframes\s+([^\s{]+)/g)].map(
+    (m) => m[1],
+  );
 /** 괄호 안(:where(), :has()) 쉼표는 나누지 않는다 */
 function splitSelectors(selector) {
   const out = [];
@@ -454,6 +499,12 @@ const TYPE_PROP =
 function checkCss(path, { serviceId } = {}) {
   const css = code(path);
   assert.doesNotMatch(css, /!important/, `${path} !important`);
+  // 키프레임 이름도 범위를 지킨다: 서비스 CSS는 cs-svc-<id>-, 그 밖(theme·홈)은 cs-
+  for (const name of cssKeyframes(css))
+    assert.ok(
+      name.startsWith(serviceId ? `cs-svc-${serviceId}-` : "cs-"),
+      `${path} keyframes name: ${name}`,
+    );
   for (const rule of cssRules(css)) {
     const selectors = splitSelectors(rule.selector);
     for (const decl of rule.decls.matchAll(TYPE_PROP)) {
@@ -467,6 +518,10 @@ function checkCss(path, { serviceId } = {}) {
       );
     }
     if (serviceId) {
+      // 움직임: 축약형 animation 0(토글의 play-state를 덮는다), 애니메이션·트랜지션은 no-preference 안에서만
+      assert.doesNotMatch(rule.decls, /(?:^|[;\s])animation\s*:/, `${path} animation shorthand: ${rule.selector}`);
+      if (/(?:^|[;\s])(animation-[\w-]+|transition[\w-]*)\s*:/.test(rule.decls))
+        assert.ok(rule.inMotionOk, `${path} motion outside no-preference: ${rule.selector}`);
       for (const s of selectors)
         assert.ok(
           s.startsWith(`.cs-svc-${serviceId}`),
@@ -489,6 +544,23 @@ function checkCss(path, { serviceId } = {}) {
 }
 
 test("7. CSS: 역할 토큰만·@media 안 글자 속성 0·!important 0·서비스 선택자 범위", () => {
+  // 파서 자체 점검: @keyframes 단계는 규칙이 아니다(@media 안·밖 모두)
+  const sample =
+    ".cs-svc-x .a { opacity: 1; } @keyframes cs-svc-x-k { from { opacity: 0; } 50% { opacity: 0.5; } to { opacity: 1; } }" +
+    " @media (prefers-reduced-motion: no-preference) { @keyframes cs-svc-x-m { 0% { transform: none; } 100% { transform: none; } } .cs-svc-x .b { animation-name: cs-svc-x-m; } }";
+  assert.deepEqual(
+    cssRules(sample).map((r) => [r.selector, r.inMedia]),
+    [
+      [".cs-svc-x .a", false],
+      [".cs-svc-x .b", true],
+    ],
+  );
+  assert.deepEqual(cssKeyframes(sample), ["cs-svc-x-k", "cs-svc-x-m"]);
+  // 키프레임 분리 파일은 없다(서비스 스타일은 <id>.css 한 파일)
+  assert.deepEqual(
+    siteFiles.filter((f) => f.endsWith(".keyframes.css")),
+    [],
+  );
   const cssFiles = siteFiles.filter((f) => f.endsWith(".css"));
   assert.ok(cssFiles.some((f) => f.endsWith("theme.css")));
   for (const path of cssFiles) {
@@ -576,6 +648,38 @@ test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적
   // 서버 HTML에 autoplay 속성 없음(자동재생은 frame.tsx가 마운트 후 play)
   for (const path of siteFiles.filter((f) => /\.tsx$/.test(f)))
     assert.doesNotMatch(read(path), /\bautoPlay\b/, path);
+});
+
+test("8-2. 문의: CsInquiry에 서비스 선택(chooser) 모드 없음, 미선택 문구는 이 사이트 문장만", () => {
+  const inquiry = code("components/content-site/blocks/inquiry.tsx");
+  assert.doesNotMatch(inquiry, /\bchooser\b|type="radio"/);
+  assert.match(inquiry, /unselectedMessage=\{CS_COPY\.inquiry\.serviceMissing\}/);
+  assert.equal(CS_COPY.inquiry.serviceMissing, "요청 서비스를 하나 골라주세요");
+  // '아직 모르겠어요' 선택지는 컨텐츠 사이트에 없으므로 그 선택지를 가리키는 문장도 없다
+  for (const path of [...siteFiles, ...homeFiles, ...libFiles])
+    assert.doesNotMatch(read(path), /모르겠/, path);
+  // 기본 문장은 공용 InquiryBridge의 기본값으로만 남고(메인·개발 폼용) prop으로 바뀐다
+  const bridge = code("components/guide/inquiry-bridge.tsx");
+  assert.match(bridge, /setError\(unselectedMessage\)/);
+  assert.equal((bridge.match(/아직 모르겠어요/g) ?? []).length, 1);
+});
+
+test("8-3. 공용 미디어: 조작 막대가 있는 영상의 태그는 박스 밖, 자막 트랙은 선택", () => {
+  const media = code("components/content-site/ui/media.tsx");
+  assert.match(media, /const controls = props\.controls \?\? !props\.autoplay;/);
+  // 박스 안 태그는 조작 막대가 없을 때만, 있으면 .cs-media-stack 안에서 박스 다음
+  assert.match(media, /\{props\.tag && !controls \? <CsTag>\{props\.tag\}<\/CsTag> : null\}/);
+  assert.match(
+    media,
+    /<div className="cs-media-stack">\s*\{video\}\s*<CsTag>\{props\.tag\}<\/CsTag>\s*<\/div>/,
+  );
+  assert.match(media, /captions\?: \{ src: string; label: string; srcLang\?: string; default\?: boolean \}/);
+  assert.match(media, /\{props\.captions \? \(\s*<track\s+kind="captions"/);
+  const theme = code("components/content-site/theme.css");
+  assert.match(theme, /\.cs-site \.cs-media-stack > \.cs-tag \{\s*align-self: flex-start;/);
+  // 서비스 CSS가 조작 막대 영상 태그를 따로 옮기지 않는다(공용 규칙 하나)
+  for (const path of siteFiles.filter((f) => f.endsWith(".css") && !f.endsWith("theme.css")))
+    assert.doesNotMatch(code(path), /video-media > \.cs-tag|:has\(> video\[controls\]\)/, path);
 });
 
 test("8-1. 소스: /content 홈은 GuideNav를 쓰지 않는다", () => {
@@ -684,4 +788,38 @@ test("10. 테마 맵·자산", () => {
     );
   for (const asset of Object.values(CONTENT_SITE_ASSETS))
     assert.ok(existsSync(join("public", asset.src)), asset.src);
+});
+
+test("10-1. paper 서비스 색: 서비스마다 --cs-bg-2, 그 위 글자 대비 4.5:1 이상", () => {
+  const theme = code("components/content-site/theme.css");
+  const block = (selector) => {
+    const at = theme.indexOf(`${selector} {`);
+    assert.ok(at >= 0, selector);
+    return theme.slice(at, theme.indexOf("}", at));
+  };
+  const token = (text, name) => text.match(new RegExp(`--${name}:\\s*(#[0-9a-f]{6})`, "i"))?.[1];
+  const luminance = (hex) => {
+    const [r, g, b] = hex
+      .slice(1)
+      .match(/../g)
+      .map((h) => parseInt(h, 16) / 255)
+      .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const ratio = (a, b) => {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+  };
+  const paper = block('.cs-site[data-cs-theme="paper"]');
+  for (const id of ["webtoon", "animation", "ai-influencer"]) {
+    const svc = block(`.cs-site[data-cs-service="${id}"]`);
+    const bg = token(svc, "cs-bg");
+    const bg2 = token(svc, "cs-bg-2");
+    assert.ok(bg && bg2, `${id} defines --cs-bg and --cs-bg-2`);
+    assert.notEqual(bg2, token(paper, "cs-bg-2"), `${id} own --cs-bg-2`);
+    assert.ok(ratio(bg, bg2) > 1.04, `${id} bg-2 differs from bg`);
+    for (const fg of [token(paper, "cs-fg"), token(paper, "cs-fg-2"), token(paper, "cs-fg-3"), token(svc, "cs-accent-text")])
+      for (const surface of [bg, bg2])
+        assert.ok(ratio(fg, surface) >= 4.5, `${id} ${fg} on ${surface}: ${ratio(fg, surface).toFixed(2)}`);
+  }
 });

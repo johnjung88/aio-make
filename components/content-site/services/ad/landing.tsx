@@ -1,6 +1,6 @@
 /* SNS 광고 영상 서비스 모듈(WP-C 소유, BRIEF_P2R_SERVICES 6절).
  * - Hero: 왼쪽 문구 + 오른쪽 끝까지 닿는 9:16 카드 콜라주(3열 9장, 전체 -12도, 가운데 열 72px 아래).
- *   레일 왕복은 CollageMotion(고유 client 섬 1개)이 맡고 헤더 움직임 토글·reduced-motion에서 멈춘다.
+ *   레일 왕복은 ./ad.css의 CSS 키프레임(reduced-motion: no-preference 안)이 맡고 헤더 움직임 토글·reduced-motion에서 멈춘다.
  *   콜라주는 장식이라 카드 이미지 alt는 비우고 컨테이너 하나에만 aria-label을 둔다. 사람이 나오는 이미지는 쓰지 않는다.
  * - Signature: 첫 장면 설계. 같은 연출 예시 이미지를 장면마다 다르게 잘라 한 편 안의 세 장면(첫 장면·제품 장면·마지막 장면)을
  *   9:16 휴대폰 틀에 보여주고, 틀 위 화면 요소(진행 막대·문구 띠·버튼)는 CSS 장식(aria-hidden)이다.
@@ -12,7 +12,6 @@ import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
 import { CsTag } from "../../ui/tag";
-import { CollageMotion } from "./collage-motion";
 import "./ad.css";
 
 /** 공개 연출 예시 이미지(사람 없음). 같은 원본은 한 곳에서만 같은 sizes로 쓴다(/_next/image 중복 요청 0). */
@@ -71,7 +70,7 @@ function Hero({ data }: ServiceSectionProps) {
         </div>
       </div>
       <div className="cs-svc-ad-collage">
-        <CollageMotion className="cs-svc-ad-viewport" label={collage.label}>
+        <div className="cs-svc-ad-viewport" role="img" aria-label={collage.label}>
           <div className="cs-svc-ad-stage">
             {COLLAGE.map((column, c) => (
               <div key={c} className="cs-svc-ad-column" data-column={c + 1}>
@@ -102,7 +101,7 @@ function Hero({ data }: ServiceSectionProps) {
               </div>
             ))}
           </div>
-        </CollageMotion>
+        </div>
         <CsTag overlay>{MEDIA_TAGS.staged}</CsTag>
       </div>
     </section>

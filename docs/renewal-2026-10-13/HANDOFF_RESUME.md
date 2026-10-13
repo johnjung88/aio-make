@@ -48,7 +48,11 @@ AIO MAKE 홈페이지(aio-make.com) 리뉴얼. 더 전문적으로, 작업물 �
 
 12. (2026-10-14 추가) 메인 사이트에서 '컨텐츠'로 가는 링크(헤더·메인 카드·워크플로우·푸터·소개)는 **새 탭으로 연다**(target=_blank, rel noopener). 컨텐츠 사이트 내부 링크와 마케팅·개발 링크는 그대로.
 
-## 지금 실행 중 (HEAD `c0ab7d9` = WP0 + P4FIX 커밋, VERIFY_G0: P4FIX PASS, WP0 FAIL 2건)
+## 지금 실행 중 (HEAD `88d33df` = WP0FIX + WP-A/B/C/D 커밋, 최종 검증 전)
+- 공용 변경 요청 통합 처리 에이전트 실행 중 → `RESULT_SHARED.md`. 끝나면 Sonnet 최종 검증(BRIEF_P2R 완료 기준, 8페이지 × 5폭, 두 빌드, 모션 토글, 사이드 카드 클릭, 390×844 히어로) → 재지시/커밋 → 미리보기 → 사용자 디자인 확인.
+- 사용자 확인 필요(디자인 확인 때 함께): 웹툰 샘플 《1억의 구단주》 3~12컷에 실제 축구 클럽 엠블럼(선덜랜드·렉섬·리버풀·토트넘)·FIFA 월드컵·Football Manager 화면·실존 인물 닮은 인물 → 공개 사용 여부. WP-C의 브랜드 홍보 h1 변경, WP-D의 /content h1·4단계 과정 변경, WP-A 애니메이션 '연출 예시' 스타일 카드 추가.
+
+## (이력) 실행 중이었음 (HEAD `c0ab7d9` = WP0 + P4FIX 커밋, VERIFY_G0: P4FIX PASS, WP0 FAIL 2건)
 - 병렬 서브에이전트 5개: WP0FIX(공용 셸: 문의 카드 grid span, 모바일 헤더 넘침, CONTENT STUDIO 모바일 표기) / WP-A 웹툰·애니메이션 / WP-B AI 인플루언서·모션그래픽 / WP-C 브랜드 홍보 영상·SNS 광고 / WP-D /content 홈·문의(VERIFY_P34 P3-1~5, 문의 오류 문구 포함). 각자 `RESULT_WP0FIX/WPA/WPB/WPC/WPD.md`.
 - 모두 끝나면: Sonnet 최종 검증(BRIEF_P2R 완료 기준 + 모션 토글 재확인) → 재지시/커밋 → 미리보기 띄우고 사용자 디자인 확인.
 

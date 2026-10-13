@@ -1,8 +1,7 @@
 /* animation 서비스 모듈(WP-A). 고유 client 섬은 before-motion.tsx 하나(탭).
  * 히어로: 화면 오른쪽 70%를 캐릭터 장면이 채우고 왼쪽은 바탕색 그라데이션 위에 문구, 캐릭터 머리 근처 후광 원.
  * 고유 섹션: ① 그림체 3종(연출 예시) ② 움직이기 전 확인 3탭.
- * 스타일은 ./animation.css(.cs-svc-animation로 시작). 후광 루프의 @keyframes만 ./animation.keyframes.css에 둔다
- * (테스트 7번 파서 제약, RESULT_WPA '공용 변경 요청'). 자산 경로와 alt는 아래 상수 한 곳에 둔다. */
+ * 스타일은 ./animation.css(.cs-svc-animation로 시작, 후광 루프 @keyframes 포함). 자산 경로와 alt는 아래 상수 한 곳에 둔다. */
 import { CsHeroCopy, HERO_TITLE_ID } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
@@ -11,7 +10,6 @@ import { animationSignature as sig } from "@/lib/content-site/services/animation
 import { CONTENT_SITE_ASSETS, MEDIA_TAGS } from "@/lib/content-site/types";
 import { BeforeMotionTabs } from "./before-motion";
 import "./animation.css";
-import "./animation.keyframes.css";
 
 /* ---------------------------------------------------------------- 자산 */
 /** 히어로와 그림체 첫 카드가 같은 원본을 쓰므로 sizes를 맞춰 같은 /_next/image 주소를 받는다(중복 요청 0). */

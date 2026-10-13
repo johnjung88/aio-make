@@ -147,17 +147,17 @@ test("A-6. 애니메이션 미디어: 연출 예시 태그, 히어로와 그림�
 
 test("A-7. 애니메이션 움직임: 후광 루프는 reduced-motion no-preference 안·축약형 animation 0·키프레임 이름 일치", () => {
   const css = code(`${AN}/animation.css`);
-  const keyframes = code(`${AN}/animation.keyframes.css`);
   assert.doesNotMatch(css, /(?:^|[;\s{])animation\s*:/);
-  assert.doesNotMatch(css, /@keyframes/);
-  const names = [...keyframes.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1]);
+  // 키프레임은 서비스 CSS 한 파일 안(분리 파일 없음)
+  assert.equal(existsSync(`${AN}/animation.keyframes.css`), false);
+  const names = [...css.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1]);
   assert.deepEqual(names, ["cs-svc-animation-halo"]);
   // animation-name 선언은 모두 no-preference 블록 안
   const noPref = css.match(/@media \(prefers-reduced-motion: no-preference\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
   const used = [...css.matchAll(/animation-name:\s*([\w-]+)/g)].map((m) => m[1]);
   assert.deepEqual(used, ["cs-svc-animation-halo"]);
   assert.match(noPref, /animation-name:\s*cs-svc-animation-halo/);
-  assert.match(code(`${AN}/landing.tsx`), /import "\.\/animation\.keyframes\.css"/);
+  assert.doesNotMatch(code(`${AN}/landing.tsx`), /keyframes\.css/);
   // 웹툰은 루프 애니메이션이 없다
   assert.doesNotMatch(code(`${WT}/webtoon.css`), /animation|@keyframes/);
 });

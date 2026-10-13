@@ -126,7 +126,9 @@
   }
 }
 
-/* 색: ink(기본) · paper. 푸터는 항상 ink + 홈 강조색. */
+/* 색: ink(기본) · paper. 푸터는 항상 ink + 홈 강조색.
+ * paper 서비스는 --cs-bg와 같은 색조의 --cs-bg-2를 함께 정한다(섹션 바탕이 다른 색조와 섞이지 않게).
+ * 대비(WCAG, 2026-10-14 계산): --cs-bg-2 위 --cs-fg-3 ≥ 4.98:1, --cs-accent-text ≥ 5.26:1. */
 .cs-site,
 .cs-site[data-cs-theme="ink"],
 .cs-site .cs-footer {
@@ -177,18 +179,21 @@
 }
 .cs-site[data-cs-service="webtoon"] {
   --cs-bg: #f1ecf6;
+  --cs-bg-2: #e9e1f1;
   --cs-accent: #7951ac;
   --cs-accent-text: #6a4399;
   --cs-on-accent: #ffffff;
 }
 .cs-site[data-cs-service="animation"] {
   --cs-bg: #f5ebdd;
+  --cs-bg-2: #efe2cf;
   --cs-accent: #efb27a;
   --cs-accent-text: #8a4b12;
   --cs-on-accent: #2e2233;
 }
 .cs-site[data-cs-service="ai-influencer"] {
   --cs-bg: #efeae6;
+  --cs-bg-2: #e7e0da;
   --cs-accent: #af8cde;
   --cs-accent-text: #6b47a3;
   --cs-on-accent: #1f1530;
@@ -644,6 +649,17 @@ body:has(.cs-site) {
   left: 12px;
   bottom: 12px;
   z-index: 2;
+}
+/* 브라우저 조작 막대가 있는 영상(CsMedia controls): 태그는 박스 밖 바로 아래.
+ * 막대(아래)와 모바일 모서리 버튼(위)을 어느 쪽도 가리지 않는다. */
+.cs-site .cs-media-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-s2);
+  min-width: 0;
+}
+.cs-site .cs-media-stack > .cs-tag {
+  align-self: flex-start;
 }
 
 /* ---------------------------------------------------------------- 미디어 */

@@ -4,7 +4,7 @@ import "server-only";
  * NEXT_PUBLIC_AIO_REFERENCE_REVIEW가 정확히 "1"일 때만 검토 작품을 넣으므로 기본 빌드에서는
  * 결과가 빈 배열이고 사례 섹션(CsWorks)이 렌더되지 않는다. 고객 문자열(87언니 라벨·시안 slug)도
  * 같은 게이트 안에만 둔다. 클라이언트 컴포넌트는 이 모듈을 import하지 않는다(테스트 grep). */
-import { publicEntries } from "../db";
+import { publicEntries } from "../db.ts";
 import { mergeGuideEntries } from "../guide-content.ts";
 import {
   displayWorkCatalog,
@@ -22,7 +22,16 @@ const aiPersonDraft =
       }
     : { slugs: [] as string[], label: "" };
 
+/** 서비스 사례 기본 상한 */
 const MAX_WORKS = 4;
+/** 서비스별 상한(없으면 MAX_WORKS). SNS 광고는 명세 6-4 매핑(AI 가상인물 시안 3편 · 브랜드 광고 1편 · 모션 광고 2편) 6편을 모두 보인다. */
+const MAX_WORKS_BY_SERVICE: Partial<Record<ContentServiceId, number>> = {
+  ad: 6,
+};
+
+export function maxContentWorks(id: ContentServiceId): number {
+  return MAX_WORKS_BY_SERVICE[id] ?? MAX_WORKS;
+}
 
 export function workLabel(work: WorkItem): string {
   return aiPersonDraft.slugs.includes(work.slug)
@@ -50,7 +59,7 @@ function toCard(work: WorkItem): CsWorkCard {
   };
 }
 
-/** 서비스에 맞는 사례 최대 4개(웹툰은 웹툰 미디어 우선, 그 외는 영상 우선). 기본 빌드는 []. */
+/** 서비스에 맞는 사례 최대 maxContentWorks(id)개(기본 4, SNS 광고 6. 웹툰은 웹툰 미디어 우선, 그 외는 영상 우선). 기본 빌드는 []. */
 export async function selectContentWorks(
   id: ContentServiceId,
 ): Promise<CsWorkCard[]> {
@@ -68,6 +77,6 @@ export async function selectContentWorks(
     .filter((work) => work.media.length > 0)
     .filter((work) => work.productionStatus !== "제작 예시")
     .sort((a, b) => preferred(b) - preferred(a) || a.order - b.order)
-    .slice(0, MAX_WORKS)
+    .slice(0, maxContentWorks(id))
     .map(toCard);
 }

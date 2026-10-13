@@ -172,11 +172,6 @@
 .cs-svc-webtoon .cs-svc-webtoon-video .cs-svc-webtoon-video-media {
   background: var(--svc-frame);
 }
-/* 영상 조작 막대(아래)와 겹치지 않게 태그를 왼쪽 위로 */
-.cs-svc-webtoon .cs-svc-webtoon-video .cs-svc-webtoon-video-media > .cs-tag {
-  top: 12px;
-  bottom: auto;
-}
 .cs-svc-webtoon .cs-svc-webtoon-bundles {
   display: flex;
   flex-direction: column;

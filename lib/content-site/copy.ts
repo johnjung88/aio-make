@@ -65,7 +65,8 @@ export const CS_COPY = {
     eyebrow: "CONTACT",
     steps: ["상담 신청", "기획안과 견적 안내", "제작 시작"],
     stepsLabel: "진행 순서",
-    serviceLegend: "요청 서비스",
+    /** 서비스 없이 제출했을 때(InquiryBridge unselectedMessage). 문의 페이지 안내와 같은 문장 */
+    serviceMissing: "요청 서비스를 하나 골라주세요",
     fields: {
       name: "성함",
       company: "회사·브랜드",

@@ -3,7 +3,7 @@
  * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
  * 애니메이션은 @media (prefers-reduced-motion: no-preference) 안에서만, 롱핸드로만 선언한다
  * (animation 축약형은 theme.css 움직임 토글의 animation-play-state를 덮기 때문).
- * @keyframes는 ./motion-graphics.keyframes.css에 있다(RESULT_WPB '공용 변경 요청' 참고).
+ * @keyframes는 이 파일 끝 '움직임' 절에 있다.
  * theme.css 규칙(.cs-site .x = 0,2,0)을 덮을 때는 클래스 3개 이상으로 명시도를 높인다. */
 .cs-svc-motion-graphics {
   --svc-lime: #e9edb2;
@@ -270,7 +270,56 @@
 }
 
 /* ---------------------------------------------------------------- 움직임
- * 첫 프레임(from) = 위의 정지 구도. 무대·모션 적용 칸만 움직이고 스타일 프레임 칸(still)은 멈춰 있다. */
+ * 첫 프레임(from) = 위의 정지 구도. 무대·모션 적용 칸만 움직이고 스타일 프레임 칸(still)은 멈춰 있다.
+ * 키프레임 이름은 모두 cs-svc-motion-graphics-로 시작하고, 사용은 아래 reduced-motion: no-preference 블록에서만 한다. */
+@keyframes cs-svc-motion-graphics-line1 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10%);
+  }
+}
+@keyframes cs-svc-motion-graphics-line2 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-6%);
+  }
+}
+@keyframes cs-svc-motion-graphics-circle {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-22%, 30%) scale(0.78);
+  }
+}
+@keyframes cs-svc-motion-graphics-square {
+  from {
+    transform: rotate(18deg);
+  }
+  to {
+    transform: translate(-60%, -70%) rotate(150deg);
+  }
+}
+@keyframes cs-svc-motion-graphics-bar {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0.4);
+  }
+}
+@keyframes cs-svc-motion-graphics-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where(.cs-svc-motion-graphics-line, .cs-svc-motion-graphics-shape, .cs-svc-motion-graphics-bars > span, .cs-svc-motion-graphics-character) {
     animation-duration: var(--svc-loop);
