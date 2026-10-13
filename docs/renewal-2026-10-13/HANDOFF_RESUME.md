@@ -46,7 +46,13 @@ AIO MAKE 홈페이지(aio-make.com) 리뉴얼. 더 전문적으로, 작업물 �
 - `PLAN_P6_FOLDER.md`: 프로젝트 폴더 정리 계획(작성 중이거나 완료).
 - 실행 순서: W1 검증·커밋 → W2 전역 타이포(AUDIT) → P4 메인 → P3 /content → (가이드 도착 시) 서비스 6종 → P6 폴더. 메모리 때문에 Codex 빌드는 한 번에 하나, 조사·기획은 병렬 에이전트.
 
-## 진행 중
+## 다음에 바로 할 일 (2026-10-14 사용량 한도 도달 시점, HEAD `8f24d16`, 작업트리 깨끗함, 실행 중 에이전트 없음)
+1. 병렬 서브에이전트 2개 동시 실행: (a) **P4 수정**(opus): `VERIFY_P34.md`의 P4-1 화살표 간격(`workflow-journey.css:124`), P4-2 `#divisions` 카드 제목 높이(`main.jsx:398`), P4-3 미사용 `workGroups`(`main.jsx:65`)·옛 문구(`primitives.tsx:316`), FIX-1 `home-references.tsx` 클라이언트 import 정리. 빌드 금지. (b) **P2R WP0**(opus): `BRIEF_P2R.md`의 WP0(컨텐츠 사이트 공통 셸·토큰·블록·라우트·테스트, 서비스별 자리 파일), 결정 10-1 반영. 빌드 금지, 파일 소유 분리.
+2. Sonnet 검증(G0 + P4 수정) → 커밋 → WP-A/B/C/D 4개 동시 구현(WP-D에 VERIFY_P34의 P3-1~5 포함) → Sonnet 최종 검증 → 커밋 → 사용자 디자인 확인.
+3. 이후: 사용자 확인 후 push, P6 폴더 정리(`PLAN_P6_FOLDER.md`, 외부 문서 6개 처리 방식 확인 필요).
+
+## 진행 중 (이력)
+- **P3·P4 커밋** `8f24d16` (VERIFY_P34: FAIL 경미, 위 1번에서 처리).
 - **W1 완료**: 커밋 `9998b0b` (VERIFY_W1 PASS).
 - **W2**: Codex(Orca 마지막 작업)로 구현, 커밋 `0e8be3b`(검증 전 스냅샷). Sonnet 서브에이전트가 `.qa/w2-verify/src` 스냅샷에서 검증 중 → `VERIFY_W2.md`. FAIL이면 수정 커밋 추가.
 - **P4 메인 워크플로우 / P3 /content**: 이 대화의 Opus 서브에이전트 2개가 동시에 구현 중(파일 소유 분리, 빌드 안 함) → `RESULT_P4.md`, `RESULT_P3.md`. 끝나면 Sonnet 서브에이전트 하나가 P3+P4 함께 빌드·브라우저 검증 → 커밋 → 사용자 디자인 확인.
