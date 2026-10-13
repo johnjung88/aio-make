@@ -33,9 +33,9 @@ html:has(.guide-public) {
   box-shadow: 0 8px 20px #0002;
 }
 .service-navigation-rail {
-  max-width: 1440px;
+  max-width: var(--container);
   margin: auto;
-  padding-inline: clamp(20px, 4vw, 56px);
+  padding-inline: var(--gutter);
 }
 .service-navigation .guide-service-tabs a[aria-current="page"] {
   color: var(--lavender);
@@ -125,7 +125,7 @@ html:has(.guide-public) {
   margin-bottom: 9px;
 }
 .webtoon-devices .device-pair figcaption {
-  font-size: 13px;
+  font-size: var(--type-small-size);
   margin-top: 16px;
 }
 .marketing-contact-dark {
@@ -180,15 +180,15 @@ html:has(.guide-public) {
 }
 .showcase-video-heading > span {
   color: #b2a3ff;
-  font-size: 12px;
+  font-size: var(--type-caption-size);
   letter-spacing: 0.16em;
   font-weight: 600;
 }
 .showcase-video-heading h2 {
   margin: 14px 0;
-  font-size: clamp(30px, 3.5vw, 52px);
-  line-height: 1.2;
-  letter-spacing: -0.045em;
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-leading);
+  letter-spacing: var(--type-h2-tracking);
 }
 .showcase-video-heading p {
   color: #b5b5c2;
@@ -238,7 +238,7 @@ html:has(.guide-public) {
 .showcase-video-play small {
   display: block;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: var(--type-caption-size);
   color: #ccc8da;
 }
 .showcase-video-error {
@@ -269,7 +269,7 @@ html:has(.guide-public) {
   .showcase-video-play {
     padding: 7px 16px 7px 7px;
     gap: 10px;
-    font-size: 14px;
+    font-size: var(--type-small-size);
   }
   .showcase-play-icon {
     width: 36px;
@@ -279,7 +279,7 @@ html:has(.guide-public) {
     width: 20px;
   }
   .showcase-video-play small {
-    font-size: 10px;
+    font-size: var(--type-caption-size);
   }
 }
 

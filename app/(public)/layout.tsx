@@ -12,6 +12,7 @@ import "@/components/guide/creative.css";
 import "@/components/guide/fixes.css";
 import "@/components/guide/ux.css";
 import "@/components/work-portfolio.css";
+import "@/components/guide/type.css";
 export default function PublicLayout({
   children,
 }: {

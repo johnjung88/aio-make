@@ -141,23 +141,21 @@ class Component extends GuideLogic {
           }}
         >
           <section
-            className="about-centered-hero"
+            className="about-centered-hero l-container"
             style={{
-              maxWidth: "1320px",
               width: "100%",
               boxSizing: "border-box",
               margin: "0 auto",
-              padding: "clamp(64px,9vw,128px) clamp(20px,4vw,48px)",
+              paddingBlock: "var(--section-y-sm)",
+              paddingInline: "var(--gutter)",
               display: "flex",
               flexDirection: "column",
               gap: "36px",
             }}
           >
             <span
+              className="eyebrow"
               style={{
-                fontFamily: "Unbounded,sans-serif",
-                fontSize: "12px",
-                letterSpacing: ".16em",
                 color: "#6E6E78",
               }}
             >
@@ -165,12 +163,9 @@ class Component extends GuideLogic {
             </span>
             <div data-fit="" style={{ width: "fit-content", maxWidth: "100%" }}>
               <h1
+                className="t-h1"
                 style={{
                   margin: "0",
-                  fontSize: "clamp(44px,7.4vw,112px)",
-                  lineHeight: "1.1",
-                  letterSpacing: "-.025em",
-                  fontWeight: "800",
                 }}
               >
                 <span data-fit-line="">
@@ -191,14 +186,13 @@ class Component extends GuideLogic {
                 paddingTop: "28px",
               }}
             >
-              <strong style={{ fontSize: "20px", letterSpacing: "-.02em" }}>
+              <strong className="t-lead">
                 {"AI를 활용하는 분야별 전문가 팀"}
               </strong>
               <p
+                className="t-lead"
                 style={{
                   margin: "0",
-                  fontSize: "17px",
-                  lineHeight: "1.8",
                   color: "#3A3A42",
                 }}
               >
@@ -215,10 +209,11 @@ class Component extends GuideLogic {
             style={{ background: "#0D0D12", color: "#F4F3EF" }}
           >
             <div
+              className="l-container"
               style={{
-                maxWidth: "1320px",
                 margin: "0 auto",
-                padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
+                paddingBlock: "var(--section-y)",
+                paddingInline: "var(--gutter)",
                 display: "grid",
                 gridTemplateColumns:
                   "repeat(auto-fit,minmax(min(100%,440px),1fr))",
@@ -235,22 +230,17 @@ class Component extends GuideLogic {
                 }}
               >
                 <span
+                  className="eyebrow"
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
-                    fontSize: "12px",
-                    letterSpacing: ".16em",
                     color: "#A99BFF",
                   }}
                 >
                   {"BRAND · ALL-IN-ONE"}
                 </span>
                 <h2
+                  className="t-h2"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(32px,4.4vw,60px)",
-                    lineHeight: "1.12",
-                    letterSpacing: "-.035em",
-                    fontWeight: "700",
                   }}
                 >
                   {"AIO는"}
@@ -259,10 +249,9 @@ class Component extends GuideLogic {
                   {"입니다"}
                 </h2>
                 <p
+                  className="t-lead"
                   style={{
                     margin: "0",
-                    fontSize: "17px",
-                    lineHeight: "1.8",
                     color: "#C9C9D1",
                     maxWidth: "46ch",
                   }}
@@ -291,7 +280,7 @@ class Component extends GuideLogic {
               >
                 <div
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
+                    fontFamily: "var(--ff-display)",
                     fontSize: "clamp(40px,5.4vw,72px)",
                     letterSpacing: "-.03em",
                     display: "flex",
@@ -311,12 +300,12 @@ class Component extends GuideLogic {
                   ></span>
                 </div>
                 <div
+                  className="t-small"
                   style={{
                     display: "flex",
                     gap: "20px",
                     flexWrap: "wrap",
                     justifyContent: "center",
-                    fontSize: "13px",
                     color: "#B5B5BD",
                   }}
                 >
@@ -328,12 +317,13 @@ class Component extends GuideLogic {
             </div>
           </section>
           <section
+            className="l-container"
             style={{
-              maxWidth: "1320px",
               width: "100%",
               boxSizing: "border-box",
               margin: "0 auto",
-              padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
+              paddingBlock: "var(--section-y)",
+              paddingInline: "var(--gutter)",
               display: "flex",
               flexDirection: "column",
               gap: "40px",
@@ -350,19 +340,22 @@ class Component extends GuideLogic {
               }}
             >
               <h2
+                className="t-h2"
                 style={{
                   margin: "0",
-                  fontSize: "clamp(32px,4.4vw,60px)",
-                  lineHeight: "1.12",
-                  letterSpacing: "-.035em",
-                  fontWeight: "700",
                 }}
               >
                 {"하나의 브랜드,"}
                 <br />
                 <span style={{ color: "#6B4DFF" }}>{"세 개의 스튜디오"}</span>
               </h2>
-              <p style={{ margin: "0", fontSize: "17px", color: "#3A3A42" }}>
+              <p
+                className="t-lead"
+                style={{
+                  margin: "0",
+                  color: "#3A3A42",
+                }}
+              >
                 {"분야는 달라도 품질 기준은 같습니다"}
               </p>
             </div>
@@ -387,13 +380,11 @@ class Component extends GuideLogic {
                 }}
               >
                 <div
+                  className="t-lead"
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
-                    fontSize: "20px",
                     display: "flex",
                     alignItems: "baseline",
                     gap: "8px",
-                    letterSpacing: "-.02em",
                   }}
                 >
                   <span style={{ fontWeight: "800" }}>{"AIO"}</span>
@@ -410,17 +401,23 @@ class Component extends GuideLogic {
                     {"Studio"}
                   </span>
                 </div>
-                <span style={{ color: "#A99BFF", fontSize: "15px" }}>
+                <span
+                  className="t-small"
+                  style={{
+                    color: "#A99BFF",
+                  }}
+                >
                   {"장면을 담는 분야 · 컨텐츠"}
                 </span>
                 <span
+                  className="t-small"
                   style={{
                     color: "#C9C9D1",
-                    fontSize: "15px",
-                    lineHeight: "1.75",
                   }}
                 >
-                  {"웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상"}
+                  {
+                    "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상"
+                  }
                 </span>
               </div>
               <div
@@ -436,13 +433,11 @@ class Component extends GuideLogic {
                 }}
               >
                 <div
+                  className="t-lead"
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
-                    fontSize: "20px",
                     display: "flex",
                     alignItems: "baseline",
                     gap: "8px",
-                    letterSpacing: "-.02em",
                   }}
                 >
                   <span style={{ fontWeight: "800" }}>{"AIO"}</span>
@@ -459,14 +454,18 @@ class Component extends GuideLogic {
                     {"Marketing"}
                   </span>
                 </div>
-                <span style={{ color: "#6B4DFF", fontSize: "15px" }}>
+                <span
+                  className="t-small"
+                  style={{
+                    color: "#6B4DFF",
+                  }}
+                >
                   {"고객을 부르는 분야 · 마케팅"}
                 </span>
                 <span
+                  className="t-small"
                   style={{
                     color: "#3A3A42",
-                    fontSize: "15px",
-                    lineHeight: "1.75",
                   }}
                 >
                   {"마케팅 패키지, SNS 운영 대행, SEO·AEO 최적화"}
@@ -485,13 +484,11 @@ class Component extends GuideLogic {
                 }}
               >
                 <div
+                  className="t-lead"
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
-                    fontSize: "20px",
                     display: "flex",
                     alignItems: "baseline",
                     gap: "8px",
-                    letterSpacing: "-.02em",
                   }}
                 >
                   <span style={{ fontWeight: "800" }}>{"AIO"}</span>
@@ -508,14 +505,18 @@ class Component extends GuideLogic {
                     {"Lab"}
                   </span>
                 </div>
-                <span style={{ color: "#A99BFF", fontSize: "15px" }}>
+                <span
+                  className="t-small"
+                  style={{
+                    color: "#A99BFF",
+                  }}
+                >
                   {"시스템을 만드는 분야 · 개발"}
                 </span>
                 <span
+                  className="t-small"
                   style={{
                     color: "#C9C9D1",
-                    fontSize: "15px",
-                    lineHeight: "1.75",
                   }}
                 >
                   {"업무 자동화 구축, 프로그램 개발, 웹사이트, 쇼핑몰"}
@@ -531,10 +532,11 @@ class Component extends GuideLogic {
             }}
           >
             <div
+              className="l-container"
               style={{
-                maxWidth: "1320px",
                 margin: "0 auto",
-                padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
+                paddingBlock: "var(--section-y)",
+                paddingInline: "var(--gutter)",
                 display: "flex",
                 flexDirection: "column",
                 gap: "clamp(40px,5vw,64px)",
@@ -550,22 +552,17 @@ class Component extends GuideLogic {
                 }}
               >
                 <span
+                  className="eyebrow"
                   style={{
-                    fontFamily: "Unbounded,sans-serif",
-                    fontSize: "12px",
-                    letterSpacing: ".16em",
                     color: "#6E6E78",
                   }}
                 >
                   {"HOW WE WORK"}
                 </span>
                 <h2
+                  className="t-h2"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(30px,4.4vw,60px)",
-                    lineHeight: "1.15",
-                    letterSpacing: "-.035em",
-                    fontWeight: "700",
                     textWrap: "balance",
                   }}
                 >
@@ -574,10 +571,9 @@ class Component extends GuideLogic {
                   {"가 함께합니다"}
                 </h2>
                 <p
+                  className="t-lead"
                   style={{
                     margin: "0",
-                    fontSize: "17px",
-                    lineHeight: "1.75",
                     color: "#3A3A42",
                     maxWidth: "44ch",
                   }}
@@ -614,7 +610,7 @@ class Component extends GuideLogic {
                       >
                         <span
                           style={{
-                            fontFamily: "Unbounded,sans-serif",
+                            fontFamily: "var(--ff-display)",
                             fontSize: "clamp(36px,3.4vw,48px)",
                             fontWeight: "300",
                             color: "#6B4DFF",
@@ -630,19 +626,10 @@ class Component extends GuideLogic {
                             gap: "10px",
                           }}
                         >
-                          <strong
-                            style={{
-                              fontSize: "24px",
-                              letterSpacing: "-.02em",
-                            }}
-                          >
-                            {s.title}
-                          </strong>
+                          <strong className="t-lead">{s.title}</strong>
                           <span
+                            className="eyebrow"
                             style={{
-                              fontFamily: "Unbounded,sans-serif",
-                              fontSize: "11px",
-                              letterSpacing: ".12em",
                               color: "#6E6E78",
                             }}
                           >
@@ -668,19 +655,16 @@ class Component extends GuideLogic {
                           }}
                         >
                           <span
+                            className="eyebrow"
                             style={{
-                              fontFamily: "Unbounded,sans-serif",
-                              fontSize: "11px",
-                              letterSpacing: ".14em",
                               color: "#A99BFF",
                             }}
                           >
                             {"AI"}
                           </span>
                           <span
+                            className="t-small"
                             style={{
-                              fontSize: "15px",
-                              lineHeight: "1.65",
                               color: "#E6E6EA",
                               whiteSpace: "nowrap",
                             }}
@@ -698,19 +682,10 @@ class Component extends GuideLogic {
                             gap: "6px",
                           }}
                         >
+                          <span className="eyebrow">{"EXPERT"}</span>
                           <span
+                            className="t-small"
                             style={{
-                              fontFamily: "Unbounded,sans-serif",
-                              fontSize: "11px",
-                              letterSpacing: ".14em",
-                            }}
-                          >
-                            {"EXPERT"}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: "15px",
-                              lineHeight: "1.65",
                               whiteSpace: "nowrap",
                             }}
                           >
@@ -725,12 +700,13 @@ class Component extends GuideLogic {
             </div>
           </section>
           <section
+            className="l-container"
             style={{
-              maxWidth: "1320px",
               width: "100%",
               boxSizing: "border-box",
               margin: "0 auto",
-              padding: "clamp(80px,10vw,140px) clamp(20px,4vw,48px)",
+              paddingBlock: "var(--section-y)",
+              paddingInline: "var(--gutter)",
               display: "grid",
               gridTemplateColumns:
                 "repeat(auto-fit,minmax(min(100%,420px),1fr))",
@@ -738,23 +714,20 @@ class Component extends GuideLogic {
             }}
           >
             <h2
+              className="t-h2"
               style={{
                 margin: "0",
-                fontSize: "clamp(32px,4.4vw,60px)",
-                lineHeight: "1.12",
-                letterSpacing: "-.035em",
-                fontWeight: "700",
               }}
             >
               {"사업자 정보"}
             </h2>
             <dl
+              className="t-body"
               style={{
                 margin: "0",
                 display: "flex",
                 flexDirection: "column",
                 borderTop: "1.5px solid #0D0D12",
-                fontSize: "16px",
               }}
             >
               {(biz || []).map((b, __index3) => (
@@ -777,10 +750,11 @@ class Component extends GuideLogic {
           </section>
           <section style={{ background: "#6B4DFF", color: "#fff" }}>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1320px",
                 margin: "0 auto",
-                padding: "clamp(64px,8vw,112px) clamp(20px,4vw,48px)",
+                paddingBlock: "var(--section-y-sm)",
+                paddingInline: "var(--gutter)",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "flex-end",
@@ -789,35 +763,32 @@ class Component extends GuideLogic {
               }}
             >
               <h2
+                className="t-h2"
                 style={{
                   margin: "0",
-                  fontSize: "clamp(32px,4.6vw,64px)",
-                  letterSpacing: "-.04em",
-                  fontWeight: "800",
-                  lineHeight: "1.08",
                 }}
               >
                 {"필요한 작업, 편하게 문의하세요"}
               </h2>
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                 <GuideLink
+                  className="t-button"
                   href="AIO 메인 시안.dc.html#contact"
                   style={{
                     background: "#fff",
                     color: "#0D0D12",
                     padding: "18px 28px",
-                    fontWeight: "600",
                   }}
                   context="main"
                 >
                   {"견적 문의 →"}
                 </GuideLink>
                 <GuideLink
+                  className="t-button"
                   href="AIO 팀원소개 시안.dc.html"
                   style={{
                     border: "1.5px solid #fff",
                     padding: "16.5px 26px",
-                    fontWeight: "600",
                   }}
                   context="main"
                 >

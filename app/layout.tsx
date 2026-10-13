@@ -9,6 +9,12 @@ const pretendard = localFont({
   variable: "--font-body",
   weight: "45 920",
 });
+const unbounded = localFont({
+  src: "../public/fonts/Unbounded-latin.woff2",
+  display: "swap",
+  variable: "--font-display",
+  weight: "200 900",
+});
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "AIO MAKE | 올인원 에이전시", template: "%s | AIO MAKE" },
@@ -52,8 +58,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" data-scroll-behavior="smooth">
-      <body className={pretendard.variable}>{children}</body>
+    <html
+      lang="ko"
+      className={`${pretendard.variable} ${unbounded.variable}`}
+      data-scroll-behavior="smooth"
+    >
+      <body>{children}</body>
     </html>
   );
 }

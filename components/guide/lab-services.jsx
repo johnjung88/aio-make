@@ -767,10 +767,11 @@ class Component extends GuideLogic {
           <GuideNav division="lab" active="services" />
           <div style={{ borderBottom: "1px solid #2E2E38" }}>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1440px",
                 margin: "0 auto",
-                padding: "0 clamp(20px,4vw,56px)",
+                paddingBlock: "0",
+                paddingInline: "var(--gutter)",
                 display: "flex",
                 gap: "clamp(18px,2.6vw,40px)",
                 flexWrap: "wrap",
@@ -783,10 +784,11 @@ class Component extends GuideLogic {
             <React.Fragment>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(48px,6vw,96px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y-sm)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(40px,5vw,72px)",
@@ -801,22 +803,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "13px",
-                        letterSpacing: ".12em",
                         color: "#A99BFF",
                       }}
                     >
                       {"01 · WEBSITE"}
                     </span>
                     <h1
+                      className="t-h1"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(38px,5.6vw,88px)",
-                        lineHeight: "1.12",
-                        letterSpacing: "-.05em",
-                        fontWeight: "800",
                       }}
                     >
                       <span style={{ display: "block", color: "#B5B5BD" }}>
@@ -827,10 +824,9 @@ class Component extends GuideLogic {
                       </span>
                     </h1>
                     <p
+                      className="t-lead"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(17px,1.4vw,19px)",
-                        lineHeight: "1.8",
                         color: "#B5B5BD",
                         maxWidth: "50ch",
                       }}
@@ -846,9 +842,8 @@ class Component extends GuideLogic {
                           background: "#6B4DFF",
                           color: "#fff",
                           padding: "18px 30px",
-                          fontWeight: "600",
                         }}
-                        className="gh-59b0af27"
+                        className="gh-59b0af27 t-button"
                         context="lab"
                       >
                         {"견적 문의"}
@@ -859,9 +854,8 @@ class Component extends GuideLogic {
                           border: "1.5px solid #F4F3EF",
                           color: "#F4F3EF",
                           padding: "16.5px 28px",
-                          fontWeight: "600",
                         }}
-                        className="gh-21e28941"
+                        className="gh-21e28941 t-button"
                         context="lab"
                       >
                         {"진행 과정 보기"}
@@ -888,9 +882,9 @@ class Component extends GuideLogic {
                       {(wstyles || []).map((w, __index6) => (
                         <React.Fragment key={__index6}>
                           <button
+                            className="t-button t-button-reset"
                             onClick={w.pick}
                             style={{
-                              all: "unset",
                               cursor: "pointer",
                               display: "flex",
                               flexDirection: "column",
@@ -904,10 +898,8 @@ class Component extends GuideLogic {
                             type="button"
                           >
                             <span
+                              className="eyebrow"
                               style={{
-                                fontFamily: "'JetBrains Mono',monospace",
-                                fontSize: "12px",
-                                letterSpacing: ".1em",
                                 color: "#A99BFF",
                               }}
                             >
@@ -923,9 +915,8 @@ class Component extends GuideLogic {
                               {w.t}
                             </strong>
                             <span
+                              className="t-body"
                               style={{
-                                fontSize: "16px",
-                                lineHeight: "1.7",
                                 color: "#B5B5BD",
                               }}
                             >
@@ -944,18 +935,16 @@ class Component extends GuideLogic {
                               {(w.pts || []).map((p, __index9) => (
                                 <React.Fragment key={__index9}>
                                   <li
+                                    className="t-small"
                                     style={{
                                       display: "flex",
                                       gap: "10px",
-                                      fontSize: "15px",
-                                      lineHeight: "1.6",
                                     }}
                                   >
                                     <span
                                       style={{
                                         color: "#A99BFF",
-                                        fontFamily:
-                                          "'JetBrains Mono',monospace",
+                                        fontFamily: "var(--ff-mono)",
                                       }}
                                     >
                                       {"+"}
@@ -1022,13 +1011,12 @@ class Component extends GuideLogic {
                             }}
                           ></span>
                           <span
+                            className="t-caption"
                             style={{
                               marginLeft: "10px",
                               flex: "1",
                               background: "#1C1C22",
                               padding: "4px 10px",
-                              fontFamily: "'JetBrains Mono',monospace",
-                              fontSize: "11.5px",
                               color: "#B5B5BD",
                             }}
                           >
@@ -1064,7 +1052,11 @@ class Component extends GuideLogic {
                                     fontSize: "clamp(9px,1.1vw,13px)",
                                   }}
                                 >
-                                  <strong style={{ letterSpacing: ".06em" }}>
+                                  <strong
+                                    style={{
+                                      letterSpacing: "-0.04em",
+                                    }}
+                                  >
                                     {"STUDIO"}
                                   </strong>
                                   <div
@@ -1202,7 +1194,11 @@ class Component extends GuideLogic {
                                     zIndex: "3",
                                   }}
                                 >
-                                  <strong style={{ letterSpacing: ".06em" }}>
+                                  <strong
+                                    style={{
+                                      letterSpacing: "-0.04em",
+                                    }}
+                                  >
                                     {"MOTION LAB"}
                                   </strong>
                                   <div
@@ -1246,7 +1242,7 @@ class Component extends GuideLogic {
                                     left: "6%",
                                     top: "30%",
                                     zIndex: "3",
-                                    fontFamily: "Unbounded,sans-serif",
+                                    fontFamily: "var(--ff-display)",
                                     fontWeight: "800",
                                     fontSize: "clamp(22px,4.6vw,64px)",
                                     lineHeight: "1.05",
@@ -1277,9 +1273,9 @@ class Component extends GuideLogic {
                                       display: "flex",
                                       width: "max-content",
                                       animation: "labMarq 16s linear infinite",
-                                      fontFamily: "Unbounded,sans-serif",
+                                      fontFamily: "var(--ff-display)",
                                       fontSize: "clamp(10px,1.4vw,18px)",
-                                      letterSpacing: ".08em",
+                                      letterSpacing: "-0.04em",
                                       padding: "clamp(8px,1.2vw,14px) 0",
                                       whiteSpace: "nowrap",
                                     }}
@@ -1302,9 +1298,8 @@ class Component extends GuideLogic {
                         </div>
                       </div>
                       <span
+                        className="t-caption"
                         style={{
-                          fontFamily: "'JetBrains Mono',monospace",
-                          fontSize: "12px",
                           color: "#B5B5BD",
                         }}
                       >
@@ -1318,10 +1313,11 @@ class Component extends GuideLogic {
               </section>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(72px,9vw,128px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(32px,4vw,56px)",
@@ -1335,22 +1331,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "12px",
-                        letterSpacing: ".14em",
                         color: "#A99BFF",
                       }}
                     >
                       {"DELIVERY CHECK"}
                     </span>
                     <h2
+                      className="t-h2"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(30px,4vw,56px)",
-                        letterSpacing: "-.045em",
-                        fontWeight: "800",
-                        lineHeight: "1.15",
                       }}
                     >
                       {"납품 전 이 네 가지를 확인합니다"}
@@ -1378,7 +1369,7 @@ class Component extends GuideLogic {
                         >
                           <span
                             style={{
-                              fontFamily: "Unbounded,sans-serif",
+                              fontFamily: "var(--ff-display)",
                               fontSize: "32px",
                               fontWeight: "600",
                               color: "#A99BFF",
@@ -1386,18 +1377,10 @@ class Component extends GuideLogic {
                           >
                             {c.no}
                           </span>
-                          <strong
-                            style={{
-                              fontSize: "20px",
-                              letterSpacing: "-.02em",
-                            }}
-                          >
-                            {c.t}
-                          </strong>
+                          <strong className="t-lead">{c.t}</strong>
                           <span
+                            className="t-lead"
                             style={{
-                              fontSize: "15.5px",
-                              lineHeight: "1.7",
                               color: "#B5B5BD",
                             }}
                           >
@@ -1415,10 +1398,11 @@ class Component extends GuideLogic {
             <React.Fragment>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(48px,6vw,96px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y-sm)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(40px,5vw,72px)",
@@ -1436,22 +1420,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "13px",
-                        letterSpacing: ".12em",
                         color: "#A99BFF",
                       }}
                     >
                       {"02 · SHOPPING MALL"}
                     </span>
                     <h1
+                      className="t-h1"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(38px,5.6vw,88px)",
-                        lineHeight: "1.12",
-                        letterSpacing: "-.05em",
-                        fontWeight: "800",
                       }}
                     >
                       <span style={{ display: "block", color: "#B5B5BD" }}>
@@ -1462,10 +1441,9 @@ class Component extends GuideLogic {
                       </span>
                     </h1>
                     <p
+                      className="t-lead"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(17px,1.4vw,19px)",
-                        lineHeight: "1.8",
                         color: "#B5B5BD",
                         maxWidth: "50ch",
                       }}
@@ -1486,9 +1464,8 @@ class Component extends GuideLogic {
                           background: "#6B4DFF",
                           color: "#fff",
                           padding: "18px 30px",
-                          fontWeight: "600",
                         }}
-                        className="gh-59b0af27"
+                        className="gh-59b0af27 t-button"
                         context="lab"
                       >
                         {"견적 문의"}
@@ -1499,9 +1476,8 @@ class Component extends GuideLogic {
                           border: "1.5px solid #F4F3EF",
                           color: "#F4F3EF",
                           padding: "16.5px 28px",
-                          fontWeight: "600",
                         }}
-                        className="gh-21e28941"
+                        className="gh-21e28941 t-button"
                         context="lab"
                       >
                         {"진행 과정 보기"}
@@ -1526,22 +1502,17 @@ class Component extends GuideLogic {
                       }}
                     >
                       <span
+                        className="eyebrow"
                         style={{
-                          fontFamily: "'JetBrains Mono',monospace",
-                          fontSize: "12px",
-                          letterSpacing: ".14em",
                           color: "#A99BFF",
                         }}
                       >
                         {"FEATURES"}
                       </span>
                       <h2
+                        className="t-h2"
                         style={{
                           margin: "0",
-                          fontSize: "clamp(26px,3vw,40px)",
-                          letterSpacing: "-.04em",
-                          fontWeight: "800",
-                          lineHeight: "1.2",
                         }}
                       >
                         {"추가 기능 예시 · 범위별 상담"}
@@ -1566,9 +1537,8 @@ class Component extends GuideLogic {
                               }}
                             >
                               <span
+                                className="t-caption"
                                 style={{
-                                  fontFamily: "'JetBrains Mono',monospace",
-                                  fontSize: "12px",
                                   color: "#A99BFF",
                                 }}
                               >
@@ -1581,18 +1551,10 @@ class Component extends GuideLogic {
                                   gap: "3px",
                                 }}
                               >
-                                <strong
-                                  style={{
-                                    fontSize: "16.5px",
-                                    letterSpacing: "-.02em",
-                                  }}
-                                >
-                                  {f.t}
-                                </strong>
+                                <strong className="t-lead">{f.t}</strong>
                                 <span
+                                  className="t-small"
                                   style={{
-                                    fontSize: "14px",
-                                    lineHeight: "1.6",
                                     color: "#B5B5BD",
                                   }}
                                 >
@@ -1622,9 +1584,8 @@ class Component extends GuideLogic {
                         }}
                       >
                         <span
+                          className="t-caption"
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "12px",
                             color: "#B5B5BD",
                             marginRight: "6px",
                           }}
@@ -1634,11 +1595,11 @@ class Component extends GuideLogic {
                         {(themes || []).map((t, __index7) => (
                           <React.Fragment key={__index7}>
                             <button
+                              className="t-button"
                               onClick={t.pick}
                               style={{
                                 cursor: "pointer",
                                 padding: "9px 16px",
-                                fontSize: "14px",
                                 borderRadius: "999px",
                                 border: "1px solid " + t.bd,
                                 background: t.bg,
@@ -1695,13 +1656,12 @@ class Component extends GuideLogic {
                             }}
                           ></span>
                           <span
+                            className="t-caption"
                             style={{
                               marginLeft: "10px",
                               flex: "1",
                               background: "#1C1C22",
                               padding: "4px 10px",
-                              fontFamily: "'JetBrains Mono',monospace",
-                              fontSize: "11.5px",
                               color: "#B5B5BD",
                             }}
                           >
@@ -1726,17 +1686,10 @@ class Component extends GuideLogic {
                               alignItems: "center",
                             }}
                           >
-                            <strong
-                              style={{
-                                letterSpacing: ".08em",
-                                fontSize: "15px",
-                              }}
-                            >
-                              {"SHOP"}
-                            </strong>
+                            <strong className="t-small">{"SHOP"}</strong>
                             <span
+                              className="t-small"
                               style={{
-                                fontSize: "13.5px",
                                 border: "1px solid " + th.line,
                                 padding: "6px 12px",
                               }}
@@ -1772,18 +1725,17 @@ class Component extends GuideLogic {
                                       background: p.tone,
                                     }}
                                   ></div>
-                                  <strong style={{ fontSize: "15px" }}>
-                                    {p.t}
-                                  </strong>
+                                  <strong className="t-small">{p.t}</strong>
                                   <span
+                                    className="t-small"
                                     style={{
-                                      fontSize: "13.5px",
                                       opacity: ".8",
                                     }}
                                   >
                                     {p.price}
                                   </span>
                                   <button
+                                    className="t-button"
                                     onClick={p.add}
                                     style={{
                                       cursor: "pointer",
@@ -1791,8 +1743,6 @@ class Component extends GuideLogic {
                                       background: th.ac,
                                       color: th.acFg,
                                       padding: "10px",
-                                      fontSize: "14px",
-                                      fontWeight: "600",
                                     }}
                                     type="button"
                                   >
@@ -1804,6 +1754,7 @@ class Component extends GuideLogic {
                             ))}
                           </div>
                           <div
+                            className="t-small"
                             style={{
                               display: "flex",
                               justifyContent: "space-between",
@@ -1812,14 +1763,11 @@ class Component extends GuideLogic {
                               flexWrap: "wrap",
                               borderTop: "1px solid " + th.line,
                               paddingTop: "14px",
-                              fontSize: "14px",
                             }}
                           >
                             <span>
                               {"합계 "}
-                              <strong style={{ fontSize: "17px" }}>
-                                {total}
-                              </strong>
+                              <strong className="t-lead">{total}</strong>
                             </span>
                             <span
                               style={{
@@ -1835,9 +1783,8 @@ class Component extends GuideLogic {
                         </div>
                       </div>
                       <span
+                        className="t-caption"
                         style={{
-                          fontFamily: "'JetBrains Mono',monospace",
-                          fontSize: "12px",
                           color: "#B5B5BD",
                         }}
                       >
@@ -1851,10 +1798,11 @@ class Component extends GuideLogic {
               </section>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(72px,9vw,128px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(32px,4vw,56px)",
@@ -1877,22 +1825,17 @@ class Component extends GuideLogic {
                       }}
                     >
                       <span
+                        className="eyebrow"
                         style={{
-                          fontFamily: "'JetBrains Mono',monospace",
-                          fontSize: "12px",
-                          letterSpacing: ".14em",
                           color: "#A99BFF",
                         }}
                       >
                         {"CAFE24 SKIN"}
                       </span>
                       <h2
+                        className="t-h2"
                         style={{
                           margin: "0",
-                          fontSize: "clamp(30px,4vw,56px)",
-                          letterSpacing: "-.045em",
-                          fontWeight: "800",
-                          lineHeight: "1.15",
                         }}
                       >
                         {"카페24 스킨 구조에 맞춰"}
@@ -1901,9 +1844,8 @@ class Component extends GuideLogic {
                       </h2>
                     </div>
                     <span
+                      className="t-body"
                       style={{
-                        fontSize: "16px",
-                        lineHeight: "1.7",
                         color: "#B5B5BD",
                         maxWidth: "34ch",
                       }}
@@ -1993,18 +1935,10 @@ class Component extends GuideLogic {
                               gap: "6px",
                             }}
                           >
-                            <strong
-                              style={{
-                                fontSize: "17px",
-                                letterSpacing: "-.02em",
-                              }}
-                            >
-                              {k.t}
-                            </strong>
+                            <strong className="t-lead">{k.t}</strong>
                             <span
+                              className="t-small"
                               style={{
-                                fontSize: "14px",
-                                lineHeight: "1.65",
                                 color: "#B5B5BD",
                               }}
                             >
@@ -2023,10 +1957,11 @@ class Component extends GuideLogic {
             <React.Fragment>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(48px,6vw,96px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y-sm)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(40px,5vw,72px)",
@@ -2041,22 +1976,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "13px",
-                        letterSpacing: ".12em",
                         color: "#A99BFF",
                       }}
                     >
                       {"03 · AUTOMATION"}
                     </span>
                     <h1
+                      className="t-h1"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(38px,5.6vw,88px)",
-                        lineHeight: "1.12",
-                        letterSpacing: "-.05em",
-                        fontWeight: "800",
                       }}
                     >
                       <span style={{ display: "block", color: "#B5B5BD" }}>
@@ -2067,10 +1997,9 @@ class Component extends GuideLogic {
                       </span>
                     </h1>
                     <p
+                      className="t-lead"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(17px,1.4vw,19px)",
-                        lineHeight: "1.8",
                         color: "#B5B5BD",
                         maxWidth: "50ch",
                       }}
@@ -2086,9 +2015,8 @@ class Component extends GuideLogic {
                           background: "#6B4DFF",
                           color: "#fff",
                           padding: "18px 30px",
-                          fontWeight: "600",
                         }}
-                        className="gh-59b0af27"
+                        className="gh-59b0af27 t-button"
                         context="lab"
                       >
                         {"견적 문의"}
@@ -2099,9 +2027,8 @@ class Component extends GuideLogic {
                           border: "1.5px solid #F4F3EF",
                           color: "#F4F3EF",
                           padding: "16.5px 28px",
-                          fontWeight: "600",
                         }}
-                        className="gh-21e28941"
+                        className="gh-21e28941 t-button"
                         context="lab"
                       >
                         {"진행 과정 보기"}
@@ -2116,22 +2043,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "12px",
-                        letterSpacing: ".14em",
                         color: "#A99BFF",
                       }}
                     >
                       {"EXAMPLES"}
                     </span>
                     <h2
+                      className="t-h2"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(26px,3vw,40px)",
-                        letterSpacing: "-.04em",
-                        fontWeight: "800",
-                        lineHeight: "1.2",
                       }}
                     >
                       {"이런 작업을 자동화합니다"}
@@ -2164,22 +2086,17 @@ class Component extends GuideLogic {
                         }}
                       >
                         <span
+                          className="eyebrow"
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "11px",
-                            letterSpacing: ".12em",
                             color: "#A99BFF",
                           }}
                         >
                           {"EXAMPLE 01"}
                         </span>
-                        <strong
-                          style={{ fontSize: "21px", letterSpacing: "-.03em" }}
-                        >
-                          {"엑셀 정리"}
-                        </strong>
+                        <strong className="t-lead">{"엑셀 정리"}</strong>
                       </div>
                       <div
+                        className="t-small"
                         style={{
                           background: "#0D0D12",
                           border: "1px solid #2E2E38",
@@ -2187,18 +2104,16 @@ class Component extends GuideLogic {
                           display: "flex",
                           flexDirection: "column",
                           gap: "4px",
-                          fontSize: "13px",
                         }}
                       >
                         <div
+                          className="t-caption"
                           style={{
                             display: "grid",
                             gridTemplateColumns: "1.1fr .8fr 1.1fr",
                             gap: "8px",
                             padding: "6px 8px",
                             color: "#8A8A94",
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "11px",
                           }}
                         >
                           <span>{"주문번호"}</span>
@@ -2221,10 +2136,10 @@ class Component extends GuideLogic {
                             >
                               <span>{r.a}</span>
                               <span
+                                className="t-caption"
                                 style={{
                                   width: "fit-content",
                                   padding: "2px 8px",
-                                  fontSize: "11.5px",
                                   background: r.cb,
                                   color: r.cf,
                                 }}
@@ -2232,9 +2147,8 @@ class Component extends GuideLogic {
                                 {r.st}
                               </span>
                               <span
+                                className="t-caption"
                                 style={{
-                                  fontFamily: "'JetBrains Mono',monospace",
-                                  fontSize: "11.5px",
                                   color: r.tf,
                                 }}
                               >
@@ -2245,9 +2159,8 @@ class Component extends GuideLogic {
                         ))}
                       </div>
                       <span
+                        className="t-small"
                         style={{
-                          fontSize: "14.5px",
-                          lineHeight: "1.7",
                           color: "#B5B5BD",
                         }}
                       >
@@ -2274,20 +2187,14 @@ class Component extends GuideLogic {
                         }}
                       >
                         <span
+                          className="eyebrow"
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "11px",
-                            letterSpacing: ".12em",
                             color: "#A99BFF",
                           }}
                         >
                           {"EXAMPLE 02"}
                         </span>
-                        <strong
-                          style={{ fontSize: "21px", letterSpacing: "-.03em" }}
-                        >
-                          {"웹 데이터 수집"}
-                        </strong>
+                        <strong className="t-lead">{"웹 데이터 수집"}</strong>
                       </div>
                       <div
                         style={{
@@ -2350,15 +2257,16 @@ class Component extends GuideLogic {
                           ))}
                         </div>
                         <span
+                          className="t-lead"
                           style={{
                             color: "#A99BFF",
                             textAlign: "center",
-                            fontSize: "18px",
                           }}
                         >
                           {"›"}
                         </span>
                         <div
+                          className="t-small"
                           style={{
                             background: "#0D0D12",
                             border: "1px solid #2E2E38",
@@ -2366,14 +2274,12 @@ class Component extends GuideLogic {
                             display: "flex",
                             flexDirection: "column",
                             gap: "6px",
-                            fontSize: "12.5px",
                           }}
                         >
                           <span
+                            className="t-caption"
                             style={{
                               color: "#8A8A94",
-                              fontFamily: "'JetBrains Mono',monospace",
-                              fontSize: "11px",
                             }}
                           >
                             {"수집 결과"}
@@ -2395,7 +2301,7 @@ class Component extends GuideLogic {
                                 <span>{r.a}</span>
                                 <span
                                   style={{
-                                    fontFamily: "'JetBrains Mono',monospace",
+                                    fontFamily: "var(--ff-mono)",
                                     color: "#A99BFF",
                                   }}
                                 >
@@ -2407,9 +2313,8 @@ class Component extends GuideLogic {
                         </div>
                       </div>
                       <span
+                        className="t-small"
                         style={{
-                          fontSize: "14.5px",
-                          lineHeight: "1.7",
                           color: "#B5B5BD",
                         }}
                       >
@@ -2436,20 +2341,14 @@ class Component extends GuideLogic {
                         }}
                       >
                         <span
+                          className="eyebrow"
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "11px",
-                            letterSpacing: ".12em",
                             color: "#A99BFF",
                           }}
                         >
                           {"EXAMPLE 03"}
                         </span>
-                        <strong
-                          style={{ fontSize: "21px", letterSpacing: "-.03em" }}
-                        >
-                          {"알림 발송"}
-                        </strong>
+                        <strong className="t-lead">{"알림 발송"}</strong>
                       </div>
                       <div
                         style={{
@@ -2461,6 +2360,7 @@ class Component extends GuideLogic {
                         {(ex3 || []).map((n, __index7) => (
                           <React.Fragment key={__index7}>
                             <div
+                              className="t-small"
                               style={{
                                 display: "flex",
                                 gap: "12px",
@@ -2469,7 +2369,6 @@ class Component extends GuideLogic {
                                 border: "1px solid " + n.bd,
                                 background: n.bg,
                                 color: n.fg,
-                                fontSize: "14.5px",
                                 transition: "all .4s",
                               }}
                             >
@@ -2496,12 +2395,11 @@ class Component extends GuideLogic {
                         }}
                       >
                         <div
+                          className="t-small"
                           style={{
                             background: "#FEE500",
                             color: "#191919",
                             padding: "10px 14px",
-                            fontSize: "14px",
-                            lineHeight: "1.5",
                             maxWidth: "85%",
                             opacity: ex3op,
                             transform: "translateY(" + ex3y + ")",
@@ -2514,9 +2412,8 @@ class Component extends GuideLogic {
                         </div>
                       </div>
                       <span
+                        className="t-small"
                         style={{
-                          fontSize: "14.5px",
-                          lineHeight: "1.7",
                           color: "#B5B5BD",
                         }}
                       >
@@ -2530,10 +2427,11 @@ class Component extends GuideLogic {
               </section>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(72px,9vw,128px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexWrap: "wrap",
                     gap: "40px clamp(40px,6vw,96px)",
@@ -2549,22 +2447,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "12px",
-                        letterSpacing: ".14em",
                         color: "#A99BFF",
                       }}
                     >
                       {"CHECK"}
                     </span>
                     <h2
+                      className="t-h2"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(30px,4vw,56px)",
-                        letterSpacing: "-.045em",
-                        fontWeight: "800",
-                        lineHeight: "1.15",
                       }}
                     >
                       {"자동화할 수 있는 작업인지"}
@@ -2593,9 +2486,8 @@ class Component extends GuideLogic {
                           }}
                         >
                           <span
+                            className="t-small"
                             style={{
-                              fontFamily: "'JetBrains Mono',monospace",
-                              fontSize: "13px",
                               color: "#A99BFF",
                             }}
                           >
@@ -2608,18 +2500,10 @@ class Component extends GuideLogic {
                               gap: "6px",
                             }}
                           >
-                            <strong
-                              style={{
-                                fontSize: "21px",
-                                letterSpacing: "-.025em",
-                              }}
-                            >
-                              {c.t}
-                            </strong>
+                            <strong className="t-lead">{c.t}</strong>
                             <span
+                              className="t-lead"
                               style={{
-                                fontSize: "15.5px",
-                                lineHeight: "1.7",
                                 color: "#B5B5BD",
                               }}
                             >
@@ -2638,10 +2522,11 @@ class Component extends GuideLogic {
             <React.Fragment>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(48px,6vw,96px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y-sm)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(40px,5vw,72px)",
@@ -2656,22 +2541,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "13px",
-                        letterSpacing: ".12em",
                         color: "#A99BFF",
                       }}
                     >
                       {"04 · PROGRAM"}
                     </span>
                     <h1
+                      className="t-h1"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(38px,5.6vw,88px)",
-                        lineHeight: "1.12",
-                        letterSpacing: "-.05em",
-                        fontWeight: "800",
                       }}
                     >
                       <span style={{ display: "block", color: "#B5B5BD" }}>
@@ -2682,10 +2562,9 @@ class Component extends GuideLogic {
                       </span>
                     </h1>
                     <p
+                      className="t-lead"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(17px,1.4vw,19px)",
-                        lineHeight: "1.8",
                         color: "#B5B5BD",
                         maxWidth: "50ch",
                       }}
@@ -2701,9 +2580,8 @@ class Component extends GuideLogic {
                           background: "#6B4DFF",
                           color: "#fff",
                           padding: "18px 30px",
-                          fontWeight: "600",
                         }}
-                        className="gh-59b0af27"
+                        className="gh-59b0af27 t-button"
                         context="lab"
                       >
                         {"견적 문의"}
@@ -2714,9 +2592,8 @@ class Component extends GuideLogic {
                           border: "1.5px solid #F4F3EF",
                           color: "#F4F3EF",
                           padding: "16.5px 28px",
-                          fontWeight: "600",
                         }}
-                        className="gh-21e28941"
+                        className="gh-21e28941 t-button"
                         context="lab"
                       >
                         {"진행 과정 보기"}
@@ -2777,18 +2654,16 @@ class Component extends GuideLogic {
                             }}
                           ></span>
                         </span>
-                        <strong
-                          style={{ fontSize: "14px", letterSpacing: "-.01em" }}
-                        >
+                        <strong className="t-small">
                           {"관리자 · 상담 현황"}
                         </strong>
                         <span
+                          className="t-small"
                           style={{
                             marginLeft: "auto",
                             background: "#16161C",
                             border: "1px solid #2E2E38",
                             padding: "6px 12px",
-                            fontSize: "12.5px",
                             color: "#8A8A94",
                             minWidth: "clamp(90px,16vw,190px)",
                           }}
@@ -2796,6 +2671,7 @@ class Component extends GuideLogic {
                           {"검색"}
                         </span>
                         <span
+                          className="t-caption"
                           style={{
                             width: "26px",
                             height: "26px",
@@ -2804,8 +2680,6 @@ class Component extends GuideLogic {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: "12px",
-                            fontWeight: "700",
                           }}
                         >
                           {"A"}
@@ -2830,10 +2704,8 @@ class Component extends GuideLogic {
                           }}
                         >
                           <span
+                            className="eyebrow"
                             style={{
-                              fontFamily: "'JetBrains Mono',monospace",
-                              fontSize: "10.5px",
-                              letterSpacing: ".14em",
                               color: "#8A8A94",
                               padding: "0 10px 10px",
                             }}
@@ -2845,19 +2717,17 @@ class Component extends GuideLogic {
                               <button
                                 onClick={m.pick}
                                 style={{
-                                  all: "unset",
                                   cursor: "pointer",
                                   display: "flex",
                                   alignItems: "center",
                                   gap: "10px",
                                   padding: "11px 10px",
-                                  fontSize: "14px",
                                   background: m.bg,
                                   color: m.fg,
                                   borderLeft: "2px solid " + m.bd,
                                   transition: "all .25s",
                                 }}
-                                className="gh-e6d00278"
+                                className="gh-e6d00278 t-button t-button-reset"
                                 type="button"
                               >
                                 <span
@@ -2871,9 +2741,8 @@ class Component extends GuideLogic {
                                 ></span>
                                 <span style={{ flex: "1" }}>{m.t}</span>
                                 <span
+                                  className="t-caption"
                                   style={{
-                                    fontFamily: "'JetBrains Mono',monospace",
-                                    fontSize: "11px",
                                     color: "#8A8A94",
                                   }}
                                 >
@@ -2910,9 +2779,8 @@ class Component extends GuideLogic {
                               {modTitle}
                             </strong>
                             <span
+                              className="t-caption"
                               style={{
-                                fontFamily: "'JetBrains Mono',monospace",
-                                fontSize: "11px",
                                 color: "#8A8A94",
                                 border: "1px solid #2E2E38",
                                 padding: "3px 8px",
@@ -2944,8 +2812,8 @@ class Component extends GuideLogic {
                                       }}
                                     >
                                       <span
+                                        className="t-small"
                                         style={{
-                                          fontSize: "13px",
                                           color: "#B5B5BD",
                                         }}
                                       >
@@ -2953,7 +2821,7 @@ class Component extends GuideLogic {
                                       </span>
                                       <span
                                         style={{
-                                          fontFamily: "Unbounded,sans-serif",
+                                          fontFamily: "var(--ff-display)",
                                           fontSize: "clamp(24px,2.4vw,32px)",
                                           fontWeight: "600",
                                           letterSpacing: "-.02em",
@@ -2962,11 +2830,9 @@ class Component extends GuideLogic {
                                         {k.v}
                                       </span>
                                       <span
+                                        className="t-caption"
                                         style={{
-                                          fontSize: "12px",
                                           color: "#A99BFF",
-                                          fontFamily:
-                                            "'JetBrains Mono',monospace",
                                         }}
                                       >
                                         {k.d}
@@ -2986,7 +2852,10 @@ class Component extends GuideLogic {
                                 }}
                               >
                                 <span
-                                  style={{ fontSize: "13px", color: "#B5B5BD" }}
+                                  className="t-small"
+                                  style={{
+                                    color: "#B5B5BD",
+                                  }}
                                 >
                                   {"주간 문의 추이"}
                                 </span>
@@ -3013,23 +2882,22 @@ class Component extends GuideLogic {
                                 </svg>
                               </div>
                               <div
+                                className="t-small"
                                 style={{
                                   background: "#16161C",
                                   border: "1px solid #2E2E38",
                                   display: "flex",
                                   flexDirection: "column",
-                                  fontSize: "13.5px",
                                 }}
                               >
                                 <div
+                                  className="t-caption"
                                   style={{
                                     display: "grid",
                                     gridTemplateColumns: "1.2fr .9fr .8fr .8fr",
                                     gap: "10px",
                                     padding: "11px 14px",
                                     color: "#8A8A94",
-                                    fontFamily: "'JetBrains Mono',monospace",
-                                    fontSize: "11px",
                                     borderBottom: "1px solid #2E2E38",
                                   }}
                                 >
@@ -3043,7 +2911,6 @@ class Component extends GuideLogic {
                                     <button
                                       onClick={r.pick}
                                       style={{
-                                        all: "unset",
                                         cursor: "pointer",
                                         display: "grid",
                                         gridTemplateColumns:
@@ -3055,7 +2922,7 @@ class Component extends GuideLogic {
                                         background: r.bg,
                                         transition: "background .25s",
                                       }}
-                                      className="gh-e6d00278"
+                                      className="gh-e6d00278 t-button t-button-reset"
                                       type="button"
                                     >
                                       <span>{r.n}</span>
@@ -3063,10 +2930,10 @@ class Component extends GuideLogic {
                                         {r.ch}
                                       </span>
                                       <span
+                                        className="t-caption"
                                         style={{
                                           width: "fit-content",
                                           padding: "2px 9px",
-                                          fontSize: "12px",
                                           background: r.sb,
                                           color: r.sf,
                                         }}
@@ -3085,23 +2952,22 @@ class Component extends GuideLogic {
                           {isV1 ? (
                             <React.Fragment>
                               <div
+                                className="t-small"
                                 style={{
                                   background: "#16161C",
                                   border: "1px solid #2E2E38",
                                   display: "flex",
                                   flexDirection: "column",
-                                  fontSize: "14px",
                                 }}
                               >
                                 <div
+                                  className="t-caption"
                                   style={{
                                     display: "grid",
                                     gridTemplateColumns: "1.2fr repeat(3,1fr)",
                                     gap: "10px",
                                     padding: "12px 16px",
                                     color: "#8A8A94",
-                                    fontFamily: "'JetBrains Mono',monospace",
-                                    fontSize: "11px",
                                     borderBottom: "1px solid #2E2E38",
                                   }}
                                 >
@@ -3129,9 +2995,9 @@ class Component extends GuideLogic {
                                       {(r.cells || []).map((c, __index12) => (
                                         <React.Fragment key={__index12}>
                                           <button
+                                            className="t-button t-button-reset"
                                             onClick={c.toggle}
                                             style={{
-                                              all: "unset",
                                               cursor: "pointer",
                                               width: "38px",
                                               height: "22px",
@@ -3165,9 +3031,8 @@ class Component extends GuideLogic {
                                 ))}
                               </div>
                               <span
+                                className="t-small"
                                 style={{
-                                  fontSize: "14px",
-                                  lineHeight: "1.7",
                                   color: "#B5B5BD",
                                 }}
                               >
@@ -3217,12 +3082,12 @@ class Component extends GuideLogic {
                                           minWidth: "0",
                                         }}
                                       >
-                                        <strong style={{ fontSize: "15.5px" }}>
+                                        <strong className="t-lead">
                                           {i.t}
                                         </strong>
                                         <span
+                                          className="t-small"
                                           style={{
-                                            fontSize: "13.5px",
                                             color: "#B5B5BD",
                                           }}
                                         >
@@ -3230,19 +3095,17 @@ class Component extends GuideLogic {
                                         </span>
                                       </div>
                                       <span
+                                        className="t-caption"
                                         style={{
-                                          fontFamily:
-                                            "'JetBrains Mono',monospace",
-                                          fontSize: "11.5px",
                                           color: i.fg,
                                         }}
                                       >
                                         {i.st}
                                       </span>
                                       <button
+                                        className="t-button t-button-reset"
                                         onClick={i.toggle}
                                         style={{
-                                          all: "unset",
                                           cursor: "pointer",
                                           width: "38px",
                                           height: "22px",
@@ -3278,6 +3141,7 @@ class Component extends GuideLogic {
                           {isV3 ? (
                             <React.Fragment>
                               <div
+                                className="t-small"
                                 style={{
                                   background: "#16161C",
                                   border: "1px solid #2E2E38",
@@ -3285,8 +3149,6 @@ class Component extends GuideLogic {
                                   display: "flex",
                                   flexDirection: "column",
                                   gap: "10px",
-                                  fontFamily: "'JetBrains Mono',monospace",
-                                  fontSize: "13px",
                                 }}
                               >
                                 {(logs || []).map((l, __index10) => (
@@ -3308,11 +3170,9 @@ class Component extends GuideLogic {
                                       </span>
                                       <span style={{ color: l.c }}>{l.lv}</span>
                                       <span
+                                        className="t-small"
                                         style={{
                                           color: "#F4F3EF",
-                                          fontFamily:
-                                            "var(--font-body),sans-serif",
-                                          fontSize: "14px",
                                         }}
                                       >
                                         {l.t}
@@ -3327,9 +3187,8 @@ class Component extends GuideLogic {
                       </div>
                     </div>
                     <span
+                      className="t-caption"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "12px",
                         color: "#B5B5BD",
                       }}
                     >
@@ -3342,10 +3201,11 @@ class Component extends GuideLogic {
               </section>
               <section style={{ borderBottom: "1px solid #2E2E38" }}>
                 <div
+                  className="l-container"
                   style={{
-                    maxWidth: "1440px",
                     margin: "0 auto",
-                    padding: "clamp(72px,9vw,128px) clamp(20px,4vw,56px)",
+                    paddingBlock: "var(--section-y)",
+                    paddingInline: "var(--gutter)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "clamp(32px,4vw,56px)",
@@ -3359,22 +3219,17 @@ class Component extends GuideLogic {
                     }}
                   >
                     <span
+                      className="eyebrow"
                       style={{
-                        fontFamily: "'JetBrains Mono',monospace",
-                        fontSize: "12px",
-                        letterSpacing: ".14em",
                         color: "#A99BFF",
                       }}
                     >
                       {"FLOW"}
                     </span>
                     <h2
+                      className="t-h2"
                       style={{
                         margin: "0",
-                        fontSize: "clamp(30px,4vw,56px)",
-                        letterSpacing: "-.045em",
-                        fontWeight: "800",
-                        lineHeight: "1.15",
                       }}
                     >
                       {"요구사항에서 시작해 순서대로 만듭니다"}
@@ -3402,7 +3257,7 @@ class Component extends GuideLogic {
                         >
                           <span
                             style={{
-                              fontFamily: "Unbounded,sans-serif",
+                              fontFamily: "var(--ff-display)",
                               fontSize: "30px",
                               fontWeight: "600",
                               color: "#A99BFF",
@@ -3410,18 +3265,10 @@ class Component extends GuideLogic {
                           >
                             {c.no}
                           </span>
-                          <strong
-                            style={{
-                              fontSize: "20px",
-                              letterSpacing: "-.02em",
-                            }}
-                          >
-                            {c.t}
-                          </strong>
+                          <strong className="t-lead">{c.t}</strong>
                           <span
+                            className="t-small"
                             style={{
-                              fontSize: "15px",
-                              lineHeight: "1.7",
                               color: "#B5B5BD",
                             }}
                           >
@@ -3437,10 +3284,11 @@ class Component extends GuideLogic {
           ) : null}
           <section style={{ borderBottom: "1px solid #2E2E38" }}>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1440px",
                 margin: "0 auto",
-                padding: "clamp(28px,3vw,40px) clamp(20px,4vw,56px)",
+                paddingBlock: "var(--section-y-sm)",
+                paddingInline: "var(--gutter)",
                 display: "grid",
                 gridTemplateColumns:
                   "repeat(auto-fit,minmax(min(100%,260px),1fr))",
@@ -3454,13 +3302,18 @@ class Component extends GuideLogic {
                       display: "flex",
                       flexDirection: "column",
                       gap: "6px",
-                      fontFamily: "'JetBrains Mono',monospace",
+                      fontFamily: "var(--ff-mono)",
                     }}
                   >
-                    <span style={{ fontSize: "12px", color: "#B5B5BD" }}>
+                    <span
+                      className="t-caption"
+                      style={{
+                        color: "#B5B5BD",
+                      }}
+                    >
                       {p.k}
                     </span>
-                    <strong style={{ fontSize: "18px" }}>{p.v}</strong>
+                    <strong className="t-lead">{p.v}</strong>
                   </div>
                 </React.Fragment>
               ))}
@@ -3468,10 +3321,11 @@ class Component extends GuideLogic {
           </section>
           <section>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1440px",
                 margin: "0 auto",
-                padding: "clamp(80px,10vw,144px) clamp(20px,4vw,56px)",
+                paddingBlock: "var(--section-y)",
+                paddingInline: "var(--gutter)",
                 display: "flex",
                 flexWrap: "wrap",
                 gap: "56px clamp(40px,6vw,96px)",
@@ -3489,31 +3343,25 @@ class Component extends GuideLogic {
                 }}
               >
                 <span
+                  className="eyebrow"
                   style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: "12px",
-                    letterSpacing: ".14em",
                     color: "#A99BFF",
                   }}
                 >
                   {"DELIVERABLES"}
                 </span>
                 <h2
+                  className="t-h2"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(30px,4vw,56px)",
-                    letterSpacing: "-.045em",
-                    fontWeight: "800",
-                    lineHeight: "1.15",
                   }}
                 >
                   {"납품물과 인수인계"}
                 </h2>
                 <p
+                  className="t-lead"
                   style={{
                     margin: "0",
-                    fontSize: "17px",
-                    lineHeight: "1.8",
                     color: "#B5B5BD",
                     maxWidth: "34ch",
                   }}
@@ -3540,10 +3388,8 @@ class Component extends GuideLogic {
                   }}
                 >
                   <span
+                    className="eyebrow"
                     style={{
-                      fontFamily: "'JetBrains Mono',monospace",
-                      fontSize: "12px",
-                      letterSpacing: ".1em",
                       color: "#A99BFF",
                       paddingTop: "4px",
                     }}
@@ -3564,13 +3410,11 @@ class Component extends GuideLogic {
                     {(s.scope || []).map((x, __index6) => (
                       <React.Fragment key={__index6}>
                         <li
+                          className="t-body"
                           style={{
                             display: "flex",
                             gap: "12px",
                             alignItems: "baseline",
-                            fontSize: "16px",
-                            lineHeight: "1.55",
-                            fontWeight: "500",
                           }}
                         >
                           <span
@@ -3599,10 +3443,8 @@ class Component extends GuideLogic {
                   }}
                 >
                   <span
+                    className="eyebrow"
                     style={{
-                      fontFamily: "'JetBrains Mono',monospace",
-                      fontSize: "12px",
-                      letterSpacing: ".1em",
                       color: "#A99BFF",
                       paddingTop: "6px",
                     }}
@@ -3615,9 +3457,8 @@ class Component extends GuideLogic {
                     {(s.stack || []).map((t, __index6) => (
                       <React.Fragment key={__index6}>
                         <span
+                          className="t-small"
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
-                            fontSize: "13px",
                             padding: "6px 11px",
                             background: "#23232B",
                             color: "#F4F3EF",
@@ -3639,10 +3480,8 @@ class Component extends GuideLogic {
                   }}
                 >
                   <span
+                    className="eyebrow"
                     style={{
-                      fontFamily: "'JetBrains Mono',monospace",
-                      fontSize: "12px",
-                      letterSpacing: ".1em",
                       color: "#A99BFF",
                       paddingTop: "4px",
                     }}
@@ -3656,19 +3495,12 @@ class Component extends GuideLogic {
                       gap: "10px",
                     }}
                   >
-                    <strong
-                      style={{
-                        fontSize: "18px",
-                        lineHeight: "1.5",
-                        letterSpacing: "-.02em",
-                      }}
-                    >
+                    <strong className="t-lead">
                       {"고객 대행 건은 모두 인수인계합니다"}
                     </strong>
                     <span
+                      className="t-lead"
                       style={{
-                        fontSize: "15.5px",
-                        lineHeight: "1.75",
                         color: "#B5B5BD",
                       }}
                     >
@@ -3688,10 +3520,8 @@ class Component extends GuideLogic {
                   }}
                 >
                   <span
+                    className="eyebrow"
                     style={{
-                      fontFamily: "'JetBrains Mono',monospace",
-                      fontSize: "12px",
-                      letterSpacing: ".1em",
                       color: "#A99BFF",
                       paddingTop: "4px",
                     }}
@@ -3707,9 +3537,8 @@ class Component extends GuideLogic {
                   >
                     <GuideOffer service={s.key} />
                     <span
+                      className="t-lead"
                       style={{
-                        fontSize: "15.5px",
-                        lineHeight: "1.75",
                         color: "#B5B5BD",
                       }}
                     >
@@ -3728,16 +3557,15 @@ class Component extends GuideLogic {
                       {(s.factors || []).map((f, __index7) => (
                         <React.Fragment key={__index7}>
                           <li
+                            className="t-lead"
                             style={{
-                              fontSize: "15.5px",
-                              lineHeight: "1.65",
                               display: "flex",
                               gap: "10px",
                             }}
                           >
                             <span
                               style={{
-                                fontFamily: "'JetBrains Mono',monospace",
+                                fontFamily: "var(--ff-mono)",
                                 color: "#A99BFF",
                               }}
                             >
@@ -3755,10 +3583,11 @@ class Component extends GuideLogic {
           </section>
           <section id="process" style={{ borderTop: "1px solid #2E2E38" }}>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1440px",
                 margin: "0 auto",
-                padding: "clamp(80px,10vw,144px) clamp(20px,4vw,56px)",
+                paddingBlock: "var(--section-y)",
+                paddingInline: "var(--gutter)",
                 display: "flex",
                 flexWrap: "wrap",
                 gap: "56px clamp(40px,6vw,96px)",
@@ -3776,31 +3605,25 @@ class Component extends GuideLogic {
                 }}
               >
                 <span
+                  className="eyebrow"
                   style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: "12px",
-                    letterSpacing: ".14em",
                     color: "#A99BFF",
                   }}
                 >
                   {"PROCESS"}
                 </span>
                 <h2
+                  className="t-h2"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(30px,4vw,56px)",
-                    letterSpacing: "-.045em",
-                    fontWeight: "800",
-                    lineHeight: "1.15",
                   }}
                 >
                   {"진행 과정"}
                 </h2>
                 <p
+                  className="t-lead"
                   style={{
                     margin: "0",
-                    fontSize: "17px",
-                    lineHeight: "1.8",
                     color: "#B5B5BD",
                     maxWidth: "32ch",
                   }}
@@ -3837,7 +3660,7 @@ class Component extends GuideLogic {
                     >
                       <span
                         style={{
-                          fontFamily: "'JetBrains Mono',monospace",
+                          fontFamily: "var(--ff-mono)",
                           fontSize: "clamp(14px,1.3vw,17px)",
                           fontWeight: "500",
                           color: "#A99BFF",
@@ -3882,19 +3705,16 @@ class Component extends GuideLogic {
                             }}
                           >
                             <span
+                              className="eyebrow"
                               style={{
-                                fontFamily: "'JetBrains Mono',monospace",
-                                fontSize: "11px",
-                                letterSpacing: ".12em",
                                 color: "#A99BFF",
                               }}
                             >
                               {"AI"}
                             </span>
                             <span
+                              className="t-small"
                               style={{
-                                fontSize: "15px",
-                                lineHeight: "1.65",
                                 color: "#B5B5BD",
                               }}
                             >
@@ -3908,24 +3728,8 @@ class Component extends GuideLogic {
                               gap: "4px",
                             }}
                           >
-                            <span
-                              style={{
-                                fontFamily: "'JetBrains Mono',monospace",
-                                fontSize: "11px",
-                                letterSpacing: ".12em",
-                              }}
-                            >
-                              {"DEVELOPER"}
-                            </span>
-                            <span
-                              style={{
-                                fontSize: "15px",
-                                lineHeight: "1.65",
-                                fontWeight: "500",
-                              }}
-                            >
-                              {p.pro}
-                            </span>
+                            <span className="eyebrow">{"DEVELOPER"}</span>
+                            <span className="t-small">{p.pro}</span>
                           </div>
                         </div>
                       </div>
@@ -3937,10 +3741,11 @@ class Component extends GuideLogic {
           </section>
           <section style={{ borderTop: "1px solid #2E2E38" }}>
             <div
+              className="l-container"
               style={{
-                maxWidth: "1440px",
                 margin: "0 auto",
-                padding: "clamp(80px,10vw,144px) clamp(20px,4vw,56px)",
+                paddingBlock: "var(--section-y)",
+                paddingInline: "var(--gutter)",
                 display: "grid",
                 gridTemplateColumns:
                   "repeat(auto-fit,minmax(min(100%,420px),1fr))",
@@ -3955,22 +3760,17 @@ class Component extends GuideLogic {
                 }}
               >
                 <span
+                  className="eyebrow"
                   style={{
-                    fontFamily: "'JetBrains Mono',monospace",
-                    fontSize: "12px",
-                    letterSpacing: ".14em",
                     color: "#A99BFF",
                   }}
                 >
                   {"FAQ"}
                 </span>
                 <h2
+                  className="t-h2"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(30px,4vw,56px)",
-                    letterSpacing: "-.045em",
-                    fontWeight: "800",
-                    lineHeight: "1.15",
                   }}
                 >
                   {"자주 묻는 질문"}
@@ -3987,9 +3787,9 @@ class Component extends GuideLogic {
                   <React.Fragment key={__index4}>
                     <div style={{ borderBottom: "1px solid #2E2E38" }}>
                       <button
+                        className="t-button t-button-reset"
                         onClick={f.toggle}
                         style={{
-                          all: "unset",
                           cursor: "pointer",
                           width: "100%",
                           boxSizing: "border-box",
@@ -3997,9 +3797,6 @@ class Component extends GuideLogic {
                           display: "flex",
                           justifyContent: "space-between",
                           gap: "20px",
-                          fontSize: "18px",
-                          lineHeight: "1.5",
-                          fontWeight: "600",
                         }}
                         type="button"
                         aria-expanded={f.open}
@@ -4007,7 +3804,7 @@ class Component extends GuideLogic {
                         {f.q}
                         <span
                           style={{
-                            fontFamily: "'JetBrains Mono',monospace",
+                            fontFamily: "var(--ff-mono)",
                             fontWeight: "400",
                             color: "#A99BFF",
                             flex: "none",
@@ -4019,11 +3816,10 @@ class Component extends GuideLogic {
                       {f.open ? (
                         <React.Fragment>
                           <p
+                            className="t-body"
                             style={{
                               margin: "0 0 28px",
                               color: "#B5B5BD",
-                              fontSize: "16px",
-                              lineHeight: "1.85",
                               maxWidth: "56ch",
                             }}
                           >
@@ -4051,22 +3847,17 @@ class Component extends GuideLogic {
               }}
             >
               <span
+                className="eyebrow"
                 style={{
-                  fontFamily: "'JetBrains Mono',monospace",
-                  fontSize: "12px",
-                  letterSpacing: ".14em",
                   color: "#A99BFF",
                 }}
               >
                 {"CONTACT"}
               </span>
               <h2
+                className="t-h2"
                 style={{
                   margin: "0",
-                  fontSize: "clamp(36px,5.6vw,84px)",
-                  letterSpacing: "-.05em",
-                  fontWeight: "800",
-                  lineHeight: "1.14",
                 }}
               >
                 {s.name}
@@ -4088,13 +3879,13 @@ class Component extends GuideLogic {
                   alignItems: "center",
                   gap: "16px",
                   textAlign: "left",
-                  fontSize: "clamp(16px,1.5vw,20px)",
                 }}
-                className="gh-bbc019b2"
+                className="gh-bbc019b2 t-button"
                 context="lab"
               >
                 <span style={{ color: "#B5B5BD" }}>{s.ctaNote}</span>
                 <span
+                  className="t-lead"
                   style={{
                     width: "52px",
                     height: "52px",
@@ -4105,16 +3896,14 @@ class Component extends GuideLogic {
                     alignItems: "center",
                     justifyContent: "center",
                     flex: "none",
-                    fontSize: "22px",
                   }}
                 >
                   {"→"}
                 </span>
               </GuideLink>
               <span
+                className="t-caption"
                 style={{
-                  fontFamily: "'JetBrains Mono',monospace",
-                  fontSize: "12px",
                   color: "#B5B5BD",
                 }}
               >

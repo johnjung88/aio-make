@@ -37,7 +37,7 @@ export function ServiceOverview({
           <span className="review-eyebrow">
             AIO MAKE · {marketing ? "마케팅" : "개발"}
           </span>
-          <h1>
+          <h1 className="t-h1">
             {marketing ? (
               <>
                 고객의 질문에 답하고
@@ -52,7 +52,7 @@ export function ServiceOverview({
               </>
             )}
           </h1>
-          <p>
+          <p className="t-body">
             {marketing
               ? "컨텐츠 제작과 채널 운영, 검색 개선까지 현재 필요한 일을 고르고 브랜드에 맞는 운영을 시작하세요"
               : "브랜드를 소개하는 웹사이트부터 판매를 시작하는 쇼핑몰까지, 기획·디자인·제작을 함께합니다"}
@@ -88,12 +88,12 @@ export function ServiceOverview({
       <section id="services" className="overview-services review-container">
         <div className="service-section-heading">
           <span className="review-eyebrow">서비스 선택</span>
-          <h2>
+          <h2 className="t-h2">
             {marketing
               ? "지금 필요한 운영부터 선택하세요"
               : "어떤 결과물이 필요한가요?"}
           </h2>
-          <p>
+          <p className="t-body">
             {marketing
               ? "컨텐츠 운영은 월 단위로, 검색 개선은 프로젝트 단위로 진행합니다 금액은 부가세 별도입니다"
               : "웹사이트와 카페24 쇼핑몰의 제작 범위와 가격을 살펴보세요"}
@@ -113,8 +113,8 @@ export function ServiceOverview({
                     0{index + 1} ·{" "}
                     {marketing && service.id !== "seo" ? "월 운영" : "프로젝트"}
                   </span>
-                  <h3>{service.name}</h3>
-                  <p>{service.description}</p>
+                  <h3 className="t-h3">{service.name}</h3>
+                  <p className="t-body">{service.description}</p>
                 </div>
                 <div className="offer-price">
                   <strong>{plan.price}</strong>
@@ -128,7 +128,7 @@ export function ServiceOverview({
                     </li>
                   ))}
                 </ul>
-                <p className="overview-card-note">
+                <p className="overview-card-note t-body">
                   {service.id === "shopping-mall"
                     ? "상품 등록·PG·배송 등 오픈 설정은 포함되지 않습니다"
                     : service.id === "website"
@@ -143,7 +143,7 @@ export function ServiceOverview({
           })}
         </div>
         {marketing && (
-          <p className="overview-footnote">
+          <p className="overview-footnote t-body">
             통합·SNS·AI 인플루언서 월 운영 상품에는 기본 소개·문의 사이트 구축
             또는 리뉴얼 1회 혜택이 있습니다 페이지·수정·추가 기능과 운영 실비는
             견적에서 구분합니다
@@ -161,7 +161,7 @@ export function ServiceOverview({
       <section className="service-process review-container">
         <div className="service-section-heading">
           <span className="review-eyebrow">함께 일하는 방법</span>
-          <h2>계획과 결과를 단계마다 확인합니다</h2>
+          <h2 className="t-h2">계획과 결과를 단계마다 확인합니다</h2>
         </div>
         <ol>
           {[
@@ -192,8 +192,8 @@ export function ServiceOverview({
           ].map(([title, desc], index) => (
             <li key={title}>
               <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
+              <h3 className="t-h3">{title}</h3>
+              <p className="t-body">{desc}</p>
             </li>
           ))}
         </ol>
@@ -201,7 +201,7 @@ export function ServiceOverview({
       {!marketing && (
         <section className="service-faq review-container">
           <span className="review-eyebrow">FAQ</span>
-          <h2>제작 전에 궁금한 점</h2>
+          <h2 className="t-h2">제작 전에 궁금한 점</h2>
           {[
             [
               "기획서가 없어도 의뢰할 수 있나요?",
@@ -222,7 +222,7 @@ export function ServiceOverview({
           ].map(([q, a]) => (
             <details key={q}>
               <summary>{q}</summary>
-              <p>{a}</p>
+              <p className="t-body">{a}</p>
             </details>
           ))}
         </section>
@@ -231,8 +231,8 @@ export function ServiceOverview({
         <span className="review-eyebrow">
           {marketing ? "마케팅" : "개발"} 상담
         </span>
-        <h2>아직 정리되지 않은 상태여도 괜찮습니다</h2>
-        <p>
+        <h2 className="t-h2">아직 정리되지 않은 상태여도 괜찮습니다</h2>
+        <p className="t-body">
           {marketing ? (
             <>
               <span>현재 채널과 가장 해결하고 싶은 문제를 알려주세요</span>

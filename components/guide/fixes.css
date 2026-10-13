@@ -1,7 +1,4 @@
 /* v11: page-scoped surfaces, desktop scale and accessible interactions */
-:root {
-  --max: 1440px;
-}
 select {
   color-scheme: light;
 }
@@ -27,7 +24,7 @@ select optgroup {
 .review-container,
 .guide-list-wrap,
 .guide-entry-wrap {
-  max-width: 1440px;
+  max-width: var(--container);
 }
 .guide-editorial {
   --ge-bg: #0d0d12;
@@ -122,7 +119,7 @@ select optgroup {
   left: 0;
   background: #0d0d12dd;
   color: white;
-  font-size: 10px;
+  font-size: var(--type-caption-size);
   padding: 2px 6px;
 }
 .comic-canvas {
@@ -184,7 +181,7 @@ select optgroup {
   object-fit: contain;
 }
 .faq-dialog h2 {
-  font-size: 30px;
+  font-size: var(--type-h2-size);
   margin: 12px 0 28px;
 }
 .faq-dialog details {
@@ -230,7 +227,7 @@ select optgroup {
   border: 0;
   border-radius: 16px;
   font-weight: 650;
-  font-size: 14px;
+  font-size: var(--type-small-size);
   background: #eeedf2;
   color: #17151e;
 }
@@ -238,7 +235,8 @@ select optgroup {
   background: #6b4dff;
   color: white;
 }
-.site-footer, .guide-footer {
+.site-footer,
+.guide-footer {
   padding-bottom: 130px;
 }
 .lab-specialist .overview-hero {
@@ -247,7 +245,7 @@ select optgroup {
   padding-top: 90px;
 }
 .lab-specialist .overview-hero h1 {
-  font-size: clamp(40px, 5.2vw, 76px) !important;
+  font-size: var(--type-h1-size);
   max-width: 1100px;
   margin: auto;
 }
@@ -275,11 +273,6 @@ select optgroup {
 }
 .lab-secondary a {
   border-bottom: 1px solid #736d83;
-}
-@media (min-width: 1440px) {
-  .guide-page section[style*="max-width: 1320px"] {
-    max-width: 1536px !important;
-  }
 }
 @media (max-width: 900px) {
   .scope-layout {
@@ -321,7 +314,7 @@ select optgroup {
   .floating-contact button,
   .floating-contact a {
     padding: 12px 17px;
-    font-size: 13px;
+    font-size: var(--type-small-size);
     min-height: 44px;
   }
   .episode-comparison {

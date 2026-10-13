@@ -20,6 +20,7 @@ export function ReferenceFilters({
       <div className="guide-work-filters">
         <div role="group" aria-label="작업 종류">
           <button
+            className="t-chip"
             type="button"
             aria-pressed={!active}
             onClick={() => setActive("")}
@@ -28,6 +29,7 @@ export function ReferenceFilters({
           </button>
           {divisionServices(division).map((service) => (
             <button
+              className="t-chip"
               key={service.id}
               type="button"
               aria-pressed={active === service.id}

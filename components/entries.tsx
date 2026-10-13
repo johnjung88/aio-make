@@ -46,8 +46,8 @@ export function GuideEntryCard({
               ? "GUIDE"
               : "INSIGHT"}
         </span>
-        <h2>{entry.title}</h2>
-        <p>{entry.summary}</p>
+        <h2 className="t-h2">{entry.title}</h2>
+        <p className="t-body">{entry.summary}</p>
         {type === "insight" && (
           <time dateTime={entry.created_at}>
             {new Date(entry.created_at).toLocaleDateString("ko-KR")}
@@ -80,7 +80,7 @@ export function GuideListLayout({
             <span className="guide-kicker">
               {d.brand.toUpperCase()} {reference ? "WORKS" : "INSIGHTS"}
             </span>
-            <h1>
+            <h1 className="t-h1">
               {reference
                 ? division === "lab"
                   ? "레퍼런스"
@@ -90,7 +90,7 @@ export function GuideListLayout({
                 : "인사이트"}
             </h1>
           </div>
-          <p>
+          <p className="t-body">
             {reference
               ? "서비스별 작업과 제작 방향을 살펴보세요"
               : `전체 ${entries.length}건`}
@@ -131,8 +131,10 @@ export function GuideEditorialCTA({ path }: { path: string }) {
   return (
     <section className="guide-editorial-cta">
       <div>
-        <h2>필요한 작업이 있다면</h2>
-        <p>만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다</p>
+        <h2 className="t-h2">필요한 작업이 있다면</h2>
+        <p className="t-body">
+          만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다
+        </p>
       </div>
       <Link href={`/${path}/contact`}>프로젝트 문의 →</Link>
     </section>
@@ -229,10 +231,10 @@ export async function EntryDetail({
               : "고객 사례"
             : "INSIGHT"}
         </span>
-        <h1>{entry.title}</h1>
-        <p className="guide-article-summary">{entry.summary}</p>
+        <h1 className="t-h1">{entry.title}</h1>
+        <p className="guide-article-summary t-body">{entry.summary}</p>
         {type === "insight" && (
-          <p className="guide-article-byline">
+          <p className="guide-article-byline t-body">
             <Link href="/about">AIO MAKE</Link> · 최종 정리{" "}
             <time dateTime={entry.updated_at}>
               {new Intl.DateTimeFormat("ko-KR", {
@@ -262,7 +264,9 @@ export async function EntryDetail({
             .split(/\n\s*\n/)
             .filter(Boolean)
             .map((text, i) => (
-              <p key={i}>{text}</p>
+              <p className="t-body" key={i}>
+                {text}
+              </p>
             ))}
         </div>
         {entry.video_url && isSafeMediaUrl(entry.video_url) && (

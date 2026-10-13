@@ -239,8 +239,10 @@ export function InquiryBridge({
         tabIndex={-1}
         style={style}
       >
-        <h2>문의가 접수되었습니다</h2>
-        <p>담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다</p>
+        <h2 className="t-h2">문의가 접수되었습니다</h2>
+        <p className="t-body">
+          담당자가 내용을 확인한 후 남겨주신 연락처로 안내드립니다
+        </p>
         <Link href="/">홈으로 돌아가기 →</Link>
       </div>
     );
@@ -256,21 +258,30 @@ export function InquiryBridge({
         {children}
       </fieldset>
       <div className="honeypot" aria-hidden="true">
-        <label>
+        <label className="t-label t-small">
           웹사이트
-          <input name="website" tabIndex={-1} autoComplete="off" />
+          <input
+            className="t-body"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+          />
         </label>
       </div>
-      <p className="guide-form-note">
+      <p className="guide-form-note t-body">
         이메일 또는 전화번호를 입력해주세요{" "}
         <Link href="/privacy" target="_blank" rel="noopener noreferrer">
           개인정보 수집·이용 안내
         </Link>
       </p>
-      {busy && <p role="status">문의 저장 중…</p>}
+      {busy && (
+        <p className="t-body" role="status">
+          문의 저장 중…
+        </p>
+      )}
       {error && (
         <div role="alert" className="guide-form-error">
-          <p>{error}</p>
+          <p className="t-body">{error}</p>
           <a href="mailto:AIOMAKE2023@GMAIL.COM">이메일로 문의하기 →</a>
         </div>
       )}

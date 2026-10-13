@@ -74,7 +74,7 @@ export function WorkCard({
         <span>{work.brand}</span>
         <strong>{work.title}</strong>
       </Heading>
-      <p>{work.description}</p>
+      <p className="t-body">{work.description}</p>
     </Link>
   );
 }
@@ -164,11 +164,11 @@ export function WorkIndex({
       <section className="work-index" aria-labelledby="work-title">
         <div className="work-index-heading">
           <span className="work-eyebrow">AIO MAKE / SELECTED WORK</span>
-          <h1 id="work-title">
+          <h1 className="t-h1" id="work-title">
             {title}
             <span aria-hidden="true">.</span>
           </h1>
-          <p>
+          <p className="t-body">
             웹사이트부터 영상과 웹툰까지,
             <br />
             작업의 목적과 제작 범위를 살펴보세요
@@ -212,7 +212,9 @@ export function WorkIndex({
           ))}
         </div>
         {!selected.length && (
-          <p className="work-empty">이 서비스에 공개된 작업은 아직 없습니다</p>
+          <p className="work-empty t-body">
+            이 서비스에 공개된 작업은 아직 없습니다
+          </p>
         )}
         {pages > 1 && (
           <nav className="work-pagination" aria-label="작업 페이지">
@@ -286,8 +288,8 @@ export function WorkDetail({
           <span className="work-eyebrow">
             {work.brand} / {service?.name}
           </span>
-          <h1>{work.title}</h1>
-          <p>{work.description}</p>
+          <h1 className="t-h1">{work.title}</h1>
+          <p className="t-body">{work.description}</p>
         </div>
         {hero?.src && (
           <figure
@@ -322,14 +324,14 @@ export function WorkDetail({
         <div className="work-detail-facts">
           <section>
             <span>01 / 목적</span>
-            <h2>무엇을 만들었나요</h2>
-            <p>{work.purpose}</p>
+            <h2 className="t-h2">무엇을 만들었나요</h2>
+            <p className="t-body">{work.purpose}</p>
           </section>
           <section>
             <span>02 / 범위</span>
-            <h2>어디까지 작업했나요</h2>
-            <p>{work.scope}</p>
-            <p>제작 상태: {work.productionStatus}</p>
+            <h2 className="t-h2">어디까지 작업했나요</h2>
+            <p className="t-body">{work.scope}</p>
+            <p className="t-body">제작 상태: {work.productionStatus}</p>
           </section>
         </div>
         {hero?.kind === "webtoon" && work.media.length > 1 && (
@@ -339,7 +341,7 @@ export function WorkDetail({
         )}
         {work.media.length > 1 && (
           <section id="work-story" className="work-gallery">
-            <h2>
+            <h2 className="t-h2">
               {hero?.kind === "webtoon" ? "순서대로 읽기" : "작업 살펴보기"}
             </h2>
             {(hero?.kind === "webtoon" ? work.media : work.media.slice(1)).map(
@@ -374,7 +376,7 @@ export function WorkDetail({
         )}
         {related.length > 0 && (
           <section className="work-related">
-            <h2>관련 작업</h2>
+            <h2 className="t-h2">관련 작업</h2>
             <div className="work-grid">
               {related.slice(0, 2).map((item) => (
                 <WorkCard key={item.id} work={item} />
@@ -385,8 +387,8 @@ export function WorkDetail({
         <section className="work-contact">
           <div>
             <span className="work-eyebrow">START A PROJECT</span>
-            <h2>비슷한 작업을 계획하고 있나요</h2>
-            <p>
+            <h2 className="t-h2">비슷한 작업을 계획하고 있나요</h2>
+            <p className="t-body">
               필요한 화면과 자료, 목적을 알려주시면 작업 범위를 함께 정리합니다
             </p>
           </div>

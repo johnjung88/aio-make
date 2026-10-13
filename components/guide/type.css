@@ -1,0 +1,284 @@
+/* Public typography: tokens live on html in app/globals.css. */
+.t-button-reset {
+  all: unset;
+}
+.t-h1,
+.guide-public .t-h1,
+.guide-public .guide-page .t-h1,
+.guide-public .guide-page:not(.content-service) h1,
+.guide-public .guide-page h1.t-h1 {
+  font-family: var(--ff-text);
+  font-size: var(--type-h1-size);
+  font-weight: var(--type-h1-weight);
+  line-height: var(--type-h1-leading);
+  letter-spacing: var(--type-h1-tracking);
+}
+.t-h2,
+.guide-public .t-h2,
+.guide-public .guide-page .t-h2,
+.guide-public .guide-page:not(.content-service) h2,
+.guide-public .guide-page h2.t-h2 {
+  font-family: var(--ff-text);
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-leading);
+  letter-spacing: var(--type-h2-tracking);
+}
+.t-h3,
+.guide-public .t-h3,
+.guide-public .guide-page .t-h3,
+.guide-public .guide-page:not(.content-service) h3,
+.guide-public .guide-page h3.t-h3 {
+  font-family: var(--ff-text);
+  font-size: var(--type-h3-size);
+  font-weight: var(--type-h3-weight);
+  line-height: var(--type-h3-leading);
+  letter-spacing: var(--type-h3-tracking);
+}
+.t-h3--feature,
+.guide-public .t-h3--feature,
+.guide-public .guide-page .t-h3--feature {
+  font-family: var(--ff-text);
+  font-size: var(--type-feature-size);
+  font-weight: var(--type-feature-weight);
+  line-height: var(--type-feature-leading);
+  letter-spacing: var(--type-feature-tracking);
+}
+.t-lead,
+.guide-public .t-lead,
+.guide-public .guide-page .t-lead {
+  font-family: var(--ff-text);
+  font-size: var(--type-lead-size);
+  font-weight: var(--type-lead-weight);
+  line-height: var(--type-lead-leading);
+  letter-spacing: var(--type-lead-tracking);
+}
+.t-body,
+.guide-public .t-body,
+.guide-public .guide-page .t-body,
+.guide-public .guide-page p:not([class]),
+.guide-public input,
+.guide-public textarea,
+.guide-public select {
+  font-family: var(--ff-text);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-leading);
+  letter-spacing: var(--type-body-tracking);
+}
+.t-small,
+.guide-public .t-small,
+.guide-public .guide-page .t-small,
+.guide-public .guide-page label {
+  font-family: var(--ff-text);
+  font-size: var(--type-small-size);
+  font-weight: var(--type-small-weight);
+  line-height: var(--type-small-leading);
+  letter-spacing: var(--type-small-tracking);
+}
+.t-caption,
+.guide-public .t-caption,
+.guide-public .guide-page .t-caption {
+  font-family: var(--ff-text);
+  font-size: var(--type-caption-size);
+  font-weight: var(--type-caption-weight);
+  line-height: var(--type-caption-leading);
+  letter-spacing: var(--type-caption-tracking);
+}
+.eyebrow,
+.guide-public .eyebrow,
+.guide-public .guide-page .eyebrow,
+.work-eyebrow,
+.showcase-video-heading > span {
+  font-family: var(--ff-display);
+  font-size: var(--type-eyebrow-size);
+  font-weight: var(--type-eyebrow-weight);
+  line-height: var(--type-eyebrow-leading);
+  letter-spacing: var(--type-eyebrow-tracking);
+}
+.eyebrow-ko,
+.guide-public .eyebrow-ko,
+.guide-public .guide-page .eyebrow-ko,
+.guide-kicker,
+.review-eyebrow,
+.work-detail-facts span {
+  font-family: var(--ff-text);
+  font-size: var(--type-eyebrow-ko-size);
+  font-weight: var(--type-eyebrow-ko-weight);
+  line-height: var(--type-eyebrow-ko-leading);
+  letter-spacing: var(--type-eyebrow-ko-tracking);
+}
+.t-nav,
+.guide-public .t-nav,
+.guide-public .guide-page .t-nav,
+.guide-main-nav,
+.guide-main-nav button,
+.guide-footer nav {
+  font-family: var(--ff-text);
+  font-size: var(--type-nav-size);
+  font-weight: var(--type-nav-weight);
+  line-height: var(--type-nav-leading);
+  letter-spacing: var(--type-nav-tracking);
+}
+.t-button,
+.guide-public .t-button,
+.guide-public .guide-page .t-button,
+.guide-public .button,
+.guide-header-cta,
+.service-primary,
+.floating-contact {
+  font-family: var(--ff-text);
+  font-size: var(--type-button-size);
+  font-weight: var(--type-button-weight);
+  line-height: var(--type-button-leading);
+  letter-spacing: var(--type-button-tracking);
+}
+.t-chip,
+.guide-public .t-chip,
+.guide-public .guide-page .t-chip,
+.work-filter-menu a,
+.reference-filters button,
+.reference-service-filters button {
+  font-family: var(--ff-text);
+  font-size: var(--type-chip-size);
+  font-weight: var(--type-chip-weight);
+  line-height: var(--type-chip-leading);
+  letter-spacing: var(--type-chip-tracking);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+}
+.eyebrow-ko {
+  text-transform: none;
+}
+.guide-public .t-h2--latin {
+  font-family: var(--ff-display);
+}
+.guide-public .t-h3--feature {
+  font-size: var(--type-feature-size);
+}
+.guide-public .guide-page .t-label,
+.guide-public label {
+  font-weight: 600;
+}
+.t-button,
+.guide-public .t-button,
+.guide-public .button,
+.guide-header-cta,
+.service-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+}
+.t-button--sm,
+.guide-public .guide-page .t-button--sm {
+  font-size: var(--type-button-sm-size);
+  min-height: 44px;
+}
+.t-button--lg,
+.guide-public .guide-page .t-button--lg,
+.guide-public .guide-page button[type="submit"] {
+  font-size: var(--type-button-lg-size);
+  min-height: 56px;
+}
+.t-chip,
+.reference-filters button {
+  min-height: 44px;
+}
+.l-container,
+.container,
+.guide-header-inner,
+.guide-footer-inner,
+.review-container,
+.guide-list-wrap,
+.guide-entry-wrap,
+.service-navigation-rail {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.l-section {
+  padding-block: var(--section-y);
+}
+.l-section--sm {
+  padding-block: var(--section-y-sm);
+}
+.t-wrap {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.t-distributed {
+  text-align: justify;
+  text-align-last: justify;
+}
+.guide-header .guide-brand,
+.guide-footer .guide-brand {
+  font-family: var(--ff-display);
+  font-size: var(--brand-sm);
+  align-items: baseline;
+  line-height: 1.2;
+}
+.guide-header .guide-brand > span,
+.guide-footer .guide-brand > span {
+  font-weight: 300;
+  letter-spacing: inherit;
+}
+.guide-header .guide-brand i,
+.guide-footer .guide-brand i {
+  align-self: auto;
+}
+.guide-footer .guide-brand {
+  font-size: var(--brand-md);
+}
+/* Preserve W1's fixed 20px line box and rail/CTA geometry. */
+.guide-subnav {
+  font-family: var(--ff-text);
+  line-height: var(--type-subnav-leading);
+}
+.guide-subnav > div {
+  max-width: var(--container);
+  padding-inline: var(--gutter);
+}
+.guide-subbrand {
+  font-family: var(--ff-display);
+  font-size: var(--type-button-size);
+}
+.guide-sublinks,
+.guide-sublinks > a {
+  font-family: var(--ff-text);
+  font-size: var(--type-nav-size);
+  font-weight: var(--type-nav-weight);
+  line-height: var(--type-subnav-leading);
+  letter-spacing: var(--type-nav-tracking);
+}
+.guide-subnav .guide-nav-cta {
+  font-family: var(--ff-text);
+  font-size: var(--type-button-sm-size);
+  font-weight: var(--type-button-weight);
+  line-height: var(--type-subnav-leading);
+  letter-spacing: var(--type-button-tracking);
+}
+@media (max-width: 720px) {
+  .t-distributed {
+    text-align: left;
+    text-align-last: left;
+  }
+  .lab-service-link {
+    grid-template-columns: 32px minmax(0, 1fr) auto !important;
+  }
+  .lab-service-link > div:nth-child(3) {
+    grid-column: 2 / 4;
+    grid-row: 2;
+  }
+  .lab-service-link > div:nth-child(4) > span:first-child {
+    display: none;
+  }
+}
+
+.guide-header-inner {
+  /* PageNavigation measures the header including its 1px border. */
+  min-height: calc(var(--site-header-height) - 1px);
+}

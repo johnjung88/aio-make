@@ -107,7 +107,7 @@ export function Header() {
             </Link>
           ))}
           <Link
-            className="guide-header-cta"
+            className="guide-header-cta t-button t-button--sm"
             href={
               path.startsWith("/marketing")
                 ? "/marketing/contact"

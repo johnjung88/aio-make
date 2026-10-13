@@ -136,13 +136,13 @@ class Component extends GuideLogic {
         >
           <GuideNav division="marketing" active="contact" />
           <section
+            className="l-container"
             style={{
-              maxWidth: "1440px",
               width: "100%",
               boxSizing: "border-box",
               margin: "0 auto",
-              padding:
-                "clamp(56px,7vw,100px) clamp(20px,4vw,56px) clamp(80px,10vw,140px)",
+              paddingBlock: "var(--section-y-sm)",
+              paddingInline: "var(--gutter)",
               display: "grid",
               gridTemplateColumns:
                 "repeat(auto-fit,minmax(min(100%,440px),1fr))",
@@ -153,10 +153,8 @@ class Component extends GuideLogic {
               style={{ display: "flex", flexDirection: "column", gap: "20px" }}
             >
               <span
+                className="eyebrow"
                 style={{
-                  fontFamily: "Unbounded,sans-serif",
-                  fontSize: "12px",
-                  letterSpacing: ".16em",
                   color: "#B2A3FF",
                 }}
               >
@@ -167,12 +165,9 @@ class Component extends GuideLogic {
                 style={{ width: "fit-content", maxWidth: "100%" }}
               >
                 <h1
+                  className="t-h1"
                   style={{
                     margin: "0",
-                    fontSize: "clamp(34px,4.6vw,62px)",
-                    letterSpacing: "-.04em",
-                    fontWeight: "800",
-                    lineHeight: "1.14",
                   }}
                 >
                   <span data-fit-line="">{"상담만 남기셔도"}</span>
@@ -180,10 +175,9 @@ class Component extends GuideLogic {
                 </h1>
               </div>
               <p
+                className="t-lead"
                 style={{
                   margin: "0",
-                  fontSize: "17px",
-                  lineHeight: "1.75",
                   color: "#D6D6DC",
                 }}
               >
@@ -207,13 +201,13 @@ class Component extends GuideLogic {
                 }}
               >
                 <div
+                  className="t-small"
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
                     borderBottom: "1px solid #DAD8D1",
-                    fontSize: "15px",
                   }}
                 >
                   <span style={{ color: "#B5B5C2" }}>{"계약"}</span>
@@ -226,13 +220,13 @@ class Component extends GuideLogic {
                   </strong>
                 </div>
                 <div
+                  className="t-small"
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
                     borderBottom: "1px solid #DAD8D1",
-                    fontSize: "15px",
                   }}
                 >
                   <span style={{ color: "#B5B5C2" }}>{"일정·수정"}</span>
@@ -241,13 +235,13 @@ class Component extends GuideLogic {
                   </strong>
                 </div>
                 <div
+                  className="t-small"
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
                     borderBottom: "1px solid #DAD8D1",
-                    fontSize: "15px",
                   }}
                 >
                   <span style={{ color: "#B5B5C2" }}>
@@ -271,9 +265,7 @@ class Component extends GuideLogic {
                     justifyContent: "center",
                   }}
                 >
-                  <strong style={{ fontSize: "24px" }}>
-                    {"문의가 접수되었습니다"}
-                  </strong>
+                  <strong className="t-lead">{"문의가 접수되었습니다"}</strong>
                   <span style={{ color: "#D6D6DC" }}>
                     {"마케팅 담당자가 확인한 뒤 연락드리겠습니다"}
                   </span>
@@ -302,23 +294,23 @@ class Component extends GuideLogic {
                     }}
                   >
                     <label
+                      className="t-label t-small"
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                        fontSize: "13.5px",
                         color: "#B5B5C2",
                       }}
                     >
                       {"고객명 *"}
                       <input
+                        className="t-body"
                         placeholder="홍길동"
                         required={true}
                         style={{
                           border: "none",
                           borderBottom: "1.5px solid #A8A69E",
                           padding: "10px 0",
-                          fontSize: "17px",
                           outline: "none",
                           background: "transparent",
                           color: "#F4F3EF",
@@ -327,22 +319,22 @@ class Component extends GuideLogic {
                       />
                     </label>
                     <label
+                      className="t-label t-small"
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                        fontSize: "13.5px",
                         color: "#B5B5C2",
                       }}
                     >
                       {"연락처 "}
                       <input
+                        className="t-body"
                         placeholder="010-0000-0000"
                         style={{
                           border: "none",
                           borderBottom: "1.5px solid #A8A69E",
                           padding: "10px 0",
-                          fontSize: "17px",
                           outline: "none",
                           background: "transparent",
                           color: "#F4F3EF",
@@ -353,22 +345,22 @@ class Component extends GuideLogic {
                     </label>
                   </div>
                   <label
+                    className="t-label t-small"
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      fontSize: "13.5px",
                       color: "#B5B5C2",
                     }}
                   >
                     {"이메일 "}
                     <input
+                      className="t-body"
                       placeholder="name@company.com"
                       style={{
                         border: "none",
                         borderBottom: "1.5px solid #A8A69E",
                         padding: "10px 0",
-                        fontSize: "17px",
                         outline: "none",
                         background: "transparent",
                         color: "#F4F3EF",
@@ -380,11 +372,11 @@ class Component extends GuideLogic {
                   {(groups || []).map((g, __index4) => (
                     <React.Fragment key={__index4}>
                       <div
+                        className="t-small"
                         style={{
                           display: "flex",
                           flexDirection: "column",
                           gap: "10px",
-                          fontSize: "13.5px",
                           color: "#B5B5C2",
                         }}
                       >
@@ -400,11 +392,11 @@ class Component extends GuideLogic {
                           {(g.opts || []).map((o, __index7) => (
                             <React.Fragment key={__index7}>
                               <button
+                                className="t-button"
                                 onClick={o.pick}
                                 style={{
                                   cursor: "pointer",
                                   padding: "10px 16px",
-                                  fontSize: "15px",
                                   borderRadius: "999px",
                                   border: "1px solid " + o.bd,
                                   background: o.bg,
@@ -422,22 +414,22 @@ class Component extends GuideLogic {
                     </React.Fragment>
                   ))}
                   <label
+                    className="t-label t-small"
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      fontSize: "13.5px",
                       color: "#B5B5C2",
                     }}
                   >
                     {"운영 중인 채널·계정 URL"}
                     <input
+                      className="t-body"
                       placeholder="인스타그램, 블로그, 홈페이지 주소 등"
                       style={{
                         border: "none",
                         borderBottom: "1.5px solid #A8A69E",
                         padding: "10px 0",
-                        fontSize: "17px",
                         outline: "none",
                         background: "transparent",
                         color: "#F4F3EF",
@@ -446,23 +438,22 @@ class Component extends GuideLogic {
                     />
                   </label>
                   <label
+                    className="t-label t-small"
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      fontSize: "13.5px",
                       color: "#B5B5C2",
                     }}
                   >
                     {"요청 내용"}
                     <textarea
+                      className="t-body"
                       placeholder="브랜드 소개와 원하는 방향을 자유롭게 적어주세요"
                       rows={5}
                       style={{
                         border: "1px solid #A8A69E",
                         padding: "16px",
-                        fontSize: "16px",
-                        lineHeight: "1.7",
                         outline: "none",
                         background: "transparent",
                         color: "#F4F3EF",
@@ -472,16 +463,17 @@ class Component extends GuideLogic {
                     ></textarea>
                   </label>
                   <label
+                    className="t-label t-small"
                     style={{
                       display: "flex",
                       gap: "10px",
                       alignItems: "center",
-                      fontSize: "14px",
                       color: "#D6D6DC",
                       cursor: "pointer",
                     }}
                   >
                     <input
+                      className="t-body"
                       required={true}
                       style={{
                         width: "18px",
@@ -494,14 +486,13 @@ class Component extends GuideLogic {
                     {"개인정보 수집·이용에 동의합니다 (필수)"}
                   </label>
                   <button
+                    className="t-button t-button--lg"
                     style={{
                       cursor: "pointer",
                       border: "none",
                       background: "#6B4DFF",
                       color: "#fff",
                       padding: "20px",
-                      fontSize: "16px",
-                      fontWeight: "600",
                     }}
                     type="submit"
                   >

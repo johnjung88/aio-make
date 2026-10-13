@@ -220,7 +220,8 @@
 }
 .service-motion[data-running="true"]
   .motion-scene[data-active="true"]
-  .motion-graphic-automation i {
+  .motion-graphic-automation
+  i {
   animation: motion-flow 2.4s ease-in-out infinite;
 }
 @keyframes motion-chart-reveal {
@@ -598,7 +599,7 @@
     gap: 28px !important;
   }
   .about-centered-hero h1 {
-    font-size: clamp(29px, 7.8vw, 42px) !important;
+    font-size: var(--type-h1-size);
   }
   .service-hero-visual .service-price {
     display: block;

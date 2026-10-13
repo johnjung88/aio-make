@@ -45,8 +45,10 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
       {kind === "webtoon" && (
         <div className="showcase-video-heading centered-copy">
           <span>WEBTOON SHOWREEL</span>
-          <h2 id={`${kind}-video-title`}>{video.title}</h2>
-          <p>{video.copy}</p>
+          <h2 className="t-h2" id={`${kind}-video-title`}>
+            {video.title}
+          </h2>
+          <p className="t-body">{video.copy}</p>
         </div>
       )}
       <div className="showcase-video-frame">
@@ -63,7 +65,7 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
         />
         {!started && (
           <button
-            className="showcase-video-play"
+            className="showcase-video-play t-button"
             onClick={play}
             aria-label={`${video.action} 재생`}
           >
@@ -75,7 +77,7 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
         )}
       </div>
       {error && (
-        <p role="alert" className="showcase-video-error">
+        <p role="alert" className="showcase-video-error t-body">
           컨텐츠를 재생하지 못했습니다 <a href={video.src}>컨텐츠 파일 열기</a>
         </p>
       )}
