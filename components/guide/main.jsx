@@ -4,6 +4,7 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import "./studio-p1.css";
 import { ShowcaseVideo } from "./showcase-video";
 import {
   GuideLogic,
@@ -35,7 +36,7 @@ class Component extends GuideLogic {
       ],
       [
         "어떤 일을 맡길 수 있나요?",
-        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 브랜드 컨텐츠), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
+        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 모션그래픽, 브랜드 홍보 및 SNS 광고 영상), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
       ],
       [
         "견적은 어떻게 받나요?",
@@ -395,15 +396,8 @@ class Component extends GuideLogic {
                   >
                     {"Studio"}
                   </span>
-                  <span
-                    style={{
-                      fontSize: "clamp(12px,1.06vw,14px)",
-                      whiteSpace: "nowrap",
-                      color: "#C9C9D1",
-                      marginBottom: "24px",
-                    }}
-                  >
-                    {"웹툰 · 애니메이션 · AI 인플루언서 · 브랜드 컨텐츠"}
+                  <span className="p1-content-service-list">
+                    {"웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상"}
                   </span>
                   <span style={{ fontWeight: "600" }}>{"컨텐츠 상담하기 →"}</span>
                 </div>

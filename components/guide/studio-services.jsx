@@ -4,6 +4,7 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import "./studio-p1.css";
 import { ServiceNavigation } from "./service-navigation";
 import { ShowcaseVideo } from "./showcase-video";
 import { WebtoonScope } from "./webtoon-scope";
@@ -83,7 +84,6 @@ const PH = {
     "1542291026-7eec264c27ff",
     "1526170375885-4d8ecf77b99f",
   ],
-  edit: ["1574717024653-61fd2cf4d44d", "1536440136628-849c177e76a1"],
 };
 const box = (k, st, ...ch) =>
   rc(
@@ -411,74 +411,6 @@ const SC = {
       ),
     ];
   },
-  edit: (t) => {
-    const p = (t % 12) / 12,
-      cl = Math.floor(p * 3) + 1;
-    return [
-      ...photos("edit", t, 2.6),
-      shade("sh"),
-      chip("c0", { left: 16, top: 16 }, "LONG → CLIP"),
-      chip(
-        "c1",
-        { right: 16, top: 16, background: "#6B4DFF", border: "none" },
-        "CLIP " + String(cl).padStart(2, "0") + " / 03",
-      ),
-      box(
-        "fs",
-        {
-          left: 14,
-          right: 14,
-          bottom: 30,
-          display: "flex",
-          gap: 3,
-          height: 50,
-        },
-        ...Array.from({ length: 8 }, (_, i) =>
-          box(
-            "f" + i,
-            {
-              position: "relative",
-              flex: 1,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,.2)",
-            },
-            rc("img", {
-              key: "fi",
-              src: U(PH.edit[i % 2], 160),
-              alt: "",
-              style: {
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-              },
-            }),
-          ),
-        ),
-      ),
-      box("m1", {
-        left: "33.3%",
-        bottom: 24,
-        width: 2,
-        height: 62,
-        background: "#A99BFF",
-      }),
-      box("m2", {
-        left: "66.6%",
-        bottom: 24,
-        width: 2,
-        height: 62,
-        background: "#A99BFF",
-      }),
-      box("ph", {
-        left: p * 100 + "%",
-        bottom: 20,
-        width: 3,
-        height: 70,
-        background: "#fff",
-      }),
-    ];
-  },
 };
 class Stage extends React.Component {
   state = { t: 0.5 };
@@ -550,7 +482,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -558,7 +490,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -634,7 +566,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -642,7 +574,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -650,7 +582,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -693,7 +625,7 @@ const SVC = {
     ],
   },
   "ai-influencer": {
-    name: "AI 인플루언서 컨텐츠",
+    name: "AI 인플루언서",
     en: "AI INFLUENCER",
     line: "브랜드 전용 가상 인물을 만들고, 그 인물이 등장하는 30초 컨텐츠를 제작합니다",
     hero: "split",
@@ -701,7 +633,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -709,7 +641,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -757,8 +689,28 @@ const SVC = {
       ],
     ],
   },
+  // P2에서 교체
+  motion: {
+    name: "모션그래픽",
+    en: "MOTION GRAPHICS",
+    line: "제품 이미지와 그래픽, 타이포그래피와 장면 전환으로 브랜드 메시지를 영상에 담습니다",
+    hero: "left",
+    proc: "row",
+    tiers: [TIP("영상 제작", "맞춤 견적", "길이·화면 비율·수정 범위를 먼저 정합니다", "", "", 1)],
+    priceNote: "브랜드 문구와 참고 자료를 알려주세요",
+    research: [["자료와 메시지", "제품 정보와 로고, 사용할 문구와 소재의 권리를 확인합니다"]],
+    scope: ["메시지와 장면 구성", "그래픽·타이포그래피 디자인", "움직임과 장면 전환", "자막·음향·출력 검수"],
+    procNote: "장면 구성과 디자인을 확인한 뒤 움직임을 제작합니다",
+    steps: [
+      ["상담", "목적과 게시 채널, 보유 자료를 확인합니다", ""],
+      ["장면 구성", "메시지와 그래픽 디자인을 정합니다", ""],
+      ["제작", "글자와 이미지의 움직임, 장면 전환을 제작합니다", ""],
+      ["검수·인계", "문구와 권리, 음향과 출력 규격을 확인하고 전달합니다", ""],
+    ],
+    faqs: [["어떤 자료가 필요한가요?", "로고와 제품 이미지, 확인된 브랜드 문구를 준비해주세요 길이와 화면 비율은 상담에서 정합니다"]],
+  },
   promo: {
-    name: "브랜드 홍보 컨텐츠",
+    name: "브랜드 홍보 영상",
     en: "BRAND FILM",
     line: "회사와 브랜드를 1분 내외 컨텐츠 한 편으로 소개합니다",
     hero: "left",
@@ -766,7 +718,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -812,7 +764,7 @@ const SVC = {
     ],
   },
   ad: {
-    name: "SNS 광고 컨텐츠",
+    name: "SNS 광고 영상",
     en: "SNS AD FILM",
     line: "30초 내외 숏폼 광고를 제품·라벨·문구 검수까지 거쳐 만듭니다",
     hero: "phone",
@@ -820,7 +772,7 @@ const SVC = {
     tiers: [
       TIP(
         "단일 작업",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -828,7 +780,7 @@ const SVC = {
       ),
       TIP(
         "연속 제작",
-        "맞춤 제작",
+        "맞춤 견적",
         "길이·분량·수정 기준을 먼저 정합니다",
         "",
         "",
@@ -873,54 +825,6 @@ const SVC = {
       ],
     ],
   },
-  edit: {
-    name: "편집·클리퍼",
-    en: "EDIT & CLIP",
-    line: "보유한 컨텐츠를 채널에 맞는 편집본과 짧은 클립으로 만듭니다",
-    hero: "phone",
-    proc: "row",
-    tiers: [
-      TIP(
-        "단일 작업",
-        "맞춤 제작",
-        "길이·분량·수정 기준을 먼저 정합니다",
-        "",
-        "",
-        1,
-      ),
-    ],
-    priceNote: "만들고 싶은 컨텐츠와 참고 자료를 알려주세요",
-    research: [
-      ["원본 확인", "보유 컨텐츠의 길이와 화질, 사용 목적을 확인합니다"],
-      [
-        "클립 구간 선정",
-        "채널에서 반응하기 쉬운 구간과 길이를 골라 구성을 정합니다",
-      ],
-      ["채널 규격 확인", "게시할 채널별 화면비와 자막 기준을 미리 맞춥니다"],
-    ],
-    scope: [
-      "원본 확인·구성",
-      "컷 편집",
-      "자막·효과음",
-      "화면비·채널별 편집본",
-      "납품 검수",
-    ],
-    procNote: "원본 컨텐츠가 있으면 가장 빨리 시작할 수 있는 서비스입니다",
-    steps: [
-      ["원본 확인", "원본 컨텐츠와 사용 목적을 확인합니다", ""],
-      ["구성", "클립 구간과 편집 구성을 정합니다", ""],
-      ["편집", "편집하고 자막을 넣습니다", ""],
-      ["납품", "채널별 규격으로 검수한 뒤 전달합니다", ""],
-    ],
-    faqs: [
-      [
-        "어떤 원본을 보내면 되나요?",
-        "보유한 컨텐츠 파일과 사용할 채널을 알려주시면 편집 가능 범위를 먼저 안내드립니다",
-      ],
-      ["음악을 넣을 수 있나요?", "사용 권한이 확인된 음원만 사용합니다"],
-      ["게시까지 해주나요?", "채널 게시와 운영은 Marketing과 따로 진행합니다"],
-    ],
-  },
 };
 const W = (k) => {
   const keys = Object.keys(SVC);
@@ -928,7 +832,7 @@ const W = (k) => {
   return [0, 1, 2].map((offset) => {
     const key = keys[(start + offset) % keys.length];
     const service =
-      { promo: "brand-film", ai: "ai-influencer", edit: "editing" }[key] || key;
+      { promo: "brand-film", ai: "ai-influencer", motion: "motion-graphics" }[key] || key;
     return {
       key: service,
       title: SVC[key].name,
@@ -1026,7 +930,9 @@ class Component extends GuideLogic {
       heroAnim:
         k === "webtoon"
           ? React.createElement(WebtoonDevices)
-          : React.createElement(Stage, {
+          : k === "motion"
+            ? <img className="p1-motion-preview" src={creativeAsset("video", "motion-graphics")} alt="모션그래픽 제작 방향 · 연출 예시" />
+            : React.createElement(Stage, {
               kind: k === "ai-influencer" ? "ai" : k,
               key: k,
             }),

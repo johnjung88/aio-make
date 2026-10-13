@@ -126,6 +126,15 @@ test("legacy locale and service aliases resolve in one step", () => {
     assert.equal(legacyDestination(from), to);
   assert.equal(legacyDestination("/lab"), null);
 });
+test("retired content service redirects permanently to the content home", () => {
+  for (const path of ["/content/services/editing", "/video/services/editing", "/ko/video/services/editing", "/content/services/editing/"])
+    assert.equal(legacyDestination(path), "/content");
+});
+test("motion graphics is a valid content inquiry and entry service", () => {
+  assert.equal(contactSchema.safeParse({ ...valid, division: "video", service: "motion-graphics" }).success, true);
+  assert.equal(contactSchema.safeParse({ ...valid, division: "marketing", service: "motion-graphics" }).success, false);
+  assert.equal(entrySchema.safeParse({ type: "reference", division: "video", service: "motion-graphics", slug: "sample-motion", title: "모션그래픽 예시", summary: "", body: "", cover_url: "/renewal/hero.webp" }).success, true);
+});
 test("JSON-LD cannot close the script element", () => {
   assert.equal(
     safeJsonLd({ name: "</script><script>alert(1)" }).includes("<"),

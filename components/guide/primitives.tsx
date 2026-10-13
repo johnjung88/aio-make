@@ -70,7 +70,7 @@ const serviceKeys: Record<string, string> = {
   program: "program",
   promo: "brand-film",
   ad: "ad",
-  edit: "editing",
+  motion: "motion-graphics",
   ai: "ai-influencer",
   seo: "seo",
 };
@@ -83,7 +83,7 @@ export function guideContactKey(key?: string, division?: string) {
     ? ({
         "shopping-mall": "shop",
         "brand-film": "promo",
-        editing: "edit",
+        "motion-graphics": "motion",
         "ai-influencer": division === "video" ? "ai-influencer" : "ai",
       }[key] ?? key)
     : "";

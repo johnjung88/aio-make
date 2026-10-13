@@ -1,0 +1,30 @@
+{
+  "id": "AIO-WORK-BWL-MOTION-01",
+  "slug": "bwl-brand-motion",
+  "brand": "BWL · DR's Secret",
+  "title": "브랜드 모션그래픽",
+  "division": "video",
+  "primaryService": "motion-graphics",
+  "productionStatus": "제작 완료",
+  "description": "제품군과 브랜드 문구를 30초 그래픽 흐름으로 구성한 16:9 모션그래픽입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "brand-film"
+    }
+  ],
+  "purpose": "여러 스킨케어 제품과 브랜드 메시지를 한 편의 짧은 영상에 담았습니다",
+  "scope": "제품 이미지, 타이포그래피, 장면 전환을 구성한 30초 가로 모션그래픽입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/bwl-brand-motion/hero.mp4",
+      "poster": "/reference-review/bwl-brand-motion/hero-poster.webp",
+      "alt": "DR's Secret 브랜드 모션그래픽",
+      "presentation": "wide"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 0
+}

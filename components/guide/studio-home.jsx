@@ -27,19 +27,19 @@ import { HomeReferences } from "./home-references";
 class Component extends GuideLogic {
   renderVals() {
     const svc = [
-      ["webtoon", "웹툰", "맞춤 제작"],
-      ["animation", "애니메이션", "맞춤 제작"],
-      ["ai-influencer", "AI 인플루언서 컨텐츠", "맞춤 제작"],
-      ["promo", "브랜드 홍보 컨텐츠", "맞춤 제작"],
-      ["ad", "SNS 광고 컨텐츠", "맞춤 제작"],
-      ["edit", "편집·클리퍼", "보유 컨텐츠 편집·클립"],
+      ["webtoon", "웹툰", "맞춤 견적"],
+      ["animation", "애니메이션", "맞춤 견적"],
+      ["ai-influencer", "AI 인플루언서", "맞춤 견적"],
+      ["motion", "모션그래픽", "맞춤 견적"],
+      ["promo", "브랜드 홍보 영상", "맞춤 견적"],
+      ["ad", "SNS 광고 영상", "맞춤 견적"],
     ];
     return {
       works: [
         ["웹툰", "webtoon"],
         ["애니메이션", "animation"],
         ["AI 인플루언서", "ai-influencer"],
-        ["SNS 광고 컨텐츠", "ad"],
+        ["SNS 광고 영상", "ad"],
       ].map(([cat, service], i) => ({
         id: "studio-home-w" + (i + 1),
         cat,

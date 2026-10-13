@@ -1,0 +1,26 @@
+{
+  "id": "AIO-WORK-YOFREE-SHOP-01",
+  "slug": "yofree-shop",
+  "brand": "YoFree",
+  "title": "쇼핑몰 고객 시연",
+  "division": "development",
+  "primaryService": "shopping-mall",
+  "productionStatus": "제작 후보",
+  "description": "브랜드와 제품 탐색 동선을 보여주는 고객 검토용 시연입니다. 실제 판매는 미실행입니다.",
+  "relatedServices": [],
+  "purpose": "요프리의 브랜드와 제품 정보를 구매 동선에 맞춰 정리했습니다",
+  "scope": "홈·브랜드·제품·원리·고객센터와 루틴·선물 동선을 제작한 고객 시연입니다 실제 주문·결제와 판매 조건은 확정 전입니다",
+  "media": [
+    {
+      "kind": "image",
+      "src": "/reference-review/yofree-shop/hero.webp",
+      "width": 1440,
+      "height": 900,
+      "alt": "YoFree 쇼핑몰 고객 시연 PC 화면",
+      "presentation": "site"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 4
+}

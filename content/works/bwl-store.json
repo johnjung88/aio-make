@@ -1,0 +1,27 @@
+{
+  "id": "AIO-WORK-BWL-STORE-01",
+  "slug": "bwl-store",
+  "brand": "BWL · DR's Secret",
+  "title": "DR's Secret 쇼핑몰 레퍼런스",
+  "division": "development",
+  "primaryService": "shopping-mall",
+  "productionStatus": "제작 완료",
+  "description": "브랜드 소개와 제품 탐색을 연결한 정적 쇼핑몰 레퍼런스. 실제 주문과 결제는 받지 않습니다.",
+  "relatedServices": [],
+  "purpose": "스킨케어 브랜드의 분위기를 유지하면서 제품을 찾고 비교할 수 있도록 구성했습니다",
+  "scope": "브랜드 소개, 제품 탐색과 상세 화면, PC·모바일 반응형 디자인을 제작했습니다 공개된 레퍼런스 사이트이며 주문·결제 기능은 운영하지 않습니다",
+  "media": [
+    {
+      "kind": "image",
+      "src": "/reference-review/bwl-store/hero.webp",
+      "width": 1440,
+      "height": 1000,
+      "alt": "DR's Secret 쇼핑몰 레퍼런스 PC 화면",
+      "presentation": "site",
+      "mobileSrc": "/reference-review/bwl-store/mobile.webp"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 2
+}

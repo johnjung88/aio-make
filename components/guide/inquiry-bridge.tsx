@@ -87,7 +87,7 @@ export function InquiryBridge({
       animation: ["애니메이션"],
       "brand-film": ["브랜드 홍보"],
       ad: ["SNS 광고"],
-      editing: ["편집"],
+      "motion-graphics": ["모션그래픽"],
       website: ["웹사이트"],
       "shopping-mall": ["쇼핑몰"],
       automation: ["자동화"],

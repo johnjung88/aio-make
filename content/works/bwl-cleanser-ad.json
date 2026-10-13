@@ -1,0 +1,30 @@
+{
+  "id": "AIO-WORK-BWL-AD-04",
+  "slug": "bwl-cleanser-ad",
+  "brand": "BWL · DR's Secret",
+  "title": "클렌저 1 영상 시안",
+  "division": "video",
+  "primaryService": "ad",
+  "productionStatus": "제작 후보",
+  "description": "클렌저 1의 9:16 제안용 영상입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "ai-influencer"
+    }
+  ],
+  "purpose": "클렌저 1의 제품 소개를 일상적인 사용 장면으로 풀었습니다",
+  "scope": "인물과 제품을 중심으로 구성한 9:16 광고 편집 시안입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/bwl-cleanser-ad/hero.mp4",
+      "poster": "/reference-review/bwl-cleanser-ad/hero-poster.webp",
+      "alt": "DR's Secret 클렌저 1 영상 시안",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 17
+}

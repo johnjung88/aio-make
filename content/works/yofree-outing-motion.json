@@ -1,0 +1,30 @@
+{
+  "id": "AIO-WORK-YOFREE-MOTION-01",
+  "slug": "yofree-outing-motion",
+  "brand": "YoFree",
+  "title": "외출편 웹툰 모션그래픽",
+  "division": "video",
+  "primaryService": "animation",
+  "productionStatus": "제작 후보",
+  "description": "요프리 외출편 웹툰을 움직이는 영상으로 재구성한 검토본입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "webtoon"
+    }
+  ],
+  "purpose": "외출편 웹툰을 영상으로 볼 수 있도록 장면의 움직임과 읽는 속도를 설계했습니다",
+  "scope": "기존 웹툰을 세로 모션그래픽으로 재구성한 v04 검토본입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-outing-motion/hero.mp4",
+      "poster": "/reference-review/yofree-outing-motion/hero-poster.webp",
+      "alt": "YoFree 외출편 웹툰 모션그래픽",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 19
+}

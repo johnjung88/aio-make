@@ -38,7 +38,7 @@ export const divisions = [
     number: "01",
     headline: "이야기가\n브랜드의 장면이 되도록",
     summary:
-      "웹툰, 애니메이션, AI 인플루언서 전달할 메시지에 맞는 형식을 찾아 이야기를 완성합니다",
+      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 및 SNS 광고 영상으로 메시지를 전합니다",
     image: "/renewal/brand-film-v03.webp",
     tagline: "메시지를 정하고, 기억에 남는 장면을 만듭니다",
     process: [
@@ -258,7 +258,7 @@ export const services: Service[] = [
   {
     id: "webtoon",
     division: "video",
-    name: "웹툰 제작",
+    name: "웹툰",
     subtitle: "읽히는 이야기, 이어지는 장면",
     description:
       "소재와 캐릭터를 바탕으로 사건과 선택, 반응이 이어지는 웹툰을 기획·제작합니다",
@@ -300,8 +300,8 @@ export const services: Service[] = [
   {
     id: "ai-influencer",
     division: "video",
-    name: "AI 인플루언서 제작",
-    subtitle: "일관된 인물로 반복되는 이야기",
+    name: "AI 인플루언서",
+    subtitle: "브랜드의 이야기를 전하는 가상 인물",
     description:
       "브랜드 전용 가상 인물을 구축하고 제품·메시지의 사실에 맞는 반복 컨텐츠를 제작합니다",
     audience: "가상 인물 기반 제품 설명과 브랜드 컨텐츠가 필요한 팀",
@@ -319,10 +319,31 @@ export const services: Service[] = [
     ],
   },
   {
+    id: "motion-graphics",
+    division: "video",
+    name: "모션그래픽",
+    subtitle: "그래픽과 글자에 담는 브랜드 메시지",
+    description:
+      "제품 이미지와 그래픽, 타이포그래피와 장면 전환으로 브랜드 메시지를 영상에 담습니다 길이와 화면 비율은 상담에서 정합니다",
+    audience: "제품과 브랜드의 정보를 움직이는 그래픽으로 소개하려는 팀",
+    outcomes: [
+      "메시지와 장면 구성",
+      "그래픽·타이포그래피 디자인",
+      "움직임과 장면 전환 제작",
+      "자막·음향·출력 규격 검수",
+    ],
+    inputs: [
+      "제품 이미지·로고와 이용권",
+      "확인된 브랜드 문구",
+      "영상 길이와 화면 비율",
+      "게시 채널과 참고 스타일",
+    ],
+  },
+  {
     id: "brand-film",
     division: "video",
-    name: "브랜드 홍보 컨텐츠",
-    subtitle: "한 장면에 담는 브랜드의 이유",
+    name: "브랜드 홍보 영상",
+    subtitle: "영상에 담는 브랜드의 이야기",
     description:
       "제품과 서비스의 확인된 정보를 바탕으로 홍보 컨텐츠와 채널별 광고 소재를 제작합니다",
     audience: "브랜드 소개와 제품 설명, 채널 광고용 컨텐츠가 필요한 사업체",
@@ -342,8 +363,8 @@ export const services: Service[] = [
   {
     id: "ad",
     division: "video",
-    name: "SNS 광고 컨텐츠",
-    subtitle: "짧은 장면에서 분명한 메시지로",
+    name: "SNS 광고 영상",
+    subtitle: "소셜 채널에 맞는 짧은 광고 영상",
     description:
       "확인된 제품 정보를 채널별 광고 컨텐츠로 구성합니다 길이와 버전, 수정 범위는 상담에서 정합니다",
     audience: "소셜 채널에 맞는 짧은 광고 컨텐츠가 필요한 브랜드",
@@ -359,22 +380,6 @@ export const services: Service[] = [
       "컨텐츠 길이와 버전",
       "희망 일정",
     ],
-  },
-  {
-    id: "editing",
-    division: "video",
-    name: "컨텐츠 편집",
-    subtitle: "원본에서 필요한 메시지로",
-    description:
-      "제공된 적법한 컨텐츠 원본을 정리하고 목적에 맞는 편집·자막·클립을 제작합니다",
-    audience: "촬영 원본에서 소개 컨텐츠가나 짧은 클립을 만들려는 팀",
-    outcomes: [
-      "원본 정리와 구성",
-      "합의된 편집과 자막",
-      "형식별 출력",
-      "컨텐츠·음향 검수",
-    ],
-    inputs: ["원본과 이용권", "원하는 길이", "자막과 메시지", "출력 형식"],
   },
 ];
 export function divisionServices(id: DivisionId) {
@@ -408,6 +413,10 @@ export function serviceVisual(service: Service) {
     animation: {
       image: "/renewal/animation-sample.webp",
       caption: "애니메이션 스타일 예시",
+    },
+    "motion-graphics": {
+      image: "/creative-v06/video-brand-film.webp",
+      caption: "모션그래픽 제작 방향 · 연출 예시",
     },
     "ai-influencer": {
       image: "/renewal/influencer-sample.webp",

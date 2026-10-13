@@ -1,0 +1,45 @@
+{
+  "id": "AIO-WORK-HN-MOTION-01",
+  "slug": "healernet-motion",
+  "brand": "힐러넷",
+  "title": "회사 홍보 모션그래픽",
+  "division": "video",
+  "primaryService": "motion-graphics",
+  "productionStatus": "제작 후보",
+  "description": "연구에서 제품까지의 메시지를 가로와 세로 영상으로 구성한 후보입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "brand-film"
+    }
+  ],
+  "purpose": "연구에서 제품으로 이어지는 회사의 메시지를 영상으로 풀었습니다",
+  "scope": "30초 가로판과 15초 세로판을 제작했습니다 아래에서 두 화면 비율을 확인할 수 있습니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/healernet-motion/hero.mp4",
+      "poster": "/reference-review/healernet-motion/hero-poster.webp",
+      "alt": "HEALERNET 회사 홍보 모션그래픽",
+      "presentation": "wide"
+    },
+    {
+      "kind": "image",
+      "src": "/reference-review/healernet-motion/gallery-01.webp",
+      "width": 1080,
+      "height": 1920,
+      "alt": "HEALERNET 회사 홍보 모션그래픽 1번째 이미지",
+      "presentation": "wide"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/healernet-motion/gallery-02.mp4",
+      "poster": "/reference-review/healernet-motion/gallery-02-poster.webp",
+      "alt": "HEALERNET 회사 홍보 모션그래픽",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 9
+}

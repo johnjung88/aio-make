@@ -26,10 +26,10 @@ import LAB_DATA from "./lab-data";
 const MAP = {
   webtoon: "웹툰",
   animation: "애니메이션",
-  "ai-influencer": "AI 인플루언서 컨텐츠",
-  promo: "브랜드 홍보 컨텐츠",
-  ad: "SNS 광고 컨텐츠",
-  edit: "편집·클리퍼",
+  "ai-influencer": "AI 인플루언서",
+  motion: "모션그래픽",
+  promo: "브랜드 홍보 영상",
+  ad: "SNS 광고 영상",
 };
 const G = [
   ["service", "요청 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],

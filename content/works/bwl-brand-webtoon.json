@@ -1,0 +1,50 @@
+{
+  "id": "AIO-WORK-BWL-WEBTOON-01",
+  "slug": "bwl-brand-webtoon",
+  "brand": "BWL · DR's Secret",
+  "title": "장바구니는 꽉, 내 루틴은 물음표",
+  "division": "video",
+  "primaryService": "webtoon",
+  "productionStatus": "제작 후보",
+  "description": "브랜드편 웹툰 4페이지의 내부 검토본입니다.",
+  "relatedServices": [],
+  "purpose": "제품을 고르는 소비자의 고민을 일상적인 장면과 대화로 표현했습니다",
+  "scope": "8컷의 브랜드 이야기를 4페이지로 구성한 웹툰 시안입니다",
+  "media": [
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-brand-webtoon/gallery-01.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 장바구니는 꽉, 내 루틴은 물음표 1페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-brand-webtoon/gallery-02.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 장바구니는 꽉, 내 루틴은 물음표 2페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-brand-webtoon/gallery-03.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 장바구니는 꽉, 내 루틴은 물음표 3페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-brand-webtoon/gallery-04.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 장바구니는 꽉, 내 루틴은 물음표 4페이지",
+      "presentation": "webtoon"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 5
+}

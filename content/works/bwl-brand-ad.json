@@ -1,0 +1,30 @@
+{
+  "id": "AIO-WORK-BWL-AD-01",
+  "slug": "bwl-brand-ad",
+  "brand": "BWL · DR's Secret",
+  "title": "브랜드 광고 30초 시안",
+  "division": "video",
+  "primaryService": "ad",
+  "productionStatus": "제작 후보",
+  "description": "16:9 브랜드 광고의 제안용 편집 시안입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "brand-film"
+    }
+  ],
+  "purpose": "브랜드 이미지와 제품 장면을 연결해 짧은 광고의 흐름을 만들었습니다",
+  "scope": "16:9 브랜드 광고의 기획과 편집 시안입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/bwl-brand-ad/hero.mp4",
+      "poster": "/reference-review/bwl-brand-ad/hero-poster.webp",
+      "alt": "DR's Secret 브랜드 광고 30초 시안",
+      "presentation": "wide"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 14
+}
