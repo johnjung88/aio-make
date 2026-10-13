@@ -113,6 +113,42 @@ for (const path of paths) {
         schema.some((s) => s["@type"] === "Service") &&
           schema.some((s) => s["@type"] === "BreadcrumbList"),
       );
+    if (path.startsWith("/content/services/")) {
+      const faq = schema.find((s) => s["@type"] === "FAQPage");
+      assert.ok(faq?.mainEntity?.length >= 4, "content service FAQ schema");
+      for (const item of faq.mainEntity) {
+        assert.ok(
+          html.includes(item.name),
+          "FAQ question is visible in server HTML",
+        );
+        assert.ok(
+          html.includes(item.acceptedAnswer.text),
+          "FAQ answer matches server HTML",
+        );
+      }
+      for (const section of [
+        "hero",
+        "fit",
+        "scope",
+        "process",
+        "uses",
+        "quote",
+        "faq",
+        "cta",
+      ])
+        assert.ok(
+          html.includes(`data-content-section="${section}"`),
+          `${section} section`,
+        );
+      if (path.endsWith("/webtoon")) {
+        assert.ok(html.includes('aria-label="12컷 구성"'));
+        assert.ok(!/24컷|24장/.test(html));
+        assert.equal(
+          (html.match(/aria-label="\d+컷 크게 보기"/g) || []).length,
+          12,
+        );
+      }
+    }
     if (/\/insights\/./.test(path))
       assert.ok(
         schema.some((s) => s["@type"] === "Article") &&
@@ -202,7 +238,10 @@ for (const [oldPath, newPath] of [
   ["/ko/marketing?utm_source=qa", "/marketing?utm_source=qa"],
   ["/KO/lab", "/lab"],
   ["/en/video", "/content"],
-  ["/video/work/example-webtoon?ref=legacy", "/content/work/example-webtoon?ref=legacy"],
+  [
+    "/video/work/example-webtoon?ref=legacy",
+    "/content/work/example-webtoon?ref=legacy",
+  ],
   ["/dev/services/website", "/lab/services/website"],
   ["/portfolio", "/work"],
 ]) {
@@ -274,8 +313,8 @@ for (const s of services.filter((s) => s.division === "video"))
         (
           bodies
             .get(`/content/services/${s.id}`)
-            .match(/id="studio-faq-answer-/g) || []
-        ).length >= 3,
+            .match(/id="content-service-faq-answer-/g) || []
+        ).length >= 4,
       ),
     `${s.id} FAQ server HTML`,
   );

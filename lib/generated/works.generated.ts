@@ -431,7 +431,7 @@ export const generatedWorks: WorkRecord[] =
     "featuredOrder": 9,
     "description": "연구에서 제품까지의 메시지를 가로와 세로 영상으로 구성한 후보입니다.",
     "purpose": "연구에서 제품으로 이어지는 회사의 메시지를 영상으로 풀었습니다",
-    "scope": "30초 가로판과 15초 세로판을 제작했습니다 아래에서 두 화면 비율을 확인할 수 있습니다",
+    "scope": "30초 가로판과 15초 세로판을 제작했습니다. 두 화면 비율은 작품 상세에서 확인할 수 있습니다.",
     "media": [
       {
         "kind": "video",

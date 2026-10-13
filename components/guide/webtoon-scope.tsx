@@ -18,9 +18,9 @@ export function WebtoonScope() {
     >
       <div className="review-container">
         <span className="review-eyebrow">웹툰 제작 기준</span>
-        <h2 id="webtoon-scope-title">웹툰 1회분은 24컷으로 제작합니다</h2>
+        <h2 id="webtoon-scope-title">웹툰 1회분은 12컷으로 제작합니다</h2>
         <p className="scope-intro">
-          완성 이미지 1장이 1컷이며 24장의 이미지로 한 회를 구성합니다
+          완성 이미지 1장이 1컷이며 12장의 이미지로 한 회를 구성합니다
         </p>
         <div className="scope-layout">
           <figure className="one-cut-sample">
@@ -43,10 +43,10 @@ export function WebtoonScope() {
             </figcaption>
           </figure>
           <div className="episode-comparison">
-            <h3>1회분 · 24컷</h3>
+            <h3>1회분 · 12컷</h3>
             <p className="episode-intro">《1억의 구단주》로 살펴보는 구성</p>
-            <ol className="episode-cut-grid" aria-label="24컷 구성">
-              {Array.from({ length: 24 }, (_, i) => (
+            <ol className="episode-cut-grid" aria-label="12컷 구성">
+              {Array.from({ length: 12 }, (_, i) => (
                 <li key={i}>
                   <button
                     onClick={() => show(i + 1)}
@@ -70,6 +70,7 @@ export function WebtoonScope() {
         <dialog
           ref={dialog}
           className="cut-dialog"
+          aria-label={`1억의 구단주 ${selected}컷 확대 보기`}
           onClick={(e) => {
             if (e.target === e.currentTarget) dialog.current?.close();
           }}
