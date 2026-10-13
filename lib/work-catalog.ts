@@ -93,7 +93,11 @@ export function workFromEntry(entry: Entry): WorkItem {
 }
 
 export function publicWorkCatalog(entries: Entry[]): WorkItem[] {
-  const catalog = entries.map(workFromEntry).concat(registeredWorks);
+  // Content entry routes have retired; registered /work/[slug] cases remain.
+  const catalog = entries
+    .filter((entry) => entry.division !== "video")
+    .map(workFromEntry)
+    .concat(registeredWorks);
   const ids = new Set<string>();
   const paths = new Set<string>();
   for (const work of catalog) {

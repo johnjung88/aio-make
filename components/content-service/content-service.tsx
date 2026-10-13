@@ -24,31 +24,11 @@ export function ContentService({
   const representative = works[0];
   const hero = representative?.media[0];
   const webtoon = service.id === "webtoon";
-  const anchors = [
-    ["intro", "소개"],
-    ["scope", "제작 범위"],
-    ...(works.length ? [["cases", "사례"]] : []),
-    ["process", "진행"],
-    ["faq", "FAQ"],
-    ["inquiry", "문의"],
-  ];
   return (
     <div
       className={`guide-page service-dark content-service content-service-${service.id}`}
     >
       <ServiceNavigation division="video" />
-      <nav
-        className="content-service-anchors"
-        aria-label={`${plan.name} 페이지 내 메뉴`}
-      >
-        <div>
-          {anchors.map(([id, label]) => (
-            <a key={id} href={`#${id}`}>
-              {label}
-            </a>
-          ))}
-        </div>
-      </nav>
       <section
         id="intro"
         className="content-service-hero content-service-container"
@@ -56,16 +36,11 @@ export function ContentService({
         data-content-section="hero"
       >
         <div className="content-service-hero-copy">
-          <span className="content-service-eyebrow">
-            AIO MAKE / CONTENT
-          </span>
+          <span className="content-service-eyebrow">AIO MAKE / CONTENT</span>
           <h1 id="content-service-title">
             <span className="content-service-name">{plan.name}</span>
             {plan.headline.split("\n").map((line) => (
-              <span key={line}>
-                {" "}
-                {line}
-              </span>
+              <span key={line}> {line}</span>
             ))}
           </h1>
           <p>{plan.intro}</p>

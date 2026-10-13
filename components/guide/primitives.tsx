@@ -41,7 +41,12 @@ export function GuideOffer({ service }: { service: string }) {
   );
 }
 
-export type GuideProps = { service?: string; entries?: GuideEntry[]; referenceEntries?: GuideEntry[]; references?: React.ReactNode };
+export type GuideProps = {
+  service?: string;
+  entries?: GuideEntry[];
+  referenceEntries?: GuideEntry[];
+  references?: React.ReactNode;
+};
 export type GuideEntry = {
   id: string;
   title: string;
@@ -74,7 +79,8 @@ const serviceKeys: Record<string, string> = {
   ai: "ai-influencer",
   seo: "seo",
 };
-const publicPath = (division: string) => division === "video" ? "content" : division;
+const publicPath = (division: string) =>
+  division === "video" ? "content" : division;
 export function guideServiceHref(division: string, key: string) {
   return `/${publicPath(division)}/services/${serviceKeys[key] ?? key}`;
 }
@@ -89,7 +95,12 @@ export function guideContactKey(key?: string, division?: string) {
     : "";
 }
 export function guideHref(href: string, context = "main") {
-  if (href === "#") return context === "main" ? "/work" : `/${publicPath(context)}/work`;
+  if (href === "#")
+    return context === "main"
+      ? "/#work"
+      : context === "video" || context === "content"
+        ? "/content"
+        : `/${publicPath(context)}/work`;
   if (href === "AIO 메인 시안.dc.html") return "/";
   if (href.startsWith("AIO 메인 시안.dc.html#"))
     return "/" + href.slice(href.indexOf("#"));
@@ -125,7 +136,7 @@ export function guideHref(href: string, context = "main") {
   if (href.includes("인사이트") || href.includes("칼럼"))
     return `/${publicPath(division)}/insights`;
   if (href.includes("사례") || href.includes("레퍼런스"))
-    return `/${publicPath(division)}/work`;
+    return division === "video" ? "/content" : `/${publicPath(division)}/work`;
   return `/${publicPath(division)}`;
 }
 export function GuideLink({
@@ -332,26 +343,21 @@ export function GuideNav({
   }, []);
   const studio = division === "video" || division === "content";
   const dark = true,
-    brand =
-      studio ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
+    brand = studio ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
   const first =
-    division === "lab"
-      ? "website"
-      : studio
-        ? "webtoon"
-        : "integrated";
+    division === "lab" ? "website" : studio ? "webtoon" : "integrated";
   const items = [
     ["home", "홈", `/${publicPath(division)}`],
     ["services", "서비스", `/${publicPath(division)}/services/${first}`],
-    [
-      "cases",
-      division === "marketing"
-        ? "운영 사례"
-        : studio
-          ? "작업 사례"
-          : "레퍼런스",
-      `/${publicPath(division)}/work`,
-    ],
+    ...(!studio
+      ? [
+          [
+            "cases",
+            division === "marketing" ? "운영 사례" : "레퍼런스",
+            `/${publicPath(division)}/work`,
+          ],
+        ]
+      : []),
     ["insights", "인사이트", `/${publicPath(division)}/insights`],
   ];
   return (
@@ -381,14 +387,17 @@ export function GuideNav({
               {label}
             </Link>
           ))}
-          <Link className="guide-nav-cta" href={`/${publicPath(division)}/contact`}>
-            {division === "marketing"
-              ? "운영 문의"
-              : division === "lab"
-                ? "제작 문의"
-                : "프로젝트 문의"}
-          </Link>
         </div>
+        <Link
+          className="guide-nav-cta"
+          href={`/${publicPath(division)}/contact`}
+        >
+          {division === "marketing"
+            ? "운영 문의"
+            : division === "lab"
+              ? "제작 문의"
+              : "프로젝트 문의"}
+        </Link>
       </div>
     </nav>
   );
@@ -527,7 +536,12 @@ export function adaptGuideValues(
         Lab: ["website", "shopping-mall", "automation"],
       };
       const target = (n: number) =>
-        `/${publicPath(roots[group.name])}/work/${entries[n]?.slug || "example-" + samples[group.name][n]}`;
+        roots[group.name] === "video"
+          ? guideServiceHref(
+              "video",
+              entries[n]?.service || samples[group.name][n],
+            )
+          : `/${publicPath(roots[group.name])}/work/${entries[n]?.slug || "example-" + samples[group.name][n]}`;
       const category = (n: number) =>
         services.find(
           (service) =>

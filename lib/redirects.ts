@@ -10,12 +10,12 @@ const services: Record<string, string> = {
 export function legacyDestination(path: string): string | null {
   const localized = /^\/(ko|en)(\/|$)/i.test(path);
   let clean = path.replace(/^\/(ko|en)(?=\/|$)/i, "") || "/";
-  if (/^\/video(?=\/|$)/i.test(clean)) clean = clean.replace(/^\/video/i, "/content");
+  if (/^\/video(?=\/|$)/i.test(clean))
+    clean = clean.replace(/^\/video/i, "/content");
   if (/^\/content\/services\/editing\/?$/i.test(clean)) clean = "/content";
   if (/^\/dev(\/|$)/.test(clean)) clean = clean.replace(/^\/dev/, "/lab");
   if (["/quote", "/pricing"].includes(clean)) clean = "/contact";
   if (clean === "/team") clean = "/about";
-  if (clean === "/portfolio") clean = "/work";
   if (clean === "/services") clean = "/";
   const match = /^\/services\/([^/]+)(.*)$/.exec(clean);
   if (match && services[match[1]]) clean = "/" + services[match[1]] + match[2];

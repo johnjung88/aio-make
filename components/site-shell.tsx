@@ -16,7 +16,6 @@ const links = [
   ["컨텐츠", "/content"],
   ["마케팅", "/marketing"],
   ["개발", "/lab"],
-  ["작업 보기", "/work"],
 ];
 export function Header() {
   const path = usePathname(),
@@ -99,10 +98,7 @@ export function Header() {
             <Link
               key={label}
               className={
-                path === href ||
-                (href !== "/work" && path.startsWith(href + "/"))
-                  ? "is-current"
-                  : ""
+                path === href || path.startsWith(href + "/") ? "is-current" : ""
               }
               href={href}
               onClick={() => setOpen(false)}

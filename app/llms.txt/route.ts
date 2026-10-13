@@ -13,15 +13,23 @@ export function GET() {
     "",
     "## 회사와 문의",
     `- [AIO 소개](${siteUrl}/about): 회사와 제공 서비스`,
-    `- [레퍼런스](${siteUrl}/work): 공개 작업과 제작 범위`,
     `- [프로젝트 문의](${siteUrl}/contact): 필요한 작업과 준비 자료 전달`,
     "",
-    ...divisions.flatMap(division => [
+    ...divisions.flatMap((division) => [
       `## ${division.label}`,
-      ...services.filter(service => service.division === division.id).map(service =>
-        `- [${service.name}](${siteUrl}/${division.path}/services/${service.id}): ${service.description}`),
+      ...services
+        .filter((service) => service.division === division.id)
+        .map(
+          (service) =>
+            `- [${service.name}](${siteUrl}/${division.path}/services/${service.id}): ${service.description}`,
+        ),
       "",
     ]),
   ].join("\n");
-  return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
+  return new Response(body, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
 }

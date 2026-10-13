@@ -63,32 +63,9 @@
   letter-spacing: 0.08em;
   margin-bottom: 18px;
 }
-.content-service-anchors {
-  position: sticky;
-  top: calc(var(--site-header-height) + var(--service-nav-height));
-  z-index: 24;
-  border-bottom: 1px solid var(--line);
-  background: var(--ink);
-}
-.content-service-anchors > div {
-  display: flex;
-  gap: clamp(22px, 4vw, 48px);
-  overflow-x: auto;
-  max-width: var(--max);
-  margin: auto;
-  padding-inline: clamp(20px, 4vw, 56px);
-  scrollbar-width: thin;
-}
-.content-service-anchors a {
-  flex-shrink: 0;
-  padding-block: 14px;
-  font-size: 13px;
-  color: var(--muted);
-  white-space: nowrap;
-}
 .guide-public .content-service [id] {
   scroll-margin-top: calc(
-    var(--site-header-height) + var(--service-nav-height) + 80px
+    var(--site-header-height) + var(--service-nav-height) + 24px
   ) !important;
 }
 .content-service-hero {
@@ -318,7 +295,9 @@
 .content-service-case {
   min-width: 0;
 }
-.content-service-motion-graphics .content-service-case > .content-service-media {
+.content-service-motion-graphics
+  .content-service-case
+  > .content-service-media {
   aspect-ratio: 16/9;
   max-width: none;
   margin-inline: 0;

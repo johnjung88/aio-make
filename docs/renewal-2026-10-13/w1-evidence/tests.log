@@ -1,0 +1,40 @@
+✔ candidate migration: atomic inquiries, idempotency, audit and public-content policy (4133.903ms)
+✔ contact requires reachable address, consent and matching service (6.1067ms)
+✔ public entry requires confirmed rights and safe media (1.1191ms)
+✔ media URLs reject credentials, traversal, script and untrusted hosts (0.3588ms)
+✔ cover images reject video URLs, foreign storage and private paths (0.2192ms)
+✔ legacy locale and service aliases resolve in one step (0.6982ms)
+✔ retired content service redirects permanently to the content home (0.1954ms)
+✔ motion graphics is a valid content inquiry and entry service (0.4929ms)
+✔ JSON-LD cannot close the script element (0.2027ms)
+✔ admin session rejects missing credentials, tampering, expiration and wrong password (1.8943ms)
+✔ origin checks the actual Host while respecting HTTPS proxy protocol (18.4661ms)
+✔ GA periods reject unsupported values and comparison handles an empty baseline (1.0832ms)
+✔ all query periods are equal length and do not overlap; leads count only generate_lead (0.9834ms)
+✔ aggregate users remain unique; daily data sorts and fills missing days in the property's timezone (22.2055ms)
+✔ malformed reports fail, while threshold and sampling notes survive normalization (0.9181ms)
+✔ GA server contract: missing setup, real response parsing, caching and sanitized failures (160.1131ms)
+✔ every offered service has an explicitly labelled example and a readable guide (1.2002ms)
+✔ a published CMS entry takes precedence without hiding other services (0.2334ms)
+✔ direct submission survives notification failure, deduplicates concurrently and remains manageable (3488.1607ms)
+✔ local inquiry persistence, authenticated envelope, retries and Gmail failure handling (4873.7894ms)
+✔ media preparation creates missing image/video/poster and preserves existing files (1771.025ms)
+✔ retired content entry URLs stay out of catalogs while other division entries and registered cases remain (12.7674ms)
+✔ unapproved customer references never enter the public catalog or sitemap source (4.5377ms)
+✔ every JSON becomes one catalog work with unchanged descriptive media and ordered webtoon pages (5.5215ms)
+✔ related content is not represented as a marketing operations result (0.3129ms)
+✔ the six content services match the four motion graphics works (0.3331ms)
+✔ schema enforces service pairs, scope, poster, webtoon order and publication rights (1.1423ms)
+✔ works build rejects an invalid temporary JSON with filename and field and leaves output untouched (180.7326ms)
+✔ works build is deterministic and display visibility requires the exact local review flag (769.8848ms)
+✔ registered work enters the public catalog only with both publication values (479.1461ms)
+✔ public browser data excludes pending customer references with the review flag off (464.2194ms)
+﹣ prepared derivatives exist when local review is requested (0.4116ms) # Local media excluded from release checkout
+ℹ tests 32
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 24048.1326

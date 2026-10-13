@@ -1,0 +1,3866 @@
+[
+  {
+    "path": "/content/services/webtoon",
+    "width": 1440,
+    "scrollWidth": 1425,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "컨텐츠",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "프로젝트 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹툰",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02애니메이션",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04모션그래픽",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "05브랜드 홍보 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "06SNS 광고 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/content/contact",
+      "/content",
+      "/content",
+      "/content/services/webtoon",
+      "/content/insights",
+      "/content/contact",
+      "/content/services/webtoon",
+      "/content/services/animation",
+      "/content/services/ai-influencer",
+      "/content/services/motion-graphics",
+      "/content/services/brand-film",
+      "/content/services/ad",
+      "/content/contact?service=webtoon",
+      "#cases",
+      "/work/yofree-outing-webtoon",
+      "/work/bwl-brand-webtoon",
+      "/work/bwl-aqua-webtoon",
+      "/work/yofree-night-webtoon",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon"
+    ]
+  },
+  {
+    "path": "/content/services/webtoon",
+    "width": 900,
+    "scrollWidth": 885,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "컨텐츠",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "프로젝트 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹툰",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02애니메이션",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04모션그래픽",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "05브랜드 홍보 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "06SNS 광고 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/content/contact",
+      "/content",
+      "/content",
+      "/content/services/webtoon",
+      "/content/insights",
+      "/content/contact",
+      "/content/services/webtoon",
+      "/content/services/animation",
+      "/content/services/ai-influencer",
+      "/content/services/motion-graphics",
+      "/content/services/brand-film",
+      "/content/services/ad",
+      "/content/contact?service=webtoon",
+      "#cases",
+      "/work/yofree-outing-webtoon",
+      "/work/bwl-brand-webtoon",
+      "/work/bwl-aqua-webtoon",
+      "/work/yofree-night-webtoon",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon"
+    ]
+  },
+  {
+    "path": "/content/services/webtoon",
+    "width": 768,
+    "scrollWidth": 753,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "컨텐츠",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "프로젝트 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹툰",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02애니메이션",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04모션그래픽",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "05브랜드 홍보 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "06SNS 광고 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/content/contact",
+      "/content",
+      "/content",
+      "/content/services/webtoon",
+      "/content/insights",
+      "/content/contact",
+      "/content/services/webtoon",
+      "/content/services/animation",
+      "/content/services/ai-influencer",
+      "/content/services/motion-graphics",
+      "/content/services/brand-film",
+      "/content/services/ad",
+      "/content/contact?service=webtoon",
+      "#cases",
+      "/work/yofree-outing-webtoon",
+      "/work/bwl-brand-webtoon",
+      "/work/bwl-aqua-webtoon",
+      "/work/yofree-night-webtoon",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon"
+    ]
+  },
+  {
+    "path": "/content/services/webtoon",
+    "width": 390,
+    "scrollWidth": 390,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "컨텐츠",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "프로젝트 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹툰",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02애니메이션",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04모션그래픽",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "05브랜드 홍보 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "06SNS 광고 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/content/contact",
+      "/content",
+      "/content",
+      "/content/services/webtoon",
+      "/content/insights",
+      "/content/contact",
+      "/content/services/webtoon",
+      "/content/services/animation",
+      "/content/services/ai-influencer",
+      "/content/services/motion-graphics",
+      "/content/services/brand-film",
+      "/content/services/ad",
+      "/content/contact?service=webtoon",
+      "#cases",
+      "/work/yofree-outing-webtoon",
+      "/work/bwl-brand-webtoon",
+      "/work/bwl-aqua-webtoon",
+      "/work/yofree-night-webtoon",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon"
+    ]
+  },
+  {
+    "path": "/content/services/webtoon",
+    "width": 360,
+    "scrollWidth": 360,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "컨텐츠",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "프로젝트 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹툰",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02애니메이션",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04모션그래픽",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "05브랜드 홍보 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "06SNS 광고 영상",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/content/contact",
+      "/content",
+      "/content",
+      "/content/services/webtoon",
+      "/content/insights",
+      "/content/contact",
+      "/content/services/webtoon",
+      "/content/services/animation",
+      "/content/services/ai-influencer",
+      "/content/services/motion-graphics",
+      "/content/services/brand-film",
+      "/content/services/ad",
+      "/content/contact?service=webtoon",
+      "#cases",
+      "/work/yofree-outing-webtoon",
+      "/work/bwl-brand-webtoon",
+      "/work/bwl-aqua-webtoon",
+      "/work/yofree-night-webtoon",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/content/contact?service=webtoon",
+      "/content/contact?service=webtoon"
+    ]
+  },
+  {
+    "path": "/marketing/services/integrated",
+    "width": 1440,
+    "scrollWidth": 1425,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "마케팅",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "운영 사례",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "운영 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 10,
+      "height": 10
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01통합 마케팅",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02SNS 대행 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04SEO · AEO · GEO",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/marketing/contact",
+      "/marketing",
+      "/marketing",
+      "/marketing/services/integrated",
+      "/marketing/work",
+      "/marketing/insights",
+      "/marketing/contact",
+      "/marketing/services/integrated",
+      "/marketing/services/sns",
+      "/marketing/services/ai-influencer",
+      "/marketing/services/seo",
+      "/marketing/contact?service=integrated",
+      "#service-scope",
+      "/marketing/work?service=integrated",
+      "/marketing/work/example-integrated",
+      "/marketing/contact?service=integrated",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/marketing/contact?service=integrated",
+      "/marketing/contact?service=integrated"
+    ]
+  },
+  {
+    "path": "/marketing/services/integrated",
+    "width": 900,
+    "scrollWidth": 885,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "마케팅",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "운영 사례",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "운영 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 10,
+      "height": 10
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01통합 마케팅",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02SNS 대행 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04SEO · AEO · GEO",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/marketing/contact",
+      "/marketing",
+      "/marketing",
+      "/marketing/services/integrated",
+      "/marketing/work",
+      "/marketing/insights",
+      "/marketing/contact",
+      "/marketing/services/integrated",
+      "/marketing/services/sns",
+      "/marketing/services/ai-influencer",
+      "/marketing/services/seo",
+      "/marketing/contact?service=integrated",
+      "#service-scope",
+      "/marketing/work?service=integrated",
+      "/marketing/work/example-integrated",
+      "/marketing/contact?service=integrated",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/marketing/contact?service=integrated",
+      "/marketing/contact?service=integrated"
+    ]
+  },
+  {
+    "path": "/marketing/services/integrated",
+    "width": 768,
+    "scrollWidth": 753,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "마케팅",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "운영 사례",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "운영 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 10,
+      "height": 10
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01통합 마케팅",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02SNS 대행 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04SEO · AEO · GEO",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/marketing/contact",
+      "/marketing",
+      "/marketing",
+      "/marketing/services/integrated",
+      "/marketing/work",
+      "/marketing/insights",
+      "/marketing/contact",
+      "/marketing/services/integrated",
+      "/marketing/services/sns",
+      "/marketing/services/ai-influencer",
+      "/marketing/services/seo",
+      "/marketing/contact?service=integrated",
+      "#service-scope",
+      "/marketing/work?service=integrated",
+      "/marketing/work/example-integrated",
+      "/marketing/contact?service=integrated",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/marketing/contact?service=integrated",
+      "/marketing/contact?service=integrated"
+    ]
+  },
+  {
+    "path": "/marketing/services/integrated",
+    "width": 390,
+    "scrollWidth": 390,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "마케팅",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "운영 사례",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "운영 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 10,
+      "height": 10
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01통합 마케팅",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02SNS 대행 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04SEO · AEO · GEO",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/marketing/contact",
+      "/marketing",
+      "/marketing",
+      "/marketing/services/integrated",
+      "/marketing/work",
+      "/marketing/insights",
+      "/marketing/contact",
+      "/marketing/services/integrated",
+      "/marketing/services/sns",
+      "/marketing/services/ai-influencer",
+      "/marketing/services/seo",
+      "/marketing/contact?service=integrated",
+      "#service-scope",
+      "/marketing/work?service=integrated",
+      "/marketing/work/example-integrated",
+      "/marketing/contact?service=integrated",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/marketing/contact?service=integrated",
+      "/marketing/contact?service=integrated"
+    ]
+  },
+  {
+    "path": "/marketing/services/integrated",
+    "width": 360,
+    "scrollWidth": 360,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "마케팅",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "운영 사례",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "운영 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 10,
+      "height": 10
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01통합 마케팅",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02SNS 대행 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03AI 인플루언서 운영",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04SEO · AEO · GEO",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/marketing/contact",
+      "/marketing",
+      "/marketing",
+      "/marketing/services/integrated",
+      "/marketing/work",
+      "/marketing/insights",
+      "/marketing/contact",
+      "/marketing/services/integrated",
+      "/marketing/services/sns",
+      "/marketing/services/ai-influencer",
+      "/marketing/services/seo",
+      "/marketing/contact?service=integrated",
+      "#service-scope",
+      "/marketing/work?service=integrated",
+      "/marketing/work/example-integrated",
+      "/marketing/contact?service=integrated",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/marketing/contact?service=integrated",
+      "/marketing/contact?service=integrated"
+    ]
+  },
+  {
+    "path": "/lab/services/website",
+    "width": 1440,
+    "scrollWidth": 1425,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "개발",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "레퍼런스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "제작 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹사이트 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02쇼핑몰 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03업무 자동화",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04프로그램 개발",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/lab/contact",
+      "/lab",
+      "/lab",
+      "/lab/services/website",
+      "/lab/work",
+      "/lab/insights",
+      "/lab/contact",
+      "/lab/services/website",
+      "/lab/services/shopping-mall",
+      "/lab/services/automation",
+      "/lab/services/program",
+      "/lab/contact?service=website",
+      "#service-scope",
+      "/lab/work?service=website",
+      "/work/healernet-website",
+      "/lab/work/example-website",
+      "/lab/contact?service=website",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/lab/contact?service=website",
+      "/lab/contact?service=website"
+    ]
+  },
+  {
+    "path": "/lab/services/website",
+    "width": 900,
+    "scrollWidth": 885,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "개발",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "레퍼런스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "제작 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹사이트 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02쇼핑몰 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03업무 자동화",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04프로그램 개발",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/lab/contact",
+      "/lab",
+      "/lab",
+      "/lab/services/website",
+      "/lab/work",
+      "/lab/insights",
+      "/lab/contact",
+      "/lab/services/website",
+      "/lab/services/shopping-mall",
+      "/lab/services/automation",
+      "/lab/services/program",
+      "/lab/contact?service=website",
+      "#service-scope",
+      "/lab/work?service=website",
+      "/work/healernet-website",
+      "/lab/work/example-website",
+      "/lab/contact?service=website",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/lab/contact?service=website",
+      "/lab/contact?service=website"
+    ]
+  },
+  {
+    "path": "/lab/services/website",
+    "width": 768,
+    "scrollWidth": 753,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "개발",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 70,
+      "bottom": 122,
+      "height": 52,
+      "baseline": 101,
+      "textBox": {
+        "top": 86,
+        "bottom": 105,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "레퍼런스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 70,
+        "bottom": 122,
+        "height": 52,
+        "baseline": 101,
+        "textBox": {
+          "top": 88,
+          "bottom": 104,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "제작 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 78,
+      "bottom": 114,
+      "height": 36,
+      "baseline": 101,
+      "textBox": {
+        "top": 88,
+        "bottom": 104,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 53,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹사이트 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "02쇼핑몰 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "03업무 자동화",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      },
+      {
+        "text": "04프로그램 개발",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 123,
+        "bottom": 181,
+        "height": 58,
+        "baseline": 155,
+        "textBox": {
+          "top": 143,
+          "bottom": 159,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/lab/contact",
+      "/lab",
+      "/lab",
+      "/lab/services/website",
+      "/lab/work",
+      "/lab/insights",
+      "/lab/contact",
+      "/lab/services/website",
+      "/lab/services/shopping-mall",
+      "/lab/services/automation",
+      "/lab/services/program",
+      "/lab/contact?service=website",
+      "#service-scope",
+      "/lab/work?service=website",
+      "/work/healernet-website",
+      "/lab/work/example-website",
+      "/lab/contact?service=website",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/lab/contact?service=website",
+      "/lab/contact?service=website"
+    ]
+  },
+  {
+    "path": "/lab/services/website",
+    "width": 390,
+    "scrollWidth": 390,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "개발",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "레퍼런스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "제작 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹사이트 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02쇼핑몰 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03업무 자동화",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04프로그램 개발",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/lab/contact",
+      "/lab",
+      "/lab",
+      "/lab/services/website",
+      "/lab/work",
+      "/lab/insights",
+      "/lab/contact",
+      "/lab/services/website",
+      "/lab/services/shopping-mall",
+      "/lab/services/automation",
+      "/lab/services/program",
+      "/lab/contact?service=website",
+      "#service-scope",
+      "/lab/work?service=website",
+      "/work/healernet-website",
+      "/lab/work/example-website",
+      "/lab/contact?service=website",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/lab/contact?service=website",
+      "/lab/contact?service=website"
+    ]
+  },
+  {
+    "path": "/lab/services/website",
+    "width": 360,
+    "scrollWidth": 360,
+    "containerGap": "24px",
+    "menuGap": "24px",
+    "brand": {
+      "text": "개발",
+      "fontFamily": "Unbounded, pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "8px",
+      "padding": "0px",
+      "borderBottom": "0px",
+      "top": 71,
+      "bottom": 123,
+      "height": 52,
+      "baseline": 102,
+      "textBox": {
+        "top": 87,
+        "bottom": 106,
+        "height": 19
+      }
+    },
+    "links": [
+      {
+        "text": "홈",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "서비스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "레퍼런스",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      },
+      {
+        "text": "인사이트",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "gap": "normal",
+        "padding": "16px 0px",
+        "borderBottom": "0px",
+        "top": 123,
+        "bottom": 175,
+        "height": 52,
+        "baseline": 154,
+        "textBox": {
+          "top": 141,
+          "bottom": 157,
+          "height": 16
+        }
+      }
+    ],
+    "cta": {
+      "text": "제작 문의",
+      "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "gap": "normal",
+      "padding": "8px 16px",
+      "borderBottom": "0px",
+      "top": 79,
+      "bottom": 115,
+      "height": 36,
+      "baseline": 102,
+      "textBox": {
+        "top": 89,
+        "bottom": 105,
+        "height": 16
+      }
+    },
+    "icon": {
+      "width": 20,
+      "height": 20
+    },
+    "navHeight": 105,
+    "activeColor": "rgb(169, 155, 255)",
+    "tabs": [
+      {
+        "text": "01웹사이트 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "700",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "02쇼핑몰 제작",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "03업무 자동화",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      },
+      {
+        "text": "04프로그램 개발",
+        "fontFamily": "pretendard, \"pretendard Fallback\", sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px",
+        "gap": "9px",
+        "padding": "18px 0px",
+        "borderBottom": "2px",
+        "top": 176,
+        "bottom": 234,
+        "height": 58,
+        "baseline": 208,
+        "textBox": {
+          "top": 196,
+          "bottom": 212,
+          "height": 16
+        }
+      }
+    ],
+    "anchors": 0,
+    "hrefs": [
+      "#main-content",
+      "/",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/lab/contact",
+      "/lab",
+      "/lab",
+      "/lab/services/website",
+      "/lab/work",
+      "/lab/insights",
+      "/lab/contact",
+      "/lab/services/website",
+      "/lab/services/shopping-mall",
+      "/lab/services/automation",
+      "/lab/services/program",
+      "/lab/contact?service=website",
+      "#service-scope",
+      "/lab/work?service=website",
+      "/work/healernet-website",
+      "/lab/work/example-website",
+      "/lab/contact?service=website",
+      "/",
+      "/about",
+      "/about/team",
+      "/content",
+      "/marketing",
+      "/lab",
+      "/privacy",
+      "/terms",
+      "mailto:AIOMAKE2023@GMAIL.COM",
+      "/lab/contact?service=website",
+      "/lab/contact?service=website"
+    ]
+  },
+  {
+    "path": "/work",
+    "status": 404
+  },
+  {
+    "path": "/content/work",
+    "status": 404
+  },
+  {
+    "path": "/content/work/example-webtoon",
+    "status": 404
+  },
+  {
+    "path": "/content/work/yofree-outing-webtoon",
+    "status": 404
+  },
+  {
+    "path": "/marketing/work",
+    "status": 200
+  },
+  {
+    "path": "/lab/work",
+    "status": 200
+  },
+  {
+    "path": "/work/bwl-store",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/healernet-website",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-brand-motion",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/healernet-motion",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-brand-webtoon",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-outing-webtoon",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-aqua-webtoon",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-night-webtoon",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-brand-ad",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-aqua-ad",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-cplus-ad",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-cleanser-ad",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/bwl-editorial",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-outing-motion",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-night-motion",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-mg-short",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-mg30",
+    "status": 200,
+    "reviewNoindex": true
+  },
+  {
+    "path": "/work/yofree-shop",
+    "status": 200,
+    "reviewNoindex": true
+  }
+]

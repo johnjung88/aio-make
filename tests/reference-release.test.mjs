@@ -21,6 +21,7 @@ import {
 import { workSchema } from "../lib/work-schema.ts";
 import { guideEntries } from "../lib/guide-content.ts";
 import { divisionServices } from "../lib/content.ts";
+import { legacyDestination } from "../lib/redirects.ts";
 
 const directory = new URL("../content/works/", import.meta.url);
 const files = (await readdir(directory))
@@ -32,6 +33,36 @@ const records = await Promise.all(
   ),
 );
 const catalogWorks = [...reviewWorks, ...publicWorks];
+
+test("retired content entry URLs stay out of catalogs while other division entries and registered cases remain", () => {
+  const entries = guideEntries("reference");
+  assert.ok(entries.some((entry) => entry.division === "video"));
+  const catalog = publicWorkCatalog(entries);
+  assert.ok(
+    !catalog.some((work) => work.canonicalPath.startsWith("/content/work")),
+  );
+  for (const division of ["marketing", "development"]) {
+    const retained = entries.filter(
+      (entry) =>
+        entry.division === division &&
+        entry.is_published &&
+        entry.rights_confirmed,
+    );
+    assert.ok(retained.length > 0);
+    for (const entry of retained)
+      assert.ok(catalog.some((work) => work.id === entry.id));
+  }
+  assert.ok(
+    catalogWorks.every((work) => work.canonicalPath === `/work/${work.slug}`),
+  );
+  for (const path of [
+    "/work",
+    "/content/work",
+    "/content/work/example-webtoon",
+    "/portfolio",
+  ])
+    assert.equal(legacyDestination(path), null, path);
+});
 
 test("unapproved customer references never enter the public catalog or sitemap source", async () => {
   const catalog = publicWorkCatalog(guideEntries("reference"));
@@ -107,7 +138,12 @@ test("the six content services match the four motion graphics works", () => {
   );
   assert.deepEqual(
     matched.map((work) => work.slug).sort(),
-    ["bwl-brand-motion", "healernet-motion", "yofree-mg-short", "yofree-mg30"].sort(),
+    [
+      "bwl-brand-motion",
+      "healernet-motion",
+      "yofree-mg-short",
+      "yofree-mg30",
+    ].sort(),
   );
   for (const slug of ["bwl-brand-motion", "healernet-motion"])
     assert.equal(
@@ -287,9 +323,13 @@ test("public browser data excludes pending customer references with the review f
     );
     assert.equal(result.status, 0, result.stderr);
     const expected = records.filter(
-      (work) => flag === "1" || (work.visibility === "public" && work.rightsConfirmed),
+      (work) =>
+        flag === "1" || (work.visibility === "public" && work.rightsConfirmed),
     );
-    assert.deepEqual(JSON.parse(result.stdout), expected.map((work) => work.slug));
+    assert.deepEqual(
+      JSON.parse(result.stdout),
+      expected.map((work) => work.slug),
+    );
   }
 });
 

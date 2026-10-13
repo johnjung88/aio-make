@@ -6,6 +6,7 @@ import { guideEntries } from "../lib/guide-content.ts";
 
 const base = process.env.AIO_QA_BASE || "http://127.0.0.1:3100";
 const canonical = "https://aio-make.com";
+const referenceReview = process.env.AIO_QA_REFERENCE_REVIEW === "1";
 const reportPath =
   process.env.AIO_QA_REPORT || "docs/release-v09/seo-http.json";
 const decode = (value) =>
@@ -17,19 +18,13 @@ const attrs = (tag) =>
   Object.fromEntries(
     [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((m) => [m[1], decode(m[2])]),
   );
-const paths = [
-  "/",
-  "/about",
-  "/about/team",
-  "/contact",
-  "/work",
-  "/privacy",
-  "/terms",
-];
+const paths = ["/", "/about", "/about/team", "/contact", "/privacy", "/terms"];
 for (const d of divisions)
   paths.push(
     `/${d.path}`,
-    ...["contact", "work", "insights"].map((x) => `/${d.path}/${x}`),
+    ...["contact", ...(d.id === "video" ? [] : ["work"]), "insights"].map(
+      (x) => `/${d.path}/${x}`,
+    ),
   );
 for (const s of services)
   paths.push(
@@ -37,15 +32,18 @@ for (const s of services)
   );
 for (const type of ["reference", "insight"])
   for (const e of guideEntries(type))
-    paths.push(
-      `/${divisions.find((d) => d.id === e.division).path}/${type === "reference" ? "work" : "insights"}/${e.slug}`,
-    );
+    if (!(type === "reference" && e.division === "video"))
+      paths.push(
+        `/${divisions.find((d) => d.id === e.division).path}/${type === "reference" ? "work" : "insights"}/${e.slug}`,
+      );
 const results = [],
   errors = [],
   bodies = new Map(),
   titles = new Map(),
   images = new Set(),
   links = new Set();
+const retiredPath = (path) =>
+  path === "/work" || /^\/content\/work(?:\/|$)/.test(path);
 function check(fn, label) {
   try {
     fn();
@@ -98,9 +96,12 @@ for (const path of paths) {
     assert.equal(value("og:image:height"), "630");
     assert.equal(value("twitter:card"), "summary_large_image");
     assert.equal(value("twitter:image"), value("og:image"));
-    assert.ok(
-      !meta.some((m) => m.name === "robots" && m.content.includes("noindex")),
+    assert.equal(
+      meta.some((m) => m.name === "robots" && m.content.includes("noindex")),
+      referenceReview,
+      "review builds stay noindex; release builds remain indexable",
     );
+    if (referenceReview) assert.match(response.headers.get("x-robots-tag") || "", /noindex/);
     assert.ok(
       schema.some(
         (s) =>
@@ -222,8 +223,13 @@ check(() => {
 }, "manifest");
 const robots = await (await fetch(base + "/robots.txt")).text();
 check(() => {
-  assert.match(robots, /Allow: \/\s/);
-  assert.match(robots, /Disallow: \/admin/);
+  if (referenceReview) {
+    assert.match(robots, /Disallow: \/\s/);
+    assert.doesNotMatch(robots, /Allow:/);
+  } else {
+    assert.match(robots, /Allow: \/\s/);
+    assert.match(robots, /Disallow: \/admin/);
+  }
   assert.match(robots, /Sitemap: https:\/\/aio-make.com\/sitemap.xml/);
 }, "robots");
 const sitemap = await (await fetch(base + "/sitemap.xml")).text();
@@ -243,7 +249,6 @@ for (const [oldPath, newPath] of [
     "/content/work/example-webtoon?ref=legacy",
   ],
   ["/dev/services/website", "/lab/services/website"],
-  ["/portfolio", "/work"],
 ]) {
   const response = await fetch(base + oldPath, { redirect: "manual" });
   check(() => {
@@ -255,13 +260,24 @@ for (const path of [
   "/missing-release-page",
   "/lab/services/missing",
   "/content/work/missing",
+  "/work",
+  "/work?page=2",
+  "/portfolio",
+  "/content/work",
+  "/content/work?service=webtoon",
+  ...guideEntries("reference", "video").map(
+    (entry) => `/content/work/${entry.slug}`,
+  ),
+  "/content/work/yofree-outing-webtoon",
 ]) {
   const response = await fetch(base + path, {
     headers: { "User-Agent": "Googlebot" },
+    redirect: "manual",
   });
   const html = await response.text();
   check(() => {
     assert.equal(response.status, 404);
+    assert.equal(response.headers.get("location"), null);
     assert.match(html, /noindex/);
   }, path);
 }
@@ -275,6 +291,10 @@ for (const path of ["/admin/login", "/api/admin/inquiries"]) {
 for (const target of links) {
   const url = new URL(target, canonical);
   const path = url.pathname;
+  check(
+    () => assert.equal(retiredPath(path), false),
+    `retired internal link ${target}`,
+  );
   let html = bodies.get(path);
   if (!html) {
     const response = await fetch(base + path, { redirect: "manual" });
@@ -307,17 +327,25 @@ check(
   "main FAQ server HTML",
 );
 for (const s of services.filter((s) => s.division === "video"))
-  check(
-    () =>
-      assert.ok(
-        (
-          bodies
-            .get(`/content/services/${s.id}`)
-            .match(/id="content-service-faq-answer-/g) || []
-        ).length >= 4,
-      ),
-    `${s.id} FAQ server HTML`,
-  );
+  check(() => {
+    const html = bodies.get(`/content/services/${s.id}`);
+    assert.doesNotMatch(html, /content-service-anchors/);
+    assert.match(html, /id="scope"/);
+    assert.ok(
+      (
+        bodies
+          .get(`/content/services/${s.id}`)
+          .match(/id="content-service-faq-answer-/g) || []
+      ).length >= 4,
+    );
+  }, `${s.id} FAQ server HTML`);
+const llms = await (await fetch(base + "/llms.txt")).text();
+check(() => {
+  for (const url of listed)
+    assert.equal(retiredPath(new URL(url).pathname), false, url);
+  for (const match of llms.matchAll(/https:\/\/aio-make\.com[^\s)]*/g))
+    assert.equal(retiredPath(new URL(match[0]).pathname), false, match[0]);
+}, "retired paths absent from sitemap and llms.txt");
 await mkdir(reportPath.slice(0, reportPath.lastIndexOf("/")), {
   recursive: true,
 });

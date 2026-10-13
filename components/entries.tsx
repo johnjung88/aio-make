@@ -67,7 +67,7 @@ export function GuideListLayout({
   type: "reference" | "insight";
 }) {
   const d = divisionByPath(division);
-  if (!d) notFound();
+  if (!d || (d.id === "video" && type === "reference")) notFound();
   const reference = type === "reference";
   return (
     <div
@@ -146,7 +146,7 @@ export async function EntryList({
   type: "reference" | "insight";
 }) {
   const d = divisionByPath(division);
-  if (!d) notFound();
+  if (!d || (d.id === "video" && type === "reference")) notFound();
   const entries = mergeGuideEntries(
     await publicEntries(type, d.id),
     type,
@@ -164,7 +164,7 @@ export async function EntryDetail({
   type: "reference" | "insight";
 }) {
   const d = divisionByPath(division);
-  if (!d) notFound();
+  if (!d || (d.id === "video" && type === "reference")) notFound();
   const entry =
     (await publicEntry(type, d.id, slug)) ??
     guideEntries(type, d.id).find((e) => e.slug === slug);

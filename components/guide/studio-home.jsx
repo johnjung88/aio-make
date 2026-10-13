@@ -35,17 +35,6 @@ class Component extends GuideLogic {
       ["ad", "SNS 광고 영상", "맞춤 견적"],
     ];
     return {
-      works: [
-        ["웹툰", "webtoon"],
-        ["애니메이션", "animation"],
-        ["AI 인플루언서", "ai-influencer"],
-        ["SNS 광고 영상", "ad"],
-      ].map(([cat, service], i) => ({
-        id: "studio-home-w" + (i + 1),
-        cat,
-        n: 0,
-        href: "/content/work/example-" + service,
-      })),
       services: svc.map(([k, name, line], i) => ({
         no: String(i + 1).padStart(2, "0"),
         name,
@@ -105,7 +94,7 @@ class Component extends GuideLogic {
       this.renderVals(),
       this.props,
     );
-    const { posts, services, steps, works } = values;
+    const { posts, services, steps } = values;
     return (
       <div className="guide-page guide-studio-home">
         <GuideEffects />
@@ -265,7 +254,10 @@ class Component extends GuideLogic {
               </span>
             </p>
           </section>
-          <HomeReferences division="video" entries={this.props.referenceEntries} />
+          <HomeReferences
+            division="video"
+            entries={this.props.referenceEntries}
+          />
           <section style={{ borderTop: "1px solid #2A2A32" }}>
             <div
               style={{
@@ -602,7 +594,9 @@ class Component extends GuideLogic {
                   {"어떤 컨텐츠가 필요 하신가요?"}
                 </h2>
                 <span style={{ fontSize: "17px" }}>
-                  {"내용을 남겨주시면 컨텐츠 담당자가 견적과 일정을 안내드립니다"}
+                  {
+                    "내용을 남겨주시면 컨텐츠 담당자가 견적과 일정을 안내드립니다"
+                  }
                 </span>
               </div>
               <GuideLink

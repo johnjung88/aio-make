@@ -3,10 +3,10 @@
   --service-nav-height: 0px;
 }
 html:has(.guide-subnav) {
-  --service-nav-height: 55px;
+  --service-nav-height: 53px;
 }
 html:has(.service-navigation) {
-  --service-nav-height: 109px;
+  --service-nav-height: 112px;
 }
 html:has(.guide-public) {
   scroll-padding-top: 0;
@@ -38,8 +38,16 @@ html:has(.guide-public) {
   padding-inline: clamp(20px, 4vw, 56px);
 }
 .service-navigation .guide-service-tabs a[aria-current="page"] {
-  color: #b2a3ff;
-  border-bottom-color: #b2a3ff;
+  color: var(--lavender);
+  border-bottom-color: var(--lavender);
+}
+@media (max-width: 720px) {
+  html:has(.guide-subnav) {
+    --service-nav-height: 105px;
+  }
+  html:has(.service-navigation) {
+    --service-nav-height: 164px;
+  }
 }
 .back-to-top {
   position: fixed;
