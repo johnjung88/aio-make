@@ -1,5 +1,5 @@
 /* 가격 블록(id="pricing"). 금액은 lib/content-pricing.ts에서만 온다(SHOW_STARTING_PRICE와 관계없이 항상 표시).
- * R6: 플랜 박스(`라벨 / 금액` 2줄, 왼쪽 정렬)만 틀을 쓴다. 부가세 별도는 그룹 아래 주석 한 줄로 한 번만 쓰고,
+ * R6: 플랜 박스(`라벨 / 금액` 2줄, 왼쪽 정렬)만 틀을 쓴다. R7: 묶음(함께 제작) 그룹은 보라 외곽 박스 1개로 묶고 알약 배지는 쓰지 않는다(그룹 제목 1번). 부가세 별도는 그룹 아래 주석 한 줄로 한 번만 쓰고,
  * 수정 횟수·대량 제작 문구는 여기 두지 않는다(진행 방식·FAQ가 맡는다).
  * 포함·별도 범위는 같은 섹션 아래 2열 텍스트(CsScopeText)로 보여준다. */
 import {
@@ -35,12 +35,13 @@ export function CsPricing({
         <CsSectionHead id="cs-pricing-title" eyebrow={c.eyebrow} title={c.title} />
         <div className="cs-pricing-groups">
           {groups.map((group) => (
-            <div key={group.key} className="cs-pricing-group">
+            <div
+              key={group.key}
+              className={"cs-pricing-group" + (group.bundle ? " cs-pricing-group--bundle" : "")}
+              data-count={Math.min(group.plans.length, 4)}
+            >
               {group.title ? (
-                <p
-                  className={"cs-t-label" + (group.bundle ? " cs-pricing-badge cs-t-caption" : "")}
-                  id={`cs-pricing-${group.key}`}
-                >
+                <p className="cs-pricing-title cs-t-label" id={`cs-pricing-${group.key}`}>
                   {group.title}
                 </p>
               ) : null}
@@ -50,7 +51,7 @@ export function CsPricing({
                 aria-labelledby={group.title ? `cs-pricing-${group.key}` : undefined}
               >
                 {group.plans.map((plan) => (
-                  /* 묶음(함께 제작) 그룹은 배지를 그룹 제목에 두고, 박스는 모두 같은 구조(라벨/금액)로 둔다 */
+                  /* 묶음(함께 제작) 그룹은 그룹 전체가 보라 외곽 박스 하나이고, 안쪽 두 칸은 같은 구조(라벨/금액)로 테두리가 없다 */
                   <li
                     key={plan.key}
                     className={"cs-plan" + (plan.bundle ? " cs-plan--bundle" : "")}

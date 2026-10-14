@@ -403,10 +403,8 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
   }
 });
 
-/** works.server.ts를 검토 플래그(undefined = 미설정)로 자식 프로세스에서 불러 서비스별 사례 slug를 받는다. */
-function selectedWorks(flag) {
-  const url = new URL("../lib/content-site/works.server.ts", import.meta.url).href;
-  const source = `const m = await import(${JSON.stringify(url)}); const out = {}; for (const id of ${JSON.stringify(ORDER)}) out[id] = { max: m.maxContentWorks(id), ...(await (async () => { const cards = await m.selectContentWorks(id); return { slugs: cards.map((w) => w.slug), placed: cards.filter((w) => w.placement).map((w) => w.slug) }; })()) }; console.log(JSON.stringify(out));`;
+/** works.server.ts를 검토 플래그(undefined = 미설정)로 자식 프로세스에서 불러 서비스별 사례를 받는다. */
+function runWorksChild(flag, source) {
   const env = { ...process.env };
   delete env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW;
   delete env.ENABLE_LEGACY_SUPABASE;
@@ -420,16 +418,46 @@ function selectedWorks(flag) {
   return JSON.parse(result.stdout);
 }
 
-test("6-1. 사례 상한: 기본 4, SNS 광고만 5(R6: 브랜드 광고 시안은 브랜드 홍보 페이지로). 기본 빌드는 0", () => {
+function selectedWorks(flag) {
+  const url = new URL("../lib/content-site/works.server.ts", import.meta.url).href;
+  const source = `const m = await import(${JSON.stringify(url)}); const out = {}; for (const id of ${JSON.stringify(ORDER)}) out[id] = { max: m.maxContentWorks(id), ...(await (async () => { const cards = await m.selectContentWorks(id); return { slugs: cards.map((w) => w.slug), placed: cards.filter((w) => w.placement).map((w) => w.slug), cards: cards.map((w) => ({ slug: w.slug, placement: w.placement, labels: w.signatureLabels, railLead: w.railLead, variantLabel: w.variantLabel, portraitPosters: w.media.filter((m) => m.kind === "video" && m.presentation === "portrait" && m.poster).length })) }; })()) }; console.log(JSON.stringify(out));`;
+  return runWorksChild(flag, source);
+}
+
+/** 고정 데이터: 실제 검토 작품에 가상 광고 작품 2건(order가 요프리보다 앞)을 더해 pickContentWorks("ad")로 고른다 */
+function pickedWithVirtualAdWorks() {
+  const url = new URL("../lib/content-site/works.server.ts", import.meta.url).href;
+  const catalogUrl = new URL("../lib/work-catalog.ts", import.meta.url).href;
+  const source = `const m = await import(${JSON.stringify(url)}); const c = await import(${JSON.stringify(catalogUrl)}); const base = c.reviewWorks.find((w) => w.slug === "bwl-aqua-ad"); const virtual = [1, 2].map((n) => ({ ...base, id: "virtual-ad-" + n, slug: "virtual-ad-" + n, order: -100 + n })); const cards = m.pickContentWorks("ad", [...c.reviewWorks, ...virtual]); console.log(JSON.stringify(cards.map((w) => ({ slug: w.slug, placement: w.placement }))));`;
+  return runWorksChild("1", source);
+}
+
+const TONE_LABELS = ["가벼운 키네틱 톤", "한지와 먹의 프리미엄 톤", "웹툰 모션코믹 톤"];
+
+test("6-1. 사례 상한: 기본 4, SNS 광고만 5(placement 작품은 상한 밖). 광고는 시그니처 1건 + 목록 4건. 기본 빌드는 0", () => {
   const review = selectedWorks("1");
   for (const id of ORDER) {
     assert.equal(review[id].max, id === "ad" ? 5 : 4, id);
-    assert.ok(review[id].slugs.length <= review[id].max, id);
+    const listed = review[id].slugs.filter((slug) => !review[id].placed.includes(slug));
+    assert.ok(listed.length <= review[id].max, id);
   }
+  // R7: yofree-mg30은 시그니처(ad-signature)로 옮겨 목록에서 빠진다. 목록은 정확히 4건이고 순서가 정해져 있다
   assert.deepEqual(
-    [...review.ad.slugs].sort(),
-    ["bwl-aqua-ad", "bwl-cleanser-ad", "bwl-cplus-ad", "yofree-mg-short", "yofree-mg30"],
+    review.ad.cards.filter((card) => card.placement).map((card) => [card.slug, card.placement]),
+    [["yofree-mg30", "ad-signature"]],
   );
+  assert.deepEqual(
+    review.ad.slugs.filter((slug) => !review.ad.placed.includes(slug)),
+    ["yofree-mg-short", "bwl-aqua-ad", "bwl-cplus-ad", "bwl-cleanser-ad"],
+  );
+  assert.equal(review.ad.slugs.length, 5);
+  // 가상 광고 작품 2건을 더해도 요프리 2건이 상한에 밀려 빠지지 않는다
+  const virtual = pickedWithVirtualAdWorks();
+  const virtualListed = virtual.filter((card) => !card.placement).map((card) => card.slug);
+  assert.deepEqual(virtual.filter((card) => card.placement).map((card) => card.slug), ["yofree-mg30"]);
+  assert.equal(virtualListed[0], "yofree-mg-short", "9:16 영상이 많은 작품이 목록 첫 자리");
+  assert.equal(virtualListed.length, 5, "목록은 상한 5까지, placement 작품은 따로");
+  assert.ok(virtualListed.includes("virtual-ad-1") && virtualListed.includes("virtual-ad-2"));
   // 브랜드 광고 30초 시안은 SNS 광고에서 빠지고 브랜드 홍보 영상(brand-film)이 계속 고른다
   assert.equal(review.ad.slugs.includes("bwl-brand-ad"), false);
   assert.equal(review["brand-film"].slugs.includes("bwl-brand-ad"), true);
@@ -439,14 +467,65 @@ test("6-1. 사례 상한: 기본 4, SNS 광고만 5(R6: 브랜드 광고 시안�
   }
 });
 
-test("6-2. R6 사례 중복 방지: 모션그래픽 캐릭터 사례에 붙인 작품은 placement 표시가 붙고 CsWorks 목록에서 빠진다", () => {
+test("6-2. R7 사례 중복 방지: 광고는 yofree-mg30을 시그니처(ad-signature)에 두고 목록에서 뺀다, 모션그래픽은 character-case 유지", () => {
   const review = selectedWorks("1");
   assert.deepEqual(review["motion-graphics"].placed, ["yofree-mg30"]);
-  for (const id of ORDER.filter((id) => id !== "motion-graphics")) assert.deepEqual(review[id].placed, [], id);
-  // SNS 광고 페이지는 같은 작품을 사례 목록으로 계속 보인다
-  assert.equal(review.ad.slugs.includes("yofree-mg30"), true);
+  assert.deepEqual(review.ad.placed, ["yofree-mg30"]);
+  for (const id of ORDER.filter((id) => id !== "motion-graphics" && id !== "ad")) assert.deepEqual(review[id].placed, [], id);
+  const placement = (id) => review[id].cards.find((card) => card.placement)?.placement;
+  assert.equal(placement("ad"), "ad-signature");
+  assert.equal(placement("motion-graphics"), "character-case");
+  // 사례 목록은 placement 작품을 거른다(두 번 보이지 않는다)
   assert.match(code("components/content-site/service-landing.tsx"), /<CsWorks works=\{works\.filter\(\(work\) => !work\.placement\)\}/);
+  // 시그니처 3장면 이름·레일 앞칸·안 수 표시는 서버가 만든 값이다
+  const card = (slug) => review.ad.cards.find((item) => item.slug === slug);
+  assert.deepEqual(card("yofree-mg30").labels, TONE_LABELS);
+  assert.equal(card("yofree-mg30").railLead, true);
+  assert.equal(card("yofree-mg-short").railLead, true);
+  assert.equal(card("yofree-mg-short").variantLabel, "4안");
+  assert.equal(review.ad.cards.filter((item) => item.railLead).length, 2);
+  // 레일 앞 7칸 = 30초 3편(9:16 3개) + 4안(9:16 4개) 포스터, 시그니처 3장면 = 9:16 3편
+  assert.equal(card("yofree-mg30").portraitPosters, 3);
+  assert.equal(card("yofree-mg-short").portraitPosters, 4);
+  assert.deepEqual(review.ad.cards.filter((item) => item.railLead).map((item) => item.slug), ["yofree-mg30", "yofree-mg-short"]);
+  const adCode = code("components/content-site/services/ad/landing.tsx");
+  assert.match(adCode, /item\.placement === "ad-signature"/);
+  assert.match(adCode, /work\.railLead/);
+  assert.match(adCode, /scenes\.length === 3/);
+  assert.equal(review.ad.cards.filter((item) => item.variantLabel).length, 1);
+  assert.equal(review["motion-graphics"].cards.some((item) => item.labels || item.railLead || item.variantLabel), false);
   assert.deepEqual(selectedWorks(undefined)["motion-graphics"].placed, []);
+});
+
+test("6-3. R7 누수: 시그니처 톤 라벨 3개와 고객 문자열은 works.server.ts 밖(client 섬·광고 landing·사례 블록·CSS·공개판 결과)에 0건", () => {
+  // 톤 라벨은 서버 파일에만 있다
+  const files = ["components", "lib", "app"]
+    .flatMap(walkFiles)
+    .filter((f) => /\.(tsx?|css|json)$/.test(f) && !f.replaceAll("\\", "/").endsWith("lib/content-site/works.server.ts"));
+  for (const path of files) {
+    const text = read(path);
+    for (const label of TONE_LABELS) assert.ok(!text.includes(label), `${path} has tone label: ${label}`);
+  }
+  assert.ok(read("lib/content-site/works.server.ts").includes(TONE_LABELS[0]));
+  // 광고 landing·client 섬·사례 블록·광고 CSS·공용 타입에는 고객명·slug·경로가 없다(서버가 props로 준다)
+  for (const path of [
+    "components/content-site/services/ad/landing.tsx",
+    "components/content-site/services/ad/ad-reel.tsx",
+    "components/content-site/services/ad/ad.css",
+    "components/content-site/blocks/works.tsx",
+    "lib/content-site/types.ts",
+  ])
+    assert.doesNotMatch(code(path), CUSTOMER, `${path} customer string`);
+  // 공개판(검토 플래그 없음·"0"·"true")은 사례가 비어 있어 라벨·표시 필드가 직렬화 결과에 없다
+  for (const flag of [undefined, "0", "true"]) {
+    const text = JSON.stringify(selectedWorks(flag));
+    for (const label of TONE_LABELS) assert.ok(!text.includes(label), `${flag} public result has ${label}`);
+    assert.doesNotMatch(text, /yofree|ad-signature|railLead|variantLabel|labels/i, `${flag} public result`);
+  }
+  // 검토판 결과에는 있다(위 검사가 빈 검사가 아니라는 증거)
+  assert.ok(JSON.stringify(selectedWorks("1")).includes(TONE_LABELS[2]));
+  // 안 수 표시는 서버 값만 쓴다: 사례 블록은 "N안" 문자열을 만들지 않는다
+  assert.doesNotMatch(code("components/content-site/blocks/works.tsx"), /\d안|\}안/);
 });
 
 /* CSS 파서: 주석 제거 후 규칙(선택자, 선언, @media 안 여부)을 돌려준다.
@@ -1018,9 +1097,15 @@ test("11-4. R6 가격: 360부터 2열 · 라벨/금액 2줄 · 카드마다 부�
   assert.match(pricing, /id="pricing"/, "#pricing anchor stays");
   assert.doesNotMatch(pricing, /data-plan|c\.cta|c\.vat|부가세 별도|PRICING_COMMON_LINES|revisions|bulk/);
   assert.match(pricing, /PRICING_COMMON\.vat/);
-  assert.equal((pricing.match(/cs-pricing-badge/g) ?? []).length, 1, "single badge element, outside the plan boxes");
+  // R7: 알약 배지 없음. 묶음(함께 제작) 그룹은 보라 외곽 박스 1개이고 그룹 제목은 박스 안에 한 번만 쓴다
+  assert.equal((pricing.match(/cs-pricing-badge/g) ?? []).length, 0, "no pill badge");
+  assert.doesNotMatch(themeCode(), /cs-pricing-badge/);
   assert.doesNotMatch(pricing, /cs-plan-badge|index === 0/, "plan boxes share one structure (no badge inside a box)");
-  assert.match(pricing, /group\.bundle \?/, "badge only on the bundle group title");
+  assert.equal((pricing.match(/cs-pricing-group--bundle/g) ?? []).length, 1, "one outer bundle box");
+  assert.match(pricing, /group\.bundle \?/, "outer box class only on the bundle group");
+  assert.match(declsOf(theme, ".cs-site .cs-pricing-group--bundle"), /border:\s*1px solid var\(--cs-accent\)/);
+  assert.match(declsOf(theme, ".cs-site .cs-plan--bundle"), /border:\s*0/, "inner cells have no border of their own");
+  assert.match(declsOf(theme, ".cs-site .cs-plan-amount"), /margin-top:\s*auto/, "two amounts share one baseline row");
   assert.equal((pricing.match(/<h3 className="cs-t-label">\{plan\.label\}<\/h3>/g) ?? []).length, 1);
   assert.deepEqual(Object.keys(CS_COPY.pricing), ["eyebrow", "title", "bundle"]);
   // 웹툰 3그룹 순서·금액은 content-pricing 그대로
@@ -1083,7 +1168,10 @@ test("11-8. R6 정렬: 공통 CSS에 가운데 정렬 없음(가격 단위 구�
     const css = code(path);
     for (const rule of cssRules(css)) {
       for (const m of rule.decls.matchAll(/text-align\s*:\s*center|justify-self\s*:\s*center/g)) {
-        const allowed = rule.selector.includes(".cs-price-row > .cs-price-unit::before");
+        // R7 사용자 확정: 푸터는 767px 이하(미디어 안)에서만 가운데 정렬이다
+        const allowed =
+          rule.selector.includes(".cs-price-row > .cs-price-unit::before") ||
+          (rule.selector === ".cs-site .cs-footer" && rule.inMedia && path === THEME);
         assert.ok(allowed, `${path} centered: ${rule.selector} { ${m[0]} }`);
       }
     }

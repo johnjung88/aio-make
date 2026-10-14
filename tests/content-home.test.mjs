@@ -4,7 +4,7 @@
 // 타이머 기반 자동 회전, 선택 카드 아래 서비스 링크, 박스 없는 4행 제작 과정 표.
 import test from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import {
   SHOW_STARTING_PRICE,
@@ -551,14 +551,20 @@ test("9. 메인 컨텐츠 탭 한 줄 설명 공유(P4가 있을 때만)", (t) =
     assert.ok(journey.includes(s.line) || /content-home/.test(journey), s.id);
 });
 
-test("10. 히어로 영상 슬롯은 커밋 상태에서 비어 있고, 영상이 오면 한 줄 교체로 재생 로직이 붙는다", () => {
-  assert.equal(contentHomeHero.video, undefined);
+test("10. 히어로 영상(R7 릴)은 video 한 줄로 연결되고 무음 재생 로직이 붙는다", () => {
+  assert.deepEqual(contentHomeHero.video, {
+    src: "/content-home/hero-reel-r7.mp4",
+    poster: "/content-home/hero-reel-r7.webp",
+  });
+  for (const file of [contentHomeHero.video.src, contentHomeHero.video.poster])
+    assert.ok(statSync(join("public", file)).size > 0, file);
+  assert.ok(statSync(join("public", contentHomeHero.video.src)).size <= 10 * 1024 * 1024);
   const lib = read("lib/content-home.ts");
   assert.match(
     lib,
     /export type HeroVideo = \{ src: string; poster: string \}/,
   );
-  assert.match(lib, /video: undefined as HeroVideo \| undefined/);
+  assert.match(lib, /video: \{ src: "\/content-home\/hero-reel-r7\.mp4", poster: "\/content-home\/hero-reel-r7\.webp" \} as HeroVideo \| undefined/);
   const media = read(join(componentDir, "hero-media.tsx"));
   assert.doesNotMatch(media, /^\s*["']use client["']/, "hero-media stays a server component");
   assert.match(media, /if \(!video\) return null;/);
@@ -590,7 +596,7 @@ test("11. 삭제된 경로를 되살리지 않는다", () => {
   assert.match(nav, /!studio/, "cases tab stays excluded for the content division");
 });
 
-test("12. 제작 과정: 박스 없는 4행 표, 확정 사실만", () => {
+test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", () => {
   assert.deepEqual(
     contentHomeProcess.map((s) => s.label),
     ["상담", "기획", "제작", "납품"],
@@ -609,7 +615,7 @@ test("12. 제작 과정: 박스 없는 4행 표, 확정 사실만", () => {
   assert.match(make, /최종안은 한 번 수정할 수 있습니다/);
   assert.match(deliver, /게시할 채널의 화면 비율에 맞춰 파일을 정리합니다/);
   assert.match(deliver, /다른 화면비 추가는 별도 견적입니다/);
-  assert.match(consult, /채널과 일정, 가진 자료를 확인해 서비스와 분량을 정합니다/);
+  assert.match(consult, /채널·일정·가진 자료로 서비스와 분량을 정합니다/);
   assert.match(make, /AI로 초안을 만들고 담당자가 다듬습니다/);
   assert.ok(pricing.contentPricing.ad.notes.some((n) => /다른 화면비 추가/.test(n)), "pricing basis for the aspect-ratio fact");
   // 수정 횟수는 기획·제작 행에만 있고, 근거 없는 업무 약속(권리 확인)과 미확인 납품 항목(원본 파일)을 쓰지 않는다
@@ -621,41 +627,67 @@ test("12. 제작 과정: 박스 없는 4행 표, 확정 사실만", () => {
       assert.doesNotMatch(text, /[.。]$/, text);
     }
 
-  // 구조: 장식 패널·탭 없이 ol > li 4행, 행마다 번호·단계(h3) | 확인하는 것 | 받는 것
+  // 단계마다 장면 그림 종류(art)가 하나씩 있다: 체크리스트 · 콘티 · 흐림→선명 · 화면비 틀
+  assert.deepEqual(contentHomeProcess.map((s) => s.art), ["checklist", "storyboard", "refine", "frames"]);
+
+  // 구조: 장식 패널·탭 없이 ol > li 4행, 행마다 그림(aria-hidden) · 번호·단계(h3) · 확인 문장 한 블록 · 받는 것
   const steps = code(read(join(componentDir, "process-steps.tsx")));
   assert.doesNotMatch(steps, /^\s*["']use client["']/m, "table is a server component");
-  assert.doesNotMatch(steps, /role="tab|tabpanel|useState|Image|homeCardMedia|useStageActivity/);
+  assert.doesNotMatch(steps, /role="tab|tabpanel|useState|homeCardMedia|useStageActivity/);
   for (const part of [
-    '<ol className="ch-steps" data-count={steps.length}>',
-    '<li key={step.label} className="ch-step">',
+    '<ProcessRun count={steps.length}>',
+    '<li',
+    'key={step.label}',
+    'className="ch-step"',
+    '<div className="ch-step-art" aria-hidden="true">',
+    '<div className="ch-art-stage" data-art={step.art}>',
     '<h3 className="ch-step-name cs-t-h3">',
     '<span className="ch-step-num cs-t-num" aria-hidden="true">',
     "{String(index + 1).padStart(2, \"0\")}",
     '<div className="ch-step-check">',
     "{head.checkLabel}",
-    "{step.check.map((sentence) => (",
-    '<div className="ch-step-output">',
+    '{step.check.join(" · ")}',
+    '<p className="ch-step-output cs-t-caption">',
     "{head.outputLabel}",
     "{step.output}",
   ])
     assert.ok(steps.includes(part), part);
+  // 그림 소재는 공개 저장소 자체 소재(웹툰 컷)뿐이고 고객 작업물 경로가 없다
+  assert.match(steps, /\/webtoon-v11\/cut-/);
+  assert.doesNotMatch(steps, /reference-review|bwl-|yofree/i);
+  // 진행 모션의 시작 신호만 client(process-run.tsx): observer + reduced-motion이면 완료 상태 유지, 루프·타이머 없음
+  const run = code(read(join(componentDir, "process-run.tsx")));
+  assert.match(run, /^\s*["']use client["']/m);
+  assert.match(run, /IntersectionObserver/);
+  assert.match(run, /prefers-reduced-motion: reduce/);
+  assert.match(run, /observer\.disconnect\(\)/, "one-shot: observer is released after the first run");
+  assert.doesNotMatch(run, /setInterval|setTimeout|requestAnimationFrame/);
   assert.ok(home.includes('<div className="cs-container cs-container--read">'));
   assert.ok(home.includes("<ProcessSteps />"));
   assert.ok(home.includes("eyebrow={processHead.eyebrow}") && home.includes("title={processHead.title}") && home.includes("lead={processHead.lead}"));
   assert.doesNotMatch(homeText + steps, /ProcessTabs|cs-t-statement|CONTENT BRIEF|예시/);
 
-  // CSS: 박스·그림자·기울임·애니메이션 없음. 행 구분은 위 가는 선만. 모바일은 한 열, 768px부터 3열
+  // CSS: 글 영역(.ch-step 행·이름·번호·확인·받는 것)에는 박스·그림자·기울임·애니메이션이 없다. 모바일은 [그림 | 이름·받는 것] + 확인 문장
   const row = declsOf(css, ".cs-site .cs-home .ch-step");
   assert.match(row, /border-top:\s*1px solid var\(--cs-line\);/);
   assert.doesNotMatch(row, /border:|border-(left|right|bottom)|background|box-shadow|border-radius|transform/);
-  assert.match(row, /grid-template-columns:\s*minmax\(0, 1fr\);/);
+  assert.match(row, /grid-template-columns:\s*var\(--ch-art-w\) minmax\(0, 1fr\);/);
   const wide = mediaBodies(css, /min-width:\s*768px/).join("\n");
-  assert.match(wide, /\.ch-step \{[^}]*grid-template-columns:\s*minmax\(0, 0\.7fr\) minmax\(0, 1\.5fr\) minmax\(0, 0\.8fr\);/);
-  // 단계 표에 쓰이는 모든 규칙(.ch-step*)에 박스·그림자·기울임·애니메이션·가운데 정렬이 없다
-  const stepRules = [...css.matchAll(/([^{}]*\.ch-step[^{}]*)\{([^}]*)\}/g)];
-  assert.ok(stepRules.length >= 6, "step rules found");
-  for (const [, selector, decls] of stepRules)
+  assert.match(wide, /\.ch-steps \{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\);/, "768: 2x2");
+  const wider = mediaBodies(css, /min-width:\s*1024px/).join("\n");
+  assert.match(wider, /\.ch-steps \{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\);/, "1024: 4 columns");
+  // 컨테이너는 읽기 폭 880 제한 없이 전체 폭(--cs-container)을 쓴다
+  assert.match(declsOf(css, ".cs-site .cs-home .ch-process .cs-container--read"), /max-width:\s*var\(--cs-container\);/);
+  const textRules = [...css.matchAll(/([^{}]*\.ch-step(?:-name|-num|-check|-output|-output-value)?\s*)\{([^}]*)\}/g)];
+  assert.ok(textRules.length >= 5, "step text rules found");
+  for (const [, selector, decls] of textRules)
     assert.doesNotMatch(decls, /box-shadow|border-radius|rotate|transform|animation|background\s*:|text-align|border\s*:/, selector.trim());
+  // 장면 그림은 허용된 이미지 틀: 모션은 no-preference 안에서만(data-run ready/run), 데이터 없으면 완료 상태 정지
+  const motion = mediaBodies(css, /prefers-reduced-motion:\s*no-preference/).join("\n");
+  assert.match(motion, /\.ch-steps\[data-run="ready"\] \.ch-step::before/);
+  assert.match(motion, /\.ch-steps\[data-run="run"\] \.ch-step::before \{[^}]*calc\(var\(--i\) \* 1\.2s\)/, "1.2s step interval");
+  assert.doesNotMatch(css.replace(/@media \(prefers-reduced-motion: no-preference\) \{[\s\S]*$/, ""), /transition|animation/ , "no motion outside the no-preference block");
+  assert.doesNotMatch(css, /\.ch-(?:step|art)[^{}]*\{[^}]*(?:infinite|animation)/, "process motion does not loop");
   // 간격은 공통 토큰
   assert.match(declsOf(css, ".cs-site .cs-home .ch-process"), /padding-block:\s*var\(--cs-section-y\);/);
 });

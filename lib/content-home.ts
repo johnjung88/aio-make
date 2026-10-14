@@ -18,7 +18,7 @@ export const contentHomeHero = {
   videoPlay: "영상 재생",
   /** 소재 슬롯 ID. 영상이 오면 아래 video 한 줄만 채운다 */
   reelSlot: "home-hero-reel",
-  video: undefined as HeroVideo | undefined,
+  video: { src: "/content-home/hero-reel-r7.mp4", poster: "/content-home/hero-reel-r7.webp" } as HeroVideo | undefined,
 };
 
 /* 홈 캐러셀 카드 소재 슬롯(R5 WP-H, ASSET_REQUEST_R5)
@@ -120,12 +120,16 @@ export const contentHomeServicesHead = {
   detailLink: "서비스 보기",
 };
 
-/* 제작 과정 4행 표(R6). 수정 2회·1회와 다른 화면비 추가 별도는 lib/content-pricing.ts의 확정 사실이다.
- * check는 문장 단위 배열이며 화면에서 한 문장씩 줄을 나눈다(문장 끝 마침표 없음). */
+/* 제작 과정 4단계(R7). 수정 2회·1회와 다른 화면비 추가 별도는 lib/content-pricing.ts의 확정 사실이다.
+ * check는 문장 단위 배열이며 화면에서는 " · "로 이어 한 블록으로 보인다(문장 끝 마침표 없음).
+ * art는 단계마다 붙는 장면 그림의 종류(자체 소재와 CSS 모션)이다. */
+export type ContentHomeStepArt = "checklist" | "storyboard" | "refine" | "frames";
+
 export type ContentHomeStep = {
   label: string;
   check: string[];
   output: string;
+  art: ContentHomeStepArt;
 };
 
 export const contentHomeProcessHead = {
@@ -139,23 +143,27 @@ export const contentHomeProcessHead = {
 export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "상담",
-    check: ["사용할 채널과 일정, 가진 자료를 확인해 서비스와 분량을 정합니다"],
+    check: ["채널·일정·가진 자료로 서비스와 분량을 정합니다"],
     output: "작업 범위와 견적",
+    art: "checklist",
   },
   {
     label: "기획",
     check: ["이야기 흐름과 장면 구성을 정리합니다", "기획안은 두 번까지 수정할 수 있습니다"],
     output: "기획안",
+    art: "storyboard",
   },
   {
     label: "제작",
     check: ["확정한 기획안대로 AI로 초안을 만들고 담당자가 다듬습니다", "최종안은 한 번 수정할 수 있습니다"],
     output: "최종안",
+    art: "refine",
   },
   {
     label: "납품",
     check: ["게시할 채널의 화면 비율에 맞춰 파일을 정리합니다", "다른 화면비 추가는 별도 견적입니다"],
     output: "채널별 최종 파일",
+    art: "frames",
   },
 ];
 

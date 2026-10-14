@@ -333,3 +333,131 @@ test("A-8. 데이터: 고유 섹션 문구가 랜딩 데이터 signature와 같�
       assert.ok(title.split("\n").at(-1).replace(/\s/g, "").length >= 3, `${id}: ${title}`);
   assert.doesNotMatch(contentLandings.webtoon.hero.title, /^브랜드 이야기를/);
 });
+
+/* ------------------------------------------------------------------------------------------
+ * R7 WP-4 — 푸터(모바일 가운데) · 하단 상담 바(모바일 전용·서비스색·가운데 묶음) · 함께 제작 가격 박스
+ * ------------------------------------------------------------------------------------------ */
+const THEME_CSS = "components/content-site/theme.css";
+const SERVICES = ["webtoon", "animation", "ai-influencer", "motion-graphics", "brand-film", "ad"];
+/** 중괄호 짝을 맞춰 `@media (query) { ... }` 본문을 모두 돌려준다 */
+function mediaBody(css, query) {
+  const out = [];
+  let from = 0;
+  while ((from = css.indexOf(`@media ${query}`, from)) >= 0) {
+    const open = css.indexOf("{", from);
+    let depth = 0;
+    let i = open;
+    for (; i < css.length; i++) {
+      if (css[i] === "{") depth++;
+      else if (css[i] === "}" && --depth === 0) break;
+    }
+    out.push(css.slice(open + 1, i));
+    from = i;
+  }
+  return out.join("\n");
+}
+const rgb = (hex) => hex.slice(1).match(/../g).map((h) => parseInt(h, 16));
+const lum = ([r, g, b]) =>
+  [r, g, b]
+    .map((v) => v / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+    .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+const contrast = (a, b) => {
+  const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+};
+const mix = (accent, share, base) => accent.map((v, i) => v * share + base[i] * (1 - share));
+const serviceTokens = (css, id) => {
+  const start = css.indexOf(`.cs-site[data-cs-service="${id}"] {`);
+  const block = start < 0 ? "" : css.slice(start, css.indexOf("}", start));
+  const pick = (name) => block.match(new RegExp(`--${name}:\\s*(#[0-9a-f]{6})`, "i"))?.[1];
+  return { accent: pick("cs-accent"), accentText: pick("cs-accent-text"), onAccent: pick("cs-on-accent") };
+};
+
+test("R7-1. 푸터: 767px 이하만 가운데, 768px 이상은 왼쪽 다열, 링크 글자 15px 이상", () => {
+  const theme = code(THEME_CSS);
+  const mobile = mediaBody(theme, "(max-width: 767px)");
+  assert.match(mobile, /\.cs-site \.cs-footer \{[^}]*text-align:\s*center;/);
+  assert.match(mobile, /\.cs-footer-col \{[^}]*align-items:\s*center;/);
+  assert.match(mobile, /\.cs-footer-links--services \{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/, "service links: 2-column grid");
+  assert.match(mobile, /\.cs-footer-legal \{[^}]*justify-content:\s*center/);
+  // 가운데 정렬은 미디어 밖과 768px 이상 어디에도 없다
+  const outside = theme.replace(/@media \(max-width: 767px\) \{(?:[^{}]|\{[^{}]*\})*\}/g, "");
+  assert.doesNotMatch(outside.match(/\/\* -+ 푸터[\s\S]*?모바일 하단 바/)?.[0] ?? "", /text-align:\s*center|align-items:\s*center;\s*\n\s*gap:\s*var\(--cs-s3\)/);
+  for (const q of ["(min-width: 768px)", "(min-width: 1024px)", "(min-width: 1440px)"])
+    assert.doesNotMatch(mediaBody(theme, q).match(/\.cs-footer[^{]*\{[^}]*\}/g)?.join("") ?? "", /text-align:\s*center/, q);
+  // 768~1023은 왼쪽 2열(브랜드 / 서비스·연락처)
+  assert.match(mediaBody(theme, "(min-width: 768px) and (max-width: 1023px)"), /\.cs-col-5 \{[^}]*grid-column:\s*1 \/ 4/);
+  // 글자: 링크 16 / 1024px 15 / 1440px 16, 소개 15, 사업자·법적 줄 14, 헤딩 13
+  const footer = theme.match(/\.cs-site \.cs-footer \{[^}]*--cs-t-nav-size:[^}]*\}/)?.[0] ?? "";
+  assert.match(footer, /--cs-t-nav-size:\s*16px/);
+  assert.match(footer, /--cs-t-caption-size:\s*14px/);
+  assert.match(footer, /--cs-t-eyebrow-size:\s*13px/);
+  assert.match(mediaBody(theme, "(min-width: 1024px)"), /\.cs-footer \{ --cs-t-nav-size: 15px; \}/);
+  assert.match(mediaBody(theme, "(min-width: 1440px)"), /\.cs-footer \{ --cs-t-nav-size: 16px; \}/);
+  assert.match(theme, /\.cs-footer-intro \{[^}]*--cs-t-small-size:\s*15px/);
+  const footerTsx = code("components/content-site/shell/footer.tsx");
+  assert.match(footerTsx, /cs-footer-links cs-footer-links--services/);
+  assert.match(footerTsx, /cs-footer-intro cs-t-small/);
+  // 서비스 페이지 하단 바 높이만큼 푸터 아래 여백은 유지한다
+  assert.match(mobile, /data-cs-page="service"\] \.cs-footer \{[^}]*var\(--cs-mbar-h\)/);
+});
+
+test("R7-2. 하단 상담 바: 모바일 전용, 가운데 한 묶음, 서비스 포인트색, 대비 4.5 이상", () => {
+  const theme = code(THEME_CSS);
+  // 기본은 숨김, 표시는 767px 이하 미디어 안에서만. 768px 이상 미디어에는 .cs-mbar 규칙이 없다
+  assert.match(theme, /\.cs-site \.cs-mbar \{\s*display:\s*none;\s*\}/);
+  const mobile = mediaBody(theme, "(max-width: 767px)");
+  const bar = mobile.match(/\.cs-site \.cs-mbar \{[^}]*\}/)?.[0] ?? "";
+  assert.match(bar, /position:\s*fixed/);
+  assert.match(bar, /display:\s*flex/);
+  assert.match(bar, /justify-content:\s*center/);
+  assert.match(bar, /background:\s*color-mix\(in srgb, var\(--cs-accent\) 22%, var\(--cs-bg\)\)/);
+  assert.match(bar, /border-top:\s*1px solid color-mix\(in srgb, var\(--cs-accent\) 45%, transparent\)/);
+  for (const q of ["(min-width: 768px)", "(min-width: 1024px)", "(min-width: 1440px)"])
+    assert.doesNotMatch(mediaBody(theme, q), /\.cs-mbar/, `${q} has no bottom bar rule`);
+  // 텍스트가 남는 폭을 모두 차지해 버튼을 오른쪽 끝으로 미는 flex:1 이 없다
+  assert.doesNotMatch(theme.match(/\.cs-site \.cs-mbar-text \{[^}]*\}/)?.[0] ?? "", /flex:\s*1 1 auto/);
+  assert.match(theme, /\.cs-site \.cs-mbar \.cs-btn \{[^}]*background:\s*var\(--cs-accent\);[^}]*color:\s*var\(--cs-on-accent\)/);
+  assert.match(theme, /\.cs-site \.cs-mbar-text \.cs-t-caption \{[^}]*color:\s*var\(--cs-accent-text\)/);
+  // 6서비스 모두: 버튼(on-accent/accent), 서비스명(accent-text), 시작가·기본 글자(fg #f7f5f2)가 22% 바탕 위에서 4.5 이상
+  const base = rgb("#080808");
+  const fg = rgb("#f7f5f2");
+  for (const id of SERVICES) {
+    const { accent, accentText, onAccent } = serviceTokens(theme, id);
+    assert.ok(accent && accentText && onAccent, `${id} tokens`);
+    const bg = mix(rgb(accent), 0.22, base);
+    assert.ok(contrast(rgb(onAccent), rgb(accent)) >= 4.5, `${id} button ${contrast(rgb(onAccent), rgb(accent)).toFixed(2)}`);
+    assert.ok(contrast(rgb(accentText), bg) >= 4.5, `${id} service name`);
+    assert.ok(contrast(fg, bg) >= 4.5, `${id} price`);
+  }
+  // 컴포넌트: 모든 서비스에 같은 바(서비스 페이지에서만), 문구는 CS_COPY
+  const tsx = code("components/content-site/shell/mobile-bar.tsx");
+  assert.match(tsx, /if \(!serviceId\) return null;/);
+});
+
+test("R7-3. 웹툰 함께 제작: 보라 외곽 박스 1개 · 알약 배지 0 · 두 금액 같은 행 · 외곽 최대 폭 880", () => {
+  const theme = code(THEME_CSS);
+  const tsx = code("components/content-site/blocks/pricing.tsx");
+  assert.doesNotMatch(tsx + theme, /cs-pricing-badge/);
+  assert.equal((tsx.match(/cs-pricing-group--bundle/g) ?? []).length, 1);
+  assert.match(tsx, /data-count=\{Math\.min\(group\.plans\.length, 4\)\}/);
+  // 그룹 제목은 외곽 박스 안에 한 번(h3는 칸마다 라벨 1개)
+  assert.equal((tsx.match(/className="cs-pricing-title /g) ?? []).length, 1);
+  const outer = theme.match(/\.cs-site \.cs-pricing-group--bundle \{[^}]*\}/)?.[0] ?? "";
+  assert.match(outer, /border:\s*1px solid var\(--cs-accent\)/);
+  assert.match(outer, /background:\s*color-mix\(in srgb, var\(--cs-accent\) 14%, transparent\)/);
+  assert.match(outer, /border-radius:\s*var\(--cs-r-md\)/);
+  // 안쪽 칸: 개별 테두리 없음, 가운데 세로선은 간격 한가운데 1px
+  const cell = theme.match(/\.cs-site \.cs-plan--bundle \{[^}]*\}/)?.[0] ?? "";
+  assert.match(cell, /border:\s*0/);
+  assert.match(theme, /\.cs-plan--bundle \+ \.cs-plan--bundle::before \{[^}]*width:\s*1px/);
+  // 두 금액은 같은 행의 아래쪽에 붙는다(라벨 줄 수와 관계없이 y 동일), 2개 플랜 그룹은 최대 폭 880
+  assert.match(theme, /\.cs-site \.cs-plan-amount \{[^}]*margin-top:\s*auto/);
+  assert.match(theme, /\.cs-site \.cs-pricing-group\[data-count="2"\] \{[^}]*max-width:\s*880px/);
+  // 금액·순서는 PRICING_FINAL 그대로
+  assert.deepEqual(
+    pricingPlans("webtoon").groups.map((g) => g.title),
+    ["웹툰 제작", "모션코믹", "함께 제작"],
+  );
+});

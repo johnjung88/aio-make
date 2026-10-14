@@ -1,5 +1,6 @@
 /* 컨텐츠 사이트 푸터(서버). 항상 ink 테마. 메인 사이트로 가는 유일한 링크 'AIO MAKE 홈'이 여기 있다.
- * 사업자 정보 4줄은 메인 Footer(components/site-shell.tsx)와 같은 문자열이다. */
+ * 사업자 정보 4줄은 메인 Footer(components/site-shell.tsx)와 같은 문자열이다.
+ * 정렬(R7): 767px 이하만 가운데, 768px 이상은 왼쪽 다열이다. 서비스 링크는 모바일에서 2열 격자(cs-footer-links--services)다. */
 import Link from "next/link";
 import { Brand } from "@/components/site-shell";
 import { CS_COPY } from "@/lib/content-site/copy";
@@ -36,14 +37,14 @@ export function ContentSiteFooter() {
                 {CS_COPY.header.studio}
               </span>
             </Link>
-            <p className="cs-t-small">{f.line}</p>
+            <p className="cs-footer-intro cs-t-small">{f.line}</p>
           </div>
           <nav
             className="cs-footer-col cs-col-4"
             aria-label={f.servicesLabel}
           >
             <p className="cs-footer-heading cs-t-eyebrow">SERVICES</p>
-            <ul className="cs-footer-links">
+            <ul className="cs-footer-links cs-footer-links--services">
               {CONTENT_SERVICES.map((s) => (
                 <li key={s.id}>
                   <Link href={contentServicePath(s.id)} className="cs-t-nav">

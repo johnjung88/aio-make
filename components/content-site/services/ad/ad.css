@@ -77,6 +77,29 @@
   .cs-svc-ad .cs-svc-ad-rail-card--type { padding: 12px; }
 }
 
+/* ---------------------------------------------------------------- 사례 카드 여러 안 보기(R7): 포스터 띠 최대 4칸, 누르면 위 영상이 바뀐다 */
+.cs-svc-ad .cs-svc-ad-variants { display: grid; gap: var(--cs-s2); width: 100%; min-width: 0; }
+.cs-svc-ad .cs-svc-ad-variants-count { color: var(--cs-fg-3); }
+.cs-svc-ad .cs-svc-ad-variants-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.cs-svc-ad .cs-svc-ad-variants-thumb {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 44px;
+  aspect-ratio: 9 / 16;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 8px;
+  background: var(--cs-surface);
+  color: var(--cs-fg);
+  cursor: pointer;
+}
+.cs-svc-ad .cs-svc-ad-variants-thumb img { object-fit: cover; }
+.cs-svc-ad .cs-svc-ad-variants-thumb span { position: absolute; left: 6px; bottom: 6px; min-width: 20px; padding-inline: 4px; border-radius: 4px; background: var(--cs-bg-2); color: var(--cs-fg); text-align: center; }
+.cs-svc-ad .cs-svc-ad-variants-thumb[aria-pressed="true"] { border-color: var(--cs-accent); outline: 2px solid var(--cs-accent); outline-offset: -2px; }
+.cs-svc-ad .cs-svc-ad-variants-thumb:focus-visible { outline: 3px solid var(--cs-focus); outline-offset: 3px; }
+
 /* ---------------------------------------------------------------- 움직임 */
 @media (prefers-reduced-motion: no-preference) {
   /* 9초 왕복. 1·3열은 위로, 2열은 아래로, 3열은 반 주기 앞서 시작한다 */

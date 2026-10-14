@@ -1,4 +1,4 @@
-// Server-only selection for the main page journey (03 개발 · 04 컨텐츠).
+// Server-only selection for the main page journey (01 개발 · 03 컨텐츠).
 // Customer work data (project labels, before captures, review slugs, the
 // 87언니 label) lives only here and only when NEXT_PUBLIC_AIO_REFERENCE_REVIEW
 // is exactly "1". Unset or any other value means none of it is selected, so it
@@ -25,29 +25,14 @@ import {
   type HomeJourneyData,
 } from "./home-journey.ts";
 
-export const devProjects: DevProjectConfig[] =
+// R7: one development case only (DR's Secret). Other review works stay in the
+// catalog and on /work, but never enter the main page development step.
+export const devProjectConfig: DevProjectConfig | null =
   process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
-    ? [
-        {
-          slug: "bwl-store",
-          label: "DR's Secret 쇼핑몰",
-          serviceHref: "/lab/services/shopping-mall",
-        },
-        {
-          slug: "healernet-website",
-          label: "힐러넷 웹사이트",
-          serviceHref: "/lab/services/website",
-        },
-        {
-          slug: "yofree-shop",
-          label: "요프리 쇼핑몰",
-          serviceHref: "/lab/services/shopping-mall",
-        },
-      ]
-    : [];
+    ? { slug: "bwl-store", label: "DR's Secret 쇼핑몰" }
+    : null;
 
 // Real captures only (cropped from the customer folder, no retouching).
-// yofree-shop has no capture and stays a HOLD placeholder.
 export const beforeShots: Record<string, BeforeShot> =
   process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
     ? {
@@ -67,23 +52,6 @@ export const beforeShots: Record<string, BeforeShot> =
             alt: "DR's Secret 기존 공식몰 첫 화면 모바일 캡처",
           },
           caption: "기존 공식몰 첫 화면 · 2026-10-10 캡처",
-        },
-        "healernet-website": {
-          pc: {
-            kind: "image",
-            src: "/reference-review/healernet-website/before-pc.webp",
-            width: 1440,
-            height: 900,
-            alt: "힐러넷 기존 홈페이지 첫 화면 PC 캡처",
-          },
-          mobile: {
-            kind: "image",
-            src: "/reference-review/healernet-website/before-mobile.webp",
-            width: 390,
-            height: 844,
-            alt: "힐러넷 기존 홈페이지 첫 화면 모바일 캡처",
-          },
-          caption: "기존 홈페이지 첫 화면 · 2026-10-10 캡처",
         },
       }
     : {};
@@ -109,30 +77,34 @@ export const aiInfluencerDraft =
       }
     : { slugs: [] as string[], caption: "" };
 
-// Only projects that exist in the displayed catalog are shown, in config order.
-export function selectDevProjects(catalog: WorkItem[]): DevProject[] {
-  return devProjects.flatMap((config) => {
-    const work = catalog.find((item) => item.slug === config.slug);
-    const first = work?.media[0];
-    if (!work || !first) return [];
-    return [
-      {
-        config,
-        work,
-        after: toJourneyMedia(first),
-        afterMobile: first.mobileSrc
-          ? {
-              kind: "image",
-              src: first.mobileSrc,
-              width: 390,
-              height: 844,
-              alt: first.alt.replace("PC 화면", "모바일 화면"),
-            }
-          : null,
-        before: beforeShots[config.slug] ?? null,
-      },
-    ];
-  });
+// The case is shown only when it exists in the displayed catalog.
+export function selectDevProject(catalog: WorkItem[]): DevProject | null {
+  const config = devProjectConfig;
+  if (!config) return null;
+  const work = catalog.find((item) => item.slug === config.slug);
+  const first = work?.media[0];
+  if (!work || !first) return null;
+  return {
+    title: config.label,
+    detail: {
+      title: work.title,
+      status: work.productionStatus,
+      description: work.description,
+      purpose: work.purpose,
+      scope: work.scope,
+    },
+    after: toJourneyMedia(first),
+    afterMobile: first.mobileSrc
+      ? {
+          kind: "image",
+          src: first.mobileSrc,
+          width: 390,
+          height: 844,
+          alt: first.alt.replace("PC 화면", "모바일 화면"),
+        }
+      : null,
+    before: beforeShots[config.slug] ?? null,
+  };
 }
 
 export function selectContentMedia(
@@ -162,7 +134,7 @@ export function selectContentMedia(
 export function homeJourneyData(entries: Entry[] = []): HomeJourneyData {
   const catalog = displayWorkCatalog(mergeGuideEntries(entries, "reference"));
   return {
-    devProjects: selectDevProjects(catalog),
+    devProject: selectDevProject(catalog),
     contentSelections: contentTabs.map((tab) =>
       selectContentMedia(tab, catalog),
     ),

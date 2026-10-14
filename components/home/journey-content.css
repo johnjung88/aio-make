@@ -1,0 +1,378 @@
+/* 메인 #work 03 컨텐츠 단계: 플랫폼 프레임 카드 캐러셀(R7 WP-3).
+ * 글자 크기·굵기·자간은 역할 클래스(.t-*)와 토큰만 쓴다. 이 파일은 배치·색·움직임만 정한다.
+ * 카드 외곽 폭은 --wjc-w 하나다(높이는 폭 × 19.5 / 9, PlatformFrame의 9:19.5).
+ *   360 → 200 · 390 → 216 · 430 → 232 · 768 → 240 · 1024 → 248 · 1440 → 280 (높이 상한 68svh)
+ * 768px 미만: scroll-snap 가로 넘김(3D·블러 없음). 768px 이상: 3D 캐러셀(블러 없음, transform·opacity만).
+ * 색 변수(--wj-*)와 간격은 workflow-journey.css의 .wj 범위를 따른다. */
+
+.wj .wjc {
+  --wjc-w: 200px;
+  --wjc-gap: 16px;
+  --wjc-shift: 190px;
+  --wjc-shift2: 330px;
+  --wjc-side-scale: 0.84;
+  display: grid;
+  justify-items: center;
+  gap: var(--wj-s2);
+  min-width: 0;
+}
+@media (min-width: 390px) {
+  .wj .wjc {
+    --wjc-w: 216px;
+  }
+}
+@media (min-width: 430px) {
+  .wj .wjc {
+    --wjc-w: 232px;
+  }
+}
+@media (min-width: 768px) {
+  .wj .wjc {
+    --wjc-w: 240px;
+  }
+}
+@media (min-width: 1024px) {
+  .wj .wjc {
+    --wjc-w: 248px;
+    --wjc-shift: 200px;
+  }
+}
+@media (min-width: 1440px) {
+  .wj .wjc {
+    --wjc-w: min(280px, calc(68svh * 9 / 19.5));
+    --wjc-shift: 230px;
+    --wjc-shift2: 400px;
+  }
+}
+
+.wj .wjc-stage {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ---- 가로 넘김(768px 미만): 가운데 스냅, 양옆 카드가 살짝 보인다 ---- */
+.wj .wjc-track {
+  position: relative;
+  display: flex;
+  gap: var(--wjc-gap);
+  margin: 0;
+  padding: 12px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  list-style: none;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.wj .wjc-track::-webkit-scrollbar {
+  display: none;
+}
+.wj .wjc-track::before,
+.wj .wjc-track::after {
+  content: "";
+  flex: none;
+  width: calc((100% - var(--wjc-w)) / 2 - var(--wjc-gap));
+}
+.wj .wjc-card {
+  position: relative;
+  flex: none;
+  width: var(--wjc-w);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.wj .wjc-card[data-active="true"] {
+  opacity: 1;
+}
+
+/* ---- 카드 위 선택·링크 겹침 ---- */
+.wj .wjc-open,
+.wj .wjc-select {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: calc(var(--wjc-w) * 0.12);
+  background: transparent;
+  cursor: pointer;
+}
+.wj .wjc-open:focus-visible,
+.wj .wjc-select:focus-visible {
+  outline: 2px solid var(--wj-accent);
+  outline-offset: 3px;
+}
+
+/* ---- 프레임 안 소재 ---- */
+.wj .wjc-kb {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.wj .wjc-kb img {
+  object-fit: cover;
+  object-position: var(--wjc-focus, 50% 50%);
+}
+.wj .wjc-card[data-service="ad"] {
+  --wjc-focus: 50% 40%;
+}
+.wj .wjc-card[data-service="animation"] {
+  --wjc-focus: 40% 40%;
+}
+.wj .wjc-card[data-service="brand-film"] {
+  --wjc-focus: 50% 50%;
+}
+.wj .wjc-blank {
+  position: absolute;
+  inset: 0;
+  background: #1b1b22;
+}
+.wj .wjc-card .pf-media > video {
+  object-fit: cover;
+  object-position: var(--wjc-focus, 50% 50%);
+}
+
+/* 웹툰: 컷을 이어 붙여 위에서 아래로 읽는다. 바깥은 뷰어 높이만큼, 안쪽은 이어 붙인 길이만큼 움직여
+ * 끝에서 이어 붙인 아래쪽 끝이 뷰어 아래쪽 끝에 맞는다(transform만 쓴다) */
+.wj .wjc-roll {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #fff;
+}
+.wj .wjc-roll-a {
+  height: 100%;
+}
+.wj .wjc-cut {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 모션그래픽: 활성 카드의 글자 모션(공개판 이미지 소재만) */
+.wj .wjc-kinetic {
+  position: absolute;
+  left: 7%;
+  bottom: 34%;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  color: #fff;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.55);
+  pointer-events: none;
+}
+.wj .wjc-kinetic > span {
+  display: block;
+}
+
+/* 움직임: 화면 안에 있고 reduced-motion이 아닐 때 활성 카드 1장만 */
+@keyframes wjc-kb {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+@keyframes wjc-roll-a {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes wjc-roll-b {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes wjc-slide {
+  0% {
+    transform: translateX(-24px);
+    opacity: 0;
+  }
+  18%,
+  78% {
+    transform: none;
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
+.wj .wjc[data-run="true"] .wjc-card[data-active="true"] .wjc-kb:not(.wjc-kb--static) {
+  animation: wjc-kb 7s ease-in-out infinite alternate;
+}
+.wj .wjc[data-run="true"] .wjc-card[data-active="true"] .wjc-roll-a {
+  animation: wjc-roll-a 24s linear infinite alternate;
+}
+.wj .wjc[data-run="true"] .wjc-card[data-active="true"] .wjc-roll-b {
+  animation: wjc-roll-b 24s linear infinite alternate;
+}
+.wj .wjc[data-run="true"] .wjc-card[data-active="true"] .wjc-kinetic > span {
+  animation: wjc-slide 3.5s ease-in-out infinite;
+}
+.wj .wjc[data-run="true"] .wjc-card[data-active="true"] .wjc-kinetic > span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+/* ---- 캡션·진행 표시 ---- */
+.wj .wjc-caption {
+  margin: 0;
+  color: var(--wj-ink);
+  text-align: center;
+  word-break: keep-all;
+}
+.wj .wjc-note {
+  margin: 0;
+  color: var(--wj-text-2);
+  text-align: center;
+  word-break: keep-all;
+}
+/* 상표 고지: 로고가 보이는 구간이라 카드 아래에 작게 둔다. 360~430px에서는 두 줄로 균형 있게 나뉜다. */
+.wj .wjc-notice {
+  max-width: 100%;
+  margin: 0;
+  color: var(--wj-text-3);
+  text-align: center;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+.wj .wjc-dots {
+  display: flex;
+  justify-content: center;
+}
+.wj .wjc-dot {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 44px;
+  padding: 0 3px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.wj .wjc-dot:focus-visible {
+  outline: 2px solid var(--wj-accent);
+  outline-offset: -2px;
+}
+.wj .wjc-bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--wj-line);
+  transition: background-color 0.25s ease;
+}
+.wj .wjc-dot[aria-current="true"] .wjc-bar {
+  background: var(--wj-accent);
+}
+.wj .wjc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- 3D 캐러셀(768px 이상): 카드마다 data-pos(-2..2, hidden)로 위치를 정한다 ---- */
+@media (min-width: 768px) {
+  .wj .wjc-stage {
+    height: calc(var(--wjc-w) * 19.5 / 9 + 24px);
+    overflow: hidden;
+    perspective: 1400px;
+    touch-action: pan-y;
+  }
+  .wj .wjc-track {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+    transform-style: preserve-3d;
+  }
+  .wj .wjc-track::before,
+  .wj .wjc-track::after {
+    display: none;
+  }
+  .wj .wjc-card {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    margin-left: calc(var(--wjc-w) / -2);
+    scroll-snap-align: none;
+    opacity: var(--wjc-o, 1);
+    transform: translate3d(var(--wjc-x, 0px), 0, var(--wjc-z, 0px))
+      rotateY(var(--wjc-ry, 0deg)) scale(var(--wjc-s, 1));
+    transition:
+      transform 0.65s ease,
+      opacity 0.5s ease;
+  }
+  .wj .wjc-card[data-pos="0"] {
+    --wjc-o: 1;
+    z-index: 3;
+  }
+  .wj .wjc-card[data-pos="-1"],
+  .wj .wjc-card[data-pos="1"] {
+    --wjc-o: 0.82;
+    --wjc-s: var(--wjc-side-scale);
+    --wjc-z: -50px;
+    z-index: 2;
+  }
+  .wj .wjc-card[data-pos="-1"] {
+    --wjc-x: calc(var(--wjc-shift) * -1);
+    --wjc-ry: 26deg;
+  }
+  .wj .wjc-card[data-pos="1"] {
+    --wjc-x: var(--wjc-shift);
+    --wjc-ry: -26deg;
+  }
+  .wj .wjc-card[data-pos="-2"],
+  .wj .wjc-card[data-pos="2"] {
+    --wjc-o: 0.5;
+    --wjc-s: 0.7;
+    --wjc-z: -120px;
+    z-index: 1;
+  }
+  .wj .wjc-card[data-pos="-2"] {
+    --wjc-x: calc(var(--wjc-shift2) * -1);
+    --wjc-ry: 34deg;
+  }
+  .wj .wjc-card[data-pos="2"] {
+    --wjc-x: var(--wjc-shift2);
+    --wjc-ry: -34deg;
+  }
+  .wj .wjc-card[data-pos="hidden"] {
+    --wjc-o: 0;
+    --wjc-s: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* 1024~1439px는 본문 열이 좁아 ±2 카드를 숨긴다 */
+@media (min-width: 1024px) and (max-width: 1439.98px) {
+  .wj .wjc-card[data-pos="-2"],
+  .wj .wjc-card[data-pos="2"] {
+    --wjc-o: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wj .wjc-card,
+  .wj .wjc-bar {
+    transition: none;
+  }
+}

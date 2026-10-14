@@ -11,12 +11,24 @@ import type {
 } from "@/lib/content-site/types";
 import { CsMedia, type CsRatio } from "../ui/media";
 import { CsSectionHead } from "../ui/section-head";
+import { AdWorkVariants } from "../services/ad/ad-reel";
 
 function ratioOf(media: CsWorkMedia): CsRatio {
   if (media.kind === "webtoon" || media.presentation === "webtoon") return "2x3";
   if (media.presentation === "portrait") return "9x16";
   if (media.presentation === "square") return "1x1";
   return "16x9";
+}
+
+const isPortraitVideo = (media: CsWorkMedia) => media.kind === "video" && media.presentation === "portrait";
+
+/** 카드에 보일 미디어. 세로형(vertical) 서비스만 9:16 영상을 앞세우고, 서버가 안 수 표시(variantLabel)를 준 작품은
+ * 9:16 영상 최대 4개를 포스터 띠로 묶는다. 다른 레이아웃은 첫 미디어를 그대로 쓴다(R7) */
+function cardMedia(work: CsWorkCard, layout: CsWorksLayout): { main: CsWorkMedia; variants: CsWorkMedia[] } {
+  if (layout !== "vertical") return { main: work.media[0], variants: [] };
+  const portrait = work.media.filter(isPortraitVideo);
+  const variants = work.variantLabel && portrait.length > 1 ? portrait.slice(0, 4) : [];
+  return { main: portrait[0] ?? work.media[0], variants };
 }
 
 const SIZES: Record<CsWorksLayout, string> = {
@@ -45,10 +57,16 @@ export function CsWorks({
         <CsSectionHead id="cs-works-title" eyebrow={c.eyebrow} title={c.title} />
         <ul className="cs-works-grid" data-layout={layout}>
           {works.map((work) => {
-            const media = work.media[0];
+            const { main: media, variants } = cardMedia(work, layout);
             return (
               <li key={work.slug} className="cs-work">
-                {media.kind === "video" ? (
+                {variants.length > 1 && work.variantLabel ? (
+                  <AdWorkVariants
+                    label={work.variantLabel}
+                    tag={work.label}
+                    items={variants.map((item, i) => ({ src: item.src, poster: item.poster, alt: `${work.title} ${i + 1}번째 안` }))}
+                  />
+                ) : media.kind === "video" ? (
                   <CsMedia
                     kind="video"
                     ratio={ratioOf(media)}

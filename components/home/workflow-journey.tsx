@@ -1,117 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  contentCopy,
-  devServiceLinks,
   emptyJourneyData,
   journeyClosing,
   journeyIntro,
   journeySteps,
-  marketingPanel,
   railLabel,
   type HomeJourneyData,
-  type JourneyLink,
   type JourneyStepId,
 } from "@/lib/home-journey";
-import { contentLinkProps } from "@/lib/new-tab";
-import { NewTabHint } from "@/components/new-tab-hint";
 import { JourneyContent } from "./journey-content";
 import { JourneyDev } from "./journey-dev";
+import { JourneyMarketing } from "./journey-marketing";
 import "./workflow-journey.css";
-
-function JourneyAnchor({
-  href,
-  className,
-  children,
-}: {
-  href: string;
-  className: string;
-  children: ReactNode;
-}) {
-  if (href.startsWith("#"))
-    return (
-      <a className={className} href={href}>
-        {children}
-      </a>
-    );
-  // Links into /content open the content site in a new tab.
-  const newTab = contentLinkProps(href);
-  return (
-    <Link className={className} href={href} {...newTab}>
-      {children}
-      {newTab.target && <NewTabHint />}
-    </Link>
-  );
-}
-
-function LinkRow({ links }: { links: JourneyLink[] }) {
-  if (!links.length) return null;
-  return (
-    <div className="wj-links wj-step-links">
-      {links.map((link) => (
-        <JourneyAnchor
-          key={link.href}
-          className="wj-link t-button"
-          href={link.href}
-        >
-          {link.label} <span aria-hidden="true">→</span>
-        </JourneyAnchor>
-      ))}
-    </div>
-  );
-}
-
-function MarketingBody() {
-  const { nodes, branches } = marketingPanel;
-  return (
-    <div className="wj-panel">
-      <div className="wj-panel-head">
-        <p className="wj-caption wj-panel-label t-small">
-          {marketingPanel.label}
-        </p>
-        <span className="wj-tag t-caption">{marketingPanel.tag}</span>
-      </div>
-      <ol className="wj-cycle">
-        {nodes.map((node, index) => (
-          <li key={node.id} className={`wj-node wj-node--${node.id}`}>
-            {index > 0 && <span className="wj-flow-arrow" aria-hidden="true" />}
-            {index === 1 && (
-              <>
-                <span className="wj-loop wj-loop--start" aria-hidden="true" />
-                <span className="wj-loop-head" aria-hidden="true" />
-              </>
-            )}
-            {index === 2 && (
-              <span className="wj-loop wj-loop--mid" aria-hidden="true" />
-            )}
-            {index === 3 && (
-              <span className="wj-loop wj-loop--end" aria-hidden="true" />
-            )}
-            <span className="wj-num eyebrow">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3 className="wj-item-title t-h3">{node.title}</h3>
-            <p className="wj-caption t-small">{node.detail}</p>
-            {node.id === "improve" && (
-              <ul className="wj-branches">
-                {branches.map((branch) => (
-                  <li key={branch.href}>
-                    <a className="wj-link t-button" href={branch.href}>
-                      {branch.from} <span aria-hidden="true">→</span>{" "}
-                      {branch.to}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
 
 // data comes from the server (lib/home-journey-data.ts) as plain props.
 export function WorkflowJourney({
@@ -162,16 +64,10 @@ export function WorkflowJourney({
   }, []);
 
   const bodies: Record<JourneyStepId, ReactNode> = {
-    "journey-dev": <JourneyDev projects={data.devProjects} />,
+    "journey-dev": <JourneyDev project={data.devProject} />,
     "journey-content": <JourneyContent selections={data.contentSelections} />,
-    "journey-marketing": <MarketingBody />,
+    "journey-marketing": <JourneyMarketing />,
   };
-  const links: Record<JourneyStepId, JourneyLink[]> = {
-    "journey-dev": devServiceLinks,
-    "journey-content": contentCopy.stepLinks,
-    "journey-marketing": marketingPanel.links,
-  };
-
   return (
     <section
       id="work"
@@ -229,7 +125,6 @@ export function WorkflowJourney({
                     </h2>
                     <p className="wj-lead t-lead">{step.lead}</p>
                     <div className="wj-step-body">{bodies[step.id]}</div>
-                    <LinkRow links={links[step.id]} />
                   </article>
                 </li>
               ))}

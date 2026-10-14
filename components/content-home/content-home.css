@@ -117,9 +117,15 @@
 .cs-site .cs-home .ch-arrow--prev { left:0; }
 .cs-site .cs-home .ch-arrow--next { right:0; }
 
-/* ---------------------------------------------------------------- 제작 과정: 박스 없는 4행 표 */
+/* ---------------------------------------------------------------- 제작 과정 4단계(R7)
+ * 모바일: 단계마다 [장면 그림 | 번호·이름 / 받는 것] 머리 줄 + 아래 확인 문장 한 블록(4행 합계 600px 이내).
+ * 768px: 2×2, 1024px부터 4열 가로. 칸마다 위 그림, 아래 글. 컨테이너는 읽기 폭 880 제한 없이 전체 폭을 쓴다.
+ * 그림 틀은 허용 박스(이미지 틀)이며 글 영역에는 박스·그림자·기울임이 없다. 모든 움직임은 아래 no-preference 블록에 있다. */
 .cs-site .cs-home .ch-process {
   padding-block: var(--cs-section-y);
+}
+.cs-site .cs-home .ch-process .cs-container--read {
+  max-width: var(--cs-container);
 }
 .cs-site .cs-home .ch-steps {
   display: grid;
@@ -128,38 +134,162 @@
   list-style: none;
 }
 .cs-site .cs-home .ch-step {
+  --ch-art-w: 72px;
+  --cs-t-small-size: 15px;
+  --cs-t-small-leading: 1.6;
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cs-s3);
-  padding-block: var(--cs-s5);
+  grid-template-columns: var(--ch-art-w) minmax(0, 1fr);
+  grid-template-areas:
+    "art name"
+    "art output"
+    "check check";
+  column-gap: var(--cs-s3);
+  align-content: start;
+  padding-block: var(--cs-s3);
   border-top: 1px solid var(--cs-line);
 }
+.cs-site .cs-home .ch-step-art { grid-area: art; align-self: center; }
+/* 모션 순서: 단계 번호(--i)와 그림 안 순번(--r) */
+.cs-site .cs-home .ch-step:nth-child(1) { --i: 0; }
+.cs-site .cs-home .ch-step:nth-child(2) { --i: 1; }
+.cs-site .cs-home .ch-step:nth-child(3) { --i: 2; }
+.cs-site .cs-home .ch-step:nth-child(4) { --i: 3; }
+.cs-site .cs-home .ch-art-row:nth-child(1), .cs-site .cs-home .ch-art-slot:nth-child(1), .cs-site .cs-home .ch-art-frame:nth-child(1) { --r: 0; }
+.cs-site .cs-home .ch-art-row:nth-child(2), .cs-site .cs-home .ch-art-slot:nth-child(2), .cs-site .cs-home .ch-art-frame:nth-child(2) { --r: 1; }
+.cs-site .cs-home .ch-art-row:nth-child(3), .cs-site .cs-home .ch-art-slot:nth-child(3), .cs-site .cs-home .ch-art-frame:nth-child(3) { --r: 2; }
 .cs-site .cs-home .ch-step-name {
+  grid-area: name;
+  align-self: end;
   display: flex;
   align-items: baseline;
-  gap: var(--cs-s3);
+  gap: var(--cs-s2);
   margin: 0;
 }
 .cs-site .cs-home .ch-step-num {
   color: var(--cs-accent-text);
 }
-.cs-site .cs-home .ch-step-check,
-.cs-site .cs-home .ch-step-output {
-  display: grid;
-  gap: var(--cs-s1);
+.cs-site .cs-home .ch-step-check {
+  grid-area: check;
   min-width: 0;
-  align-content: start;
+  margin-top: var(--cs-s2);
+}
+.cs-site .cs-home .ch-step-output {
+  grid-area: output;
+  align-self: start;
+  min-width: 0;
 }
 .cs-site .cs-home .ch-step :where(p) {
   margin: 0;
 }
-.cs-site .cs-home .ch-step-label {
-  color: var(--cs-fg-3);
-}
-.cs-site .cs-home .ch-step-check .cs-t-body {
+.cs-site .cs-home .ch-step-check .cs-t-small {
   color: var(--cs-fg-2);
   max-width: var(--cs-measure);
+  text-wrap: pretty;
 }
+.cs-site .cs-home .ch-step-output {
+  color: var(--cs-fg-3);
+}
+.cs-site .cs-home .ch-step-output-value {
+  color: var(--cs-fg-2);
+}
+
+/* 장면 그림(이미지 틀). 크기 단위 --u는 틀 폭의 1%와 틀 높이의 1.6% 중 작은 값이라 틀 비율(16:10, 5:2)이 달라도 장면이 잘리지 않는다 */
+.cs-site .cs-home .ch-step-art {
+  position: relative;
+  container-type: size;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-sm);
+  background: var(--cs-surface);
+}
+/* 장면 무대: 틀 안을 채우고(cqw는 틀 폭 기준) 종류별 배치는 무대가 정한다 */
+.cs-site .cs-home .ch-art-stage {
+  --u: min(1cqw, 1.6cqh);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+}
+.cs-site .cs-home .ch-art-img {
+  object-fit: cover;
+}
+/* 01 상담: 체크리스트 3줄 */
+.cs-site .cs-home .ch-art-row {
+  display: flex;
+  align-items: center;
+  gap: calc(7 * var(--u));
+  width: calc(64 * var(--u));
+  margin-block: calc(3.5 * var(--u));
+}
+.cs-site .cs-home .ch-art-box {
+  position: relative;
+  flex: none;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border: 1px solid var(--cs-accent);
+  border-radius: calc(2 * var(--u));
+  background: var(--cs-accent);
+}
+.cs-site .cs-home .ch-art-box::after {
+  content: "";
+  position: absolute;
+  left: calc(2 * var(--u));
+  top: calc(2 * var(--u));
+  width: calc(5 * var(--u));
+  height: calc(2.6 * var(--u));
+  border-left: max(1px, calc(0.9 * var(--u))) solid var(--cs-on-accent);
+  border-bottom: max(1px, calc(0.9 * var(--u))) solid var(--cs-on-accent);
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+.cs-site .cs-home .ch-art-bar {
+  flex: none;
+  width: calc(44 * var(--u));
+  height: calc(3.6 * var(--u));
+  border-radius: var(--cs-r-pill);
+  background: color-mix(in srgb, var(--cs-fg-3) 60%, transparent);
+}
+.cs-site .cs-home .ch-art-row:nth-child(2) .ch-art-bar { width: calc(34 * var(--u)); }
+.cs-site .cs-home .ch-art-row:nth-child(3) .ch-art-bar { width: calc(40 * var(--u)); }
+/* 02 기획: 콘티 칸 3개에 웹툰 컷이 자리 잡는다 */
+.cs-site .cs-home .ch-art-stage[data-art="storyboard"] {
+  grid-template-columns: repeat(3, calc(25 * var(--u)));
+  column-gap: calc(4 * var(--u));
+  padding-block: calc(7 * var(--u));
+}
+.cs-site .cs-home .ch-art-slot {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px dashed var(--cs-fg-3);
+  border-radius: calc(1.5 * var(--u));
+}
+/* 03 제작: 같은 컷, 초안에서 다듬은 모습으로 */
+.cs-site .cs-home .ch-art-draft {
+  position: relative;
+  width: calc(40 * var(--u));
+  height: calc(50 * var(--u));
+  overflow: hidden;
+  border: 1px solid var(--cs-accent);
+  border-radius: calc(1.5 * var(--u));
+}
+/* 04 납품: 9:16 · 4:5 · 16:9 틀에 같은 컷이 맞춰 들어간다 */
+.cs-site .cs-home .ch-art-stage[data-art="frames"] {
+  grid-auto-flow: column;
+  column-gap: calc(4 * var(--u));
+  align-items: center;
+}
+.cs-site .cs-home .ch-art-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--cs-accent);
+  border-radius: calc(1.5 * var(--u));
+}
+.cs-site .cs-home .ch-art-frame[data-ratio="916"] { width: calc(20 * var(--u)); aspect-ratio: 9 / 16; }
+.cs-site .cs-home .ch-art-frame[data-ratio="45"] { width: calc(25 * var(--u)); aspect-ratio: 4 / 5; }
+.cs-site .cs-home .ch-art-frame[data-ratio="169"] { width: calc(33 * var(--u)); aspect-ratio: 16 / 9; }
 
 /* ------------------------------------------------------------------ 상담 띠 */
 .cs-site .cs-home .ch-cta {
@@ -187,19 +317,50 @@
 }
 
 /* ------------------------------------------------------------- 반응형(배치만) */
+@media (min-width: 430px) {
+  .cs-site .cs-home .ch-step { --ch-art-w: 80px; }
+}
 @media (min-width: 768px) {
-  .cs-site .cs-home .ch-step {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.5fr) minmax(0, 0.8fr);
-    column-gap: var(--cs-s5);
-    align-items: start;
+  .cs-site .cs-home .ch-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cs-s6) var(--cs-s5);
   }
+  .cs-site .cs-home .ch-step {
+    --cs-t-small-size: 16px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "art"
+      "name"
+      "check"
+      "output";
+    row-gap: var(--cs-s1);
+    padding-block: var(--cs-s4) 0;
+  }
+  .cs-site .cs-home .ch-step-art {
+    align-self: start;
+    aspect-ratio: 5 / 2;
+    margin-bottom: var(--cs-s3);
+  }
+  .cs-site .cs-home .ch-step-name { align-self: start; }
+  .cs-site .cs-home .ch-step-check { margin-top: 0; }
 }
 @media (min-width: 1024px) {
+  .cs-site .cs-home .ch-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--cs-s5);
+  }
+  .cs-site .cs-home .ch-step {
+    --cs-t-small-size: 15px;
+  }
+  .cs-site .cs-home .ch-step-art { aspect-ratio: 16 / 10; }
   .cs-site .cs-home .ch-cta-inner {
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
   }
+}
+@media (min-width: 1440px) {
+  .cs-site .cs-home .ch-step { --cs-t-small-size: 16px; }
 }
 @media (max-width: 1023px) {
   .cs-site .cs-home .ch-depth-stage { --ch-depth-w:450px; --ch-depth-shift:290px; }
@@ -245,4 +406,43 @@
   .cs-site .cs-home .ch-gallery[data-active="false"] .ch-kb { animation-play-state:paused; }
   @keyframes cs-ch-kb { from { transform:scale(1) translate3d(0,0,0); } to { transform:scale(1.08) translate3d(-1.5%,-1%,0); } }
   @keyframes cs-ch-kb-read { from { transform:scale(1.04) translate3d(0,1.5%,0); } to { transform:scale(1.1) translate3d(0,-3%,0); } }
+
+  /* 제작 과정: 화면에 들어오면 01 → 04를 1.2초 간격으로 한 번만 진행한다(루프 없음).
+   * data-run이 없으면(서버 렌더·모션 줄임) 완료 상태가 그대로 정지로 보인다. 시작 상태는 ready에서만 만든다. */
+  .cs-site .cs-home .ch-step::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--cs-accent);
+    transform-origin: left center;
+  }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-step::before { transform: scaleX(0); }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-step::before {
+    transition: transform 0.9s var(--cs-ease) calc(var(--i) * 1.2s);
+  }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-art-box { background: transparent; }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-art-box::after { transform: rotate(-45deg) scale(0); }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-art-slot .ch-art-img { opacity: 0; transform: translateY(-30%) scale(1.15); }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-art-draft .ch-art-img { filter: blur(7px) saturate(0.4) brightness(0.8); }
+  .cs-site .cs-home .ch-steps[data-run="ready"] .ch-art-frame { opacity: 0; transform: scale(0.8); }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-art-box {
+    transition: background-color 0.3s var(--cs-ease) calc(var(--i) * 1.2s + var(--r, 0) * 0.2s + 0.2s);
+  }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-art-box::after {
+    transition: transform 0.3s var(--cs-ease) calc(var(--i) * 1.2s + var(--r, 0) * 0.2s + 0.2s);
+  }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-art-slot .ch-art-img {
+    transition: opacity 0.5s var(--cs-ease), transform 0.5s var(--cs-ease);
+    transition-delay: calc(var(--i) * 1.2s + var(--r, 0) * 0.2s + 0.2s);
+  }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-art-draft .ch-art-img {
+    transition: filter 1s var(--cs-ease) calc(var(--i) * 1.2s + 0.2s);
+  }
+  .cs-site .cs-home .ch-steps[data-run="run"] .ch-art-frame {
+    transition: opacity 0.4s var(--cs-ease), transform 0.4s var(--cs-ease);
+    transition-delay: calc(var(--i) * 1.2s + var(--r, 0) * 0.2s + 0.2s);
+  }
 }

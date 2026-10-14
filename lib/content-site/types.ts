@@ -106,8 +106,15 @@ export type CsWorkCard = {
   label: string;
   href: string;
   media: CsWorkMedia[];
-  /** 서비스 고유 섹션에 실물을 붙이는 작품 표시. 이 값이 있으면 사례 목록(CsWorks)에서 빼 같은 작품을 두 번 보이지 않는다 */
-  placement?: "character-case";
+  /** 서비스 고유 섹션에 실물을 붙이는 작품 표시. 이 값이 있으면 사례 목록(CsWorks)에서 빼 같은 작품을 두 번 보이지 않고, 목록 상한 계산에서도 뺀다.
+   * "ad-signature"는 SNS 광고 시그니처(세로 3장면)에 붙는 작품이다(R7) */
+  placement?: "character-case" | "ad-signature";
+  /** 시그니처(placement "ad-signature") 3장면 이름. 서버가 만들어 내려준다. 클라이언트 파일에는 문구를 두지 않는다(R7) */
+  signatureLabels?: readonly [string, string, string];
+  /** 히어로 레일 앞칸에 이 작품의 9:16 포스터를 먼저 둔다(R7, SNS 광고) */
+  railLead?: true;
+  /** 9:16 영상이 둘 이상인 작품의 안 수 표시(예: "4안"). 있으면 세로형 사례 카드가 포스터 띠를 붙인다(R7) */
+  variantLabel?: string;
 };
 
 export type CsWorksLayout = "vertical" | "wide" | "webtoon";

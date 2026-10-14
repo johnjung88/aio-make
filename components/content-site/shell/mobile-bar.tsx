@@ -1,5 +1,6 @@
 "use client";
-/* 모바일 하단 바(<768, 서비스 페이지에서만. 768 이상은 CSS가 숨긴다).
+/* 모바일 하단 바(<768, 서비스 페이지에서만. 768 이상은 CSS가 숨긴다 — R7 사용자 확정: PC에는 두지 않는다).
+ * 색·정렬(서비스 포인트색 22% 바탕, 서비스명·시작가·버튼 가운데 한 묶음)은 theme.css가 정한다.
  * 히어로 CTA 또는 #inquiry가 화면에 들어오거나 가상 키보드가 열리면(visualViewport 160px 기준) 숨긴다.
  * 숨김은 hidden 속성이 아니라 transform + visibility(data-hidden)로 해서 레이아웃 이동이 없다. */
 import { usePathname } from "next/navigation";

@@ -970,15 +970,21 @@ body:has(.cs-site) {
   }
 }
 
-/* ---------------------------------------------------------------- 푸터 */
+/* ---------------------------------------------------------------- 푸터
+ * R7: 767px 이하만 가운데 정렬(브랜드·소개·서비스 2열·연락처·사업자 정보·법적 줄), 768px 이상은 왼쪽 다열.
+ * 글자: 링크 16px(1024px는 15px), 소개 15px, 사업자·법적 줄 14px. 값은 이 푸터 안에서만 글자 변수로 정한다. */
 .cs-site .cs-footer {
+  --cs-t-nav-size: 16px;
+  --cs-t-caption-size: 14px;
+  --cs-t-caption-leading: 1.7;
+  --cs-t-eyebrow-size: 13px;
   padding-block: var(--cs-s8) var(--cs-s7);
   background: var(--cs-bg);
   border-top: 1px solid var(--cs-line);
   color: var(--cs-fg-2);
 }
 .cs-site .cs-footer-grid {
-  row-gap: var(--cs-s7);
+  row-gap: 40px;
 }
 .cs-site .cs-footer-col {
   display: flex;
@@ -986,9 +992,13 @@ body:has(.cs-site) {
   align-items: flex-start;
   gap: var(--cs-s4);
 }
+.cs-site .cs-footer-intro {
+  --cs-t-small-size: 15px;
+  max-width: 300px;
+}
 .cs-site .cs-footer-links {
   display: grid;
-  gap: var(--cs-s1);
+  gap: 0;
 }
 .cs-site .cs-footer-links a {
   display: inline-flex;
@@ -1001,8 +1011,8 @@ body:has(.cs-site) {
 }
 .cs-site .cs-footer-bottom {
   display: grid;
-  gap: var(--cs-s5);
-  margin-top: var(--cs-s8);
+  gap: var(--cs-s4);
+  margin-top: 40px;
   padding-top: var(--cs-s6);
   border-top: 1px solid var(--cs-line);
 }
@@ -1018,7 +1028,7 @@ body:has(.cs-site) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--cs-s2) var(--cs-s5);
+  gap: var(--cs-s2) var(--cs-s4);
 }
 .cs-site .cs-footer-legal a {
   display: inline-flex;
@@ -1033,31 +1043,99 @@ body:has(.cs-site) {
 .cs-site .cs-footer-copy {
   color: var(--cs-fg-3);
 }
+/* 모바일: 가운데 정렬. 서비스 링크는 2열 격자이고 각 칸 안도 가운데라 두 열의 중심선이 화면 중심에 대칭이다 */
 @media (max-width: 767px) {
+  .cs-site .cs-footer {
+    padding-block: var(--cs-s6) 40px;
+    text-align: center;
+  }
+  .cs-site .cs-footer-grid {
+    row-gap: var(--cs-s6);
+  }
+  .cs-site .cs-footer-col {
+    align-items: center;
+    gap: var(--cs-s3);
+  }
+  .cs-site .cs-footer-bottom {
+    gap: var(--cs-s3);
+    margin-top: var(--cs-s6);
+    padding-top: var(--cs-s5);
+  }
+  .cs-site .cs-footer-biz span {
+    text-wrap: balance;
+  }
+  .cs-site .cs-footer-links--services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: 390px;
+  }
+  .cs-site .cs-footer-links a {
+    justify-content: center;
+  }
+  .cs-site .cs-footer-biz {
+    justify-items: center;
+  }
+  .cs-site .cs-footer-legal {
+    justify-content: center;
+  }
   .cs-site[data-cs-page="service"] .cs-footer {
-    padding-bottom: calc(var(--cs-s7) + var(--cs-mbar-h) + env(safe-area-inset-bottom));
+    padding-bottom: calc(40px + var(--cs-mbar-h) + env(safe-area-inset-bottom));
   }
 }
+/* 768~1023: 왼쪽 2열(브랜드 / 서비스·연락처) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cs-site .cs-footer-grid > .cs-col-5 {
+    grid-column: 1 / 4;
+    grid-row: 1 / 3;
+  }
+  .cs-site .cs-footer-grid > .cs-col-4,
+  .cs-site .cs-footer-grid > .cs-col-3 {
+    grid-column: 4 / 7;
+  }
+  .cs-site .cs-footer-links--services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 768px) {
+  .cs-site .cs-footer-grid { row-gap: var(--cs-s7); }
+  .cs-site .cs-footer-bottom { margin-top: var(--cs-s7); }
+  .cs-site .cs-footer-legal { column-gap: var(--cs-s5); }
+}
+@media (min-width: 1024px) {
+  .cs-site .cs-footer { --cs-t-nav-size: 15px; }
+  .cs-site .cs-footer-grid { row-gap: 56px; }
+  .cs-site .cs-footer-bottom { margin-top: 56px; }
+}
+@media (min-width: 1440px) {
+  .cs-site .cs-footer { --cs-t-nav-size: 16px; }
+  .cs-site .cs-footer-grid { row-gap: var(--cs-s8); }
+  .cs-site .cs-footer-bottom { margin-top: var(--cs-s8); }
+}
 
-/* ---------------------------------------------------------------- 모바일 하단 바 */
+/* ---------------------------------------------------------------- 모바일 하단 바
+ * R7: 767px 이하 전용(768px 이상은 표시하지 않는다). 서비스 포인트색을 22%만 섞은 바탕, 서비스명·시작가·버튼을 가운데 한 묶음으로 둔다.
+ * 대비: 버튼 글자 --cs-on-accent / --cs-accent, 바 위 글자 --cs-fg · --cs-accent-text 모두 4.5 이상(테스트로 계산). */
 .cs-site .cs-mbar {
   display: none;
 }
 @media (max-width: 767px) {
   .cs-site .cs-mbar {
+    --cs-t-button-size: 16px;
+    --cs-t-button-weight: 700;
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 35;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    gap: var(--cs-s3);
+    justify-content: center;
+    gap: var(--cs-s4);
     height: calc(var(--cs-mbar-h) + env(safe-area-inset-bottom));
     padding: 0 var(--cs-s4) env(safe-area-inset-bottom);
-    background: color-mix(in srgb, var(--cs-surface) 96%, transparent);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid var(--cs-line);
+    background: color-mix(in srgb, var(--cs-accent) 22%, var(--cs-bg));
+    border-top: 1px solid color-mix(in srgb, var(--cs-accent) 45%, transparent);
     color: var(--cs-fg);
     transform: translateY(0);
     visibility: visible;
@@ -1067,18 +1145,30 @@ body:has(.cs-site) {
     visibility: hidden;
   }
 }
+@media (min-width: 430px) and (max-width: 767px) {
+  .cs-site .cs-mbar {
+    --cs-t-price-sm-size: 19px;
+    gap: var(--cs-s5);
+  }
+}
 .cs-site .cs-mbar-text {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+}
+.cs-site .cs-mbar-text {
+  --cs-t-caption-weight: 600;
 }
 .cs-site .cs-mbar-text .cs-t-caption {
-  color: var(--cs-fg-3);
+  color: var(--cs-accent-text);
 }
 .cs-site .cs-mbar .cs-btn {
+  box-sizing: border-box;
   flex: none;
-  padding: 0 var(--cs-s4);
+  padding: 0 var(--cs-s5);
+  background: var(--cs-accent);
+  color: var(--cs-on-accent);
 }
 
 /* ---------------------------------------------------------------- 히어로(공통 문구 블록) */
@@ -1237,20 +1327,57 @@ body:has(.cs-site) {
 .cs-site .cs-plan .cs-t-label {
   color: var(--cs-fg-2);
 }
-.cs-site .cs-plan--bundle {
-  border-color: var(--cs-accent);
+/* 함께 제작: 그룹 전체를 보라 외곽 박스 1개로 묶는다. 안쪽 두 칸은 테두리가 없고 가운데 세로선 1px만 둔다.
+ * 외곽·칸 패딩을 다른 그룹과 같은 값으로 두어 세 그룹의 열 x(칸 시작·글자 시작)가 맞는다.
+ * 두 금액은 같은 행 아래쪽에 붙어 라벨이 1줄이든 2줄이든 y가 같다. 외곽 안에서 그룹 제목 "함께 제작"은 한 번만 쓴다. */
+.cs-site .cs-pricing-group[data-count="2"] {
+  max-width: 880px;
 }
-/* 묶음 그룹 배지: 박스 밖 그룹 제목 자리(박스 안은 항상 라벨/금액 2줄) */
-.cs-site .cs-pricing-group .cs-pricing-badge {
-  justify-self: start;
-  display: inline-flex;
-  padding: var(--cs-s1) var(--cs-s3);
-  border-radius: var(--cs-r-pill);
-  background: var(--cs-accent);
-  color: var(--cs-on-accent);
+.cs-site .cs-pricing-group--bundle {
+  box-sizing: border-box;
+  gap: var(--cs-s3);
+  padding-block: var(--cs-s4);
+  border: 1px solid var(--cs-accent);
+  border-radius: var(--cs-r-md);
+  background: color-mix(in srgb, var(--cs-accent) 14%, transparent);
+}
+.cs-site .cs-pricing-group--bundle .cs-pricing-title {
+  padding-inline: 20px;
+  color: var(--cs-accent-text);
+}
+.cs-site .cs-pricing-group--bundle .cs-pricing-grid {
+  align-items: stretch;
+}
+.cs-site .cs-plan--bundle {
+  padding: 0 20px;
+  border: 0;
+  border-radius: 0;
+}
+.cs-site .cs-plan--bundle + .cs-plan--bundle {
+  position: relative;
+  padding-left: 21px;
+}
+/* 가운데 세로선: 두 칸 사이 간격(grid gap)의 한가운데 */
+.cs-site .cs-plan--bundle + .cs-plan--bundle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--cs-s3) / -2 - 0.5px);
+  width: 1px;
+  background: color-mix(in srgb, var(--cs-accent) 45%, transparent);
+}
+@media (min-width: 480px) {
+  .cs-site .cs-pricing-group--bundle .cs-pricing-title { padding-inline: var(--cs-s5); }
+  .cs-site .cs-plan--bundle { padding: 0 var(--cs-s5); }
+  .cs-site .cs-plan--bundle + .cs-plan--bundle { padding-left: calc(var(--cs-s5) + 1px); }
+}
+@media (min-width: 768px) {
+  .cs-site .cs-plan--bundle + .cs-plan--bundle::before { left: calc(var(--cs-s4) / -2 - 0.5px); }
 }
 .cs-site .cs-plan-amount {
   display: block;
+  margin-top: auto;
 }
 .cs-site .cs-pricing-notes {
   display: grid;

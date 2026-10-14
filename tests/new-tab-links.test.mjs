@@ -78,22 +78,15 @@ test("main page content links open in a new tab; marketing and lab cards do not"
     assert.doesNotMatch(card(href), /newTabProps|NewTabHint|_blank/, href);
   }
 
-  const content = await read("components/home/journey-content.tsx");
-  const service = content.slice(
-    content.indexOf("href={`/content/services/${tab.id}`}"),
-  );
-  const serviceLink = service.slice(0, service.indexOf("</Link>"));
-  assert.match(serviceLink, /\{\.\.\.newTabProps\}/);
-  assert.match(serviceLink, /<NewTabHint \/>/);
-
-  // Step link "컨텐츠 서비스 전체 보기" (/content) goes through JourneyAnchor.
+  // R7: the main #work step rows (LinkRow, JourneyAnchor) and the content card
+  // service link are gone. The active content card link opens in a new tab and is
+  // checked by the WP-3 card test (tests/home-content-cards.test.mjs).
   const journey = await read("components/home/workflow-journey.tsx");
-  const anchor = journey.slice(
-    journey.indexOf("function JourneyAnchor"),
-    journey.indexOf("function LinkRow"),
-  );
-  assert.match(anchor, /contentLinkProps\(href\)/);
-  assert.match(anchor, /newTab\.target && <NewTabHint \/>/);
+  assert.ok(!journey.includes("LinkRow"));
+  assert.ok(!journey.includes("JourneyAnchor"));
+  const content = await read("components/home/journey-content.tsx");
+  assert.ok(!content.includes("서비스 자세히 보기"));
+  assert.match(content, /\{\.\.\.newTabProps\}/);
 
   const hint = await read("components/new-tab-hint.tsx");
   assert.match(hint, /className="new-tab-hint"/);
@@ -103,9 +96,7 @@ test("main page content links open in a new tab; marketing and lab cards do not"
 
 test("workflow link arrows keep a gap and #divisions cards share one row layout", async () => {
   const css = await read("components/home/workflow-journey.css");
-  const link = css.slice(css.indexOf(".guide-page .wj .wj-link {"));
-  assert.match(link.slice(0, link.indexOf("}")), /gap: var\(--wj-s0\)/);
-  assert.match(css, /--wj-s0: 4px;/);
+  assert.ok(!css.includes(".wj-link"));
   const main = await read("components/guide/main.jsx");
   const ux = await read("components/guide/ux.css");
   // Three cards, one class: number+name, one line, services (1fr), link.
