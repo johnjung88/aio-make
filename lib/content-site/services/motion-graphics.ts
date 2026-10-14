@@ -54,7 +54,6 @@ export const motionGraphics: ServiceLandingData = {
     eyebrow: "MOTION GRAPHICS",
     title: "복잡한 설명도\n쉽게 보이도록",
     lead: "로고와 제품 이미지, 숫자와 문구를 읽는 순서에 맞춰 움직이는 30초 또는 60초 영상으로 만듭니다",
-    facts: ["단순형 · 맞춤형", "30초 · 60초", "맞춤형은 전용 캐릭터 포함"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",

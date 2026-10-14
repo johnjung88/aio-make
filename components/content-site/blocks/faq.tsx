@@ -1,4 +1,4 @@
-/* FAQ 블록(id="faq", 바탕 --cs-bg-2). <details>·<summary> 서버 렌더(JS 없음).
+/* FAQ 블록(id="faq"). <details>·<summary> 서버 렌더(JS 없음). 읽기 폭(880) 컨테이너.
  * 문자열은 JSON-LD FAQPage(lib/content-site/schema.ts)와 같은 배열(서비스 데이터 faq)에서 온다. */
 import { CS_COPY } from "@/lib/content-site/copy";
 import type {
@@ -17,11 +17,11 @@ export function CsFaq({
   return (
     <section
       id="faq"
-      className="cs-section cs-section--alt"
+      className="cs-section"
       data-cs-section="faq"
       aria-labelledby="cs-faq-title"
     >
-      <div className="cs-container">
+      <div className="cs-container cs-container--read">
         <CsSectionHead
           id="cs-faq-title"
           eyebrow={CS_COPY.faq.eyebrow}

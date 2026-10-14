@@ -48,8 +48,7 @@ export type ServiceLandingData = {
     title: string;
     /** 한 문장, 마침표 없음 */
     lead: string;
-    facts: [string, string, string];
-    /** 가격 칩 아래 한 줄(cs-t-small). 예: AI 인플루언서의 별도 견적 안내 */
+    /** R6: 히어로는 가격 한 줄만 보여준다. 이 필드는 화면에 출력하지 않는다(데이터 호환용) */
     note?: string;
   };
   types: {

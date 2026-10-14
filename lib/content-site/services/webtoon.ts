@@ -60,7 +60,6 @@ export const webtoon: ServiceLandingData = {
     eyebrow: "WEBTOON",
     title: "제품의 이야기를\n웹툰 한 편으로",
     lead: "제품을 만나는 순간부터 사용하는 장면까지 12컷·24컷 이야기로 엮고 컷별 이미지로 전달합니다",
-    facts: ["12컷 · 24컷 한 회", "완성 이미지 1장 = 1컷", "콘티부터 작화까지"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",

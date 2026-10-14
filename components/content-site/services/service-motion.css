@@ -52,7 +52,7 @@
 .cs-site .cs-scene-chapter[data-motion-ready="true"] { min-height:270vh; }
 .cs-site .cs-scene-sticky { position:sticky; top:calc(var(--cs-header-h) + 28px); display:grid; grid-template-columns:1.3fr .7fr; gap:64px; align-items:center; padding-block:16px; }
 .cs-site .cs-scene-screen { position:relative; aspect-ratio:16/9; min-width:0; overflow:hidden; border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); perspective:1100px; touch-action:pan-y; isolation:isolate; }
-.cs-site .cs-scene-screen[data-portrait="true"] { width:min(100%,330px); aspect-ratio:9/16; justify-self:center; }
+.cs-site .cs-scene-screen[data-portrait="true"] { width:min(100%,330px); aspect-ratio:9/16; justify-self:start; }
 .cs-site .cs-scene-frame { position:absolute; inset:0; margin:0; opacity:0; pointer-events:none; transform-style:preserve-3d; clip-path:inset(0 0 0 100%); transform:translateZ(180px) scale(1.12); }
 .cs-site .cs-scene-frame[data-side="before"] { clip-path:inset(0 100% 0 0); transform:translateZ(-320px) scale(.82) rotateY(12deg); }
 .cs-site .cs-scene-frame[data-active="true"] { opacity:1; z-index:1; clip-path:inset(0 0 0 0); transform:none; }

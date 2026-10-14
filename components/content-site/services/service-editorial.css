@@ -1,22 +1,21 @@
-.cs-site .cs-service-editorial-hero { padding: clamp(40px,6vw,84px) 0 64px; overflow:clip; background:var(--cs-bg); }
-.cs-site .cs-service-editorial-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); grid-template-areas:"heading media" "copy media"; gap:28px 64px; align-items:start; }
+/* R6: 히어로 패딩은 공통 섹션 토큰, 제목·리드 글자 크기는 역할 클래스(.cs-t-display·.cs-t-lead) 값을 그대로 쓴다 */
+.cs-site .cs-hero.cs-service-editorial-hero { padding-block: var(--cs-section-y-sm); overflow:clip; background:var(--cs-bg); }
+.cs-site .cs-service-editorial-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); grid-template-areas:"heading media" "copy media"; gap:32px 64px; align-items:start; }
 .cs-site .cs-service-editorial-heading { grid-area:heading; align-self:end; }
-.cs-site .cs-service-editorial-heading .cs-t-display { margin-top:18px; font-size:var(--cs-t-display-size); line-height:var(--cs-t-display-leading); letter-spacing:var(--cs-t-display-tracking); }
+.cs-site .cs-service-editorial-heading .cs-t-display { margin-top:16px; }
 .cs-site .cs-service-editorial-heading .cs-t-eyebrow { color:var(--cs-fg-2); }
-.cs-site .cs-service-editorial-copy { grid-area:copy; max-width:540px; }
-.cs-site .cs-service-editorial-copy > .cs-t-lead { color:var(--cs-fg-2); font-size:var(--cs-t-lead-size); line-height:var(--cs-t-lead-leading); text-wrap:pretty; }
-.cs-site .cs-service-editorial-price { margin-top:26px; display:grid; gap:8px; }
-.cs-site .cs-service-editorial-price > p { color:var(--cs-fg-2); }
+.cs-site .cs-service-editorial-copy { grid-area:copy; max-width:var(--cs-measure); }
+.cs-site .cs-service-editorial-copy > .cs-t-lead { color:var(--cs-fg-2); text-wrap:pretty; }
+.cs-site .cs-service-editorial-price { margin-top:24px; }
 .cs-site .cs-service-editorial-media { grid-area:media; min-width:0; align-self:center; }
-.cs-site .cs-service-editorial-copy .cs-hero-actions { margin-top:26px; }
-.cs-site .cs-service-editorial-copy .cs-hero-facts { margin-top:24px; }
+.cs-site .cs-service-editorial-copy .cs-hero-actions { margin-top:24px; }
 .cs-site .cs-service-featured { margin:0; width:100%; }
 .cs-site .cs-service-featured video,.cs-site .cs-service-featured > img { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:var(--cs-surface); border:1px solid var(--cs-line); }
-.cs-site .cs-service-featured--portrait { width:min(100%,332px); margin-inline:auto; }
+.cs-site .cs-service-featured--portrait { width:min(100%,332px); }
 .cs-site .cs-service-featured--portrait video,.cs-site .cs-service-featured--portrait > img { aspect-ratio:9/16; max-height:none; }
 .cs-site .cs-service-featured figcaption { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0; border-bottom:1px solid var(--cs-line); }
 .cs-site .cs-service-featured figcaption .cs-t-caption { color:var(--cs-fg-2); margin-bottom:7px; }
-.cs-site .cs-service-featured figcaption .cs-link { white-space:nowrap; flex:none; font-size:var(--cs-t-label-size); }
+.cs-site .cs-service-featured figcaption .cs-link { white-space:nowrap; flex:none; }
 .cs-site .cs-service-editorial-hero--wide .cs-service-editorial-grid { grid-template-columns:1fr 1fr; grid-template-areas:"heading copy" "media media"; gap:40px 64px; }
 .cs-site .cs-service-editorial-hero--wide .cs-service-editorial-heading { align-self:start; }
 .cs-site .cs-service-editorial-hero--wide .cs-service-featured video { max-height:660px; }
@@ -33,11 +32,9 @@
 .cs-site .cs-service-plan-compare { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:48px; }
 .cs-site .cs-service-plan-compare article { border-top:1px solid var(--cs-line); padding-top:24px; }
 .cs-site .cs-service-plan-compare p { color:var(--cs-fg-2); margin:16px 0; }
-.cs-site .cs-service-sequence--portrait .cs-t-label { font-size:var(--cs-t-small-size); }
 @media(max-width:767px) {
-  .cs-site .cs-service-editorial-hero { padding:32px 0 48px; }
   .cs-site .cs-service-editorial-grid,.cs-site .cs-service-editorial-hero--wide .cs-service-editorial-grid { grid-template-columns:minmax(0,1fr); grid-template-areas:"heading" "media" "copy"; gap:24px; }
-  .cs-site .cs-service-editorial-heading .cs-t-display { margin-top:12px; }
+  .cs-site .cs-service-editorial-heading .cs-t-display { margin-top:8px; }
   .cs-site .cs-service-featured--portrait { width:min(100%,270px); }
   .cs-site .cs-service-featured--portrait video,.cs-site .cs-service-featured--portrait > img { max-height:none; }
   .cs-site .cs-service-featured figcaption { align-items:flex-start; gap:12px; }
@@ -50,7 +47,6 @@
 .cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover { max-width:440px; margin-inline:auto; }
 .cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover-caption .cs-t-h2 { font-size:var(--cs-t-h3-size); }
 .cs-site .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="2"] img { object-fit:contain; }
-.cs-site .cs-service-editorial-heading .cs-t-display { font-size:var(--cs-t-service-display-size,var(--cs-t-h2-size)); }
 .cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover { padding-block:0; }
 .cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover-card { width:100%; }
 .cs-site .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="0"] img { object-fit:contain; }

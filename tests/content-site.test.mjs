@@ -17,6 +17,7 @@ import { COMMON_FAQ } from "../lib/content-site/faq.ts";
 import { csRoute } from "../lib/content-site/theme-map.ts";
 import { serviceJsonLd } from "../lib/content-site/schema.ts";
 import {
+  PRICING_COMMON,
   PRICING_COMMON_LINES,
   contentPricing,
   formatWon,
@@ -263,7 +264,8 @@ test("3. 카피 규칙: 모든 서비스 데이터 문자열", () => {
       )
         for (const line of value.split("\n"))
           assert.ok(line.length <= 11, `${path} line <= 11: ${line}`);
-    assert.equal(data.hero.facts.length, 3, id);
+    // R6: 히어로 facts는 없다(타입·6개 서비스 데이터 모두)
+    assert.equal("facts" in data.hero, false, `${id} hero.facts removed`);
   }
   // 셸·공통 블록 고정 문구
   for (const entry of strings(CS_COPY, ["CS_COPY"]))
@@ -271,17 +273,19 @@ test("3. 카피 규칙: 모든 서비스 데이터 문자열", () => {
 });
 
 test("4. FAQ·SEO", () => {
+  // R6: 서비스 3 + 공통 2(수정 횟수 · 정기 제작). 부가세 별도는 히어로 가격 줄과 가격 주석에만 둔다
   const common = COMMON_FAQ;
-  assert.equal(common.length, 3);
+  assert.equal(common.length, 2);
   assert.match(common[0][1], /기획안.*2회.*최종안.*1회.*추가 수정.*범위/);
-  assert.match(common[1][1], /모두 부가세 별도/);
-  assert.match(common[2][1], /편수와 일정.*범위와 견적/);
+  assert.match(common[1][1], /편수와 일정.*범위와 견적/);
+  assert.ok(!common.some(([, a]) => /부가세/.test(a)), "common FAQ does not repeat the VAT note");
   const titles = new Set(),
     descriptions = new Set();
   for (const id of ORDER) {
     const { faq, seo } = contentLandings[id];
-    assert.ok(faq.length >= 4, `${id} FAQ >= 4`);
-    assert.deepEqual(faq.slice(-3), common, `${id} ends with common FAQ`);
+    // 서비스 문항은 3개가 기준이다(motion-graphics는 2개라 합계 4: WP-B가 한 문항을 더하면 5)
+    assert.ok(faq.length >= 4 && faq.length <= 5, `${id} FAQ = service 2~3 + common 2`);
+    assert.deepEqual(faq.slice(-2), common, `${id} ends with common FAQ`);
     // 가격 주석 문장은 페이지에서 한 번만(VERIFY_FINAL_P2R SHARED-2)
     for (const [, answer] of faq)
       for (const line of PRICING_COMMON_LINES)
@@ -293,7 +297,8 @@ test("4. FAQ·SEO", () => {
     );
     assert.equal(new Set(faq.map(([q]) => q)).size, faq.length, `${id} FAQ unique`);
     assert.ok(faq.some(([, a]) => /수정/.test(a)), `${id} revision FAQ`);
-    assert.ok(faq.some(([, a]) => /부가세 별도/.test(a)), `${id} VAT FAQ`);
+    // 부가세 별도는 가격 블록 주석에서 한 번만 말한다(FAQ에 되풀이하지 않음)
+    assert.match(PRICING_COMMON.vat, /부가세 별도/);
     assert.ok(seo.title.length <= 22, `${id} seo.title <= 22`);
     assert.ok(
       seo.description.length >= 60 && seo.description.length <= 120,
@@ -578,7 +583,6 @@ test("7. CSS: 역할 토큰만·@media 안 글자 속성 0·!important 0·서비
   for (const role of [
     "display",
     "h2",
-    "statement",
     "h3",
     "lead",
     "body",
@@ -728,15 +732,15 @@ test("9. 라우트·삭제·리다이렉트", () => {
   assert.match(servicePage, /selectContentWorks/);
   assert.match(servicePage, /serviceJsonLd/);
   // 레지스트리: 6종 모두 등록, 공통 블록 순서 고정
+  // R6 순서: Hero → Signature → BeforePricing(AI) → Pricing(+포함·별도) → Process → Works(검토판) → FAQ → Inquiry → Related
   const registry = read("components/content-site/service-landing.tsx");
+  assert.doesNotMatch(code("components/content-site/service-landing.tsx"), /CsTypes|CsScope/, "no Types/Scope section in landing");
   const order = [
     "<Hero",
-    "<CsTypes",
     "<Signature",
     "<BeforePricing",
     "<CsPricing",
     "<CsProcess",
-    "<CsScope",
     "<CsWorks",
     "<CsFaq",
     "<CsInquiry",
@@ -826,4 +830,249 @@ test("10-1. R2 공통 검정 바탕: 서비스별 색상 재정의 금지·글�
       for (const surface of [bg, bg2])
         assert.ok(ratio(fg, surface) >= 4.5, `${id} ${fg} on ${surface}: ${ratio(fg, surface).toFixed(2)}`);
   }
+});
+
+/* ------------------------------------------------------------------------------------------
+ * R6 WP-0 공통 계약(BRIEF_R6 1·2절): 타이포 한 벌 · 간격 · 박스 · 히어로 · 가격 · 진행 방식 · 관련 서비스 · 정렬
+ * ------------------------------------------------------------------------------------------ */
+const THEME = "components/content-site/theme.css";
+const COMMON_CSS = [
+  THEME,
+  "components/content-site/services/service-editorial.css",
+  "components/content-site/services/service-motion.css",
+];
+/** 선택자가 정확히 같은 규칙들의 선언을 합쳐 돌려준다 */
+function declsOf(css, selector) {
+  return cssRules(css)
+    .filter((r) => splitSelectors(r.selector).includes(selector))
+    .map((r) => r.decls)
+    .join(";");
+}
+const themeCode = () => code(THEME);
+const token = (css, name) => css.match(new RegExp(`--${name}:\\s*([^;]+);`))?.[1].trim();
+/** @media (min-width: Npx) { ... } 블록 본문 모음 */
+function mediaBlocks(css, query) {
+  const out = [];
+  const head = `@media (min-width: ${query}px)`;
+  let from = 0;
+  while ((from = css.indexOf(head, from)) >= 0) {
+    const open = css.indexOf("{", from);
+    let depth = 0;
+    let i = open;
+    for (; i < css.length; i++) {
+      if (css[i] === "{") depth++;
+      else if (css[i] === "}" && --depth === 0) break;
+    }
+    out.push(css.slice(open + 1, i));
+    from = i;
+  }
+  return out.join("\n");
+}
+
+test("11. R6 타이포 한 벌: 홈·서비스·메인이 같은 H1·H2·H3·캡션 값을 쓴다", () => {
+  const theme = themeCode();
+  const globals = code("app/globals.css");
+  assert.equal(token(theme, "cs-t-display-size"), "clamp(34px, 5vw, 72px)");
+  assert.equal(token(theme, "cs-t-display-weight"), "750");
+  assert.equal(token(theme, "cs-t-display-leading"), "1.2");
+  assert.equal(token(theme, "cs-t-display-tracking"), "-0.04em");
+  assert.equal(token(theme, "cs-t-h2-size"), "clamp(28px, 3.2vw, 44px)");
+  assert.equal(token(theme, "cs-t-h2-weight"), "700");
+  assert.equal(token(theme, "cs-t-h2-leading"), "1.3");
+  assert.equal(token(theme, "cs-t-h2-tracking"), "-0.03em");
+  assert.equal(token(theme, "cs-t-h3-size"), "clamp(20px, 1.6vw, 24px)");
+  assert.equal(token(theme, "cs-t-h3-weight"), "650");
+  assert.equal(token(theme, "cs-t-h3-leading"), "1.4");
+  assert.equal(token(theme, "cs-t-body-size"), "16px");
+  assert.equal(token(theme, "cs-t-body-leading"), "1.75");
+  assert.equal(token(theme, "cs-t-caption-size"), "13px");
+  // 덮어쓰기·폐지: 같은 토큰을 두 번 정의하지 않고 statement·service-display 토큰은 없다
+  for (const name of ["cs-t-display-size", "cs-t-display-leading", "cs-t-h2-size", "cs-t-h2-leading"])
+    assert.equal((theme.match(new RegExp(`--${name}:`, "g")) ?? []).length, 1, `${name} defined once`);
+  for (const path of [...siteFiles, ...walkFiles("app/(content-site)")].filter((f) => /\.(css|tsx?)$/.test(f))) {
+    assert.doesNotMatch(read(path), /cs-t-service-display-size|--cs-t-statement/, path);
+  }
+  assert.doesNotMatch(theme, /\.cs-t-statement/, "statement role removed");
+  // 서비스 히어로 CSS는 제목·리드 글자 크기를 다시 정하지 않는다
+  const editorial = code("components/content-site/services/service-editorial.css");
+  assert.doesNotMatch(
+    declsOf(editorial, ".cs-site .cs-service-editorial-heading .cs-t-display"),
+    /font-size|line-height|letter-spacing/,
+  );
+  assert.doesNotMatch(
+    declsOf(editorial, ".cs-site .cs-service-editorial-copy > .cs-t-lead"),
+    /font-size|line-height/,
+  );
+  // 메인 --type-*가 컨텐츠 값과 같다(TYPE_STANDARD 9-3)
+  for (const part of ["size", "weight", "leading", "tracking"]) {
+    assert.equal(token(globals, `type-h1-${part}`), token(theme, `cs-t-display-${part}`), `h1 ${part}`);
+    assert.equal(token(globals, `type-h2-${part}`), token(theme, `cs-t-h2-${part}`), `h2 ${part}`);
+    assert.equal(token(globals, `type-h3-${part}`), token(theme, `cs-t-h3-${part}`), `h3 ${part}`);
+  }
+  assert.equal(token(globals, "type-caption-size"), token(theme, "cs-t-caption-size"));
+});
+
+test("11-1. R6 간격: 섹션 위아래 두 값 · 선과 --alt 삭제 · 거터 통일 · 읽기 폭", () => {
+  const theme = themeCode();
+  const globals = code("app/globals.css");
+  assert.equal(token(theme, "cs-section-y"), "clamp(64px, 7vw, 96px)");
+  assert.equal(token(theme, "cs-section-y-sm"), "clamp(40px, 4.5vw, 64px)");
+  assert.equal(token(theme, "cs-measure"), "34em");
+  assert.equal(token(theme, "cs-read"), "880px");
+  assert.equal(token(theme, "cs-container"), "1440px");
+  // 메인과 컨텐츠의 거터·섹션 간격이 같은 값
+  assert.equal(token(theme, "cs-gutter"), "clamp(20px, 4vw, 56px)");
+  assert.equal(token(globals, "gutter"), token(theme, "cs-gutter"));
+  assert.equal(token(globals, "section-y"), token(theme, "cs-section-y"));
+  assert.equal(token(globals, "section-y-sm"), token(theme, "cs-section-y-sm"));
+  // 섹션 구분은 여백만: border-top 없음, --alt 없음
+  assert.doesNotMatch(declsOf(theme, ".cs-site .cs-section"), /border/);
+  assert.doesNotMatch(theme, /cs-section--alt/);
+  for (const path of siteFiles.filter((f) => /blocks[\\/].*\.tsx$/.test(f) || /service-landing\.tsx$/.test(f)))
+    assert.doesNotMatch(read(path), /cs-section--alt/, path);
+  // 읽기 컨테이너: 880. 진행 방식·FAQ가 쓴다
+  assert.match(declsOf(theme, ".cs-site .cs-container--read"), /max-width:\s*calc\(var\(--cs-read\)/);
+  for (const file of ["process", "faq"])
+    assert.match(read(`components/content-site/blocks/${file}.tsx`), /cs-container cs-container--read/, file);
+  // 문단 폭은 --cs-measure 하나
+  assert.match(declsOf(theme, ".cs-site .cs-head-lead"), /max-width:\s*var\(--cs-measure\)/);
+  assert.match(declsOf(theme, ".cs-site .cs-faq-a"), /max-width:\s*var\(--cs-measure\)/);
+  // 서비스 히어로 패딩은 공통 토큰
+  const editorial = code("components/content-site/services/service-editorial.css");
+  assert.match(
+    declsOf(editorial, ".cs-site .cs-hero.cs-service-editorial-hero"),
+    /padding-block:\s*var\(--cs-section-y-sm\)/,
+  );
+  // 히어로 최소 높이(100svh 계열) 없음
+  assert.doesNotMatch(declsOf(theme, ".cs-site .cs-hero"), /min-height/);
+  assert.doesNotMatch(mediaBlocks(theme, 1024), /\.cs-hero\s*\{[^}]*min-height/);
+});
+
+test("11-2. R6 박스: 항목 카드·박스 속 박스·가격 칩 틀 없음, 박스는 플랜·문의 폼·미디어·버튼만", () => {
+  const theme = themeCode();
+  for (const selector of [
+    ".cs-site .cs-type-card",
+    ".cs-site .cs-scope-col",
+    ".cs-site .cs-insight-card",
+    ".cs-site .cs-step",
+    ".cs-site .cs-related-row",
+    ".cs-site .cs-price",
+  ]) {
+    const decls = declsOf(theme, selector);
+    assert.ok(decls.length > 0, selector);
+    assert.doesNotMatch(decls, /background|border-radius|box-shadow/, `${selector} has a box frame`);
+    assert.doesNotMatch(decls, /(?:^|;)\s*border\s*:/, `${selector} has a full border`);
+  }
+  assert.doesNotMatch(declsOf(theme, ".cs-site .cs-step-check"), /background|border|padding\s*:/, "step check is not a box");
+  assert.doesNotMatch(theme, /\.cs-related-card/);
+  // 플랜 박스와 문의 폼 카드는 틀을 유지한다
+  assert.match(declsOf(theme, ".cs-site .cs-plan"), /border:\s*1px solid var\(--cs-line\)/);
+  assert.doesNotMatch(declsOf(theme, ".cs-site .cs-plan"), /background/);
+  assert.match(declsOf(theme, ".cs-site .cs-inquiry-card"), /border-radius:\s*var\(--cs-r-md\)/);
+  assert.match(declsOf(theme, ".cs-site .cs-inquiry-card"), /padding:\s*var\(--cs-s5\)/);
+  assert.match(mediaBlocks(theme, 768), /\.cs-inquiry-card\s*\{[^}]*padding:\s*var\(--cs-s6\)/);
+});
+
+test("11-3. R6 서비스 히어로: eyebrow · h1 · lead · 가격 한 줄 · 상담 신청 1개 · 미디어", () => {
+  const hero = code("components/content-site/services/service-hero.tsx");
+  const fn = hero.slice(hero.indexOf("export function ServiceHero"), hero.indexOf("export function FeaturedWork"));
+  assert.doesNotMatch(fn, /facts|hero-facts|hero\.secondary|price\.note|hero\.note|가격 보기|startingPrice/);
+  assert.equal((fn.match(/<a /g) ?? []).length, 1, "ServiceHero has exactly one button");
+  assert.match(fn, /href="#inquiry"[^>]*>\{CS_COPY\.hero\.primary\}/);
+  assert.match(fn, /<CsPrice id=\{data\.id\}\/>/);
+  assert.deepEqual(Object.keys(CS_COPY.hero), ["primary"]);
+  assert.equal(CS_COPY.hero.primary, "상담 신청");
+  // 공개 export는 유지한다(다른 WP가 사용 중단 후 정리)
+  for (const name of ["FeaturedWork", "ExampleFigure", "ProductionNotes"])
+    assert.match(hero, new RegExp(`export function ${name}\\b`), name);
+  assert.match(read("components/content-site/blocks/hero.tsx"), /export function CsHero\b/);
+  assert.doesNotMatch(code("components/content-site/blocks/hero.tsx"), /facts|hero\.secondary|price\.note/);
+  // 가격은 칩 틀 없는 한 줄 텍스트(.cs-price)
+  assert.match(declsOf(themeCode(), ".cs-site .cs-price"), /display:\s*block/);
+});
+
+test("11-4. R6 가격: 360부터 2열 · 라벨/금액 2줄 · 카드마다 부가세·상담 링크 없음 · 배지 1개", () => {
+  const theme = themeCode();
+  assert.match(mediaBlocks(theme, 360), /\.cs-pricing-grid\[data-count="2"\]\s*\{[^}]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(mediaBlocks(theme, 480), /\.cs-pricing-grid\s*\{[^}]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(mediaBlocks(theme, 1024), /\.cs-pricing-grid\[data-count="3"\]\s*\{[^}]*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(declsOf(theme, ".cs-site .cs-plan"), /padding:\s*20px/);
+  assert.match(mediaBlocks(theme, 480), /\.cs-plan\s*\{[^}]*padding:\s*var\(--cs-s5\)/);
+  assert.match(declsOf(theme, ".cs-site .cs-plan"), /align-items:\s*flex-start/);
+  assert.doesNotMatch(theme, /\.cs-plan\s+\.cs-link/);
+  const pricing = code("components/content-site/blocks/pricing.tsx");
+  assert.match(pricing, /id="pricing"/, "#pricing anchor stays");
+  assert.doesNotMatch(pricing, /data-plan|c\.cta|c\.vat|부가세 별도|PRICING_COMMON_LINES|revisions|bulk/);
+  assert.match(pricing, /PRICING_COMMON\.vat/);
+  assert.equal((pricing.match(/cs-plan-badge/g) ?? []).length, 1, "single badge element");
+  assert.match(pricing, /plan\.bundle && index === 0/, "badge only on the featured plan");
+  assert.equal((pricing.match(/<h3 className="cs-t-label">\{plan\.label\}<\/h3>/g) ?? []).length, 1);
+  assert.deepEqual(Object.keys(CS_COPY.pricing), ["eyebrow", "title", "bundle"]);
+  // 웹툰 3그룹 순서·금액은 content-pricing 그대로
+  assert.deepEqual(
+    pricingPlans("webtoon").groups.map((g) => g.plans.map((p) => p.amount)),
+    [
+      [100000, 180000],
+      [75000, 120000],
+      [175000, 300000],
+    ],
+  );
+  // 포함·별도 범위는 같은 섹션 아래 2열 텍스트(별도 Scope 섹션 없음)
+  assert.match(pricing, /<CsScopeText scope=\{scope\}/);
+  const scope = code("components/content-site/blocks/scope.tsx");
+  assert.doesNotMatch(scope, /<section|CsSectionHead|id="scope"/);
+  assert.match(scope, /DUPLICATE_FACT/);
+  assert.match(mediaBlocks(theme, 768), /\.cs-scope-grid\s*\{[^}]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
+});
+
+test("11-5. R6 진행 방식: 박스 없는 텍스트 4행 · 번호/단계/한 줄/함께 확인", () => {
+  const process = code("components/content-site/blocks/process.tsx");
+  assert.match(process, /cs-container cs-container--read/);
+  assert.match(process, /cs-step-body/);
+  assert.match(process, /CS_COPY\.process\.check/);
+  assert.doesNotMatch(process, /PRICING_COMMON|data-reveal/);
+  for (const id of ORDER) assert.equal(contentLandings[id].process.steps.length, 4, id);
+  const theme = themeCode();
+  assert.match(declsOf(theme, ".cs-site .cs-step"), /border-top:\s*1px solid var\(--cs-line\)/);
+  assert.doesNotMatch(declsOf(theme, ".cs-site .cs-steps"), /repeat\(/);
+  assert.equal(token(theme, "cs-t-num-size"), "14px");
+});
+
+test("11-6. R6 문의: 폼 위 진행 순서 3단계 삭제", () => {
+  const inquiry = code("components/content-site/blocks/inquiry.tsx");
+  assert.doesNotMatch(inquiry, /cs-inquiry-steps|inquiry\.steps|stepsLabel/);
+  assert.deepEqual(Object.keys(CS_COPY.inquiry).filter((k) => /steps/i.test(k)), []);
+  assert.doesNotMatch(themeCode(), /cs-inquiry-steps/);
+});
+
+test("11-7. R6 관련 서비스: 박스 카드 없이 행 목록(서비스명 / 한 줄 설명 / 시작가), 1열 → 2열 → 3열", () => {
+  const related = code("components/content-site/blocks/related.tsx");
+  assert.match(related, /export function CsRelated\b/);
+  assert.match(related, /contentHomeServices/, "one-line text comes from lib/content-home.ts (read-only)");
+  assert.doesNotMatch(related, /cs-related-card|cs-section--alt/);
+  const theme = themeCode();
+  assert.match(declsOf(theme, ".cs-site .cs-related-list"), /grid-template-columns:\s*minmax\(0,\s*1fr\)/);
+  assert.match(mediaBlocks(theme, 768), /\.cs-related-list\s*\{[^}]*repeat\(2,/);
+  assert.match(mediaBlocks(theme, 1024), /\.cs-related-list\s*\{[^}]*repeat\(3,/);
+  assert.match(declsOf(theme, ".cs-site .cs-related-row"), /min-height:\s*72px/);
+  assert.match(declsOf(theme, ".cs-site .cs-related-row"), /border-top:\s*1px solid var\(--cs-line\)/);
+  // 모든 서비스에 한 줄 설명이 있다
+  for (const s of CONTENT_SERVICES) {
+    const line = contentHome.contentHomeServices.find((h) => h.id === s.id)?.line;
+    assert.ok(line && line.length > 0, `${s.id} line`);
+  }
+});
+
+test("11-8. R6 정렬: 공통 CSS에 가운데 정렬 없음(가격 단위 구분점 글리프 제외)", () => {
+  for (const path of COMMON_CSS) {
+    const css = code(path);
+    for (const rule of cssRules(css)) {
+      for (const m of rule.decls.matchAll(/text-align\s*:\s*center|justify-self\s*:\s*center/g)) {
+        const allowed = rule.selector.includes(".cs-price-row > .cs-price-unit::before");
+        assert.ok(allowed, `${path} centered: ${rule.selector} { ${m[0]} }`);
+      }
+    }
+  }
+  const editorial = code("components/content-site/services/service-editorial.css");
+  assert.doesNotMatch(declsOf(editorial, ".cs-site .cs-service-featured--portrait"), /margin-inline/);
 });

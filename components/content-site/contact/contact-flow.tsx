@@ -63,7 +63,7 @@ export function ContactFlow({
   return (
     <>
       <section
-        className="cs-section cs-section--sm cs-section--alt cs-contact-hero"
+        className="cs-section cs-section--sm cs-contact-hero"
         data-cs-section="hero"
         aria-labelledby="cs-hero-title"
       >

@@ -1,8 +1,7 @@
 /* 서비스 히어로 공통 요소(BRIEF_P2R_SERVICES 0-2). 배치는 서비스마다 다르므로
- * - CsHeroCopy: eyebrow → h1 → lead → 가격 칩 → 안내 줄 → 버튼 2개 → facts 3개 (모든 서비스 같은 규칙)
+ * - CsHeroCopy: eyebrow → h1 → lead → 가격 한 줄 → 상담 신청 버튼 1개 (R6: facts · 안내 줄 · 가격 보기 버튼 삭제)
  * - CsHero: 기본 2열 배치(문구 7/12 + 미디어 5/12). 서비스가 배치를 바꾸려면 className·media·backdrop을 쓰거나
  *   자기 섹션을 직접 그리되 CsHeroCopy와 data-cs-section="hero", aria-labelledby="cs-hero-title"을 유지한다. */
-import { startingPrice } from "@/lib/content-pricing";
 import { CS_COPY } from "@/lib/content-site/copy";
 import type {
   ContentServiceId,
@@ -19,7 +18,6 @@ export function CsHeroCopy({
   id: ContentServiceId;
   hero: ServiceLandingData["hero"];
 }) {
-  const price = startingPrice(id, true);
   return (
     <div className="cs-hero-copy">
       <p className="cs-t-eyebrow">{hero.eyebrow}</p>
@@ -28,25 +26,11 @@ export function CsHeroCopy({
       </h1>
       <p className="cs-hero-lead cs-t-lead">{hero.lead}</p>
       <CsPrice id={id} />
-      {price?.note ? (
-        <p className="cs-hero-note cs-t-small">{price.note}</p>
-      ) : null}
-      {hero.note ? <p className="cs-hero-note cs-t-small">{hero.note}</p> : null}
       <div className="cs-hero-actions">
         <a href="#inquiry" className="cs-btn cs-btn--primary cs-btn--lg">
           {CS_COPY.hero.primary} <span aria-hidden="true">↓</span>
         </a>
-        <a href="#pricing" className="cs-btn cs-btn--ghost cs-btn--lg">
-          {CS_COPY.hero.secondary} <span aria-hidden="true">↓</span>
-        </a>
       </div>
-      <ul className="cs-hero-facts" aria-label={CS_COPY.hero.factsLabel}>
-        {hero.facts.map((fact) => (
-          <li key={fact} className="cs-t-small">
-            {fact}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-/* types 섹션(무엇을 만드는지): 3열 카드(장식 번호 + h3 + small). 바탕 --cs-bg. */
+/* types 섹션(무엇을 만드는지): R6부터 service-landing.tsx가 렌더하지 않는다. 파일만 남겨 두며 박스 없이 위 선만 쓴다. */
 import type { ServiceLandingData } from "@/lib/content-site/types";
 import { CsSectionHead } from "../ui/section-head";
 

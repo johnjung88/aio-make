@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { startingPrice } from "@/lib/content-pricing";
 import { CS_COPY } from "@/lib/content-site/copy";
 import type { CsWorkCard, CsWorkMedia, ServiceLandingData } from "@/lib/content-site/types";
 import { focusData, type ExampleSlot } from "@/lib/content-site/example-media";
@@ -9,18 +8,17 @@ import { CsTag } from "../ui/tag";
 import "./service-editorial.css";
 import { LoopVideo, MotionCanvas, MotionTitle, WorkPreview } from "./motion-runtime";
 
-/** Title, work, decision copy is also the DOM order on a narrow screen */
+/** R6 서비스 히어로: eyebrow · h1 · lead · 가격 한 줄(텍스트) · 상담 신청 버튼 1개 · 미디어.
+ * facts · 가격 보조 문장(price.note · hero.note) · 가격 보기 버튼은 출력하지 않는다. Title, work, decision copy is also the DOM order on a narrow screen */
 export function ServiceHero({ data, media, wide = false }: { data: ServiceLandingData; media: ReactNode; wide?: boolean }) {
-  const price = startingPrice(data.id, true);
   return <section className={`cs-hero cs-service-editorial-hero${wide ? " cs-service-editorial-hero--wide" : ""}`} data-cs-section="hero" aria-labelledby="cs-hero-title">
     <div className="cs-container cs-service-editorial-grid">
       <div className="cs-service-editorial-heading"><p className="cs-t-eyebrow">{data.hero.eyebrow}</p><MotionTitle title={data.hero.title}/></div>
       <div className="cs-service-editorial-media"><MotionCanvas variant={data.id}>{media}</MotionCanvas></div>
       <div className="cs-service-editorial-copy">
         <p className="cs-t-lead">{data.hero.lead}</p>
-        <div className="cs-service-editorial-price"><CsPrice id={data.id}/>{price?.note && <p className="cs-t-small">{price.note}</p>}{data.hero.note && <p className="cs-t-small">{data.hero.note}</p>}</div>
-        <div className="cs-hero-actions"><a href="#inquiry" className="cs-btn cs-btn--primary cs-btn--lg">{CS_COPY.hero.primary} <span aria-hidden="true">↓</span></a><a href="#pricing" className="cs-btn cs-btn--ghost cs-btn--lg">{CS_COPY.hero.secondary} <span aria-hidden="true">↓</span></a></div>
-        <ul className="cs-hero-facts" aria-label={CS_COPY.hero.factsLabel}>{data.hero.facts.map(fact=><li key={fact} className="cs-t-small">{fact}</li>)}</ul>
+        <div className="cs-service-editorial-price"><CsPrice id={data.id}/></div>
+        <div className="cs-hero-actions"><a href="#inquiry" className="cs-btn cs-btn--primary cs-btn--lg">{CS_COPY.hero.primary} <span aria-hidden="true">↓</span></a></div>
       </div>
     </div>
   </section>;

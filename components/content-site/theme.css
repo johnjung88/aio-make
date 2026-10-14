@@ -10,22 +10,18 @@
 .cs-site {
   /* 글자 역할(Pretendard 단일) */
   --cs-t-family: var(--ff-text);
-  --cs-t-display-size: clamp(38px, 6vw, 88px);
-  --cs-t-service-display-size: clamp(38px, 4.6vw, 68px);
+  /* R6 타이포 한 벌(메인 app/globals.css --type-*와 같은 값). 홈·서비스 페이지가 같은 H1·H2·H3를 쓴다 */
+  --cs-t-display-size: clamp(34px, 5vw, 72px);
   --cs-t-display-weight: 750;
-  --cs-t-display-leading: 1.12;
-  --cs-t-display-tracking: -0.045em;
-  --cs-t-h2-size: clamp(30px, 3.8vw, 56px);
+  --cs-t-display-leading: 1.2;
+  --cs-t-display-tracking: -0.04em;
+  --cs-t-h2-size: clamp(28px, 3.2vw, 44px);
   --cs-t-h2-weight: 700;
-  --cs-t-h2-leading: 1.2;
-  --cs-t-h2-tracking: -0.035em;
-  --cs-t-statement-size: clamp(24px, 2.6vw, 36px);
-  --cs-t-statement-weight: 600;
-  --cs-t-statement-leading: 1.4;
-  --cs-t-statement-tracking: -0.025em;
-  --cs-t-h3-size: clamp(20px, 1.8vw, 26px);
+  --cs-t-h2-leading: 1.3;
+  --cs-t-h2-tracking: -0.03em;
+  --cs-t-h3-size: clamp(20px, 1.6vw, 24px);
   --cs-t-h3-weight: 650;
-  --cs-t-h3-leading: 1.35;
+  --cs-t-h3-leading: 1.4;
   --cs-t-h3-tracking: -0.02em;
   --cs-t-lead-size: clamp(17px, 1.35vw, 20px);
   --cs-t-lead-weight: 400;
@@ -39,7 +35,7 @@
   --cs-t-small-weight: 400;
   --cs-t-small-leading: 1.7;
   --cs-t-small-tracking: 0;
-  --cs-t-caption-size: 12px;
+  --cs-t-caption-size: 13px;
   --cs-t-caption-weight: 500;
   --cs-t-caption-leading: 1.5;
   --cs-t-caption-tracking: 0.01em;
@@ -51,7 +47,7 @@
   --cs-t-label-weight: 650;
   --cs-t-label-leading: 1.5;
   --cs-t-label-tracking: 0;
-  --cs-t-price-size: clamp(28px, 2.6vw, 40px);
+  --cs-t-price-size: clamp(24px, 2.6vw, 36px);
   --cs-t-price-weight: 750;
   --cs-t-price-leading: 1.15;
   --cs-t-price-tracking: -0.03em;
@@ -59,10 +55,11 @@
   --cs-t-price-sm-weight: 700;
   --cs-t-price-sm-leading: 1.3;
   --cs-t-price-sm-tracking: -0.01em;
-  --cs-t-num-size: clamp(40px, 4vw, 64px);
-  --cs-t-num-weight: 300;
-  --cs-t-num-leading: 1;
-  --cs-t-num-tracking: -0.04em;
+  /* 번호는 장식 크기를 쓰지 않는다(R6): 목록 행의 14px 번호 */
+  --cs-t-num-size: 14px;
+  --cs-t-num-weight: 650;
+  --cs-t-num-leading: 1.7;
+  --cs-t-num-tracking: 0.04em;
   --cs-t-nav-size: 14px;
   --cs-t-nav-weight: 550;
   --cs-t-nav-leading: 1.4;
@@ -85,7 +82,9 @@
   /* 간격·격자·모양 */
   --cs-header-h: 60px;
   --cs-container: 1440px;
-  --cs-gutter: clamp(20px, 5vw, 80px);
+  --cs-gutter: clamp(20px, 4vw, 56px);
+  --cs-read: 880px;
+  --cs-measure: 34em;
   --cs-s1: 4px;
   --cs-s2: 8px;
   --cs-s3: 12px;
@@ -95,8 +94,8 @@
   --cs-s7: 48px;
   --cs-s8: 64px;
   --cs-s9: 96px;
-  --cs-section-y: clamp(72px, 10vw, 140px);
-  --cs-section-y-sm: clamp(48px, 6vw, 88px);
+  --cs-section-y: clamp(64px, 7vw, 96px);
+  --cs-section-y-sm: clamp(40px, 4.5vw, 64px);
   --cs-grid-cols: 4;
   --cs-grid-gap: 16px;
   --cs-head-gap: var(--cs-s7);
@@ -293,7 +292,6 @@ body:has(.cs-site) {
 /* ---------------------------------------------------------------- 글자 역할 */
 .cs-site .cs-t-display,
 .cs-site .cs-t-h2,
-.cs-site .cs-t-statement,
 .cs-site .cs-t-h3,
 .cs-site .cs-t-lead,
 .cs-site .cs-t-body,
@@ -321,12 +319,6 @@ body:has(.cs-site) {
   font-weight: var(--cs-t-h2-weight);
   line-height: var(--cs-t-h2-leading);
   letter-spacing: var(--cs-t-h2-tracking);
-}
-.cs-site .cs-t-statement {
-  font-size: var(--cs-t-statement-size);
-  font-weight: var(--cs-t-statement-weight);
-  line-height: var(--cs-t-statement-leading);
-  letter-spacing: var(--cs-t-statement-tracking);
 }
 .cs-site .cs-t-h3 {
   font-size: var(--cs-t-h3-size);
@@ -419,7 +411,6 @@ body:has(.cs-site) {
 /* 제목류 줄바꿈: 데이터의 \n에서만, 균형 있게 */
 .cs-site .cs-t-display,
 .cs-site .cs-t-h2,
-.cs-site .cs-t-statement,
 .cs-site .cs-t-h3 {
   color: var(--cs-fg);
   white-space: pre-line;
@@ -479,6 +470,15 @@ body:has(.cs-site) {
   max-width: var(--cs-container);
   margin-inline: auto;
   padding-inline: var(--cs-gutter);
+}
+.cs-site .cs-container--read {
+  /* 읽기 폭 880: 넓은 컨테이너와 왼쪽 선이 같다(1440 이상에서는 넓은 컨테이너의 왼쪽 끝에 붙는다) */
+  max-width: calc(var(--cs-read) + 2 * var(--cs-gutter));
+  margin-inline: max(0px, calc((100% - var(--cs-container)) / 2)) auto;
+}
+.cs-site .cs-container--read .cs-grid > .cs-head-main {
+  --cs-col-start: 1;
+  --cs-col-end: -1;
 }
 .cs-site .cs-grid {
   display: grid;
@@ -541,9 +541,6 @@ body:has(.cs-site) {
 .cs-site .cs-section--sm {
   padding-block: var(--cs-section-y-sm);
 }
-.cs-site .cs-section--alt {
-  background: var(--cs-bg-2);
-}
 
 /* 섹션 머리 */
 .cs-site .cs-head {
@@ -563,8 +560,13 @@ body:has(.cs-site) {
 }
 /* lead는 eyebrow·h2와 같은 왼쪽 선에 둔다(SHARED-3, BRIEF_P2R 9절 정렬). h2→lead 간격 s5 = 열 gap s4 + s1 */
 .cs-site .cs-head-lead {
-  margin-top: var(--cs-s1);
-  max-width: 36em;
+  margin-top: var(--cs-s2);
+  max-width: var(--cs-measure);
+}
+@media (max-width: 767px) {
+  .cs-site .cs-head-lead {
+    margin-top: 0;
+  }
 }
 .cs-site .cs-head .cs-t-lead {
   color: var(--cs-fg-2);
@@ -1084,15 +1086,9 @@ body:has(.cs-site) {
   position: relative;
   display: flex;
   align-items: center;
-  padding-block: var(--cs-s8);
+  padding-block: var(--cs-section-y);
   background: var(--cs-bg);
   overflow: clip;
-}
-@media (min-width: 1024px) {
-  .cs-site .cs-hero {
-    min-height: max(600px, min(860px, calc(100svh - var(--cs-header-h))));
-    padding-block: var(--cs-s8);
-  }
 }
 .cs-site .cs-hero > .cs-container {
   position: relative;
@@ -1105,7 +1101,7 @@ body:has(.cs-site) {
 .cs-site .cs-hero-media {
   width: 100%;
   max-width: 520px;
-  justify-self: center;
+  justify-self: start;
 }
 @media (min-width: 1024px) {
   .cs-site .cs-hero-media {
@@ -1122,15 +1118,11 @@ body:has(.cs-site) {
 }
 .cs-site .cs-hero-copy .cs-hero-lead {
   margin-top: var(--cs-s5);
-  max-width: 34em;
+  max-width: var(--cs-measure);
   color: var(--cs-fg-2);
 }
 .cs-site .cs-hero-copy .cs-price {
   margin-top: var(--cs-s6);
-}
-.cs-site .cs-hero-note {
-  margin-top: var(--cs-s3);
-  color: var(--cs-fg-2);
 }
 .cs-site .cs-hero-actions {
   display: flex;
@@ -1138,40 +1130,11 @@ body:has(.cs-site) {
   gap: var(--cs-s3);
   margin-top: var(--cs-s5);
 }
-.cs-site .cs-hero-facts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s2);
-  margin-top: var(--cs-s7);
-  color: var(--cs-fg-2);
-}
-@media (min-width: 768px) {
-  .cs-site .cs-hero-facts {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--cs-s3) 0;
-  }
-  .cs-site .cs-hero-facts > li {
-    padding-inline: var(--cs-s4);
-    border-left: 1px solid var(--cs-line);
-  }
-  .cs-site .cs-hero-facts > li:first-child {
-    padding-left: 0;
-    border-left: 0;
-  }
-}
 
-/* 가격 칩 */
+/* 가격 한 줄(R6: 칩 틀 없음, 텍스트만) */
 .cs-site .cs-price {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--cs-s1) 0;
+  display: block;
   max-width: 100%;
-  padding: var(--cs-s3) var(--cs-s5);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-lg);
-  background: color-mix(in srgb, var(--cs-surface) 70%, transparent);
 }
 .cs-site .cs-price-unit {
   white-space: nowrap;
@@ -1210,28 +1173,25 @@ body:has(.cs-site) {
   color: var(--cs-fg-2);
 }
 
-/* ---------------------------------------------------------------- types */
+/* ---------------------------------------------------------------- types
+ * R6: 서비스 랜딩은 이 블록을 쓰지 않는다. 파일(blocks/types.tsx)은 남겨 두되 박스 없이 위 가는 선만 쓴다. */
 .cs-site .cs-types-grid {
   display: grid;
-  gap: var(--cs-s4);
+  gap: var(--cs-s5) var(--cs-s6);
 }
 @media (min-width: 768px) {
   .cs-site .cs-types-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--cs-s5);
   }
 }
 .cs-site .cs-type-card {
   display: flex;
   flex-direction: column;
-  gap: var(--cs-s3);
-  padding: var(--cs-s6) var(--cs-s5);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-md);
-  background: var(--cs-surface);
+  gap: var(--cs-s2);
+  padding-top: var(--cs-s5);
+  border-top: 1px solid var(--cs-line);
 }
 .cs-site .cs-type-card .cs-t-num {
-  margin-bottom: var(--cs-s4);
   color: var(--cs-accent-text);
 }
 .cs-site .cs-type-card .cs-t-small {
@@ -1277,7 +1237,8 @@ body:has(.cs-site) {
   color: var(--cs-fg-2);
 }
 
-/* ---------------------------------------------------------------- pricing */
+/* ---------------------------------------------------------------- pricing
+ * 박스는 가격 플랜만 쓴다. 플랜 격자: 1열(<360) → 2개 그룹은 360부터 2열, 3개 이상은 480부터 2열(마지막 줄 포함) → 1024에서 3·4열 */
 .cs-site .cs-pricing-groups {
   display: grid;
   gap: var(--cs-s7);
@@ -1288,12 +1249,21 @@ body:has(.cs-site) {
 }
 .cs-site .cs-pricing-grid {
   display: grid;
-  gap: var(--cs-s4);
+  gap: var(--cs-s3);
+}
+@media (min-width: 360px) {
+  .cs-site .cs-pricing-grid[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 480px) {
+  .cs-site .cs-pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (min-width: 768px) {
   .cs-site .cs-pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--cs-s5);
+    gap: var(--cs-s4);
   }
 }
 @media (min-width: 1024px) {
@@ -1308,11 +1278,19 @@ body:has(.cs-site) {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--cs-s3);
-  padding: var(--cs-s6) var(--cs-s5);
+  gap: var(--cs-s2);
+  min-width: 0;
+  padding: 20px;
   border: 1px solid var(--cs-line);
   border-radius: var(--cs-r-md);
-  background: var(--cs-surface);
+}
+@media (min-width: 480px) {
+  .cs-site .cs-plan {
+    padding: var(--cs-s5);
+  }
+}
+.cs-site .cs-plan .cs-t-label {
+  color: var(--cs-fg-2);
 }
 .cs-site .cs-plan--bundle {
   border-color: var(--cs-accent);
@@ -1325,91 +1303,35 @@ body:has(.cs-site) {
   color: var(--cs-on-accent);
 }
 .cs-site .cs-plan-amount {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--cs-s1) var(--cs-s2);
-}
-.cs-site .cs-plan-amount .cs-t-small {
-  color: var(--cs-fg-3);
-}
-.cs-site .cs-plan .cs-link {
-  margin-top: auto;
+  display: block;
 }
 .cs-site .cs-pricing-notes {
   display: grid;
   gap: var(--cs-s1);
-  margin-top: var(--cs-s6);
+  margin-top: var(--cs-s5);
   color: var(--cs-fg-2);
 }
 
-/* ---------------------------------------------------------------- process */
-.cs-site .cs-steps {
+/* 가격 아래 포함·별도 2열 텍스트(박스 없음). 준비 자료는 아래 한 줄 */
+.cs-site .cs-scope-grid {
   display: grid;
-  gap: var(--cs-s4);
-  counter-reset: none;
+  gap: var(--cs-s5) var(--cs-s7);
+  margin-top: var(--cs-s7);
 }
 @media (min-width: 768px) {
-  .cs-site .cs-steps {
+  .cs-site .cs-scope-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--cs-s5);
   }
 }
-@media (min-width: 1024px) {
-  .cs-site .cs-steps[data-count="4"] {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  .cs-site .cs-steps[data-count="5"] {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-.cs-site .cs-step {
+.cs-site .cs-scope-col {
   display: flex;
   flex-direction: column;
   gap: var(--cs-s3);
   padding-top: var(--cs-s5);
   border-top: 1px solid var(--cs-line);
 }
-.cs-site .cs-step .cs-t-num {
-  margin-bottom: var(--cs-s3);
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-step .cs-t-small {
-  color: var(--cs-fg-2);
-}
-.cs-site .cs-step-check {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s1);
-  margin-top: auto;
-  padding: var(--cs-s3) var(--cs-s4);
-  border-radius: var(--cs-r-sm);
-  background: var(--cs-bg-2);
-}
-.cs-site .cs-step-check .cs-t-label {
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-step-check .cs-t-small {
-  color: var(--cs-fg);
-}
-
-/* ---------------------------------------------------------------- scope */
-.cs-site .cs-scope-grid {
-  display: grid;
-  gap: var(--cs-s5);
-}
-@media (min-width: 768px) {
-  .cs-site .cs-scope-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.cs-site .cs-scope-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s4);
-  padding: var(--cs-s5);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-md);
+.cs-site .cs-scope-col--wide {
+  grid-column: 1 / -1;
 }
 .cs-site .cs-scope-list {
   display: grid;
@@ -1429,6 +1351,62 @@ body:has(.cs-site) {
   height: 8px;
   border-radius: var(--cs-r-pill);
   background: var(--cs-accent);
+}
+.cs-site .cs-scope-prepare {
+  color: var(--cs-fg-2);
+}
+
+/* ---------------------------------------------------------------- process
+ * 박스 없는 텍스트 행: 번호 · 단계 · 한 줄 설명 · 함께 확인 한 줄. 구분은 위 가는 선만 */
+.cs-site .cs-steps {
+  display: grid;
+}
+.cs-site .cs-step {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: var(--cs-s4);
+  row-gap: var(--cs-s2);
+  align-items: baseline;
+  padding-block: var(--cs-s5);
+  border-top: 1px solid var(--cs-line);
+}
+.cs-site .cs-step > * {
+  grid-column: 2;
+  min-width: 0;
+}
+.cs-site .cs-step > .cs-t-num {
+  grid-column: 1;
+  grid-row: 1;
+  color: var(--cs-accent-text);
+}
+.cs-site .cs-step .cs-t-small {
+  color: var(--cs-fg-2);
+}
+.cs-site .cs-step-check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--cs-s3);
+}
+.cs-site .cs-step-check .cs-t-label {
+  color: var(--cs-accent-text);
+}
+.cs-site .cs-step-check .cs-t-small {
+  color: var(--cs-fg);
+}
+@media (min-width: 768px) {
+  .cs-site .cs-step {
+    grid-template-columns: 56px minmax(0, 0.8fr) minmax(0, 1.4fr);
+    column-gap: var(--cs-s5);
+  }
+  .cs-site .cs-step > .cs-t-h3 {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .cs-site .cs-step > .cs-step-body,
+  .cs-site .cs-step > .cs-step-check {
+    grid-column: 3;
+  }
 }
 
 /* ---------------------------------------------------------------- faq */
@@ -1476,7 +1454,7 @@ body:has(.cs-site) {
   transform: rotate(0deg);
 }
 .cs-site .cs-faq-a {
-  max-width: 48em;
+  max-width: var(--cs-measure);
   padding-bottom: var(--cs-s5);
   color: var(--cs-fg-2);
 }
@@ -1495,34 +1473,21 @@ body:has(.cs-site) {
   margin-top: var(--cs-s1);
   color: var(--cs-fg-2);
 }
-.cs-site .cs-inquiry-steps {
-  display: grid;
-  gap: var(--cs-s2);
-  margin-top: var(--cs-s5);
-}
-.cs-site .cs-inquiry-steps > li {
-  display: flex;
-  align-items: center;
-  gap: var(--cs-s3);
-  color: var(--cs-fg);
-}
-.cs-site .cs-inquiry-steps .cs-t-caption {
-  display: inline-grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-pill);
-  color: var(--cs-accent-text);
-  font-variant-numeric: tabular-nums;
+.cs-site .cs-inquiry-intro .cs-t-lead {
+  max-width: var(--cs-measure);
 }
 .cs-site .cs-inquiry-card {
   display: grid;
   gap: var(--cs-s5);
-  padding: clamp(20px, 3vw, 40px);
+  padding: var(--cs-s5);
   border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-lg);
+  border-radius: var(--cs-r-md);
   background: var(--cs-surface);
+}
+@media (min-width: 768px) {
+  .cs-site .cs-inquiry-card {
+    padding: var(--cs-s6);
+  }
 }
 .cs-site .cs-chooser {
   margin: 0;
@@ -1734,10 +1699,12 @@ body:has(.cs-site) {
   white-space: nowrap;
 }
 
-/* ---------------------------------------------------------------- related */
+/* ---------------------------------------------------------------- related
+ * 행 목록: 서비스명 / 시작가 / 한 줄 설명. 박스 없이 위 가는 선만. 1열(모바일 행 높이 약 72px) → 768 2열 → 1024 3열 */
 .cs-site .cs-related-list {
   display: grid;
-  gap: var(--cs-s3);
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--cs-s7);
 }
 @media (min-width: 768px) {
   .cs-site .cs-related-list {
@@ -1746,23 +1713,31 @@ body:has(.cs-site) {
 }
 @media (min-width: 1024px) {
   .cs-site .cs-related-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-.cs-site .cs-related-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--cs-s4);
+.cs-site .cs-related-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name price" "line line";
+  align-items: baseline;
+  gap: 0 var(--cs-s4);
+  min-height: 72px;
   height: 100%;
-  min-height: 120px;
-  padding: var(--cs-s5);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-md);
-  background: var(--cs-surface);
+  padding-block: var(--cs-s3);
+  border-top: 1px solid var(--cs-line);
   color: var(--cs-fg);
 }
-.cs-site .cs-related-card .cs-t-small {
+.cs-site .cs-related-name {
+  grid-area: name;
+}
+.cs-site .cs-related-price {
+  grid-area: price;
+  color: var(--cs-fg-2);
+  white-space: nowrap;
+}
+.cs-site .cs-related-line {
+  grid-area: line;
   color: var(--cs-fg-2);
 }
 
@@ -1772,8 +1747,7 @@ body:has(.cs-site) {
   .cs-site .cs-link,
   .cs-site .cs-nav-link,
   .cs-site .cs-sheet-link,
-  .cs-site .cs-related-card,
-  .cs-site .cs-type-card,
+  .cs-site .cs-related-name,
   .cs-site .cs-faq-icon::after {
     transition:
       background-color var(--cs-dur-1) var(--cs-ease),
@@ -1814,11 +1788,14 @@ body:has(.cs-site) {
     background: var(--cs-bg-2);
   }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .cs-site .cs-related-card:hover,
-  .cs-site .cs-type-card:hover {
-    transform: translateY(-4px);
+@media (hover: hover) {
+  .cs-site .cs-related-row:hover .cs-related-name {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
   }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .cs-site a:hover > .cs-media > img,
   .cs-site .cs-media--zoom:hover > img {
     transform: scale(1.04);
@@ -1841,10 +1818,8 @@ body:has(.cs-site) {
 }
 
 /* R2: a single black studio, restrained type and shared editorial rhythm */
-.cs-site { --cs-t-display-size: clamp(36px, 5.3vw, 76px); --cs-t-display-leading: 1.18; --cs-t-display-tracking: -.045em; --cs-t-h2-size: clamp(28px, 3.4vw, 48px); --cs-t-h2-leading: 1.26; }
 .cs-site .cs-t-display, .cs-site .cs-t-h2, .cs-site .cs-t-h3 { word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
 .cs-site .cs-t-body, .cs-site .cs-t-lead, .cs-site .cs-t-small { word-break: keep-all; overflow-wrap: anywhere; }
-.cs-site .cs-section { border-top: 1px solid var(--cs-line); }
 .cs-site .cs-primary-nav { display:flex; align-items:center; gap:clamp(16px,2.2vw,32px); margin-left:auto; }
 .cs-site .cs-services-disclosure { border:0; background:transparent; cursor:pointer; display:flex; align-items:center; gap:8px; }
 .cs-site .cs-nav-link { white-space:nowrap; }
@@ -1864,8 +1839,8 @@ body:has(.cs-site) {
 .cs-site .cs-article-media video { display:block; max-width:100%; max-height:78vh; margin-inline:auto; background:var(--cs-surface); }
 .cs-site .cs-article-body { max-width:760px; display:grid; gap:28px; margin-block:48px; }
 .cs-site .cs-article-back { margin-block:40px; }
-.cs-site .cs-insight-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
-.cs-site .cs-insight-card { display:flex; flex-direction:column; align-items:flex-start; gap:20px; padding:32px; border:1px solid var(--cs-line); background:var(--cs-surface); }
+.cs-site .cs-insight-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 48px; }
+.cs-site .cs-insight-card { display:flex; flex-direction:column; align-items:flex-start; gap:16px; padding-block:24px; border-top:1px solid var(--cs-line); }
 .cs-site .cs-insight-card .cs-link { margin-top:auto; }
 @media(max-width:767px) {
  .cs-site { --cs-header-h:128px; }

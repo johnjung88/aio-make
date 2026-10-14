@@ -4,7 +4,8 @@
  * - service: 서비스 페이지의 고정 서비스, 또는 문의 페이지(contact-flow.tsx)가 폼 밖에서 고른 서비스.
  *   서비스 선택 라디오는 이 블록에 없다(문의 페이지가 직접 그린다). 서비스 없이 제출되면 InquiryBridge는
  *   이 사이트 문구(CS_COPY.inquiry.serviceMissing)만 보인다. 이 사이트에 없는 선택지를 가리키는 공용 기본 문장은 쓰지 않는다.
- * - 가격표의 a[data-plan] 클릭(문서 위임)을 받아 '희망 구성'을 맞추고 #inquiry로 스크롤한 뒤 그 select에 포커스한다.
+ * - a[data-plan] 클릭(문서 위임)을 받으면 '희망 구성'을 맞추고 #inquiry로 스크롤한 뒤 그 select에 포커스한다.
+ *   R6부터 가격표 카드에는 상담 링크가 없다(희망 구성은 폼에서 직접 고른다). 진행 순서 3단계는 진행 방식(CsProcess)과 겹쳐 삭제했다.
  * 고객 데이터·work-catalog·generated·works.server를 import하지 않는다. */
 import { useEffect, useId, useRef, useState } from "react";
 import { InquiryBridge } from "@/components/guide/inquiry-bridge";
@@ -85,19 +86,6 @@ export function CsInquiry({
               {copy.title}
             </h2>
             <p className="cs-t-lead">{copy.lead}</p>
-            <ol
-              className="cs-inquiry-steps"
-              aria-label={CS_COPY.inquiry.stepsLabel}
-            >
-              {CS_COPY.inquiry.steps.map((step, i) => (
-                <li key={step} className="cs-t-body">
-                  <span className="cs-t-caption" aria-hidden="true">
-                    {i + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
           </div>
           <div className="cs-col-6 cs-col-start-7">
             <div className="cs-inquiry-card">

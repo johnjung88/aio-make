@@ -52,7 +52,6 @@ export const ad: ServiceLandingData = {
     eyebrow: "SNS AD FILM",
     title: "제품의 매력을\n짧고 선명하게",
     lead: "릴스와 쇼츠에서 제품 하나를 알리는 9:16 광고 영상을 기획하고 자막과 음악까지 편집합니다",
-    facts: ["9:16 · 1080p", "기본 자막·BGM 포함", "제품 1개 · 콘셉트 1개 기준"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",

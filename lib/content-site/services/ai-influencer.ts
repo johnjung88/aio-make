@@ -57,7 +57,6 @@ export const aiInfluencer: ServiceLandingData = {
     eyebrow: "AI INFLUENCER",
     title: "브랜드를 닮은\nAI 크리에이터",
     lead: "얼굴과 말투, 관심사를 정해 전용 AI 가상인물을 만들고 제품 이미지와 숏폼을 제작합니다",
-    facts: ["캐릭터 1명 세팅", "이미지 · 30초 영상", "AI 가상인물 표기 안내"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",

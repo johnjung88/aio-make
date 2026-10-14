@@ -30,10 +30,7 @@ export const CS_COPY = {
   },
   hero: {
     primary: "상담 신청",
-    secondary: "가격 보기",
-    factsLabel: "기본 구성",
   },
-  types: { fallbackEyebrow: "WHAT WE MAKE" },
   works: {
     eyebrow: "WORKS",
     title: "제작 사례",
@@ -42,17 +39,13 @@ export const CS_COPY = {
   pricing: {
     eyebrow: "PRICING",
     title: "제작 가격",
-    vat: "부가세 별도",
     bundle: "함께 제작",
-    cta: "이 구성으로 상담",
   },
   process: {
     eyebrow: "PROCESS",
     check: "함께 확인",
   },
   scope: {
-    eyebrow: "SCOPE",
-    title: "포함 범위",
     included: "기본 포함",
     separate: "별도 상담",
     prepare: "준비하면 좋은 자료",
@@ -63,8 +56,6 @@ export const CS_COPY = {
   },
   inquiry: {
     eyebrow: "CONTACT",
-    steps: ["상담 신청", "기획안과 견적 안내", "제작 시작"],
-    stepsLabel: "진행 순서",
     /** 서비스 없이 제출했을 때(InquiryBridge unselectedMessage). 문의 페이지 안내와 같은 문장 */
     serviceMissing: "요청 서비스를 하나 골라주세요",
     fields: {

@@ -66,7 +66,6 @@ export const animation: ServiceLandingData = {
     eyebrow: "ANIMATION",
     title: "캐릭터와 장면을\n움직이는 영상으로",
     lead: "캐릭터의 표정과 행동, 배경과 장면 전환을 기획해 30초·60초 애니메이션으로 완성합니다",
-    facts: ["30초 · 60초", "그림체 함께 결정", "장면 먼저 확인"],
   },
   types: {
     eyebrow: "WHAT WE MAKE",
