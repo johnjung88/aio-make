@@ -140,7 +140,8 @@
 }
 .wj .wj-mk-step-head {
   display: flex;
-  align-items: baseline;
+  /* R7-fix1: center the number box on the title box so the y-centers differ by 0 (baseline gave 2.8-3.4px). */
+  align-items: center;
   gap: 8px;
   margin: 0;
 }

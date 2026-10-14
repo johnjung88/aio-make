@@ -308,7 +308,7 @@ test("only one scene is mounted and animated at a time", async () => {
 
 test("number and title share one row with no eyebrow margin", async () => {
   const css = strip(await read(CSS));
-  assert.match(css, /\.wj \.wj-mk-step-head \{[^}]*display: flex;[^}]*align-items: baseline;[^}]*gap: 8px;[^}]*margin: 0;/);
+  assert.match(css, /\.wj \.wj-mk-step-head \{[^}]*display: flex;[^}]*align-items: center;[^}]*gap: 8px;[^}]*margin: 0;/);
   assert.match(css, /\.wj \.wj-mk-num \{[^}]*margin: 0;[^}]*font-size: 14px;[^}]*font-weight: 650;/);
   assert.match(css, /\.wj \.wj-mk-name \{[^}]*margin: 0;[^}]*font-size: 20px;[^}]*font-weight: 650;/);
   assert.match(css, /\.wj-mk-name \{[^}]*font-size: 22px;/); // 1440

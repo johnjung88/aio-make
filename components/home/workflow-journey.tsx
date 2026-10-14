@@ -15,6 +15,22 @@ import { JourneyDev } from "./journey-dev";
 import { JourneyMarketing } from "./journey-marketing";
 import "./workflow-journey.css";
 
+// R7-fix1: each sentence is its own block so text-wrap:balance evens out the lines of every sentence
+// (Chrome balances only the first segment of a pre-line paragraph).
+function LeadText({ text }: { text: string }) {
+  const lines = text.split("\n");
+  if (lines.length === 1) return <>{text}</>;
+  return (
+    <>
+      {lines.map((line) => (
+        <span key={line} className="wj-lead-line">
+          {line}
+        </span>
+      ))}
+    </>
+  );
+}
+
 // data comes from the server (lib/home-journey-data.ts) as plain props.
 export function WorkflowJourney({
   data = emptyJourneyData,
@@ -123,7 +139,9 @@ export function WorkflowJourney({
                     >
                       {step.title}
                     </h2>
-                    <p className="wj-lead t-lead">{step.lead}</p>
+                    <p className="wj-lead t-lead">
+                      <LeadText text={step.lead} />
+                    </p>
                     <div className="wj-step-body">{bodies[step.id]}</div>
                   </article>
                 </li>

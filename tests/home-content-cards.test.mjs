@@ -320,6 +320,14 @@ test("card outer size table: same 9:19.5 frame, width steps match the CSS", () =
   assert.match(frame, /width: var\(--wjc-w\);/);
 });
 
+test("R7-fix1: the 3D track does not swallow clicks, so side cards stay clickable at 768+", () => {
+  const desktop = css.slice(css.indexOf("/* ---- 3D 캐러셀(768px 이상)"));
+  assert.match(desktop, /\.wj \.wjc-track \{[^}]*transform-style: preserve-3d;[^}]*pointer-events: none;/);
+  assert.match(desktop, /\.wj \.wjc-card \{[^}]*pointer-events: auto;/);
+  // Hidden and far cards stay non-interactive.
+  assert.match(desktop, /\[data-pos="hidden"\] \{[^}]*pointer-events: none;/);
+});
+
 test("mobile is scroll-snap with no 3D or blur; 3D starts at 768", () => {
   const split = css.indexOf("/* ---- 3D 캐러셀(768px 이상)");
   assert.ok(split > 0);

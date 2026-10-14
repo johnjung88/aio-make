@@ -461,3 +461,17 @@ test("R7-3. 웹툰 함께 제작: 보라 외곽 박스 1개 · 알약 배지 0 �
     ["웹툰 제작", "모션코믹", "함께 제작"],
   );
 });
+
+test("R7-fix1. 푸터: 768~1023 서비스 열 간격, 768px 이상 사업자 정보 가로 흐름과 높이 목표 간격", () => {
+  const theme = code(THEME_CSS);
+  // 768~1023: 2열 격자에 열 간격이 있어 "브랜드 홍보 영상"과 "SNS 광고 영상"이 붙지 않는다(24px 이상)
+  const tablet = mediaBody(theme, "(min-width: 768px) and (max-width: 1023px)");
+  assert.match(tablet, /\.cs-footer-links--services \{[^}]*column-gap:\s*var\(--cs-s6\)/);
+  // 768px 이상: 위 여백 48, 사업자 정보는 줄바꿈 가로 흐름, 아래 블록 간격 48 (높이 640/600/600 이내)
+  const wide = mediaBody(theme, "(min-width: 768px)");
+  assert.match(wide, /\.cs-site \.cs-footer \{ padding-block: 48px var\(--cs-s7\); \}|\.cs-site \.cs-footer \{\s*padding-block:\s*48px var\(--cs-s7\);/);
+  assert.match(wide, /\.cs-footer-biz \{[^}]*display:\s*flex;[^}]*flex-wrap:\s*wrap;/);
+  assert.match(wide, /\.cs-footer-bottom \{ margin-top: 48px; \}/);
+  // 링크 글자는 줄이지 않는다
+  assert.match(mediaBody(theme, "(min-width: 1024px)"), /\.cs-footer \{ --cs-t-nav-size: 15px; \}/);
+});

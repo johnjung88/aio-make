@@ -1094,22 +1094,31 @@ body:has(.cs-site) {
   }
   .cs-site .cs-footer-links--services {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* R7-fix1: the shrink-to-fit column left no gap between "브랜드 홍보 영상" and "SNS 광고 영상" (0px). */
+    column-gap: var(--cs-s6);
   }
 }
+/* R7-fix1: 768px+ footer height. Top padding 48, business info flows as a wrapping row (4 lines to 1-2),
+ * bottom block spacing 48. Link text stays 15-16px with 44px targets. */
 @media (min-width: 768px) {
+  .cs-site .cs-footer { padding-block: 48px var(--cs-s7); }
   .cs-site .cs-footer-grid { row-gap: var(--cs-s7); }
-  .cs-site .cs-footer-bottom { margin-top: var(--cs-s7); }
+  .cs-site .cs-footer-bottom { margin-top: 48px; }
+  .cs-site .cs-footer-biz {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--cs-s5);
+    row-gap: var(--cs-s1);
+  }
   .cs-site .cs-footer-legal { column-gap: var(--cs-s5); }
 }
 @media (min-width: 1024px) {
   .cs-site .cs-footer { --cs-t-nav-size: 15px; }
   .cs-site .cs-footer-grid { row-gap: 56px; }
-  .cs-site .cs-footer-bottom { margin-top: 56px; }
 }
 @media (min-width: 1440px) {
   .cs-site .cs-footer { --cs-t-nav-size: 16px; }
   .cs-site .cs-footer-grid { row-gap: var(--cs-s8); }
-  .cs-site .cs-footer-bottom { margin-top: var(--cs-s8); }
 }
 
 /* ---------------------------------------------------------------- 모바일 하단 바

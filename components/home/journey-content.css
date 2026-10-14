@@ -302,6 +302,8 @@
     overflow: visible;
     scroll-snap-type: none;
     transform-style: preserve-3d;
+    /* R7-fix1: the transparent track sits on the z=0 plane in front of the side cards (z<0) and swallowed their clicks. */
+    pointer-events: none;
   }
   .wj .wjc-track::before,
   .wj .wjc-track::after {
@@ -309,6 +311,7 @@
   }
   .wj .wjc-card {
     position: absolute;
+    pointer-events: auto;
     top: 12px;
     left: 50%;
     margin-left: calc(var(--wjc-w) / -2);

@@ -671,8 +671,11 @@ test("R7 main work step has no link rows, tabs or chips in dev, marketing and co
   // Mobile timeline no longer indents the step body (start x = section gutter).
   assert.ok(!/\.wj \.wj-steps \{[^}]*padding-left/.test(css));
   assert.ok(!/\.wj \.wj-steps::before/.test(css));
-  assert.match(css, /\.wj \.wj-lead \{[^}]*white-space: pre-line;[^}]*text-wrap: pretty;/);
-  assert.match(css, /--wj-step-lead-size: 16px;/);
+  assert.match(css, /\.wj \.wj-lead \{[^}]*white-space: pre-line;[^}]*text-wrap: balance;/);
+  assert.match(css, /\.wj \.wj-lead-line \{[^}]*display: block;[^}]*text-wrap: balance;/);
+  assert.doesNotMatch(css, /\.wj \.wj-lead \{[^}]*text-wrap: pretty/);
+  // 16px lead below 480px keeps the marketing lead within 3 lines at 430px.
+  assert.match(css, /@media \(max-width: 479\.98px\) \{\s*\.wj \{\s*--wj-step-lead-size: 16px;/);
   assert.match(css, /--wj-lead-gap: 32px;/);
   assert.match(css, /--wj-lead-gap: 40px;/);
   assert.match(css, /--wj-lead-gap: 48px;/);

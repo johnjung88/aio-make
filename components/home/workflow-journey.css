@@ -58,13 +58,18 @@
   line-height: var(--type-feature-leading);
   letter-spacing: var(--type-feature-tracking);
 }
-/* One sentence per line (copy carries a line break), no orphan last words. */
+/* One sentence per block (.wj-lead-line). balance evens the lines of each sentence,
+ * so no short orphan last line remains (R7-fix1). */
 .wj .wj-lead {
   max-width: 34em;
   color: var(--wj-text-2);
   white-space: pre-line;
-  text-wrap: pretty;
+  text-wrap: balance;
   word-break: keep-all;
+}
+.wj .wj-lead-line {
+  display: block;
+  text-wrap: balance;
 }
 /* R7 step lead: 16px at 360-429, the lead role token from 430 up. */
 .guide-page .wj .wj-step > .wj-lead {
@@ -250,7 +255,8 @@
   }
 }
 
-@media (max-width: 429.98px) {
+/* 16px below 480px so the marketing lead stays within 3 lines at 430px (R7-fix1). */
+@media (max-width: 479.98px) {
   .wj {
     --wj-step-lead-size: 16px;
   }
