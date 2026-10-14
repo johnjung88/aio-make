@@ -3,7 +3,7 @@
 /* R5 WP-S2 · 브랜드 홍보 영상 고유 client 섬(이 폴더의 유일한 "use client").
  * - FilmScreen(히어로 공개판): 메인 영상을 보일 때만 무음 반복 재생하고(화면 밖·숨김 탭·움직임 끔·reduced-motion이면 정지),
  *   아래쪽 진행선이 재생 위치를 따라간다. 44px 재생/정지 버튼은 사용자가 멈춘 상태를 유지한다.
- *   프레임 확대(.92→1)는 ServiceHero의 MotionCanvas variant="brand-film" 스크롤 연동을 그대로 쓴다.
+ *   프레임 확대(.88→1)는 ServiceHero의 MotionCanvas variant="brand-film" 스크롤 연동을 그대로 쓴다.
  * - FilmTimeline(구성 예시): 30초/60초를 바꿀 때마다 세그먼트가 너비를 다시 나누며 순서대로 다시 들어온다.
  *   재생 헤드는 미리보기 영상의 currentTime을 따라 움직이고, 영상이 없거나 열리지 않으면 12초 루프 시계로 움직인다.
  * - 인라인 style 속성 없음. 진행값은 ref.style.setProperty로 CSS 변수에만 쓴다. */

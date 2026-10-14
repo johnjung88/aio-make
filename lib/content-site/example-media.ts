@@ -93,6 +93,10 @@ export const EXAMPLE_MEDIA: readonly ExampleSlot[] = [
 
   /* 가운데 고정 9:16 화면. 2:3 원본을 CSS object-fit: cover로 세로 잘라 쓴다(파일 생성 없음). 9:16 영상이 오면 kind·src·poster만 바꾼다 */
   { id: "ad-center-1", service: "ad", section: "center", kind: "image", src: `${DIR}/ad/ad-product.webp`, alt: "빛이 비치는 제품을 화면 가운데에 세운 세로 광고 장면 연출 예시", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 50] },
+  /* 장면 전환(SceneSequence) 3컷: 광고 후크 소재(ad-hook-*)가 오기 전까지 기존 광고 이미지를 재사용한다. 9:16 화면에 cover로 세운다 */
+  { id: "ad-scene-1", service: "ad", section: "scene", kind: "image", src: `${DIR}/ad/ad-character.webp`, alt: "첫 장면에서 상황을 전하는 세로 광고 연출 예시", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 30] },
+  { id: "ad-scene-2", service: "ad", section: "scene", kind: "image", src: `${DIR}/ad/ad-creator.webp`, alt: "사용 방법을 자막으로 보여 주는 세로 광고 연출 예시", label: MEDIA_TAGS.aiPerson, aspect: "9x16", width: 900, height: 1350, focus: [50, 30] },
+  { id: "ad-scene-3", service: "ad", section: "scene", kind: "image", src: `${DIR}/ad/ad-product.webp`, alt: "제품을 사용하는 장면으로 마무리하는 세로 광고 연출 예시", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 50] },
   { id: "ad-rail-1", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-product.webp`, alt: "", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 40] },
   { id: "ad-rail-2", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-ribbon.webp`, alt: "", label: STAGED, aspect: "9x16", width: 1920, height: 1081, focus: [70, 50] },
   { id: "ad-rail-3", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-creator.webp`, alt: "", label: MEDIA_TAGS.aiPerson, aspect: "9x16", width: 900, height: 1350, focus: [50, 30] },

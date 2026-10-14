@@ -356,6 +356,8 @@
 .cs-site .cs-home .ch-depth-media { position:relative; height:390px; overflow:hidden; background:var(--cs-bg); }
 .cs-site .cs-home .ch-depth-media :where(img,video) { width:100%; height:100%; object-fit:contain; display:block; }
 .cs-site .cs-home .ch-depth-media > video { position:absolute; inset:0; }
+/* 자동 재생 영상(조작 막대 없음)은 터치를 받지 않아 영상 위에서 시작한 가로 스와이프도 카드가 처리한다. reduced-motion의 controls 영상은 그대로 조작 */
+.cs-site .cs-home .ch-depth-media > video:not([controls]) { pointer-events:none; }
 /* 켄번스·드리프트 층: 이미지(fill)를 담는 절대 위치 상자 */
 .cs-site .cs-home .ch-kb { position:absolute; inset:0; }
 .cs-site .cs-home .ch-depth-media--comic .ch-kb { inset:12px; }

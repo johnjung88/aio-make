@@ -47,5 +47,5 @@ export function WorkSequence({ work, labels, portrait = false, service, exampleL
   const slots = getExampleMedia(service, "scene").slice(0, 3);
   if (slots.length < 3) return null;
   const scenes: SceneFrame[] = slots.map(slot => ({ src: slot.src, alt: slot.alt, width: slot.width, height: slot.height, ...focusData(slot.focus) }));
-  return <SceneSequence variant={variant} name="연출 예시" labels={exampleLabels ?? labels} scenes={scenes} portrait={false} note="AIO가 만든 이미지로 구성한 장면 연출 예시" tag={slots[0].label}/>;
+  return <SceneSequence variant={variant} name="연출 예시" labels={exampleLabels ?? labels} scenes={scenes} portrait={slots.every(slot => slot.aspect === "9x16")} note="AIO가 만든 이미지로 구성한 장면 연출 예시" tag={slots[0].label}/>;
 }

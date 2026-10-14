@@ -144,7 +144,8 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
     <div className="ch-depth-stage" aria-label="서비스 작업물 카드" aria-roledescription="carousel" onClickCapture={event=>{if(suppressClick.current){event.preventDefault();event.stopPropagation();suppressClick.current=false;}}} onTouchStart={event=>{
      suppressClick.current=false;
      setTouching(true);
-     if((event.target as HTMLElement).closest("video, a, button")){touch.current=null;return;}
+     // 영상 위에서 시작한 스와이프도 넘긴다(조작 막대가 있는 영상 video[controls]·링크·버튼만 제외). 영상은 CSS로 pointer-events:none이라 터치가 카드로 간다
+     if((event.target as HTMLElement).closest("video[controls], a, button")){touch.current=null;return;}
      touch.current={x:event.touches[0].clientX,y:event.touches[0].clientY};
     }} onTouchCancel={()=>{touch.current=null;setTouching(false);}} onTouchEnd={event=>{
      setTouching(false);

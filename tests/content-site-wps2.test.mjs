@@ -76,7 +76,7 @@ test("S2-2. 브랜드 영상: 보일 때만 자동재생 · 30/60 재배치 · �
   const css = code(`${FILM}/brand-film.css`);
   // 스크롤 연동 프레임 확대는 공용 MotionCanvas variant="brand-film"(ServiceHero 안)을 그대로 쓴다
   assert.match(landing, /<ServiceHero data=\{data\} wide/);
-  assert.match(read(`${DIR}/service-motion.css`), /data-motion-variant="brand-film"\]\[data-motion-ready="true"\] \{ transform:scale\(calc\(\.92 \+ var\(--cs-motion-progress\) \* \.08\)\)/);
+  assert.match(read(`${DIR}/service-motion.css`), /data-motion-variant="brand-film"\]\[data-motion-ready="true"\] \{ transform:scale\(calc\(\.88 \+ var\(--cs-frame-progress,1\) \* \.12\)\)/);
   // 공개판 메인 영상: 연출 예시 슬롯, 무음·반복·인라인, 보일 때만 play()
   assert.match(landing, /getExampleMedia\("brand-film", "main"\)/);
   assert.match(landing, /fallback=\{<FilmScreen /);

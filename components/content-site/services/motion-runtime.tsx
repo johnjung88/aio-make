@@ -84,10 +84,12 @@ export function useAutoCycle(count: number, intervalMs: number, playing: boolean
 export type MotionProgressOptions = {
   /** "pin": 부모 높이 동안 sticky로 고정된 구간의 진행(0→1). 기본은 화면 통과 진행 */
   mode?: "pass" | "pin";
+  /** true면 `--cs-frame-progress`도 기록한다: 프레임이 화면 위쪽 절반으로 올라오는 만큼 0→1(짧은 모바일 프레임도 스크롤 내내 자란다) */
+  frame?: boolean;
 };
 
 /** 스크롤 진행값을 CSS 변수로 기록한다. 움직임이 꺼지면 고정값(pass 0.5 · pin 1)으로 두어 내용이 모두 보인다 */
-export function useMotionProgress(ref: RefObject<HTMLElement | null>, onProgress?: (progress: number) => void, { mode = "pass" }: MotionProgressOptions = {}) {
+export function useMotionProgress(ref: RefObject<HTMLElement | null>, onProgress?: (progress: number) => void, { mode = "pass", frame: trackFrame = false }: MotionProgressOptions = {}) {
   const { motion } = useCsMotion();
   const callback = useRef(onProgress);
   useEffect(() => { callback.current = onProgress; }, [onProgress]);
@@ -105,6 +107,7 @@ export function useMotionProgress(ref: RefObject<HTMLElement | null>, onProgress
       node.style.setProperty("--cs-motion-shift", "0px");
       return;
     }
+    if (trackFrame) node.style.setProperty("--cs-frame-progress", Math.max(0, Math.min(1, 1 - node.getBoundingClientRect().top / (innerHeight * .5))).toFixed(4));
     node.dataset.motionReady = "true";
     let frame = 0;
     let visible = false;
@@ -116,6 +119,8 @@ export function useMotionProgress(ref: RefObject<HTMLElement | null>, onProgress
         ? Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height - innerHeight)))
         : Math.max(0, Math.min(1, (innerHeight * .78 - rect.top) / (rect.height + innerHeight * .2)));
       node.style.setProperty(variable, progress.toFixed(4));
+      // 브랜드 영상 프레임 확대: 화면 통과 진행은 짧은 모바일 프레임에서 첫 화면에 이미 .97이라 자라는 모습이 안 보인다
+      if (trackFrame) node.style.setProperty("--cs-frame-progress", Math.max(0, Math.min(1, 1 - rect.top / (innerHeight * .5))).toFixed(4));
       if (mode === "pass") node.style.setProperty("--cs-motion-shift", `${((progress - .5) * 70).toFixed(2)}px`);
       callback.current?.(progress);
     };
@@ -137,12 +142,12 @@ export function useMotionProgress(ref: RefObject<HTMLElement | null>, onProgress
     window.addEventListener("resize", schedule, { passive: true });
     document.addEventListener("visibilitychange", visibility);
     return () => { observer.disconnect(); cancelAnimationFrame(frame); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); document.removeEventListener("visibilitychange", visibility); };
-  }, [motion, ref, mode]);
+  }, [motion, ref, mode, trackFrame]);
 }
 
 export function MotionCanvas({ children, variant, className = "" }: { children: ReactNode; variant: string; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  useMotionProgress(ref);
+  useMotionProgress(ref, undefined, { frame: variant === "brand-film" });
   return <div ref={ref} className={`cs-motion-canvas ${className}`} data-motion-variant={variant}>{children}</div>;
 }
 

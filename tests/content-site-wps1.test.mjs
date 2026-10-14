@@ -57,7 +57,7 @@ test("S1-2. 공개판(플래그 미설정): 세 서비스의 서버 선택 작�
   assert.equal(result.status, 0, result.stderr);
   const works = JSON.parse(result.stdout);
   for (const [id, slugs] of Object.entries(works)) assert.deepEqual(slugs, [], id);
-  for (const service of ["animation", "motion-graphics"]) {
+  for (const service of ["animation", "motion-graphics", "ad"]) {
     const scenes = getExampleMedia(service, "scene");
     assert.equal(scenes.length, 3, service);
     for (const slot of scenes) assert.doesNotMatch(JSON.stringify(slot), CUSTOMER, slot.id);

@@ -58,6 +58,8 @@
 .cs-site .cs-scene-frame[data-active="true"] { opacity:1; z-index:1; clip-path:inset(0 0 0 0); transform:none; }
 .cs-site .cs-scene-image { width:100%; height:100%; object-fit:cover; }
 .cs-site .cs-scene-screen[data-portrait="true"] .cs-scene-image { object-fit:contain; }
+/* 광고 연출 예시는 2:3 원본을 9:16 화면에 세로로 잘라 쓴다(실제 9:16 발췌는 비율이 같아 차이 없음) */
+.cs-site .cs-scene-chapter--ad .cs-scene-screen[data-portrait="true"] .cs-scene-image { object-fit:cover; }
 .cs-site .cs-scene-wipe { position:absolute; inset:0 auto 0 0; z-index:2; width:18%; background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.22),rgba(255,255,255,0)); opacity:0; pointer-events:none; }
 .cs-site .cs-scene-counter { position:absolute; top:14px; right:14px; z-index:3; background:var(--cs-bg); color:var(--cs-fg); padding:8px 12px; border:1px solid var(--cs-line); border-radius:999px; }
 .cs-site .cs-scene-screen > .cs-tag { z-index:3; }
@@ -93,7 +95,7 @@
   .cs-site .cs-motion-canvas[data-motion-ready="true"][data-entered="true"] .cs-motion-title-line { animation-name:cs-title-arrive; animation-duration:850ms; animation-timing-function:cubic-bezier(.16,1,.3,1); animation-fill-mode:both; }
   .cs-site .cs-motion-title-line:nth-child(2) { animation-delay:110ms; }
   .cs-site .cs-motion-title-line:nth-child(3) { animation-delay:220ms; }
-  .cs-site .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] { transform:scale(calc(.92 + var(--cs-motion-progress) * .08)); border-radius:calc(28px - var(--cs-motion-progress) * 28px); overflow:clip; }
+  .cs-site .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] { transform:scale(calc(.88 + var(--cs-frame-progress,1) * .12)); border-radius:calc(28px - var(--cs-frame-progress,1) * 28px); overflow:clip; }
   /* 웹툰 부채: 스크롤 진행으로 벌어지고 각 컷은 다른 박자로 떠오른다 */
   .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="1"] { transform:translateX(calc(8% + var(--cs-motion-progress) * 16%)) rotate(calc(4deg + var(--cs-motion-progress) * 8deg)) scale(.95); }
   .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="2"] { transform:translateX(calc(-8% - var(--cs-motion-progress) * 16%)) rotate(calc(-4deg - var(--cs-motion-progress) * 8deg)) scale(.95); }
