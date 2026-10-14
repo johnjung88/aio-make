@@ -63,7 +63,7 @@ function Cover() {
           sizes={CUT_SIZES}
           priority
         />
-        <div className="cs-svc-webtoon-cover-caption cs-on-accent">
+        <div className="cs-svc-webtoon-cover-caption">
           <p className="cs-t-h2">{sig.cover.title}</p>
           <a href="#reader" className="cs-link">
             {sig.cover.read} <span aria-hidden="true">↓</span>

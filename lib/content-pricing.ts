@@ -1,5 +1,5 @@
-/* 컨텐츠 서비스 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본). 모든 금액은 부가세 별도.
- * 금액 리터럴은 이 파일에만 있다. lib/content-home.ts는 아래 이름을 그대로 re-export한다.
+/* 컨텐츠 서비스 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본). 모든 금액은 부가세 별도
+ * 금액 리터럴은 이 파일에만 있다 lib/content-home.ts는 아래 이름을 그대로 re-export한다
  * SHOW_STARTING_PRICE가 /content 홈 시작가 표시의 유일한 끄기 스위치다
  * (서비스 페이지 가격 블록은 사용자 확정이라 이 스위치와 관계없이 항상 표시한다). */
 import type { ContentServiceId } from "./content-site/types.ts";
@@ -14,8 +14,8 @@ export const contentPricing = {
       { label: "세팅 + 이미지 총 20장 + 30초 영상 4편", amount: 1000000 },
     ],
     notes: [
-      "총 20장에 세팅용 이미지 포함. 주 이미지 5장·영상 1편 구성 가능.",
-      "계정 게시·운영 및 대량 제작은 별도 견적.",
+      "총 20장에 세팅용 이미지 포함 주 이미지 5장·영상 1편 구성 가능",
+      "계정 게시·운영 및 대량 제작은 별도 견적",
     ],
   },
   "brand-film": {
@@ -37,7 +37,7 @@ export const contentPricing = {
       { label: "맞춤형 30초", amount: 150000 },
       { label: "맞춤형 60초", amount: 270000 },
     ],
-    notes: ["맞춤형은 브랜드 전용 캐릭터 제작 서비스 포함."],
+    notes: ["맞춤형은 브랜드 전용 캐릭터 제작 서비스 포함"],
   },
   webtoon: {
     plans: [
@@ -54,7 +54,7 @@ export const contentPricing = {
       { label: "웹툰 12컷 + 모션코믹 30초", amount: 175000 },
       { label: "웹툰 24컷 + 모션코믹 60초", amount: 300000 },
     ],
-    notes: ["기존 웹툰을 영상화하는 가격. 웹툰 신규 제작은 별도."],
+    notes: ["기존 웹툰을 영상화하는 가격 웹툰 신규 제작은 별도"],
   },
   ad: {
     plans: [
@@ -62,8 +62,8 @@ export const contentPricing = {
       { label: "60초", amount: 450000 },
     ],
     notes: [
-      "제품·서비스 1개, 콘셉트 1개 기준. 세로형 9:16·1080p, 기본 자막·BGM 포함.",
-      "다른 화면비 추가·광고 집행·계정 운영·매체비는 별도.",
+      "제품·서비스 1개, 콘셉트 1개 기준 세로형 9:16·1080p, 기본 자막·BGM 포함",
+      "다른 화면비 추가·광고 집행·계정 운영·매체비는 별도",
     ],
   },
   common: {
@@ -73,7 +73,7 @@ export const contentPricing = {
   },
 } as const;
 
-/** 만 원 단위, 소수 첫째 자리까지. 100000 → "10만 원", 75000 → "7.5만 원" */
+/** 만 원 단위, 소수 첫째 자리까지 100000 → "10만 원", 75000 → "7.5만 원" */
 export function formatWon(amount: number): string {
   const man = Math.round(amount / 1000) / 10;
   return `${Number.isInteger(man) ? man : man.toFixed(1)}만 원`;
@@ -82,9 +82,9 @@ export function formatWon(amount: number): string {
 export type StartingPrice = {
   amount: number;
   amountText: string;
-  /** 굵게 보이는 앞부분. 예: "25만 원부터", "웹툰 제작 12컷 10만 원부터" */
+  /** 굵게 보이는 앞부분 예: "25만 원부터", "웹툰 제작 12컷 10만 원부터" */
   head: string;
-  /** " · "로 이어지는 나머지 단위. 마지막은 항상 "부가세 별도" */
+  /** " · "로 이어지는 나머지 단위 마지막은 항상 "부가세 별도" */
   rest: string[];
   /** 화면 한 줄 전체 문자열 */
   line: string;
@@ -143,14 +143,14 @@ export function startingPrice(
 }
 
 /* ---------------------------------------------------------------------------
- * 서비스 페이지 가격표(CsPricing)·문의 폼 '희망 구성'·JSON-LD offers가 함께 쓰는 구조.
+ * 서비스 페이지 가격표(CsPricing)·문의 폼 '희망 구성'·JSON-LD offers가 함께 쓰는 구조
  * ------------------------------------------------------------------------- */
 
 /** 모든 서비스 가격표 아래에 붙는 공통 주석(문장 그대로). */
 export const PRICING_COMMON = {
-  vat: "표시 금액은 모두 부가세 별도입니다.",
-  revisions: "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다.",
-  bulk: "대량 제작과 정기 제작은 따로 견적을 드립니다.",
+  vat: "표시 금액은 모두 부가세 별도입니다",
+  revisions: "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다",
+  bulk: "대량 제작과 정기 제작은 따로 견적을 드립니다",
 } as const;
 
 export const PRICING_COMMON_LINES: readonly string[] = [
@@ -208,7 +208,7 @@ function group(
 
 /** 웹툰 서비스 페이지의 모션코믹 주석(서비스 명세 1-5 문장). */
 const WEBTOON_NOTE =
-  "모션코믹은 기존 웹툰을 영상화하는 가격입니다. 웹툰 신규 제작은 별도입니다.";
+  "모션코믹은 기존 웹툰을 영상화하는 가격입니다 웹툰 신규 제작은 별도입니다";
 
 export function pricingPlans(id: ContentServiceId): ServicePricing {
   switch (id) {

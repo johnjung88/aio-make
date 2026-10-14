@@ -1,5 +1,5 @@
-/* 컨텐츠 사이트(AIO MAKE CONTENT STUDIO) 레이아웃. /content, /content/contact, /content/services/<id>만 이 그룹이 처리한다.
- * /content/insights·글 상세는 계속 (public)/[division] 메인 셸, /content/work는 404 그대로.
+/* 컨텐츠 사이트(AIO MAKE CONTENT STUDIO) 레이아웃. /content, 서비스, 문의, 인사이트와 사례 상세를 이 그룹이 처리한다.
+ * /content/work 목록은 404 그대로, 사례 상세는 /content/projects/<slug>.
  * 메인 Header·Footer·FloatingContact·PageNavigation과 guide CSS 7종은 쓰지 않는다. robots는 루트 규칙을 따른다. */
 import { Suspense } from "react";
 import { Analytics } from "@/components/analytics";

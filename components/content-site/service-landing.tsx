@@ -41,11 +41,11 @@ export function ServiceLanding({
       <Hero data={data} />
       <CsTypes types={data.types} />
       {Signature ? <Signature data={data} /> : null}
-      <CsWorks works={works} layout={worksLayout} />
       {BeforePricing ? <BeforePricing data={data} /> : null}
       <CsPricing id={id} />
       <CsProcess process={data.process} />
       <CsScope scope={data.scope} />
+      <CsWorks works={works} layout={worksLayout} />
       <CsFaq id={id} faq={data.faq} />
       <CsInquiry service={id} copy={data.inquiry} />
       <CsRelated current={id} />

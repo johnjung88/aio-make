@@ -11,8 +11,8 @@ import { CsHeroCopy, HERO_TITLE_ID } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { CsTag } from "../../ui/tag";
-import { FilmControl } from "./film-control";
+
+
 import "./brand-film.css";
 
 const ASSETS = {
@@ -28,33 +28,14 @@ const sig = (data: ServiceSectionProps["data"]) =>
   data.signature as BrandFilmSignature;
 
 function Hero({ data }: ServiceSectionProps) {
-  const s = sig(data).hero;
   return (
-    <section
-      className="cs-hero cs-svc-brand-film-hero"
-      data-cs-section="hero"
-      aria-labelledby={HERO_TITLE_ID}
-    >
-      <CsMedia
-        kind="video"
-        ratio="16x9"
-        className="cs-svc-brand-film-backdrop"
-        src={ASSETS.heroMotion}
-        alt={s.videoLabel}
-        poster={ASSETS.heroStill}
-        autoplay
-        preload="metadata"
-        under={{ src: ASSETS.heroStill, sizes: "100vw", priority: true }}
-      />
-      <div className="cs-svc-brand-film-shade" aria-hidden="true" />
+    <section className="cs-hero cs-svc-brand-film-hero" data-cs-section="hero" aria-labelledby={HERO_TITLE_ID}>
       <div className="cs-container">
-        <div className="cs-svc-brand-film-hero-inner">
-          <CsHeroCopy id={data.id} hero={data.hero} />
-          <div className="cs-svc-brand-film-meta">
-            <CsTag>{MEDIA_TAGS.stagedMuted}</CsTag>
-            <FilmControl pauseLabel={s.pause} playLabel={s.play} />
-          </div>
-        </div>
+        <div className="cs-svc-brand-film-editorial-head"><CsHeroCopy id={data.id} hero={data.hero} /></div>
+        <figure className="cs-svc-brand-film-editorial-screen">
+          <CsMedia ratio="16x9" src={ASSETS.heroStill} alt="브랜드 영상의 색과 질감을 보여주는 연출 예시" tag={MEDIA_TAGS.staged} sizes="(max-width: 767px) 90vw, 90vw" priority />
+          <figcaption><span className="cs-t-label">한 가지 메시지를 한 흐름으로</span><span className="cs-t-caption">브랜드 자료 정리 · 스토리 구성 · 영상 제작</span></figcaption>
+        </figure>
       </div>
     </section>
   );

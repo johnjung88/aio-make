@@ -1,160 +1,69 @@
-/* AI 인플루언서 서비스 모듈(WP-B). 서버 컴포넌트만(고유 client 섬 0개).
- * 히어로: 아치형 인물 카드(87언니 기준 얼굴) · 시그니처: 캐릭터 시트(#sheet) · 가격 위 띠: AI 가상인물 표기.
- * AI가 만든 사람 이미지는 모두 MEDIA_TAGS.aiPerson 태그와 `… · AI로 만든 가상인물` alt를 단다.
- * 고객 시안은 공통 CsWorks(서버 게이트)만 그린다. 이 파일에는 고객 문자열이 없다.
- * 스타일은 ./ai-influencer.css 한 파일, 선택자는 모두 .cs-svc-ai-influencer로 시작. */
+import { creatorRoster } from "@/lib/content-site/creator-roster";
 import { HERO_TITLE_ID, CsHeroCopy } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { aiInfluencerSignature as sig } from "@/lib/content-site/services/ai-influencer";
-import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./ai-influencer.css";
 
-/** 87언니(자체 AI 가상인물) 이미지. 원본은 MCN 03_기록하는87 캐릭터·프로필 폴더, 크기만 줄인 webp(RESULT_WPB 자산 표).
- * 공개를 거두면 이 표의 src만 CONTENT_SITE_ASSETS.creator 등 공개 연출 예시로 바꾼다. */
-const ASSETS = {
-  hero: "/content-site/ai-influencer/unnie87-face.webp",
-  views: {
-    front: "/content-site/ai-influencer/unnie87-front.webp",
-    side: "/content-site/ai-influencer/unnie87-side.webp",
-    full: "/content-site/ai-influencer/unnie87-full.webp",
-    street: "/content-site/ai-influencer/unnie87-street.webp",
-  },
-} as const;
-
 function Hero({ data }: ServiceSectionProps) {
-  const p = sig.persona;
   return (
-    <section
-      className="cs-hero cs-svc-ai-influencer-hero"
-      data-cs-section="hero"
-      aria-labelledby={HERO_TITLE_ID}
-    >
-      <div className="cs-svc-ai-influencer-halo" aria-hidden="true" />
-      <div className="cs-container">
-        <div className="cs-grid cs-hero-grid">
-          <div className="cs-col-7">
-            <CsHeroCopy id={data.id} hero={data.hero} />
-          </div>
-          <div className="cs-col-5 cs-svc-ai-influencer-stage">
-            <figure className="cs-svc-ai-influencer-arch">
-              <CsMedia
-                ratio="2x3"
-                className="cs-svc-ai-influencer-arch-media"
-                src={ASSETS.hero}
-                alt={p.alt}
-                tag={MEDIA_TAGS.aiPerson}
-                sizes="(max-width: 767px) 79vw, (max-width: 1023px) 420px, 34vw"
-                priority
-              />
-              <figcaption className="cs-svc-ai-influencer-persona">
-                <span className="cs-t-caption">{p.role}</span>
-                <span className="cs-t-h3">{p.name}</span>
-                <a href="#sheet" className="cs-link">
-                  {p.sheetLink} <span aria-hidden="true">↓</span>
-                </a>
-              </figcaption>
-            </figure>
-          </div>
+    <section className="cs-hero cs-svc-ai-influencer-hero" data-cs-section="hero" aria-labelledby={HERO_TITLE_ID}>
+      <div className="cs-container"><div className="cs-grid cs-hero-grid">
+        <div className="cs-col-7"><CsHeroCopy id={data.id} hero={data.hero} /></div>
+        <div className="cs-col-5 cs-svc-ai-influencer-cast">
+          {creatorRoster.map((creator, i) => (
+            <a key={creator.id} href={`#creator-${creator.id}`} className="cs-svc-ai-influencer-cast-card">
+              <CsMedia ratio="3x4" src={creator.portrait} alt={`${creator.name} · AI 가상인물`} sizes="(max-width: 767px) 43vw, 22vw" priority={i === 0} />
+              <span className="cs-svc-ai-influencer-cast-name cs-t-label">{creator.name}</span>
+            </a>
+          ))}
+          <p className="cs-svc-ai-influencer-cast-note cs-t-caption">자체 IP · AI 가상인물 4명</p>
         </div>
-      </div>
+      </div></div>
     </section>
   );
 }
-
 function Signature() {
-  const s = sig.sheet;
   return (
-    <section
-      id="sheet"
-      className="cs-section cs-section--alt cs-svc-ai-influencer-sheet"
-      data-cs-section="signature"
-      aria-labelledby="cs-ai-sheet-title"
-    >
+    <section id="sheet" className="cs-section cs-svc-ai-influencer-roster" data-cs-section="signature" aria-labelledby="cs-ai-roster-title">
       <div className="cs-container">
-        <CsSectionHead
-          id="cs-ai-sheet-title"
-          eyebrow={s.eyebrow}
-          title={s.title}
-          lead={s.lead}
-        />
-        {/* ≥1024: 기준 이미지 네 장을 한 줄(턴어라운드)로, 그 아래 프로필 5/12 + 설정 7/12.
-            사진 2×2 옆에 짧은 글 열을 두면 오른쪽 아래가 크게 비어서(VERIFY_FINAL_P2R WP-B-2) 위아래로 나눴다. */}
-        <div className="cs-grid cs-svc-ai-influencer-sheet-grid">
-          <ul className="cs-svc-ai-influencer-views" aria-label={s.viewsLabel}>
-            {s.views.map((view) => (
-              <li
-                key={view.id}
-                className="cs-svc-ai-influencer-view"
-                data-view={view.id}
-              >
-                <CsMedia
-                  ratio="3x4"
-                  src={ASSETS.views[view.id]}
-                  alt={view.alt}
-                  tag={MEDIA_TAGS.aiPerson}
-                  sizes="(max-width: 1023px) 46vw, 22vw"
-                />
-                <p className="cs-t-label">{view.label}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="cs-col-5 cs-svc-ai-influencer-profile-head">
-            <p className="cs-t-caption">{s.profile.role}</p>
-            <h3 className="cs-t-h3">{s.profile.name}</h3>
-            <p className="cs-t-body">{s.profile.body}</p>
-            <p className="cs-svc-ai-influencer-note cs-t-small">{s.note}</p>
-          </div>
-          <dl className="cs-col-7 cs-svc-ai-influencer-rows">
-            {s.rows.map((row) => (
-              <div key={row.term} className="cs-svc-ai-influencer-row">
-                <dt className="cs-t-label">{row.term}</dt>
-                <dd className="cs-t-body">{row.detail}</dd>
+        <CsSectionHead id="cs-ai-roster-title" eyebrow="OUR CREATORS" title={"서로 다른 취향\n각자의 이야기"} lead="얼굴뿐 아니라 말투와 관심사, 일상의 분위기까지 계정마다 다르게 설계합니다" />
+        <p className="cs-svc-ai-influencer-editor-note cs-t-small">자체 IP 계정 소개 · 피드 구성 예시</p>
+        <div className="cs-svc-ai-influencer-accounts">
+          {creatorRoster.map((creator) => (
+            <article key={creator.id} id={`creator-${creator.id}`} className="cs-svc-ai-influencer-account" aria-labelledby={`creator-${creator.id}-name`}>
+              <div className="cs-svc-ai-influencer-account-head">
+                <div className="cs-svc-ai-influencer-avatar"><CsMedia ratio="1x1" src={creator.portrait} alt={`${creator.name} 프로필 · AI 가상인물`} sizes="64px" /></div>
+                <div className="cs-svc-ai-influencer-account-name"><span className="cs-t-caption">{creator.category}</span><h3 id={`creator-${creator.id}-name`} className="cs-t-h3">{creator.name}</h3></div>
+                <span className="cs-svc-ai-influencer-label cs-t-caption">AI 가상인물</span>
               </div>
-            ))}
-          </dl>
+              <div className="cs-svc-ai-influencer-account-copy"><p className="cs-t-label">{creator.line}</p><p className="cs-t-small">{creator.bio}</p></div>
+              <div className="cs-svc-ai-influencer-feed" aria-label={`${creator.name} 이미지 포트폴리오`}>
+                {creator.images.map((item) => <figure key={item.src}><CsMedia ratio="3x4" src={item.src} alt={`${creator.name} ${item.label} 이미지 · AI 가상인물`} sizes="(max-width: 767px) 29vw, 15vw" /><figcaption className="cs-t-caption">{item.label}</figcaption></figure>)}
+              </div>
+              <div className="cs-svc-ai-influencer-account-foot"><p className="cs-t-small">{creator.direction}</p><p className="cs-t-caption">{creator.account}</p></div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
-
 function BeforePricing() {
-  const d = sig.disclosure;
   return (
-    <section
-      className="cs-section cs-section--sm cs-svc-ai-influencer-disclosure"
-      data-cs-section="signature"
-      aria-labelledby="cs-ai-disclosure-title"
-    >
+    <section className="cs-section cs-section--sm cs-svc-ai-influencer-package" data-cs-section="signature" aria-labelledby="cs-ai-package-title">
       <div className="cs-container">
-        <div className="cs-svc-ai-influencer-band">
-          <span className="cs-svc-ai-influencer-band-mark cs-t-label" aria-hidden="true">
-            AI
-          </span>
-          <div className="cs-svc-ai-influencer-band-copy">
-            <h3 id="cs-ai-disclosure-title" className="cs-t-h3">
-              {d.title}
-            </h3>
-            <p className="cs-t-body">{d.body}</p>
-          </div>
-          <ul className="cs-svc-ai-influencer-band-items">
-            {d.items.map((item) => (
-              <li key={item} className="cs-t-chip">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <CsSectionHead id="cs-ai-package-title" eyebrow="YOUR BRAND CHARACTER" title={"우리 브랜드에는\n어떤 인물이 어울릴까요"} lead="브랜드 전용 인물의 외형과 성격부터 정하고 제품 이미지와 숏폼으로 확장합니다" />
+        <ol className="cs-svc-ai-influencer-deliverables">
+          {[
+            ["01", "캐릭터 기준", "얼굴과 헤어, 스타일을 정하고 같은 인물을 재현할 기준 이미지를 준비합니다"],
+            ["02", "이미지 구성", "제품에 맞춰 인물의 의상과 공간, 표정과 구도를 기획합니다"],
+            ["03", "영상 확장", "선택한 구성에 따라 30초 영상을 만들고 화면에 AI 가상인물을 표시합니다"],
+          ].map(([number, title, body]) => <li key={number}><span className="cs-t-caption">{number}</span><h3 className="cs-t-h3">{title}</h3><p className="cs-t-body">{body}</p></li>)}
+        </ol>
+        <p className="cs-svc-ai-influencer-disclosure cs-t-small">AI 가상인물 표기 · 광고 표기 · 플랫폼 합성 컨텐츠 설정을 함께 안내합니다</p>
       </div>
     </section>
   );
 }
-
-export const aiInfluencerLanding: ServiceModule = {
-  Hero,
-  Signature,
-  BeforePricing,
-  worksLayout: "vertical",
-};
+export const aiInfluencerLanding: ServiceModule = { Hero, Signature, BeforePricing, worksLayout: "vertical" };

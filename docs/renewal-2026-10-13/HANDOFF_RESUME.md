@@ -53,12 +53,26 @@ AIO MAKE 홈페이지(aio-make.com) 리뉴얼. 더 전문적으로, 작업물 �
 - Codex Astra 지침: `CODEX_ASTRA_HANDOFF.md`. 상태가 '사용자 확인 대기'면 Codex도 코드를 바꾸지 않는다.
 - 세션 cron(매시 17분 자동 재개 점검)은 세션을 닫으면 사라진다. 새 세션에서 필요하면 다시 건다.
 
-## 현재 상태: 사용자 디자인 확인 대기 (HEAD `502cacc`, 작업트리 깨끗함, 실행 중 에이전트 없음)
-- 컨텐츠 사이트(/content, /content/contact, 서비스 6종) + 메인 5단계 워크플로우 완료. VERIFY_FINAL_P2R_FIX: PASS(17건 해결, 회귀 없음). 미리보기 http://127.0.0.1:3214 (검토 플래그 켬, 최신 빌드).
-- 사용자에게 확인 요청 중: 전체 디자인, 웹툰 샘플 《1억의 구단주》 3~12컷의 실제 클럽 엠블럼·FIFA·Football Manager·실존 인물 닮은 인물 사용 여부, 변경된 제목들(브랜드 홍보 h1 '한 편의 영상에 / 브랜드를 담습니다', /content h1 'AI로 빠르게 / 전문가가 꼼꼼하게', 과정 4단계), 컨텐츠 쇼릴 제공 시점.
-- 경미 잔여(판정 영향 없음): AI 인플루언서 AI 표기 문장 2회, 브랜드 홍보 히어로 사실 항목의 수정 정책 반복, 브랜드 홍보 포스터 추가 요청 82KB.
-- 확인 후: 피드백 반영 → push(사용자 확인) → P6 폴더 정리.
-- 사용자 확인 필요(디자인 확인 때 함께): 웹툰 샘플 《1억의 구단주》 3~12컷에 실제 축구 클럽 엠블럼(선덜랜드·렉섬·리버풀·토트넘)·FIFA 월드컵·Football Manager 화면·실존 인물 닮은 인물 → 공개 사용 여부. WP-C의 브랜드 홍보 h1 변경, WP-D의 /content h1·4단계 과정 변경, WP-A 애니메이션 '연출 예시' 스타일 카드 추가.
+## 현재 상태: 디자인 피드백 R2 독립 검증 완료 · 사용자 디자인 확인 대기 (HEAD `9b3def8`, 미커밋 변경)
+- 사용자 2026-10-14 새 피드백으로 이전 디자인 확인 대기를 해제하고 재기획·구현 요청
+- Opus·Sonnet 실행 불가 안내에 사용 가능한 Codex 서브에이전트 구현·독립 검증 대체를 명시 승인
+- A 공통셸·메인·컨텐츠 홈 구현 완료: 검정 배경 통일, 헤더 4메뉴, 헤더 움직임 토글 제거, 실제 작업물 갤러리·카드 내부 화살표, 메인 5단계 재배치, 제작사례 FAQ 직전, CTA 정렬, /content/projects/[slug] 상세와 컨텐츠 인사이트 셸, 문장 마침표 제거
+- B 서비스 6종·AI 소개 재기획 구현 완료, 자체 결과 `RESULT_DESIGN_R2_SERVICES.md`
+- 사용자 추가 확정: AI 인플루언서는 확인된 4개 계정만 먼저 반영
+- 지시서 `BRIEF_DESIGN_R2.md`, A 자체 결과 `RESULT_DESIGN_R2_SHELL.md`
+- 독립 Codex 검증 담당이 타입·lint·직렬 테스트·격리 빌드·실제 Chrome PC/모바일·스크린샷 검토 완료, 상세 `VERIFY_DESIGN_R2.md`
+- 10페이지×4폭=40화면, 상세25경로, 실제 메뉴/사례 왕복30회 검증 PASS, reduced-motion7경로 PASS
+- 최초 전체99테스트는95 PASS/3 FAIL/1기존SKIP → 폐기된 디자인 계약3건 수정 후 관련10 PASS, 최종 수정영향36 PASS, 전체99 재실행으로 보고하지 않음
+- 시각 결함3건(메인 운영설계 캡션겹침·과정lead줄바꿈·브랜드필름 이미지폭)을 A/B에 재지시해 수정, 격리 재빌드와4폭 재확인 PASS
+- 창작품질은 독립 검증자가 실화면을 보고 사용자 검토 가능한 후보로 판단한 상태이며 사용자 디자인 승인은 별도
+- 3213·3214는 사용자 기존 미리보기이며 이번 소스 변경이 반영되었다고 보고하지 않음
+- 검증 완료 후3215 종료,3213 PID41252·3214 PID41552 유지와 원본 .next/BUILD_ID 해시동일 확인
+- 새 후보 격리 경로: `I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261013-AIO-CONTENT-RENEWAL/.qa/design-r2-independent/src`
+- 새 후보는 위 경로에서 `ENABLE_LEGACY_SUPABASE=false`, `AIO_LOCAL_ADMIN_ENABLED=false`, `NEXT_PUBLIC_AIO_REFERENCE_REVIEW=1`, `NODE_OPTIONS=--max-old-space-size=1536` 후 `node ./node_modules/next/dist/bin/next start -p 3215`로 재실행, 상세 PowerShell은 VERIFY_DESIGN_R2의 재실행 방법 참조
+- 공유용 실제 viewport 스크린샷: `.qa/design-r2-independent/shots/final-content-gallery-1440.png`, `final-ai-roster-1440.png`, `final-main-services-1440.png`, `final-content-top-390.png`
+- push·배포·P6 폴더 정리 NOT_RUN, 사용자 확인 필요
+- Image #1~5 실물 미첨부 한계 유지, 쇼릴 제공 대기와 웹툰 공개 권리 확인 사항 유지
+
 
 ## (이력) 실행 중이었음 (HEAD `c0ab7d9` = WP0 + P4FIX 커밋, VERIFY_G0: P4FIX PASS, WP0 FAIL 2건)
 - 병렬 서브에이전트 5개: WP0FIX(공용 셸: 문의 카드 grid span, 모바일 헤더 넘침, CONTENT STUDIO 모바일 표기) / WP-A 웹툰·애니메이션 / WP-B AI 인플루언서·모션그래픽 / WP-C 브랜드 홍보 영상·SNS 광고 / WP-D /content 홈·문의(VERIFY_P34 P3-1~5, 문의 오류 문구 포함). 각자 `RESULT_WP0FIX/WPA/WPB/WPC/WPD.md`.

@@ -280,27 +280,21 @@
   transform: translateX(-50%);
 }
 
-/* ---------------------------------------------------------------- 움직임
- * 콜라주 레일이 위아래로 천천히 왕복한다(한 방향 12초, 왕복 24초). 가운데 열은 반대 방향.
- * 정지 상태(reduced-motion·키프레임 전)는 레일 이동 0. 움직임 토글(data-motion="paused")은 theme.css가
- * animation-play-state로 멈추므로 축약형 animation은 쓰지 않는다(WCAG 2.2.2). */
-@keyframes cs-svc-ad-rail {
-  from {
-    transform: translate3d(0, -4%, 0);
-  }
-  to {
-    transform: translate3d(0, 4%, 0);
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .cs-svc-ad .cs-svc-ad-collage .cs-svc-ad-rail {
-    animation-name: cs-svc-ad-rail;
-    animation-duration: 12s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-  .cs-svc-ad .cs-svc-ad-column[data-column="2"] .cs-svc-ad-rail {
-    animation-direction: alternate-reverse;
-  }
+/* R2 — 정렬된 두 세로 화면과 세 장면 편집 */
+.cs-svc-ad .cs-hero.cs-svc-ad-hero { min-height:0; padding-block:var(--cs-s8); background:var(--cs-bg); }
+.cs-svc-ad .cs-svc-ad-hero .cs-hero-copy { padding:0; }
+.cs-svc-ad .cs-svc-ad-edit { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-self:center; }
+.cs-svc-ad .cs-svc-ad-edit figure { min-width:0; margin:0; }
+.cs-svc-ad .cs-svc-ad-edit figure:nth-child(2) { margin-top:50px; }
+.cs-svc-ad .cs-svc-ad-edit .cs-media { border:1px solid var(--cs-line); border-radius:10px; }
+.cs-svc-ad .cs-svc-ad-edit figcaption { margin-top:14px; }
+.cs-svc-ad .cs-svc-ad-edit-note { grid-column:1/-1; color:var(--cs-fg-3); }
+.cs-svc-ad .cs-svc-ad-frames { align-items:stretch; }
+.cs-svc-ad .cs-svc-ad-frame { display:flex; flex-direction:column; gap:22px; }
+.cs-svc-ad .cs-svc-ad-phone { width:100%; max-width:280px; border-radius:12px; padding:5px; }
+.cs-svc-ad .cs-svc-ad-frame-text { display:grid; align-content:start; gap:10px; padding:0; }
+@media(max-width:767px) {
+  .cs-svc-ad .cs-svc-ad-frames { display:grid; grid-template-columns:minmax(0,1fr); gap:40px; }
+  .cs-svc-ad .cs-svc-ad-frame { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,0.9fr); align-items:center; gap:20px; }
+  .cs-svc-ad .cs-svc-ad-frame-text { max-width:none; }
 }

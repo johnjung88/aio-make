@@ -1,5 +1,5 @@
-/* /content 컨텐츠 사이트 홈 데이터. JSX 없이 순수 데이터와 선택 함수만 둔다.
- * 가격은 lib/content-pricing.ts(PRICING_FINAL_2026-10-14.md 3~9번 정본, 부가세 별도)에서만 온다. */
+/* /content 컨텐츠 사이트 홈 데이터 JSX 없이 순수 데이터와 선택 함수만 둔다
+ * 가격은 lib/content-pricing.ts(PRICING_FINAL_2026-10-14.md 3~9번 정본, 부가세 별도)에서만 온다 */
 
 import { CONTENT_SITE_ASSETS, MEDIA_TAGS } from "./content-site/types.ts";
 import type { ContentServiceId } from "./content-site/types.ts";
@@ -12,9 +12,9 @@ export type HeroVideo = { src: string; poster: string };
  * 비어 있는 동안은 정지 이미지 + '연출 예시' 태그만 보인다(자리표시 문구 없음). */
 export const contentHomeHero = {
   eyebrow: "AI CONTENT PRODUCTION",
-  title: "AI로 빠르게\n전문가가 꼼꼼하게",
-  accent: "AI",
-  lead: "여섯 가지 컨텐츠를 기획부터 제작까지 한 팀이 맡습니다",
+  title: "브랜드의 이야기를\n보고 싶은 컨텐츠로",
+  accent: "컨텐츠",
+  lead: "웹툰 한 편부터 브랜드 영상까지\n기획부터 채널에 맞는 납품까지 한 팀에서",
   button: "서비스 살펴보기",
   buttonHref: "#services",
   secondary: "상담 신청",
@@ -56,9 +56,9 @@ export const contentHomeServices: ContentHomeService[] = [
     id: "webtoon",
     label: "웹툰",
     kicker: "WEBTOON",
-    line: "브랜드 이야기를 세로로 읽히는 컷으로 그립니다",
+    line: "제품을 설명하는 대신 이야기를 읽게 만드는 웹툰",
     description:
-      "제품을 쓰는 인물의 이야기를 12컷 한 회로 구성합니다. 원하시면 완성한 웹툰을 모션코믹 영상으로 이어서 만듭니다.",
+      "제품을 쓰는 인물의 이야기를 12컷 한 회로 구성합니다 원하시면 완성한 웹툰을 모션코믹 영상으로 이어서 만듭니다",
     uses: ["인스타툰", "상세페이지", "광고 소재"],
     image: "/creative-v06/video-webtoon.webp",
     imageTag: MEDIA_TAGS.staged,
@@ -67,9 +67,9 @@ export const contentHomeServices: ContentHomeService[] = [
     id: "animation",
     label: "애니메이션",
     kicker: "ANIMATION",
-    line: "캐릭터와 장면에 움직임을 더합니다",
+    line: "브랜드 캐릭터가 살아 움직이는 애니메이션",
     description:
-      "캐릭터와 배경을 설계하고 장면을 이어 한 편의 애니메이션으로 만듭니다. 길이는 30초와 60초 중에서 고릅니다.",
+      "캐릭터와 배경을 설계하고 장면을 이어 한 편의 애니메이션으로 만듭니다 길이는 30초와 60초 중에서 고릅니다",
     uses: ["릴스", "쇼츠", "캐릭터 영상"],
     image: "/creative-v06/video-animation.webp",
     imageTag: MEDIA_TAGS.staged,
@@ -80,7 +80,7 @@ export const contentHomeServices: ContentHomeService[] = [
     kicker: "AI INFLUENCER",
     line: "브랜드 전용 AI 가상인물을 만듭니다",
     description:
-      "캐릭터 시트와 기준 이미지로 얼굴과 스타일을 일정하게 유지합니다. 이 인물이 등장하는 제품 이미지와 9:16 숏폼 영상을 만듭니다.",
+      "캐릭터 시트와 기준 이미지로 얼굴과 스타일을 일정하게 유지합니다 이 인물이 등장하는 제품 이미지와 9:16 숏폼 영상을 만듭니다",
     uses: ["제품 소개", "숏폼 영상", "SNS 이미지"],
     image: "/creative-v06/video-ai-influencer.webp",
     imageTag: MEDIA_TAGS.aiPerson,
@@ -91,9 +91,9 @@ export const contentHomeServices: ContentHomeService[] = [
     id: "motion-graphics",
     label: "모션그래픽",
     kicker: "MOTION GRAPHICS",
-    line: "그래픽과 글자의 움직임으로 메시지를 전합니다",
+    line: "제품과 메시지를 간결하게 전하는 모션그래픽",
     description:
-      "제품 이미지와 로고, 핵심 문구를 장면 전환으로 엮습니다. 맞춤형은 브랜드 전용 캐릭터까지 함께 만듭니다.",
+      "제품 이미지와 로고, 핵심 문구를 장면 전환으로 엮습니다 맞춤형은 브랜드 전용 캐릭터까지 함께 만듭니다",
     uses: ["제품 소개", "홈페이지", "행사 화면"],
     image: "/renewal/video.webp",
     imageTag: MEDIA_TAGS.staged,
@@ -102,9 +102,9 @@ export const contentHomeServices: ContentHomeService[] = [
     id: "brand-film",
     label: "브랜드 홍보 영상",
     kicker: "BRAND FILM",
-    line: "브랜드가 하는 일과 이유를 한 편에 담습니다",
+    line: "브랜드의 생각을 한 편의 영상으로",
     description:
-      "브랜드 자료와 제품 정보를 정리해 이야기 순서를 잡습니다. 회사 소개와 홈페이지에 오래 쓸 영상을 만듭니다.",
+      "브랜드 자료와 제품 정보를 정리해 이야기 순서를 잡습니다 회사 소개와 홈페이지에 오래 쓸 영상을 만듭니다",
     uses: ["홈페이지", "회사 소개", "전시"],
     image: "/creative-v06/video-brand-film.webp",
     imageTag: MEDIA_TAGS.staged,
@@ -113,9 +113,9 @@ export const contentHomeServices: ContentHomeService[] = [
     id: "ad",
     label: "SNS 광고 영상",
     kicker: "SNS AD",
-    line: "피드에서 첫 장면으로 시선을 붙잡습니다",
+    line: "첫 장면부터 제품에 집중하는 세로 광고",
     description:
-      "제품 하나와 콘셉트 하나로 9:16 세로 광고 영상을 만듭니다. 기본 자막과 배경음악을 넣어 1080p로 전달합니다.",
+      "제품 하나와 콘셉트 하나로 9:16 세로 광고 영상을 만듭니다 기본 자막과 배경음악을 넣어 1080p로 전달합니다",
     uses: ["릴스", "쇼츠", "피드 광고"],
     image: "/creative-v06/video-sns-ad.webp",
     imageTag: MEDIA_TAGS.staged,
@@ -124,15 +124,15 @@ export const contentHomeServices: ContentHomeService[] = [
 
 export const contentHomeServicesHead = {
   eyebrow: "SERVICES",
-  title: "만들고 싶은 컨텐츠를\n골라보세요",
-  lead: "서비스마다 만드는 것과 쓰이는 곳을 정리했습니다",
+  title: "어떤 이야기든\n맞는 형식으로",
+  lead: "작업물을 넘겨보며 제작 형식과 시작가를 비교해보세요",
   toggle: "한 번에 모두 보기",
   carouselLabel: "컨텐츠 서비스 6종",
   tabsLabel: "서비스 선택",
   prev: "이전 서비스",
   next: "다음 서비스",
   detailLink: "서비스 자세히 보기",
-  note: "이미지는 서비스 분위기를 보여주는 연출 예시입니다. 대량 제작과 정기 제작은 따로 견적을 드립니다.",
+  note: "이미지는 서비스 분위기를 보여주는 연출 예시입니다 대량 제작과 정기 제작은 따로 견적을 드립니다",
 };
 
 export type ContentHomeStep = {
@@ -142,11 +142,11 @@ export type ContentHomeStep = {
   output: string;
 };
 
-/* 서비스 페이지 과정(BRIEF_P2R_SERVICES 0-3)과 같은 네 단계·같은 수정 기준이다. */
+/* 서비스 페이지 과정(BRIEF_P2R_SERVICES 0-3)과 같은 네 단계·같은 수정 기준이다 */
 export const contentHomeProcessHead = {
   eyebrow: "PROCESS",
-  title: "기획안을 먼저 맞추고\n제작합니다",
-  lead: "모든 컨텐츠는 같은 네 단계로 진행합니다. 기획안 수정 2회와 최종안 수정 1회가 기본입니다.",
+  title: "함께 확인하고\n다음 단계로",
+  lead: "기획안 수정 2회, 최종안 수정 1회 포함\n무엇을 확인하고 어떤 파일을 받는지 단계마다 정리합니다",
   tabsLabel: "제작 단계",
   outputLabel: "결과물",
 };
@@ -155,25 +155,25 @@ export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "상담",
     title: "만들 컨텐츠를 함께 정합니다",
-    body: "사용할 채널과 일정, 가진 자료를 확인합니다. 서비스와 분량을 정하고 견적을 안내합니다.",
+    body: "사용할 채널과 일정, 가진 자료를 확인합니다 서비스와 분량을 정하고 견적을 안내합니다",
     output: "작업 범위와 견적",
   },
   {
     label: "기획",
     title: "기획안으로 방향을 맞춥니다",
-    body: "이야기 흐름과 장면 구성을 기획안으로 정리해 전달합니다. 기획안은 두 번까지 수정합니다.",
+    body: "이야기 흐름과 장면 구성을 기획안으로 정리해 전달합니다 기획안은 두 번까지 수정합니다",
     output: "기획안",
   },
   {
     label: "제작",
     title: "확정한 기획대로 만듭니다",
-    body: "초안은 AI로 빠르게 만들고 연출은 담당자가 직접 다듬습니다. 최종안을 전달한 뒤 한 번 수정합니다.",
+    body: "초안은 AI로 빠르게 만들고 연출은 담당자가 직접 다듬습니다 최종안을 전달한 뒤 한 번 수정합니다",
     output: "최종안",
   },
   {
     label: "납품",
     title: "채널에 맞는 파일로 전달합니다",
-    body: "게시할 채널의 화면 비율에 맞춰 파일을 정리합니다. 다른 화면비 추가는 따로 견적을 드립니다.",
+    body: "게시할 채널의 화면 비율에 맞춰 파일을 정리합니다 다른 화면비 추가는 따로 견적을 드립니다",
     output: "최종 파일",
   },
 ];
@@ -181,7 +181,7 @@ export const contentHomeProcess: ContentHomeStep[] = [
 export const contentHomeCta = {
   eyebrow: "CONTACT",
   title: "어떤 컨텐츠가\n필요하신가요?",
-  lead: "만들고 싶은 컨텐츠와 일정을 남겨주세요. 담당자가 범위와 견적을 안내합니다.",
+  lead: "만들고 싶은 컨텐츠와 일정을 남겨주세요 담당자가 범위와 견적을 안내합니다",
   button: "상담 신청",
   href: "/content/contact",
 };
@@ -189,7 +189,7 @@ export const contentHomeCta = {
 export const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /* 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본)은 lib/content-pricing.ts에 있다(P2R WP0).
- * 화면 컴포넌트는 lib/content-pricing.ts에서 바로 가져오고, 이 파일은 기존 import·테스트를 위해 같은 이름을 다시 내보낸다. */
+ * 화면 컴포넌트는 lib/content-pricing.ts에서 바로 가져오고, 이 파일은 기존 import·테스트를 위해 같은 이름을 다시 내보낸다 */
 export {
   SHOW_STARTING_PRICE,
   contentPricing,

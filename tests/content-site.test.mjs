@@ -75,7 +75,7 @@ const homeFiles = walkFiles("components/content-home");
 const libFiles = walkFiles("lib/content-site");
 const sentences = (text) =>
   text
-    .split(/(?<=[.?!])\s+/)
+    .split(/\n|(?<=[.?!])\s+|(?<=니다)\s+/)
     .map((s) => s.trim())
     .filter(Boolean);
 
@@ -99,8 +99,6 @@ function strings(value, path = []) {
   return [];
 }
 
-const ALWAYS_PERIOD = new Set(["body", "answer", "description"]);
-
 function checkCopy({ path, key, value }, { latin = true } = {}) {
   const where = `${path}: ${value}`;
   assert.doesNotMatch(value, BANNED, `banned word · ${where}`);
@@ -123,16 +121,10 @@ function checkCopy({ path, key, value }, { latin = true } = {}) {
     assert.ok((s.match(/,/g) || []).length <= 1, `comma <= 1 · ${where}`);
   // 문장 끝에 쉼표절을 붙이지 않는다
   assert.doesNotMatch(value, /,\s*$/, `trailing comma · ${where}`);
-  // 마침표
-  const parts = sentences(value);
-  if (parts.length > 1) {
-    for (const p of parts) assert.match(p, /[.?!]$/, `each sentence ends · ${where}`);
-  } else if (key === "question") {
+  // R2 사용자 결정: 모든 화면 문장의 마침표 금지, 소수 금액은 유지
+  assert.doesNotMatch(value, /[가-힣]\.(?=\s|$)|\.$/, `no sentence stops · ${where}`);
+  if (key === "question") {
     assert.match(value, /\?$/, `question ends with ? · ${where}`);
-  } else if (ALWAYS_PERIOD.has(key)) {
-    assert.match(value, /\.$/, `sentence field ends with period · ${where}`);
-  } else {
-    assert.doesNotMatch(value, /\.$/, `no period on title/label/lead · ${where}`);
   }
   // 영문: eyebrow(대문자 3단어 이하)와 허용 약어만
   if (key === "eyebrow") {
@@ -211,25 +203,25 @@ test("2. 가격: PRICING_FINAL 금액·주석과 정확히 같다", () => {
   );
   // 서비스별 주석(원문)
   assert.deepEqual(pricingPlans("motion-graphics").notes, [
-    "맞춤형은 브랜드 전용 캐릭터 제작 서비스 포함.",
+    "맞춤형은 브랜드 전용 캐릭터 제작 서비스 포함",
   ]);
   assert.deepEqual(pricingPlans("ad").notes, [
-    "제품·서비스 1개, 콘셉트 1개 기준. 세로형 9:16·1080p, 기본 자막·BGM 포함.",
-    "다른 화면비 추가·광고 집행·계정 운영·매체비는 별도.",
+    "제품·서비스 1개, 콘셉트 1개 기준 세로형 9:16·1080p, 기본 자막·BGM 포함",
+    "다른 화면비 추가·광고 집행·계정 운영·매체비는 별도",
   ]);
   assert.deepEqual(pricingPlans("ai-influencer").notes, [
-    "총 20장에 세팅용 이미지 포함. 주 이미지 5장·영상 1편 구성 가능.",
-    "계정 게시·운영 및 대량 제작은 별도 견적.",
+    "총 20장에 세팅용 이미지 포함 주 이미지 5장·영상 1편 구성 가능",
+    "계정 게시·운영 및 대량 제작은 별도 견적",
   ]);
   assert.deepEqual(pricingPlans("webtoon").notes, [
-    "모션코믹은 기존 웹툰을 영상화하는 가격입니다. 웹툰 신규 제작은 별도입니다.",
+    "모션코믹은 기존 웹툰을 영상화하는 가격입니다 웹툰 신규 제작은 별도입니다",
   ]);
   assert.deepEqual(pricingPlans("animation").notes, []);
   assert.deepEqual(pricingPlans("brand-film").notes, []);
   assert.deepEqual(PRICING_COMMON_LINES, [
-    "표시 금액은 모두 부가세 별도입니다.",
-    "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다.",
-    "대량 제작과 정기 제작은 따로 견적을 드립니다.",
+    "표시 금액은 모두 부가세 별도입니다",
+    "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다",
+    "대량 제작과 정기 제작은 따로 견적을 드립니다",
   ]);
   for (const id of ORDER) {
     const plans = planOptions(id);
@@ -281,15 +273,15 @@ test("4. FAQ·SEO", () => {
   const common = [
     [
       "수정은 몇 번까지 할 수 있나요?",
-      "기획안을 받은 뒤 2회, 최종안을 받은 뒤 1회 수정할 수 있습니다. 그 밖의 수정은 범위를 확인한 뒤 따로 안내합니다.",
+      "기획안을 받은 뒤 2회, 최종안을 받은 뒤 1회 수정할 수 있습니다 그 밖의 수정은 범위를 확인한 뒤 따로 안내합니다",
     ],
     [
       "표시된 가격에 부가세가 포함되어 있나요?",
-      "포함되어 있지 않습니다. 표시한 금액은 모두 부가세 별도입니다.",
+      "포함되어 있지 않습니다 표시한 금액은 모두 부가세 별도입니다",
     ],
     [
       "여러 편을 정기적으로 맡길 수 있나요?",
-      "네. 편수와 일정을 알려주시면 범위와 견적을 따로 안내합니다.",
+      "네 편수와 일정을 알려주시면 범위와 견적을 따로 안내합니다",
     ],
   ];
   const titles = new Set(),
@@ -361,7 +353,7 @@ test("5. AI 인플루언서 범위·표기(FACTS_AI_INFLUENCER)", () => {
     !all.some((s) => /계정 (게시|운영)|게시와 운영|게시·운영/.test(s)),
     "account operation note only in pricing notes",
   );
-  assert.ok(pricingPlans("ai-influencer").notes.includes("계정 게시·운영 및 대량 제작은 별도 견적."));
+  assert.ok(pricingPlans("ai-influencer").notes.includes("계정 게시·운영 및 대량 제작은 별도 견적"));
   for (const text of all)
     assert.doesNotMatch(
       text,
@@ -719,16 +711,22 @@ test("9. 라우트·삭제·리다이렉트", () => {
     `${group}/services/[service]/page.tsx`,
   ])
     assert.ok(existsSync(path), path);
-  // 그룹에 없는 하위 경로는 (public)/[division]이 계속 처리한다
-  for (const sub of ["insights", "work"])
-    assert.equal(existsSync(`${group}/${sub}`), false, `${sub} stays in (public)`);
+  // R2 인사이트와 사례 상세도 컨텐츠 셸을 유지하며 삭제된 /content/work는 부활하지 않는다
+  assert.equal(existsSync(`${group}/work`), false);
+  for (const route of ["insights/page.tsx", "insights/[slug]/page.tsx", "projects/[slug]/page.tsx"])
+    assert.ok(existsSync(`${group}/${route}`), route);
+  const project = code(`${group}/projects/[slug]/page.tsx`);
+  assert.match(project, /displayWorkCatalog\(\[\]\)/);
+  assert.match(project, /if \(!work\) notFound\(\)/);
+  assert.match(project, /work\.visibility === "review"[\s\S]*index:\s*false/);
+  assert.match(project, /\/content\/services\/\$\{service\}#works/);
   const layout = code(`${group}/layout.tsx`);
   assert.match(layout, /import "@\/components\/content-site\/theme\.css"/);
   assert.doesNotMatch(layout, /components\/guide\/[\w-]+\.css|work-portfolio\.css/);
   assert.match(layout, /<Analytics/);
   assert.match(layout, /organizationSchema/);
   assert.doesNotMatch(layout, /\b(Header|Footer|FloatingContact|PageNavigation)\b/);
-  for (const path of walkFiles(group))
+  for (const path of walkFiles(group).filter(path => !path.replaceAll("\\", "/").includes("/projects/")))
     assert.doesNotMatch(code(path), /robots/, `${path} does not override robots`);
   // 서비스 페이지: 6종 외는 404, 사례는 서버에서만
   const servicePage = read(`${group}/services/[service]/page.tsx`);
@@ -741,11 +739,11 @@ test("9. 라우트·삭제·리다이렉트", () => {
     "<Hero",
     "<CsTypes",
     "<Signature",
-    "<CsWorks",
     "<BeforePricing",
     "<CsPricing",
     "<CsProcess",
     "<CsScope",
+    "<CsWorks",
     "<CsFaq",
     "<CsInquiry",
     "<CsRelated",
@@ -766,9 +764,9 @@ test("10. 테마 맵·자산", () => {
     page: "contact",
   });
   const themes = {
-    webtoon: "paper",
-    animation: "paper",
-    "ai-influencer": "paper",
+    webtoon: "ink",
+    animation: "ink",
+    "ai-influencer": "ink",
     "motion-graphics": "ink",
     "brand-film": "ink",
     ad: "ink",
@@ -800,7 +798,7 @@ test("10. 테마 맵·자산", () => {
     assert.ok(existsSync(join("public", asset.src)), asset.src);
 });
 
-test("10-1. paper 서비스 색: 서비스마다 --cs-bg-2, 그 위 글자 대비 4.5:1 이상", () => {
+test("10-1. R2 공통 검정 바탕: 서비스별 색상 재정의 금지·글자 대비 4.5:1 이상", () => {
   const theme = code("components/content-site/theme.css");
   const block = (selector) => {
     const at = theme.indexOf(`${selector} {`);
@@ -820,15 +818,17 @@ test("10-1. paper 서비스 색: 서비스마다 --cs-bg-2, 그 위 글자 대�
     const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
     return (hi + 0.05) / (lo + 0.05);
   };
-  const paper = block('.cs-site[data-cs-theme="paper"]');
-  for (const id of ["webtoon", "animation", "ai-influencer"]) {
+  const shared = block('.cs-site .cs-footer');
+  assert.equal(token(shared, "cs-bg"), "#080808");
+  assert.equal(token(shared, "cs-bg-2"), "#080808");
+  assert.doesNotMatch(theme, /data-cs-theme="paper"/);
+  for (const id of ORDER) {
     const svc = block(`.cs-site[data-cs-service="${id}"]`);
-    const bg = token(svc, "cs-bg");
-    const bg2 = token(svc, "cs-bg-2");
-    assert.ok(bg && bg2, `${id} defines --cs-bg and --cs-bg-2`);
-    assert.notEqual(bg2, token(paper, "cs-bg-2"), `${id} own --cs-bg-2`);
-    assert.ok(ratio(bg, bg2) > 1.04, `${id} bg-2 differs from bg`);
-    for (const fg of [token(paper, "cs-fg"), token(paper, "cs-fg-2"), token(paper, "cs-fg-3"), token(svc, "cs-accent-text")])
+    const bg = token(svc, "cs-bg") ?? token(shared, "cs-bg");
+    const bg2 = token(svc, "cs-bg-2") ?? token(shared, "cs-bg-2");
+    assert.equal(bg, "#080808", `${id} black canvas`);
+    assert.equal(bg2, bg, `${id} sections share the canvas`);
+    for (const fg of [token(shared, "cs-fg"), token(shared, "cs-fg-2"), token(shared, "cs-fg-3"), token(svc, "cs-accent-text")])
       for (const surface of [bg, bg2])
         assert.ok(ratio(fg, surface) >= 4.5, `${id} ${fg} on ${surface}: ${ratio(fg, surface).toFixed(2)}`);
   }

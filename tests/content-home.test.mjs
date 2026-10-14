@@ -211,24 +211,19 @@ test("3. 금지 표현과 AI 인플루언서 범위 안내", () => {
       assert.ok(["AI", "SNS", "p"].includes(m[0]), `latin "${m[0]}" · ${text}`);
 });
 
-test("4. 문장 규칙(쉼표·마침표·제목 줄 길이)", () => {
+test("4. R2 문장 규칙: 화면 카피 마침표 금지·제목 줄 길이", () => {
   for (const text of [...single, ...multi])
     for (const sentence of sentences(text))
       assert.ok(
         (sentence.match(/,/g) || []).length <= 1,
         `comma <= 1: ${sentence}`,
       );
-  for (const text of multi) {
-    const parts = sentences(text);
-    assert.ok(parts.length >= 2, `multi-sentence: ${text}`);
-    for (const p of parts) assert.match(p, /\.$/, p);
-  }
-  for (const text of [...single, ...h1, ...h2])
-    assert.doesNotMatch(text, /\.$/, text);
-  // BRIEF_P2R 5-1 (f): h1 한 줄 9자 이하, h2 한 줄 11자 이하
+  for (const text of allCopy)
+    assert.doesNotMatch(text, /[가-힣]\.(?=\s|$)|\.$/, text);
+  // R2 자연스러운 카피 허용: h1 한 줄 12자 이하, 실제 줄바꿈·넘침은 4폭 브라우저 검증
   for (const t of h1)
     for (const line of t.split("\n"))
-      assert.ok(line.length <= 9, `h1 line <= 9: ${line}`);
+      assert.ok(line.length <= 12, `h1 line <= 12: ${line}`);
   for (const t of h2)
     for (const line of t.split("\n"))
       assert.ok(line.length <= 11, `h2 line <= 11: ${line}`);
@@ -302,7 +297,8 @@ test("8. 소스 규칙: 컨텐츠 사이트 체계(.cs-t-* 역할·--cs-* 토큰
     "main-site or old --ch-* color token",
   );
   // 모든 규칙은 .cs-site .cs-home 안
-  for (const rule of body.matchAll(/([^{}]+)\{[^{}]*\}/g)) {
+  const withoutKeyframes = body.replace(/@keyframes\s+[\w-]+\s*\{(?:[^{}]*\{[^{}]*\})*\s*\}/g, "");
+  for (const rule of withoutKeyframes.matchAll(/([^{}]+)\{[^{}]*\}/g)) {
     const head = rule[1].trim();
     if (head.startsWith("@") || head === "") continue;
     for (const selector of head.split(","))
@@ -319,23 +315,27 @@ test("8. 소스 규칙: 컨텐츠 사이트 체계(.cs-t-* 역할·--cs-* 토큰
   assert.doesNotMatch(outsideMotion, /transition\s*:/, "transition outside no-preference");
 });
 
-test("8-1. 캐러셀 결함 수정(VERIFY_P34 P3-2·P3-3)", () => {
+test("8-1. R2 수동 작업 갤러리: 카드 안 이동·접근 가능한 서비스 선택·결과물 공개", () => {
   const css = code(read(join(componentDir, "content-home.css")));
-  // 옆 카드 클릭: 무대가 3D 컨텍스트(preserve-3d)를 만들지 않는다
+  // 3D 사본 대신 실제 작업 한 장을 수동으로 선택한다
   assert.doesNotMatch(css, /preserve-3d/);
-  assert.match(css, /\.ch-stage\s*\{[^}]*perspective:/);
   const showcase = read(join(componentDir, "service-showcase.tsx"));
-  // aria-hidden 무대 안 카드는 마우스로 눌러도 포커스를 받지 않는다
-  assert.match(showcase, /onMouseDown=\{\(event\) => event\.preventDefault\(\)\}/);
-  assert.match(showcase, /tabIndex=\{-1\}/);
-  assert.match(showcase, /className="ch-stage"\s+aria-hidden="true"/);
-  // 옆 카드 클릭 → 이동 대신 선택
-  assert.match(showcase, /if \(pos === "0"\) return;\s+event\.preventDefault\(\);\s+select\(i\);/);
-  // 제작 과정 탭: 번호와 라벨이 같은 기준선(묶음 span에 baseline 정렬)
+  assert.match(showcase, /selections: ContentSelection\[\]/);
+  assert.match(showcase, /role="tablist"/);
+  assert.match(showcase, /role="tabpanel"/);
+  assert.match(showcase, /aria-selected=/);
+  assert.match(showcase, /tabIndex=\{index === current \? 0 : -1\}/);
+  for (const key of ["ArrowRight", "ArrowLeft", "Home", "End"])
+    assert.ok(showcase.includes(`"${key}"`), key);
+  assert.match(showcase, /className="ch-work-card"[\s\S]*className="ch-work-nav"[\s\S]*aria-label="이전 서비스"[\s\S]*aria-label="다음 서비스"/);
+  assert.match(showcase, /video\.pause\(\)/);
+  assert.doesNotMatch(showcase, /setInterval|autoPlay|className="ch-stage"/);
+  assert.match(showcase, /\/content\/projects\//);
+  // 제작 단계는 내용을 숨기지 않는 순서 목록이다
   const tabs = read(join(componentDir, "process-tabs.tsx"));
-  assert.match(tabs, /className="ch-step-tab-inner"/);
-  assert.match(css, /\.ch-step-tab-inner\s*\{[^}]*align-items:\s*baseline/);
-  assert.match(css, /\.ch-step-tab\s*\{[^}]*align-items:\s*center/);
+  assert.match(tabs, /<ol className="ch-process-rows"/);
+  assert.match(tabs, /step\.output/);
+  assert.doesNotMatch(tabs, /role="tab|hidden=|useState/);
   // 버튼은 컨텐츠 사이트 버튼(.cs-btn)만, 크기는 서비스 히어로와 같은 lg
   const home = read(join(componentDir, "content-home.tsx"));
   assert.equal((home.match(/cs-btn--lg/g) || []).length, 3);
@@ -392,7 +392,7 @@ test("12. 제작 과정은 서비스 페이지와 같은 네 단계·같은 수�
     contentHomeProcess.map((s) => s.label),
     ["상담", "기획", "제작", "납품"],
   );
-  assert.match(contentHomeProcessHead.lead, /네 단계/);
+  assert.equal(contentHomeProcess.length, 4);
   assert.match(contentHomeProcessHead.lead, /기획안 수정 2회/);
   assert.match(contentHomeProcessHead.lead, /최종안 수정 1회/);
   assert.match(contentHomeProcess[1].body, /두 번까지 수정/);

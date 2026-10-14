@@ -132,19 +132,6 @@ function MarketingBody() {
       <ol className="wj-cycle">
         {nodes.map((node, index) => (
           <li key={node.id} className={`wj-node wj-node--${node.id}`}>
-            {index > 0 && <span className="wj-flow-arrow" aria-hidden="true" />}
-            {index === 1 && (
-              <>
-                <span className="wj-loop wj-loop--start" aria-hidden="true" />
-                <span className="wj-loop-head" aria-hidden="true" />
-              </>
-            )}
-            {index === 2 && (
-              <span className="wj-loop wj-loop--mid" aria-hidden="true" />
-            )}
-            {index === 3 && (
-              <span className="wj-loop wj-loop--end" aria-hidden="true" />
-            )}
             <span className="wj-num eyebrow">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -280,6 +267,7 @@ export function WorkflowJourney({
                     aria-labelledby={`${step.id}-title`}
                     data-current={index === active ? "true" : undefined}
                   >
+                    <div className="wj-step-intro">
                     <p className="wj-eyebrow eyebrow">{step.eyebrow}</p>
                     <h2
                       id={`${step.id}-title`}
@@ -288,6 +276,7 @@ export function WorkflowJourney({
                       {step.title}
                     </h2>
                     <p className="wj-lead t-lead">{step.lead}</p>
+                    </div>
                     <div className="wj-step-body">{bodies[step.id]}</div>
                     <LinkRow links={links[step.id]} />
                   </article>

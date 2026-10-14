@@ -1,283 +1,38 @@
-/* ai-influencer 서비스 고유 스타일(WP-B).
- * 선택자는 모두 .cs-svc-ai-influencer로 시작한다. 장식용 색은 맨 위 한 블록(--svc-*)에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
- * 이 페이지는 루프 애니메이션을 쓰지 않는다(인물 사진이 주인공이라 정적인 화면으로 둔다).
- * theme.css 규칙(.cs-site .x = 0,2,0)을 덮을 때는 클래스 3개 이상으로 명시도를 높인다(로드 순서에 기대지 않는다). */
-.cs-svc-ai-influencer {
-  --svc-halo: color-mix(in srgb, var(--cs-accent) 38%, transparent);
-  --svc-ring: color-mix(in srgb, var(--cs-accent) 70%, transparent);
-  --svc-band: color-mix(in srgb, var(--cs-accent) 22%, var(--cs-bg));
-  --svc-glass: color-mix(in srgb, var(--cs-surface) 86%, transparent);
-  --svc-shadow: 0 30px 60px rgba(52, 33, 82, 0.16);
-}
-
-/* ---------------------------------------------------------------- 히어로: 아치형 인물 카드 */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-halo {
-  position: absolute;
-  top: 50%;
-  right: -12vw;
-  width: min(64vw, 760px);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--svc-halo) 0%, transparent 66%);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-stage {
-  display: flex;
-  justify-content: center;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch {
-  position: relative;
-  width: 79%;
-  max-width: 460px;
-  margin: var(--cs-s4) 0 0;
-}
-/* 뒤쪽 얇은 아치 선(장식, ≥768: 이름 패널이 사진 위에 겹칠 때만 사진과 높이가 같다) */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch::before {
-  content: none;
-}
-@media (min-width: 768px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-arch::before {
-    content: "";
-  }
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch::before {
-  position: absolute;
-  inset: calc(var(--cs-s4) * -1) calc(var(--cs-s4) * -1) var(--cs-s4) var(--cs-s4);
-  border: 1px solid var(--svc-ring);
-  border-radius: 50% 50% var(--cs-r-sm) var(--cs-r-sm) / 33.34% 33.34% var(--cs-r-sm) var(--cs-r-sm);
-  pointer-events: none;
-}
-/* 위쪽 반지름 = 카드 폭의 50%(2:3이라 세로 반지름은 높이의 1/3) */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch .cs-svc-ai-influencer-arch-media {
-  border-radius: 50% 50% var(--cs-r-sm) var(--cs-r-sm) / 33.34% 33.34% var(--cs-r-sm) var(--cs-r-sm);
-  box-shadow: var(--svc-shadow);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch .cs-svc-ai-influencer-arch-media > img {
-  object-position: 50% 30%;
-}
-/* 인물 이름 패널: <768은 사진 아래, ≥768은 태그(왼쪽 아래 12px) 위에 겹친다 */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-arch .cs-svc-ai-influencer-persona {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  align-items: center;
-  margin-top: var(--cs-s3);
-  padding: var(--cs-s3) var(--cs-s4);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-md);
-  background: var(--svc-glass);
-  color: var(--cs-fg);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-persona .cs-t-caption {
-  color: var(--cs-fg-3);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-persona .cs-link {
-  justify-self: start;
-}
-@media (min-width: 768px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-arch .cs-svc-ai-influencer-persona {
-    position: absolute;
-    left: var(--cs-s3);
-    right: var(--cs-s3);
-    bottom: calc(var(--cs-s3) + 36px);
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: var(--cs-s3);
-    margin-top: 0;
-    padding: var(--cs-s3) var(--cs-s3) var(--cs-s3) var(--cs-s5);
-    border-color: transparent;
-    backdrop-filter: blur(10px);
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-persona .cs-t-caption,
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-persona .cs-t-h3 {
-    grid-column: 1;
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-persona .cs-link {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    padding-inline: var(--cs-s3);
-  }
-}
-@media (min-width: 1024px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-stage {
-    justify-content: flex-end;
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-arch {
-    width: 100%;
-    margin: 0;
-  }
-}
-
-/* ---------------------------------------------------------------- 캐릭터 시트(#sheet)
- * <1024: 사진 2×2 → 프로필 → 설정 순서로 쌓는다.
- * ≥1024: 사진 네 장을 한 줄로 두고, 아래에 프로필(5/12)과 설정(7/12)을 나란히 둔다(오른쪽 빈 공간 없음). */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-sheet-grid {
-  row-gap: var(--cs-s7);
-  align-items: start;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-views {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--cs-s5) var(--cs-s4);
-  padding: var(--cs-s4);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-lg);
-  background: var(--cs-surface);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-view {
-  display: grid;
-  gap: var(--cs-s3);
-  min-width: 0;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-view .cs-t-label {
-  color: var(--cs-fg);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-view[data-view="street"] img {
-  object-position: 50% 12%;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-view[data-view="full"] img {
-  object-position: 50% 40%;
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head {
-  display: grid;
-  gap: var(--cs-s2);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head .cs-t-caption {
-  color: var(--cs-accent-text);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head .cs-t-body {
-  margin-top: var(--cs-s2);
-  color: var(--cs-fg-2);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head .cs-svc-ai-influencer-note {
-  margin-top: var(--cs-s4);
-  color: var(--cs-fg-3);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-rows {
-  display: grid;
-  border-top: 1px solid var(--cs-line);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-row {
-  display: grid;
-  gap: var(--cs-s1);
-  padding-block: var(--cs-s4);
-  border-bottom: 1px solid var(--cs-line);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-row dt {
-  color: var(--cs-fg);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-row dd {
-  color: var(--cs-fg-2);
-}
-@media (min-width: 768px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-views {
-    gap: var(--cs-s6) var(--cs-s5);
-    padding: var(--cs-s5);
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-row {
-    grid-template-columns: 8.5em minmax(0, 1fr);
-    gap: var(--cs-s4);
-    align-items: baseline;
-  }
-}
-@media (min-width: 1024px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-views {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--cs-s5);
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-profile-head {
-    padding-right: var(--cs-s6);
-  }
-}
-
-/* ---------------------------------------------------------------- 가격: 금액 기준선 맞춤
- * 세 번째 플랜 이름이 두 줄이 되면 금액이 아래로 밀린다(VERIFY_FINAL_P2R WP-B-3).
- * 카드를 subgrid(이름 · 금액 · 링크 3행)로 바꿔 한 줄에 있는 카드끼리 이름 행 높이를 맞춘다.
- * subgrid를 모르는 브라우저는 공통 flex 카드 그대로 둔다. */
-@supports (grid-template-rows: subgrid) {
-  @media (min-width: 768px) {
-    .cs-svc-ai-influencer .cs-pricing-grid > .cs-plan {
-      display: grid;
-      grid-row: span 3;
-      grid-template-rows: subgrid;
-      row-gap: var(--cs-s3);
-      justify-items: start;
-      align-items: start;
-    }
-    .cs-svc-ai-influencer .cs-pricing-grid > .cs-plan > .cs-link {
-      align-self: end;
-      margin-top: 0;
-    }
-  }
-}
-
-/* ---------------------------------------------------------------- 사례(검토 빌드만): 3편이면 3열 */
-@media (min-width: 1024px) {
-  .cs-svc-ai-influencer.cs-landing .cs-works-grid[data-layout="vertical"]:has(> li:nth-child(3):last-child) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* ---------------------------------------------------------------- 가격 위 띠: AI 가상인물 표기 */
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--cs-s5);
-  align-items: start;
-  padding: var(--cs-s6) var(--cs-s5);
-  border-radius: var(--cs-r-lg);
-  background: var(--svc-band);
-  color: var(--cs-fg);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band-mark {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--cs-accent);
-  color: var(--cs-on-accent);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band-copy {
-  display: grid;
-  gap: var(--cs-s3);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band-copy .cs-t-body {
-  color: var(--cs-fg-2);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band-items {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cs-s2);
-}
-.cs-svc-ai-influencer .cs-svc-ai-influencer-band-items > li {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 var(--cs-s4);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-pill);
-  background: var(--cs-surface);
-  color: var(--cs-fg);
-}
-@media (min-width: 768px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-band {
-    padding: var(--cs-s7) var(--cs-s7);
-    gap: var(--cs-s6);
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-band-items {
-    grid-column: 2;
-  }
-}
-@media (min-width: 1024px) {
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-band {
-    grid-template-columns: auto minmax(0, 1fr) minmax(0, 0.9fr);
-    align-items: center;
-  }
-  .cs-svc-ai-influencer .cs-svc-ai-influencer-band-items {
-    grid-column: 3;
-    justify-content: flex-end;
-  }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-self:center; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast-card { min-width:0; display:grid; gap:10px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast-card .cs-media { border-radius:8px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast-card img { object-position:center 28%; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast-name { color:var(--cs-fg); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-cast-note { grid-column:1/-1; color:var(--cs-fg-3); padding-top:8px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-editor-note { margin:-16px 0 32px; color:var(--cs-fg-3); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-accounts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account { min-width:0; overflow:hidden; border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); scroll-margin-top:110px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-head { display:flex; align-items:center; gap:14px; padding:24px 24px 0; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-avatar { width:56px; flex-shrink:0; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-avatar .cs-media { border-radius:50%; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-avatar img { object-position:center 24%; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-name { flex:1; min-width:0; display:grid; gap:4px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-name > span { color:var(--cs-fg-3); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-label { color:var(--cs-fg-3); border:1px solid var(--cs-line); border-radius:30px; padding:5px 8px; white-space:nowrap; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-copy { display:grid; gap:8px; padding:24px; min-height:124px; align-content:start; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-copy .cs-t-small { color:var(--cs-fg-2); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:3px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure { min-width:0; margin:0; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed .cs-media { border-radius:0; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed img { object-position:center 28%; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figcaption { color:var(--cs-fg-3); padding:8px 10px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-foot { padding:16px 24px 24px; display:grid; gap:6px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-foot .cs-t-caption { color:var(--cs-fg-3); overflow-wrap:anywhere; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables li { padding:28px; border:1px solid var(--cs-line); background:var(--cs-surface); border-radius:12px; display:grid; align-content:start; gap:16px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables .cs-t-caption { color:var(--cs-accent-text); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables .cs-t-body { color:var(--cs-fg-2); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-disclosure { margin-top:24px; color:var(--cs-fg-3); }
+@media (max-width:767px) {
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-accounts,.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables { grid-template-columns:minmax(0,1fr); }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-account-head { gap:10px; padding:20px 18px 0; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-account-copy { padding:20px 18px; min-height:0; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-account-foot { padding:14px 18px 20px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-avatar { width:44px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-label { padding:4px 6px; }
 }

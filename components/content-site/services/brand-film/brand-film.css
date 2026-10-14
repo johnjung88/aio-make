@@ -290,3 +290,18 @@
     transition: border-color var(--cs-dur-1) var(--cs-ease);
   }
 }
+
+/* R2 — 영상 위에 카피를 겹치지 않는 편집형 히어로 */
+.cs-svc-brand-film .cs-svc-brand-film-hero.cs-hero { min-height:0; display:block; padding-block:var(--cs-s8); background:var(--cs-bg); }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-head { max-width:940px; margin-bottom:48px; }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-screen { margin:0; border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); overflow:hidden; }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-screen .cs-media { width:100%; max-height:none; aspect-ratio:16/9; border-radius:0; }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-screen .cs-media > img { object-fit:cover; object-position:center; }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-screen figcaption { display:flex; justify-content:space-between; gap:16px; padding:22px 24px; }
+.cs-svc-brand-film .cs-svc-brand-film-editorial-screen .cs-t-caption { color:var(--cs-fg-3); }
+.cs-svc-brand-film .cs-svc-brand-film-story-media .cs-media { border:1px solid var(--cs-line); }
+.cs-svc-brand-film .cs-svc-brand-film-parts { min-width:0; }
+@media(max-width:767px) {
+  .cs-svc-brand-film .cs-svc-brand-film-editorial-head { margin-bottom:32px; }
+  .cs-svc-brand-film .cs-svc-brand-film-editorial-screen figcaption { flex-direction:column; padding:18px; }
+}

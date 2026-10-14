@@ -1,11 +1,11 @@
 /* /content/contact 고정 문구(순수 데이터, 카피 테스트 tests/content-contact.test.mjs 대상).
- * 가격 기준 3줄은 lib/content-pricing.ts의 PRICING_COMMON_LINES를 그대로 쓴다. */
+ * 가격 기준 3줄은 lib/content-pricing.ts의 PRICING_COMMON_LINES를 그대로 쓴다 */
 
 export const CONTACT_COPY = {
   hero: {
     eyebrow: "CONTACT",
     title: "어떤 컨텐츠가\n필요하신가요?",
-    lead: "서비스를 고르고 만들고 싶은 내용을 남겨주세요. 담당자가 범위와 견적을 안내합니다.",
+    lead: "서비스를 고르고 만들고 싶은 내용을 남겨주세요 담당자가 범위와 견적을 안내합니다",
   },
   chooser: {
     legend: "요청 서비스",

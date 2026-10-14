@@ -90,7 +90,7 @@ function strings(value, out = []) {
   return out;
 }
 
-test("five journey steps in order with short two-line titles", () => {
+test("five journey steps in order with readable titles", () => {
   assert.deepEqual(
     journeySteps.map((step) => step.id),
     [
@@ -109,7 +109,8 @@ test("five journey steps in order with short two-line titles", () => {
     const lines = title.split("\n");
     assert.ok(lines.length <= 2, title);
     for (const line of lines)
-      assert.ok(line.length <= 11, `${line} (${line.length})`);
+      assert.ok(line.length <= 18, `${line} (${line.length})`);
+    assert.doesNotMatch(title, /\.$/, title);
   }
 });
 
@@ -241,9 +242,10 @@ test("copy avoids banned phrasing and keeps the AI influencer facts", async () =
 
 test("main page uses the journey, the six-service wording and no #process section", async () => {
   const main = await read("components/guide/main.jsx");
-  assert.ok(main.includes(REQUIRED));
+  const cards = await read("components/home/home-services.tsx");
+  for (const label of REQUIRED.split(" · ")) assert.ok(cards.includes(label), label);
+  assert.match(main, /<HomeServices data=\{this\.props\.journey\}/);
   assert.ok(!main.includes("브랜드 홍보 및 SNS 광고 영상"));
-  assert.ok(main.includes("브랜드 홍보 영상, SNS 광고 영상"));
   assert.doesNotMatch(main, /import\s*\{\s*HomeReferences\s*\}/);
   assert.ok(main.includes("<WorkflowJourney data={this.props.journey} />"));
   const page = await read("app/(public)/page.tsx");
@@ -371,6 +373,8 @@ test("client journey modules hold no customer data and never import it", async (
   ];
   for (const file of clientFiles) {
     const text = await read(file);
+    // R2 ContentHome은 서버에서 자료를 선택하고 직렬화한 선택지만 클라이언트 갤러리에 준다
+    if (file.startsWith("components/") && !/^\s*["']use client["']/.test(text)) continue;
     assert.doesNotMatch(
       text,
       /from\s+["'][^"']*(home-journey-data|generated\/works)/,

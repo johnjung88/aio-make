@@ -98,8 +98,8 @@ test("A-4. 두 랜딩: 히어로 계약 · 고유 섹션 data-cs-section · 웹�
     assert.ok((landing.match(/data-cs-section="signature"/g) ?? []).length >= 2, dir);
     assert.match(landing, /aria-labelledby=/);
   }
-  assert.match(code(`${AN}/landing.tsx`), /data-cs-section="hero"/);
-  assert.match(code(`${AN}/landing.tsx`), /aria-labelledby=\{HERO_TITLE_ID\}/);
+  assert.match(code(`${AN}/landing.tsx`), /<CsHero id=\{data.id\} hero=\{data.hero\}/);
+  assert.match(code("components/content-site/blocks/hero.tsx"), /data-cs-section="hero"/);
   const clientFiles = (dir) =>
     readdirSync(dir)
       .filter((f) => f.endsWith(".tsx"))
@@ -108,35 +108,16 @@ test("A-4. 두 랜딩: 히어로 계약 · 고유 섹션 data-cs-section · 웹�
   assert.deepEqual(clientFiles(AN), ["before-motion.tsx"]);
 });
 
-test("A-5. 애니메이션 탭: JS 없으면 세 항목 목록, 마운트 후 APG 탭(←/→·Home·End), 숨은 사본은 heading 없음", () => {
-  const tabs = code(`${AN}/before-motion.tsx`);
-  assert.match(tabs, /data-mode="list"/);
-  assert.match(tabs, /data-mode="tabs"/);
-  assert.match(tabs, /useState\(false\)/);
-  assert.match(tabs, /role="tablist"/);
-  assert.match(tabs, /role="tab"/);
-  assert.match(tabs, /role="tabpanel"/);
-  assert.match(tabs, /aria-selected=/);
-  assert.match(tabs, /aria-controls=/);
-  for (const key of ["ArrowRight", "ArrowLeft", "Home", "End"]) assert.match(tabs, new RegExp(key));
-  // 사본(is-sizer)은 aria-hidden이고 h3를 쓰지 않는다
-  const sizer = tabs.match(/if \(sizer\)\s*return \(([\s\S]*?)\);/)?.[1] ?? "";
-  assert.match(sizer, /aria-hidden="true"/);
-  assert.doesNotMatch(sizer, /<h\d/);
-  // 서버 데이터·전체 랜딩 데이터 import 없음, 그림은 aria-hidden + 연출 예시 태그
-  assert.doesNotMatch(tabs, /from\s+["']@\/lib\/content-site["']/);
-  assert.match(tabs, /cs-svc-animation-art-inner" aria-hidden="true"/);
-  assert.match(tabs, /MEDIA_TAGS\.staged/);
-  // 탭 3개 = 데이터 3개(이야기 · 캐릭터 · 장면 구성)
-  assert.deepEqual(
-    animationSignature.beforeMotion.items.map((i) => i.title),
-    ["이야기", "캐릭터", "장면 구성"],
-  );
-  assert.equal(animationSignature.beforeMotion.frames.length, 4);
-  assert.equal(animationSignature.beforeMotion.views.length, 2);
+test("A-5. R2 애니메이션 제작 안내: 세 단계와 결과물이 숨김 없이 보인다", () => {
+  const landing = code(`${AN}/landing.tsx`);
+  assert.match(landing, /<ol className="cs-svc-animation-plan-list"/);
+  for (const label of ["이야기와 장면 순서", "캐릭터와 분위기", "동작과 화면 전환"])
+    assert.ok(landing.includes(label), label);
+  assert.match(landing, /item\.result/);
+  assert.doesNotMatch(landing, /from ["'][^"']*before-motion|role="tablist"|hidden=/);
 });
 
-test("A-6. 애니메이션 미디어: 연출 예시 태그, 히어로와 그림체 첫 카드는 같은 sizes, 자산 존재", () => {
+test("A-6. 애니메이션 미디어: 연출 예시 태그·반응형 sizes·그림체 자산 존재", () => {
   const landing = read(`${AN}/landing.tsx`);
   for (const src of ["/creative-v06/video-animation.webp", "/renewal/animation-sample.webp"]) {
     assert.match(landing, new RegExp(`"${src.replaceAll("/", "\\/").replaceAll(".", "\\.")}"`));
@@ -146,7 +127,7 @@ test("A-6. 애니메이션 미디어: 연출 예시 태그, 히어로와 그림�
   const media = landing.match(/<CsMedia\b[\s\S]*?\/>/g) ?? [];
   assert.equal(media.length, 2);
   for (const m of media) assert.match(m, /tag=\{MEDIA_TAGS\.staged\}/);
-  assert.equal((landing.match(/sizes: CHARACTER_SIZES|sizes=\{CHARACTER_SIZES\}/g) ?? []).length, 2);
+  for (const block of media) assert.match(block, /sizes="[^"\n]*vw/);
   assert.equal((landing.match(/\bpriority\b/g) ?? []).length, 1);
   assert.equal(
     animationSignature.styles.items.length,
@@ -154,21 +135,12 @@ test("A-6. 애니메이션 미디어: 연출 예시 태그, 히어로와 그림�
   );
 });
 
-test("A-7. 애니메이션 움직임: 후광 루프는 reduced-motion no-preference 안·축약형 animation 0·키프레임 이름 일치", () => {
-  const css = code(`${AN}/animation.css`);
-  assert.doesNotMatch(css, /(?:^|[;\s{])animation\s*:/);
-  // 키프레임은 서비스 CSS 한 파일 안(분리 파일 없음)
-  assert.equal(existsSync(`${AN}/animation.keyframes.css`), false);
-  const names = [...css.matchAll(/@keyframes\s+([\w-]+)/g)].map((m) => m[1]);
-  assert.deepEqual(names, ["cs-svc-animation-halo"]);
-  // animation-name 선언은 모두 no-preference 블록 안
-  const noPref = css.match(/@media \(prefers-reduced-motion: no-preference\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
-  const used = [...css.matchAll(/animation-name:\s*([\w-]+)/g)].map((m) => m[1]);
-  assert.deepEqual(used, ["cs-svc-animation-halo"]);
-  assert.match(noPref, /animation-name:\s*cs-svc-animation-halo/);
-  assert.doesNotMatch(code(`${AN}/landing.tsx`), /keyframes\.css/);
-  // 웹툰은 루프 애니메이션이 없다
-  assert.doesNotMatch(code(`${WT}/webtoon.css`), /animation|@keyframes/);
+test("A-7. R2 애니메이션·웹툰 장식: 무한 루프 없이 정지 구도를 제공한다", () => {
+  for (const [dir, file] of [[AN,"animation.css"],[WT,"webtoon.css"]]) {
+    const css = code(`${dir}/${file}`);
+    assert.doesNotMatch(css, /animation\s*:|animation-name|@keyframes/);
+  }
+  assert.doesNotMatch(code(`${AN}/landing.tsx`), /autoPlay|setInterval|keyframes\.css/);
 });
 
 test("A-8. 데이터: 고유 섹션 문구가 랜딩 데이터 signature와 같은 객체다", () => {

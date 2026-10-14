@@ -288,88 +288,19 @@
   object-fit: contain;
 }
 
-/* ---------------------------------------------------------------- 움직임
- * 첫 프레임(from) = 위의 정지 구도. 무대·모션 적용 칸만 움직이고 스타일 프레임 칸(still)은 멈춰 있다.
- * 키프레임 이름은 모두 cs-svc-motion-graphics-로 시작하고, 사용은 아래 reduced-motion: no-preference 블록에서만 한다. */
-@keyframes cs-svc-motion-graphics-line1 {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(10%);
-  }
-}
-@keyframes cs-svc-motion-graphics-line2 {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-6%);
-  }
-}
-@keyframes cs-svc-motion-graphics-circle {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-22%, 30%) scale(0.78);
-  }
-}
-@keyframes cs-svc-motion-graphics-square {
-  from {
-    transform: rotate(18deg);
-  }
-  to {
-    transform: translate(-60%, -70%) rotate(150deg);
-  }
-}
-@keyframes cs-svc-motion-graphics-bar {
-  from {
-    transform: scaleX(1);
-  }
-  to {
-    transform: scaleX(0.4);
-  }
-}
-@keyframes cs-svc-motion-graphics-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where(.cs-svc-motion-graphics-line, .cs-svc-motion-graphics-shape, .cs-svc-motion-graphics-bars > span, .cs-svc-motion-graphics-character) {
-    animation-duration: var(--svc-loop);
-    animation-timing-function: var(--cs-ease);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-line="1"]) {
-    animation-name: cs-svc-motion-graphics-line1;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-line="2"]) {
-    animation-name: cs-svc-motion-graphics-line2;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-shape="circle"]) {
-    animation-name: cs-svc-motion-graphics-circle;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where([data-shape="square"]) {
-    animation-name: cs-svc-motion-graphics-square;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="stage"], .cs-svc-motion-graphics-comp[data-variant="moving"]) :where(.cs-svc-motion-graphics-bars > span) {
-    animation-name: cs-svc-motion-graphics-bar;
-  }
-  .cs-svc-motion-graphics :where(.cs-svc-motion-graphics-comp[data-variant="moving"])::after {
-    animation-name: cs-svc-motion-graphics-progress;
-    animation-duration: calc(var(--svc-loop) * 2);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-  /* 움직임 토글로 멈추면 정지 구도로 돌아간다(같은 구도 = 첫 프레임) */
-  .cs-svc-motion-graphics:where([data-motion="paused"] *) .cs-svc-motion-graphics-comp *,
-  .cs-svc-motion-graphics:where([data-motion="paused"] *) .cs-svc-motion-graphics-comp::after {
-    animation-name: none;
-  }
-}
+/* R2 — 같은 검정 무대에서 타이포와 요소의 배치만 다르게 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-glow { display:none; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-stage { width:100%; transform:none; box-shadow:none; border:1px solid var(--cs-line); border-radius:12px; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp,
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-tone="light"],
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-tone="lime"] { background:var(--cs-surface); color:var(--cs-fg); --svc-comp-ink:var(--cs-fg); --svc-comp-dot:var(--cs-accent); --svc-comp-mark:transparent; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp .cs-svc-motion-graphics-word { font-size:var(--cs-t-h2-size); line-height:var(--cs-t-h2-leading); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-line[data-line="2"] { background:none; color:var(--cs-accent-text); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-shape[data-shape="circle"] { height:24%; background:transparent; border:2px solid var(--cs-accent); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-shape[data-shape="square"] { height:12%; transform:none; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-art,.cs-svc-motion-graphics .cs-svc-motion-graphics-pane-art { border:1px solid var(--cs-line); box-shadow:none; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body { display:flex; flex-direction:column; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-plan-body > .cs-link { margin-top:auto; padding-top:24px; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-variant="moving"]::after { transform:scaleX(.65); background:var(--cs-accent); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-variant="moving"] .cs-svc-motion-graphics-shape[data-shape="circle"] { transform:translate(-40%,40%); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-comp[data-variant="moving"] .cs-svc-motion-graphics-shape[data-shape="square"] { transform:translateY(-35px); }

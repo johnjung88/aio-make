@@ -2,6 +2,7 @@
  * 기본 빌드(검토 플래그 미설정·"0")에서는 빈 배열이라 섹션·제목 모두 렌더하지 않는다.
  * 사례 상세는 기존 /work/{slug}(메인 셸)를 그대로 쓴다. */
 import Link from "next/link";
+import { studioText } from "@/lib/content-site/text";
 import { CS_COPY } from "@/lib/content-site/copy";
 import type {
   CsWorkCard,
@@ -70,7 +71,7 @@ export function CsWorks({
                 <div className="cs-work-body">
                   <p className="cs-t-caption">{work.brand}</p>
                   <h3 className="cs-t-h3">{work.title}</h3>
-                  <p className="cs-t-small">{work.scope}</p>
+                  <p className="cs-t-small">{studioText(work.scope)}</p>
                   <Link href={work.href} className="cs-link">
                     {c.more} <span aria-hidden="true">↗</span>
                   </Link>

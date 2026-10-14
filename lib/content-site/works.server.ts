@@ -39,14 +39,14 @@ export function workLabel(work: WorkItem): string {
     : work.productionStatus;
 }
 
-function toCard(work: WorkItem): CsWorkCard {
+function toCard(work: WorkItem, service: ContentServiceId): CsWorkCard {
   return {
     slug: work.slug,
     brand: work.brand,
     title: work.title,
     scope: work.scope,
     label: workLabel(work),
-    href: `/work/${work.slug}`,
+    href: `/content/projects/${work.slug}?service=${service}`,
     media: work.media.map((m) => ({
       kind: m.kind,
       src: m.src,
@@ -78,5 +78,5 @@ export async function selectContentWorks(
     .filter((work) => work.productionStatus !== "제작 예시")
     .sort((a, b) => preferred(b) - preferred(a) || a.order - b.order)
     .slice(0, maxContentWorks(id))
-    .map(toCard);
+    .map(work => toCard(work, id));
 }

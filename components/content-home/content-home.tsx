@@ -2,6 +2,8 @@
  * 구성: 히어로(쇼릴 슬롯) → 서비스 6종(캐러셀·목록) → 제작 과정 탭 → 상담 띠.
  * 글자는 .cs-t-* 역할 클래스만, 색·간격·모양은 컨텐츠 사이트 토큰(--cs-*)만 쓴다. */
 import { Fragment } from "react";
+import { publicEntries } from "@/lib/db";
+import { homeJourneyData } from "@/lib/home-journey-data";
 import Link from "next/link";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import {
@@ -28,7 +30,8 @@ function HeroTitle() {
   );
 }
 
-export function ContentHome() {
+export async function ContentHome() {
+  const journey = homeJourneyData(await publicEntries("reference", "video"));
   return (
     <div className="cs-home">
       <section
@@ -76,7 +79,7 @@ export function ContentHome() {
         )}
       </section>
 
-      <ServiceShowcase />
+      <ServiceShowcase selections={journey.contentSelections} />
 
       <section
         id="process"
@@ -96,7 +99,7 @@ export function ContentHome() {
       </section>
 
       <section
-        className="ch-cta cs-on-accent"
+        className="ch-cta"
         data-cs-section="cta"
         aria-labelledby="ch-cta-title"
       >

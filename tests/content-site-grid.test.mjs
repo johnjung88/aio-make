@@ -209,7 +209,12 @@ test("WP0-2. 모바일 헤더: CONTENT STUDIO 라벨 유지 · 서비스 버튼 
   );
   const header = read("components/content-site/shell/header.tsx");
   assert.match(header, /className="cs-lockup-label cs-t-lockup"/);
-  assert.match(header, /className="cs-sheet-toggle-text"/);
-  assert.match(header, /aria-label=\{\s*open \? CS_COPY\.header\.sheetClose : CS_COPY\.header\.sheetOpen/);
-  assert.match(header, /<MotionToggle \/>/);
+  for (const label of ["홈", "각 서비스", "인사이트", "상담 신청"])
+    assert.ok(header.includes(label), label);
+  assert.match(header, /aria-expanded=\{open\}/);
+  assert.match(header, /aria-controls=\{id\}/);
+  assert.match(header, /hidden=\{!open\}/);
+  assert.match(header, /CONTENT_SERVICES\.map/);
+  assert.match(header, /event\.key === "Escape"/);
+  assert.doesNotMatch(header, /MotionToggle|cs-motion-toggle/);
 });

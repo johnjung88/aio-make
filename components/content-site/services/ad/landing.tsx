@@ -12,7 +12,7 @@ import { CsHeroCopy, HERO_TITLE_ID } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { CsTag } from "../../ui/tag";
+
 import "./ad.css";
 
 /** 공개 연출 예시 이미지(사람 없음). 같은 원본은 한 곳에서만 같은 sizes로 쓴다(/_next/image 중복 요청 0). */
@@ -26,31 +26,7 @@ const ASSETS = {
   hook: CONTENT_SITE_ASSETS.brand.src,
 } as const;
 
-type CollageCard =
-  | { kind: "image"; src: string }
-  | { kind: "type"; index: 0 | 1 | 2 };
-
-/** 3열 × 3장. 타이포 카드(첫 장면·제품 장면·마지막 장면)는 열마다 다른 높이에 둔다. */
-const COLLAGE: CollageCard[][] = [
-  [
-    { kind: "image", src: ASSETS.can },
-    { kind: "type", index: 0 },
-    { kind: "image", src: ASSETS.products },
-  ],
-  [
-    { kind: "image", src: ASSETS.cafe },
-    { kind: "image", src: ASSETS.bottle },
-    { kind: "type", index: 1 },
-  ],
-  [
-    { kind: "type", index: 2 },
-    { kind: "image", src: ASSETS.glass },
-    { kind: "image", src: ASSETS.can },
-  ],
-];
-
-const COLLAGE_SIZES = "(max-width: 767px) 40vw, (max-width: 1023px) 37vw, 22vw";
-const HOOK_SIZES = "(max-width: 767px) 132px, (max-width: 1023px) 30vw, 360px";
+const HOOK_SIZES = "(max-width: 767px) 80vw, 30vw";
 
 /** 휴대폰 화면 위 문구(frames[i].screen)의 모양과 글자 역할. 장면 순서대로 첫 장면 큰 문구 · 자막 띠 · 버튼 */
 const SCREEN_TEXT = [
@@ -62,58 +38,19 @@ const SCREEN_TEXT = [
 const sig = (data: ServiceSectionProps["data"]) => data.signature as AdSignature;
 
 function Hero({ data }: ServiceSectionProps) {
-  const { collage } = sig(data);
-  return (
-    <section
-      className="cs-hero cs-svc-ad-hero"
-      data-cs-section="hero"
-      aria-labelledby={HERO_TITLE_ID}
-    >
-      <div className="cs-svc-ad-glow" aria-hidden="true" />
-      <div className="cs-container">
-        <div className="cs-grid cs-hero-grid">
-          <div className="cs-col-6">
-            <CsHeroCopy id={data.id} hero={data.hero} />
-          </div>
-        </div>
+  const cards = [
+    { src: ASSETS.can, label: "제품의 디테일", alt: "제품을 크게 보여주는 세로 광고 연출 예시" },
+    { src: ASSETS.bottle, label: "브랜드의 분위기", alt: "향수병과 소재로 분위기를 표현한 세로 광고 연출 예시" },
+  ];
+  return <section className="cs-hero cs-svc-ad-hero" data-cs-section="hero" aria-labelledby={HERO_TITLE_ID}>
+    <div className="cs-container"><div className="cs-grid cs-hero-grid">
+      <div className="cs-col-7"><CsHeroCopy id={data.id} hero={data.hero} /></div>
+      <div className="cs-col-5 cs-svc-ad-edit">
+        {cards.map((card,i)=><figure key={card.src}><CsMedia ratio="9x16" src={card.src} alt={card.alt} sizes="(max-width:767px) 43vw, 22vw" priority={i===0} /><figcaption className="cs-t-label">{card.label}</figcaption></figure>)}
+        <p className="cs-svc-ad-edit-note cs-t-caption">연출 예시 · 세로 화면에 맞춘 장면 구성</p>
       </div>
-      <div className="cs-svc-ad-collage">
-        <div className="cs-svc-ad-viewport" role="img" aria-label={collage.label}>
-          <div className="cs-svc-ad-stage">
-            {COLLAGE.map((column, c) => (
-              <div key={c} className="cs-svc-ad-column" data-column={c + 1}>
-                <div className="cs-svc-ad-rail" data-rail>
-                  {column.map((card, r) =>
-                    card.kind === "image" ? (
-                      <CsMedia
-                        key={r}
-                        ratio="9x16"
-                        className="cs-svc-ad-card"
-                        src={card.src}
-                        alt=""
-                        sizes={COLLAGE_SIZES}
-                        priority={c === 0 && r === 0}
-                      />
-                    ) : (
-                      <div
-                        key={r}
-                        className="cs-svc-ad-card cs-svc-ad-card--type"
-                      >
-                        <span className="cs-t-h2">
-                          {collage.cards[card.index]}
-                        </span>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <CsTag overlay>{MEDIA_TAGS.staged}</CsTag>
-      </div>
-    </section>
-  );
+    </div></div>
+  </section>;
 }
 
 function Hook({ data }: ServiceSectionProps) {

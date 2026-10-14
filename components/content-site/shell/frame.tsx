@@ -40,7 +40,11 @@ export function ContentSiteFrame({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setJs(true);
-    if (reducedMotion()) setMotion("paused");
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setMotion(query.matches ? "paused" : "on");
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
   }, []);
 
   // 자동재생 영상: 움직임이 켜져 있고 reduced-motion이 아닐 때만 play().

@@ -225,3 +225,14 @@
     transform: rotate(3deg);
   }
 }
+
+/* R2 — 표지와 실제 컷을 정렬해 읽는 화면 */
+.cs-svc-webtoon .cs-svc-webtoon-glow { display:none; }
+.cs-svc-webtoon .cs-svc-webtoon-cover-card,.cs-svc-webtoon .cs-svc-webtoon-cover-card:hover { transform:none; box-shadow:none; border:1px solid var(--cs-line); border-radius:10px; }
+.cs-svc-webtoon .cs-svc-webtoon-cover-card::before { display:none; }
+.cs-svc-webtoon .cs-svc-webtoon-cover-caption { position:relative; left:auto; right:auto; bottom:auto; padding:24px; background:var(--cs-surface); color:var(--cs-fg); }
+.cs-svc-webtoon .cs-svc-webtoon-cover-caption .cs-t-h2 { color:var(--cs-fg); font-size:var(--cs-t-h3-size); line-height:var(--cs-t-h3-leading); }
+.cs-svc-webtoon .cs-svc-webtoon-cover-media::after { display:none; }
+.cs-svc-webtoon .cs-svc-webtoon-phone { padding:0; border:1px solid var(--cs-line); background:var(--cs-surface); border-radius:10px; box-shadow:none; }
+.cs-svc-webtoon .cs-svc-webtoon-scroll { max-height:680px; scrollbar-width:thin; }
+.cs-svc-webtoon .cs-svc-webtoon-reader-copy .cs-t-lead { max-width:25em; }

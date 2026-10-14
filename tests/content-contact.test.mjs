@@ -39,10 +39,9 @@ test("1. 문구 규칙: 금지어·쉼표·마침표·제목 줄 길이", () => 
     for (const s of sentences(text))
       assert.ok((s.match(/,/g) || []).length <= 1, `comma <= 1 · ${s}`);
   }
-  // 한 문장 필드는 마침표 없음, 두 문장 필드는 문장마다 마침표
-  for (const text of [chooser.legend, chooser.hint, chooser.missing, basis.title, inquiry.lead])
-    assert.doesNotMatch(text, /\.$/, text);
-  for (const s of sentences(hero.lead)) assert.match(s, /\.$/, s);
+  // R2 사용자 결정: 문의 카피도 문장 마침표 없이 표시
+  for (const text of all)
+    assert.doesNotMatch(text, /[가-힣]\.(?=\s|$)|\.$/, text);
   // h1 한 줄 9자 이하, h2 한 줄 11자 이하
   for (const line of hero.title.split("\n")) assert.ok(line.length <= 9, line);
   for (const line of inquiry.title.split("\n")) assert.ok(line.length <= 11, line);
@@ -52,9 +51,9 @@ test("1. 문구 규칙: 금지어·쉼표·마침표·제목 줄 길이", () => 
     for (const m of text.matchAll(/\d+/g)) assert.equal(m[0], "30", text);
   // 가격 기준 3줄은 공통 주석 그대로
   assert.deepEqual(PRICING_COMMON_LINES, [
-    "표시 금액은 모두 부가세 별도입니다.",
-    "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다.",
-    "대량 제작과 정기 제작은 따로 견적을 드립니다.",
+    "표시 금액은 모두 부가세 별도입니다",
+    "기획안 전달 후 수정 2회, 최종안 전달 후 수정 1회가 포함됩니다",
+    "대량 제작과 정기 제작은 따로 견적을 드립니다",
   ]);
 });
 

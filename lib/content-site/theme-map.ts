@@ -10,9 +10,9 @@ export type CsServiceKey = ContentServiceId | "home" | "contact";
 export type CsPage = "home" | "service" | "contact";
 
 export const CS_THEME: Record<CsServiceKey, CsTheme> = {
-  webtoon: "paper",
-  animation: "paper",
-  "ai-influencer": "paper",
+  webtoon: "ink",
+  animation: "ink",
+  "ai-influencer": "ink",
   "motion-graphics": "ink",
   "brand-film": "ink",
   ad: "ink",

@@ -1,5 +1,5 @@
-/* 컨텐츠 사이트 셸·공통 블록의 고정 문구. 카피 테스트(tests/content-site.test.mjs) 대상이다.
- * 서비스마다 다른 문구는 lib/content-site/services/<id>.ts에 둔다. */
+/* 컨텐츠 사이트 셸·공통 블록의 고정 문구 카피 테스트(tests/content-site.test.mjs) 대상이다
+ * 서비스마다 다른 문구는 lib/content-site/services/<id>.ts에 둔다 */
 
 export const CS_COPY = {
   skip: "본문 바로가기",
