@@ -91,7 +91,7 @@ test("A-2. 웹툰 리더: 《1억의 구단주》 cut-01..12 슬롯, 표지·리
   assert.deepEqual(cuts.map((c) => c.src), Array.from({ length: 12 }, (_, i) => `/webtoon-v11/cut-${String(i + 1).padStart(2, "0")}.webp`));
   assert.equal(new Set(cuts.map((c) => c.alt)).size, 12);
   for (const cut of cuts) assert.equal(cut.label, MEDIA_TAGS.ownWebtoon, cut.id);
-  assert.equal(getSlot("webtoon-key-1").id, "webtoon-key-1");
+  assert.throws(() => getSlot("webtoon-key-1"), /webtoon-key-1/, "R6: 표지는 컷 1을 쓰므로 key 슬롯 삭제");
   const landing = read(`${WT}/landing.tsx`);
   assert.match(landing, /getExampleMedia\("webtoon", "cut"\)/);
   // 표지·리더가 같은 sizes 상수를 쓴다(같은 /_next/image 주소). 스크롤 펼침은 없다
@@ -159,11 +159,11 @@ test("A-2b. 웹툰 히어로: 표지 컷 1장만(캡션·링크·부채 없음),
   assert.doesNotMatch(landing, /cs-section--alt/);
   // 읽기 섹션은 칩·힌트를 두지 않는다
   assert.deepEqual(Object.keys(webtoonSignature.reader), ["eyebrow", "title", "lead", "label"]);
-  // 표지 한 장이 공통 모션의 부채용 떠오름에 밀리지 않는다(no-preference 안에서만 끈다)
-  assert.match(
-    code(`${WT}/webtoon.css`),
-    /@media \(prefers-reduced-motion: no-preference\) \{\s*[^{}]*hero-cover > img \{\s*animation-name: none;/,
-  );
+  // 웹툰 부채(공통 모션의 떠오름·벌어짐)는 삭제됐으므로 표지 보호 규칙과 부채 규칙이 모두 없다
+  assert.doesNotMatch(code(`${WT}/webtoon.css`), /animation-name: none/);
+  const motionCss = code("components/content-site/services/service-motion.css");
+  assert.doesNotMatch(motionCss, /webtoon-fan|data-motion-variant="webtoon"|data-panel|cs-float/);
+  assert.doesNotMatch(code("components/content-site/services/service-editorial.css"), /svc-webtoon-cover|data-feed-index|cs-service-sequence|plan-compare/);
 });
 
 test("A-3. 웹툰 모션코믹 영상: 소개 영상 · poster · controls · preload none · 태그, 캡션 없음", () => {
@@ -329,7 +329,7 @@ test("A-8. 데이터: 고유 섹션 문구가 랜딩 데이터 signature와 같�
   }
   // 줄바꿈 제목의 마지막 줄은 3글자 이상(WP-A-4), 웹툰 h1은 브랜드 홍보 영상 h1과 같은 구절로 시작하지 않는다(WP-A-6)
   for (const id of ["webtoon", "animation"])
-    for (const title of [contentLandings[id].hero.title, contentLandings[id].types.title])
+    for (const title of [contentLandings[id].hero.title])
       assert.ok(title.split("\n").at(-1).replace(/\s/g, "").length >= 3, `${id}: ${title}`);
   assert.doesNotMatch(contentLandings.webtoon.hero.title, /^브랜드 이야기를/);
 });

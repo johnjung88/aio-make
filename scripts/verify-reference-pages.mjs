@@ -100,10 +100,11 @@ const customerSlugs = [
   "yofree-outing-webtoon",
   "bwl-aqua-webtoon",
   "yofree-night-webtoon",
-  "bwl-brand-ad",
   "bwl-aqua-ad",
   "bwl-cplus-ad",
   "bwl-cleanser-ad",
+  // R6: 브랜드 광고 30초 시안의 소속은 브랜드 홍보 영상(brand-film)
+  "bwl-brand-ad",
   "bwl-editorial",
   "yofree-outing-motion",
   "yofree-night-motion",

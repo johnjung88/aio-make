@@ -33,24 +33,6 @@ export const motionGraphics: ServiceLandingData = {
     title: "복잡한 설명도\n쉽게 보이도록",
     lead: "로고와 제품 이미지, 숫자와 문구를 읽는 순서에 맞춰 움직이는 30초 또는 60초 영상으로 만듭니다",
   },
-  types: {
-    eyebrow: "WHAT WE MAKE",
-    title: "이런 장면을\n움직입니다",
-    items: [
-      {
-        title: "로고·타이포 모션",
-        body: "브랜드 이름과 핵심 문구가 들어오고 사라지는 순서를 정해 짧은 오프닝으로 구성합니다",
-      },
-      {
-        title: "제품 소개 모션",
-        body: "제품 전체와 세부 이미지를 나누고 기능별 문구를 순서대로 보여줍니다",
-      },
-      {
-        title: "정보 그래픽",
-        body: "이용 순서와 구조, 비교 내용을 도형과 선으로 정리해 한 장면씩 설명합니다",
-      },
-    ],
-  },
   process: {
     title: "정지 화면부터\n함께 맞춥니다",
     steps: [

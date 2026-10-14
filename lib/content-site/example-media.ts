@@ -70,14 +70,12 @@ const webtoonCuts: ExampleSlot[] = WEBTOON_SCENES.map((scene, i) => ({
 
 export const EXAMPLE_MEDIA: readonly ExampleSlot[] = [
   ...webtoonCuts,
-  { id: "webtoon-key-1", service: "webtoon", section: "key", kind: "image", src: `${DIR}/webtoon/webtoon-key.webp`, alt: "보라색 노트를 든 인물과 떠 있는 두 컷의 웹툰 표지 연출 예시", label: STAGED, aspect: "2x3", width: 900, height: 1350 },
 
   { id: "animation-hero-1", service: "animation", section: "hero", kind: "image", src: `${DIR}/animation/animation-character.webp`, alt: "산호색 아치 아래 계단에 선 보라색 입체 캐릭터 연출 예시", label: STAGED, aspect: "2x3", width: 900, height: 1350, focus: [50, 30] },
   { id: "animation-scene-1", service: "animation", section: "scene", kind: "image", src: `${DIR}/animation/animation-character.webp`, alt: "아치 아래로 걸어 나오는 입체 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 900, height: 1350, focus: [50, 30] },
   { id: "animation-scene-2", service: "animation", section: "scene", kind: "image", src: "/creative-v06/video-animation.webp", alt: "비 오는 밤 다리 위에서 빛나는 선물 상자를 든 너구리 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 1586, height: 992, focus: [40, 40] },
   { id: "animation-scene-3", service: "animation", section: "scene", kind: "image", src: "/renewal/animation-sample.webp", alt: "노을 진 성곽 마을 다리 위에서 등불을 든 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 1100, height: 733, focus: [40, 50] },
 
-  { id: "motion-bg-1", service: "motion-graphics", section: "bg", kind: "image", src: `${DIR}/motion-graphics/motion-ribbon.webp`, alt: "", label: STAGED, aspect: "16x9", width: 1920, height: 1081, focus: [70, 50] },
   { id: "motion-hero-1", service: "motion-graphics", section: "hero", kind: "image", src: `${DIR}/motion-graphics/motion-ribbon.webp`, alt: "보라색 유리 리본과 구슬로 구성한 모션그래픽 화면 연출 예시", label: STAGED, aspect: "16x9", width: 1920, height: 1081, focus: [70, 50] },
   { id: "motion-scene-1", service: "motion-graphics", section: "scene", kind: "image", src: `${DIR}/motion-graphics/motion-ribbon.webp`, alt: "유리 리본의 색과 질감으로 시작하는 장면 연출 예시", label: STAGED, aspect: "16x9", width: 1920, height: 1081, focus: [80, 50] },
   { id: "motion-scene-2", service: "motion-graphics", section: "scene", kind: "image", src: `${DIR}/motion-graphics/motion-product.webp`, alt: "화면 중앙에 제품 병을 세운 장면 연출 예시", label: STAGED, aspect: "16x9", width: 900, height: 1350, focus: [50, 40] },

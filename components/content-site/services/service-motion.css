@@ -81,14 +81,6 @@
 .cs-site .cs-scene-chapter--ad .cs-scene-frame[data-side="before"] { transform:translateX(-14%) scale(.94); }
 .cs-site .cs-scene-chapter--ad .cs-scene-frame[data-active="true"] { transform:none; }
 
-/* 웹툰 히어로 부채(스크롤 진행 + 느린 떠오름) */
-.cs-site .cs-webtoon-fan { max-width:460px; margin-inline:auto; padding-top:24px; }
-.cs-site .cs-webtoon-fan-images { position:relative; width:76%; margin-inline:auto; aspect-ratio:2/3; perspective:1200px; }
-.cs-site .cs-webtoon-fan-images img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; border:1px solid var(--cs-line); transform-origin:center 85%; background:var(--cs-surface); }
-.cs-site .cs-webtoon-fan-images img[data-panel="1"] { transform:translateX(13%) rotate(7deg) scale(.95); }
-.cs-site .cs-webtoon-fan-images img[data-panel="2"] { transform:translateX(-13%) rotate(-7deg) scale(.95); }
-.cs-site .cs-webtoon-fan-caption { padding:28px 12% 0; display:grid; gap:10px; }
-.cs-site .cs-webtoon-fan-caption .cs-t-caption { color:var(--cs-fg-3); }
 
 @media (prefers-reduced-motion:no-preference) {
   /* 제목 줄 진입(지연은 nth-child) */
@@ -96,12 +88,6 @@
   .cs-site .cs-motion-title-line:nth-child(2) { animation-delay:110ms; }
   .cs-site .cs-motion-title-line:nth-child(3) { animation-delay:220ms; }
   .cs-site .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] { transform:scale(calc(.88 + var(--cs-frame-progress,1) * .12)); border-radius:calc(28px - var(--cs-frame-progress,1) * 28px); overflow:clip; }
-  /* 웹툰 부채: 스크롤 진행으로 벌어지고 각 컷은 다른 박자로 떠오른다 */
-  .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="1"] { transform:translateX(calc(8% + var(--cs-motion-progress) * 16%)) rotate(calc(4deg + var(--cs-motion-progress) * 8deg)) scale(.95); }
-  .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="2"] { transform:translateX(calc(-8% - var(--cs-motion-progress) * 16%)) rotate(calc(-4deg - var(--cs-motion-progress) * 8deg)) scale(.95); }
-  .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img { animation-name:cs-float; animation-duration:5.6s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; }
-  .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="1"] { animation-duration:6.4s; animation-delay:-2s; }
-  .cs-site .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] img[data-panel="2"] { animation-duration:7.2s; animation-delay:-4s; }
   /* 연출 예시 켄번스 */
   .cs-site .cs-example-figure[data-kind="image"] .cs-example-image { animation-name:cs-ken-burns; animation-duration:14s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; }
   /* 장면 전환 */
@@ -110,7 +96,6 @@
   .cs-site .cs-scene-wipe { animation-name:cs-scene-wipe; animation-duration:850ms; animation-timing-function:cubic-bezier(.65,0,.35,1); }
   .cs-site .cs-scene-tabs button i { transition:transform 650ms cubic-bezier(.22,1,.36,1); }
   @keyframes cs-title-arrive { from { opacity:0; transform:translateY(32px) rotateX(16deg); } to { opacity:1; transform:none; } }
-  @keyframes cs-float { from { translate:0 0; } to { translate:0 -10px; } }
   @keyframes cs-ken-burns { from { transform:scale(1.02) translate(0,0); } to { transform:scale(1.12) translate(-2%,-1.5%); } }
   @keyframes cs-scene-drift { from { transform:scale(1); } to { transform:scale(1.08) translate(-1.5%,-1%); } }
   @keyframes cs-scene-wipe { from { opacity:1; transform:translateX(-100%); } to { opacity:0; transform:translateX(620%); } }

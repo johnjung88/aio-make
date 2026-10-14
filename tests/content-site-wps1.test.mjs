@@ -83,9 +83,12 @@ test("S1-3. 연출 예시 슬롯: 6개 서비스 · ID 규칙 · 파일 존재 �
   for (const slot of EXAMPLE_MEDIA.filter((s) => s.src.includes("creator")))
     assert.equal(slot.label, MEDIA_TAGS.aiPerson, slot.id);
   // WP-S2가 쓰는 슬롯
-  for (const id of ["ai-card-1", "brandfilm-main", "ad-rail-1", "ad-rail-6", "motion-bg-1", "animation-scene-3", "webtoon-cut-12"])
+  for (const id of ["ai-card-1", "brandfilm-main", "ad-rail-1", "ad-rail-6", "motion-hero-1", "animation-scene-3", "webtoon-cut-12"])
     assert.equal(getSlot(id).id, id);
   assert.throws(() => getSlot("missing-slot-1"));
+  // R6: 사용처가 사라진 슬롯은 데이터에서도 지운다
+  for (const id of ["motion-bg-1", "ad-center-1", "webtoon-key-1", "home-hero-reel", "home-hero-reel-mobile"])
+    assert.equal(EXAMPLE_MEDIA.some((slot) => slot.id === id), false, id);
   assert.deepEqual(focusData([72, 48]), { "data-fx": "70", "data-fy": "50" });
   assert.deepEqual(focusData(), {});
 });
@@ -112,7 +115,7 @@ test("S1-4. 복사 소재 매니페스트: AIO 생성물만 · SHA 일치 · 타
 
 test("S1-5. 공용 런타임: 화면 밖·숨김 탭 정지 계약과 재사용 훅", () => {
   const runtime = code(`${SV}/motion-runtime.tsx`);
-  for (const name of ["useInViewPlay", "useAutoCycle", "useMotionProgress", "MotionCanvas", "LoopVideo", "WorkPreview"])
+  for (const name of ["useInViewPlay", "useMotionProgress", "MotionCanvas", "LoopVideo", "WorkPreview"])
     assert.match(runtime, new RegExp(`export function ${name}\\b`), name);
   assert.match(runtime, /node\.dataset\.play = next \? "running" : "paused"/);
   assert.match(runtime, /document\.hidden/);

@@ -42,7 +42,7 @@ export function ServiceLanding({
       {BeforePricing ? <BeforePricing data={data} /> : null}
       <CsPricing id={id} scope={data.scope} />
       <CsProcess process={data.process} />
-      <CsWorks works={works} layout={worksLayout} />
+      <CsWorks works={works.filter((work) => !work.placement)} layout={worksLayout} />
       <CsFaq id={id} faq={data.faq} />
       <CsInquiry service={id} copy={data.inquiry} />
       <CsRelated current={id} />

@@ -48,14 +48,6 @@ export type ServiceLandingData = {
     title: string;
     /** 한 문장, 마침표 없음 */
     lead: string;
-    /** R6: 히어로는 가격 한 줄만 보여준다. 이 필드는 화면에 출력하지 않는다(데이터 호환용) */
-    note?: string;
-  };
-  types: {
-    eyebrow: string;
-    title: string;
-    lead?: string;
-    items: { title: string; body: string }[];
   };
   process: {
     title: string;
@@ -114,6 +106,8 @@ export type CsWorkCard = {
   label: string;
   href: string;
   media: CsWorkMedia[];
+  /** 서비스 고유 섹션에 실물을 붙이는 작품 표시. 이 값이 있으면 사례 목록(CsWorks)에서 빼 같은 작품을 두 번 보이지 않는다 */
+  placement?: "character-case";
 };
 
 export type CsWorksLayout = "vertical" | "wide" | "webtoon";

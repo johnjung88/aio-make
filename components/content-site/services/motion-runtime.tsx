@@ -4,10 +4,9 @@
  * - useInViewPlay: 화면 안 + 탭 보임 + 움직임 켜짐 + reduced-motion 아님일 때만 data-play="running".
  *   CSS(service-motion.css)가 [data-play="paused"] 안의 모든 루프를 animation-play-state: paused로 멈춘다.
  * - useMotionProgress: 스크롤 진행값을 --cs-motion-progress(일반)·--cs-pin-progress(sticky 고정 구간)로 기록. 같은 노드에 data-play도 둔다.
- * - useAutoCycle: 보이는 동안만 n개 상태를 일정 간격으로 넘긴다. 사용자가 조작하면 멈춘다.
  * - LoopVideo / WorkPreview: 보이는 동안만 muted 재생.
  * 인라인 style 속성은 쓰지 않는다(테스트 8). 변수는 ref.style.setProperty로만 쓴다. */
-import { useCallback, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { useCsMotion } from "../shell/frame";
 import "./service-motion.css";
 
@@ -63,22 +62,6 @@ export function useInViewPlay(ref: RefObject<HTMLElement | null>, { threshold = 
     };
   }, [motion, ref, threshold, rootMargin, pauseOnInteract]);
   return playing;
-}
-
-/** playing인 동안 index를 intervalMs마다 넘긴다. stop()을 부르면 이후 자동 넘김을 하지 않는다 */
-export function useAutoCycle(count: number, intervalMs: number, playing: boolean) {
-  const [index, setIndex] = useState(0);
-  const [stopped, setStopped] = useState(false);
-  useEffect(() => {
-    if (!playing || stopped || count < 2) return;
-    const timer = window.setInterval(() => setIndex((previous) => (previous + 1) % count), intervalMs);
-    return () => window.clearInterval(timer);
-  }, [count, intervalMs, playing, stopped]);
-  const select = useCallback((next: number, stop = true) => {
-    if (stop) setStopped(true);
-    setIndex(((next % count) + count) % count);
-  }, [count]);
-  return [index, select, stopped] as const;
 }
 
 export type MotionProgressOptions = {

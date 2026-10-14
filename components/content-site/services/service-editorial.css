@@ -24,14 +24,6 @@
 .cs-site .cs-service-production li { display:flex; gap:24px; padding:22px 0; border-bottom:1px solid var(--cs-line); }
 .cs-site .cs-service-production li:first-child { padding-top:0; }
 .cs-site .cs-service-production li p { color:var(--cs-fg-2); margin-top:8px; white-space:pre-line; }
-.cs-site .cs-service-sequence { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-bottom:44px; }
-.cs-site .cs-service-sequence figure { margin:0; }
-.cs-site .cs-service-sequence img { width:100%; height:auto; display:block; border:1px solid var(--cs-line); }
-.cs-site .cs-service-sequence figcaption { padding-top:16px; }
-.cs-site .cs-service-sequence figcaption span { display:block; color:var(--cs-fg-2); margin-bottom:8px; }
-.cs-site .cs-service-plan-compare { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:48px; }
-.cs-site .cs-service-plan-compare article { border-top:1px solid var(--cs-line); padding-top:24px; }
-.cs-site .cs-service-plan-compare p { color:var(--cs-fg-2); margin:16px 0; }
 @media(max-width:767px) {
   .cs-site .cs-service-editorial-grid,.cs-site .cs-service-editorial-hero--wide .cs-service-editorial-grid { grid-template-columns:minmax(0,1fr); grid-template-areas:"heading" "media" "copy"; gap:24px; }
   .cs-site .cs-service-editorial-heading .cs-t-display { margin-top:8px; }
@@ -39,14 +31,5 @@
   .cs-site .cs-service-featured--portrait video,.cs-site .cs-service-featured--portrait > img { max-height:none; }
   .cs-site .cs-service-featured figcaption { align-items:flex-start; gap:12px; }
   .cs-site .cs-service-production { grid-template-columns:1fr; gap:24px; }
-  .cs-site .cs-service-sequence { grid-template-columns:1fr; gap:28px; }
-  .cs-site .cs-service-sequence--portrait { grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-  .cs-site .cs-service-plan-compare { grid-template-columns:1fr; gap:24px; }
 }
 .cs-site .cs-service-review-note { margin:24px 0 40px; color:var(--cs-fg-3); }
-.cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover { max-width:440px; margin-inline:auto; }
-.cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover-caption .cs-t-h2 { font-size:var(--cs-t-h3-size); }
-.cs-site .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="2"] img { object-fit:contain; }
-.cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover { padding-block:0; }
-.cs-site .cs-svc-webtoon .cs-service-editorial-media .cs-svc-webtoon-cover-card { width:100%; }
-.cs-site .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="0"] img { object-fit:contain; }

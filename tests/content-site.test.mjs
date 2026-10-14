@@ -299,6 +299,7 @@ test("4. FAQ·SEO", () => {
     assert.ok(faq.some(([, a]) => /수정/.test(a)), `${id} revision FAQ`);
     // 부가세 별도는 가격 블록 주석에서 한 번만 말한다(FAQ에 되풀이하지 않음)
     assert.match(PRICING_COMMON.vat, /부가세 별도/);
+    for (const [, answer] of faq) assert.doesNotMatch(answer, /부가세/, `${id} FAQ repeats the VAT note`);
     assert.ok(seo.title.length <= 22, `${id} seo.title <= 22`);
     assert.ok(
       seo.description.length >= 60 && seo.description.length <= 120,
@@ -405,7 +406,7 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
 /** works.server.ts를 검토 플래그(undefined = 미설정)로 자식 프로세스에서 불러 서비스별 사례 slug를 받는다. */
 function selectedWorks(flag) {
   const url = new URL("../lib/content-site/works.server.ts", import.meta.url).href;
-  const source = `const m = await import(${JSON.stringify(url)}); const out = {}; for (const id of ${JSON.stringify(ORDER)}) out[id] = { max: m.maxContentWorks(id), slugs: (await m.selectContentWorks(id)).map((w) => w.slug) }; console.log(JSON.stringify(out));`;
+  const source = `const m = await import(${JSON.stringify(url)}); const out = {}; for (const id of ${JSON.stringify(ORDER)}) out[id] = { max: m.maxContentWorks(id), ...(await (async () => { const cards = await m.selectContentWorks(id); return { slugs: cards.map((w) => w.slug), placed: cards.filter((w) => w.placement).map((w) => w.slug) }; })()) }; console.log(JSON.stringify(out));`;
   const env = { ...process.env };
   delete env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW;
   delete env.ENABLE_LEGACY_SUPABASE;
@@ -436,6 +437,16 @@ test("6-1. 사례 상한: 기본 4, SNS 광고만 5(R6: 브랜드 광고 시안�
     const off = selectedWorks(flag);
     for (const id of ORDER) assert.deepEqual(off[id].slugs, [], `${flag} ${id}`);
   }
+});
+
+test("6-2. R6 사례 중복 방지: 모션그래픽 캐릭터 사례에 붙인 작품은 placement 표시가 붙고 CsWorks 목록에서 빠진다", () => {
+  const review = selectedWorks("1");
+  assert.deepEqual(review["motion-graphics"].placed, ["yofree-mg30"]);
+  for (const id of ORDER.filter((id) => id !== "motion-graphics")) assert.deepEqual(review[id].placed, [], id);
+  // SNS 광고 페이지는 같은 작품을 사례 목록으로 계속 보인다
+  assert.equal(review.ad.slugs.includes("yofree-mg30"), true);
+  assert.match(code("components/content-site/service-landing.tsx"), /<CsWorks works=\{works\.filter\(\(work\) => !work\.placement\)\}/);
+  assert.deepEqual(selectedWorks(undefined)["motion-graphics"].placed, []);
 });
 
 /* CSS 파서: 주석 제거 후 규칙(선택자, 선언, @media 안 여부)을 돌려준다.
@@ -954,7 +965,6 @@ test("11-1. R6 간격: 섹션 위아래 두 값 · 선과 --alt 삭제 · 거터
 test("11-2. R6 박스: 항목 카드·박스 속 박스·가격 칩 틀 없음, 박스는 플랜·문의 폼·미디어·버튼만", () => {
   const theme = themeCode();
   for (const selector of [
-    ".cs-site .cs-type-card",
     ".cs-site .cs-scope-col",
     ".cs-site .cs-insight-card",
     ".cs-site .cs-step",
@@ -985,11 +995,12 @@ test("11-3. R6 서비스 히어로: eyebrow · h1 · lead · 가격 한 줄 · �
   assert.match(fn, /<CsPrice id=\{data\.id\}\/>/);
   assert.deepEqual(Object.keys(CS_COPY.hero), ["primary"]);
   assert.equal(CS_COPY.hero.primary, "상담 신청");
-  // 공개 export는 유지한다(다른 WP가 사용 중단 후 정리)
+  // 공개 export는 실제로 쓰이는 것만 남긴다(brand-film·motion-graphics·animation이 사용)
   for (const name of ["FeaturedWork", "ExampleFigure", "ProductionNotes"])
     assert.match(hero, new RegExp(`export function ${name}\\b`), name);
-  assert.match(read("components/content-site/blocks/hero.tsx"), /export function CsHero\b/);
-  assert.doesNotMatch(code("components/content-site/blocks/hero.tsx"), /facts|hero\.secondary|price\.note/);
+  // 사용되지 않던 blocks/hero.tsx(CsHero)와 blocks/types.tsx(CsTypes)는 삭제했다
+  for (const dead of ["components/content-site/blocks/hero.tsx", "components/content-site/blocks/types.tsx"])
+    assert.equal(existsSync(join(process.cwd(), dead)), false, `${dead} removed`);
   // 가격은 칩 틀 없는 한 줄 텍스트(.cs-price)
   assert.match(declsOf(themeCode(), ".cs-site .cs-price"), /display:\s*block/);
 });

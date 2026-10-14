@@ -1094,36 +1094,6 @@ body:has(.cs-site) {
   position: relative;
   z-index: 1;
 }
-.cs-site .cs-hero-grid {
-  align-items: center;
-  row-gap: var(--cs-s7);
-}
-.cs-site .cs-hero-media {
-  width: 100%;
-  max-width: 520px;
-  justify-self: start;
-}
-@media (min-width: 1024px) {
-  .cs-site .cs-hero-media {
-    max-width: none;
-  }
-}
-.cs-site .cs-hero-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.cs-site .cs-hero-copy .cs-t-display {
-  margin-top: var(--cs-s5);
-}
-.cs-site .cs-hero-copy .cs-hero-lead {
-  margin-top: var(--cs-s5);
-  max-width: var(--cs-measure);
-  color: var(--cs-fg-2);
-}
-.cs-site .cs-hero-copy .cs-price {
-  margin-top: var(--cs-s6);
-}
 .cs-site .cs-hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1170,31 +1140,6 @@ body:has(.cs-site) {
   color: var(--cs-fg-3);
 }
 .cs-site .cs-price .cs-t-small {
-  color: var(--cs-fg-2);
-}
-
-/* ---------------------------------------------------------------- types
- * R6: 서비스 랜딩은 이 블록을 쓰지 않는다. 파일(blocks/types.tsx)은 남겨 두되 박스 없이 위 가는 선만 쓴다. */
-.cs-site .cs-types-grid {
-  display: grid;
-  gap: var(--cs-s5) var(--cs-s6);
-}
-@media (min-width: 768px) {
-  .cs-site .cs-types-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.cs-site .cs-type-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s2);
-  padding-top: var(--cs-s5);
-  border-top: 1px solid var(--cs-line);
-}
-.cs-site .cs-type-card .cs-t-num {
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-type-card .cs-t-small {
   color: var(--cs-fg-2);
 }
 

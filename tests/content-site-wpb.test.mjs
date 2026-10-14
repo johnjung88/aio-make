@@ -145,13 +145,13 @@ test("B-5. R6 모션그래픽 캐릭터 제작 사례: 공개판은 일반 공�
   const code = strip(read(`${MG}/character-case.tsx`));
   assert.doesNotMatch(code, /^\s*["']use client["']/);
   assert.doesNotMatch(code, /process\.env|work-catalog|works\.server|generated/);
-  assert.match(code, /const REVIEW_CASE = "yofree-mg30";/);
-  assert.match(code, /works\?\.find\(\(work\) => work\.slug === REVIEW_CASE\)/);
+  assert.doesNotMatch(code, /yofree|REVIEW_CASE/i, "고객 slug는 서버 선택 파일(works.server.ts)에만 있다");
+  assert.match(code, /works\?\.find\(\(work\) => work\.placement === "character-case"\)/);
   assert.match(code, /\{reviewWork \? <ReviewCase work=\{reviewWork\} \/> : null\}/);
   // 공개 단계 목록은 reviewWork와 무관하게 항상 렌더된다
   assert.ok(code.indexOf("c.steps.map") < code.indexOf("<ReviewCase work"));
-  // 고객 slug는 서버 컴포넌트 한 곳에만 있고 데이터(lib)·landing·CSS에는 없다
-  for (const path of ["lib/content-site/services/motion-graphics.ts", `${MG}/landing.tsx`, `${MG}/motion-graphics.css`])
+  // 고객 slug는 서버 선택 파일 한 곳에만 있고 데이터(lib)·landing·서버 컴포넌트·CSS에는 없다
+  for (const path of ["lib/content-site/services/motion-graphics.ts", `${MG}/landing.tsx`, `${MG}/character-case.tsx`, `${MG}/motion-graphics.css`, "components/content-site/service-landing.tsx"])
     assert.doesNotMatch(read(path), /yofree|요프리|YoFree/i, path);
   // 검토 데이터: 실제 작품은 광고 3편(영상 4개)이고 검토판 선택에 들어온다. 6포즈 이미지는 아직 작품 데이터에 없다
   const work = JSON.parse(read("content/works/yofree-mg30.json"));

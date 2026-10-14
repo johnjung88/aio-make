@@ -69,24 +69,6 @@ export const aiInfluencer: ServiceLandingData = {
     title: "브랜드를 닮은\nAI 크리에이터",
     lead: "얼굴과 말투, 관심사를 정해 브랜드 전용 AI 가상인물을 만들고 제품 이미지와 숏폼을 제작합니다",
   },
-  types: {
-    eyebrow: "WHAT WE MAKE",
-    title: "한 인물로\n이어지는 컨텐츠",
-    items: [
-      {
-        title: "캐릭터 세팅",
-        body: "연령대와 분위기, 헤어와 의상 방향을 정하고 캐릭터 시트와 기준 이미지를 만듭니다",
-      },
-      {
-        title: "제품 이미지",
-        body: "같은 인물이 제품과 함께 등장하도록 장면과 구도를 정해 이미지로 제작합니다",
-      },
-      {
-        title: "30초 숏폼 영상",
-        body: "확정한 인물이 등장하는 장면을 연결해 브랜드용 30초 영상을 만듭니다",
-      },
-    ],
-  },
   process: {
     title: "인물을 먼저 정하고\n만듭니다",
     steps: [

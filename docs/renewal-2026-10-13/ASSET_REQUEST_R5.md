@@ -1,5 +1,7 @@
 # AIO MAKE 컨텐츠 사이트 R5 소재 생성 작업지시서 (v2 · 30초 마스터 방식)
 
+> R6 개정(2026-10-15): 취소 항목(`home-hero-reel` · `MASTER-HERO` · `motion-bg-1` · `ad-center-1`), 재확인 항목(`motion-bg-2` · `ai-card` 2배 해상도 · 애니메이션 영상 레퍼런스 슬롯)과 다시 계산한 합계는 `ASSET_REQUEST_R6.md`를 기준으로 합니다. 이 문서의 59 · 8 · 30 · 필수 17 같은 합계는 취소분이 빠지기 전의 숫자입니다.
+
 2026-10-14 · BRIEF_R5 Step 1.5 · 문서 담당 · 사용자가 Higgsfield에서 직접 무료 생성 · 5초 26개 방식(v1)을 대체합니다. 이전 판은 같은 폴더의 `ASSET_REQUEST_R5_v1_5sec.md`입니다.
 
 - 이미지 도구: 나노바나나 프로 2 (Nano Banana Pro 2). 이미지 59장 지시는 v1과 같습니다.

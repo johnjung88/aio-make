@@ -22,6 +22,13 @@ const aiPersonDraft =
       }
     : { slugs: [] as string[], label: "" };
 
+/** 서비스 고유 섹션에 실물을 붙이는 작품(R6). 같은 서비스의 사례 목록에서는 placement 표시로 뺀다.
+ * 모션그래픽 캐릭터 제작 사례(검토판)가 30초 광고 3편을 쓰므로 맨 아래 사례 목록에는 다시 보이지 않는다. */
+const sectionWork: Partial<Record<ContentServiceId, { slug: string; placement: NonNullable<CsWorkCard["placement"]> }>> =
+  process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
+    ? { "motion-graphics": { slug: "yofree-mg30", placement: "character-case" } }
+    : {};
+
 /** 서비스 사례 기본 상한 */
 const MAX_WORKS = 4;
 /** 서비스별 상한(없으면 MAX_WORKS). SNS 광고는 AI 가상인물 시안 3편 · 모션 광고 2편 5편을 모두 보인다(R6: 브랜드 광고 30초 시안은 primaryService를 brand-film으로 옮겨 브랜드 홍보 페이지로 이동). */
@@ -40,6 +47,7 @@ export function workLabel(work: WorkItem): string {
 }
 
 function toCard(work: WorkItem, service: ContentServiceId): CsWorkCard {
+  const section = sectionWork[service];
   return {
     slug: work.slug,
     brand: work.brand,
@@ -47,6 +55,7 @@ function toCard(work: WorkItem, service: ContentServiceId): CsWorkCard {
     scope: work.scope,
     label: workLabel(work),
     href: `/content/projects/${work.slug}?service=${service}`,
+    ...(section && section.slug === work.slug ? { placement: section.placement } : {}),
     media: work.media.map((m) => ({
       kind: m.kind,
       src: m.src,

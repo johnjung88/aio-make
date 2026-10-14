@@ -71,14 +71,6 @@
   color: var(--cs-fg-2);
 }
 
-/* ---------------------------------------------------------------- 움직임 */
-@media (prefers-reduced-motion: no-preference) {
-  /* 공통 모션의 부채용 떠오름(img 전체)이 표지 한 장에도 걸려 틀 안에서 밀리므로 끈다 */
-  .cs-svc-webtoon .cs-motion-canvas[data-motion-variant="webtoon"][data-motion-ready="true"] .cs-svc-webtoon-hero-cover > img {
-    animation-name: none;
-  }
-}
-
 /* 12컷 3D 페이지 넘김: 왼쪽 책등(transform-origin left) 기준 rotateY, 뒷면은 종이, 넘김 중 그림자가 움직인다.
  * reduced-motion이면 전환 없이 즉시 바뀌고 버튼·방향키·전체 읽기는 그대로다. */
 .cs-svc-webtoon .cs-svc-webtoon-book {
