@@ -90,14 +90,54 @@ function strings(value, out = []) {
   return out;
 }
 
-test("requested three journey steps in development, marketing, content order", () => {
+// 2026-10-14 사용자 결정: 3214(9b3def8) 원문을 유지하고 상담·브랜드 가이드만 빼서
+// 개발 → 마케팅 → 컨텐츠 순서로 보여준다. 번호만 01~03으로 바뀐다.
+const ORIGINAL_STEPS = {
+  "journey-dev": {
+    railLabel: "개발",
+    title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
+    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다.",
+  },
+  "journey-marketing": {
+    railLabel: "마케팅",
+    title: "계획하고 운영하고\n데이터로 고칩니다",
+    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다.",
+  },
+  "journey-content": {
+    railLabel: "컨텐츠",
+    title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
+    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다.",
+  },
+};
+
+test("three journey steps (development, marketing, content) keep the 3214 wording", () => {
   assert.deepEqual(
     journeySteps.map((step) => step.id),
-    [
-      "journey-dev",
-      "journey-marketing",
-      "journey-content",
-    ],
+    ["journey-dev", "journey-marketing", "journey-content"],
+  );
+  assert.deepEqual(
+    journeySteps.map((step) => step.num),
+    ["01", "02", "03"],
+  );
+  assert.deepEqual(
+    journeySteps.map((step) => step.eyebrow),
+    ["01 DEVELOPMENT", "02 MARKETING", "03 CONTENT"],
+  );
+  for (const step of journeySteps) {
+    const original = ORIGINAL_STEPS[step.id];
+    assert.equal(step.railLabel, original.railLabel, step.id);
+    assert.equal(step.title, original.title, step.id);
+    assert.equal(step.lead, original.lead, step.id);
+  }
+  assert.equal(journeyIntro.title, "상담부터 성과까지\n하나로 이어집니다");
+  assert.equal(
+    journeyIntro.lead,
+    "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요.",
+  );
+  assert.ok(
+    !journeySteps.some((step) =>
+      ["journey-consult", "journey-brand"].includes(step.id),
+    ),
   );
   assert.ok(!journeySteps.some((step) => step.id === "journey-growth"));
   for (const title of [
@@ -107,20 +147,29 @@ test("requested three journey steps in development, marketing, content order", (
     const lines = title.split("\n");
     assert.ok(lines.length <= 2, title);
     for (const line of lines)
-      assert.ok(line.length <= 18, `${line} (${line.length})`);
-    assert.doesNotMatch(title, /\.$/, title);
+      assert.ok(line.length <= 11, `${line} (${line.length})`);
   }
 });
 
 test("content tabs are the six video services and spell the required phrase", () => {
-  // label·line·chips come from the /content home data, not copies.
-  for (const [index, tab] of contentTabs.entries()) {
-    const source = contentHomeServices[index];
-    assert.equal(tab.id, source.id);
-    assert.equal(tab.label, source.label);
-    assert.equal(tab.line, source.line);
-    assert.deepEqual(tab.chips, source.uses);
-  }
+  // label·line·chips are frozen to the 3214 wording in lib/home-journey.ts so a
+  // /content home copy change (lib/content-home.ts) does not change the main page.
+  assert.deepEqual(
+    contentTabs.map(({ id, label, line, chips }) => ({ id, label, line, chips })),
+    [
+      { id: "webtoon", label: "웹툰", line: "브랜드 이야기를 세로로 읽히는 컷으로 그립니다", chips: ["인스타툰", "상세페이지", "광고 소재"] },
+      { id: "animation", label: "애니메이션", line: "캐릭터와 장면에 움직임을 더합니다", chips: ["릴스", "쇼츠", "캐릭터 영상"] },
+      { id: "ai-influencer", label: "AI 인플루언서", line: "브랜드 전용 AI 가상인물을 만듭니다", chips: ["제품 소개", "숏폼 영상", "SNS 이미지"] },
+      { id: "motion-graphics", label: "모션그래픽", line: "그래픽과 글자의 움직임으로 메시지를 전합니다", chips: ["제품 소개", "홈페이지", "행사 화면"] },
+      { id: "brand-film", label: "브랜드 홍보 영상", line: "브랜드가 하는 일과 이유를 한 편에 담습니다", chips: ["홈페이지", "회사 소개", "전시"] },
+      { id: "ad", label: "SNS 광고 영상", line: "피드에서 첫 장면으로 시선을 붙잡습니다", chips: ["릴스", "쇼츠", "피드 광고"] },
+    ],
+  );
+  // The ids still match the /content services, so the service links resolve.
+  assert.deepEqual(
+    contentTabs.map((tab) => tab.id),
+    contentHomeServices.map((service) => service.id),
+  );
   assert.deepEqual(
     contentTabs.map((tab) => tab.id),
     [
@@ -139,6 +188,18 @@ test("content tabs are the six video services and spell the required phrase", ()
       services.some((s) => s.id === tab.id && s.division === "video"),
       tab.id,
     );
+});
+
+test("consult and brand guide panels are kept as data but not rendered", async () => {
+  assert.ok(journeyModule.consultPanel && journeyModule.brandPanel);
+  const tsx = await read("components/home/workflow-journey.tsx");
+  for (const gone of ["consultPanel", "brandPanel", "ConsultBody", "BrandBody", "journey-consult", "journey-brand"])
+    assert.ok(!tsx.includes(gone), gone);
+  const css = await read("components/home/workflow-journey.css");
+  assert.match(css, /\.wj \.wj-rail-fill \{[^}]*transform: scaleY\(0\.333333\)/);
+  assert.match(css, /\.wj\[data-active="1"\] \.wj-rail-fill \{\s*transform: scaleY\(0\.666667\)/);
+  assert.match(css, /\.wj\[data-active="2"\] \.wj-rail-fill \{\s*transform: scaleY\(1\)/);
+  assert.ok(!css.includes('data-active="3"'));
 });
 
 test("every referenced slug exists and matches its step", async () => {
@@ -240,9 +301,9 @@ test("copy avoids banned phrasing and keeps the AI influencer facts", async () =
 
 test("main page uses the journey, the six-service wording and no #process section", async () => {
   const main = await read("components/guide/main.jsx");
-  for (const label of REQUIRED.split(" · ")) assert.ok(main.includes(label), label);
-  assert.doesNotMatch(main, /<HomeHero|<HomeServices/);
+  assert.ok(main.includes(REQUIRED));
   assert.ok(!main.includes("브랜드 홍보 및 SNS 광고 영상"));
+  assert.ok(main.includes("브랜드 홍보 영상, SNS 광고 영상"));
   assert.doesNotMatch(main, /import\s*\{\s*HomeReferences\s*\}/);
   assert.ok(main.includes("<WorkflowJourney data={this.props.journey} />"));
   const page = await read("app/(public)/page.tsx");
@@ -255,11 +316,9 @@ test("main page uses the journey, the six-service wording and no #process sectio
     "전문가가 품질을 지킵니다",
   ])
     assert.ok(!main.includes(gone), gone);
-  // R4 restores the original main intro; only its imported journey changes
-  assert.ok(main.includes("<ShowcaseVideo"), "company introduction remains available");
   assert.ok(main.includes("OUR STANDARD"));
-  assert.ok(main.includes("분야별 전문가들이"));
   assert.ok(!main.includes('href="#process"'));
+  assert.doesNotMatch(main, /<HomeHero|<HomeServices/);
 });
 
 test("about page lists the six content services", async () => {

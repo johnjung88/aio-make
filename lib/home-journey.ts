@@ -5,15 +5,10 @@
 // the server and passes plain props; it selects customer work only for the
 // exact local review flag "1".
 import type { WorkItem, WorkMedia } from "./work-catalog.ts";
-import {
-  contentHomeServices,
-  type ContentServiceId,
-} from "./content-home.ts";
+import type { ContentServiceId } from "./content-home.ts";
 
-export const requiredContentServices = contentHomeServices
-  .map((service) => service.label)
-  .join(" · ");
-
+// 메인 워크플로우는 개발 → 마케팅 → 컨텐츠 3단계만 보여준다(2026-10-14 사용자 결정).
+// 상담·브랜드 가이드 단계의 원문(consultPanel·brandPanel)은 보존하되 렌더링하지 않는다.
 export type JourneyStepId =
   | "journey-dev"
   | "journey-content"
@@ -32,8 +27,8 @@ export type JourneyLink = { label: string; href: string };
 
 export const journeyIntro = {
   eyebrow: "HOW WE WORK",
-  title: "브랜드를 이해하고\n쓰이는 결과물로",
-  lead: "상담에서 정한 방향을 화면과 컨텐츠에 담고, 운영하면서 다음 작업을 정합니다",
+  title: "상담부터 성과까지\n하나로 이어집니다",
+  lead: "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요.",
 };
 
 export const journeySteps: JourneyStep[] = [
@@ -42,28 +37,28 @@ export const journeySteps: JourneyStep[] = [
     num: "01",
     eyebrow: "01 DEVELOPMENT",
     railLabel: "개발",
-    title: "브랜드를 만나는\n웹사이트와 쇼핑몰",
-    lead: "정리한 브랜드 자료를 화면에 담고, 방문한 고객이 제품을 살펴보며 문의나 구매로 이어지도록 동선을 설계합니다",
+    title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
+    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다.",
   },
   {
     id: "journey-marketing",
     num: "02",
     eyebrow: "02 MARKETING",
     railLabel: "마케팅",
-    title: "만든 다음에는\n반응을 보고 개선합니다",
-    lead: "타깃과 메시지에 맞는 채널을 정해 SNS·광고·검색 노출을 운영하고 쌓인 데이터를 보며 다음 작업을 개선합니다",
+    title: "계획하고 운영하고\n데이터로 고칩니다",
+    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다.",
   },
   {
     id: "journey-content",
     num: "03",
     eyebrow: "03 CONTENT",
     railLabel: "컨텐츠",
-    title: "사람들이 보고 싶은\n브랜드 컨텐츠",
-    lead: "같은 브랜드 가이드를 바탕으로 타깃과 플랫폼에 맞는 형식을 골라 웹툰부터 광고 영상까지 한 팀에서 기획하고 제작합니다",
+    title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
+    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다.",
   },
 ];
 
-// 01 상담
+// (보존·미렌더링) 3214 원문의 01 상담 패널
 export const consultPanel = {
   fields: ["개발", "컨텐츠", "마케팅"],
   label: "상담에서 정하는 것",
@@ -76,10 +71,10 @@ export const consultPanel = {
   links: [{ label: "상담 신청하기", href: "#contact" }] as JourneyLink[],
 };
 
-// 02 브랜드 가이드 (중립 견본만 쓴다 고객 색·로고는 쓰지 않는다)
+// (보존·미렌더링) 3214 원문의 02 브랜드 가이드 패널 (중립 견본만 쓴다. 고객 색·로고는 쓰지 않는다)
 export const brandPanel = {
   label: "가이드 구성",
-  tag: "가이드 구성",
+  tag: "구성 예시",
   tiles: [
     { id: "logo", title: "로고 사용", text: "여백과 최소 크기, 잘못 쓴 예" },
     { id: "color", title: "컬러", text: "주색과 보조색의 쓰임" },
@@ -90,7 +85,7 @@ export const brandPanel = {
   swatches: ["ink", "paper", "violet", "lavender"] as const,
 };
 
-// 03 개발
+// 01 개발
 export type JourneyMedia = {
   kind: "image" | "video";
   src: string;
@@ -212,7 +207,8 @@ export function toJourneyMedia(media: WorkMedia): JourneyMedia {
   };
 }
 
-// 04 컨텐츠 (label·line·chips는 /content 홈의 contentHomeServices에서 가져온다)
+// 03 컨텐츠 (label·line·chips는 3214 원문(9b3def8의 contentHomeServices)을 여기에 고정한다.
+// /content 홈 문구(lib/content-home.ts)가 바뀌어도 메인 워크플로우는 따라 바뀌지 않는다)
 export type ContentTabId = ContentServiceId;
 
 export type ContentTab = {
@@ -274,13 +270,54 @@ const contentFallbacks: Record<ContentTabId, ContentTab["fallback"]> = {
   },
 };
 
-export const contentTabs: ContentTab[] = contentHomeServices.map((service) => ({
-  id: service.id,
-  label: service.label,
-  line: service.line,
-  chips: [...service.uses],
-  fallback: contentFallbacks[service.id],
+const contentTabCopy: { id: ContentTabId; label: string; line: string; chips: string[] }[] = [
+  {
+    id: "webtoon",
+    label: "웹툰",
+    line: "브랜드 이야기를 세로로 읽히는 컷으로 그립니다",
+    chips: ["인스타툰", "상세페이지", "광고 소재"],
+  },
+  {
+    id: "animation",
+    label: "애니메이션",
+    line: "캐릭터와 장면에 움직임을 더합니다",
+    chips: ["릴스", "쇼츠", "캐릭터 영상"],
+  },
+  {
+    id: "ai-influencer",
+    label: "AI 인플루언서",
+    line: "브랜드 전용 AI 가상인물을 만듭니다",
+    chips: ["제품 소개", "숏폼 영상", "SNS 이미지"],
+  },
+  {
+    id: "motion-graphics",
+    label: "모션그래픽",
+    line: "그래픽과 글자의 움직임으로 메시지를 전합니다",
+    chips: ["제품 소개", "홈페이지", "행사 화면"],
+  },
+  {
+    id: "brand-film",
+    label: "브랜드 홍보 영상",
+    line: "브랜드가 하는 일과 이유를 한 편에 담습니다",
+    chips: ["홈페이지", "회사 소개", "전시"],
+  },
+  {
+    id: "ad",
+    label: "SNS 광고 영상",
+    line: "피드에서 첫 장면으로 시선을 붙잡습니다",
+    chips: ["릴스", "쇼츠", "피드 광고"],
+  },
+];
+
+export const contentTabs: ContentTab[] = contentTabCopy.map((tab) => ({
+  ...tab,
+  chips: [...tab.chips],
+  fallback: contentFallbacks[tab.id],
 }));
+
+export const requiredContentServices = contentTabs
+  .map((tab) => tab.label)
+  .join(" · ");
 
 export const contentCopy = {
   serviceLink: "서비스 자세히 보기",
@@ -308,7 +345,7 @@ export function fallbackContentSelection(tab: ContentTab): ContentSelection {
   return { tab, work: null, media, caption: caption ?? null, tag: tag ?? null };
 }
 
-// Server-selected props for the 03 개발 and 04 컨텐츠 steps.
+// Server-selected props for the 01 개발 and 03 컨텐츠 steps.
 export type HomeJourneyData = {
   devProjects: DevProject[];
   contentSelections: ContentSelection[];
@@ -319,22 +356,22 @@ export const emptyJourneyData: HomeJourneyData = {
   contentSelections: contentTabs.map(fallbackContentSelection),
 };
 
-// 05 마케팅 (흐름만 보여준다 숫자·그래프·성과 지표는 넣지 않는다)
+// 02 마케팅 (흐름만 보여준다. 숫자·그래프·성과 지표는 넣지 않는다)
 export const marketingPanel = {
-  label: "기획 · 운영 · 확인 · 개선",
-  tag: "운영 구성",
+  label: "마케팅 운영 흐름",
+  tag: "연출 예시",
   nodes: [
     {
       id: "plan",
       title: "플랜 기획",
-      detail: "누구에게 보여줄지, 어떤 채널과 주제로 만날지 정리",
+      detail: "목표 고객 · 채널 · 메시지 · 일정",
     },
-    { id: "operate", title: "운영", detail: "정한 일정에 맞춰 게시물과 광고, 검색 노출 관리" },
-    { id: "data", title: "데이터 확인", detail: "채널 반응과 사이트 유입, 문의가 이어지는 경로 확인" },
+    { id: "operate", title: "운영", detail: "게시 · 광고 · 검색 노출 관리" },
+    { id: "data", title: "데이터 확인", detail: "유입 · 반응 · 문의 흐름" },
     {
       id: "improve",
       title: "성과 개선",
-      detail: "확인한 반응으로 다음 소재와 화면, 운영 계획 조정",
+      detail: "반응 좋은 메시지 늘리기 · 막히는 지점 고치기",
     },
   ],
   branches: [

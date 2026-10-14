@@ -2,16 +2,11 @@
  * - 글자는 JSX의 .cs-t-* 역할 클래스가 정한다. 이 파일에는 글자 속성(font-size·weight·line-height·letter-spacing·family)이 없다.
  * - 색은 컨텐츠 사이트 토큰(--cs-*)과 그 color-mix만 쓴다. 숫자 색 리터럴 0, !important 0.
  * - 모든 선택자는 .cs-site .cs-home 안으로 한정한다(다른 페이지로 이동해도 누수 0).
- * - 트랜지션은 prefers-reduced-motion: no-preference 안에서만 선언한다. 자동 움직임(루프·자동 넘김)은 없다. */
+ * - 트랜지션과 루프·자동 넘김 애니메이션은 prefers-reduced-motion: no-preference 안에서만 선언한다(R5 WP-H).
+ *   화면 밖·탭 숨김·헤더 움직임 토글이면 각 무대의 data-active="false"가 루프를 멈춘다.
+ * - R5에서 쓰지 않는 규칙(.ch-card 캐러셀, 목록 모드, 단계 탭, R2 작업 카드 등)은 소스 검색 뒤 지웠다. */
 
 .cs-site .cs-home {
-  /* 캐러셀 배치(레이아웃 값이라 @media에서 바꾼다) */
-  --ch-stage-h: 560px;
-  --ch-card-w: 340px;
-  --ch-card-h: 460px;
-  --ch-shift: 380px;
-  --ch-z1: -170px;
-  --ch-z2: -300px;
   /* 히어로 아래 여백. 태그·영상 버튼도 같은 높이에 놓는다 */
   --ch-hero-pad: clamp(40px, 6vw, 80px);
   /* 컨테이너 오른쪽 안쪽 끝(헤더 '상담 신청' 오른쪽 끝과 같은 선) */
@@ -33,10 +28,6 @@
   overflow: clip;
   background: var(--cs-bg);
 }
-.cs-site .cs-home .ch-hero-media {
-  position: absolute;
-  inset: 0;
-}
 .cs-site .cs-home .ch-hero-img {
   object-fit: cover;
   object-position: 72% 50%;
@@ -51,23 +42,6 @@
 }
 .cs-site .cs-home .ch-hero-video[data-shown] {
   opacity: 1;
-}
-.cs-site .cs-home .ch-hero-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--cs-bg) 82%, transparent) 0%,
-      color-mix(in srgb, var(--cs-bg) 20%, transparent) 72%
-    ),
-    linear-gradient(
-      0deg,
-      color-mix(in srgb, var(--cs-bg) 90%, transparent) 0%,
-      color-mix(in srgb, var(--cs-bg) 0%, transparent) 58%
-    );
 }
 .cs-site .cs-home .ch-hero-copy {
   position: relative;
@@ -87,23 +61,12 @@
   max-width: 34em;
   color: var(--cs-fg);
 }
-.cs-site .cs-home .ch-hero-services {
-  margin-top: var(--cs-s3);
-  max-width: 40em;
-  color: var(--cs-fg-2);
-}
 .cs-site .cs-home .ch-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--cs-s3);
   margin-top: var(--cs-s6);
 }
-/* 사진 위의 보조 버튼: 테두리를 조금 진하게, 바탕을 살짝 깔아 글자를 읽기 쉽게 */
-.cs-site .cs-home .ch-hero-ghost {
-  border-color: color-mix(in srgb, var(--cs-fg) 40%, transparent);
-  background: color-mix(in srgb, var(--cs-bg) 40%, transparent);
-}
-.cs-site .cs-home .ch-hero-tag,
 .cs-site .cs-home .ch-hero-pause {
   position: absolute;
   right: var(--ch-right);
@@ -128,22 +91,6 @@
   padding-block: var(--cs-section-y);
   overflow-x: clip;
   background: var(--cs-bg-2);
-}
-.cs-site .cs-home .ch-toggle {
-  display: inline-flex;
-  align-items: center;
-  align-self: flex-start;
-  min-height: 44px;
-  padding: 0 var(--cs-s4);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-pill);
-  color: var(--cs-fg);
-  white-space: nowrap;
-  cursor: pointer;
-}
-.cs-site .cs-home .ch-toggle[aria-pressed="true"] {
-  border-color: var(--cs-accent);
-  background: color-mix(in srgb, var(--cs-accent) 16%, transparent);
 }
 
 /* 서비스 설명(목록·캐러셀 패널 공용) */
@@ -207,201 +154,6 @@
   margin-top: var(--cs-s5);
 }
 
-/* 목록 모드 */
-.cs-site .cs-home .ch-list {
-  display: grid;
-}
-.cs-site .cs-home .ch-item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cs-s5);
-  padding-block: var(--cs-s7);
-}
-.cs-site .cs-home .ch-item:first-child {
-  padding-top: 0;
-}
-.cs-site .cs-home .ch-item:last-child {
-  padding-bottom: 0;
-}
-.cs-site .cs-home .ch-item + .ch-item {
-  border-top: 1px solid var(--cs-line);
-}
-.cs-site .cs-home .ch-item-media {
-  position: relative;
-  margin: 0;
-  aspect-ratio: 16 / 10;
-  overflow: clip;
-  border-radius: var(--cs-r-md);
-  background: var(--cs-surface);
-}
-.cs-site .cs-home .ch-media-tag {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 1;
-}
-.cs-site .cs-home .ch-img {
-  object-fit: cover;
-}
-.cs-site .cs-home .ch-focus-webtoon {
-  object-position: 25% 50%;
-}
-.cs-site .cs-home .ch-focus-animation {
-  object-position: 45% 50%;
-}
-.cs-site .cs-home .ch-focus-ai-influencer {
-  object-position: 55% 40%;
-}
-.cs-site .cs-home .ch-focus-motion-graphics {
-  object-position: 50% 50%;
-}
-.cs-site .cs-home .ch-focus-brand-film {
-  object-position: 45% 50%;
-}
-.cs-site .cs-home .ch-focus-ad {
-  object-position: 50% 50%;
-}
-
-/* 캐러셀 모드.
- * 무대에는 perspective만 두고 transform-style: preserve-3d는 쓰지 않는다. preserve-3d면 뒤로 물러난(translateZ < 0)
- * 옆 카드보다 z=0인 무대가 먼저 클릭을 받아 옆 카드를 눌러도 선택이 바뀌지 않는다(VERIFY_P34 P3-2).
- * 카드끼리의 앞뒤는 z-index가 정한다. */
-.cs-site .cs-home .ch-carousel {
-  position: relative;
-}
-.cs-site .cs-home .ch-stage {
-  position: relative;
-  height: var(--ch-stage-h);
-  perspective: 1300px;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.cs-site .cs-home .ch-stage::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(720px, 90vw);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--cs-accent) 26%, transparent),
-    color-mix(in srgb, var(--cs-accent) 0%, transparent)
-  );
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.cs-site .cs-home .ch-card {
-  position: absolute;
-  top: calc((var(--ch-stage-h) - var(--ch-card-h)) / 2);
-  left: 50%;
-  display: block;
-  width: var(--ch-card-w);
-  height: var(--ch-card-h);
-  overflow: clip;
-  border-radius: var(--cs-r-md);
-  background: var(--cs-surface);
-  color: var(--cs-fg);
-  cursor: pointer;
-  -webkit-user-drag: none;
-}
-.cs-site .cs-home .ch-card[data-pos="0"] {
-  z-index: 6;
-  opacity: 1;
-  transform: translateX(-50%) translateZ(0) rotateY(0deg) scale(1);
-}
-.cs-site .cs-home .ch-card[data-pos="1"] {
-  z-index: 5;
-  opacity: 0.8;
-  transform: translateX(calc(-50% + var(--ch-shift))) translateZ(var(--ch-z1))
-    rotateY(-38deg) scale(0.88);
-}
-.cs-site .cs-home .ch-card[data-pos="-1"] {
-  z-index: 5;
-  opacity: 0.8;
-  transform: translateX(calc(-50% - var(--ch-shift))) translateZ(var(--ch-z1))
-    rotateY(38deg) scale(0.88);
-}
-.cs-site .cs-home .ch-card[data-pos="2"] {
-  z-index: 4;
-  opacity: 0.5;
-  transform: translateX(calc(-50% + var(--ch-shift) * 1.85))
-    translateZ(var(--ch-z2)) rotateY(-38deg) scale(0.74);
-}
-.cs-site .cs-home .ch-card[data-pos="-2"] {
-  z-index: 4;
-  opacity: 0.5;
-  transform: translateX(calc(-50% - var(--ch-shift) * 1.85))
-    translateZ(var(--ch-z2)) rotateY(38deg) scale(0.74);
-}
-.cs-site .cs-home .ch-card[data-pos="off"] {
-  z-index: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateX(calc(-50% + var(--ch-shift) * 2.4))
-    translateZ(var(--ch-z2)) rotateY(-38deg) scale(0.6);
-}
-.cs-site .cs-home .ch-card-shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--cs-bg) 10%, transparent) 0%,
-    color-mix(in srgb, var(--cs-bg) 0%, transparent) 40%,
-    color-mix(in srgb, var(--cs-bg) 88%, transparent) 100%
-  );
-}
-.cs-site .cs-home .ch-card-top {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  left: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--cs-s2);
-}
-.cs-site .cs-home .ch-card-num {
-  color: var(--cs-fg);
-  font-variant-numeric: tabular-nums;
-}
-.cs-site .cs-home .ch-card-bottom {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s1);
-}
-.cs-site .cs-home .ch-card-title {
-  display: block;
-}
-
-.cs-site .cs-home .ch-controls {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-areas: "num tabs arrows";
-  align-items: center;
-  gap: var(--cs-s5);
-  margin-top: var(--cs-s6);
-}
-.cs-site .cs-home .ch-counter {
-  grid-area: num;
-  color: var(--cs-fg-3);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.cs-site .cs-home .ch-tabs {
-  grid-area: tabs;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cs-s2);
-}
 .cs-site .cs-home .ch-tab {
   display: inline-flex;
   align-items: center;
@@ -433,115 +185,11 @@
   color: var(--cs-fg);
   cursor: pointer;
 }
-/* 여섯 설명을 한 칸에 겹쳐 가장 긴 설명 높이로 고정한다 */
-.cs-site .cs-home .ch-panel {
-  display: grid;
-  margin-top: var(--cs-s7);
-}
-.cs-site .cs-home .ch-panel-item {
-  grid-area: 1 / 1;
-  min-width: 0;
-}
-.cs-site .cs-home .ch-panel-item:not([data-active]) {
-  visibility: hidden;
-}
-.cs-site .cs-home .ch-services-note {
-  margin-top: var(--cs-s7);
-  color: var(--cs-fg-3);
-}
 
 /* ------------------------------------------------------------ 제작 과정 */
 .cs-site .cs-home .ch-process {
   padding-block: var(--cs-section-y);
   background: var(--cs-bg);
-}
-.cs-site .cs-home .ch-process-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--cs-s6);
-}
-.cs-site .cs-home .ch-step-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cs-s2);
-}
-.cs-site .cs-home .ch-step-tab {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 var(--cs-s4);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-pill);
-  color: var(--cs-fg-2);
-  text-align: left;
-  white-space: nowrap;
-  cursor: pointer;
-}
-/* 번호(12px)와 라벨(14px)을 같은 글자 기준선에 둔다. 묶음 전체는 버튼 안에서 세로 가운데 */
-.cs-site .cs-home .ch-step-tab-inner {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--cs-s3);
-}
-.cs-site .cs-home .ch-step-tab-num {
-  color: var(--cs-fg-3);
-  font-variant-numeric: tabular-nums;
-}
-.cs-site .cs-home .ch-step-tab[aria-selected="true"] {
-  border-color: var(--cs-fg);
-  color: var(--cs-fg);
-}
-.cs-site .cs-home .ch-step-tab[aria-selected="true"] .ch-step-tab-num {
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-home .ch-step-panel {
-  padding: clamp(24px, 4vw, 48px);
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-lg);
-  background: var(--cs-surface);
-}
-/* 네 단계 내용을 한 칸에 겹쳐 가장 긴 단계 높이로 고정한다(탭을 바꿔도 아래가 움직이지 않는다) */
-.cs-site .cs-home .ch-step-stack {
-  display: grid;
-}
-.cs-site .cs-home .ch-step-content {
-  grid-area: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-  max-width: 40em;
-}
-.cs-site .cs-home .ch-step-content.is-sizer {
-  visibility: hidden;
-  pointer-events: none;
-}
-.cs-site .cs-home .ch-step-num {
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-home .ch-step-title {
-  margin-top: var(--cs-s5);
-}
-.cs-site .cs-home .ch-step-body {
-  margin-top: var(--cs-s4);
-  color: var(--cs-fg-2);
-}
-.cs-site .cs-home .ch-step-output {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s1);
-  align-self: stretch;
-  margin: var(--cs-s6) 0 0;
-  padding: var(--cs-s3) var(--cs-s4);
-  border-radius: var(--cs-r-sm);
-  background: var(--cs-bg-2);
-}
-.cs-site .cs-home .ch-step-output .cs-t-label {
-  color: var(--cs-accent-text);
-}
-.cs-site .cs-home .ch-step-output .cs-t-body {
-  color: var(--cs-fg);
 }
 
 /* ------------------------------------------------------------------ 상담 띠 */
@@ -577,83 +225,15 @@
 }
 
 /* ------------------------------------------------------------- 반응형(배치만) */
-@media (min-width: 768px) {
-  .cs-site .cs-home .ch-item {
-    grid-template-columns: 220px minmax(0, 1fr);
-    column-gap: clamp(32px, 4vw, 64px);
-    align-items: start;
-  }
-  .cs-site .cs-home .ch-item-media {
-    aspect-ratio: 4 / 5;
-  }
-}
 @media (min-width: 1024px) {
-  .cs-site .cs-home .ch-item {
-    grid-template-columns: 280px minmax(0, 1fr);
-  }
-  .cs-site .cs-home .ch-process-layout {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--cs-grid-gap);
-    align-items: start;
-  }
-  .cs-site .cs-home .ch-step-tabs {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    border-top: 1px solid var(--cs-line);
-  }
-  .cs-site .cs-home .ch-step-tab {
-    width: 100%;
-    min-height: 72px;
-    padding: 0 var(--cs-s5);
-    border: 0;
-    border-bottom: 1px solid var(--cs-line);
-    border-radius: 0;
-  }
-  .cs-site .cs-home .ch-step-tab[aria-selected="true"] {
-    border-color: var(--cs-line);
-  }
-  .cs-site .cs-home .ch-step-tab[aria-selected="true"]::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: -1px;
-    left: 0;
-    width: 2px;
-    background: var(--cs-accent);
-  }
   .cs-site .cs-home .ch-cta-inner {
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
   }
 }
-@media (max-width: 1023px) {
-  .cs-site .cs-home {
-    --ch-stage-h: 500px;
-    --ch-card-w: 300px;
-    --ch-card-h: 410px;
-    --ch-shift: 320px;
-  }
-}
 @media (max-width: 767px) {
-  .cs-site .cs-home {
-    --ch-stage-h: 420px;
-    --ch-card-w: 248px;
-    --ch-card-h: 336px;
-    --ch-shift: 210px;
-    --ch-z1: -95px;
-    --ch-z2: -170px;
-  }
-  .cs-site .cs-home .ch-controls {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "tabs tabs"
-      "num arrows";
-    row-gap: var(--cs-s4);
-  }
-  /* 좁은 화면에서는 태그·영상 버튼을 오른쪽 위로 옮겨 문구·버튼과 겹치지 않게 한다 */
-  .cs-site .cs-home .ch-hero-tag,
+  /* 좁은 화면에서는 영상 버튼을 오른쪽 위로 옮겨 문구·버튼과 겹치지 않게 한다 */
   .cs-site .cs-home .ch-hero-pause {
     top: var(--cs-s4);
     bottom: auto;
@@ -662,14 +242,11 @@
 
 /* ------------------------------------------------------------- 마우스 올림 */
 @media (hover: hover) {
-  .cs-site .cs-home .ch-hero-ghost:hover,
   .cs-site .cs-home .ch-hero-pause:hover,
-  .cs-site .cs-home .ch-toggle:hover,
   .cs-site .cs-home .ch-arrow:hover {
     border-color: var(--cs-fg);
   }
-  .cs-site .cs-home .ch-tab:not([aria-selected="true"]):hover,
-  .cs-site .cs-home .ch-step-tab:not([aria-selected="true"]):hover {
+  .cs-site .cs-home .ch-tab:not([aria-selected="true"]):hover {
     color: var(--cs-fg);
   }
   .cs-site .cs-home .ch-cta-button:hover {
@@ -680,21 +257,11 @@
 
 /* ---------------------------------------------------------------- 움직임 */
 @media (prefers-reduced-motion: no-preference) {
-  .cs-site .cs-home .ch-card {
-    transition:
-      transform 0.6s cubic-bezier(0.22, 0.75, 0.23, 1),
-      opacity 0.4s var(--cs-ease);
-  }
-  .cs-site .cs-home .ch-card .ch-img {
-    transition: transform var(--cs-dur-3) var(--cs-ease);
-  }
   .cs-site .cs-home .ch-hero-video {
     transition: opacity var(--cs-dur-2) var(--cs-ease);
   }
-  .cs-site .cs-home .ch-toggle,
   .cs-site .cs-home .ch-tab,
   .cs-site .cs-home .ch-arrow,
-  .cs-site .cs-home .ch-step-tab,
   .cs-site .cs-home .ch-hero-pause,
   .cs-site .cs-home .ch-cta-button {
     transition:
@@ -703,67 +270,22 @@
       border-color var(--cs-dur-1) var(--cs-ease);
   }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .cs-site .cs-home .ch-card[data-pos="0"]:hover .ch-img {
-    transform: scale(1.03);
-  }
-}
-/* reduced-motion에서 캐러셀로 바꾸면: 가운데 카드만, 회전·Z 이동 없이 */
-@media (prefers-reduced-motion: reduce) {
-  .cs-site .cs-home .ch-card[data-pos] {
-    transform: translateX(-50%);
-  }
-  .cs-site .cs-home .ch-card:not([data-pos="0"]) {
-    display: none;
-  }
-}
 
-/* R2 work-led gallery and readable production rows */
+/* R2 work-led gallery */
 .cs-site .cs-home .ch-hero { min-height:650px; align-items:center; }
-.cs-site .cs-home .ch-hero-media { opacity:.42; }
-.cs-site .cs-home .ch-hero-services { max-width:40em; }
 .cs-site .cs-home .ch-services, .cs-site .cs-home .ch-process, .cs-site .cs-home .ch-cta { background:var(--cs-bg); border-top:1px solid var(--cs-line); }
 .cs-site .cs-home .ch-gallery-tabs { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px; }
-.cs-site .cs-home .ch-gallery-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:clamp(28px,5vw,72px); align-items:start; }
-.cs-site .cs-home .ch-work-card { min-width:0; position:relative; border:1px solid var(--cs-line); background:var(--cs-surface); border-radius:16px; overflow:hidden; }
-.cs-site .cs-home .ch-work-media { position:relative; aspect-ratio:4/3; background:var(--cs-surface); }
-.cs-site .cs-home .ch-work-media img { object-fit:contain; }
-.cs-site .cs-home .ch-work-media video { width:100%; height:100%; object-fit:contain; }
-.cs-site .cs-home .ch-work-nav { position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
-.cs-site .cs-home .ch-work-nav > span { background:var(--cs-bg); padding:8px 12px; border-radius:40px; }
-.cs-site .cs-home .ch-work-nav .ch-arrows { pointer-events:auto; }
-.cs-site .cs-home .ch-work-nav .ch-arrow { background:var(--cs-bg); width:44px; height:44px; }
-.cs-site .cs-home .ch-work-caption { padding:24px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
-.cs-site .cs-home .ch-work-caption > p { flex-basis:100%; }
-.cs-site .cs-home .ch-work-caption .cs-link { margin-left:auto; }
-.cs-site .cs-home .ch-gallery-layout .ch-detail { padding-block:8px; }
 .cs-site .cs-home .ch-svc-line { max-width:20em; }
 .cs-site .cs-home .ch-svc-body { max-width:32em; }
-.cs-site .cs-home .ch-process-rows { display:grid; border-top:1px solid var(--cs-line); }
-.cs-site .cs-home .ch-process-row { display:grid; grid-template-columns:40px minmax(0,1fr) minmax(0,1.2fr) 160px; gap:28px; padding-block:32px; border-bottom:1px solid var(--cs-line); align-items:start; }
-.cs-site .cs-home .ch-process-name, .cs-site .cs-home .ch-process-result { display:grid; gap:10px; }
-.cs-site .cs-home .ch-process-row > p { color:var(--cs-fg-2); }
-.cs-site .cs-home .ch-process-result { padding-left:24px; border-left:1px solid var(--cs-line); }
 .cs-site .cs-home .ch-cta .cs-t-eyebrow, .cs-site .cs-home .ch-cta .cs-t-h2, .cs-site .cs-home .ch-cta .cs-t-lead { color:var(--cs-fg); }
 .cs-site .cs-home .ch-cta-button { background:var(--cs-fg); color:var(--cs-bg); }
 @media(max-width:1023px) {
- .cs-site .cs-home .ch-gallery-layout { grid-template-columns:minmax(0,1fr); }
  .cs-site .cs-home .ch-detail { max-width:none; }
- .cs-site .cs-home .ch-process-row { grid-template-columns:30px minmax(0,1fr) minmax(0,1fr); gap:20px; }
- .cs-site .cs-home .ch-process-result { grid-column:2/-1; padding-left:0; border-left:0; }
 }
 @media(max-width:600px) {
  .cs-site .cs-home .ch-hero { min-height:590px; }
  .cs-site .cs-home .ch-gallery-tabs { gap:8px; }
  .cs-site .cs-home .ch-tab { padding-inline:12px; }
- .cs-site .cs-home .ch-work-media { aspect-ratio:4/5; }
- .cs-site .cs-home .ch-work-caption { padding:18px; }
- .cs-site .cs-home .ch-process-row { grid-template-columns:24px minmax(0,1fr); gap:16px; }
- .cs-site .cs-home .ch-process-row > p { grid-column:2; }
-}
-@media(prefers-reduced-motion:no-preference) {
- .cs-site .cs-home .ch-work-media { animation:cs-home-work-enter .22s ease-out; }
- @keyframes cs-home-work-enter { from { opacity:.6; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 }
 
 .cs-site .cs-home .ch-hero-lead { white-space:pre-line; }
@@ -792,34 +314,21 @@
 .cs-site .cs-home .ch-hero-comic p { margin-block:8px; }
 .cs-site .cs-home .ch-hero-comic .cs-t-caption { color:var(--cs-fg-3); }
 .cs-site .cs-home .ch-hero-formats { display:flex; flex-wrap:wrap; gap:0 28px; padding-block:28px; margin-top:32px; border-bottom:1px solid var(--cs-line); }
-.cs-site .cs-home .ch-hero-formats a { display:flex; gap:12px; padding-block:8px; color:var(--cs-fg-2); text-decoration:none; }
+.cs-site .cs-home .ch-hero-formats a { display:flex; align-items:center; gap:12px; min-height:44px; color:var(--cs-fg-2); text-decoration:none; }
 .cs-site .cs-home .ch-hero-formats a span { color:var(--cs-fg-3); }
 .cs-site .cs-home .ch-hero-showreel { position:relative; aspect-ratio:16/9; max-width:var(--cs-container); margin:auto; }
-.cs-site .cs-home .ch-gallery-layout { grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:clamp(32px,5vw,72px); align-items:center; }
-.cs-site .cs-home .ch-work-media { height:auto; min-height:0; aspect-ratio:auto; }
-.cs-site .cs-home .ch-work-media--wide { aspect-ratio:16/10; }
-.cs-site .cs-home .ch-work-media--portrait { height:500px; padding-top:56px; }
-.cs-site .cs-home .ch-work-media--portrait :where(video,img) { object-fit:contain; }
-.cs-site .cs-home .ch-work-media--comic { padding:64px 20px 20px; }
-.cs-site .cs-home .ch-comic-spread { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:start; }
-.cs-site .cs-home .ch-comic-spread img { position:static; width:100%; height:auto; display:block; }
-.cs-site .cs-home .ch-comic-spread:has(img:only-child) { grid-template-columns:minmax(0,1fr); max-width:350px; margin:auto; }
-.cs-site .cs-home .ch-work-caption { padding:20px; }
 .cs-site .cs-home .ch-detail { padding:0; }
 .cs-site .cs-home .ch-svc-line { margin-top:16px; color:var(--cs-fg-2); }
 .cs-site .cs-home .ch-price-block { margin-top:28px; }
 .cs-site .cs-home .ch-detail-link { margin-top:24px; }
 .cs-site .cs-home .ch-detail-more { margin-top:28px; border-top:1px solid var(--cs-line); padding-top:20px; }
-.cs-site .cs-home .ch-detail-more summary { cursor:pointer; display:flex; justify-content:space-between; gap:20px; list-style:none; color:var(--cs-fg-2); }
+.cs-site .cs-home .ch-detail-more summary { cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:44px; list-style:none; color:var(--cs-fg-2); }
 .cs-site .cs-home .ch-detail-more summary::-webkit-details-marker { display:none; }
 .cs-site .cs-home .ch-detail-more[open] summary { margin-bottom:20px; }
 .cs-site .cs-home .ch-detail-more[open] summary span { transform:rotate(45deg); }
 .cs-site .cs-home .ch-detail-more .ch-svc-body { margin-top:0; }
 @media(max-width:1023px) {
  .cs-site .cs-home .ch-hero-editorial { gap:28px; }
- .cs-site .cs-home .ch-gallery-layout { grid-template-columns:minmax(0,1fr) minmax(0,.8fr); gap:28px; }
- .cs-site .cs-home .ch-comic-spread { grid-template-columns:minmax(0,1fr); }
- .cs-site .cs-home .ch-comic-second { display:none; }
 }
 @media(max-width:767px) {
  .cs-site .cs-home .ch-hero { padding-top:24px; }
@@ -830,25 +339,27 @@
  .cs-site .cs-home .ch-hero-actions { margin-top:24px; }
  .cs-site .cs-home .ch-hero-comic { width:85%; }
  .cs-site .cs-home .ch-hero-formats { margin-top:24px; gap:0 20px; }
- .cs-site .cs-home .ch-gallery-layout { grid-template-columns:minmax(0,1fr); gap:28px; }
- .cs-site .cs-home .ch-work-media--wide { aspect-ratio:4/3; }
- .cs-site .cs-home .ch-work-media--portrait { height:460px; }
- .cs-site .cs-home .ch-work-media--comic { padding:60px 20px 20px; }
  .cs-site .cs-home .ch-detail-more { margin-top:24px; }
 }
 
-/* R4 content-only: reference-derived spatial carousel and working-material stages */
+/* R4→R5 content-only: reference-derived spatial carousel (dist/app.js updateCarousel) and working-material stages (processArt)
+ * 카드 거리별 값: X ±365px(태블릿 290, 모바일 212) · Z −170/−340(모바일 −95/−190) · rotateY ∓42deg · scale 1/.88/.72 · opacity 1/.85/.55 · blur 0/1/2.5px
+ * 보간: transform .65s cubic-bezier(.22,.75,.23,1), opacity·filter .5s (레퍼런스 style.css .service-card와 같은 값) */
 .cs-site .cs-home .ch-depth-stage { --ch-depth-w:540px; --ch-depth-shift:365px; --ch-depth-z:170px; position:relative; height:630px; perspective:1300px; perspective-origin:50% 48%; overflow:hidden; touch-action:pan-y; isolation:isolate; }
 .cs-site .cs-home .ch-depth-card { position:absolute; top:66px; left:50%; width:var(--ch-depth-w); margin-left:calc(var(--ch-depth-w) / -2); min-width:0; border:1px solid var(--cs-line); border-radius:16px; overflow:hidden; background:var(--cs-surface); transform:translateX(0) translateZ(0) rotateY(0) scale(1); backface-visibility:hidden; z-index:6; }
-.cs-site .cs-home .ch-depth-card[data-pos="-1"] { transform:translateX(calc(-1 * var(--ch-depth-shift))) translateZ(calc(-1 * var(--ch-depth-z))) rotateY(42deg) scale(.88); opacity:.78; z-index:5; }
-.cs-site .cs-home .ch-depth-card[data-pos="1"] { transform:translateX(var(--ch-depth-shift)) translateZ(calc(-1 * var(--ch-depth-z))) rotateY(-42deg) scale(.88); opacity:.78; z-index:5; }
-.cs-site .cs-home .ch-depth-card[data-pos="-2"] { transform:translateX(calc(-2 * var(--ch-depth-shift))) translateZ(calc(-2 * var(--ch-depth-z))) rotateY(42deg) scale(.72); opacity:.4; z-index:4; }
-.cs-site .cs-home .ch-depth-card[data-pos="2"] { transform:translateX(calc(2 * var(--ch-depth-shift))) translateZ(calc(-2 * var(--ch-depth-z))) rotateY(-42deg) scale(.72); opacity:.4; z-index:4; }
-.cs-site .cs-home .ch-depth-card[data-pos="3"],.cs-site .cs-home .ch-depth-card[data-pos="-3"] { transform:translateZ(-600px) scale(.5); opacity:0; pointer-events:none; z-index:0; }
-.cs-site .cs-home .ch-depth-media { position:relative; height:390px; background:var(--cs-bg); }
+.cs-site .cs-home .ch-depth-card[data-pos="-1"] { transform:translateX(calc(-1 * var(--ch-depth-shift))) translateZ(calc(-1 * var(--ch-depth-z))) rotateY(42deg) scale(.88); opacity:.85; filter:blur(1px); z-index:5; }
+.cs-site .cs-home .ch-depth-card[data-pos="1"] { transform:translateX(var(--ch-depth-shift)) translateZ(calc(-1 * var(--ch-depth-z))) rotateY(-42deg) scale(.88); opacity:.85; filter:blur(1px); z-index:5; }
+.cs-site .cs-home .ch-depth-card[data-pos="-2"] { transform:translateX(calc(-2 * var(--ch-depth-shift))) translateZ(calc(-2 * var(--ch-depth-z))) rotateY(42deg) scale(.72); opacity:.55; filter:blur(2.5px); z-index:4; }
+.cs-site .cs-home .ch-depth-card[data-pos="2"] { transform:translateX(calc(2 * var(--ch-depth-shift))) translateZ(calc(-2 * var(--ch-depth-z))) rotateY(-42deg) scale(.72); opacity:.55; filter:blur(2.5px); z-index:4; }
+/* 여섯 장 중 맞은편 한 장: 가운데 카드 뒤로 물러나 사라지고, 다음 차례에 뒤에서 옆으로 나온다(가로질러 지나가는 잔상 없음) */
+.cs-site .cs-home .ch-depth-card[data-pos="hidden"] { transform:translateZ(calc(-3.5 * var(--ch-depth-z))) scale(.5); opacity:0; filter:blur(4px); pointer-events:none; z-index:0; }
+.cs-site .cs-home .ch-depth-media { position:relative; height:390px; overflow:hidden; background:var(--cs-bg); }
 .cs-site .cs-home .ch-depth-media :where(img,video) { width:100%; height:100%; object-fit:contain; display:block; }
-.cs-site .cs-home .ch-depth-media--comic { padding:12px; }
-.cs-site .cs-home .ch-depth-comic { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; height:100%; }
+.cs-site .cs-home .ch-depth-media > video { position:absolute; inset:0; }
+/* 켄번스·드리프트 층: 이미지(fill)를 담는 절대 위치 상자 */
+.cs-site .cs-home .ch-kb { position:absolute; inset:0; }
+.cs-site .cs-home .ch-depth-media--comic .ch-kb { inset:12px; }
+.cs-site .cs-home .ch-depth-comic { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
 .cs-site .cs-home .ch-depth-comic:has(img:only-child) { grid-template-columns:minmax(0,1fr); }
 .cs-site .cs-home .ch-depth-caption { min-height:134px; padding:16px 20px; display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; }
 .cs-site .cs-home .ch-depth-caption > .cs-t-eyebrow { flex-basis:100%; color:var(--cs-accent-text); }
@@ -856,7 +367,10 @@
 .cs-site .cs-home .ch-depth-caption .cs-link { margin-left:auto; }
 .cs-site .cs-home .ch-depth-select { position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent; cursor:pointer; }
 .cs-site .cs-home .ch-depth-nav { position:absolute; z-index:10; inset:8px max(16px,calc(50% - 270px)) auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-.cs-site .cs-home .ch-depth-nav > span { background:var(--cs-surface); padding:8px 12px; border-radius:var(--cs-r-pill); }
+/* 번호와 자동 넘김 진행 막대(막대가 끝나면 다음 카드) */
+.cs-site .cs-home .ch-depth-count { display:inline-grid; gap:6px; min-width:84px; padding:8px 12px; border-radius:14px; background:var(--cs-surface); font-variant-numeric:tabular-nums; }
+.cs-site .cs-home .ch-autoplay-track { display:block; height:2px; overflow:hidden; border-radius:2px; background:color-mix(in srgb,var(--cs-fg) 18%,transparent); }
+.cs-site .cs-home .ch-autoplay-fill { display:block; height:100%; background:var(--cs-accent); transform:scaleX(0); transform-origin:left center; }
 .cs-site .cs-home .ch-depth-nav .ch-arrow { background:var(--cs-surface); width:44px; height:44px; }
 .cs-site .cs-home .ch-depth-detail { max-width:1000px; margin:0 auto; border-top:1px solid var(--cs-line); padding-top:32px; }
 .cs-site .cs-home .ch-depth-detail .ch-detail { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:12px 56px; max-width:none; }
@@ -866,6 +380,8 @@
 .cs-site .cs-home .ch-depth-detail .ch-price-block { grid-column:2; grid-row:1/3; margin:0; }
 .cs-site .cs-home .ch-depth-detail .ch-detail-link { grid-column:2; grid-row:3; margin:0; align-self:start; justify-self:start; }
 .cs-site .cs-home .ch-depth-detail .ch-detail-more { grid-column:1/-1; grid-row:4; margin-top:12px; }
+/* 히어로 연출 예시 이미지: 바깥 층 스크롤 패럴랙스, 안쪽 층 느린 드리프트 */
+.cs-site .cs-home .ch-hero-parallax, .cs-site .cs-home .ch-hero-drift { position:absolute; inset:0; }
 .cs-site .cs-home .ch-making { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:56px; align-items:start; }
 .cs-site .cs-home .ch-making-tabs { border-top:1px solid var(--cs-line); }
 .cs-site .cs-home .ch-making-tab { display:grid; grid-template-columns:32px minmax(0,1fr) 24px; gap:16px; width:100%; padding:24px 0; text-align:left; background:none; border:0; border-bottom:1px solid var(--cs-line); color:var(--cs-fg-2); cursor:pointer; }
@@ -888,14 +404,14 @@
 .cs-site .cs-home .ch-brief-note { position:absolute; z-index:2; right:4%; bottom:32px; padding:20px; background:var(--cs-bg); border:1px solid var(--cs-line); transform:rotate(7deg); color:var(--cs-accent-text); }
 .cs-site .cs-home .ch-storyboard { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; padding:24px; width:100%; }
 .cs-site .cs-home .ch-storyboard figure { margin:0; min-width:0; background:var(--cs-bg); border:1px solid var(--cs-line); transform-origin:center bottom; }
-.cs-site .cs-home .ch-storyboard figure > div { position:relative; height:156px; }
+.cs-site .cs-home .ch-storyboard figure > div { position:relative; height:156px; overflow:hidden; }
 .cs-site .cs-home .ch-storyboard img { object-fit:contain; }
 .cs-site .cs-home .ch-storyboard figcaption { padding:10px; color:var(--cs-fg-2); }
 .cs-site .cs-home .ch-production-screen { position:absolute; inset:24px 24px 108px; overflow:hidden; background:var(--cs-bg); }
 .cs-site .cs-home .ch-production-screen :where(video,img) { width:100%; height:100%; object-fit:contain; }
 .cs-site .cs-home .ch-production-track { position:absolute; left:24px; right:24px; bottom:28px; height:64px; background:var(--cs-bg); border:1px solid var(--cs-line); padding:8px; overflow:hidden; }
 .cs-site .cs-home .ch-track-clips { display:flex; gap:4px; height:23px; }
-.cs-site .cs-home .ch-track-clips span { flex:1; background:color-mix(in srgb,var(--cs-accent) 40%,var(--cs-surface)); }
+.cs-site .cs-home .ch-track-clips span { flex:1; background:color-mix(in srgb,var(--cs-accent) 40%,var(--cs-surface)); transform-origin:left center; }
 .cs-site .cs-home .ch-track-clips span:nth-child(2n) { flex:.65; background:color-mix(in srgb,var(--cs-fg) 25%,var(--cs-surface)); }
 .cs-site .cs-home .ch-track-wave { display:block; height:14px; margin-top:6px; background:repeating-linear-gradient(90deg,transparent 0 3px,var(--cs-fg-3) 3px 5px); opacity:.4; }
 .cs-site .cs-home .ch-track-head { position:absolute; top:0; left:0; width:2px; height:100%; background:var(--cs-fg); }
@@ -917,12 +433,13 @@
  .cs-site .cs-home .ch-depth-stage { --ch-depth-w:280px; --ch-depth-shift:212px; --ch-depth-z:95px; height:590px; perspective:900px; }
  .cs-site .cs-home .ch-depth-card { top:60px; }
  .cs-site .cs-home .ch-depth-media { height:320px; }
- .cs-site .cs-home .ch-depth-media--comic { padding:8px; }
+ .cs-site .cs-home .ch-depth-media--comic .ch-kb { inset:8px; }
  .cs-site .cs-home .ch-depth-comic { grid-template-columns:minmax(0,1fr); }
  .cs-site .cs-home .ch-depth-comic-second { display:none; }
  .cs-site .cs-home .ch-depth-caption { padding:14px; min-height:142px; gap:6px; }
  .cs-site .cs-home .ch-depth-caption .cs-link { margin-left:0; }
- .cs-site .cs-home .ch-depth-nav { inset-inline:max(4px,calc(50% - 140px)); }
+ .cs-site .cs-home .ch-depth-nav { inset-inline:max(4px,calc(50% - 140px)); gap:8px; }
+ .cs-site .cs-home .ch-depth-count { min-width:72px; }
  .cs-site .cs-home .ch-depth-detail { padding-top:24px; }
  .cs-site .cs-home .ch-depth-detail .ch-detail { grid-template-columns:minmax(0,1fr); gap:12px; }
  .cs-site .cs-home .ch-depth-detail .ch-detail > :is(.ch-detail-meta,.ch-svc-title,.ch-svc-line,.ch-price-block,.ch-detail-link,.ch-detail-more) { grid-column:1; grid-row:auto; }
@@ -940,27 +457,78 @@
  .cs-site .cs-home .ch-file-kind { width:44px; height:44px; }
 }
 @media(prefers-reduced-motion:no-preference) {
- .cs-site .cs-home .ch-depth-card { transition:transform .65s cubic-bezier(.22,.68,.2,1),opacity .5s ease; }
- .cs-site .cs-home .ch-brief-paper { animation:cs-brief-place .65s both; }
- .cs-site .cs-home .ch-brief-note { animation:cs-note-place .7s .1s both; }
- .cs-site .cs-home .ch-storyboard figure { animation:cs-board-place .65s both; }
- .cs-site .cs-home .ch-storyboard figure:nth-child(2) { animation-delay:.07s; }
- .cs-site .cs-home .ch-storyboard figure:nth-child(3) { animation-delay:.14s; }
- .cs-site .cs-home .ch-storyboard figure:nth-child(4) { animation-delay:.21s; }
- .cs-site .cs-home .ch-track-head { animation:cs-track-scan 5s linear infinite; }
+ /* 캐러셀 카드 보간과 맞은편 카드의 퇴장(제자리 흐려짐 뒤 뒤쪽으로 이동) */
+ .cs-site .cs-home .ch-depth-card { transition:transform .65s cubic-bezier(.22,.75,.23,1),opacity .5s ease,filter .5s ease; }
+ .cs-site .cs-home .ch-depth-card[data-pos="hidden"] { transition:transform .65s cubic-bezier(.22,.75,.23,1),opacity .3s ease,filter .3s ease; }
+ /* 자동 넘김 진행 막대: 이미지 카드 3.5초, 영상 카드 5.2초. 끝나면 animationend로 다음 카드 */
+ .cs-site .cs-home .ch-autoplay-fill { animation:cs-ch-autoplay 3.5s linear forwards; }
+ .cs-site .cs-home .ch-autoplay-fill[data-dwell="video"] { animation-duration:5.2s; }
+ .cs-site .cs-home .ch-gallery[data-autoplay="paused"] .ch-autoplay-fill { animation-play-state:paused; }
+ /* 선택 카드 작품: 영상이 없으면 느린 켄번스(웹툰은 세로로 읽어 내려가는 이동) */
+ .cs-site .cs-home .ch-depth-card[data-pos="0"] .ch-kb { animation:cs-ch-kb 7s ease-in-out infinite alternate; transform-origin:60% 40%; }
+ .cs-site .cs-home .ch-depth-card[data-pos="0"] .ch-depth-media--comic .ch-kb { animation-name:cs-ch-kb-read; transform-origin:50% 0; }
+ .cs-site .cs-home .ch-gallery[data-active="false"] .ch-kb { animation-play-state:paused; }
+ /* 히어로: 연출 예시 이미지 느린 드리프트, 웹툰 썸네일은 위에서 아래로 읽는 이동 */
+ .cs-site .cs-home .ch-hero-drift { animation:cs-ch-drift 16s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-hero-comic-image img { animation:cs-ch-comic-pan 12s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-hero-works[data-active="false"] :is(.ch-hero-drift,.ch-hero-comic-image img) { animation-play-state:paused; }
+ @supports (animation-timeline:scroll()) {
+  .cs-site .cs-home .ch-hero-parallax { animation:cs-ch-parallax linear both; animation-timeline:scroll(root block); animation-range:0 80vh; }
+ }
+ /* 제작 과정: 탭을 바꿀 때마다 장면이 다시 마운트되어 재료가 순서대로 들어온다 */
+ .cs-site .cs-home .ch-brief-paper { animation:cs-brief-place .65s both,cs-brief-float 6s .8s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-brief-paper dl > div { animation:cs-line-in .45s both; }
+ .cs-site .cs-home .ch-brief-paper dl > div:nth-child(1) { animation-delay:.35s; }
+ .cs-site .cs-home .ch-brief-paper dl > div:nth-child(2) { animation-delay:.47s; }
+ .cs-site .cs-home .ch-brief-paper dl > div:nth-child(3) { animation-delay:.59s; }
+ .cs-site .cs-home .ch-brief-note { animation:cs-note-place .7s .45s both,cs-note-float 5s 1.2s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-storyboard figure { animation:cs-board-place .65s both,cs-board-focus 4.8s ease-in-out infinite; animation-delay:0s,.9s; }
+ .cs-site .cs-home .ch-storyboard figure:nth-child(2) { animation-delay:.12s,2.1s; }
+ .cs-site .cs-home .ch-storyboard figure:nth-child(3) { animation-delay:.24s,3.3s; }
+ .cs-site .cs-home .ch-storyboard figure:nth-child(4) { animation-delay:.36s,4.5s; }
+ .cs-site .cs-home .ch-storyboard .ch-kb { animation:cs-ch-kb 6s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-production-screen { animation:cs-screen-in .6s both; }
+ .cs-site .cs-home .ch-production-screen .ch-kb { animation:cs-ch-kb 8s ease-in-out infinite alternate; }
+ .cs-site .cs-home .ch-production-track { animation:cs-track-in .5s .25s both; }
+ .cs-site .cs-home .ch-track-clips span { animation:cs-clip-grow .45s both; }
+ .cs-site .cs-home .ch-track-clips span:nth-child(1) { animation-delay:.45s; }
+ .cs-site .cs-home .ch-track-clips span:nth-child(2) { animation-delay:.55s; }
+ .cs-site .cs-home .ch-track-clips span:nth-child(3) { animation-delay:.65s; }
+ .cs-site .cs-home .ch-track-clips span:nth-child(4) { animation-delay:.75s; }
+ .cs-site .cs-home .ch-track-head { animation:cs-track-scan 5s .8s linear infinite both; }
+ .cs-site .cs-home .ch-delivery-files { animation:cs-files-sway 7s 1.2s ease-in-out infinite alternate; }
  .cs-site .cs-home .ch-delivery-file { animation:cs-file-place .65s both; }
- .cs-site .cs-home .ch-delivery-file[data-index="1"] { animation-delay:.1s; }
- .cs-site .cs-home .ch-delivery-file[data-index="2"] { animation-delay:.2s; }
- .cs-site .cs-home .ch-making[data-active="false"] :is(.ch-brief-paper,.ch-brief-note,.ch-storyboard figure,.ch-track-head,.ch-delivery-file) { animation-play-state:paused; }
+ .cs-site .cs-home .ch-delivery-file[data-index="1"] { animation-delay:.15s; }
+ .cs-site .cs-home .ch-delivery-file[data-index="2"] { animation-delay:.3s; }
+ .cs-site .cs-home .ch-file-ok { animation:cs-check-pop .4s .55s both; }
+ .cs-site .cs-home .ch-delivery-file[data-index="1"] .ch-file-ok { animation-delay:.7s; }
+ .cs-site .cs-home .ch-delivery-file[data-index="2"] .ch-file-ok { animation-delay:.85s; }
+ .cs-site .cs-home .ch-making[data-active="false"] .ch-making-art :is(.ch-brief-paper,.ch-brief-note,.ch-storyboard figure,.ch-kb,.ch-track-head,.ch-delivery-files) { animation-play-state:paused; }
+ /* 헤더 움직임 토글로 멈추면 진입 중간 상태에 멈추지 않도록 완성 장면을 그대로 보여준다 */
+ .cs-site .cs-home .ch-making[data-still="true"] .ch-making-art :is(*) { animation:none; }
+ @keyframes cs-ch-autoplay { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+ @keyframes cs-ch-kb { from { transform:scale(1) translate3d(0,0,0); } to { transform:scale(1.08) translate3d(-1.5%,-1%,0); } }
+ @keyframes cs-ch-kb-read { from { transform:scale(1.04) translate3d(0,1.5%,0); } to { transform:scale(1.1) translate3d(0,-3%,0); } }
+ @keyframes cs-ch-drift { from { transform:scale(1.05) translate3d(-1.2%,.6%,0); } to { transform:scale(1.1) translate3d(1.4%,-1%,0); } }
+ @keyframes cs-ch-comic-pan { from { object-position:50% 0; } to { object-position:50% 100%; } }
+ @keyframes cs-ch-parallax { from { transform:translate3d(0,0,0); } to { transform:translate3d(0,7%,0); } }
  @keyframes cs-brief-place { from { transform:translateY(44px) rotate(-16deg) scale(.9); } to { transform:translateY(0) rotate(-5deg) scale(1); } }
- @keyframes cs-note-place { from { transform:translate(38px,20px) rotate(18deg); } to { transform:translate(0,0) rotate(7deg); } }
+ @keyframes cs-brief-float { from { transform:translateY(0) rotate(-5deg); } to { transform:translateY(-8px) rotate(-3.5deg); } }
+ @keyframes cs-line-in { from { opacity:0; transform:translateX(-12px); } to { opacity:1; transform:translateX(0); } }
+ @keyframes cs-note-place { from { opacity:0; transform:translate(38px,20px) rotate(18deg); } to { opacity:1; transform:translate(0,0) rotate(7deg); } }
+ @keyframes cs-note-float { from { transform:translate(0,0) rotate(7deg); } to { transform:translate(-4px,-6px) rotate(4deg); } }
  @keyframes cs-board-place { from { transform:translateY(48px) rotateX(30deg); opacity:.3; } to { transform:translateY(0) rotateX(0); opacity:1; } }
+ @keyframes cs-board-focus { 0%, 34%, 100% { border-color:var(--cs-line); box-shadow:0 0 0 0 transparent; } 8%, 24% { border-color:var(--cs-accent); box-shadow:0 0 0 1px var(--cs-accent); } }
+ @keyframes cs-screen-in { from { opacity:0; transform:translateY(16px) scale(.94); } to { opacity:1; transform:translateY(0) scale(1); } }
+ @keyframes cs-track-in { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+ @keyframes cs-clip-grow { from { transform:scaleX(0); } to { transform:scaleX(1); } }
  @keyframes cs-track-scan { from { left:2%; } to { left:96%; } }
+ @keyframes cs-files-sway { from { transform:rotateY(-4deg) translateY(0); } to { transform:rotateY(4deg) translateY(-6px); } }
  @keyframes cs-file-place { from { transform:translateX(70px) rotateY(-28deg); opacity:.3; } to { transform:translateX(0) rotateY(0); opacity:1; } }
+ @keyframes cs-check-pop { 0% { opacity:0; transform:scale(0); } 70% { opacity:1; transform:scale(1.25); } 100% { opacity:1; transform:scale(1); } }
 }
+/* reduced-motion: 자동 넘김·루프 없음. 옆 카드는 숨기지 않고 정적 3D 배치 그대로 보이며 탭·화살표·스와이프로 넘긴다 */
 @media(prefers-reduced-motion:reduce) {
- .cs-site .cs-home .ch-depth-card:not([data-pos="0"]) { display:none; }
- .cs-site .cs-home .ch-depth-card[data-pos="0"] { transform:none; }
  .cs-site .cs-home :is(.ch-brief-paper,.ch-brief-note,.ch-delivery-file) { transform:none; }
  .cs-site .cs-home .ch-track-head { left:50%; }
 }

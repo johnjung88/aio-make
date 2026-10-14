@@ -26,8 +26,79 @@ export const contentHomeHero = {
   },
   videoPause: "영상 일시정지",
   videoPlay: "영상 재생",
+  /** 소재 슬롯 ID(ASSET_REQUEST_R5). 쇼릴이 오면 아래 video 한 줄만 채운다 */
+  reelSlot: "home-hero-reel",
   video: undefined as HeroVideo | undefined,
 };
+
+/* 홈 캐러셀 카드 소재 슬롯(R5 WP-H, ASSET_REQUEST_R5)
+ * - 슬롯 ID는 home-card-<서비스 slug>이다
+ * - poster는 지금 쓰는 AIO 생성 이미지다. 사용자가 Higgsfield 5초 영상을 주면 해당 카드의 video 한 줄만 채운다
+ *   예: video: "/content-examples/home-card-webtoon.mp4" (public/ 기준 절대경로, mp4 H.264 1MB 안팎)
+ * - video가 있으면 선택된 카드에서만 muted 루프로 재생하고 나머지 카드는 poster를 보여준다
+ * - video가 없으면 선택된 카드의 poster에 느린 켄번스를 준다
+ * - 검토판에서 실제 작업물이 선택되면 그 작업물이 우선이고 이 슬롯은 공개판 대체 소재다 */
+export type HomeMediaSlot = {
+  slotId: `home-card-${ContentServiceId}`;
+  poster: string;
+  video: string | undefined;
+  tag: string;
+};
+
+export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
+  webtoon: {
+    slotId: "home-card-webtoon",
+    poster: "/webtoon-v11/cut-01.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.ownWebtoon,
+  },
+  animation: {
+    slotId: "home-card-animation",
+    poster: "/creative-v06/video-animation.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.staged,
+  },
+  "ai-influencer": {
+    slotId: "home-card-ai-influencer",
+    poster: "/creative-v06/video-ai-influencer.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.aiPerson,
+  },
+  "motion-graphics": {
+    slotId: "home-card-motion-graphics",
+    poster: "/renewal/video.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.staged,
+  },
+  "brand-film": {
+    slotId: "home-card-brand-film",
+    poster: "/creative-v06/video-brand-film.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.staged,
+  },
+  ad: {
+    slotId: "home-card-ad",
+    poster: "/creative-v06/video-sns-ad.webp",
+    video: undefined,
+    tag: MEDIA_TAGS.staged,
+  },
+};
+
+/* 캐러셀 자동 넘김 값(레퍼런스 dist/app.js updateCarousel 관측값). CSS와 테스트가 같은 수치를 쓴다 */
+export const homeCarouselMotion = {
+  /** 이미지 카드가 머무는 시간 */
+  dwellMs: 3500,
+  /** 영상 카드는 5초 루프를 한 번 다 보여준다 */
+  videoDwellMs: 5200,
+  transitionMs: 650,
+  shiftDesktop: 365,
+  shiftMobile: 212,
+  depthDesktop: 170,
+  depthMobile: 95,
+  rotateDeg: 42,
+  scale: [1, 0.88, 0.72],
+  opacity: [1, 0.85, 0.55],
+} as const;
 
 export type ContentHomeService = {
   id: ContentServiceId;
@@ -132,6 +203,8 @@ export const contentHomeServicesHead = {
   prev: "이전 서비스",
   next: "다음 서비스",
   detailLink: "서비스 자세히 보기",
+  autoplayPause: "자동 넘김 멈춤",
+  autoplayPlay: "자동 넘김 재생",
   note: "이미지는 서비스 분위기를 보여주는 연출 예시입니다 대량 제작과 정기 제작은 따로 견적을 드립니다",
 };
 
@@ -167,7 +240,7 @@ export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "제작",
     title: "확정한 기획대로 만듭니다",
-    body: "AI로 만든 초안을 담당자가 직접 다듬어 최종안을 전달하고 한 번의 수정으로 마무리합니다",
+    body: "AI로 만든 초안을 담당자가 직접 다듬어 최종안을 전달하고 한 번 수정해 마무리합니다",
     output: "최종안",
   },
   {

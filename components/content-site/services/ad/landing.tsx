@@ -1,15 +1,62 @@
 import type { ServiceModule, ServiceSectionProps } from "../../module";
-import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { MEDIA_TAGS, CONTENT_SITE_ASSETS } from "@/lib/content-site/types";
+import { MEDIA_TAGS, type CsWorkCard } from "@/lib/content-site/types";
+import { getExampleMedia, type ExampleSlot } from "@/lib/content-site/example-media";
+import { adSignature } from "@/lib/content-site/services/ad";
+import { brandFilmSignature } from "@/lib/content-site/services/brand-film";
 import { ServiceHero, FeaturedWork, ProductionNotes } from "../service-hero";
 import { WorkSequence } from "../work-sequence";
 import "./ad.css";
-import { AdReel } from "./ad-reel";
+import { AdRail, type CenterMedia, type RailCard } from "./ad-reel";
+
+/** 레일 3열 × 4칸. m = 소재 카드, t = 문구 카드(adSignature 화면 문구) */
+const LAYOUT = [["m", "t", "m", "m"], ["m", "m", "m", "t"], ["t", "m", "m", "m"]] as const;
+
+function railColumns(media: RailCard[], type: RailCard[]): RailCard[][] {
+  let m = 0, t = 0;
+  return LAYOUT.map(column => column.map(kind => kind === "t" ? type[t++ % type.length] : media[m++ % media.length]));
+}
+
+/** 슬롯 구도(focus: [x, y] 퍼센트 또는 CSS 문자열) → object-position 값 */
+function position(focus: unknown): string | undefined {
+  if (typeof focus === "string") return focus;
+  if (Array.isArray(focus) && focus.length === 2) return `${focus[0]}% ${focus[1]}%`;
+  return undefined;
+}
+
+const fromSlot = (slot: ExampleSlot): RailCard => slot.kind === "video"
+  ? { kind: "video", src: slot.src, poster: slot.poster, focus: position(slot.focus) }
+  : { kind: "image", src: slot.src, width: slot.width, height: slot.height, focus: position(slot.focus) };
+
+/** 검토판 레일: 서버가 고른 SNS 광고 작업물의 실제 발췌 장면과 포스터만 쓴다(연출 예시와 섞지 않는다) */
+function reviewCards(works: CsWorkCard[] | undefined, featured: CsWorkCard): RailCard[] {
+  const cards: RailCard[] = [1, 2, 3].map(n => ({ kind: "image", src: `/reference-review/r3-scenes/${featured.slug}/scene-${n}.webp`, width: 900, height: 1600 }));
+  for (const work of works ?? []) {
+    const media = work.media[0];
+    if (!media) continue;
+    const src = media.kind === "video" ? media.poster : media.src;
+    if (src) cards.push({ kind: "image", src, width: media.width ?? 900, height: media.height ?? 1600 });
+  }
+  return cards;
+}
+
+/** 공개판 가운데 9:16 화면: 슬롯 ad-center-1(교체는 example-media.ts 한 줄) */
+function centerExample(): CenterMedia | undefined {
+  const slot = getExampleMedia("ad").find(item => item.id === "ad-center-1");
+  if (!slot) return undefined;
+  return { kind: slot.kind, src: slot.src, poster: slot.poster, alt: slot.alt, tag: slot.label, width: slot.width, height: slot.height, focus: position(slot.focus) };
+}
 
 function Hero({ data, works }: ServiceSectionProps) {
   const work = works?.find(item=>item.slug === "bwl-aqua-ad");
-  return <ServiceHero data={data} media={<AdReel enabled={Boolean(work)}><FeaturedWork work={work} fallback={<CsMedia ratio="2x3" src={CONTENT_SITE_ASSETS.brand.src} alt="향수 제품 이미지 연출 예시" tag={MEDIA_TAGS.staged} sizes="(max-width:767px) 90vw, 50vw" priority/>}/></AdReel>}/>;
+  const examples = getExampleMedia("ad", "rail");
+  const media = work ? reviewCards(works, work) : examples.map(fromSlot);
+  const type: RailCard[] = adSignature.hook.frames.map(frame => ({ kind: "type", text: frame.screen }));
+  /* 공개판 레일 표기: AI 인물 소재가 섞이면 'AI 가상인물 · 연출 예시' */
+  const tag = work ? undefined : examples.some(slot => slot.label === MEDIA_TAGS.aiPerson) ? MEDIA_TAGS.aiPerson : MEDIA_TAGS.staged;
+  return <ServiceHero data={data} media={<AdRail columns={railColumns(media, type)} center={work ? undefined : centerExample()} tag={tag} labels={{ pause: brandFilmSignature.hero.pause, play: brandFilmSignature.hero.play }}>
+    {work ? <FeaturedWork work={work} fallback={null}/> : null}
+  </AdRail>}/>;
 }
 function Signature({ works }: ServiceSectionProps) {
   const work = works?.find(item=>item.slug === "bwl-aqua-ad");

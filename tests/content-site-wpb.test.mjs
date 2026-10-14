@@ -42,7 +42,9 @@ test("B-1. R2 4계정 자산: 기존 87언니 5개 보존·새 파생본 매니�
 });
 
 test("B-2. R2 계정 카드·피드: 확인된 4계정·AI 표기·허구 성과 없음", () => {
+  // R5: 계정 카드·피드는 client 섬(creator-experience.tsx)이 렌더한다. 랜딩은 섹션과 표기 문구만 둔다
   const landing = read(`${AI}/landing.tsx`);
+  const island = read(`${AI}/creator-experience.tsx`);
   assert.deepEqual(creatorRoster.map(c=>c.name).sort(), ["기록하는87", "옆집엄마", "그레이스의정원", "쌀만드는아저씨"].sort());
   assert.equal(new Set(creatorRoster.map(c=>c.id)).size, 4);
   for (const creator of creatorRoster) {
@@ -50,11 +52,14 @@ test("B-2. R2 계정 카드·피드: 확인된 4계정·AI 표기·허구 성과
     assert.equal(creator.images.length, 3);
     assert.doesNotMatch(JSON.stringify(creator), /팔로워|조회수|좋아요|게시물 \d|성과|구독자/);
   }
-  const media = landing.match(/<CsMedia\b[\s\S]*?\/>/g) ?? [];
-  assert.ok(media.length >= 2);
-  for (const block of media) assert.match(block, /alt=\{`[^`]*AI 가상인물`\}/, block);
-  assert.match(landing, /className="cs-svc-ai-influencer-label cs-t-caption">AI 가상인물/);
-  assert.match(landing, /className="cs-svc-ai-influencer-feed"/);
+  // 인물 이미지의 대체 문구는 모두 'AI 가상인물'로 끝난다(장식 썸네일 alt=""만 예외)
+  const images = island.match(/<Image\b[\s\S]*?\/>/g) ?? [];
+  assert.ok(images.length >= 3);
+  for (const block of images)
+    if (!/alt=""/.test(block)) assert.match(block, /alt=\{`[^`]*AI 가상인물`\}/, block);
+  assert.match(island, /<span className="cs-t-caption">AI 가상인물<\/span>/);
+  assert.match(island, /AI 가상인물 · 계정 소개/);
+  assert.match(island, /자체 IP · AI 가상인물 4명/);
   assert.match(landing, /자체 IP 계정 소개 · 피드 구성 예시/);
   const sig = aiInfluencerSignature;
   for (const alt of [sig.persona.alt, ...sig.sheet.views.map((v) => v.alt)])
@@ -70,18 +75,21 @@ test("B-2. R2 계정 카드·피드: 확인된 4계정·AI 표기·허구 성과
   assert.deepEqual(notes, ["계정 게시·운영 및 대량 제작은 별도 견적"]);
   const flat = JSON.stringify({ ...ai, signature: undefined });
   assert.doesNotMatch(flat, /계정 (게시|운영)|게시와 운영|게시·운영/);
-  // 인물별 앵커에서 해당 계정 소개로 이동한다
-  assert.match(landing, /href=\{`#creator-\$\{creator\.id\}`\}/);
-  assert.match(landing, /id=\{`creator-\$\{creator\.id\}`\}/);
+  assert.doesNotMatch(island, /팔로워|조회수|좋아요|성과|구독자|운영 중|게시 중/);
+  // 히어로 덱의 링크가 계정 소개 섹션으로 이어지고, 계정마다 탭 패널 id가 있다
+  assert.match(island, /href="#sheet"/);
+  assert.match(island, /id=\{`creator-\$\{creator\.id\}`\}/);
   assert.match(landing, /id="sheet"/);
 });
 
 test("B-3. 두 랜딩은 서버 렌더 경계를 유지한다", () => {
   for (const dir of [AI, MG]) {
     const files = readdirSync(dir).filter((f) => f.endsWith(".tsx"));
-    for (const f of files)
-      assert.doesNotMatch(read(`${dir}/${f}`), /^\s*["']use client["']/, `${dir}/${f}`);
+    // R5: AI 인플루언서는 고유 client 섬 1개(creator-experience.tsx)만 허용. 모션그래픽도 live 구성 1개(type-composition.tsx, WP-S1)
+    const clients = files.filter((f) => /^\s*["']use client["']/.test(read(`${dir}/${f}`)));
+    assert.deepEqual(clients, dir === AI ? ["creator-experience.tsx"] : ["type-composition.tsx"], dir);
     const landing = read(`${dir}/landing.tsx`);
+    assert.doesNotMatch(landing, /^\s*["']use client["']/, `${dir}/landing.tsx`);
     assert.match(landing, /<ServiceHero\b/);
     assert.equal((landing.match(/\bpriority\b/g) ?? []).length <= 1, true, `${dir} priority <= 1`);
     for (const m of landing.matchAll(/data-cs-section="(\w+)"/g))
@@ -89,10 +97,26 @@ test("B-3. 두 랜딩은 서버 렌더 경계를 유지한다", () => {
   }
 });
 
-test("B-4. 모션그래픽 작품은 자동재생이나 무한 루프를 강제하지 않는다", () => {
- const css = read(`${MG}/motion-graphics.css`).replace(/\/\*[\s\S]*?\*\//g, "");
- assert.doesNotMatch(css, /animation\s*:|animation-name|@keyframes/);
- assert.doesNotMatch(read(`${MG}/landing.tsx`), /autoPlay|setInterval/);
+test("B-4. R5 모션그래픽: 도형 루프·글자 반복 스태거·배치 전환이 함께 움직이고 화면 밖에서 멈춘다", () => {
+  const css = read(`${MG}/motion-graphics.css`).replace(/\/\*[\s\S]*?\*\//g, "");
+  // 롱핸드만(움직임 토글 play-state 유지), 도형마다 다른 주기·지연
+  assert.doesNotMatch(css, /(?:^|[;\s{])animation\s*:/);
+  for (const name of ["drift", "spin", "tumble", "stretch", "bounce", "letter-a", "letter-b", "letter-c"])
+    assert.match(css, new RegExp(`@keyframes cs-svc-motion-graphics-${name}\\b`), name);
+  assert.match(css, /animation-delay: calc\(var\(--w\) \* 220ms \+ var\(--l\) \* 70ms\)/);
+  // 배치가 바뀌면 글자 애니메이션 이름이 바뀌어 진입이 다시 시작되고, 도형·글자는 같은 배치 변수(--tx·--ty·--ts)로 함께 옮겨진다
+  for (const mode of [1, 2]) {
+    assert.match(css, new RegExp(`\\[data-type-mode="${mode}"\\] \\.cs-svc-motion-graphics-live-letter \\{ animation-name: cs-svc-motion-graphics-letter-`));
+    assert.match(css, new RegExp(`\\[data-type-mode="${mode}"\\] \\[data-shape="ring"\\] \\{ --tx`));
+    assert.match(css, new RegExp(`\\[data-type-mode="${mode}"\\] \\[data-word="1"\\] \\{ --tx`));
+  }
+  assert.match(css, /transition: left 900ms[^;]*scale 900ms/);
+  const ui = read(`${MG}/type-composition.tsx`);
+  assert.match(ui, /useInViewPlay\(stage, \{[^}]*pauseOnInteract: true/);
+  assert.match(ui, /useAutoCycle\(MODES\.length/);
+  assert.match(ui, /aria-pressed=\{mode===index\}/);
+  // 작품 영상 자동재생은 강제하지 않는다
+  assert.doesNotMatch(read(`${MG}/landing.tsx`), /autoPlay|setInterval/);
 });
 
 test("B-5. 모션그래픽 단순형과 맞춤형의 제작 범위 데이터 유지", () => {

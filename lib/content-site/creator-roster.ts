@@ -1,9 +1,11 @@
 /** MCN 현행 계정 AGENTS와 채택 자산 근거 / 사용자 확정 범위: 4계정
  * 피드는 기존 기준 이미지로 편집한 구성 예시이며 게시물이나 성과를 주장하지 않음
+ * cardSlot: 히어로 회전 카드의 연출 예시 슬롯(lib/content-site/example-media.ts). 영상 슬롯이거나 파일명에 계정 id가 든
+ * 이미지 슬롯이면 portrait를 대신한다(R5 WP-S2). 슬롯이 없으면 portrait를 쓴다
  */
 export const creatorRoster = [
   {
-    id:"unnie87", name:"기록하는87", category:"뷰티 · 자기관리",
+    id:"unnie87", cardSlot:"ai-card-1", name:"기록하는87", category:"뷰티 · 자기관리",
     line:"나를 돌보는 일상을 기록하는 87언니",
     bio:"뷰티와 자기관리를 영상일기처럼 풀어내는 AI 가상인물",
     direction:"컨텐츠 주제 · 뷰티 루틴과 일상 속 제품 장면",
@@ -16,7 +18,7 @@ export const creatorRoster = [
     ],
   },
   {
-    id:"yeopjip", name:"옆집엄마", category:"리빙 · 라이프스타일",
+    id:"yeopjip", cardSlot:"ai-card-2", name:"옆집엄마", category:"리빙 · 라이프스타일",
     line:"첫 집을 채워가는 신혼의 작은 순간들",
     bio:"퇴근 후 루틴과 주말의 일상을 담는 새댁 콘셉트의 AI 가상인물",
     direction:"컨텐츠 주제 · 신혼 생활과 집 안의 루틴",
@@ -29,7 +31,7 @@ export const creatorRoster = [
     ],
   },
   {
-    id:"grace", name:"그레이스의정원", category:"시니어 · 라이프스타일",
+    id:"grace", cardSlot:"ai-card-3", name:"그레이스의정원", category:"시니어 · 라이프스타일",
     line:"나를 위해 보내는 60대의 새로운 일상",
     bio:"은발의 단정한 스타일과 다정한 말투를 가진 AI 가상인물",
     direction:"컨텐츠 주제 · 일상의 취향과 시니어 스타일",
@@ -42,7 +44,7 @@ export const creatorRoster = [
     ],
   },
   {
-    id:"ssal", name:"쌀만드는아저씨", category:"농업 · 귀농 라이프스타일",
+    id:"ssal", cardSlot:"ai-card-4", name:"쌀만드는아저씨", category:"농업 · 귀농 라이프스타일",
     line:"은퇴 후 고향에서 시작하는 쌀농사 이야기",
     bio:"농사와 시골 생활을 전하는 60대 남성 콘셉트의 AI 가상인물",
     direction:"컨텐츠 주제 · 쌀농사와 계절에 따른 귀농 생활",

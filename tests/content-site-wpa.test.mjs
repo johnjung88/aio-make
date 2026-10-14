@@ -9,6 +9,8 @@ import { contentLandings } from "../lib/content-site/index.ts";
 import { webtoonSignature } from "../lib/content-site/services/webtoon.ts";
 import { animationSignature } from "../lib/content-site/services/animation.ts";
 import { formatWon, pricingPlans } from "../lib/content-pricing.ts";
+import { getExampleMedia, getSlot } from "../lib/content-site/example-media.ts";
+import { MEDIA_TAGS } from "../lib/content-site/types.ts";
 
 const read = (path) => readFileSync(path, "utf8");
 const code = (path) =>
@@ -41,31 +43,45 @@ test("A-1. 웹툰 가격: 함께 제작 합계 = 웹툰 제작 + 모션코믹(PR
     assert.doesNotMatch(JSON.stringify(contentLandings[id]), /\d+(\.\d)?만 원(?!부터)/, id);
 });
 
-test("A-2. 웹툰 리더: 《1억의 구단주》 cut-01..12, 첫 컷은 표지와 같은 sizes, 스크롤 영역 접근성", () => {
+test("A-2. 웹툰 리더: 《1억의 구단주》 cut-01..12 슬롯, 표지·펼침·리더 같은 sizes, 3D 넘김 리더 접근성", () => {
   for (let i = 1; i <= 12; i++)
     assert.ok(
       existsSync(join("public", "webtoon-v11", `cut-${String(i).padStart(2, "0")}.webp`)),
       `cut ${i}`,
     );
+  // R5: 컷 경로·설명은 example-media 슬롯 webtoon-cut-1..12 한 곳(교체는 한 줄)
+  const cuts = getExampleMedia("webtoon", "cut");
+  assert.deepEqual(cuts.map((c) => c.id), Array.from({ length: 12 }, (_, i) => `webtoon-cut-${i + 1}`));
+  assert.deepEqual(cuts.map((c) => c.src), Array.from({ length: 12 }, (_, i) => `/webtoon-v11/cut-${String(i + 1).padStart(2, "0")}.webp`));
+  assert.equal(new Set(cuts.map((c) => c.alt)).size, 12);
+  for (const cut of cuts) assert.equal(cut.label, MEDIA_TAGS.ownWebtoon, cut.id);
   const landing = read(`${WT}/landing.tsx`);
-  // 장면 설명 12개(alt), 중복 없음
-  const scenes = landing.match(/const CUTS = \[([\s\S]*?)\]\.map/)?.[1] ?? "";
-  const alts = [...scenes.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
-  assert.equal(alts.length, 12);
-  assert.equal(new Set(alts).size, 12);
-  assert.match(landing, /\/webtoon-v11\/cut-\$\{String\(i \+ 1\)\.padStart\(2, "0"\)\}\.webp/);
-  // 표지와 리더가 같은 sizes 상수를 쓴다(같은 /_next/image 주소)
-  assert.equal((landing.match(/sizes=\{CUT_SIZES\}/g) ?? []).length, 2);
-  // #reader 섹션 + 키보드로 스크롤되는 영역
+  assert.match(landing, /getExampleMedia\("webtoon", "cut"\)/);
+  // 표지·펼침·리더가 같은 sizes 상수를 쓴다(같은 /_next/image 주소)
+  assert.equal((landing.match(/sizes=\{CUT_SIZES\}/g) ?? []).length, 3);
   assert.match(landing, /id="reader"/);
-  assert.match(landing, /href="#reader"/);
-  assert.match(landing, /role="region"/);
-  assert.match(landing, /tabIndex=\{0\}/);
-  assert.match(landing, /aria-label=\{r\.label\}/);
-  assert.match(landing, /loading="lazy"/);
-  // 히어로 표지만 priority
-  assert.equal((landing.match(/\bpriority\b/g) ?? []).length, 1);
-  assert.equal(webtoonSignature.reader.label, "1억의 구단주 12컷 세로 보기");
+  assert.match(landing, /label=\{r\.label\}/);
+  assert.equal(webtoonSignature.reader.label, "1억의 구단주 12컷 넘겨 보기");
+  // 리더: 키보드 영역 · 버튼 · 스와이프(pan-y) · 3D 넘김(책등 기준 rotateY) · 전체 이어 읽기
+  const ui = read(`${WT}/webtoon-experience.tsx`);
+  assert.match(ui, /role="region"/);
+  assert.match(ui, /tabIndex=\{0\}/);
+  assert.match(ui, /aria-label="이전 컷"/);
+  assert.match(ui, /aria-label="다음 컷"/);
+  assert.match(ui, /onTouchStart/);
+  assert.match(ui, /aria-live="polite"/);
+  assert.match(ui, /<details/);
+  assert.match(ui, /href="#reader"/);
+  assert.match(ui, /loading="lazy"/);
+  const css = code(`${WT}/webtoon.css`);
+  assert.match(css, /\.cs-svc-webtoon-book-stage \{[^}]*perspective:[^}]*touch-action: pan-y/);
+  assert.match(css, /\.cs-svc-webtoon-page \{[^}]*transform-origin: left center/);
+  assert.match(css, /\[data-state="flipped"\] \{ transform: rotateY\(-180deg\); \}/);
+  assert.match(css, /backface-visibility: hidden/);
+  assert.match(css, /@keyframes cs-svc-webtoon-sweep/);
+  // 히어로 표지 첫 컷만 priority
+  assert.equal((read(`${WT}/webtoon-experience.tsx`).match(/\bpriority=/g) ?? []).length, 1);
+  assert.doesNotMatch(landing, /\bpriority\b/);
 });
 
 test("A-3. 웹툰 모션코믹 영상: 소개 영상 · poster · controls · preload none · 태그", () => {
@@ -86,8 +102,8 @@ test("A-3. 웹툰 모션코믹 영상: 소개 영상 · poster · controls · pr
   assert.match(video, /tag=\{MEDIA_TAGS\.ownWebtoonVideo\}/);
   assert.doesNotMatch(video, /\bautoplay\b/);
   assert.match(landing, /<figcaption/);
-  // 표지·리더 태그는 자체 웹툰 표기
-  assert.equal((landing.match(/MEDIA_TAGS\.ownWebtoon\b/g) ?? []).length, 2);
+  // 표지·펼침·리더 태그는 자체 웹툰 표기(R5 펼침 구간 추가)
+  assert.equal((landing.match(/MEDIA_TAGS\.ownWebtoon\b/g) ?? []).length, 3);
 });
 
 test("A-4. 두 랜딩은 서버에서 작품을 렌더하고 기존 client 경계를 유지한다", () => {
@@ -103,8 +119,10 @@ test("A-4. 두 랜딩은 서버에서 작품을 렌더하고 기존 client 경�
     readdirSync(dir)
       .filter((f) => f.endsWith(".tsx"))
       .filter((f) => /^\s*["']use client["']/.test(read(join(dir, f))));
-  assert.deepEqual(clientFiles(WT), []);
-  assert.deepEqual(clientFiles(AN), ["before-motion.tsx"]);
+  // R5: 웹툰 client 섬은 webtoon-experience.tsx 하나, 애니메이션은 공용 scene-sequence를 쓰고 쓰이지 않던 before-motion.tsx는 지웠다
+  assert.deepEqual(clientFiles(WT), ["webtoon-experience.tsx"]);
+  assert.deepEqual(clientFiles(AN), []);
+  assert.equal(existsSync(`${AN}/before-motion.tsx`), false);
 });
 
 test("A-5. 애니메이션은 캐릭터·장면·움직임의 제작 범위를 유지한다", () => {
@@ -114,25 +132,32 @@ test("A-5. 애니메이션은 캐릭터·장면·움직임의 제작 범위를 �
   assert.doesNotMatch(landing, /from ["'][^"']*before-motion|role="tablist"|hidden=/);
 });
 
-test("A-6. 애니메이션 공개 fallback 자산과 연출 예시 표기를 유지한다", () => {
-  const landing = read(`${AN}/landing.tsx`);
-  for (const src of ["/creative-v06/video-animation.webp", "/renewal/animation-sample.webp"]) {
-    assert.ok(existsSync(join("public", src)), src);
-  }
-  assert.ok(existsSync("public/content-site/animation.webp"));
-  const media = landing.match(/<CsMedia\b[\s\S]*?\/>/g) ?? [];
-  assert.ok(media.length >= 1);
-  for (const m of media) assert.match(m, /tag=\{MEDIA_TAGS\.staged\}/);
-  for (const block of media) assert.match(block, /sizes="[^"\n]*vw/);
+test("A-6. 애니메이션 공개판: 연출 예시 슬롯으로 히어로와 3장면 전환을 채운다", () => {
+  const landing = code(`${AN}/landing.tsx`);
+  assert.match(landing, /getSlot\("animation-hero-1"\)/);
+  assert.match(landing, /<WorkSequence[^>]*service="animation"/);
   assert.equal((landing.match(/\bpriority\b/g) ?? []).length, 1);
-  // 장면 파생본의 출처/선명도 및 공개 fallback은 실제 렌더 검증 대상
+  const scenes = getExampleMedia("animation", "scene");
+  assert.deepEqual(scenes.map((s) => s.id), ["animation-scene-1", "animation-scene-2", "animation-scene-3"]);
+  for (const slot of [...scenes, getSlot("animation-hero-1")]) {
+    assert.ok(existsSync(join("public", slot.src)), slot.src);
+    assert.equal(slot.label, MEDIA_TAGS.staged, slot.id);
+    assert.match(slot.alt, /연출 예시$/, slot.id);
+  }
+  for (const src of ["/creative-v06/video-animation.webp", "/renewal/animation-sample.webp"])
+    assert.ok(existsSync(join("public", src)), src);
 });
 
-test("A-7. R2 애니메이션·웹툰 장식: 무한 루프 없이 정지 구도를 제공한다", () => {
+test("A-7. R5 움직임: 루프는 no-preference 안에서만, 화면 밖 정지 계약을 쓴다", () => {
   for (const [dir, file] of [[AN,"animation.css"],[WT,"webtoon.css"]]) {
     const css = code(`${dir}/${file}`);
-    assert.doesNotMatch(css, /animation\s*:|animation-name|@keyframes/);
+    assert.match(css, /@keyframes cs-svc-/, file);
+    assert.doesNotMatch(css, /(?:^|[;\s{])animation\s*:/, `${file} shorthand`);
   }
+  // 웹툰 펼침은 sticky 고정 구간의 진행값, 리더는 화면 밖 data-play
+  const ui = read(`${WT}/webtoon-experience.tsx`);
+  assert.match(ui, /useMotionProgress\(track, undefined, \{ mode: "pin" \}\)/);
+  assert.match(ui, /useInViewPlay\(stage/);
   assert.doesNotMatch(code(`${AN}/landing.tsx`), /autoPlay|setInterval|keyframes\.css/);
 });
 

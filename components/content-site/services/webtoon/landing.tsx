@@ -1,37 +1,22 @@
-/* webtoon 서비스 모듈(WP-A, 서버 데이터 + React 읽기 인터랙션).
- * 히어로: 기울어진 《1억의 구단주》 표지 카드 / 고유 섹션: ① 12컷 스냅 리더와 전체 읽기 ② 웹툰 + 모션코믹(영상 + 맡기는 방법).
+/* webtoon 서비스 모듈(R5 WP-S1, 서버 데이터 + React 읽기 인터랙션).
+ * 히어로: 《1억의 구단주》 3컷 부채 / 고유 섹션: ① 스크롤 컷 펼침 ② 12컷 3D 페이지 넘김 리더와 전체 읽기 ③ 웹툰 + 모션코믹(영상 + 맡기는 방법).
  * 금액은 이 파일에 없다. 웹툰·모션코믹·함께 제작 금액은 #pricing(CsPricing) 한 곳에서만 보인다(VERIFY_FINAL_P2R WP-A-1).
- * 스타일은 ./webtoon.css 한 파일(.cs-svc-webtoon로 시작). 자산 경로와 alt는 아래 상수 한 곳에 둔다. */
-import { WebtoonCover, WebtoonReader } from "./webtoon-experience";
+ * 컷 경로·설명은 lib/content-site/example-media.ts의 webtoon-cut-1..12 슬롯 한 곳에 둔다(교체는 슬롯 한 줄). */
+import { WebtoonCover, WebtoonReader, WebtoonUnfold } from "./webtoon-experience";
 import { ServiceHero } from "../service-hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
 import { webtoonSignature as sig } from "@/lib/content-site/services/webtoon";
+import { getExampleMedia } from "@/lib/content-site/example-media";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./webtoon.css";
 
 /* ---------------------------------------------------------------- 자산 */
-const WORK_TITLE = "《1억의 구단주》";
-
-/** 《1억의 구단주》 1회 12컷(AIO 자체 웹툰, 800×1200). */
-const CUTS = [
-  "독립구단 창단식 무대 위 선수들과 객석에서 응원 영상을 보는 두 주인공",
-  "기업 인수 체결식에서 악수하는 형과 피곤한 얼굴로 먼저 자리를 뜨는 주인공",
-  "회사를 판 뒤 평일 알람을 모두 끄고 쉬다가 월드컵 중계를 켜는 주인공",
-  "소파에서 축구 경기를 보다 골 장면에 환호하는 주인공",
-  "형과 경기 이야기를 메시지로 나누고 옛 응원 머플러를 꺼내는 주인공",
-  "강등된 축구팀의 다큐멘터리를 보며 아쉬워하는 주인공",
-  "구단의 예산 고민을 다룬 다큐멘터리를 보고 다음 회를 켜는 주인공",
-  "작은 구단을 인수한 두 배우의 다큐멘터리를 보며 구단 운영에 눈뜨는 주인공",
-  "경기를 지켜보는 구단주들의 표정을 보며 생각에 잠긴 주인공",
-  "구단 운영을 검색하다 축구 경영 게임을 설치하는 주인공",
-  "게임 속 구단을 운영하며 첫 승리에 기뻐하는 주인공",
-  "형의 저녁 전화에 게임을 저장하고 급히 나가는 주인공",
-].map((scene, i) => ({
-  src: `/webtoon-v11/cut-${String(i + 1).padStart(2, "0")}.webp`,
-  alt: `${WORK_TITLE} 1회 ${i + 1}번째 컷 · ${scene}`,
-}));
+/** 《1억의 구단주》 1회 12컷(AIO 자체 웹툰, 800×1200) */
+const CUTS = getExampleMedia("webtoon", "cut").map(({ src, alt }) => ({ src, alt }));
+/** 표지·펼침·리더가 같은 sizes를 써서 같은 /_next/image 주소를 재사용한다 */
+const CUT_SIZES = "(max-width:767px) 80vw, 440px";
 
 /** poster는 같은 영상 17.6초 프레임(《1억의 구단주》 제목 + 장면)을 ffmpeg로 뽑은 1280×720 webp다.
  * 기존 /videos/webtoon-reference-poster.jpg(로고 엔드카드)는 메인 사이트가 쓰므로 그대로 둔다. */
@@ -41,9 +26,25 @@ const MOTION_COMIC_VIDEO = {
 };
 
 /* ---------------------------------------------------------------- 히어로 */
-function Hero({ data }: ServiceSectionProps) { return <ServiceHero data={data} media={<WebtoonCover cuts={CUTS}/>} />; }
+function Hero({ data }: ServiceSectionProps) {
+  return <ServiceHero data={data} media={<WebtoonCover cuts={CUTS} sizes={CUT_SIZES} title={sig.cover.title} caption={MEDIA_TAGS.ownWebtoon}/>} />;
+}
 
-/* ---------------------------------------------------------------- ① 세로 리더 */
+/* ---------------------------------------------------------------- ① 스크롤 컷 펼침 */
+function Unfold() {
+  const u = sig.unfold;
+  return (
+    <section className="cs-section cs-svc-webtoon-unfold" data-cs-section="signature" aria-labelledby="cs-webtoon-unfold-title">
+      <div className="cs-container">
+        <CsSectionHead id="cs-webtoon-unfold-title" eyebrow={u.eyebrow} title={u.title} lead={u.lead} />
+        <p className="cs-t-small cs-svc-webtoon-unfold-caption">{u.caption}</p>
+        <WebtoonUnfold cuts={CUTS.slice(0, 5)} sizes={CUT_SIZES} tag={MEDIA_TAGS.ownWebtoon} hint={u.hint}/>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------- ② 12컷 페이지 넘김 리더 */
 function Reader() {
   const r = sig.reader;
   return (
@@ -67,7 +68,7 @@ function Reader() {
             </div>
           </div>
           <div className="cs-col-6 cs-col-start-7 cs-svc-webtoon-phone-wrap">
-            <WebtoonReader cuts={CUTS}/>
+            <WebtoonReader cuts={CUTS} sizes={CUT_SIZES} label={r.label} tag={MEDIA_TAGS.ownWebtoon}/>
           </div>
         </div>
       </div>
@@ -140,6 +141,7 @@ function MotionComic() {
 function Signature() {
   return (
     <>
+      <Unfold />
       <Reader />
       <MotionComic />
     </>

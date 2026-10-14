@@ -3,9 +3,11 @@ import type { ReactNode } from "react";
 import { startingPrice } from "@/lib/content-pricing";
 import { CS_COPY } from "@/lib/content-site/copy";
 import type { CsWorkCard, CsWorkMedia, ServiceLandingData } from "@/lib/content-site/types";
+import { focusData, type ExampleSlot } from "@/lib/content-site/example-media";
 import { CsPrice } from "../ui/price";
+import { CsTag } from "../ui/tag";
 import "./service-editorial.css";
-import { MotionCanvas, MotionTitle, WorkPreview } from "./motion-runtime";
+import { LoopVideo, MotionCanvas, MotionTitle, WorkPreview } from "./motion-runtime";
 
 /** Title, work, decision copy is also the DOM order on a narrow screen */
 export function ServiceHero({ data, media, wide = false }: { data: ServiceLandingData; media: ReactNode; wide?: boolean }) {
@@ -32,6 +34,18 @@ export function FeaturedWork({ work, media, fallback }: { work?: CsWorkCard; med
   return <figure className={`cs-service-featured${portrait ? " cs-service-featured--portrait" : ""}`}>
     {asset.kind === "video" ? <WorkPreview src={asset.src} poster={asset.poster} label={`${work.title} · ${work.label}`}/> : <Image src={asset.src} alt={asset.alt} width={asset.width ?? (portrait ? 900 : 1600)} height={asset.height ?? (portrait ? 1600 : 900)} sizes="(max-width:767px) 90vw, 50vw" priority />}
     <figcaption><div><p className="cs-t-caption">{work.brand} · {work.label}</p><p className="cs-t-label">{work.title}</p></div><a className="cs-link" href={work.href}>작품 보기 <span aria-hidden="true">↗</span></a></figcaption>
+  </figure>;
+}
+
+/** 공개판 연출 예시 슬롯 한 칸. 이미지는 느린 켄번스, 영상은 보이는 동안만 무음 반복. 표기는 슬롯 label */
+export function ExampleFigure({ slot, sizes, priority = false, className = "" }: { slot: ExampleSlot; sizes: string; priority?: boolean; className?: string }) {
+  return <figure className={`cs-example-figure ${className}`} data-aspect={slot.aspect} data-kind={slot.kind}>
+    <div className="cs-example-frame">
+      {slot.kind === "video"
+        ? <LoopVideo className="cs-example-video" src={slot.src} poster={slot.poster} label={slot.alt}/>
+        : <Image className="cs-example-image" src={slot.src} alt={slot.alt} width={slot.width} height={slot.height} sizes={sizes} priority={priority} {...focusData(slot.focus)}/>}
+    </div>
+    <CsTag overlay>{slot.label}</CsTag>
   </figure>;
 }
 

@@ -236,3 +236,259 @@
 .cs-svc-webtoon .cs-svc-webtoon-phone { padding:0; border:1px solid var(--cs-line); background:var(--cs-surface); border-radius:10px; box-shadow:none; }
 .cs-svc-webtoon .cs-svc-webtoon-scroll { max-height:680px; scrollbar-width:thin; }
 .cs-svc-webtoon .cs-svc-webtoon-reader-copy .cs-t-lead { max-width:25em; }
+
+/* ================================================================ R5 WP-S1 */
+/* ① 스크롤 컷 펼침: sticky 고정 구간의 --cs-pin-progress(0→1)로 다섯 컷이 차례로 펼쳐진다.
+ * 움직임이 꺼지면 런타임이 진행값을 1로 두고 고정 구간을 없애 펼친 상태만 보인다. */
+.cs-svc-webtoon .cs-svc-webtoon-unfold-caption {
+  margin-top: var(--cs-s4);
+  color: var(--cs-fg-3);
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-track {
+  --cs-pin-progress: 1;
+  position: relative;
+  margin-top: var(--cs-s6);
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-track[data-motion-ready="true"] {
+  height: 230vh;
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-sticky {
+  position: sticky;
+  top: calc(var(--cs-header-h) + 16px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--cs-s4);
+  height: min(76vh, 700px);
+  min-height: 420px;
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-stage {
+  position: relative;
+  overflow-x: clip;
+  perspective: 1600px;
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut {
+  --i: 0;
+  --c: 0;
+  --local: clamp(0, calc((var(--cs-pin-progress) - var(--i) * 0.1) * 2.3), 1);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(17vw, 230px);
+  aspect-ratio: 2 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 8px;
+  background: var(--cs-surface);
+  box-shadow: 0 30px 60px var(--svc-cover-shadow);
+  translate: -50% -50%;
+  transform:
+    translateX(calc((var(--i) - 2) * 102% * var(--local)))
+    translateY(calc((1 - var(--local)) * 40px))
+    translateZ(calc((1 - var(--local)) * -260px + var(--c) * 34px * var(--local)))
+    rotateY(calc((var(--i) - 2) * -16deg * var(--local)))
+    rotate(calc((1 - var(--local)) * (var(--i) - 2) * 5deg));
+  z-index: calc(3 + var(--c));
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut[data-cut="1"] { --i: 1; --c: 1; }
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut[data-cut="2"] { --i: 2; --c: 2; }
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut[data-cut="3"] { --i: 3; --c: 1; }
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut[data-cut="4"] { --i: 4; --c: 0; }
+.cs-svc-webtoon .cs-svc-webtoon-unfold-cut img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cs-svc-webtoon .cs-svc-webtoon-unfold-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cs-s3);
+  color: var(--cs-fg-3);
+}
+@media (max-width: 767px) {
+  .cs-svc-webtoon .cs-svc-webtoon-unfold-track[data-motion-ready="true"] {
+    height: 190vh;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-unfold-sticky {
+    height: min(68vh, 560px);
+    min-height: 360px;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-unfold-cut {
+    width: 32vw;
+    transform:
+      translateX(calc((var(--i) - 2) * 50% * var(--local)))
+      translateY(calc((1 - var(--local)) * 30px + (2 - var(--c)) * 14px * var(--local)))
+      translateZ(calc((1 - var(--local)) * -200px + var(--c) * 30px * var(--local)))
+      rotate(calc((var(--i) - 2) * 7deg * var(--local)));
+  }
+}
+
+/* ② 12컷 3D 페이지 넘김: 왼쪽 책등(transform-origin left) 기준 rotateY, 뒷면은 종이, 넘김 중 그림자가 움직인다.
+ * reduced-motion이면 전환 없이 즉시 바뀌고 버튼·방향키·전체 읽기는 그대로다. */
+.cs-svc-webtoon .cs-svc-webtoon-book {
+  --cs-book-progress: 0.0833;
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+}
+.cs-svc-webtoon .cs-svc-webtoon-book-stage {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  perspective: 2200px;
+  perspective-origin: 30% 50%;
+  touch-action: pan-y;
+  outline-offset: 6px;
+}
+.cs-svc-webtoon .cs-svc-webtoon-page {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  z-index: 1;
+}
+.cs-svc-webtoon .cs-svc-webtoon-page[data-state="current"] { z-index: 3; }
+.cs-svc-webtoon .cs-svc-webtoon-page[data-state="next"] { z-index: 2; }
+.cs-svc-webtoon .cs-svc-webtoon-page[data-state="flipped"] { transform: rotateY(-180deg); }
+.cs-svc-webtoon .cs-svc-webtoon-page[data-state="under"],
+.cs-svc-webtoon .cs-svc-webtoon-page[data-state="flipped"]:not([data-turning]) {
+  visibility: hidden;
+}
+.cs-svc-webtoon .cs-svc-webtoon-page[data-turning] { z-index: 5; }
+.cs-svc-webtoon .cs-svc-webtoon-page-front,
+.cs-svc-webtoon .cs-svc-webtoon-page-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 2px 10px 10px 2px;
+  backface-visibility: hidden;
+  background: var(--cs-surface);
+}
+.cs-svc-webtoon .cs-svc-webtoon-page-front img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 넘어가는 면 위를 지나는 그림자(그라디언트 위치가 움직인다) */
+.cs-svc-webtoon .cs-svc-webtoon-page-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(255, 255, 255, 0.12) 55%, rgba(0, 0, 0, 0) 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/* 아래 페이지에 드리우는 그림자 */
+.cs-svc-webtoon .cs-svc-webtoon-page-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+.cs-svc-webtoon .cs-svc-webtoon-page-back {
+  display: grid;
+  place-items: end start;
+  padding: var(--cs-s4);
+  transform: rotateY(180deg);
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0) 30%), var(--cs-bg-2);
+  color: var(--cs-fg-3);
+}
+.cs-svc-webtoon .cs-svc-webtoon-spine {
+  position: absolute;
+  top: 2%;
+  bottom: 2%;
+  left: -3px;
+  z-index: 6;
+  width: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0.08));
+  pointer-events: none;
+}
+.cs-svc-webtoon .cs-svc-webtoon-book-stage > .cs-tag { z-index: 7; }
+.cs-svc-webtoon .cs-svc-webtoon-book-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cs-s3);
+  margin-top: var(--cs-s5);
+}
+.cs-svc-webtoon .cs-svc-webtoon-book-controls .cs-btn {
+  min-width: 48px;
+  min-height: 48px;
+}
+.cs-svc-webtoon .cs-svc-webtoon-book-progress {
+  height: 2px;
+  margin-top: var(--cs-s4);
+  background: var(--cs-line);
+}
+.cs-svc-webtoon .cs-svc-webtoon-book-progress i {
+  display: block;
+  height: 100%;
+  background: var(--cs-fg);
+  transform-origin: left center;
+  transform: scaleX(var(--cs-book-progress));
+}
+.cs-svc-webtoon .cs-svc-webtoon-continuous {
+  margin-top: var(--cs-s6);
+  border-block: 1px solid var(--cs-line);
+}
+.cs-svc-webtoon .cs-svc-webtoon-continuous summary {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  cursor: pointer;
+}
+.cs-svc-webtoon .cs-svc-webtoon-continuous img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-svc-webtoon .cs-svc-webtoon-unfold-track[data-motion-ready="true"] .cs-svc-webtoon-unfold-cut {
+    transition: transform 140ms linear;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-page {
+    transition: transform 900ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-page[data-turning] .cs-svc-webtoon-page-front::after {
+    animation-name: cs-svc-webtoon-sweep;
+    animation-duration: 900ms;
+    animation-timing-function: ease-in-out;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-page[data-turning="prev"] .cs-svc-webtoon-page-front::after {
+    animation-direction: reverse;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-book-stage[data-turn="next"] .cs-svc-webtoon-page[data-state="current"] .cs-svc-webtoon-page-front::before,
+  .cs-svc-webtoon .cs-svc-webtoon-book-stage[data-turn="prev"] .cs-svc-webtoon-page[data-state="next"] .cs-svc-webtoon-page-front::before {
+    animation-name: cs-svc-webtoon-cast;
+    animation-duration: 900ms;
+    animation-timing-function: ease-out;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-book-stage[data-turn="prev"] .cs-svc-webtoon-page[data-state="next"] .cs-svc-webtoon-page-front::before {
+    animation-direction: reverse;
+  }
+  .cs-svc-webtoon .cs-svc-webtoon-book-progress i {
+    transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes cs-svc-webtoon-sweep {
+    0% { opacity: 0; background-position: 100% 0; }
+    35% { opacity: 1; }
+    100% { opacity: 0.8; background-position: 0% 0; }
+  }
+  @keyframes cs-svc-webtoon-cast {
+    0% { opacity: 0.9; }
+    100% { opacity: 0; }
+  }
+}

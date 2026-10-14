@@ -1,5 +1,5 @@
 /* /content 컨텐츠 사이트 홈(서버). 헤더·푸터는 app/(content-site)/content/layout.tsx의 컨텐츠 셸이 그린다.
- * 구성: 작품 중심 히어로(쇼릴 슬롯 유지) → 서비스 6종 수동 갤러리 → 제작 과정 → 상담.
+ * 구성: 작품 중심 히어로(쇼릴 슬롯 home-hero-reel 유지, 연출 예시 이미지 패럴랙스·드리프트) → 서비스 6종 자동 넘김 3D 캐러셀 → 제작 과정 → 상담.
  * 글자는 .cs-t-* 역할 클래스만, 색·간격·모양은 컨텐츠 사이트 토큰(--cs-*)만 쓴다. */
 import Image from "next/image";
 import { publicEntries } from "@/lib/db";
@@ -13,6 +13,7 @@ import {
   contentHomeServices,
 } from "@/lib/content-home";
 import { HeroMedia } from "./hero-media";
+import { HeroStage } from "./hero-stage";
 import { ProcessTabs } from "./process-tabs";
 import { ServiceShowcase } from "./service-showcase";
 import "./content-home.css";
@@ -53,19 +54,20 @@ export async function ContentHome() {
               <Link className="cs-btn cs-btn--ghost cs-btn--lg" href={hero.secondaryHref}>{hero.secondary}<span aria-hidden="true">→</span></Link>
             </div>
           </div>
-          <div className="ch-hero-works">
+          <HeroStage>
             <Link className="ch-hero-feature" href={feature.work ? `/content/projects/${feature.work.slug}?service=${feature.tab.id}` : "/content/services/motion-graphics"}>
-              <div className="ch-hero-feature-image">{poster ? <Image src={poster} alt={media.alt} fill priority sizes="(min-width:1024px) 55vw, 100vw" /> : null}<span className="ch-hero-open cs-t-button" aria-hidden="true">↗</span></div>
-              <div className="ch-hero-work-caption"><span className="cs-t-eyebrow">MOTION GRAPHICS</span><p className="cs-t-small">{feature.caption ?? "제품을 이해시키는 장면"}</p>{feature.tag ? <span className="cs-t-caption">{feature.tag}</span> : null}</div>
+              {/* 바깥 층은 스크롤 패럴랙스, 안쪽 층은 느린 드리프트(둘 다 CSS, 정지 조건은 HeroStage) */}
+              <div className="ch-hero-feature-image">{poster ? <div className="ch-hero-parallax"><div className="ch-hero-drift"><Image src={poster} alt={media.alt} fill priority sizes="(min-width:1024px) 55vw, 100vw" /></div></div> : null}{feature.tag ? <span className="cs-tag cs-tag--overlay cs-t-caption">{feature.tag}</span> : null}<span className="ch-hero-open cs-t-button" aria-hidden="true">↗</span></div>
+              <div className="ch-hero-work-caption"><span className="cs-t-eyebrow">MOTION GRAPHICS</span><p className="cs-t-small">{feature.caption ?? "제품을 이해시키는 장면"}</p></div>
             </Link>
             <Link className="ch-hero-comic" href={comic.work ? `/content/projects/${comic.work.slug}?service=webtoon` : "/content/services/webtoon"}>
               <div className="ch-hero-comic-image"><Image src={comic.media.poster ?? comic.media.src} alt={comic.media.alt} fill sizes="(min-width:1024px) 10vw, 30vw" /></div>
-              <div><span className="cs-t-eyebrow">BRAND WEBTOON</span><p className="cs-t-small">읽는 흐름 속에<br />브랜드를 담는 이야기</p><span className="cs-t-caption">{comic.tag ?? "웹툰 제작"} ↗</span></div>
+              <div><span className="cs-t-eyebrow">BRAND WEBTOON</span><p className="cs-t-small">읽는 흐름 속에<br />브랜드를 담는 이야기</p><span className="cs-t-caption">{comic.tag ?? comic.caption ?? "웹툰 제작"} ↗</span></div>
             </Link>
-          </div>
+          </HeroStage>
         </div>
         <div className="cs-container ch-hero-formats cs-t-caption" aria-label="제작 형식">{contentHomeServices.map(service => <a href={service.href} key={service.id}>{service.label}<span aria-hidden="true">↗</span></a>)}</div>
-        {hero.video ? <div className="ch-hero-showreel"><HeroMedia /></div> : null}
+        {hero.video ? <div className="ch-hero-showreel" data-slot={hero.reelSlot}><HeroMedia /></div> : null}
       </section>
 
       <ServiceShowcase selections={journey.contentSelections} />

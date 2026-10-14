@@ -907,9 +907,3 @@
     display: none;
   }
 }
-
-/* User-scoped workflow: navigation remains inside the selected work card */
-.wj .wj-stage-nav { position:absolute; inset:16px 16px auto; margin:0; justify-content:space-between; z-index:4; pointer-events:none; }
-.guide-page .wj .wj-stage-nav .wj-step-button { pointer-events:auto; border-radius:40px; background:var(--wj-stage); border-color:var(--wj-text-3); color:var(--wj-bg); }
-.wj .wj-stage { padding-top:60px; }
-.wj .wj-cover { object-fit:contain; }

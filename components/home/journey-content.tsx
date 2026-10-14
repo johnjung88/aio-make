@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   contentCopy,
   mediaShape,
@@ -15,6 +15,24 @@ import { JourneyTabList, panelId, tabId } from "./journey-tabs";
 
 const PREFIX = "wj-content";
 const STAGE_SIZES = "(min-width: 1024px) 40vw, 92vw";
+
+// Side previews are decoration: desktop width and motion allowed only.
+function useSidePreview() {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const query = window.matchMedia(
+      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+    );
+    const update = () => setEnabled(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  return enabled;
+}
+
+const stillOf = (media: JourneyMedia) =>
+  media.kind === "video" ? (media.poster ?? null) : media.src;
 
 function StageMedia({ media }: { media: JourneyMedia }) {
   return (
@@ -44,6 +62,22 @@ function StageMedia({ media }: { media: JourneyMedia }) {
   );
 }
 
+function SidePreview({
+  selection,
+  side,
+}: {
+  selection: ContentSelection;
+  side: "prev" | "next";
+}) {
+  const still = stillOf(selection.media);
+  if (!still) return null;
+  return (
+    <div className={`wj-side wj-side--${side}`} aria-hidden="true">
+      <Image className="wj-cover" src={still} alt="" fill sizes="200px" />
+    </div>
+  );
+}
+
 export function JourneyContent({
   selections,
 }: {
@@ -51,6 +85,7 @@ export function JourneyContent({
 }) {
   const [selected, setSelected] = useState(0);
   const root = useRef<HTMLDivElement>(null);
+  const sidePreview = useSidePreview();
   const count = selections.length;
   const select = (index: number) => {
     root.current?.querySelectorAll("video").forEach((video) => {
@@ -108,7 +143,7 @@ export function JourneyContent({
                   <NewTabHint />
                 </Link>
                 {work && (
-                  <Link className="wj-link t-button" href={`/content/projects/${work.slug}?service=${tab.id}`} {...newTabProps}>
+                  <Link className="wj-link t-button" href={work.canonicalPath}>
                     {contentCopy.workLink} <span aria-hidden="true">↗</span>
                   </Link>
                 )}
@@ -116,7 +151,24 @@ export function JourneyContent({
             </div>
             <div className="wj-stage-column">
               <div className="wj-stage wj-media">
+                {active && sidePreview && (
+                  <>
+                    <SidePreview
+                      selection={selections[(index - 1 + count) % count]}
+                      side="prev"
+                    />
+                    <SidePreview
+                      selection={selections[(index + 1) % count]}
+                      side="next"
+                    />
+                  </>
+                )}
                 <StageMedia media={media} />
+              </div>
+            </div>
+          </div>
+        );
+      })}
       <div className="wj-stage-nav">
         <button
           type="button"
@@ -143,12 +195,6 @@ export function JourneyContent({
           {contentCopy.next} <span aria-hidden="true">→</span>
         </button>
       </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-
     </div>
   );
 }

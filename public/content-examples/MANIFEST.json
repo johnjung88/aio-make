@@ -1,0 +1,158 @@
+{
+  "version": "R5-WPS1",
+  "date": "2026-10-14",
+  "rule": "AIO가 직접 생성한 이미지·모션만. 타사 캡처(service-benchmark-v01/captures)·로고·고객 작업물 제외. 유료 생성 없음",
+  "excluded": [
+    "service-benchmark-v01/captures/*.jpg (타사 사이트 캡처)",
+    "dist/assets/favicon.svg (로고)",
+    "dist/assets/PretendardVariable.woff2 (글꼴)",
+    "aio-service-pages-v01/qa/*.jpg (화면 캡처)"
+  ],
+  "replace": "사용자 생성 소재(Higgsfield 나노바나나 프로 2·Wan 3.0)가 오면 lib/content-site/example-media.ts의 해당 슬롯 src/poster 한 줄만 바꾼다",
+  "files": [
+    {
+      "path": "public/content-examples/webtoon/webtoon-key.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/webtoon.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/webtoon.webp",
+      "sha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "sourceSha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "originSha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=webtoon]",
+      "promptExcerpt": "Use case: illustration-story. Asset type: portrait 2:3 cover artwork for webtoon service selection carousel of AIO MAKE creative studio. A s",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/animation/animation-character.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/animation.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/animation.webp",
+      "sha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "sourceSha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "originSha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=animation]",
+      "promptExcerpt": "Use case: stylized-concept. Asset type: portrait 2:3 cover artwork for animation service selection carousel of AIO MAKE studio. One charming",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/ai-influencer/ai-creator.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/creator.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/creator.webp",
+      "sha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "sourceSha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "originSha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=creator]",
+      "promptExcerpt": "Use case: photorealistic-natural. Asset type: portrait 2:3 cover photo for digital creator service carousel of AIO MAKE creative studio. Edi",
+      "people": "AI 생성 인물 · 'AI 가상인물 · 연출 예시' 표기"
+    },
+    {
+      "path": "public/content-examples/motion-graphics/motion-ribbon.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/hero.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/hero.webp",
+      "sha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "sourceSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "originSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=hero]",
+      "promptExcerpt": "Use case: ads-marketing. Asset type: wide cinematic brand-film poster for Korean creative studio AIO MAKE website. Create a single ultra-wid",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/motion-graphics/motion-product.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/brand.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/brand.webp",
+      "sha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "sourceSha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "originSha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=brand]",
+      "promptExcerpt": "Use case: product-mockup. Asset type: portrait 2:3 artwork for brand content service carousel of AIO MAKE studio. Luxury editorial still lif",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/brand-film/brandfilm-poster.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/hero.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/hero.webp",
+      "sha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "sourceSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "originSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=hero]",
+      "promptExcerpt": "Use case: ads-marketing. Asset type: wide cinematic brand-film poster for Korean creative studio AIO MAKE website. Create a single ultra-wid",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/brand-film/brandfilm-motion.mp4",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/brand-motion.mp4",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/brand-motion.mp4",
+      "sha256": "1c6f0bbdb7a1ccca1f6ad1372f33b295fffb7d338dcf4883d38204b439e52539",
+      "sourceSha256": "1c6f0bbdb7a1ccca1f6ad1372f33b295fffb7d338dcf4883d38204b439e52539",
+      "originSha256": "1c6f0bbdb7a1ccca1f6ad1372f33b295fffb7d338dcf4883d38204b439e52539",
+      "generator": "AIO 자체 제작 · aio-content-v01 hero 생성 이미지에 카메라 확대 움직임을 적용한 12초 무음 모션",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/README.md#구성-1 (hero 프롬프트: I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=hero])",
+      "promptExcerpt": null,
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/ad/ad-product.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/brand.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/brand.webp",
+      "sha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "sourceSha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "originSha256": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=brand]",
+      "promptExcerpt": "Use case: product-mockup. Asset type: portrait 2:3 artwork for brand content service carousel of AIO MAKE studio. Luxury editorial still lif",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/ad/ad-ribbon.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/hero.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/hero.webp",
+      "sha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "sourceSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "originSha256": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=hero]",
+      "promptExcerpt": "Use case: ads-marketing. Asset type: wide cinematic brand-film poster for Korean creative studio AIO MAKE website. Create a single ultra-wid",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/ad/ad-creator.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/creator.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/creator.webp",
+      "sha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "sourceSha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "originSha256": "9e8aeb3b56b8b02913bad5a4fa954aaf0f29e38231c06b9a106726f90a44dc45",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=creator]",
+      "promptExcerpt": "Use case: photorealistic-natural. Asset type: portrait 2:3 cover photo for digital creator service carousel of AIO MAKE creative studio. Edi",
+      "people": "AI 생성 인물 · 'AI 가상인물 · 연출 예시' 표기"
+    },
+    {
+      "path": "public/content-examples/ad/ad-character.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/animation.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/animation.webp",
+      "sha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "sourceSha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "originSha256": "ac8b9c60caadde32f4b04b283bee7e61eb9576e8a446c8f13034105be59a4fb6",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=animation]",
+      "promptExcerpt": "Use case: stylized-concept. Asset type: portrait 2:3 cover artwork for animation service selection carousel of AIO MAKE studio. One charming",
+      "people": "없음"
+    },
+    {
+      "path": "public/content-examples/ad/ad-webtoon.webp",
+      "source": "I:/00_AIO_CODEX/2026-10-14/aio-make-1-aio-make-https/outputs/aio-service-pages-v01/dist/assets/webtoon.webp",
+      "sourceOrigin": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/dist/assets/webtoon.webp",
+      "sha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "sourceSha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "originSha256": "c5f9c0de937c3b190e3a5de484cf3a8f6d992eda30922307a469611a0f6267bf",
+      "generator": "AIO 자체 생성 · Built-in image_gen (aio-content-v01)",
+      "promptReference": "I:/00_AIO_CODEX/2026-10-14/new-chat/outputs/aio-content-v01/IMAGE_PROMPTS.json#assets[key=webtoon]",
+      "promptExcerpt": "Use case: illustration-story. Asset type: portrait 2:3 cover artwork for webtoon service selection carousel of AIO MAKE creative studio. A s",
+      "people": "없음"
+    }
+  ]
+}

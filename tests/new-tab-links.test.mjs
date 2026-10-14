@@ -67,12 +67,16 @@ test("header and footer 컨텐츠 links carry target=_blank, rel noopener and th
 
 test("main page content links open in a new tab; marketing and lab cards do not", async () => {
   const main = await read("components/guide/main.jsx");
-  const cards = await read("components/home/home-services.tsx");
-  assert.match(main, /<HomeServices data=\{this\.props\.journey\}/);
-  for (const href of ["/content", "/marketing", "/lab"])
-    assert.ok(cards.includes(`href:"${href}"`), href);
-  assert.match(cards, /card\.href === "\/content" \? newTabProps : \{\}/);
-  assert.match(cards, /card\.href === "\/content" \? <NewTabHint \/> : null/);
+  const card = (href) => {
+    const start = main.indexOf(`href="${href}"`);
+    assert.ok(start > 0, href);
+    return main.slice(start, main.indexOf("</GuideLink>", start));
+  };
+  assert.match(card("/content"), /\{\.\.\.newTabProps\}/);
+  assert.match(card("/content"), /<NewTabHint \/>/);
+  for (const href of ["/marketing", "/lab"]) {
+    assert.doesNotMatch(card(href), /newTabProps|NewTabHint|_blank/, href);
+  }
 
   const content = await read("components/home/journey-content.tsx");
   const service = content.slice(
@@ -102,9 +106,12 @@ test("workflow link arrows keep a gap and #divisions titles share one row", asyn
   const link = css.slice(css.indexOf(".guide-page .wj .wj-link {"));
   assert.match(link.slice(0, link.indexOf("}")), /gap: var\(--wj-s0\)/);
   assert.match(css, /--wj-s0: 4px;/);
-  assert.match(css, /\.home-service-card\s*\{[^}]*display:flex;[^}]*flex-direction:column/);
-  assert.match(css, /\.home-service-copy\s*\{[^}]*flex:1/);
-  assert.match(css, /\.home-service-copy \.home-service-link\s*\{[^}]*margin-top:auto/);
+  const main = await read("components/guide/main.jsx");
+  assert.equal(
+    main.split('gridTemplateRows: "auto auto auto auto 1fr auto"').length - 1,
+    3,
+  );
+  assert.ok(!main.includes('"auto 1fr auto auto auto auto"'));
 });
 
 test("unused workGroups and the old GuideMedia caption are gone", async () => {

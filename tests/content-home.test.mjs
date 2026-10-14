@@ -1,4 +1,4 @@
-// /content 컨텐츠 사이트 홈(P3 → P2R WP-D) 테스트.
+// /content 컨텐츠 사이트 홈(P3 → P2R WP-D → R5 WP-H 모션) 테스트.
 // 데이터(lib/content-home.ts)와 소스(components/content-home/**)를 직접 읽는다.
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -13,6 +13,8 @@ import {
   contentHomeServices,
   contentHomeServicesHead,
   contentPricing,
+  homeCardMedia,
+  homeCarouselMotion,
   formatWon,
   startingPrice,
 } from "../lib/content-home.ts";
@@ -64,6 +66,8 @@ const single = [
   contentHomeServicesHead.prev,
   contentHomeServicesHead.next,
   contentHomeServicesHead.detailLink,
+  contentHomeServicesHead.autoplayPause,
+  contentHomeServicesHead.autoplayPlay,
   contentHomeProcessHead.eyebrow,
   contentHomeProcessHead.tabsLabel,
   contentHomeProcessHead.outputLabel,
@@ -330,7 +334,7 @@ test("8. 소스 규칙: 컨텐츠 사이트 체계(.cs-t-* 역할·--cs-* 토큰
   assert.doesNotMatch(outsideMotion, /transition\s*:/, "transition outside no-preference");
 });
 
-test("8-1. R4 수동 3D 작업 갤러리와 접근 가능한 제작 단계", () => {
+test("8-1. R5 3D 작업 갤러리: 조작과 접근성은 유지한다", () => {
   // Actual intermediate transform, active content and motion safety are browser contracts
   const showcase = read(join(componentDir, "service-showcase.tsx"));
   assert.match(showcase, /selections:\s*ContentSelection\[\]/);
@@ -345,6 +349,11 @@ test("8-1. R4 수동 3D 작업 갤러리와 접근 가능한 제작 단계", () 
   assert.match(showcase, /video\.pause\(\)/);
   assert.doesNotMatch(showcase, /setInterval|autoPlay|className="ch-stage"/);
   assert.match(showcase, /\/content\/projects\//);
+  // 모바일 스와이프: 가로 45px·가로 우세 1.2배만 넘기고, 세로 스크롤은 브라우저(touch-action: pan-y)가 처리
+  assert.match(showcase, /Math\.abs\(dx\)>45 && Math\.abs\(dx\)>Math\.abs\(dy\)\*1\.2/);
+  assert.match(showcase, /suppressClick\.current=true/);
+  const css = code(read(join(componentDir, "content-home.css")));
+  assert.match(css, /\.ch-depth-stage \{[^}]*touch-action:pan-y/);
   // All four step outputs remain reachable by labelled tabs and keyboard
   const tabs = read(join(componentDir, "process-tabs.tsx"));
   assert.match(tabs, /role="tablist"/);
@@ -357,6 +366,171 @@ test("8-1. R4 수동 3D 작업 갤러리와 접근 가능한 제작 단계", () 
   assert.equal((home.match(/cs-btn--lg/g) || []).length, 3);
   // R3는 cs-t-button 역할을 사용한다. 실제 첫 작품 위치/높이는 브라우저에서 검증한다
   assert.doesNotMatch(home, /className="t-button"/);
+});
+
+const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+test("8-2. R5 캐러셀 자동 넘김: 레퍼런스 수치와 정지 조건", () => {
+  const showcase = code(read(join(componentDir, "service-showcase.tsx")));
+  const css = code(read(join(componentDir, "content-home.css")));
+  const m = homeCarouselMotion;
+  // 레퍼런스 dist/app.js updateCarousel 관측값
+  assert.equal(m.dwellMs, 3500);
+  assert.equal(m.shiftDesktop, 365);
+  assert.equal(m.shiftMobile, 212);
+  assert.equal(m.depthDesktop, 170);
+  assert.equal(m.depthMobile, 95);
+  assert.equal(m.rotateDeg, 42);
+  assert.deepEqual([...m.scale], [1, 0.88, 0.72]);
+  assert.deepEqual([...m.opacity], [1, 0.85, 0.55]);
+  assert.equal(m.transitionMs, 650);
+  assert.ok(css.includes(`--ch-depth-shift:${m.shiftDesktop}px`));
+  assert.ok(css.includes(`--ch-depth-shift:${m.shiftMobile}px`));
+  assert.ok(css.includes(`--ch-depth-z:${m.depthDesktop}px`));
+  assert.ok(css.includes(`--ch-depth-z:${m.depthMobile}px`));
+  for (const [pos, rotate, scale, opacity] of [
+    ["-1", "42deg", ".88", ".85"],
+    ["1", "-42deg", ".88", ".85"],
+    ["-2", "42deg", ".72", ".55"],
+    ["2", "-42deg", ".72", ".55"],
+  ]) {
+    const rule = css.match(new RegExp(`${escape(`.ch-depth-card[data-pos="${pos}"] {`)}([^}]*)\\}`));
+    assert.ok(rule, `pos ${pos}`);
+    assert.ok(rule[1].includes(`rotateY(${rotate})`), `pos ${pos} rotate`);
+    assert.ok(rule[1].includes(`scale(${scale})`), `pos ${pos} scale`);
+    assert.ok(rule[1].includes(`opacity:${opacity}`), `pos ${pos} opacity`);
+  }
+  assert.ok(css.includes(".ch-depth-card { transition:transform .65s cubic-bezier(.22,.75,.23,1),opacity .5s ease,filter .5s ease; }"));
+
+  // 자동 넘김: 진행 막대 CSS 애니메이션이 끝나면 다음 카드(타이머 없음). 막대 시간 = 데이터 값
+  assert.match(showcase, /onAnimationEnd=\{advance\}/);
+  assert.ok(showcase.includes('event.animationName!=="cs-ch-autoplay" || !running'));
+  assert.ok(css.includes(`.ch-autoplay-fill { animation:cs-ch-autoplay ${m.dwellMs / 1000}s linear forwards; }`));
+  assert.ok(css.includes(`.ch-autoplay-fill[data-dwell="video"] { animation-duration:${m.videoDwellMs / 1000}s; }`));
+  assert.ok(css.includes('.ch-gallery[data-autoplay="paused"] .ch-autoplay-fill { animation-play-state:paused; }'));
+  // 수동 조작은 막대를 처음부터(key={cycle}), 사용자가 직접 멈출 수 있다
+  assert.ok(showcase.includes('<span key={cycle} className="ch-autoplay-fill"'));
+  assert.ok(showcase.includes("setCycle(value=>value+1)"));
+  assert.ok(showcase.includes("head.autoplayPause"));
+
+  // 정지 조건: 화면 밖·탭 숨김(useStageActivity) · 헤더 움직임 토글 · reduced-motion · 사용자 멈춤 · hover · 키보드 포커스 · 터치 중 · 열린 상세
+  for (const contract of [
+    'const moving=inView && motion==="on" && !reduced;',
+    "const autoplay=!reduced;",
+    "const running=moving && !userPaused && !hover && !focusPause && !touching && !detailsOpen;",
+    'data-autoplay={autoplay ? (running ? "running":"paused") : "off"}',
+    'onPointerEnter={event=>{if(event.pointerType==="mouse")setHover(true);}}',
+    'onPointerLeave={event=>{if(event.pointerType==="mouse")setHover(false);}}',
+    'matches(":focus-visible")',
+    "setTouching(true);",
+    "onTouchCancel=",
+    'addEventListener("toggle",update,true)',
+    "useCsMotion()",
+    // 자동 회전 중에는 스크린 리더 알림을 끄고, 멈췄을 때만 알린다
+    'aria-live={running ? "off" : "polite"}',
+    // 선택 카드 작품만 움직인다: 영상은 선택 카드에만 마운트해 muted 루프, 이미지는 켄번스
+    "play={selected && moving}",
+    "node.muted=true;node.play()",
+    "muted loop playsInline",
+    "controls={reduced}",
+  ])
+    assert.ok(showcase.includes(contract), contract);
+  const activity = read(join(componentDir, "use-stage-activity.ts"));
+  assert.match(activity, /IntersectionObserver/);
+  assert.match(activity, /document\.hidden/);
+  assert.match(activity, /prefers-reduced-motion: reduce/);
+  assert.ok(css.includes('.ch-depth-card[data-pos="0"] .ch-kb { animation:cs-ch-kb '));
+  assert.ok(css.includes('.ch-gallery[data-active="false"] .ch-kb { animation-play-state:paused; }'));
+});
+
+test("8-3. reduced-motion: 옆 카드를 숨기지 않고 루프·자동 넘김은 선언하지 않는다", () => {
+  const css = code(read(join(componentDir, "content-home.css")));
+  const blockEnd = (start) => {
+    let depth = 1, end = start;
+    while (end < css.length && depth) {
+      if (css[end] === "{") depth++;
+      if (css[end] === "}") depth--;
+      end++;
+    }
+    return end;
+  };
+  const reducedBlocks = [...css.matchAll(/@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)\s*\{/g)];
+  assert.ok(reducedBlocks.length >= 1);
+  for (const block of reducedBlocks) {
+    const body = css.slice(block.index, blockEnd(block.index + block[0].length));
+    assert.doesNotMatch(body, /display\s*:\s*none/, "side cards stay visible");
+    assert.doesNotMatch(body, /animation\s*:/, "no loop in reduced-motion");
+  }
+  // 모든 애니메이션 선언은 no-preference 안에만 있다
+  let outside = css;
+  for (const match of [...css.matchAll(/@media[^{}]+\{/g)].reverse()) {
+    if (!/prefers-reduced-motion\s*:\s*no-preference/.test(match[0])) continue;
+    outside = outside.slice(0, match.index) + outside.slice(blockEnd(match.index + match[0].length));
+  }
+  assert.doesNotMatch(outside, /(?:^|[;{\s])animation(?:-name)?\s*:/, "animation outside no-preference");
+  // 쓰지 않는 이전 캐러셀(.ch-card)·목록·단계 탭·R2 작업 카드 규칙은 지웠다
+  assert.doesNotMatch(css, /\.ch-card\b|\.ch-stage\b|\.ch-step-tab\b|\.ch-work-media\b/);
+  // 누를 수 있는 곳은 44px 이상
+  assert.match(css, /\.ch-hero-formats a \{[^}]*min-height:44px/);
+  assert.match(css, /\.ch-detail-more summary \{[^}]*min-height:44px/);
+  assert.match(css, /\.ch-depth-nav \.ch-arrow \{[^}]*width:44px; height:44px;/);
+});
+
+test("8-4. 홈 카드·쇼릴 소재 슬롯(사용자 Higgsfield 영상이 오면 데이터 한 줄 교체)", () => {
+  assert.deepEqual(Object.keys(homeCardMedia), ORDER);
+  for (const id of ORDER) {
+    const slot = homeCardMedia[id];
+    assert.equal(slot.slotId, `home-card-${id}`);
+    assert.ok(existsSync(join("public", slot.poster)), `${slot.poster} exists`);
+    assert.ok("video" in slot, `${id} keeps the video line`);
+    if (slot.video !== undefined) {
+      assert.match(slot.video, /^\/content-examples\/[\w-]+\.mp4$/);
+      assert.ok(existsSync(join("public", slot.video)), `${slot.video} exists`);
+    }
+    const tag = id === "ai-influencer" ? MEDIA_TAGS.aiPerson : id === "webtoon" ? MEDIA_TAGS.ownWebtoon : MEDIA_TAGS.staged;
+    assert.equal(slot.tag, tag, id);
+  }
+  assert.equal(contentHomeHero.reelSlot, "home-hero-reel");
+  const showcase = read(join(componentDir, "service-showcase.tsx"));
+  assert.ok(showcase.includes("homeCardMedia[selection.tab.id]"));
+  assert.ok(showcase.includes("data-slot={media.slot ?? undefined}"));
+  const tabs = read(join(componentDir, "process-tabs.tsx"));
+  assert.ok(tabs.includes('homeCardMedia["motion-graphics"]'));
+  const home = read(join(componentDir, "content-home.tsx"));
+  assert.ok(home.includes("data-slot={hero.reelSlot}"));
+});
+
+test("8-5. 히어로와 제작 과정도 움직인다(연출 예시 표기 유지)", () => {
+  const home = read(join(componentDir, "content-home.tsx"));
+  const css = code(read(join(componentDir, "content-home.css")));
+  // 연출 예시 이미지 층: 바깥 패럴랙스(scroll timeline) · 안쪽 드리프트, 화면 밖이면 HeroStage가 멈춘다
+  assert.ok(home.includes("<HeroStage>"));
+  assert.ok(home.includes('className="ch-hero-parallax"><div className="ch-hero-drift">'));
+  assert.ok(home.includes('feature.tag ? <span className="cs-tag cs-tag--overlay cs-t-caption">{feature.tag}</span>'));
+  assert.ok(css.includes(".ch-hero-drift { animation:cs-ch-drift "));
+  assert.ok(css.includes("animation-timeline:scroll(root block)"));
+  assert.match(css, /\.ch-hero-works\[data-active="false"\][^{]*\{ animation-play-state:paused; \}/);
+  const stage = read(join(componentDir, "hero-stage.tsx"));
+  assert.match(stage, /useStageActivity\(\)/);
+  assert.match(stage, /useCsMotion\(\)/);
+  // 과정 탭: 장면을 key로 다시 마운트해 탭마다 순차 진입을 재생하고, 선택 장면 안 재료는 계속 움직인다
+  const tabs = read(join(componentDir, "process-tabs.tsx"));
+  for (const contract of [
+    'className="ch-making-art" data-step={current} key={current}',
+    'data-active={moving ? "true":"false"}',
+    'const moving=active && !reduced && motion==="on";',
+  ])
+    assert.ok(tabs.includes(contract), contract);
+  for (const delay of [
+    ".ch-storyboard figure:nth-child(4) { animation-delay:.36s",
+    ".ch-track-clips span:nth-child(4) { animation-delay:.75s",
+    '.ch-delivery-file[data-index="2"] { animation-delay:.3s',
+    '.ch-delivery-file[data-index="2"] .ch-file-ok { animation-delay:.85s',
+    "cs-board-focus 4.8s ease-in-out infinite",
+    '.ch-making[data-active="false"] .ch-making-art',
+    '.ch-making[data-still="true"] .ch-making-art :is(*) { animation:none; }',
+  ])
+    assert.ok(css.includes(delay), delay);
 });
 
 test("9. 메인 컨텐츠 탭 한 줄 설명 공유(P4가 있을 때만)", (t) => {

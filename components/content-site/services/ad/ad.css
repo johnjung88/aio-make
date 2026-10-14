@@ -1,300 +1,173 @@
-/* ad 서비스 고유 스타일(WP-C 소유).
- * 선택자는 모두 .cs-svc-ad로 시작한다. 장식용 색은 맨 위 .cs-svc-ad { --svc-*: … } 한 블록에만 둔다.
- * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
- * 애니메이션·트랜지션은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다
- * (콜라주 레일 왕복도 이 파일 끝 '움직임' 절의 CSS 키프레임이다).
- * 공통 규칙(theme.css, 명시도 0,2,0)을 덮는 곳은 .cs-svc-ad .<고유 클래스>.<공통 클래스>(0,3,0)로 쓴다. */
+/* ad 서비스 고유 스타일(R5 WP-S2 소유).
+ * 선택자는 모두 .cs-svc-ad로 시작한다. 장식 색은 맨 위 변수 블록에만 둔다. 글자 속성은 역할 클래스(cs-t-*)만 쓴다.
+ * 움직임(animation-*·transition)은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * 레일: 레퍼런스 aio-service-pages-v01 .collage-rail(3열, 기울기, 18초 ease-in-out 왕복, 가운데 열 내림)을 열 단위 위상차로 옮겼다. */
 .cs-svc-ad {
-  --svc-glow: rgba(255, 90, 130, 0.3);
+  --svc-tilt: -11deg;
+  --svc-gap: 18px;
+  --svc-offset: 90px;
+  --svc-travel: 140px;
+  --svc-stage-w: 124%;
+  --svc-reel-h: clamp(560px, 46vw, 700px);
+  --svc-center-w: min(46%, 300px);
   --svc-mask: #000;
-  --svc-ui-track: rgba(255, 255, 255, 0.34);
+  --svc-card-shadow: 0 6px 40px rgba(0, 0, 0, 0.35);
+  --svc-screen-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  --svc-ui-track: rgba(255, 255, 255, 0.32);
   --svc-ui-fill: rgba(255, 255, 255, 0.95);
-  --svc-ui-band: rgba(14, 13, 18, 0.58);
-  --svc-scene-shade: rgba(14, 13, 18, 0.62);
-
-  /* 콜라주 크기: 모바일은 화면 폭 122%를 3열로 나눈다 */
-  --svc-card-gap: 12px;
-  --svc-card-w: calc((122vw - 2 * var(--svc-card-gap)) / 3);
-  --svc-collage-h: 440px;
-  --svc-column-offset: 72px;
-}
-@media (min-width: 768px) {
-  .cs-svc-ad {
-    --svc-card-gap: 16px;
-    /* 기울어진 무대가 콜라주 영역 모서리까지 덮는 최소 폭 */
-    --svc-card-w: 37vw;
-    --svc-collage-h: 560px;
-  }
-}
-@media (min-width: 1024px) {
-  .cs-svc-ad {
-    --svc-card-gap: 20px;
-    --svc-card-w: clamp(220px, 22vw, 360px);
-  }
+  --svc-control-bg: rgba(14, 13, 18, 0.62);
+  --svc-control-line: rgba(255, 255, 255, 0.42);
 }
 
-/* ---------------------------------------------------------------- 히어로: 문구 + 9:16 콜라주 */
-.cs-svc-ad .cs-svc-ad-hero.cs-hero {
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  padding-block: var(--cs-s8) 0;
-}
-@media (min-width: 1024px) {
-  .cs-svc-ad .cs-svc-ad-hero.cs-hero {
-    padding-block: var(--cs-s8);
-  }
-  .cs-svc-ad .cs-svc-ad-hero .cs-hero-copy {
-    padding-right: var(--cs-s6);
-  }
-}
-.cs-svc-ad .cs-svc-ad-glow {
-  position: absolute;
-  left: -180px;
-  bottom: -220px;
-  z-index: 0;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, var(--svc-glow), transparent);
-  pointer-events: none;
-}
-.cs-svc-ad .cs-svc-ad-collage {
+/* ---------------------------------------------------------------- 히어로: 기울어진 3열 레일 + 고정된 가운데 화면 */
+.cs-svc-ad .cs-svc-ad-reel {
   position: relative;
-  z-index: 0;
-  height: var(--svc-collage-h);
-  margin-top: var(--cs-s7);
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: var(--svc-reel-h);
+  padding-block: 40px;
   overflow: clip;
+  isolation: isolate;
 }
-@media (min-width: 1024px) {
-  /* 섹션 오른쪽 절반을 끝까지 채운다 */
-  .cs-svc-ad .cs-svc-ad-collage {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 50%;
-    height: auto;
-    margin-top: 0;
-  }
-}
-.cs-svc-ad .cs-svc-ad-viewport {
+.cs-svc-ad .cs-svc-ad-rail {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: clip;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 10%, var(--svc-mask) 90%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 10%, var(--svc-mask) 90%, transparent 100%);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 12%, var(--svc-mask) 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 12%, var(--svc-mask) 88%, transparent 100%);
 }
-.cs-svc-ad .cs-svc-ad-stage {
+.cs-svc-ad .cs-svc-ad-rail-stage {
   position: absolute;
   left: 50%;
   top: 50%;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--svc-card-gap);
-  transform: translate(-50%, -50%) rotate(-12deg);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--svc-gap);
+  width: var(--svc-stage-w);
+  transform: translate(-50%, -50%) rotate(var(--svc-tilt));
 }
-.cs-svc-ad .cs-svc-ad-column {
-  flex-shrink: 0;
-  width: var(--svc-card-w);
-}
-.cs-svc-ad .cs-svc-ad-column[data-column="2"] {
-  transform: translateY(var(--svc-column-offset));
-}
-.cs-svc-ad .cs-svc-ad-rail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--svc-card-gap);
-  will-change: transform;
-}
-.cs-svc-ad .cs-svc-ad-card.cs-media {
-  width: 100%;
-  border-radius: var(--cs-r-md);
-}
-.cs-svc-ad .cs-svc-ad-card--type {
+.cs-svc-ad .cs-svc-ad-rail-column { display: grid; align-content: start; gap: var(--svc-gap); min-width: 0; will-change: transform; }
+.cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { margin-top: var(--svc-offset); }
+.cs-svc-ad .cs-svc-ad-rail-card {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
   aspect-ratio: 9 / 16;
-  padding: var(--cs-s4);
-  border-radius: var(--cs-r-md);
-  background: var(--cs-accent);
-  color: var(--cs-on-accent);
-  overflow: clip;
-}
-/* 역할 클래스의 기본 글자색(--cs-fg)을 강조색 위 글자색으로 바꾼다 */
-.cs-svc-ad .cs-svc-ad-card--type .cs-t-h2 {
-  color: var(--cs-on-accent);
-}
-/* 타이포 카드 장식: 오른쪽 위 원 */
-.cs-svc-ad .cs-svc-ad-card--type::after {
-  content: "";
-  position: absolute;
-  top: var(--cs-s4);
-  right: var(--cs-s4);
-  width: 28%;
-  aspect-ratio: 1;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-}
-/* 콜라주 태그: 모바일은 문구 왼쪽 끝과 맞춘다 */
-.cs-svc-ad .cs-svc-ad-collage > .cs-tag {
-  left: var(--cs-gutter);
-  bottom: var(--cs-s4);
-}
-@media (min-width: 1024px) {
-  .cs-svc-ad .cs-svc-ad-collage > .cs-tag {
-    left: var(--cs-s5);
-    bottom: var(--cs-s5);
-  }
-}
-
-/* ---------------------------------------------------------------- signature: 첫 장면 설계 */
-.cs-svc-ad .cs-svc-ad-frames {
-  display: grid;
-  gap: var(--cs-s6);
-}
-.cs-svc-ad .cs-svc-ad-frame {
-  display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
-  align-items: center;
-  gap: var(--cs-s5);
-}
-@media (min-width: 768px) {
-  /* 틀은 칸 폭을 채우되 최대 360px. 첫 틀은 섹션 머리 왼쪽 선, 마지막 틀은 오른쪽 끝에 맞추고 남는 폭은 사이 간격으로 나눈다 */
-  .cs-svc-ad .cs-svc-ad-frames {
-    grid-template-columns: repeat(3, minmax(0, 360px));
-    justify-content: space-between;
-    gap: var(--cs-s5);
-  }
-  .cs-svc-ad .cs-svc-ad-frame {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-  }
-}
-.cs-svc-ad .cs-svc-ad-phone {
-  width: 100%;
-  padding: 6px;
-  border: 1px solid var(--cs-line);
-  border-radius: var(--cs-r-lg);
+  overflow: hidden;
+  border-radius: 18px;
   background: var(--cs-surface);
+  box-shadow: var(--svc-card-shadow);
 }
-.cs-svc-ad .cs-svc-ad-screen {
+.cs-svc-ad .cs-svc-ad-rail-card img,
+.cs-svc-ad .cs-svc-ad-rail-card video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--svc-focus, center); }
+.cs-svc-ad .cs-svc-ad-rail-card--type { display: flex; align-items: flex-end; padding: 18px; background: var(--cs-accent); color: var(--cs-on-accent); }
+.cs-svc-ad .cs-svc-ad-rail-card--type .cs-t-h3 { color: var(--cs-on-accent); }
+.cs-svc-ad .cs-svc-ad-rail-card--type::after { content: ""; position: absolute; top: 18px; right: 18px; width: 32%; aspect-ratio: 1; border: 2px solid currentColor; border-radius: 50%; }
+
+.cs-svc-ad .cs-svc-ad-reel-center { position: relative; z-index: 2; width: var(--svc-center-w); min-width: 0; }
+.cs-svc-ad .cs-svc-ad-screen { margin: 0; }
+.cs-svc-ad .cs-svc-ad-screen-media {
   position: relative;
-  overflow: clip;
-  border-radius: calc(var(--cs-r-lg) - 6px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 22px;
+  background: var(--cs-bg);
+  box-shadow: var(--svc-screen-shadow);
 }
-.cs-svc-ad .cs-svc-ad-screen > .cs-media {
-  border-radius: inherit;
-}
-/* 같은 이미지를 장면마다 다르게 자른다: 첫 장면은 빛과 천을 가까이, 제품 장면은 제품을 크게 */
-.cs-svc-ad .cs-svc-ad-frame[data-scene="1"] .cs-media > img {
-  transform: scale(1.9);
-  transform-origin: 26% 16%;
-}
-.cs-svc-ad .cs-svc-ad-frame[data-scene="2"] .cs-media > img {
-  object-position: 57% 50%;
-  transform: scale(1.2);
-  transform-origin: 57% 34%;
-}
-.cs-svc-ad .cs-svc-ad-frame[data-scene="3"] .cs-media > img {
-  object-position: 57% 50%;
-}
-.cs-svc-ad .cs-svc-ad-frame-text {
-  display: flex;
-  flex-direction: column;
-  gap: var(--cs-s2);
-}
-.cs-svc-ad .cs-svc-ad-frame-text .cs-t-small {
-  color: var(--cs-fg-2);
-}
-
-/* 화면 위 장식 요소(진행 막대·첫 문구·버튼·자막 띠). 태그(왼쪽 아래)를 가리지 않게 위쪽에 둔다 */
-.cs-svc-ad .cs-svc-ad-ui {
+.cs-svc-ad .cs-svc-ad-screen-media img,
+.cs-svc-ad .cs-svc-ad-screen-media video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--svc-focus, center); }
+/* 세로 광고 화면 위쪽 진행 막대: 영상 재생 위치를 따른다 */
+.cs-svc-ad .cs-svc-ad-screen-bar { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 1; height: 3px; border-radius: var(--cs-r-pill); background: var(--svc-ui-track); overflow: hidden; pointer-events: none; }
+.cs-svc-ad .cs-svc-ad-screen-bar::after { content: ""; display: block; height: 100%; background: var(--svc-ui-fill); transform: scaleX(var(--svc-progress, 0)); transform-origin: left; }
+.cs-svc-ad .cs-svc-ad-screen-media[data-kind="image"] .cs-svc-ad-screen-bar::after { transform: scaleX(1); }
+.cs-svc-ad .cs-svc-ad-screen-toggle {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-.cs-svc-ad .cs-svc-ad-frame[data-scene="3"] .cs-svc-ad-ui {
-  background: linear-gradient(0deg, var(--svc-scene-shade) 0%, transparent 62%);
-}
-.cs-svc-ad .cs-svc-ad-progress {
-  position: absolute;
-  top: 8%;
-  left: 8%;
-  right: 8%;
-  display: flex;
-  gap: 4px;
-}
-.cs-svc-ad .cs-svc-ad-progress > i {
-  flex: 1;
-  height: 3px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--svc-control-line);
   border-radius: var(--cs-r-pill);
-  background: var(--svc-ui-track);
-}
-.cs-svc-ad .cs-svc-ad-progress > i[data-on] {
-  background: var(--svc-ui-fill);
-}
-/* 장면마다 실제 문구 하나(장식, aria-hidden). 글자 크기·굵기는 역할 클래스(.cs-t-h3/.cs-t-caption/.cs-t-label)가 정한다 */
-.cs-svc-ad .cs-svc-ad-screen-text {
-  position: absolute;
-  left: 8%;
-  right: 8%;
+  background: var(--svc-control-bg);
   color: var(--cs-fg);
-  overflow-wrap: anywhere;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
 }
-/* 첫 장면: 화면 위쪽 큰 문구. 밝은 천 위에서도 읽히게 위쪽에 그림자를 깐다 */
-.cs-svc-ad .cs-svc-ad-frame[data-scene="1"] .cs-svc-ad-ui {
-  background: linear-gradient(180deg, var(--svc-scene-shade) 0%, transparent 46%);
+.cs-svc-ad .cs-svc-ad-screen-toggle-icon { position: relative; display: block; width: 12px; height: 14px; }
+.cs-svc-ad .cs-svc-ad-screen-toggle-icon::before,
+.cs-svc-ad .cs-svc-ad-screen-toggle-icon::after { content: ""; position: absolute; top: 0; width: 4px; height: 14px; border-radius: 1px; background: currentColor; }
+.cs-svc-ad .cs-svc-ad-screen-toggle-icon::before { left: 0; }
+.cs-svc-ad .cs-svc-ad-screen-toggle-icon::after { right: 0; }
+.cs-svc-ad .cs-svc-ad-screen-toggle[data-state="paused"] .cs-svc-ad-screen-toggle-icon::before {
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: transparent;
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent currentColor;
 }
-.cs-svc-ad .cs-svc-ad-screen-text[data-kind="headline"] {
-  top: 15%;
+.cs-svc-ad .cs-svc-ad-screen-toggle[data-state="paused"] .cs-svc-ad-screen-toggle-icon::after { display: none; }
+/* 검토판: 서버가 고른 실제 작업물(FeaturedWork)을 가운데에 고정 */
+.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured { width: 100%; }
+.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured video { border-radius: 18px; box-shadow: var(--svc-screen-shadow); }
+.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured figcaption { padding-inline: 12px; background: var(--cs-bg); }
+.cs-svc-ad .cs-svc-ad-reel-tag { position: absolute; left: 12px; bottom: 12px; z-index: 3; }
+
+@media (max-width: 1023px) {
+  .cs-svc-ad { --svc-stage-w: 136%; }
 }
-/* 제품 장면: 아래쪽 가운데 자막 띠 */
-.cs-svc-ad .cs-svc-ad-screen-text[data-kind="caption"] {
-  left: 50%;
-  right: auto;
-  bottom: 21%;
-  max-width: 84%;
-  padding: var(--cs-s1) var(--cs-s3);
-  border-radius: var(--cs-r-sm);
-  background: var(--svc-ui-band);
-  text-align: center;
-  white-space: nowrap;
-  transform: translateX(-50%);
-}
-/* 마지막 장면: 문의 버튼 모양 */
-.cs-svc-ad .cs-svc-ad-screen-text[data-kind="cta"] {
-  left: 50%;
-  right: auto;
-  bottom: 24%;
-  min-width: 56%;
-  padding: var(--cs-s1) var(--cs-s4);
-  border-radius: var(--cs-r-pill);
-  background: var(--cs-accent);
-  color: var(--cs-on-accent);
-  text-align: center;
-  white-space: nowrap;
-  transform: translateX(-50%);
+@media (max-width: 767px) {
+  .cs-svc-ad {
+    --svc-gap: 10px;
+    --svc-offset: 50px;
+    --svc-travel: 90px;
+    --svc-stage-w: 150%;
+    --svc-reel-h: 480px;
+    --svc-center-w: min(52%, 220px);
+  }
+  .cs-svc-ad .cs-svc-ad-rail-card { border-radius: 12px; }
+  .cs-svc-ad .cs-svc-ad-rail-card--type { padding: 12px; }
+  .cs-svc-ad .cs-svc-ad-screen-media { border-radius: 16px; }
+  .cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured figcaption { flex-direction: column; }
 }
 
-/* R2 — 정렬된 두 세로 화면과 세 장면 편집 */
-.cs-svc-ad .cs-hero.cs-svc-ad-hero { min-height:0; padding-block:var(--cs-s8); background:var(--cs-bg); }
-.cs-svc-ad .cs-svc-ad-hero .cs-hero-copy { padding:0; }
-.cs-svc-ad .cs-svc-ad-edit { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-self:center; }
-.cs-svc-ad .cs-svc-ad-edit figure { min-width:0; margin:0; }
-.cs-svc-ad .cs-svc-ad-edit figure:nth-child(2) { margin-top:50px; }
-.cs-svc-ad .cs-svc-ad-edit .cs-media { border:1px solid var(--cs-line); border-radius:10px; }
-.cs-svc-ad .cs-svc-ad-edit figcaption { margin-top:14px; }
-.cs-svc-ad .cs-svc-ad-edit-note { grid-column:1/-1; color:var(--cs-fg-3); }
-.cs-svc-ad .cs-svc-ad-frames { align-items:stretch; }
-.cs-svc-ad .cs-svc-ad-frame { display:flex; flex-direction:column; gap:22px; }
-.cs-svc-ad .cs-svc-ad-phone { width:100%; max-width:280px; border-radius:12px; padding:5px; }
-.cs-svc-ad .cs-svc-ad-frame-text { display:grid; align-content:start; gap:10px; padding:0; }
-@media(max-width:767px) {
-  .cs-svc-ad .cs-svc-ad-frames { display:grid; grid-template-columns:minmax(0,1fr); gap:40px; }
-  .cs-svc-ad .cs-svc-ad-frame { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,0.9fr); align-items:center; gap:20px; }
-  .cs-svc-ad .cs-svc-ad-frame-text { max-width:none; }
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  /* 18초 왕복. 1·3열은 위로, 2열은 아래로, 3열은 반 주기 앞서 시작한다 */
+  .cs-svc-ad .cs-svc-ad-rail-column {
+    animation-name: cs-svc-ad-rail-up;
+    animation-duration: 18s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { animation-name: cs-svc-ad-rail-down; animation-delay: -4.5s; }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="2"] { animation-delay: -9s; }
+  /* 화면 밖·숨김 탭·움직임 끔(data-play="paused"), 키보드 초점이 안에 있을 때 멈춘다 */
+  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-rail-column,
+  .cs-svc-ad .cs-svc-ad-reel:focus-within .cs-svc-ad-rail-column { animation-play-state: paused; }
+  /* 이미지 화면은 느린 켄번스 */
+  .cs-svc-ad .cs-svc-ad-screen-media[data-kind="image"] img {
+    animation-name: cs-svc-ad-screen-drift;
+    animation-duration: 9s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-screen-media img { animation-play-state: paused; }
+  .cs-svc-ad .cs-svc-ad-screen-toggle { transition: border-color var(--cs-dur-1) var(--cs-ease); }
+  @keyframes cs-svc-ad-rail-up { from { transform: translateY(0); } to { transform: translateY(calc(var(--svc-travel) * -1)); } }
+  @keyframes cs-svc-ad-rail-down { from { transform: translateY(calc(var(--svc-travel) * -1)); } to { transform: translateY(0); } }
+  @keyframes cs-svc-ad-screen-drift { from { transform: scale(1); } to { transform: scale(1.08) translateY(-2%); } }
+}
+@media (hover: hover) {
+  .cs-svc-ad .cs-svc-ad-screen-toggle:hover { border-color: var(--cs-fg); }
 }
