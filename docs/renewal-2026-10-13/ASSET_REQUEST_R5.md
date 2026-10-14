@@ -20,9 +20,9 @@
 | 1 | `MASTER-HOME-CARDS` | 30초 · 4:3 | home-card-ai-influencer, home-card-webtoon, home-card-ad | 필수 (1순위) |
 | 2 | `MASTER-ANIMATION` | 30초 · 16:9 | animation-scene-1, -2, -3, home-card-animation | 필수 (1순위) |
 | 3 | `MASTER-BRANDFILM` | 30초 · 16:9 | brandfilm-main-1, -2, -3, home-card-brand-film | 필수 (1순위) |
-| 4 | `MASTER-AD-A` | 30초 · 9:16 | ad-center-1, ad-rail-1 ~ 4 | 필수 (ad-center-1) |
+| 4 | `MASTER-AD-A` | 30초 · 9:16 | ~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소), ad-rail-1 ~ 4 | 필수 여부는 개정판 R6에서 정리 |
 | 5 | `MASTER-MOTION` | 30초 · 16:9 | motion-bg-1, motion-bg-2, home-card-motion-graphics | 필수 (2순위, 카드는 1순위) |
-| 6 | `MASTER-HERO` | 30초 · 16:9 | home-hero-reel, home-hero-reel-mobile (가운데 세로 크롭) | 필수 (2순위) |
+| 6 | ~~`MASTER-HERO`~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | 30초 · 16:9 | home-hero-reel, home-hero-reel-mobile (가운데 세로 크롭) | 필수 (2순위) |
 | 7 | `MASTER-AD-B` | 30초 · 9:16 | ad-rail-5 ~ 9 | 선택 (3순위) |
 | 8 | `MASTER-PERSONAS` | 30초 · 3:4 | ai-card-1 ~ 4 영상 (슬롯 신설 필요) | 선택 (3순위) |
 
@@ -78,16 +78,16 @@
 
 | 순서 | 마스터 | 먼저 있어야 하는 이미지 | 참조 영상 (먼저 만든 마스터) |
 |---|---|---|---|
-| 1 | `MASTER-HOME-CARDS` | home-card-ai-influencer, home-card-webtoon, home-card-ad, ad-center-1, `_ref_seoyun-sheet` | 없음 |
+| 1 | `MASTER-HOME-CARDS` | home-card-ai-influencer, home-card-webtoon, home-card-ad, ~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소), `_ref_seoyun-sheet` | 없음 |
 | 2 | `MASTER-ANIMATION` | animation-scene-1 ~ 3, animation-character-front/side, home-card-animation | 없음 |
 | 3 | `MASTER-BRANDFILM` | brandfilm-main-1 ~ 3, home-card-brand-film | 기존 `brandfilm-motion.mp4` |
-| 4 | `MASTER-AD-A` | ad-center-1, ad-rail-1 ~ 4, home-card-ad | **MASTER-HOME-CARDS** |
+| 4 | `MASTER-AD-A` | ~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소), ad-rail-1 ~ 4, home-card-ad | **MASTER-HOME-CARDS** |
 | 5 | `MASTER-MOTION` | motion-bg-1, motion-bg-2, home-card-motion-graphics, home-hero-reel | 기존 `brandfilm-motion.mp4` |
-| 6 | `MASTER-HERO` | home-hero-reel | **MASTER-MOTION** |
-| 7 | `MASTER-AD-B` (선택) | ad-rail-5 ~ 9, ad-center-1 | **MASTER-AD-A** |
+| 6 | ~~`MASTER-HERO`~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | home-hero-reel | **MASTER-MOTION** |
+| 7 | `MASTER-AD-B` (선택) | ad-rail-5 ~ 9, ~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소) | **MASTER-AD-A** |
 | 8 | `MASTER-PERSONAS` (선택) | ai-card-1 ~ 4 | **MASTER-HOME-CARDS** |
 
-처음 3개(HOME-CARDS → ANIMATION → BRANDFILM)로 카드 6개 중 5개와 장면 영상 6개가 채워집니다. 4번(AD-A)에서 ad-center-1, 5번(MOTION)에서 여섯 번째 카드가 채워지며 홈 캐러셀이 완성됩니다.
+처음 3개(HOME-CARDS → ANIMATION → BRANDFILM)로 카드 6개 중 5개와 장면 영상 6개가 채워집니다. 4번(AD-A)의 ad-center-1 (R6에서 중앙 카드 삭제로 요청 취소), 5번(MOTION)에서 여섯 번째 카드가 채워지며 홈 캐러셀이 완성됩니다.
 
 ### 공통 금지
 - 글자·숫자·자막·로고·브랜드 마크·워터마크 금지. 휴대폰 화면 속 UI 글자도 금지합니다.
@@ -206,8 +206,8 @@ WORLD: miniature surreal architecture with cream stone walls and round windows, 
 
 | 슬롯 ID | 사용처 | 종류 | 비율 | 루프 | 순위 |
 |---|---|---|---|---|---|
-| `home-hero-reel` | 홈 히어로 배경 (데스크톱) | IMG · 영상 ○ | 16:9 | 루프 | 2순위 |
-| `home-hero-reel-mobile` | 홈 히어로 배경 (모바일) | IMG · 영상 ○ | 9:16 | 루프 | 2순위 |
+| ~~`home-hero-reel`~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | 홈 히어로 배경 (데스크톱) | IMG · 영상 ○ | 16:9 | 루프 | 2순위 |
+| ~~`home-hero-reel-mobile`~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | 홈 히어로 배경 (모바일) | IMG · 영상 ○ | 9:16 | 루프 | 2순위 |
 | `home-card-webtoon` | 서비스 3D 캐러셀 카드 | IMG · 영상 ○ | 4:3 | 루프 | 1순위 |
 | `home-card-animation` | 〃 | IMG · 영상 ○ | 4:3 | 루프 | 1순위 |
 | `home-card-ai-influencer` | 〃 | IMG · 영상 ○ | 4:3 | 루프 권장 | 1순위 |
@@ -217,7 +217,7 @@ WORLD: miniature surreal architecture with cream stone walls and round windows, 
 
 카드 비율: `content-home.css`의 R4 깊이 캐러셀(`.ch-depth-media`)은 데스크톱 540×390(약 4:3), 모바일 280×320(거의 정사각)이고 `object-fit: contain`입니다. 그래서 4:3으로 만들고 주인공을 가운데 3:4 영역 안에 둡니다. 모바일에서 가운데를 잘라 써도 주인공이 남습니다.
 
-#### `home-hero-reel` · 16:9 · IMG · 영상 ○ · 루프 · 2순위
+#### `home-hero-reel` · 16:9 · IMG · 영상 ○ · 루프 · 2순위 (R6에서 사용자 메이킹 필름으로 대체, 요청 취소)
 - 설명: 컨텐츠 홈 첫 화면 배경 루프입니다. 기존 `hero.webp`와 같은 세계(보라 유리 리본 아치, 아이보리 구, 필름 스트립)를 씁니다. 왼쪽 절반은 어둡게 비워 제목 자리로 남깁니다.
 - 참조: `I:\00_AIO_CODEX\2026-10-14\new-chat\outputs\aio-content-v01\dist\assets\hero.png`
 - 이미지 프롬프트 (+[S-CINE])
@@ -225,7 +225,7 @@ WORLD: miniature surreal architecture with cream stone walls and round windows, 
 Ultra-wide cinematic scene: a sculptural translucent violet glass ribbon arching over a dark reflective satin stage, three matte ivory spheres of different sizes and one small clear glass sphere resting beside dark volcanic rocks on the right, an iridescent transparent film strip curling around them, delicate coral-pink branch sprigs, a faint warm coral glow behind. The left half of the frame stays dark, empty and quiet for a headline overlay. Looks like a frame from a luxury motion-design brand film, photographed premium CGI.
 ```
 
-#### `home-hero-reel-mobile` · 9:16 · IMG · 영상 ○ · 루프 · 2순위
+#### `home-hero-reel-mobile` · 9:16 · IMG · 영상 ○ · 루프 · 2순위 (R6에서 사용자 메이킹 필름으로 대체, 요청 취소)
 - 설명: 같은 장면을 세로로 다시 구성합니다. 위쪽 1/3은 제목 자리라 어둡게 비웁니다.
 - 참조: `home-hero-reel.png`
 - 이미지 프롬프트 (+[S-CINE])
@@ -272,7 +272,7 @@ Cinematic close shot of an artisan's hands shaping a small pale clay cup on a sp
 ```
 
 #### `home-card-ad` · 4:3 · IMG · 영상 ○ · 루프 · 1순위
-- 설명: SNS 광고 대표 카드입니다. 로고 없는 휴대폰이 비스듬히 떠 있고, 화면 안에 세로 향수 광고 장면이 보입니다. `ad-center-1`과 같은 제품입니다.
+- 설명: SNS 광고 대표 카드입니다. 로고 없는 휴대폰이 비스듬히 떠 있고, 화면 안에 세로 향수 광고 장면이 보입니다. 이전에 같은 제품이던 `ad-center-1`은 (R6에서 중앙 카드 삭제로 요청 취소)되었습니다.
 - 이미지 프롬프트 (+[S-CINE])
 ```
 A generic modern smartphone with thin black bezels and no logo floats tilted about 15 degrees against a near-black background. Its screen shows a vertical ad scene: an unbranded amber glass perfume bottle with a blank label standing on an ivory travertine block, a sheer violet fabric sweeping behind it, warm coral light. The phone screen contains no interface text or icons. Soft violet rim light on the phone edges, subtle reflection below.
@@ -406,15 +406,15 @@ Closing hero still life: a finished handmade ivory ceramic cup with steam rising
 
 | 슬롯 ID | 사용처 | 종류 | 비율 | 루프 | 순위 |
 |---|---|---|---|---|---|
-| `ad-center-1` | 가운데 고정 세로 영상 | IMG · 영상 ○ | 9:16 | 루프 | 1순위 |
-| `ad-rail-1` ~ `ad-rail-9` | 기울어진 3열 레일(열당 3장, 18초 왕복) | IMG 필수 · 영상 선택 | 9:16 | 루프 | 이미지 1순위 · 영상 3순위 |
+| ~~`ad-center-1`~~ | ~~가운데 고정 세로 영상~~ (R6에서 중앙 카드 삭제로 요청 취소) | ~~IMG · 영상 ○~~ | ~~9:16~~ | ~~루프~~ | 취소 |
+| `ad-rail-1` ~ `ad-rail-9` | 기울어진 3열 레일(열당 3장, R6에서 9초 왕복으로 2배 빠르게) | IMG 필수 · 영상 선택 | 9:16 | 루프 | 이미지 1순위 · 영상 3순위 |
 | `ad-hook-1` ~ `ad-hook-3` | '장면의 역할' 휴대폰 화면 3컷 | IMG | 9:16 | — | 3순위 선택 |
 
 - 레일은 이미지로 먼저 채우고, 영상은 마스터를 만드는 김에 함께 나오는 만큼 씁니다. 레일이 계속 움직이므로 이미지만으로도 충분히 동적으로 보입니다.
 - 레일 9장은 업종이 모두 달라야 합니다. 그래도 같은 사이트 톤을 위해 어두운 배경, 보라 측광, 따뜻한 보조광은 공통으로 씁니다.
 - 각 장면의 위쪽 1/4과 아래쪽 1/5은 비교적 단순하게 둡니다. 팀이 광고 문구 장식을 얹을 수 있습니다.
 
-#### `ad-center-1` · 1순위
+#### ~~`ad-center-1`~~ · 1순위 (R6에서 중앙 카드 삭제로 요청 취소)
 - 설명: 향수 광고 세로 영상입니다. 보라 천이 휩쓸며 지나가면 무상표 호박색 향수병이 드러납니다.
 - 이미지 (+[S-CINE])
 ```
@@ -437,7 +437,7 @@ Vertical product ad frame: an unbranded amber glass perfume bottle with a blank 
 | `ad-rail-9` | 리빙 | 향초와 디퓨저, 리넨 위 | `Vertical home-living ad frame: an unbranded amber glass candle with a lit flame next to a reed diffuser on folded linen, a dim cozy room with a warm window glow, violet shadows.` | `The candle flame flickers gently, a thin wisp of smoke curls up, soft light breathing on the linen.` |
 
 #### `ad-hook-1` ~ `ad-hook-3` · 선택
-- 설명: 광고 페이지의 '첫 장면·제품 장면·마지막 장면' 휴대폰 화면 3컷입니다. 현재 alt 문구(보라 천 / 돌 받침 위 향수병 / 문의 버튼 자리)와 맞춥니다. `ad-center-1.png`를 참조로 올립니다.
+- 설명: 광고 페이지의 '첫 장면·제품 장면·마지막 장면' 휴대폰 화면 3컷입니다. 현재 alt 문구(보라 천 / 돌 받침 위 향수병 / 문의 버튼 자리)와 맞춥니다. ~~`ad-center-1.png`를 참조로 올립니다.~~ (R6에서 중앙 카드 삭제로 요청 취소), 참조는 `home-card-ad.png`로 바꿉니다.
 - 이미지 (+[S-CINE])
   - `ad-hook-1`: `Vertical frame: close-up of a sheer violet fabric with a beam of warm light grazing across its folds, dark background, no product visible, the upper third calm for a short headline.`
   - `ad-hook-2`: `Vertical frame: the same unbranded amber perfume bottle shown large on the ivory travertine block, filling the middle of the frame, a calm dark band across the lower fifth for a subtitle.`
@@ -534,7 +534,7 @@ Waist-up editorial portrait against a deep charcoal studio backdrop, soft violet
   6. `[AIO기존]webtoon.png` 웹툰 그림체
   7. `home-card-webtoon.png` (나노바나나) 샷 B 구도
   8. `home-card-ad.png` (나노바나나) 샷 C 구도
-  9. `ad-center-1.png` (나노바나나) 향수병 형태
+  9. ~~`ad-center-1.png` (나노바나나) 향수병 형태~~ (R6에서 중앙 카드 삭제로 요청 취소)
 - 영상 (0/5): 없음. 첫 마스터입니다.
 
 **샷 목록**
@@ -684,14 +684,14 @@ A 30-second brand film for a fictional small pottery studio, four separate cinem
 
 ---
 
-### 5-4. `MASTER-AD-A` · 순서 4 · 필수 (ad-center-1)
+### 5-4. `MASTER-AD-A` · 순서 4 · ~~필수 (ad-center-1)~~ (R6에서 중앙 카드 삭제로 요청 취소)
 
 - 규격: 30초 · 9:16 · 1080×1920 · 하드컷 4번(6, 12, 18, 24초), 샷마다 다른 업종 6초
-- 만들어지는 슬롯: `ad-center-1` (필수), `ad-rail-1` ~ `ad-rail-4` (선택 슬롯이지만 이 마스터에서 함께 나옵니다)
+- 만들어지는 슬롯: ~~`ad-center-1` (필수)~~ (R6에서 중앙 카드 삭제로 요청 취소), `ad-rail-1` ~ `ad-rail-4` (선택 슬롯이지만 이 마스터에서 함께 나옵니다)
 
 **참조 묶음**
 - 이미지 (7/10)
-  1. `ad-center-1.png` (나노바나나) 시작 프레임, 향수병
+  1. ~~`ad-center-1.png` (나노바나나) 시작 프레임, 향수병~~ (R6에서 중앙 카드 삭제로 요청 취소), 개정판 R6에서 시작 프레임 정리
   2. `ad-rail-1.png` (나노바나나) 립스틱
   3. `ad-rail-2.png` (나노바나나) 떡볶이
   4. `ad-rail-3.png` (나노바나나) 스니커즈
@@ -705,7 +705,7 @@ A 30-second brand film for a fictional small pottery studio, four separate cinem
 
 | 샷 | 타임코드 | 내용 |
 |---|---|---|
-| A | 0:00 – 0:06 | 향수병 + 보라 천 (ad-center-1) |
+| A | 0:00 – 0:06 | 향수병 + 보라 천 (~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소)) |
 | B | 0:06 – 0:12 | 립스틱과 장미 꽃잎 (ad-rail-1) |
 | C | 0:12 – 0:18 | 김 오르는 떡볶이 (ad-rail-2) |
 | D | 0:18 – 0:24 | 공중에 뜬 스니커즈와 스카프 (ad-rail-3) |
@@ -730,13 +730,13 @@ A 30-second vertical 9:16 product-ad reel made of five separate shots joined by 
 **일관성·루프 메모**
 - 샷마다 제품이 달라야 합니다. 제품이 다음 샷으로 번지면 분할안을 씁니다.
 - 광고 장면은 한 번 지나가는 동작이라 루프가 아니라 왕복(boomerang)으로 만듭니다.
-- 분할안: 샷 A~C(18초, 시작 프레임 `ad-center-1.png`)와 샷 D~E(12초, 시작 프레임 `ad-rail-3.png`). B의 타임코드는 18초를 뺍니다.
+- 분할안: 샷 A~C(18초, 시작 프레임 ~~`ad-center-1.png`~~ (R6에서 중앙 카드 삭제로 요청 취소), 개정판 R6에서 정리)와 샷 D~E(12초, 시작 프레임 `ad-rail-3.png`). B의 타임코드는 18초를 뺍니다.
 
 **SLOT MAP**
 
 | 마스터 구간 | 슬롯 ID | 출력 파일 | 편집 규칙 |
 |---|---|---|---|
-| 0:00 – 0:05 | `ad-center-1` | `ad-center-1.mp4` | R3 왕복 루프 · 9:16 720×1280 |
+| 0:00 – 0:05 | ~~`ad-center-1`~~ | ~~`ad-center-1.mp4`~~ | (R6에서 중앙 카드 삭제로 요청 취소) |
 | 0:07 – 0:11 | `ad-rail-1` | `ad-rail-1.mp4` | R3 · 9:16 |
 | 0:13 – 0:17 | `ad-rail-2` | `ad-rail-2.mp4` | R3 · 9:16 |
 | 0:19 – 0:23 | `ad-rail-3` | `ad-rail-3.mp4` | R3 · 9:16 |
@@ -796,7 +796,7 @@ A 30-second abstract motion-graphics reel made of three separate loop-friendly s
 
 ---
 
-### 5-6. `MASTER-HERO` · 순서 6 · 필수
+### 5-6. `MASTER-HERO` · 순서 6 · 필수 (R6에서 사용자 메이킹 필름으로 대체, 요청 취소)
 
 - 규격: 30초 · 16:9 · 1920×1080 · **컷 없는 한 번의 테이크**
 - 만들어지는 슬롯: `home-hero-reel` (데스크톱), `home-hero-reel-mobile` (같은 영상을 가운데 세로로 크롭)
@@ -844,7 +844,7 @@ One continuous 30-second take, no cuts. The scene continues the first frame (Ima
   3. `ad-rail-7.png` (나노바나나) 스킨케어 크림
   4. `ad-rail-8.png` (나노바나나) 딸기 케이크
   5. `ad-rail-9.png` (나노바나나) 향초와 디퓨저
-  6. `ad-center-1.png` (나노바나나) 광고 톤 기준
+  6. ~~`ad-center-1.png` (나노바나나) 광고 톤 기준~~ (R6에서 중앙 카드 삭제로 요청 취소)
 - 영상 (1/5)
   - Video 1: `MASTER-AD-A.mp4` (색감과 카메라 속도)
 
@@ -954,11 +954,11 @@ A 30-second 3:4 video of four different fictional adult Korean AI virtual person
 | 순위 | 슬롯 | 이미지 |
 |---|---|---|
 | 1순위 필수 | `home-card-webtoon` · `home-card-animation` · `home-card-ai-influencer` · `home-card-motion-graphics` · `home-card-brand-film` · `home-card-ad` | 6 |
-| 1순위 필수 | `ad-center-1` | 1 |
+| ~~1순위 필수~~ | ~~`ad-center-1`~~ (R6에서 중앙 카드 삭제로 요청 취소) | ~~1~~ |
 | 1순위 필수 | `ad-rail-1` ~ `ad-rail-9` | 9 |
 | 1순위 필수 | `animation-scene-1` ~ `animation-scene-3` | 3 |
 | 1순위 필수 | `brandfilm-main-1` ~ `brandfilm-main-3` | 3 |
-| 2순위 필수 | `home-hero-reel` · `home-hero-reel-mobile` | 2 |
+| 2순위 필수 | ~~`home-hero-reel` · `home-hero-reel-mobile`~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | 2 |
 | 2순위 필수 | `motion-bg-1` · `motion-bg-2` | 2 |
 | 2순위 필수 | `ai-card-1` ~ `ai-card-4` | 4 |
 | 2순위 필수 | `webtoon-cut-1` ~ `webtoon-cut-12` | 12 |
@@ -985,9 +985,9 @@ A 30-second 3:4 video of four different fictional adult Korean AI virtual person
 | HOME-CARDS | home-card-ai-influencer, -webtoon, -ad | 3 | 0 |
 | ANIMATION | animation-scene-1, -2, -3, home-card-animation | 4 | 0 |
 | BRANDFILM | brandfilm-main-1, -2, -3, home-card-brand-film | 4 | 0 |
-| AD-A | ad-center-1 / ad-rail-1 ~ 4 | 1 | 4 |
+| AD-A | ~~ad-center-1~~ (R6에서 중앙 카드 삭제로 요청 취소) / ad-rail-1 ~ 4 | ~~1~~ 0 | 4 |
 | MOTION | motion-bg-1, -2, home-card-motion-graphics | 3 | 0 |
-| HERO | home-hero-reel, home-hero-reel-mobile | 2 | 0 |
+| HERO | ~~home-hero-reel, home-hero-reel-mobile~~ (R6에서 사용자 메이킹 필름으로 대체, 요청 취소) | 2 | 0 |
 | AD-B | ad-rail-5 ~ 9 | 0 | 5 |
 | PERSONAS | ai-card-1 ~ 4 (영상 슬롯 신설) | 0 | 4 |
 | **합계** | | **17** | **13** |

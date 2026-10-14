@@ -296,7 +296,6 @@ html:has(.guide-public) {
 .centered-copy {
   text-align: center;
 }
-.main-contact-copy,
 .about-brand-copy {
   align-items: center;
 }
@@ -310,4 +309,267 @@ html:has(.guide-public) {
 }
 .showcase-video-brand {
   padding-top: clamp(32px, 4vw, 64px);
+}
+
+/* Main page `/` (R6 WP-M): left aligned except the symmetric brand video.
+ * Colors come from tokens, section spacing from --section-y. Type values come
+ * from the role classes (.t-*), so only layout and color are set here. */
+.guide-main {
+  --main-text-2: #3a3a42;
+  --main-text-3: #6e6e78;
+  --main-line: #dad8d1;
+  --main-on-dark-2: #d6d6dc;
+  --main-on-dark-3: #c9c9d1;
+  --main-card-bg: #141418;
+}
+.guide-main .main-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.guide-main .main-accent {
+  color: var(--violet);
+}
+.guide-main .main-accent-light {
+  color: var(--lavender);
+}
+
+/* Hero */
+.guide-main .main-hero {
+  position: relative;
+  min-height: min(780px, calc(100svh - 70px));
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+}
+.guide-main .main-hero-bg {
+  position: absolute;
+  inset: 0;
+}
+.guide-main .main-hero-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(13, 13, 18, 0.58), rgba(13, 13, 18, 0.75));
+}
+.guide-main .main-hero-inner {
+  position: relative;
+  pointer-events: none;
+  padding-block: var(--section-y);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  gap: 32px;
+}
+.guide-main .main-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--main-on-dark-3);
+}
+.guide-main .main-hero-eyebrow::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: var(--violet);
+}
+.guide-main .main-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 100%;
+}
+.guide-main .main-hero-title {
+  margin: 0;
+  text-wrap: balance;
+}
+.guide-main .main-hero-lead {
+  margin: 0;
+  max-width: 34em;
+  color: var(--main-on-dark-2);
+}
+.guide-main .main-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  pointer-events: auto;
+}
+.guide-main .main-btn--solid,
+.guide-main .main-btn--solid:hover {
+  background: var(--violet);
+  color: #fff;
+  padding: 18px 28px;
+}
+.guide-main .main-btn--line,
+.guide-main .main-btn--line:hover {
+  border: 1.5px solid #fff;
+  color: #fff;
+  padding: 16.5px 26px;
+}
+
+/* #divisions: number and name, one line, services, link */
+.guide-main .main-divisions {
+  padding-block: var(--section-y);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vw, 80px);
+}
+.guide-main .main-divisions-title {
+  margin: 0;
+  text-align: left;
+}
+.guide-main .main-division-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 12px;
+}
+.guide-main .main-division,
+.guide-main .main-division:hover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+  color: #fff;
+}
+.guide-main .main-division-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--main-card-bg);
+}
+.guide-main .main-division-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Rows: name, one line, services (1fr), link. Names share one y because the
+ * rows above the services list have fixed content. */
+.guide-main .main-division-body {
+  flex: 1;
+  padding: 28px 32px 32px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+}
+.guide-main .main-division-name {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.guide-main .main-division-num {
+  color: var(--lavender);
+}
+.guide-main .main-division-line {
+  margin-bottom: 14px;
+  color: var(--lavender);
+}
+.guide-main .main-division-cta {
+  font-weight: 600;
+}
+
+/* OUR STANDARD: closing line, left aligned */
+.guide-main .main-standard {
+  background: #fff;
+  border-bottom: 1px solid var(--main-line);
+}
+.guide-main .main-standard-inner {
+  padding-block: var(--section-y);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 32px;
+}
+.guide-main .main-standard-eyebrow {
+  color: var(--main-text-3);
+}
+.guide-main .main-standard-quote {
+  margin: 0;
+  max-width: 26ch;
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: 1.5;
+  letter-spacing: var(--type-h2-tracking);
+  text-wrap: balance;
+}
+.guide-main .main-standard-caption {
+  margin: 0;
+  color: var(--main-text-3);
+}
+
+/* FAQ */
+.guide-main .main-faq {
+  padding-block: var(--section-y);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 48px;
+}
+.guide-main .main-faq-title {
+  margin: 0;
+}
+.guide-main .main-faq-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1.5px solid var(--ink);
+}
+.guide-main .main-faq-item {
+  border-bottom: 1px solid var(--main-line);
+}
+.guide-page.guide-main button.main-faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 22px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.guide-main .main-faq-sign {
+  font-family: var(--ff-display);
+  font-weight: 300;
+  color: var(--violet);
+}
+.guide-main .main-faq-a {
+  margin: 0 0 24px;
+  max-width: 56ch;
+  color: var(--main-text-2);
+}
+
+/* Contact */
+.guide-main .main-contact {
+  background: var(--violet);
+  color: #fff;
+}
+.guide-main .main-contact-inner {
+  padding-block: var(--section-y);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 48px;
+  align-items: start;
+}
+.guide-main .main-contact-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 20px;
+}
+.guide-main .main-contact-title,
+.guide-main .main-contact-lead {
+  margin: 0;
+}
+.guide-main .main-contact-lead {
+  max-width: 36ch;
+}
+.guide-main .main-contact-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }

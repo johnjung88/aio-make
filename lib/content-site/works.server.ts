@@ -24,9 +24,9 @@ const aiPersonDraft =
 
 /** 서비스 사례 기본 상한 */
 const MAX_WORKS = 4;
-/** 서비스별 상한(없으면 MAX_WORKS). SNS 광고는 명세 6-4 매핑(AI 가상인물 시안 3편 · 브랜드 광고 1편 · 모션 광고 2편) 6편을 모두 보인다. */
+/** 서비스별 상한(없으면 MAX_WORKS). SNS 광고는 AI 가상인물 시안 3편 · 모션 광고 2편 5편을 모두 보인다(R6: 브랜드 광고 30초 시안은 primaryService를 brand-film으로 옮겨 브랜드 홍보 페이지로 이동). */
 const MAX_WORKS_BY_SERVICE: Partial<Record<ContentServiceId, number>> = {
-  ad: 6,
+  ad: 5,
 };
 
 export function maxContentWorks(id: ContentServiceId): number {
@@ -59,7 +59,7 @@ function toCard(work: WorkItem, service: ContentServiceId): CsWorkCard {
   };
 }
 
-/** 서비스에 맞는 사례 최대 maxContentWorks(id)개(기본 4, SNS 광고 6. 웹툰은 웹툰 미디어 우선, 그 외는 영상 우선). 기본 빌드는 []. */
+/** 서비스에 맞는 사례 최대 maxContentWorks(id)개(기본 4, SNS 광고 5. 웹툰은 웹툰 미디어 우선, 그 외는 영상 우선). 기본 빌드는 []. */
 export async function selectContentWorks(
   id: ContentServiceId,
 ): Promise<CsWorkCard[]> {

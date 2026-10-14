@@ -1,41 +1,11 @@
-/* SNS 광고 영상 서비스 랜딩 데이터(WP-C 소유, BRIEF_P2R_SERVICES 6절).
- * signature = 9:16 카드 콜라주 히어로 문구 · 첫 장면 설계 프레임 3개.
+/* SNS 광고 영상 서비스 랜딩 데이터(R6 WP-C).
+ * signature.screens = 히어로 레일의 문구 카드에 얹는 가상 광고 문구(장식, 레일 전체가 aria-hidden). 장면 설명 카피는 두지 않는다.
  * 광고 성과(클릭률·전환·노출 수치)는 근거가 없어 쓰지 않는다. 숫자로 된 초 단위 표현도 쓰지 않는다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
 export const adSignature = {
-  collage: {
-    label: "SNS 광고 영상 연출 예시",
-    cards: ["첫 장면", "제품 장면", "마지막 장면"],
-  },
-  hook: {
-    eyebrow: "HOOK",
-    title: "한 편 안에서도\n장면의 역할은 다르게",
-    lead: "한 편 안에서 장면마다 맡은 일을 나눠 기획안에 담습니다",
-    /* screen: 휴대폰 화면 위에 얹는 가상 광고 문구(장식, aria-hidden). 장면마다 글자 요소 하나.
-     * 순서대로 첫 장면 위쪽 큰 문구 · 제품 장면 자막 띠 · 마지막 장면 버튼(ad/landing.tsx SCREEN_TEXT) */
-    frames: [
-      {
-        title: "첫 장면",
-        body: "관심을 가질 만한 제품의 특징이나 사용 상황을 짧은 문구와 함께 보여줍니다",
-        alt: "빛이 스치는 보라색 천 위에 짧은 문구를 얹은 첫 장면 연출 예시",
-        screen: "밤의 향기",
-      },
-      {
-        title: "제품 장면",
-        body: "제품이 무엇인지 선명하게 보이도록 전체 모습과 세부 특징을 나눠 담습니다",
-        alt: "돌 받침 위 향수병을 크게 보여주고 아래에 자막을 넣은 제품 장면 연출 예시",
-        screen: "은은한 잔향",
-      },
-      {
-        title: "마지막 장면",
-        body: "브랜드와 제품명을 남기고 구매나 문의로 이어질 문구를 정리합니다",
-        alt: "향수병 아래로 문의 버튼이 놓인 마지막 장면 연출 예시",
-        screen: "문의하기",
-      },
-    ],
-  },
+  screens: ["밤의 향기", "은은한 잔향", "문의하기"],
 };
 
 export type AdSignature = typeof adSignature;
@@ -101,9 +71,8 @@ export const ad: ServiceLandingData = {
       "제품·서비스 1개와 콘셉트 1개",
       "9:16 세로형 · 1080p",
       "기본 자막과 배경음악",
-      "기획안 수정 2회 · 최종안 수정 1회",
     ],
-    separate: ["다른 화면비 추가", "광고 집행과 매체비", "계정 운영", "대량·정기 제작"],
+    separate: ["다른 화면비 추가", "광고 집행과 매체비", "계정 운영"],
     prepare: [
       "제품 사진과 상세페이지",
       "로고와 브랜드 색",

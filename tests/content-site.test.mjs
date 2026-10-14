@@ -419,16 +419,19 @@ function selectedWorks(flag) {
   return JSON.parse(result.stdout);
 }
 
-test("6-1. 사례 상한: 기본 4, SNS 광고만 6(명세 6-4 매핑 전체). 기본 빌드는 0", () => {
+test("6-1. 사례 상한: 기본 4, SNS 광고만 5(R6: 브랜드 광고 시안은 브랜드 홍보 페이지로). 기본 빌드는 0", () => {
   const review = selectedWorks("1");
   for (const id of ORDER) {
-    assert.equal(review[id].max, id === "ad" ? 6 : 4, id);
+    assert.equal(review[id].max, id === "ad" ? 5 : 4, id);
     assert.ok(review[id].slugs.length <= review[id].max, id);
   }
   assert.deepEqual(
     [...review.ad.slugs].sort(),
-    ["bwl-aqua-ad", "bwl-brand-ad", "bwl-cleanser-ad", "bwl-cplus-ad", "yofree-mg-short", "yofree-mg30"],
+    ["bwl-aqua-ad", "bwl-cleanser-ad", "bwl-cplus-ad", "yofree-mg-short", "yofree-mg30"],
   );
+  // 브랜드 광고 30초 시안은 SNS 광고에서 빠지고 브랜드 홍보 영상(brand-film)이 계속 고른다
+  assert.equal(review.ad.slugs.includes("bwl-brand-ad"), false);
+  assert.equal(review["brand-film"].slugs.includes("bwl-brand-ad"), true);
   for (const flag of [undefined, "0", "true"]) {
     const off = selectedWorks(flag);
     for (const id of ORDER) assert.deepEqual(off[id].slugs, [], `${flag} ${id}`);

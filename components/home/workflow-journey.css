@@ -11,7 +11,7 @@
   --wj-line: #dad8d1;
   --wj-accent: var(--violet);
   --wj-stage: var(--ink);
-  --wj-step-gap: clamp(96px, 11vw, 160px);
+  --wj-step-gap: clamp(64px, 7vw, 96px);
   --wj-rail-w: 240px;
   --wj-col-gap: clamp(40px, 5vw, 88px);
   --wj-s0: 4px;
@@ -696,11 +696,11 @@
 }
 
 /* Main page #divisions service lists (three cards, one class).
- * Card bodies stack from the top (main.jsx grid rows: head, kicker, title,
- * list, 1fr spacer, CTA), so titles share one y even when a list wraps to two
- * lines; the spacer only pushes the CTA to the card bottom. */
+ * Card bodies stack from the top (ux.css .main-division-body rows: number and
+ * name, one line, list 1fr, link), so names share one y even when a list wraps
+ * to two lines; the list row only pushes the link to the card bottom. */
 .home-division-services {
-  color: #c9c9d1;
+  color: var(--main-on-dark-3);
   margin-bottom: 24px;
   word-break: keep-all;
 }

@@ -1,25 +1,26 @@
 "use client";
-/* 서비스 6종 3D 캐러셀(R5 WP-H).
+/* 서비스 6종 3D 캐러셀(R6 WP-H).
  * - 카드 배치: React current → 카드별 data-pos(-2..2, hidden) → CSS 3D transform 보간(레퍼런스 updateCarousel 수치)
- * - 자동 넘김: 진행 막대의 CSS 애니메이션이 끝나면(animationend) 다음 카드로 간다. 타이머 없이 막대와 넘김이 같은 시계를 쓴다
- *   정지 조건(data-autoplay="paused"): 마우스 올림, 키보드 포커스, 터치 중, 열린 상세, 화면 밖, 탭 숨김, 헤더 움직임 토글, 사용자 멈춤
- *   수동 조작(탭·화살표·키·스와이프·옆 카드)은 막대를 처음부터 다시 시작한다
+ * - 조작: 스테이지 좌우 가장자리의 이전·다음 화살표, 옆 카드 클릭, 키보드(←→ Home End), 가로 스와이프. 탭 칩·카운터·진행 막대·일시정지 없음
+ * - 자동 넘김: useEffect 타이머. 이미지 카드 dwellMs, 영상 카드 videoDwellMs 뒤 다음 카드로 간다(homeCarouselMotion)
+ *   정지 조건: 마우스 올림, 키보드 포커스, 터치 중, 화면 밖, 탭 숨김, 헤더 움직임 토글, reduced-motion
+ *   정지가 풀리거나 카드가 바뀌면 타이머를 처음부터 다시 잰다
+ * - 서비스 링크: 선택된 카드 아래 캡션에 '서비스명 · 한 줄 · 시작가 · 서비스 보기 →'. 선택된 카드 전체도 같은 링크, 옆 카드 클릭은 선택 이동
  * - reduced-motion: 자동 넘김과 영상 자동재생 없음, 옆 카드는 정적으로 보이고 수동 조작은 그대로
  * - 카드 소재: 검토판 실제 작업물 → 없으면 homeCardMedia 슬롯(영상 있으면 선택 카드만 muted 루프, 없으면 켄번스) */
-import { useEffect, useRef, useState, type AnimationEvent, type FocusEvent, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from "react";
 import Image from "next/image";
-import { Pause, Play } from "lucide-react";
 import Link from "next/link";
 import {
  contentHomeServices as services,
  contentHomeServicesHead as head,
  homeCardMedia,
- pad2,
+ homeCarouselMotion,
 } from "@/lib/content-home";
+import { startingPrice } from "@/lib/content-pricing";
 import type { ContentSelection } from "@/lib/home-journey";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import { useCsMotion } from "@/components/content-site/shell/frame";
-import { ServiceDetail } from "./service-detail";
 import { useStageActivity } from "./use-stage-activity";
 
 type Page = { src:string; alt:string; width:number; height:number };
@@ -72,50 +73,39 @@ function WorkMedia({ media, selected, play, reduced }: { media:CardMedia; select
 
 export function ServiceShowcase({ selections }: { selections: ContentSelection[] }) {
  const [current,setCurrent]=useState(0);
- const [cycle,setCycle]=useState(0);
  const [hover,setHover]=useState(false);
  const [focusPause,setFocusPause]=useState(false);
  const [touching,setTouching]=useState(false);
- const [detailsOpen,setDetailsOpen]=useState(false);
- const [userPaused,setUserPaused]=useState(false);
  const {root,active:inView,reduced}=useStageActivity();
  const {motion}=useCsMotion();
- const buttons=useRef<(HTMLButtonElement|null)[]>([]);
  const touch=useRef<{x:number;y:number}|null>(null);
  const suppressClick=useRef(false);
- const active=services[current];
+ const count=selections.length;
  const cards=selections.map(cardMedia);
  const moving=inView && motion==="on" && !reduced;
  const autoplay=!reduced;
- const running=moving && !userPaused && !hover && !focusPause && !touching && !detailsOpen;
+ const running=moving && !hover && !focusPause && !touching;
+ const dwellMs=cards[current]?.kind==="video" ? homeCarouselMotion.videoDwellMs : homeCarouselMotion.dwellMs;
+ const activeService=services.find(item=>item.id===selections[current]?.tab.id) ?? services[current];
 
- const go=(index:number)=>{
+ /** 이동 전에 재생 중인 영상을 멈춘다(선택 카드가 바뀌면 이전 영상은 언마운트된다) */
+ const select=(index:number)=>{
   root.current?.querySelectorAll("video").forEach(video=>video.pause());
-  setCurrent((index+services.length)%services.length);
-  setCycle(value=>value+1);
+  setCurrent((index+count)%count);
  };
- /** 수동 조작: 이동하고 자동 넘김 막대를 처음부터 다시 시작한다 */
- const select=(index:number,focus=false)=>{
-  const next=(index+services.length)%services.length;
-  go(next);
-  if(focus) buttons.current[next]?.focus();
- };
- const advance=(event:AnimationEvent)=>{
-  if(event.animationName!=="cs-ch-autoplay" || !running)return;
-  go(current+1);
- };
+
+ // 자동 넘김 시계: 정지 조건이 모두 풀려 있는 동안에만 돈다. 카드가 바뀌거나 정지가 풀리면 처음부터 다시 잰다
+ useEffect(()=>{
+  if(!running)return;
+  const timer=window.setTimeout(()=>{
+   root.current?.querySelectorAll("video").forEach(video=>video.pause());
+   setCurrent(value=>(value+1)%count);
+  },dwellMs);
+  return ()=>window.clearTimeout(timer);
+ },[running,current,dwellMs,count,root]);
 
  // 화면 밖·탭 숨김·reduced-motion·움직임 토글이면 영상을 멈춘다
  useEffect(()=>{if(!moving) root.current?.querySelectorAll("video").forEach(video=>video.pause());},[moving,root]);
- // 서비스 상세(details)가 열려 있으면 읽는 동안 넘기지 않는다. toggle은 버블링하지 않아 capture로 듣는다
- useEffect(()=>{
-  const node=root.current;
-  if(!node)return;
-  const update=()=>setDetailsOpen(!!node.querySelector("details[open]"));
-  update();
-  node.addEventListener("toggle",update,true);
-  return ()=>node.removeEventListener("toggle",update,true);
- },[root,current]);
 
  const keyboard=(event:KeyboardEvent)=>{
   if((event.target as HTMLElement).closest("video"))return;
@@ -123,8 +113,8 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
   if(event.key==="ArrowRight")next=current+1;
   if(event.key==="ArrowLeft")next=current-1;
   if(event.key==="Home")next=0;
-  if(event.key==="End")next=services.length-1;
-  if(next!==null){event.preventDefault();select(next,true);}
+  if(event.key==="End")next=count-1;
+  if(next!==null){event.preventDefault();select(next);}
  };
  // 키보드 포커스(:focus-visible)일 때만 멈춘다. 마우스로 누른 버튼에 남은 포커스로는 멈추지 않는다
  const focusIn=(event:FocusEvent)=>{
@@ -140,12 +130,12 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
   <div className="cs-container">
    <CsSectionHead id="ch-services-title" eyebrow={head.eyebrow} title={head.title} lead={head.lead}/>
    <div className="ch-gallery ch-gallery--depth" ref={root} data-active={moving ? "true":"false"} data-autoplay={autoplay ? (running ? "running":"paused") : "off"} onKeyDown={keyboard} onFocus={focusIn} onBlur={focusOut} onPointerEnter={event=>{if(event.pointerType==="mouse")setHover(true);}} onPointerLeave={event=>{if(event.pointerType==="mouse")setHover(false);}}>
-    <div className="ch-gallery-tabs" role="tablist" aria-label="컨텐츠 서비스 선택">{services.map((service,index)=><button key={service.id} ref={node=>{buttons.current[index]=node;}} type="button" role="tab" id={`ch-tab-${service.id}`} aria-selected={index===current} aria-controls="ch-service-panel" tabIndex={index===current?0:-1} className="ch-tab cs-t-chip" onClick={()=>select(index)}>{service.label}</button>)}</div>
     <div className="ch-depth-stage" aria-label="서비스 작업물 카드" aria-roledescription="carousel" onClickCapture={event=>{if(suppressClick.current){event.preventDefault();event.stopPropagation();suppressClick.current=false;}}} onTouchStart={event=>{
      suppressClick.current=false;
      setTouching(true);
-     // 영상 위에서 시작한 스와이프도 넘긴다(조작 막대가 있는 영상 video[controls]·링크·버튼만 제외). 영상은 CSS로 pointer-events:none이라 터치가 카드로 간다
-     if((event.target as HTMLElement).closest("video[controls], a, button")){touch.current=null;return;}
+     const target=event.target as HTMLElement;
+     // 영상 위에서 시작한 스와이프도 넘긴다(조작 막대가 있는 영상 video[controls]·링크·버튼만 제외). 카드 전체를 덮는 이동 링크·선택 버튼은 스와이프를 받는다
+     if(!target.closest(".ch-depth-open, .ch-depth-select") && target.closest("video[controls], a, button")){touch.current=null;return;}
      touch.current={x:event.touches[0].clientX,y:event.touches[0].clientY};
     }} onTouchCancel={()=>{touch.current=null;setTouching(false);}} onTouchEnd={event=>{
      setTouching(false);
@@ -157,27 +147,29 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
     }}>
      {selections.map((selection,index)=>{
       let distance=index-current;
-      if(distance>services.length/2)distance-=services.length;
-      if(distance< -services.length/2)distance+=services.length;
+      if(distance>count/2)distance-=count;
+      if(distance< -count/2)distance+=count;
       const selected=index===current;
       const hidden=Math.abs(distance)>2;
+      const service=services.find(item=>item.id===selection.tab.id) ?? services[index];
+      const price=startingPrice(service.id);
+      // reduced-motion의 조작 막대 영상은 카드 전체 링크가 가리지 않는다(영상 조작이 우선, 캡션 링크는 그대로)
+      const linkable=!(reduced && cards[index].kind==="video");
       return <div key={selection.tab.id} className="ch-depth-card" data-pos={hidden ? "hidden" : distance} aria-hidden={!selected}>
        <WorkMedia media={cards[index]} selected={selected} play={selected && moving} reduced={reduced}/>
-       <div className="ch-depth-caption"><span className="cs-t-eyebrow">{selection.tab.label}</span><p className="cs-t-small">{selection.caption ?? selection.tab.line}</p>{selection.tag ? <span className="cs-tag cs-t-caption">{selection.tag}</span>:null}{selected && selection.work ? <Link className="cs-link" href={`/content/projects/${selection.work.slug}?service=${selection.tab.id}`}>작업 자세히 보기 <span aria-hidden="true">↗</span></Link>:null}</div>
+       {selected && linkable ? <Link className="ch-depth-open" href={service.href} tabIndex={-1} aria-hidden="true"/>:null}
+       <div className="ch-depth-caption">
+        <p className="ch-depth-title"><span className="cs-t-h3">{service.label}</span>{price ? <span className="ch-depth-price cs-t-small">{price.head}</span>:null}</p>
+        <p className="ch-depth-line cs-t-small">{service.line}</p>
+        <div className="ch-depth-links">{selection.tag ? <span className="cs-tag cs-t-caption">{selection.tag}</span>:null}{selected && selection.work ? <Link className="cs-link" href={`/content/projects/${selection.work.slug}?service=${selection.tab.id}`}>작업 보기 <span aria-hidden="true">↗</span></Link>:null}<Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
+       </div>
        {!selected && !hidden ? <button className="ch-depth-select" type="button" tabIndex={-1} aria-label={`${selection.tab.label} 선택`} onClick={()=>select(index)}/>:null}
       </div>;
      })}
-     <div className="ch-depth-nav">
-      <span className="ch-depth-count cs-t-caption"><span>{pad2(current+1)} / {pad2(services.length)}</span>{autoplay ? <span className="ch-autoplay-track" aria-hidden="true"><span key={cycle} className="ch-autoplay-fill" data-dwell={cards[current].kind==="video" ? "video":"image"} onAnimationEnd={advance}/></span>:null}</span>
-      <div className="ch-arrows">
-       {autoplay ? <button type="button" className="ch-arrow ch-autoplay-toggle" aria-label={userPaused ? head.autoplayPlay : head.autoplayPause} onClick={()=>{setUserPaused(value=>!value);setCycle(value=>value+1);}}>{userPaused ? <Play size={16} aria-hidden="true"/> : <Pause size={16} aria-hidden="true"/>}</button>:null}
-       <button type="button" className="ch-arrow" aria-label="이전 서비스" onClick={()=>select(current-1)}>←</button>
-       <button type="button" className="ch-arrow" aria-label="다음 서비스" onClick={()=>select(current+1)}>→</button>
-      </div>
-     </div>
+     <button type="button" className="ch-arrow ch-arrow--prev cs-t-button" aria-label="이전 서비스" onClick={()=>select(current-1)}>←</button>
+     <button type="button" className="ch-arrow ch-arrow--next cs-t-button" aria-label="다음 서비스" onClick={()=>select(current+1)}>→</button>
     </div>
-    <div className="ch-depth-detail" role="tabpanel" id="ch-service-panel" aria-labelledby={`ch-tab-${active.id}`}><ServiceDetail service={active} index={current}/></div>
-    <p className="cs-sr-only" aria-live={running ? "off" : "polite"}>{`${current+1} / ${services.length} ${active.label}`}</p>
+    <p className="cs-sr-only" aria-live={running ? "off" : "polite"}>{`${current+1} / ${count} ${activeService.label}`}</p>
    </div>
   </div>
  </section>;

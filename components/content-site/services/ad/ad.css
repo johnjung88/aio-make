@@ -1,7 +1,8 @@
 /* ad 서비스 고유 스타일(R5 WP-S2 소유).
  * 선택자는 모두 .cs-svc-ad로 시작한다. 장식 색은 맨 위 변수 블록에만 둔다. 글자 속성은 역할 클래스(cs-t-*)만 쓴다.
  * 움직임(animation-*·transition)은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
- * 레일: 레퍼런스 aio-service-pages-v01 .collage-rail(3열, 기울기, 18초 ease-in-out 왕복, 가운데 열 내림)을 열 단위 위상차로 옮겼다. */
+ * 레일: 레퍼런스 aio-service-pages-v01 .collage-rail(3열, 기울기, ease-in-out 왕복, 가운데 열 내림)을 열 단위 위상차로 옮겼다.
+ * R6: 속도는 9초 왕복(R5의 2배). 가운데 영상 카드와 그 진행 막대·재생 토글·그림자는 삭제했고 레일이 미디어 칸 전체를 쓴다. */
 .cs-svc-ad {
   --svc-tilt: -11deg;
   --svc-gap: 18px;
@@ -9,21 +10,13 @@
   --svc-travel: 140px;
   --svc-stage-w: 124%;
   --svc-reel-h: clamp(560px, 46vw, 700px);
-  --svc-center-w: min(46%, 300px);
   --svc-mask: #000;
   --svc-card-shadow: 0 6px 40px rgba(0, 0, 0, 0.35);
-  --svc-screen-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-  --svc-ui-track: rgba(255, 255, 255, 0.32);
-  --svc-ui-fill: rgba(255, 255, 255, 0.95);
-  --svc-control-bg: rgba(14, 13, 18, 0.62);
-  --svc-control-line: rgba(255, 255, 255, 0.42);
 }
 
-/* ---------------------------------------------------------------- 히어로: 기울어진 3열 레일 + 고정된 가운데 화면 */
+/* ---------------------------------------------------------------- 히어로: 기울어진 3열 레일(미디어 칸 전체 폭) */
 .cs-svc-ad .cs-svc-ad-reel {
   position: relative;
-  display: grid;
-  place-items: center;
   min-width: 0;
   min-height: var(--svc-reel-h);
   padding-block: 40px;
@@ -65,60 +58,6 @@
 .cs-svc-ad .cs-svc-ad-rail-card--type .cs-t-h3 { color: var(--cs-on-accent); }
 .cs-svc-ad .cs-svc-ad-rail-card--type::after { content: ""; position: absolute; top: 18px; right: 18px; width: 32%; aspect-ratio: 1; border: 2px solid currentColor; border-radius: 50%; }
 
-.cs-svc-ad .cs-svc-ad-reel-center { position: relative; z-index: 2; width: var(--svc-center-w); min-width: 0; }
-.cs-svc-ad .cs-svc-ad-screen { margin: 0; }
-.cs-svc-ad .cs-svc-ad-screen-media {
-  position: relative;
-  aspect-ratio: 9 / 16;
-  overflow: hidden;
-  border: 1px solid var(--cs-line);
-  border-radius: 22px;
-  background: var(--cs-bg);
-  box-shadow: var(--svc-screen-shadow);
-}
-.cs-svc-ad .cs-svc-ad-screen-media img,
-.cs-svc-ad .cs-svc-ad-screen-media video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--svc-focus, center); }
-/* 세로 광고 화면 위쪽 진행 막대: 영상 재생 위치를 따른다 */
-.cs-svc-ad .cs-svc-ad-screen-bar { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 1; height: 3px; border-radius: var(--cs-r-pill); background: var(--svc-ui-track); overflow: hidden; pointer-events: none; }
-.cs-svc-ad .cs-svc-ad-screen-bar::after { content: ""; display: block; height: 100%; background: var(--svc-ui-fill); transform: scaleX(var(--svc-progress, 0)); transform-origin: left; }
-.cs-svc-ad .cs-svc-ad-screen-media[data-kind="image"] .cs-svc-ad-screen-bar::after { transform: scaleX(1); }
-.cs-svc-ad .cs-svc-ad-screen-toggle {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  z-index: 2;
-  display: inline-grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 1px solid var(--svc-control-line);
-  border-radius: var(--cs-r-pill);
-  background: var(--svc-control-bg);
-  color: var(--cs-fg);
-  backdrop-filter: blur(6px);
-  cursor: pointer;
-}
-.cs-svc-ad .cs-svc-ad-screen-toggle-icon { position: relative; display: block; width: 12px; height: 14px; }
-.cs-svc-ad .cs-svc-ad-screen-toggle-icon::before,
-.cs-svc-ad .cs-svc-ad-screen-toggle-icon::after { content: ""; position: absolute; top: 0; width: 4px; height: 14px; border-radius: 1px; background: currentColor; }
-.cs-svc-ad .cs-svc-ad-screen-toggle-icon::before { left: 0; }
-.cs-svc-ad .cs-svc-ad-screen-toggle-icon::after { right: 0; }
-.cs-svc-ad .cs-svc-ad-screen-toggle[data-state="paused"] .cs-svc-ad-screen-toggle-icon::before {
-  left: 2px;
-  width: 0;
-  height: 0;
-  border-radius: 0;
-  background: transparent;
-  border-style: solid;
-  border-width: 7px 0 7px 12px;
-  border-color: transparent transparent transparent currentColor;
-}
-.cs-svc-ad .cs-svc-ad-screen-toggle[data-state="paused"] .cs-svc-ad-screen-toggle-icon::after { display: none; }
-/* 검토판: 서버가 고른 실제 작업물(FeaturedWork)을 가운데에 고정 */
-.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured { width: 100%; }
-.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured video { border-radius: 18px; box-shadow: var(--svc-screen-shadow); }
-.cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured figcaption { padding-inline: 12px; background: var(--cs-bg); }
 .cs-svc-ad .cs-svc-ad-reel-tag { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 3; display: flex; min-width: 0; }
 /* 태그는 한 줄: 길면 말줄임(1440·390 모두 '예시'가 아래로 떨어지지 않게) */
 .cs-svc-ad .cs-svc-ad-reel-tag .cs-tag { display: block; max-width: 100%; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -133,43 +72,26 @@
     --svc-travel: 90px;
     --svc-stage-w: 150%;
     --svc-reel-h: 480px;
-    --svc-center-w: min(52%, 220px);
   }
   .cs-svc-ad .cs-svc-ad-rail-card { border-radius: 12px; }
   .cs-svc-ad .cs-svc-ad-rail-card--type { padding: 12px; }
-  .cs-svc-ad .cs-svc-ad-screen-media { border-radius: 16px; }
-  .cs-svc-ad .cs-svc-ad-reel-center .cs-service-featured figcaption { flex-direction: column; }
 }
 
 /* ---------------------------------------------------------------- 움직임 */
 @media (prefers-reduced-motion: no-preference) {
-  /* 18초 왕복. 1·3열은 위로, 2열은 아래로, 3열은 반 주기 앞서 시작한다 */
+  /* 9초 왕복. 1·3열은 위로, 2열은 아래로, 3열은 반 주기 앞서 시작한다 */
   .cs-svc-ad .cs-svc-ad-rail-column {
     animation-name: cs-svc-ad-rail-up;
-    animation-duration: 18s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-  .cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { animation-name: cs-svc-ad-rail-down; animation-delay: -4.5s; }
-  .cs-svc-ad .cs-svc-ad-rail-column[data-column="2"] { animation-delay: -9s; }
-  /* 화면 밖·숨김 탭·움직임 끔(data-play="paused"), 키보드 초점이 안에 있을 때 멈춘다 */
-  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-rail-column,
-  .cs-svc-ad .cs-svc-ad-reel:focus-within .cs-svc-ad-rail-column { animation-play-state: paused; }
-  /* 이미지 화면은 느린 켄번스 */
-  .cs-svc-ad .cs-svc-ad-screen-media[data-kind="image"] img {
-    animation-name: cs-svc-ad-screen-drift;
     animation-duration: 9s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
   }
-  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-screen-media img { animation-play-state: paused; }
-  .cs-svc-ad .cs-svc-ad-screen-toggle { transition: border-color var(--cs-dur-1) var(--cs-ease); }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { animation-name: cs-svc-ad-rail-down; animation-delay: -2.25s; }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="2"] { animation-delay: -4.5s; }
+  /* 화면 밖·숨김 탭·움직임 끔(data-play="paused"), 키보드 초점이 안에 있을 때 멈춘다 */
+  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-rail-column,
+  .cs-svc-ad .cs-svc-ad-reel:focus-within .cs-svc-ad-rail-column { animation-play-state: paused; }
   @keyframes cs-svc-ad-rail-up { from { transform: translateY(0); } to { transform: translateY(calc(var(--svc-travel) * -1)); } }
   @keyframes cs-svc-ad-rail-down { from { transform: translateY(calc(var(--svc-travel) * -1)); } to { transform: translateY(0); } }
-  @keyframes cs-svc-ad-screen-drift { from { transform: scale(1); } to { transform: scale(1.08) translateY(-2%); } }
-}
-@media (hover: hover) {
-  .cs-svc-ad .cs-svc-ad-screen-toggle:hover { border-color: var(--cs-fg); }
 }

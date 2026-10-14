@@ -3,13 +3,12 @@ import { CsSectionHead } from "../../ui/section-head";
 import { MEDIA_TAGS, type CsWorkCard } from "@/lib/content-site/types";
 import { getExampleMedia, type ExampleSlot } from "@/lib/content-site/example-media";
 import { adSignature } from "@/lib/content-site/services/ad";
-import { brandFilmSignature } from "@/lib/content-site/services/brand-film";
-import { ServiceHero, FeaturedWork, ProductionNotes } from "../service-hero";
+import { ServiceHero } from "../service-hero";
 import { WorkSequence } from "../work-sequence";
 import "./ad.css";
-import { AdRail, type CenterMedia, type RailCard } from "./ad-reel";
+import { AdRail, type RailCard } from "./ad-reel";
 
-/** 레일 3열 × 4칸. m = 소재 카드, t = 문구 카드(adSignature 화면 문구) */
+/** 레일 3열 × 4칸. m = 소재 카드, t = 문구 카드(adSignature.screens) */
 const LAYOUT = [["m", "t", "m", "m"], ["m", "m", "m", "t"], ["t", "m", "m", "m"]] as const;
 
 function railColumns(media: RailCard[], type: RailCard[]): RailCard[][] {
@@ -40,23 +39,14 @@ function reviewCards(works: CsWorkCard[] | undefined, featured: CsWorkCard): Rai
   return cards;
 }
 
-/** 공개판 가운데 9:16 화면: 슬롯 ad-center-1(교체는 example-media.ts 한 줄) */
-function centerExample(): CenterMedia | undefined {
-  const slot = getExampleMedia("ad").find(item => item.id === "ad-center-1");
-  if (!slot) return undefined;
-  return { kind: slot.kind, src: slot.src, poster: slot.poster, alt: slot.alt, tag: slot.label, width: slot.width, height: slot.height, focus: position(slot.focus) };
-}
-
 function Hero({ data, works }: ServiceSectionProps) {
   const work = works?.find(item=>item.slug === "bwl-aqua-ad");
   const examples = getExampleMedia("ad", "rail");
   const media = work ? reviewCards(works, work) : examples.map(fromSlot);
-  const type: RailCard[] = adSignature.hook.frames.map(frame => ({ kind: "type", text: frame.screen }));
+  const type: RailCard[] = adSignature.screens.map(text => ({ kind: "type", text }));
   /* 공개판 레일 표기: AI 인물 소재가 섞이면 'AI 가상인물 · 연출 예시' */
   const tag = work ? undefined : examples.some(slot => slot.label === MEDIA_TAGS.aiPerson) ? MEDIA_TAGS.aiPerson : MEDIA_TAGS.staged;
-  return <ServiceHero data={data} media={<AdRail columns={railColumns(media, type)} center={work ? undefined : centerExample()} tag={tag} labels={{ pause: brandFilmSignature.hero.pause, play: brandFilmSignature.hero.play }}>
-    {work ? <FeaturedWork work={work} fallback={null}/> : null}
-  </AdRail>}/>;
+  return <ServiceHero data={data} media={<AdRail columns={railColumns(media, type)} tag={tag}/>}/>;
 }
 function Signature({ works }: ServiceSectionProps) {
   const work = works?.find(item=>item.slug === "bwl-aqua-ad");
@@ -64,7 +54,6 @@ function Signature({ works }: ServiceSectionProps) {
     <CsSectionHead id="cs-ad-edit-title" eyebrow="VERTICAL EDIT" title={"사용하는 순간을\n보여주는 광고"} lead="첫 장면에서 상황을 전하고 제품을 쓰는 과정으로 이어갑니다"/>
     <WorkSequence work={work} portrait service="ad" labels={["퇴근 후의 일상", "사용 방법을 자막으로", "사용 장면으로 마무리"]} exampleLabels={["첫 장면에서 상황을 전달", "사용 방법을 자막으로", "사용 장면으로 마무리"]}/>
     {work && <p className="cs-t-small cs-service-review-note">{work.label} · 실제 영상에서 발췌한 장면</p>}
-    <ProductionNotes title="한 제품, 한 콘셉트" items={[{title:"첫 화면에 담을 상황",body:"누가 언제 제품을 찾는지 정하고 시작 문구를 씁니다"},{title:"보여줄 제품의 특징",body:"제품 사진과 설명 자료를 바탕으로 필요한 장면과 자막을 고릅니다"},{title:"게시할 세로 화면",body:"9:16 화면에 맞춰 편집하고 기본 자막과 배경음악을 더합니다"}]}/>
   </div></section>;
 }
 export const adLanding: ServiceModule = { Hero, Signature, worksLayout:"vertical" };

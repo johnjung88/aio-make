@@ -1,38 +1,41 @@
-.cs-svc-animation .cs-svc-animation-hero-board { border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); overflow:hidden; }
-.cs-svc-animation .cs-svc-animation-hero-board .cs-media { border-radius:0; }
-.cs-svc-animation .cs-svc-animation-hero-board img { object-position:center 34%; }
-.cs-svc-animation .cs-svc-animation-board-caption { display:grid; gap:7px; padding:22px; }
-.cs-svc-animation .cs-svc-animation-board-caption .cs-t-caption { color:var(--cs-fg-3); }
-.cs-svc-animation .cs-svc-animation-style-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
-.cs-svc-animation .cs-svc-animation-style { min-width:0; margin:0; }
-.cs-svc-animation .cs-svc-animation-style .cs-media { border-radius:10px; }
-.cs-svc-animation .cs-svc-animation-style figcaption { display:grid; gap:12px; padding-top:22px; }
-.cs-svc-animation .cs-svc-animation-style .cs-t-body { color:var(--cs-fg-2); }
-.cs-svc-animation .cs-svc-animation-plan-list { border-top:1px solid var(--cs-line); }
-.cs-svc-animation .cs-svc-animation-plan-list li { display:grid; grid-template-columns:48px minmax(0,1fr) minmax(0,0.6fr); gap:24px; align-items:start; padding:32px 0; border-bottom:1px solid var(--cs-line); }
-.cs-svc-animation .cs-svc-animation-plan-list .cs-t-caption { padding-top:5px; color:var(--cs-accent-text); }
-.cs-svc-animation .cs-svc-animation-plan-list .cs-t-body { margin-top:10px; color:var(--cs-fg-2); }
-.cs-svc-animation .cs-svc-animation-plan-list .cs-t-small { padding:10px 16px; background:var(--cs-surface); border:1px solid var(--cs-line); border-radius:6px; }
-@media(max-width:767px){
-  .cs-svc-animation .cs-svc-animation-style-list { grid-template-columns:minmax(0,1fr); gap:40px; }
-  .cs-svc-animation .cs-svc-animation-style .cs-media { aspect-ratio:4/3; }
-  .cs-svc-animation .cs-svc-animation-style img { object-position:center 35%; }
-  .cs-svc-animation .cs-svc-animation-plan-list li { grid-template-columns:28px minmax(0,1fr); gap:14px; padding:24px 0; }
-  .cs-svc-animation .cs-svc-animation-plan-list .cs-t-small { grid-column:2; }
-}
+/* animation 서비스 고유 스타일(R6, WP-A 소유). 선택자는 모두 .cs-svc-animation로 시작한다.
+ * 장식(숨 쉬는 링·점)은 없다. 이미지의 느린 켄번스는 공통 service-motion.css가 맡는다. */
 
-/* R5 WP-S1: 히어로 연출 예시 위의 숨 쉬는 링(레퍼런스 animation-halo 8초). 화면 밖에서는 data-play로 멈춘다 */
-.cs-svc-animation .cs-svc-animation-hero-example .cs-example-frame::after { content:""; position:absolute; right:14%; top:8%; z-index:1; width:34%; aspect-ratio:1/1; border:1px solid var(--cs-fg); border-radius:50%; opacity:.55; pointer-events:none; }
-.cs-svc-animation .cs-svc-animation-hero-example .cs-example-frame::before { content:""; position:absolute; left:10%; bottom:18%; z-index:1; width:7%; aspect-ratio:1/1; border-radius:50%; background:var(--cs-accent); pointer-events:none; }
-@media (prefers-reduced-motion:no-preference) {
-  .cs-svc-animation .cs-svc-animation-hero-example .cs-example-frame::after { animation-name:cs-svc-animation-halo; animation-duration:8s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; }
-  .cs-svc-animation .cs-svc-animation-hero-example .cs-example-frame::before { animation-name:cs-svc-animation-hop; animation-duration:2.6s; animation-timing-function:cubic-bezier(.3,0,.3,1); animation-iteration-count:infinite; animation-direction:alternate; }
-  @keyframes cs-svc-animation-halo { 0%,100% { transform:scale(1) translateY(0); } 50% { transform:scale(1.1) translateY(-10px); } }
-  @keyframes cs-svc-animation-hop { from { transform:translateY(0); } to { transform:translateY(-34px); } }
-}
-
-/* 히어로 연출 예시 태그: 세로 이미지의 아래쪽은 첫 화면 접힘선에 걸리므로 위쪽에 둔다. 데스크톱은 이미지 높이를 첫 화면 안으로 제한 */
+/* 히어로 대표 슬롯: 세로 이미지의 아래쪽은 첫 화면 접힘선에 걸리므로 태그를 위쪽에 둔다. 데스크톱은 이미지 높이를 첫 화면 안으로 제한(왼쪽 기준) */
 .cs-svc-animation .cs-svc-animation-hero-example > .cs-tag { top: 12px; bottom: auto; }
 @media (min-width:768px) {
-  .cs-svc-animation .cs-svc-animation-hero-example { max-width: min(100%, max(300px, calc((100svh - 240px) * 2 / 3))); margin-inline: auto; }
+  .cs-svc-animation .cs-svc-animation-hero-example { max-width: min(100%, max(300px, calc((100svh - 240px) * 2 / 3))); }
+  /* 대표 슬롯에 16:9 영상이 오면 세로 제한을 풀고 열 전체를 쓴다 */
+  .cs-svc-animation .cs-svc-animation-hero-example[data-aspect="16x9"] { max-width: none; }
+}
+
+/* 영상 레퍼런스 그리드: 모바일 1열, 768부터 2열. 칸은 항상 16:9 */
+.cs-svc-animation .cs-svc-animation-refs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cs-s5);
+}
+.cs-svc-animation .cs-svc-animation-refs > li {
+  min-width: 0;
+}
+.cs-svc-animation .cs-svc-animation-ref.cs-example-figure[data-aspect] .cs-example-frame {
+  aspect-ratio: 16 / 9;
+}
+@media (min-width:768px) {
+  .cs-svc-animation .cs-svc-animation-refs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cs-s6);
+  }
+}
+
+/* 슬롯이 0개일 때만: 16:9 빈 면 + 한 줄 */
+.cs-svc-animation .cs-svc-animation-empty {
+  display: grid;
+  place-items: center start;
+  aspect-ratio: 16 / 9;
+  padding: var(--cs-s5);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-bg-2);
+  color: var(--cs-fg-2);
 }

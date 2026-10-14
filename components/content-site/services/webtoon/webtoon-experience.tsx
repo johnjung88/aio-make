@@ -1,36 +1,15 @@
 "use client";
 
-/* 웹툰 client 섬(R5, 이 서비스의 유일한 client 파일).
- * - WebtoonCover: 히어로 3컷 부채(스크롤 진행 + 느린 떠오름 루프, 화면 밖 정지)
- * - WebtoonUnfold: sticky 고정 구간에서 스크롤에 맞춰 다섯 컷이 순서대로 펼쳐진다
+/* 웹툰 client 섬(R6, 이 서비스의 유일한 client 파일).
  * - WebtoonReader: 12컷 3D 페이지 넘김(왼쪽 책등 기준 rotateY, 뒷면, 움직이는 그림자). 버튼·스와이프·방향키
- * 컷 경로와 설명은 서버(landing.tsx → example-media 슬롯)가 props로 넘긴다. 인라인 style 없음(변수는 setProperty). */
+ * 히어로 표지는 서버(landing.tsx)가 컷 1장으로 그린다. 컷 경로와 설명은 서버가 example-media 슬롯에서 읽어 props로 넘긴다.
+ * 인라인 style 없음(변수는 setProperty). */
 import Image from "next/image";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { CsTag } from "../../ui/tag";
-import { MotionCanvas, useInViewPlay, useMotionProgress } from "../motion-runtime";
+import { useInViewPlay } from "../motion-runtime";
 
 type Cut = { src: string; alt: string };
-
-export function WebtoonCover({ cuts, sizes, title, caption }: { cuts: readonly Cut[]; sizes: string; title: string; caption: string }) {
-  return <MotionCanvas variant="webtoon" className="cs-webtoon-fan">
-    <div className="cs-webtoon-fan-images">{[2,1,0].map(index=><Image key={cuts[index].src} src={cuts[index].src} alt={index===0?cuts[index].alt:""} width={800} height={1200} sizes={sizes} priority={index===0} data-panel={index}/>)}</div>
-    <div className="cs-webtoon-fan-caption"><p className="cs-t-caption">{caption}</p><h2 className="cs-t-h3">{title}</h2><a href="#reader" className="cs-link">12컷 넘겨 읽기 ↓</a></div>
-  </MotionCanvas>;
-}
-
-export function WebtoonUnfold({ cuts, sizes, tag, hint }: { cuts: readonly Cut[]; sizes: string; tag: string; hint: string }) {
-  const track = useRef<HTMLDivElement>(null);
-  useMotionProgress(track, undefined, { mode: "pin" });
-  return <div ref={track} className="cs-svc-webtoon-unfold-track">
-    <div className="cs-svc-webtoon-unfold-sticky">
-      <div className="cs-svc-webtoon-unfold-stage">
-        {cuts.map((cut,index)=><figure key={cut.src} className="cs-svc-webtoon-unfold-cut" data-cut={index}><Image src={cut.src} alt={cut.alt} width={800} height={1200} sizes={sizes}/></figure>)}
-      </div>
-      <div className="cs-svc-webtoon-unfold-meta"><CsTag>{tag}</CsTag><p className="cs-t-caption">{hint}</p></div>
-    </div>
-  </div>;
-}
 
 const TURN_MS = 950;
 type Turn = { index: number; dir: "next" | "prev" };

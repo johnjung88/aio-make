@@ -92,21 +92,22 @@ function strings(value, out = []) {
 
 // 2026-10-14 사용자 결정: 3214(9b3def8) 원문을 유지하고 상담·브랜드 가이드만 빼서
 // 개발 → 마케팅 → 컨텐츠 순서로 보여준다. 번호만 01~03으로 바뀐다.
+// 2026-10-15(R6) 사용자 결정: 문장 끝 마침표만 없애고 나머지 원문은 그대로 둔다.
 const ORIGINAL_STEPS = {
   "journey-dev": {
     railLabel: "개발",
     title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
-    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다.",
+    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다",
   },
   "journey-marketing": {
     railLabel: "마케팅",
     title: "계획하고 운영하고\n데이터로 고칩니다",
-    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다.",
+    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다",
   },
   "journey-content": {
     railLabel: "컨텐츠",
     title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
-    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다.",
+    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다",
   },
 };
 
@@ -129,11 +130,17 @@ test("three journey steps (development, marketing, content) keep the 3214 wordin
     assert.equal(step.title, original.title, step.id);
     assert.equal(step.lead, original.lead, step.id);
   }
-  assert.equal(journeyIntro.title, "상담부터 성과까지\n하나로 이어집니다");
+  assert.equal(journeyIntro.title, "기획부터 성과까지\n하나로 이어집니다");
   assert.equal(
     journeyIntro.lead,
-    "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요.",
+    "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요",
   );
+  // R6: no sentence ends with a period.
+  for (const text of [
+    journeyIntro.lead,
+    ...journeySteps.map((step) => step.lead),
+  ])
+    assert.ok(!/[.。]\s*$/.test(text), text);
   assert.ok(
     !journeySteps.some((step) =>
       ["journey-consult", "journey-brand"].includes(step.id),
@@ -319,6 +326,151 @@ test("main page uses the journey, the six-service wording and no #process sectio
   assert.ok(main.includes("OUR STANDARD"));
   assert.ok(!main.includes('href="#process"'));
   assert.doesNotMatch(main, /<HomeHero|<HomeServices/);
+});
+
+// R6 WP-M: 메인 `/` 왼쪽 정렬 · 분야 카드 4줄 · 공통 섹션 간격 · 닫는 문구
+test("main hero is left aligned with the agreed copy and two buttons", async () => {
+  const main = await read("components/guide/main.jsx");
+  const css = await read("components/guide/ux.css");
+  const hero = main.slice(
+    main.indexOf('<section className="main-hero">'),
+    main.indexOf('<ShowcaseVideo kind="brand" />'),
+  );
+  for (const text of [
+    "분야별 ",
+    "전문가들",
+    "와 함께 일합니다",
+    "컨텐츠·마케팅·개발, ",
+    "필요한 일만",
+    " 골라 맡기고 결과를 함께 확인하세요",
+    "견적 문의",
+    "제작 예시 살펴보기",
+  ])
+    assert.ok(hero.includes(text), text);
+  assert.equal(hero.match(/<GuideLink/g).length, 2);
+  assert.ok(!/textAlign|alignItems/.test(hero), "no inline alignment");
+  const block = css.slice(css.indexOf(".guide-main .main-hero-inner {"));
+  const inner = block.slice(0, block.indexOf("}"));
+  assert.match(inner, /align-items: flex-start;/);
+  assert.match(inner, /text-align: left;/);
+});
+
+test("division cards are 01 개발 · 02 마케팅 · 03 컨텐츠 with four lines each", async () => {
+  const main = await read("components/guide/main.jsx");
+  const css = await read("components/guide/ux.css");
+  const section = main.slice(
+    main.indexOf('id="divisions"'),
+    main.indexOf("<WorkflowJourney"),
+  );
+  // Same order and numbers as the workflow (개발 → 마케팅 → 컨텐츠).
+  const order = ["/lab", "/marketing", "/content"].map((href) =>
+    section.indexOf(`href="${href}"`),
+  );
+  assert.ok(order.every((index) => index > 0));
+  assert.deepEqual([...order].sort((a, b) => a - b), order);
+  const cards = section.split('className="main-division"').slice(1);
+  assert.equal(cards.length, 3);
+  const expected = [
+    ["01", "개발", "개발 상담하기 →"],
+    ["02", "마케팅", "마케팅 상담하기 →"],
+    ["03", "컨텐츠", "컨텐츠 상담하기 →"],
+  ];
+  cards.forEach((card, index) => {
+    const [num, name, cta] = expected[index];
+    assert.ok(card.includes(`{"${num}"}`), num);
+    assert.ok(card.includes(`{"${name}"}`), name);
+    assert.ok(card.includes(`{"${cta}"}`), cta);
+    // number+name / one line / services / link: four text rows
+    for (const cls of [
+      "main-division-name",
+      "main-division-line",
+      "home-division-services",
+      "main-division-cta",
+    ])
+      assert.equal(card.split(cls).length - 1, 1, `${num} ${cls}`);
+  });
+  assert.deepEqual(
+    journeySteps.map((step) => step.railLabel),
+    expected.map(([, name]) => name),
+  );
+  // English names, status chips and the old numbering are gone.
+  for (const gone of [
+    "Studio",
+    '"Marketing"',
+    '"Lab"',
+    "바로 의뢰 가능",
+    "문의 가능",
+    "01 · CONTENT",
+    "02 · MARKETING",
+    "03 · DEV",
+  ])
+    assert.ok(!main.includes(gone), gone);
+  // The h2 is left aligned (no inline or class-based centering).
+  assert.ok(!/textAlign/.test(section));
+  assert.match(css, /\.main-divisions-title \{[^}]*text-align: left;/);
+  assert.match(
+    css,
+    /\.main-division-body \{[^}]*grid-template-rows: auto auto 1fr auto;/,
+  );
+});
+
+test("main sections use one section spacing token and no inline layout", async () => {
+  const main = await read("components/guide/main.jsx");
+  const css = await read("components/guide/ux.css");
+  const wj = await read("components/home/workflow-journey.css");
+  // Everything above the contact form is class based (no inline style).
+  const upper = main.slice(
+    main.indexOf("render() {"),
+    main.indexOf("{sent ? ("),
+  );
+  assert.ok(!/style=/.test(upper), "no inline style above the form");
+  assert.ok(!upper.includes("clamp(80px,10vw,140px)"));
+  assert.ok(!upper.includes("maxWidth"));
+  const block = css.slice(css.indexOf("/* Main page `/` (R6 WP-M)"));
+  assert.ok(block.length > 0);
+  // Colors are tokens (--ink, --violet, --lavender, --main-*) except white.
+  const declarations = block
+    .replace(/--main-[a-z0-9-]+:[^;]*;/g, "")
+    .replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.doesNotMatch(declarations, /#(?!fff\b)[0-9a-f]{3,6}\b/i);
+  assert.doesNotMatch(block, /text-align:\s*center/);
+  // Hero, divisions, standard, FAQ and contact all use --section-y.
+  for (const selector of [
+    ".main-hero-inner",
+    ".main-divisions",
+    ".main-standard-inner",
+    ".main-faq",
+    ".main-contact-inner",
+  ]) {
+    const start = block.indexOf(`.guide-main ${selector} {`);
+    assert.ok(start >= 0, selector);
+    assert.match(
+      block.slice(start, block.indexOf("}", start)),
+      /padding-block: var\(--section-y\);/,
+      selector,
+    );
+  }
+  assert.match(wj, /\.wj \{[^}]*padding-block: var\(--section-y\);/);
+  assert.match(wj, /--wj-step-gap: clamp\(64px, 7vw, 96px\);/);
+});
+
+test("OUR STANDARD is a left aligned closing line with a one-line caption", async () => {
+  const main = await read("components/guide/main.jsx");
+  const section = main.slice(
+    main.indexOf('<section className="main-standard">'),
+    main.indexOf('<div className="l-container main-faq">'),
+  );
+  assert.ok(section.includes("만드는 일의 끝은,"));
+  assert.ok(section.includes("고객이 쓰기 시작하는 순간"));
+  assert.ok(section.includes("입니다"));
+  assert.ok(section.includes("기획 · 제작 · 검수 · 인계"));
+  assert.ok(!section.includes("AIO MAKE의 작업 기준"));
+  assert.ok(!/style=|textAlign|alignItems/.test(section));
+  const css = await read("components/guide/ux.css");
+  const inner = css.slice(css.indexOf(".guide-main .main-standard-inner {"));
+  const rule = inner.slice(0, inner.indexOf("}"));
+  assert.match(rule, /align-items: flex-start;/);
+  assert.match(rule, /text-align: left;/);
 });
 
 test("about page lists the six content services", async () => {

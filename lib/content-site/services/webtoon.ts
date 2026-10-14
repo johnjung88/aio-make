@@ -1,50 +1,33 @@
-/* 웹툰 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 1절 초안을 다듬은 것이다.
+/* 웹툰 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 1절 초안을 R6 BRIEF 5절로 다듬은 것이다.
  * signature 문자열도 카피 테스트 대상이다. 금액은 쓰지 않고 lib/content-pricing.ts로 렌더한다.
  * 이미지 경로·alt는 components/content-site/services/webtoon/landing.tsx 상단 상수에 둔다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
-/** 서비스 고유 섹션 문구(표지 · 세로 리더 · 웹툰 + 모션코믹) */
+/** 서비스 고유 섹션 문구(12컷 리더 · 모션코믹). 히어로 표지는 컷 1장이라 문구가 없다 */
 export const webtoonSignature = {
-  cover: {
-    title: "1억의 구단주",
-    read: "웹툰 읽어보기",
-  },
-  /** R5: 스크롤에 맞춰 컷이 펼쳐지는 구간(제목·설명은 움직이지 않는다) */
-  unfold: {
-    eyebrow: "CUT BY CUT",
-    title: "한 컷씩 펼치면\n한 회가 됩니다",
-    lead: "장면마다 인물의 거리와 표정을 나눠 그리고 한 회의 흐름으로 이어 붙입니다",
-    caption: "자체 웹툰 《1억의 구단주》 1회 첫 장면들",
-    hint: "스크롤하면 컷이 차례로 펼쳐집니다",
-  },
   reader: {
     eyebrow: "READ",
     title: "12컷 한 회를\n직접 넘겨보세요",
     lead: "《1억의 구단주》 1회를 책장처럼 한 컷씩 넘기거나 전체를 이어서 읽을 수 있습니다",
-    chip: "12컷 한 회",
-    hint: "화살표 버튼이나 옆으로 밀어 넘기고 전체 읽기에서 한 회를 이어 보세요",
     label: "1억의 구단주 12컷 넘겨 보기",
   },
   motionComic: {
     eyebrow: "MOTION COMIC",
     title: "완성한 웹툰을\n영상으로 잇습니다",
-    lead: "컷에 움직임과 화면 전환을 더해 30초나 60초 영상으로 만듭니다",
+    lead: "컷에 움직임과 화면 전환을 더해 영상으로 만듭니다",
     videoLabel: "《1억의 구단주》 소개 영상",
-    caption: "자체 웹툰 《1억의 구단주》를 영상으로 구성한 제작 예시",
     waysLabel: "맡기는 방법",
     ways: [
       {
         title: "웹툰과 함께 맡길 때",
-        body: "완성한 웹툰 컷으로 영상을 만들며 12컷은 30초, 24컷은 60초 영상과 묶어 맡길 수 있습니다",
+        body: "12컷은 30초, 24컷은 60초 영상과 묶어 맡길 수 있습니다",
       },
       {
         title: "모션코믹만 맡길 때",
         body: "이미 완성한 웹툰이 있다면 컷별 원본 이미지로 영상만 만듭니다",
       },
     ],
-    /** 금액은 #pricing(CsPricing) 한 곳에서만 보인다 */
-    priceLink: "모션코믹 가격 보기",
   },
 } as const;
 
@@ -59,7 +42,7 @@ export const webtoon: ServiceLandingData = {
   hero: {
     eyebrow: "WEBTOON",
     title: "제품의 이야기를\n웹툰 한 편으로",
-    lead: "제품을 만나는 순간부터 사용하는 장면까지 12컷·24컷 이야기로 엮고 컷별 이미지로 전달합니다",
+    lead: "제품을 만나는 순간부터 사용하는 장면까지 12컷·24컷 이야기로 엮어 컷별 이미지로 전달합니다",
   },
   types: {
     eyebrow: "WHAT WE MAKE",

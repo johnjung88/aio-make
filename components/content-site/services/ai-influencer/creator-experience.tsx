@@ -1,9 +1,9 @@
 "use client";
 
-/* R5 WP-S2 · AI 인플루언서 고유 client 섬(이 폴더의 유일한 "use client").
+/* R5 WP-S2 · R6 WP-B · AI 인플루언서 고유 client 섬(이 폴더의 유일한 "use client").
  * - CreatorDeck(히어로): 4장의 3D 카드가 약 4초마다 자동 회전한다. 앞 카드는 정면, 양옆은 rotateY ±42°·translateZ·scale로 물러나고
- *   뒤 카드는 가장 깊이 숨는다. hover·focus·터치·화면 밖·숨김 탭·움직임 끔에서는 멈추고(useInViewPlay), 클릭·스와이프·키보드로 고른다.
- *   카드가 바뀔 때마다 그 계정의 피드 3컷이 순서대로 들어온다(key 교체 → CSS 진입 애니메이션 재시작).
+ *   뒤 카드는 가장 깊이 숨는다. 카드 아래에는 이름 한 줄과 좌우 화살표만 있다(R6: 피드 3컷·이름 버튼·타이머 막대·카피 삭제).
+ *   hover·focus·터치·화면 밖·숨김 탭·움직임 끔에서는 멈추고(useInViewPlay), 클릭·스와이프·화살표로 고른다.
  * - CreatorRoster(계정 소개): 탭 전환 때 피드 3컷이 순차 진입하고, 보이는 계정의 큰 피드 화면은 3.6초마다 다음 컷으로 닦아 넘긴다.
  * - 문단(소개·설명)은 움직이지 않는다. reduced-motion이면 자동 넘김 없이 모든 카드와 컷이 정적으로 보인다.
  * - 인라인 style 속성 없음(테스트 8). 카드 위치는 data-place, 순서 지연은 data-order로 CSS가 정한다. */
@@ -105,26 +105,16 @@ export function CreatorDeck() {
           <span className="cs-svc-ai-influencer-orbit-media">
             {media.kind === "video"
               ? <CardVideo src={media.src} poster={media.poster} label={`${item.name} · AI 가상인물`} playing={visible && front} />
-              : <Image src={media.src} alt={`${item.name} · AI 가상인물`} width={900} height={1200} sizes="(max-width:767px) 56vw, 245px" priority={index === 0} />}
+              : <Image src={media.src} alt={`${item.name} · AI 가상인물`} width={900} height={1200} sizes="(max-width:767px) 75vw, 480px" priority={index === 0} />}
           </span>
-          <span className="cs-svc-ai-influencer-orbit-name"><span className="cs-t-caption">AI 가상인물</span><span className="cs-t-h3">{item.name}</span></span>
+          <span className="cs-svc-ai-influencer-orbit-tag cs-t-caption">AI 가상인물</span>
         </button>;
       })}
     </div>
-    <ol key={creator.id} className="cs-svc-ai-influencer-deck-feed" aria-label={`${creator.name} 피드 구성 예시`}>
-      {creator.images.map((image, order) => <li key={image.src} data-order={order}>
-        <Image src={image.src} alt={`${creator.name} ${image.label} · AI 가상인물`} width={300} height={400} sizes="(max-width:767px) 28vw, 120px" />
-      </li>)}
-    </ol>
-    <div className="cs-svc-ai-influencer-deck-select" role="group" aria-label="크리에이터 선택">
-      {creatorRoster.map((item, index) => <button key={item.id} type="button" aria-pressed={active === index} onClick={() => select(index)} onKeyDown={(event) => cycle(event, index, COUNT, select)} className="cs-t-small">{item.name}</button>)}
-    </div>
-    <span key={`${active}-${rotating}`} className="cs-svc-ai-influencer-deck-timer" data-run={rotating} aria-hidden="true" />
-    <div className="cs-svc-ai-influencer-deck-copy">
-      <p className="cs-t-label">{creator.category}</p>
-      <p className="cs-t-small">{creator.line}</p>
-      <a href="#sheet" className="cs-link">계정과 피드 보기 ↓</a>
-      <p className="cs-t-caption">자체 IP · AI 가상인물 4명</p>
+    <div className="cs-svc-ai-influencer-deck-bar" role="group" aria-label="크리에이터 선택">
+      <button type="button" className="cs-svc-ai-influencer-deck-arrow" aria-label="이전 크리에이터" onClick={() => select(active - 1)}><span aria-hidden="true">←</span></button>
+      <p className="cs-svc-ai-influencer-deck-name cs-t-label">{creator.name}</p>
+      <button type="button" className="cs-svc-ai-influencer-deck-arrow" aria-label="다음 크리에이터" onClick={() => select(active + 1)}><span aria-hidden="true">→</span></button>
     </div>
   </div>;
 }

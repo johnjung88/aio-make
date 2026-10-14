@@ -125,7 +125,7 @@ test("S1-5. 공용 런타임: 화면 밖·숨김 탭 정지 계약과 재사용 
   for (const m of css.matchAll(/([^{}]+)\{[^}]*(?:^|[;\s{])animation\s*:/g))
     assert.match(m[1], /cs-creator|cs-film|cs-ad-/, `shorthand outside WP-S2 zone: ${m[1].trim()}`);
   // 인라인 style 0(테스트 8 규칙), 제목 줄 지연은 CSS
-  for (const path of [`${SV}/motion-runtime.tsx`, `${SV}/scene-sequence.tsx`, `${SV}/work-sequence.tsx`, `${SV}/service-hero.tsx`, `${SV}/webtoon/webtoon-experience.tsx`, `${SV}/motion-graphics/type-composition.tsx`])
+  for (const path of [`${SV}/motion-runtime.tsx`, `${SV}/scene-sequence.tsx`, `${SV}/work-sequence.tsx`, `${SV}/service-hero.tsx`, `${SV}/webtoon/webtoon-experience.tsx`])
     assert.doesNotMatch(read(path), /style=/, path);
   assert.match(css, /\.cs-motion-title-line:nth-child\(2\) \{ animation-delay:110ms; \}/);
 });
@@ -142,7 +142,7 @@ test("S1-6. 장면 전환·리더·구성 버튼: 깊이 전환 · 모바일 자
   assert.match(css, /\.cs-scene-arrows \.cs-btn \{ min-width:48px; min-height:48px; \}/);
   assert.match(css, /\.cs-scene-tabs button \{[^}]*min-height:64px/);
   assert.match(code(`${SV}/webtoon/webtoon.css`), /\.cs-svc-webtoon-book-controls \.cs-btn \{\s*min-width: 48px;\s*min-height: 48px;/);
-  assert.match(code(`${SV}/motion-graphics/motion-graphics.css`), /\.cs-svc-motion-graphics-modes \.cs-btn \{\s*min-height: 44px;/);
+  // R6: 모션그래픽 구성 버튼(MOTION STUDY)은 삭제되어 44px 규칙도 없다
   // 문단은 움직이지 않는다: 루프·전환 대상은 제목 줄·이미지·도형·글자 장식뿐
   for (const path of [`${SV}/service-motion.css`, `${SV}/webtoon/webtoon.css`, `${SV}/motion-graphics/motion-graphics.css`, `${SV}/animation/animation.css`])
     assert.doesNotMatch(code(path), /\.cs-t-(body|lead|small)[^{]*\{[^}]*animation-name/, path);

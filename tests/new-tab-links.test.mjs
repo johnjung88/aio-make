@@ -101,16 +101,21 @@ test("main page content links open in a new tab; marketing and lab cards do not"
   assert.match(css, /\.new-tab-hint\s*\{[^}]*clip/);
 });
 
-test("workflow link arrows keep a gap and #divisions titles share one row", async () => {
+test("workflow link arrows keep a gap and #divisions cards share one row layout", async () => {
   const css = await read("components/home/workflow-journey.css");
   const link = css.slice(css.indexOf(".guide-page .wj .wj-link {"));
   assert.match(link.slice(0, link.indexOf("}")), /gap: var\(--wj-s0\)/);
   assert.match(css, /--wj-s0: 4px;/);
   const main = await read("components/guide/main.jsx");
-  assert.equal(
-    main.split('gridTemplateRows: "auto auto auto auto 1fr auto"').length - 1,
-    3,
+  const ux = await read("components/guide/ux.css");
+  // Three cards, one class: number+name, one line, services (1fr), link.
+  assert.equal(main.split('className="main-division"').length - 1, 3);
+  assert.equal(main.split('className="main-division-body"').length - 1, 3);
+  assert.match(
+    ux,
+    /\.main-division-body \{[^}]*grid-template-rows: auto auto 1fr auto;/,
   );
+  assert.ok(!main.includes('gridTemplateRows: "auto auto auto auto 1fr auto"'));
   assert.ok(!main.includes('"auto 1fr auto auto auto auto"'));
 });
 

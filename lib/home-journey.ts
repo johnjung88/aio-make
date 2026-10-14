@@ -27,8 +27,8 @@ export type JourneyLink = { label: string; href: string };
 
 export const journeyIntro = {
   eyebrow: "HOW WE WORK",
-  title: "상담부터 성과까지\n하나로 이어집니다",
-  lead: "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요.",
+  title: "기획부터 성과까지\n하나로 이어집니다",
+  lead: "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요",
 };
 
 export const journeySteps: JourneyStep[] = [
@@ -38,7 +38,7 @@ export const journeySteps: JourneyStep[] = [
     eyebrow: "01 DEVELOPMENT",
     railLabel: "개발",
     title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
-    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다.",
+    lead: "정리한 브랜드 자료를 화면에 녹입니다. 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다",
   },
   {
     id: "journey-marketing",
@@ -46,7 +46,7 @@ export const journeySteps: JourneyStep[] = [
     eyebrow: "02 MARKETING",
     railLabel: "마케팅",
     title: "계획하고 운영하고\n데이터로 고칩니다",
-    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다.",
+    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다. 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다",
   },
   {
     id: "journey-content",
@@ -54,7 +54,7 @@ export const journeySteps: JourneyStep[] = [
     eyebrow: "03 CONTENT",
     railLabel: "컨텐츠",
     title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
-    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다.",
+    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다. 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다",
   },
 ];
 

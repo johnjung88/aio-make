@@ -1,56 +1,24 @@
-/* 애니메이션 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 2절 초안을 다듬은 것이다.
+/* 애니메이션 서비스 랜딩 데이터(WP-A 소유). 카피는 BRIEF_P2R_SERVICES 2절 초안을 R6 BRIEF 6절로 다듬은 것이다.
  * signature 문자열도 카피 테스트 대상이다. 금액은 쓰지 않고 lib/content-pricing.ts로 렌더한다.
  * 이미지 경로·alt는 components/content-site/services/animation/landing.tsx 상단 상수에 둔다. */
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
-/** 서비스 고유 섹션 문구(그림체 · 움직이기 전 확인 탭) */
+/** 영상 레퍼런스 목록(example-media 슬롯 id). 영상이 쌓이면 슬롯을 만들고 id를 한 줄 더하면 그리드에 한 칸이 늘어난다.
+ * 슬롯은 영상(src)과 poster를 함께 줄 수 있고, src가 비어 있는 슬롯은 그리드에 그리지 않는다. */
+export const animationReferenceIds = [
+  "animation-scene-1",
+  "animation-scene-2",
+  "animation-scene-3",
+] as const;
+
+/** 서비스 고유 섹션 문구(영상 레퍼런스 영역) */
 export const animationSignature = {
-  styles: {
-    eyebrow: "STYLE",
-    title: "브랜드에 맞는\n그림체를 고릅니다",
-    lead: "캐릭터의 생김새부터 배경의 질감까지 브랜드 분위기에 맞춥니다",
-    items: [
-      {
-        title: "입체 캐릭터",
-        body: "둥근 형태와 매끈한 재질로 친근한 인상을 만듭니다",
-      },
-      {
-        title: "동화풍 장면",
-        body: "빛과 날씨를 살린 배경으로 이야기의 분위기를 잡습니다",
-      },
-      {
-        title: "포근한 질감",
-        body: "털과 천의 결을 살려 따뜻한 느낌을 줍니다",
-      },
-    ],
-  },
-  beforeMotion: {
-    eyebrow: "BEFORE MOTION",
-    title: "움직이기 전에\n장면을 맞춥니다",
-    lead: "줄거리와 캐릭터 기준, 주요 장면을 확인한 뒤 움직임을 만듭니다",
-    tabsLabel: "움직이기 전에 확인하는 것",
-    items: [
-      {
-        title: "이야기",
-        body: "누가 무엇을 하는지 한 문장으로 정리하고 장면 순서를 나눕니다",
-      },
-      {
-        title: "캐릭터",
-        body: "생김새와 표정, 움직임의 범위를 그림으로 먼저 정합니다",
-      },
-      {
-        title: "장면 구성",
-        body: "장면마다 화면 구도와 길이를 정해 기획안에 담습니다",
-      },
-    ],
-    story: {
-      label: "한 문장 이야기",
-      line: "캐릭터가 겪는 문제와 제품을 만나는 순간을 하나의 이야기로 잇습니다",
-      beats: ["시작", "전개", "마무리"],
-    },
-    views: ["정면", "측면"],
-    frames: ["전체", "인물", "제품", "마무리"],
+  reference: {
+    eyebrow: "REFERENCE",
+    title: "애니메이션\n영상 레퍼런스",
+    /** 슬롯이 하나도 없을 때만 16:9 빈 면에 쓰는 한 줄 */
+    empty: "영상 레퍼런스를 순서대로 추가합니다",
   },
 } as const;
 

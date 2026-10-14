@@ -7,6 +7,17 @@ import type { ServiceLandingData } from "../types.ts";
 
 /** 서비스 고유 섹션 문구. 이미지 경로는 components/content-site/services/ai-influencer/landing.tsx 상단 상수. */
 export const aiInfluencerSignature = {
+  /** R6 브랜드 전용 인물 제작(기존 Types + BeforePricing 합침): 3항목 텍스트 + 표기 고지 한 문장 */
+  brand: {
+    eyebrow: "BRAND CHARACTER",
+    title: "브랜드 전용 인물\n세 가지로 만듭니다",
+    items: [
+      { title: "캐릭터 기준", body: "얼굴과 헤어, 스타일을 정하고 같은 인물을 재현할 기준 이미지를 준비합니다" },
+      { title: "이미지 구성", body: "제품에 맞춰 인물의 의상과 공간, 표정과 구도를 기획합니다" },
+      { title: "영상 확장", body: "선택한 구성에 따라 30초 영상을 만듭니다" },
+    ],
+    notice: "AI 가상인물 표기 · 광고 표기 · 플랫폼 합성 컨텐츠 설정을 함께 안내합니다",
+  },
   /** 히어로 아치 카드 아래쪽 */
   persona: {
     role: "직접 만든 AI 가상인물",
@@ -56,7 +67,7 @@ export const aiInfluencer: ServiceLandingData = {
   hero: {
     eyebrow: "AI INFLUENCER",
     title: "브랜드를 닮은\nAI 크리에이터",
-    lead: "얼굴과 말투, 관심사를 정해 전용 AI 가상인물을 만들고 제품 이미지와 숏폼을 제작합니다",
+    lead: "얼굴과 말투, 관심사를 정해 브랜드 전용 AI 가상인물을 만들고 제품 이미지와 숏폼을 제작합니다",
   },
   types: {
     eyebrow: "WHAT WE MAKE",

@@ -82,7 +82,7 @@ export function formatWon(amount: number): string {
 export type StartingPrice = {
   amount: number;
   amountText: string;
-  /** 굵게 보이는 앞부분 예: "25만 원부터", "웹툰 제작 12컷 10만 원부터" */
+  /** 굵게 보이는 앞부분 예: "25만 원부터", "12컷 10만 원부터" */
   head: string;
   /** " · "로 이어지는 나머지 단위 마지막은 항상 "부가세 별도" */
   rest: string[];
@@ -97,8 +97,7 @@ const startingBasis: Record<
 > = {
   webtoon: {
     amount: contentPricing.webtoon.plans[0].amount,
-    prefix: "웹툰 제작 12컷",
-    note: `모션코믹 영상화 옵션 · 30초 ${formatWon(contentPricing["motion-comic"].plans[0].amount)}부터`,
+    prefix: "12컷",
   },
   animation: {
     amount: contentPricing.animation.plans[0].amount,

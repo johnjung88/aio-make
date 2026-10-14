@@ -83,7 +83,7 @@ export const generatedWorks: WorkRecord[] =
     "brand": "BWL · DR's Secret",
     "title": "브랜드 광고 30초 시안",
     "division": "video",
-    "primaryService": "ad",
+    "primaryService": "brand-film",
     "relatedServices": [
       {
         "division": "video",
