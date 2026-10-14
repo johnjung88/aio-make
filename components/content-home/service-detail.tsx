@@ -25,14 +25,6 @@ export function ServiceDetail({
       </p>
       <h3 className="ch-svc-title cs-t-h3">{service.label}</h3>
       <p className="ch-svc-line cs-t-lead">{service.line}</p>
-      <p className="ch-svc-body cs-t-body">{service.description}</p>
-      <ul className="ch-chips" aria-label={`${service.label} 활용처`}>
-        {service.uses.map((use) => (
-          <li key={use} className="ch-chip cs-t-chip">
-            {use}
-          </li>
-        ))}
-      </ul>
       {price ? (
         <div className="ch-price-block">
           <p className="ch-price cs-price">
@@ -48,9 +40,6 @@ export function ServiceDetail({
           ) : null}
         </div>
       ) : null}
-      {service.scopeNote ? (
-        <p className="ch-note cs-t-small">{service.scopeNote}</p>
-      ) : null}
       <Link
         className="cs-btn cs-btn--ghost ch-detail-link"
         href={service.href}
@@ -59,6 +48,20 @@ export function ServiceDetail({
         {contentHomeServicesHead.detailLink}
         <span aria-hidden="true">→</span>
       </Link>
+      <details className="ch-detail-more" key={service.id}>
+        <summary className="cs-t-small">제작 구성과 활용처 <span aria-hidden="true">＋</span></summary>
+      <p className="ch-svc-body cs-t-body">{service.description}</p>
+      <ul className="ch-chips" aria-label={`${service.label} 활용처`}>
+        {service.uses.map((use) => (
+          <li key={use} className="ch-chip cs-t-chip">
+            {use}
+          </li>
+        ))}
+      </ul>
+      {service.scopeNote ? (
+        <p className="ch-note cs-t-small">{service.scopeNote}</p>
+      ) : null}
+      </details>
     </div>
   );
 }

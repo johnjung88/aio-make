@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  brandPanel,
-  consultPanel,
   contentCopy,
   devServiceLinks,
   emptyJourneyData,
@@ -65,60 +63,6 @@ function LinkRow({ links }: { links: JourneyLink[] }) {
   );
 }
 
-function ConsultBody() {
-  return (
-    <div className="wj-panel">
-      <ul className="wj-chips" aria-label="상담 분야">
-        {consultPanel.fields.map((field) => (
-          <li key={field} className="wj-chip t-chip">
-            {field}
-          </li>
-        ))}
-      </ul>
-      <p className="wj-caption wj-panel-label t-small">{consultPanel.label}</p>
-      <dl className="wj-defs">
-        {consultPanel.rows.map((row) => (
-          <div key={row.term} className="wj-def">
-            <dt className="wj-item-title t-h3">{row.term}</dt>
-            <dd className="wj-body t-body">{row.text}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
-}
-
-function BrandBody() {
-  return (
-    <div className="wj-panel">
-      <div className="wj-panel-head">
-        <p className="wj-caption wj-panel-label t-small">{brandPanel.label}</p>
-        <span className="wj-tag t-caption">{brandPanel.tag}</span>
-      </div>
-      <ul className="wj-tiles">
-        {brandPanel.tiles.map((tile) => (
-          <li key={tile.id} className={`wj-tile wj-tile--${tile.id}`}>
-            <span className="wj-tile-visual" aria-hidden="true">
-              {tile.id === "color" &&
-                brandPanel.swatches.map((swatch) => (
-                  <i
-                    key={swatch}
-                    className={`wj-swatch wj-swatch--${swatch}`}
-                  />
-                ))}
-              {tile.id === "type" && (
-                <span className="wj-type-sample t-h2">가 Aa</span>
-              )}
-            </span>
-            <h3 className="wj-item-title t-h3">{tile.title}</h3>
-            <p className="wj-caption t-small">{tile.text}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 function MarketingBody() {
   const { nodes, branches } = marketingPanel;
   return (
@@ -132,6 +76,19 @@ function MarketingBody() {
       <ol className="wj-cycle">
         {nodes.map((node, index) => (
           <li key={node.id} className={`wj-node wj-node--${node.id}`}>
+            {index > 0 && <span className="wj-flow-arrow" aria-hidden="true" />}
+            {index === 1 && (
+              <>
+                <span className="wj-loop wj-loop--start" aria-hidden="true" />
+                <span className="wj-loop-head" aria-hidden="true" />
+              </>
+            )}
+            {index === 2 && (
+              <span className="wj-loop wj-loop--mid" aria-hidden="true" />
+            )}
+            {index === 3 && (
+              <span className="wj-loop wj-loop--end" aria-hidden="true" />
+            )}
             <span className="wj-num eyebrow">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -165,7 +122,7 @@ export function WorkflowJourney({
   const [active, setActive] = useState(0);
   const root = useRef<HTMLElement>(null);
 
-  // One observer over the five articles. The band is 45%–50% of the viewport;
+  // One observer over the three articles. The band is 45%–50% of the viewport;
   // the current step is the last article whose top passed the band's lower
   // edge, so every band enter/leave callback resolves to the right step.
   useEffect(() => {
@@ -205,15 +162,11 @@ export function WorkflowJourney({
   }, []);
 
   const bodies: Record<JourneyStepId, ReactNode> = {
-    "journey-consult": <ConsultBody />,
-    "journey-brand": <BrandBody />,
     "journey-dev": <JourneyDev projects={data.devProjects} />,
     "journey-content": <JourneyContent selections={data.contentSelections} />,
     "journey-marketing": <MarketingBody />,
   };
   const links: Record<JourneyStepId, JourneyLink[]> = {
-    "journey-consult": consultPanel.links,
-    "journey-brand": [],
     "journey-dev": devServiceLinks,
     "journey-content": contentCopy.stepLinks,
     "journey-marketing": marketingPanel.links,
@@ -267,7 +220,6 @@ export function WorkflowJourney({
                     aria-labelledby={`${step.id}-title`}
                     data-current={index === active ? "true" : undefined}
                   >
-                    <div className="wj-step-intro">
                     <p className="wj-eyebrow eyebrow">{step.eyebrow}</p>
                     <h2
                       id={`${step.id}-title`}
@@ -276,7 +228,6 @@ export function WorkflowJourney({
                       {step.title}
                     </h2>
                     <p className="wj-lead t-lead">{step.lead}</p>
-                    </div>
                     <div className="wj-step-body">{bodies[step.id]}</div>
                     <LinkRow links={links[step.id]} />
                   </article>

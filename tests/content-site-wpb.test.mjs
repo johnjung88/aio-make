@@ -76,32 +76,27 @@ test("B-2. R2 계정 카드·피드: 확인된 4계정·AI 표기·허구 성과
   assert.match(landing, /id="sheet"/);
 });
 
-test("B-3. 두 랜딩: 서버 컴포넌트, 히어로 계약(data-cs-section·aria-labelledby·CsHeroCopy)", () => {
+test("B-3. 두 랜딩은 서버 렌더 경계를 유지한다", () => {
   for (const dir of [AI, MG]) {
     const files = readdirSync(dir).filter((f) => f.endsWith(".tsx"));
     for (const f of files)
       assert.doesNotMatch(read(`${dir}/${f}`), /^\s*["']use client["']/, `${dir}/${f}`);
     const landing = read(`${dir}/landing.tsx`);
-    assert.match(landing, /data-cs-section="hero"/);
-    assert.match(landing, /aria-labelledby=\{HERO_TITLE_ID\}/);
-    assert.match(landing, /<CsHeroCopy\b/);
+    assert.match(landing, /<ServiceHero\b/);
     assert.equal((landing.match(/\bpriority\b/g) ?? []).length <= 1, true, `${dir} priority <= 1`);
     for (const m of landing.matchAll(/data-cs-section="(\w+)"/g))
       assert.ok(["hero", "signature"].includes(m[1]), m[1]);
   }
 });
 
-test("B-4. R2 모션그래픽 장식: 자동 루프 대신 서로 다른 정지 프레임", () => {
+test("B-4. 모션그래픽 작품은 자동재생이나 무한 루프를 강제하지 않는다", () => {
  const css = read(`${MG}/motion-graphics.css`).replace(/\/\*[\s\S]*?\*\//g, "");
  assert.doesNotMatch(css, /animation\s*:|animation-name|@keyframes/);
  assert.doesNotMatch(read(`${MG}/landing.tsx`), /autoPlay|setInterval/);
- assert.match(css, /data-variant="moving"/);
- assert.match(css, /data-tone="light"/);
 });
 
-test("B-5. 모션그래픽 장식 무대: aria-hidden, 문자열은 데이터에서, 태그 '연출 예시'", () => {
+test("B-5. 모션그래픽 단순형과 맞춤형의 제작 범위 데이터 유지", () => {
   const landing = read(`${MG}/landing.tsx`);
-  assert.match(landing, /className="cs-svc-motion-graphics-comp"[^>]*aria-hidden="true"/);
   // 구도 글자는 히어로·단순형·맞춤형·스타일 프레임마다 다르고 모두 두 줄(WP-B-4)
   const words = [
     motionGraphicsSignature.stage.title,
@@ -110,11 +105,6 @@ test("B-5. 모션그래픽 장식 무대: aria-hidden, 문자열은 데이터에
   ];
   assert.equal(new Set(words).size, words.length, "composition words differ");
   for (const w of words) assert.equal(w.split("\n").length, 2, w);
-  assert.match(landing, /word=\{plan\.word\}/);
-  assert.match(landing, /tone="lime"/);
-  const tags = landing.match(/<CsTag overlay>\{MEDIA_TAGS\.(\w+)\}<\/CsTag>/g) ?? [];
-  assert.equal(tags.length, 3);
-  for (const t of tags) assert.match(t, /MEDIA_TAGS\.staged/);
   assert.deepEqual(
     motionGraphicsSignature.compare.plans.map((p) => p.name),
     ["단순형", "맞춤형"],

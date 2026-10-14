@@ -12,9 +12,9 @@ export type HeroVideo = { src: string; poster: string };
  * 비어 있는 동안은 정지 이미지 + '연출 예시' 태그만 보인다(자리표시 문구 없음). */
 export const contentHomeHero = {
   eyebrow: "AI CONTENT PRODUCTION",
-  title: "브랜드의 이야기를\n보고 싶은 컨텐츠로",
-  accent: "컨텐츠",
-  lead: "웹툰 한 편부터 브랜드 영상까지\n기획부터 채널에 맞는 납품까지 한 팀에서",
+  title: "읽고 싶게\n끝까지 보고 싶게",
+  accent: "보고 싶게",
+  lead: "웹툰부터 브랜드 영상까지\n기획부터 채널에 맞는 납품까지 한 팀에서",
   button: "서비스 살펴보기",
   buttonHref: "#services",
   secondary: "상담 신청",
@@ -124,8 +124,8 @@ export const contentHomeServices: ContentHomeService[] = [
 
 export const contentHomeServicesHead = {
   eyebrow: "SERVICES",
-  title: "어떤 이야기든\n맞는 형식으로",
-  lead: "작업물을 넘겨보며 제작 형식과 시작가를 비교해보세요",
+  title: "이야기에 맞는 형식\n결과물로 살펴보세요",
+  lead: "카드를 넘겨 제작 형식과 실제 작업물을 살펴보세요",
   toggle: "한 번에 모두 보기",
   carouselLabel: "컨텐츠 서비스 6종",
   tabsLabel: "서비스 선택",
@@ -155,25 +155,25 @@ export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "상담",
     title: "만들 컨텐츠를 함께 정합니다",
-    body: "사용할 채널과 일정, 가진 자료를 확인합니다 서비스와 분량을 정하고 견적을 안내합니다",
+    body: "사용할 채널과 일정, 가진 자료를 확인해 서비스와 분량을 정하고 견적을 안내합니다",
     output: "작업 범위와 견적",
   },
   {
     label: "기획",
     title: "기획안으로 방향을 맞춥니다",
-    body: "이야기 흐름과 장면 구성을 기획안으로 정리해 전달합니다 기획안은 두 번까지 수정합니다",
+    body: "이야기 흐름과 장면 구성을 기획안으로 정리하고 두 번까지 수정해 방향을 맞춥니다",
     output: "기획안",
   },
   {
     label: "제작",
     title: "확정한 기획대로 만듭니다",
-    body: "초안은 AI로 빠르게 만들고 연출은 담당자가 직접 다듬습니다 최종안을 전달한 뒤 한 번 수정합니다",
+    body: "AI로 만든 초안을 담당자가 직접 다듬어 최종안을 전달하고 한 번의 수정으로 마무리합니다",
     output: "최종안",
   },
   {
     label: "납품",
     title: "채널에 맞는 파일로 전달합니다",
-    body: "게시할 채널의 화면 비율에 맞춰 파일을 정리합니다 다른 화면비 추가는 따로 견적을 드립니다",
+    body: "게시할 채널의 화면 비율에 맞춰 파일을 정리하며 다른 화면비 추가는 별도로 견적을 드립니다",
     output: "최종 파일",
   },
 ];
@@ -181,7 +181,7 @@ export const contentHomeProcess: ContentHomeStep[] = [
 export const contentHomeCta = {
   eyebrow: "CONTACT",
   title: "어떤 컨텐츠가\n필요하신가요?",
-  lead: "만들고 싶은 컨텐츠와 일정을 남겨주세요 담당자가 범위와 견적을 안내합니다",
+  lead: "만들고 싶은 컨텐츠와 일정을 알려주시면 담당자가 범위와 견적을 안내합니다",
   button: "상담 신청",
   href: "/content/contact",
 };

@@ -5,7 +5,7 @@ import { newTabProps } from "@/lib/new-tab";
 import { NewTabHint } from "@/components/new-tab-hint";
 
 export function HomeServices({ data = emptyJourneyData }: { data?: HomeJourneyData }) {
- const content = data.contentSelections.find(item => item.work) ?? data.contentSelections[0];
+ const content = data.contentSelections.find(item => item.tab.id === "motion-graphics") ?? data.contentSelections[0];
  const contentImage = content?.media.kind === "video" ? content.media.poster : content?.media.src;
  const dev = data.devProjects[0];
  const cards = [

@@ -1,0 +1,4 @@
+import Image from "next/image";
+import type { ReactNode } from "react";
+import { MotionCanvas } from "../motion-runtime";
+export function AdReel({children,enabled}:{children:ReactNode;enabled:boolean}){if(!enabled)return children;return <MotionCanvas variant="ad" className="cs-ad-reel"><div className="cs-ad-side-rail cs-ad-side-rail--left" aria-hidden="true">{[1,2,3].map(index=><Image key={index} src={`/reference-review/r3-scenes/bwl-aqua-ad/scene-${index}.webp`} alt="" width={180} height={320} sizes="160px"/>)}</div><div className="cs-ad-reel-main">{children}</div><div className="cs-ad-side-rail cs-ad-side-rail--right" aria-hidden="true">{[3,1,2].map(index=><Image key={index} src={`/reference-review/r3-scenes/bwl-aqua-ad/scene-${index}.webp`} alt="" width={180} height={320} sizes="160px"/>)}</div></MotionCanvas>;}

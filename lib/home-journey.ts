@@ -15,8 +15,6 @@ export const requiredContentServices = contentHomeServices
   .join(" · ");
 
 export type JourneyStepId =
-  | "journey-consult"
-  | "journey-brand"
   | "journey-dev"
   | "journey-content"
   | "journey-marketing";
@@ -40,44 +38,28 @@ export const journeyIntro = {
 
 export const journeySteps: JourneyStep[] = [
   {
-    id: "journey-consult",
-    num: "01",
-    eyebrow: "01 CONSULT",
-    railLabel: "상담",
-    title: "먼저, 지금 필요한 일",
-    lead: "개발·컨텐츠·마케팅 중 무엇이 먼저인지 상담에서 정리합니다 목표와 일정, 가진 자료를 알려주시면 범위와 맞춤 견적을 안내합니다",
-  },
-  {
-    id: "journey-brand",
-    num: "02",
-    eyebrow: "02 BRAND GUIDE",
-    railLabel: "브랜드 가이드",
-    title: "다음 작업에도 이어질\n브랜드의 기준",
-    lead: "로고와 제품 사진, 기존 홈페이지와 SNS 자료를 모아 정리합니다 컬러와 서체, 말투를 정해두면 개발·컨텐츠·마케팅이 같은 기준으로 움직입니다",
-  },
-  {
     id: "journey-dev",
-    num: "03",
-    eyebrow: "03 DEVELOPMENT",
+    num: "01",
+    eyebrow: "01 DEVELOPMENT",
     railLabel: "개발",
     title: "브랜드를 만나는\n웹사이트와 쇼핑몰",
-    lead: "정리한 브랜드 자료를 화면에 녹입니다 방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다",
-  },
-  {
-    id: "journey-content",
-    num: "04",
-    eyebrow: "04 CONTENT",
-    railLabel: "컨텐츠",
-    title: "사람들이 보고 싶은\n브랜드 컨텐츠",
-    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다 웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다",
+    lead: "정리한 브랜드 자료를 화면에 담고, 방문한 고객이 제품을 살펴보며 문의나 구매로 이어지도록 동선을 설계합니다",
   },
   {
     id: "journey-marketing",
-    num: "05",
-    eyebrow: "05 MARKETING",
+    num: "02",
+    eyebrow: "02 MARKETING",
     railLabel: "마케팅",
     title: "만든 다음에는\n반응을 보고 개선합니다",
-    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다 계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다",
+    lead: "타깃과 메시지에 맞는 채널을 정해 SNS·광고·검색 노출을 운영하고 쌓인 데이터를 보며 다음 작업을 개선합니다",
+  },
+  {
+    id: "journey-content",
+    num: "03",
+    eyebrow: "03 CONTENT",
+    railLabel: "컨텐츠",
+    title: "사람들이 보고 싶은\n브랜드 컨텐츠",
+    lead: "같은 브랜드 가이드를 바탕으로 타깃과 플랫폼에 맞는 형식을 골라 웹툰부터 광고 영상까지 한 팀에서 기획하고 제작합니다",
   },
 ];
 

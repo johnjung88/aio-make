@@ -24,6 +24,24 @@ export function FloatingContact() {
   const path = usePathname(),
     dialog = useRef<HTMLDialogElement>(null);
   const [keyboard, setKeyboard] = useState(false);
+  const suppressNearInline = path === "/content";
+  const [inlineVisible, setInlineVisible] = useState(true);
+  useEffect(() => {
+    if (!suppressNearInline || typeof IntersectionObserver === "undefined") return;
+    const targets = Array.from(document.querySelectorAll("[data-inline-contact], #contact, .ch-cta"));
+    const visible = new Set<Element>();
+    targets.forEach(target => {
+      const rect = target.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) visible.add(target);
+    });
+    setInlineVisible(visible.size > 0);
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
+      setInlineVisible(visible.size > 0);
+    }, { threshold:0 });
+    targets.forEach(target => observer.observe(target));
+    return () => observer.disconnect();
+  }, [path, suppressNearInline]);
   useEffect(() => {
     const v = window.visualViewport;
     const change = () =>
@@ -52,7 +70,7 @@ export function FloatingContact() {
       <nav
         className="floating-contact"
         aria-label="빠른 상담"
-        hidden={keyboard}
+        hidden={keyboard || (suppressNearInline && inlineVisible)}
       >
         <button onClick={openFaq}>자주 묻는 질문</button>
         <Link href={href}>

@@ -1,50 +1,22 @@
-import { CsHero } from "../../blocks/hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { animationSignature as sig } from "@/lib/content-site/services/animation";
-import { CONTENT_SITE_ASSETS, MEDIA_TAGS } from "@/lib/content-site/types";
+import { MEDIA_TAGS, CONTENT_SITE_ASSETS } from "@/lib/content-site/types";
+import { ServiceHero, FeaturedWork, ProductionNotes } from "../service-hero";
+import { WorkSequence } from "../work-sequence";
 import "./animation.css";
 
-const STYLE_MEDIA = [
-  { src: CONTENT_SITE_ASSETS.animation.src, alt: "보라색 입체 캐릭터 · 연출 예시" },
-  { src: "/creative-v06/video-animation.webp", alt: "비 오는 밤의 동화풍 캐릭터와 배경 · 연출 예시" },
-  { src: "/renewal/animation-sample.webp", alt: "등불을 든 하얀 캐릭터와 배경 · 연출 예시" },
-] as const;
-
-function Hero({ data }: ServiceSectionProps) {
-  return <CsHero id={data.id} hero={data.hero} className="cs-svc-animation-hero" media={
-    <div className="cs-svc-animation-hero-board">
-      <CsMedia ratio="4x5" src={STYLE_MEDIA[0].src} alt={STYLE_MEDIA[0].alt} tag={MEDIA_TAGS.staged} sizes="(max-width: 767px) 90vw, 42vw" priority />
-      <div className="cs-svc-animation-board-caption"><span className="cs-t-label">캐릭터에서 하나의 장면으로</span><span className="cs-t-caption">캐릭터 · 배경 · 표정 · 움직임</span></div>
-    </div>
-  } />;
+function Hero({ data, works }: ServiceSectionProps) {
+  const work = works?.find(item=>item.slug === "yofree-night-motion");
+  return <ServiceHero data={data} media={<FeaturedWork work={work} fallback={<CsMedia ratio="2x3" src={CONTENT_SITE_ASSETS.animation.src} alt="입체 캐릭터 그림체 연출 예시" tag={MEDIA_TAGS.staged} sizes="(max-width:767px) 90vw, 50vw" priority/>}/>}/>;
 }
-function Styles() {
-  return <section className="cs-section cs-svc-animation-styles" data-cs-section="signature" aria-labelledby="cs-animation-styles-title">
-    <div className="cs-container">
-      <CsSectionHead id="cs-animation-styles-title" eyebrow={sig.styles.eyebrow} title={sig.styles.title} lead={sig.styles.lead} />
-      <div className="cs-svc-animation-style-list">{sig.styles.items.map((item,i)=>
-        <figure key={item.title} className="cs-svc-animation-style">
-          <CsMedia ratio="4x5" src={STYLE_MEDIA[i].src} alt={STYLE_MEDIA[i].alt} tag={MEDIA_TAGS.staged} sizes="(max-width: 767px) 90vw, 30vw" />
-          <figcaption><h3 className="cs-t-h3">{item.title}</h3><p className="cs-t-body">{item.body}</p></figcaption>
-        </figure>
-      )}</div>
-    </div>
-  </section>;
-}
-function BeforeMotion() {
-  const items=[
-    {number:"01",title:"이야기와 장면 순서",body:"누가 어떤 문제를 만나고 어떻게 달라지는지 정리합니다",result:"줄거리 · 장면별 전달 내용"},
-    {number:"02",title:"캐릭터와 분위기",body:"캐릭터의 외형과 표정, 배경의 질감과 색을 맞춥니다",result:"캐릭터 기준 · 주요 장면 이미지"},
-    {number:"03",title:"동작과 화면 전환",body:"확정한 장면에 움직임을 더하고 전체 흐름을 편집합니다",result:"30초 또는 60초 완성 영상"},
-  ];
-  return <section className="cs-section cs-svc-animation-planning" data-cs-section="signature" aria-labelledby="cs-animation-plan-title"><div className="cs-container">
-    <CsSectionHead id="cs-animation-plan-title" eyebrow="BEFORE MOTION" title={"움직이기 전에\n먼저 확인하는 것"} lead="장면이 달라지면 작업도 달라집니다  이야기와 그림체를 먼저 확인하고 제작을 시작합니다" />
-    <ol className="cs-svc-animation-plan-list">{items.map(item=><li key={item.number}>
-      <span className="cs-t-caption">{item.number}</span><div><h3 className="cs-t-h3">{item.title}</h3><p className="cs-t-body">{item.body}</p></div><p className="cs-t-small">{item.result}</p>
-    </li>)}</ol>
+function Signature({ works }: ServiceSectionProps) {
+  const work = works?.find(item=>item.slug === "yofree-night-motion");
+  return <section className="cs-section" data-cs-section="signature" aria-labelledby="cs-animation-edit-title"><div className="cs-container">
+    <CsSectionHead id="cs-animation-edit-title" eyebrow="CHARACTER & SCENE" title={"표정이 달라지고\n장면이 이어집니다"} lead="인물과 배경을 먼저 정하고 대사에 맞춰 화면의 거리와 전환을 설계합니다"/>
+    <WorkSequence work={work} portrait labels={["인물의 상황을 소개", "대화로 이어지는 장면", "다른 인물의 시선"]}/>
+    {work && <p className="cs-t-small cs-service-review-note">웹툰 기반 영상 제작 예시 · {work.label}</p>}
+    <ProductionNotes title="그림에서 영상으로" items={[{title:"캐릭터의 기준",body:"기존 캐릭터가 있다면 원본을 확인하고 없다면 외형과 표정을 정합니다"},{title:"장면별 이미지",body:"대사와 행동에 맞춰 배경, 구도, 인물의 위치를 기획안에 담습니다"},{title:"움직임과 편집",body:"확정한 장면에 표정과 동작, 화면 전환을 더해 30초 또는 60초 영상으로 만듭니다"}]}/>
   </div></section>;
 }
-function Signature(){return <><Styles/><BeforeMotion/></>;}
-export const animationLanding: ServiceModule={Hero,Signature,worksLayout:"vertical"};
+export const animationLanding: ServiceModule = { Hero, Signature, worksLayout:"vertical" };

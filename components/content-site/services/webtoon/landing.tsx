@@ -1,22 +1,18 @@
-/* webtoon 서비스 모듈(WP-A, 서버 컴포넌트만 · 고유 client 섬 0개).
- * 히어로: 기울어진 《1억의 구단주》 표지 카드 / 고유 섹션: ① 12컷 세로 리더(#reader, CSS 스크롤) ② 웹툰 + 모션코믹(영상 + 맡기는 방법).
+/* webtoon 서비스 모듈(WP-A, 서버 데이터 + React 읽기 인터랙션).
+ * 히어로: 기울어진 《1억의 구단주》 표지 카드 / 고유 섹션: ① 12컷 스냅 리더와 전체 읽기 ② 웹툰 + 모션코믹(영상 + 맡기는 방법).
  * 금액은 이 파일에 없다. 웹툰·모션코믹·함께 제작 금액은 #pricing(CsPricing) 한 곳에서만 보인다(VERIFY_FINAL_P2R WP-A-1).
  * 스타일은 ./webtoon.css 한 파일(.cs-svc-webtoon로 시작). 자산 경로와 alt는 아래 상수 한 곳에 둔다. */
-import Image from "next/image";
-import { CsHero } from "../../blocks/hero";
+import { WebtoonCover, WebtoonReader } from "./webtoon-experience";
+import { ServiceHero } from "../service-hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
 import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
-import { CsTag } from "../../ui/tag";
 import { webtoonSignature as sig } from "@/lib/content-site/services/webtoon";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
 import "./webtoon.css";
 
 /* ---------------------------------------------------------------- 자산 */
 const WORK_TITLE = "《1억의 구단주》";
-
-/** 표지와 리더 첫 컷이 같은 /_next/image 주소를 쓰도록 sizes를 맞춘다(중복 요청 0). */
-const CUT_SIZES = "(max-width: 767px) 100vw, 440px";
 
 /** 《1억의 구단주》 1회 12컷(AIO 자체 웹툰, 800×1200). */
 const CUTS = [
@@ -34,13 +30,8 @@ const CUTS = [
   "형의 저녁 전화에 게임을 저장하고 급히 나가는 주인공",
 ].map((scene, i) => ({
   src: `/webtoon-v11/cut-${String(i + 1).padStart(2, "0")}.webp`,
-  alt: `${WORK_TITLE} 1회 ${i + 1}번째 컷. ${scene}`,
+  alt: `${WORK_TITLE} 1회 ${i + 1}번째 컷 · ${scene}`,
 }));
-
-const COVER = {
-  src: CUTS[0].src,
-  alt: `${WORK_TITLE} 1회 첫 컷을 표지로 쓴 카드. 독립구단 창단식 무대와 객석의 두 주인공`,
-};
 
 /** poster는 같은 영상 17.6초 프레임(《1억의 구단주》 제목 + 장면)을 ffmpeg로 뽑은 1280×720 webp다.
  * 기존 /videos/webtoon-reference-poster.jpg(로고 엔드카드)는 메인 사이트가 쓰므로 그대로 둔다. */
@@ -50,41 +41,7 @@ const MOTION_COMIC_VIDEO = {
 };
 
 /* ---------------------------------------------------------------- 히어로 */
-function Cover() {
-  return (
-    <div className="cs-svc-webtoon-cover">
-      <div className="cs-svc-webtoon-cover-card">
-        <CsMedia
-          ratio="2x3"
-          className="cs-svc-webtoon-cover-media"
-          src={COVER.src}
-          alt={COVER.alt}
-          tag={MEDIA_TAGS.ownWebtoon}
-          sizes={CUT_SIZES}
-          priority
-        />
-        <div className="cs-svc-webtoon-cover-caption">
-          <p className="cs-t-h2">{sig.cover.title}</p>
-          <a href="#reader" className="cs-link">
-            {sig.cover.read} <span aria-hidden="true">↓</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Hero({ data }: ServiceSectionProps) {
-  return (
-    <CsHero
-      id={data.id}
-      hero={data.hero}
-      className="cs-svc-webtoon-hero"
-      backdrop={<span className="cs-svc-webtoon-glow" aria-hidden="true" />}
-      media={<Cover />}
-    />
-  );
-}
+function Hero({ data }: ServiceSectionProps) { return <ServiceHero data={data} media={<WebtoonCover cuts={CUTS}/>} />; }
 
 /* ---------------------------------------------------------------- ① 세로 리더 */
 function Reader() {
@@ -110,28 +67,7 @@ function Reader() {
             </div>
           </div>
           <div className="cs-col-6 cs-col-start-7 cs-svc-webtoon-phone-wrap">
-            <div className="cs-svc-webtoon-phone">
-              <div
-                className="cs-svc-webtoon-scroll"
-                role="region"
-                aria-label={r.label}
-                tabIndex={0}
-              >
-                {CUTS.map((cut) => (
-                  <Image
-                    key={cut.src}
-                    className="cs-svc-webtoon-cut"
-                    src={cut.src}
-                    alt={cut.alt}
-                    width={800}
-                    height={1200}
-                    sizes={CUT_SIZES}
-                    loading="lazy"
-                  />
-                ))}
-              </div>
-              <CsTag overlay>{MEDIA_TAGS.ownWebtoon}</CsTag>
-            </div>
+            <WebtoonReader cuts={CUTS}/>
           </div>
         </div>
       </div>

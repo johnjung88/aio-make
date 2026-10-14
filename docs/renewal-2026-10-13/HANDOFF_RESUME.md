@@ -53,7 +53,30 @@ AIO MAKE 홈페이지(aio-make.com) 리뉴얼. 더 전문적으로, 작업물 �
 - Codex Astra 지침: `CODEX_ASTRA_HANDOFF.md`. 상태가 '사용자 확인 대기'면 Codex도 코드를 바꾸지 않는다.
 - 세션 cron(매시 17분 자동 재개 점검)은 세션을 닫으면 사라진다. 새 세션에서 필요하면 다시 건다.
 
-## 현재 상태: 디자인 피드백 R2 독립 검증 완료 · 사용자 디자인 확인 대기 (HEAD `9b3def8`, 미커밋 변경)
+## 현재 상태: R3 독립 검증 완료 · 사용자 디자인 확인 전 (기준 HEAD e53e108)
+- 최신 메인 범위복원: `BRIEF_MAIN_SCOPE_RESTORE.md` / `RESULT_MAIN_SCOPE_RESTORE.md`
+- 최신 컨텐츠 홈 모션(A): `BRIEF_CONTENT_HOME_MOTION_R4.md` / `RESULT_CONTENT_HOME_MOTION_R4.md` · 서비스6종(B) 문서와분리
+- 2026-10-14 사용자 모바일데이터/다른 Wi-Fi 검수 요청으로 암호보호 HTTPS 미리보기 실행 유지: https://hotel-separated-wrist-acceptable.trycloudflare.com/content
+- 현재 터널14380 → loopback 인증프록시3216/PID30780 → R3스냅샷3215/PID30244, 기존3213/3214 유지
+- 외부 HTTPS 인증차단/정상접근10검사와 Chrome모바일폭 실제화면 PASS, 실물폰은 사용자 확인 대기
+- 임시 비밀번호는 대화에만 전달, 운영/종료/재시작은 PHONE_PREVIEW_R3.md 참조
+- 아래 QA3215 종료 기록은 검증 단계 이력이며 위 휴대폰 검토용 신규 실행이 현재 상태
+- 사용자 추가 요청에 따라 A/B 구현 완료, Codex 구현/검증 대체 승인과 AI4계정 확정 유지
+- 독립 검증자는 타입/lint·직렬 테스트·공개 OFF/검토 ON 격리 빌드·실제 Chrome 화면과 클릭 검증 완료
+- ON 40화면·상세25경로·실제 클릭30회 PASS, OFF16화면과 검토 상세4경로404 PASS
+- 최초99테스트 93 PASS/5 FAIL/기존1 SKIP → 수정 영향+신규 장면 자산42 PASS, 전체 재실행으로 보고하지 않음
+- 실제 비교: 모바일 서비스 첫 작품 약735~810→304px, 메인 PC 본문끝9,879→7,960px(약19%압축)
+- 실제 화면에서 모션 문장 줄끊김·AI4인 hero과대·메인 문장 붙음3건 발견 후 A/B 수정, 최종 격리 재빌드/영향 PC·모바일 재확인 PASS
+- 독립 창작품질 개선 확인이며 사용자 디자인 승인이나 최상 판정은 아님
+- 상세 검증/한계/재실행 명령: VERIFY_DESIGN_R3.md, 자체 구현 결과 RESULT_DESIGN_R3_SHELL/SERVICES.md
+- QA3215 종료, 보호3213 PID41252·3214 PID41552 유지와 원본 BUILD_ID SHA 동일 확인
+- 3214는 이전 미리보기 유지, R3 스냅샷은 .qa/design-r3-independent/src
+- 새 후보 재실행: 위 스냅샷에서 ENABLE_LEGACY_SUPABASE=false, AIO_LOCAL_ADMIN_ENABLED=false, NEXT_PUBLIC_AIO_REFERENCE_REVIEW=1, NODE_OPTIONS=--max-old-space-size=1536 설정 후 node ./node_modules/next/dist/bin/next start -p 3215
+- 최종 화면: .qa/design-r3-independent/shots/final-main-1440.png, final-content-1440.png, final-content-390.png, final-ai-influencer-1440.png, final-animation-1440.png
+- Image#1~5 원본 미첨부 대조 NOT_RUN, 전편영상/음성감상·문의저장/메일/GA4·push/배포/P6 NOT_RUN
+- 다음 행동은 사용자 R3 디자인 확인, 고객자료 공개 권리 UNKNOWN/HOLD와 쇼릴 제공 대기 유지
+
+## 직전 R2 기록: 독립 검증 완료 · 이후 e53e108에 로컬 보존
 - 사용자 2026-10-14 새 피드백으로 이전 디자인 확인 대기를 해제하고 재기획·구현 요청
 - Opus·Sonnet 실행 불가 안내에 사용 가능한 Codex 서브에이전트 구현·독립 검증 대체를 명시 승인
 - A 공통셸·메인·컨텐츠 홈 구현 완료: 검정 배경 통일, 헤더 4메뉴, 헤더 움직임 토글 제거, 실제 작업물 갤러리·카드 내부 화살표, 메인 5단계 재배치, 제작사례 FAQ 직전, CTA 정렬, /content/projects/[slug] 상세와 컨텐츠 인사이트 셸, 문장 마침표 제거

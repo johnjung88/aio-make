@@ -29,12 +29,13 @@ export default async function ContentProject({ params, searchParams }: Props) {
    <h1 className="cs-t-display">{studioText(work.title)}</h1>
    <p className="cs-t-lead">{studioText(work.description)}</p>
    <span className="cs-tag cs-t-caption">{workLabel(work)}</span>
+  <div className="cs-article-body"><section><h2 className="cs-t-h3">제작 목적</h2><p className="cs-t-body">{studioText(work.purpose)}</p></section><section><h2 className="cs-t-h3">제작 범위</h2><p className="cs-t-body">{studioText(work.scope)}</p></section></div>
   </header>
   <div className="cs-article-media">{work.media.map((media,index) => <figure key={`${media.src}-${index}`}>
    {media.kind === "video" ? <video src={media.src} poster={media.poster} controls playsInline preload="none" aria-label={media.alt} /> : <Image src={media.src} alt={media.alt} width={media.width ?? 1200} height={media.height ?? 900} sizes="(min-width:1024px) 1000px, 92vw" />}
    <figcaption className="cs-t-caption">{studioText(media.alt)}</figcaption>
   </figure>)}</div>
-  <div className="cs-article-body"><section><h2 className="cs-t-h3">제작 목적</h2><p className="cs-t-body">{studioText(work.purpose)}</p></section><section><h2 className="cs-t-h3">제작 범위</h2><p className="cs-t-body">{studioText(work.scope)}</p></section></div>
+
   <Link className="cs-btn cs-btn--ghost cs-article-back" href={back}>서비스 제작 사례로 돌아가기</Link>
  </article>;
 }

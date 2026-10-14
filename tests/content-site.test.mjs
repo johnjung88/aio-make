@@ -13,6 +13,7 @@ import {
   MEDIA_TAGS,
 } from "../lib/content-site/types.ts";
 import { CS_COPY } from "../lib/content-site/copy.ts";
+import { COMMON_FAQ } from "../lib/content-site/faq.ts";
 import { csRoute } from "../lib/content-site/theme-map.ts";
 import { serviceJsonLd } from "../lib/content-site/schema.ts";
 import {
@@ -270,20 +271,11 @@ test("3. 카피 규칙: 모든 서비스 데이터 문자열", () => {
 });
 
 test("4. FAQ·SEO", () => {
-  const common = [
-    [
-      "수정은 몇 번까지 할 수 있나요?",
-      "기획안을 받은 뒤 2회, 최종안을 받은 뒤 1회 수정할 수 있습니다 그 밖의 수정은 범위를 확인한 뒤 따로 안내합니다",
-    ],
-    [
-      "표시된 가격에 부가세가 포함되어 있나요?",
-      "포함되어 있지 않습니다 표시한 금액은 모두 부가세 별도입니다",
-    ],
-    [
-      "여러 편을 정기적으로 맡길 수 있나요?",
-      "네 편수와 일정을 알려주시면 범위와 견적을 따로 안내합니다",
-    ],
-  ];
+  const common = COMMON_FAQ;
+  assert.equal(common.length, 3);
+  assert.match(common[0][1], /기획안.*2회.*최종안.*1회.*추가 수정.*범위/);
+  assert.match(common[1][1], /모두 부가세 별도/);
+  assert.match(common[2][1], /편수와 일정.*범위와 견적/);
   const titles = new Set(),
     descriptions = new Set();
   for (const id of ORDER) {
@@ -390,9 +382,11 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
         `${path} imports server data`,
       );
       assert.doesNotMatch(text, /from\s+["']@\/lib\/content-site["']/, `${path} imports all landing data`);
+      assert.doesNotMatch(text, CUSTOMER, `${path} client customer string`);
     }
     assert.doesNotMatch(text, /process\.env/, `${path} reads env`);
-    assert.doesNotMatch(text, CUSTOMER, `${path} customer string`);
+    // R3 server renderers may look up a selected work by slug. Their rendered
+    // OFF output and actual client bundles are checked in isolated production QA
   }
   for (const path of libFiles.filter((f) => !f.endsWith("works.server.ts"))) {
     const text = code(path);

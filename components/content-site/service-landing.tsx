@@ -38,9 +38,9 @@ export function ServiceLanding({
   const { Hero, Signature, BeforePricing, worksLayout } = registry[id];
   return (
     <div className={`cs-landing cs-svc-${id}`}>
-      <Hero data={data} />
+      <Hero data={data} works={works} />
       <CsTypes types={data.types} />
-      {Signature ? <Signature data={data} /> : null}
+      {Signature ? <Signature data={data} works={works} /> : null}
       {BeforePricing ? <BeforePricing data={data} /> : null}
       <CsPricing id={id} />
       <CsProcess process={data.process} />

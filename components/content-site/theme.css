@@ -11,6 +11,7 @@
   /* 글자 역할(Pretendard 단일) */
   --cs-t-family: var(--ff-text);
   --cs-t-display-size: clamp(38px, 6vw, 88px);
+  --cs-t-service-display-size: clamp(38px, 4.6vw, 68px);
   --cs-t-display-weight: 750;
   --cs-t-display-leading: 1.12;
   --cs-t-display-tracking: -0.045em;
@@ -1879,3 +1880,11 @@ body:has(.cs-site) {
 
 .cs-site .cs-sheet:not([hidden]) { display:block; }
 .cs-site .cs-sheet[hidden] { display:none; }
+
+/* R3 project context is available before scrolling through the work */
+.cs-site .cs-article-header .cs-article-body { max-width:none; width:100%; grid-template-columns:repeat(2,minmax(0,1fr)); margin-block:8px 0; padding-top:24px; border-top:1px solid var(--cs-line); }
+.cs-site .cs-article-header .cs-article-body section { min-width:0; }
+.cs-site .cs-article-header .cs-article-body p { margin-top:12px; color:var(--cs-fg-2); }
+@media(max-width:767px) {
+ .cs-site .cs-article-header .cs-article-body { grid-template-columns:minmax(0,1fr); gap:20px; }
+}

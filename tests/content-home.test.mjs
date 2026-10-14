@@ -301,47 +301,62 @@ test("8. 소스 규칙: 컨텐츠 사이트 체계(.cs-t-* 역할·--cs-* 토큰
   for (const rule of withoutKeyframes.matchAll(/([^{}]+)\{[^{}]*\}/g)) {
     const head = rule[1].trim();
     if (head.startsWith("@") || head === "") continue;
-    for (const selector of head.split(","))
+    // Commas inside :is()/:where() are part of one selector
+    const selectors = []; let depth = 0, current = "";
+    for (const ch of head) {
+      if (ch === "(") depth++;
+      if (ch === ")") depth--;
+      if (ch === "," && depth === 0) { selectors.push(current); current = ""; }
+      else current += ch;
+    }
+    selectors.push(current);
+    for (const selector of selectors)
       assert.match(selector.trim(), /^\.cs-site \.cs-home\b/, `scope: ${selector.trim()}`);
   }
   // 트랜지션은 reduced-motion: no-preference 안에서만
-  const outsideMotion = body.replace(
-    /@media \(prefers-reduced-motion: no-preference\)\s*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g,
-    "",
-  ).replace(
-    /@media \(hover: hover\) and \(prefers-reduced-motion: no-preference\)\s*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g,
-    "",
-  );
+  // Read balanced media blocks so nested keyframes and whitespace do not change the contract
+  let outsideMotion = body;
+  const mediaBlocks = [...body.matchAll(/@media[^{}]+\{/g)];
+  for (const match of mediaBlocks.reverse()) {
+    if (!/prefers-reduced-motion\s*:\s*no-preference/.test(match[0])) continue;
+    let depth = 1, end = match.index + match[0].length;
+    while (end < body.length && depth) {
+      if (body[end] === "{") depth++;
+      if (body[end] === "}") depth--;
+      end++;
+    }
+    outsideMotion = outsideMotion.slice(0, match.index) + outsideMotion.slice(end);
+  }
   assert.doesNotMatch(outsideMotion, /transition\s*:/, "transition outside no-preference");
 });
 
-test("8-1. R2 수동 작업 갤러리: 카드 안 이동·접근 가능한 서비스 선택·결과물 공개", () => {
-  const css = code(read(join(componentDir, "content-home.css")));
-  // 3D 사본 대신 실제 작업 한 장을 수동으로 선택한다
-  assert.doesNotMatch(css, /preserve-3d/);
+test("8-1. R4 수동 3D 작업 갤러리와 접근 가능한 제작 단계", () => {
+  // Actual intermediate transform, active content and motion safety are browser contracts
   const showcase = read(join(componentDir, "service-showcase.tsx"));
-  assert.match(showcase, /selections: ContentSelection\[\]/);
+  assert.match(showcase, /selections:\s*ContentSelection\[\]/);
   assert.match(showcase, /role="tablist"/);
   assert.match(showcase, /role="tabpanel"/);
   assert.match(showcase, /aria-selected=/);
-  assert.match(showcase, /tabIndex=\{index === current \? 0 : -1\}/);
+  assert.match(showcase, /tabIndex=\{index\s*===\s*current\s*\?\s*0\s*:\s*-1\}/);
   for (const key of ["ArrowRight", "ArrowLeft", "Home", "End"])
     assert.ok(showcase.includes(`"${key}"`), key);
-  assert.match(showcase, /className="ch-work-card"[\s\S]*className="ch-work-nav"[\s\S]*aria-label="이전 서비스"[\s\S]*aria-label="다음 서비스"/);
+  assert.match(showcase, /aria-label="이전 서비스"/);
+  assert.match(showcase, /aria-label="다음 서비스"/);
   assert.match(showcase, /video\.pause\(\)/);
   assert.doesNotMatch(showcase, /setInterval|autoPlay|className="ch-stage"/);
   assert.match(showcase, /\/content\/projects\//);
-  // 제작 단계는 내용을 숨기지 않는 순서 목록이다
+  // All four step outputs remain reachable by labelled tabs and keyboard
   const tabs = read(join(componentDir, "process-tabs.tsx"));
-  assert.match(tabs, /<ol className="ch-process-rows"/);
+  assert.match(tabs, /role="tablist"/);
+  assert.match(tabs, /role="tabpanel"/);
+  for (const key of ["ArrowDown", "ArrowUp", "Home", "End"]) assert.ok(tabs.includes(key));
   assert.match(tabs, /step\.output/);
-  assert.doesNotMatch(tabs, /role="tab|hidden=|useState/);
+
   // 버튼은 컨텐츠 사이트 버튼(.cs-btn)만, 크기는 서비스 히어로와 같은 lg
   const home = read(join(componentDir, "content-home.tsx"));
   assert.equal((home.match(/cs-btn--lg/g) || []).length, 3);
-  assert.doesNotMatch(home, /t-button/);
-  // 히어로 높이는 컨텐츠 헤더 기준(고정 문의 바 없음)
-  assert.match(css, /calc\(100svh - var\(--cs-header-h\)\)/);
+  // R3는 cs-t-button 역할을 사용한다. 실제 첫 작품 위치/높이는 브라우저에서 검증한다
+  assert.doesNotMatch(home, /className="t-button"/);
 });
 
 test("9. 메인 컨텐츠 탭 한 줄 설명 공유(P4가 있을 때만)", (t) => {
@@ -371,7 +386,7 @@ test("10. 히어로 쇼릴 슬롯은 커밋 상태에서 비어 있다", () => {
   assert.match(video, /prefers-reduced-motion: reduce/);
   assert.match(video, /if \(!mounted\) return null;/, "no <video> in server HTML");
   const home = read(join(componentDir, "content-home.tsx"));
-  assert.match(home, /hero\.video \? null :/, "staged tag only without a reel");
+  assert.match(home, /hero\.video \?[^\n]*<HeroMedia\s*\/>[^\n]*: null/, "provided reel is optional and is not fabricated when absent");
 });
 
 test("11. 삭제된 경로를 되살리지 않는다", () => {

@@ -36,3 +36,31 @@
   .cs-svc-ai-influencer .cs-svc-ai-influencer-avatar { width:44px; }
   .cs-svc-ai-influencer .cs-svc-ai-influencer-label { padding:4px 6px; }
 }
+
+/* R3: editorial feed, the existing lifestyle image leads each account */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-accounts { grid-template-columns:minmax(0,1fr); gap:48px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account { border-radius:0; display:grid; grid-template-columns:.6fr 1.4fr; padding:32px; gap:0 40px; background:var(--cs-bg); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-head { padding:0; align-self:start; flex-wrap:wrap; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-copy { grid-column:1; padding:24px 0; min-height:0; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed { grid-column:2; grid-row:1/4; grid-template-columns:1.3fr 1fr; gap:16px; align-items:start; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="0"] { grid-row:1/3; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="1"] .cs-media,.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="2"] .cs-media { aspect-ratio:3/2; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figcaption { padding:12px 0; color:var(--cs-fg); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figcaption p { color:var(--cs-fg-2); margin-top:6px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-account-foot { grid-column:1; padding:0; align-self:end; }
+@media(max-width:767px) {
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-account { display:block; padding:20px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed { grid-template-columns:1fr 1fr; gap:16px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="0"] { grid-column:1/-1; grid-row:auto; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="0"] .cs-media { aspect-ratio:2/3; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="1"] .cs-media,.cs-svc-ai-influencer .cs-svc-ai-influencer-feed figure[data-feed-index="2"] .cs-media { aspect-ratio:3/4; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-account-foot { margin-top:24px; }
+}
+
+/* R3 review: four faces and their labels fit in the desktop introduction */
+@media (min-width:768px) {
+  .cs-site .cs-svc-ai-influencer .cs-service-editorial-hero { min-height:0; }
+  .cs-site .cs-svc-ai-influencer .cs-service-editorial-grid { grid-template-rows:auto 1fr; }
+  .cs-site .cs-svc-ai-influencer .cs-service-editorial-heading { align-self:start; }
+  .cs-site .cs-svc-ai-influencer .cs-svc-ai-influencer-cast { width:100%; max-width:380px; margin-inline:auto; }
+}

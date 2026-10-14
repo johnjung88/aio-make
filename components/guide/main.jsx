@@ -23,7 +23,6 @@ import {
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
 import LAB_DATA from "./lab-data";
-import { HomeServices } from "@/components/home/home-services";
 import { WorkflowJourney } from "@/components/home/workflow-journey";
 import { NewTabHint } from "@/components/new-tab-hint";
 import { newTabProps } from "@/lib/new-tab";
@@ -239,13 +238,333 @@ class Component extends GuideLogic {
                   }}
                   context="main"
                 >
-                  {"작업 과정 살펴보기"}
+                  {"제작 예시 살펴보기"}
                 </GuideLink>
               </div>
             </div>
           </section>
           <ShowcaseVideo kind="brand" />
-          <HomeServices data={this.props.journey} />
+          <section
+            className="l-container"
+            id="divisions"
+            style={{
+              width: "100%",
+              boxSizing: "border-box",
+              margin: "0 auto",
+              paddingBlock: "var(--section-y)",
+              paddingInline: "var(--gutter)",
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(48px,6vw,80px)",
+            }}
+          >
+            <h2
+              className="t-h2"
+              style={{
+                margin: "0",
+                textAlign: "center",
+              }}
+            >
+              {"필요한 분야만 "}
+              <span style={{ color: "#6B4DFF" }}>{"골라"}</span>
+              {" 맡기세요"}
+            </h2>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit,minmax(min(100%,340px),1fr))",
+                gap: "12px",
+              }}
+            >
+              {/* The content site opens in a new tab (lib/new-tab.ts). */}
+              <GuideLink
+                href="/content"
+                {...newTabProps}
+                style={{
+                  background: "#0D0D12",
+                  color: "#fff",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                context="main"
+              >
+                <div
+                  style={{
+                    aspectRatio: "16/10",
+                    overflow: "hidden",
+                    background: "#141418",
+                  }}
+                >
+                  <img
+                    alt="컨텐츠 제작 스튜디오"
+                    src={guideAsset("public/images/cards/card-video.jpg")}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    flex: "1",
+                    padding: "28px 32px 32px",
+                    display: "grid",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "12px",
+                      marginBottom: "28px",
+                    }}
+                  >
+                    <span
+                      className="eyebrow"
+                      style={{
+                        color: "#A99BFF",
+                      }}
+                    >
+                      {"01 · CONTENT"}
+                    </span>
+                    <span
+                      className="t-small"
+                      style={{
+                        border: "1px solid #55555E",
+                        padding: "4px 10px",
+                        color: "#C9C9D1",
+                      }}
+                    >
+                      {"바로 의뢰 가능"}
+                    </span>
+                  </div>
+                  <span
+                    className="t-small"
+                    style={{
+                      color: "#A99BFF",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {"장면을 담는 분야"}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--ff-display)",
+                      fontSize: "clamp(30px,3vw,40px)",
+                      fontWeight: "600",
+                      letterSpacing: "-.03em",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    {"Studio"}
+                  </span>
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "웹툰 · 애니메이션 · AI 인플루언서 · 모션그래픽 · 브랜드 홍보 영상 · SNS 광고 영상",
+                    )}
+                  </span>
+                  <span aria-hidden="true"></span>
+                  <span style={{ fontWeight: "600" }}>
+                    {"컨텐츠 상담하기 →"}
+                  </span>
+                  <NewTabHint />
+                </div>
+              </GuideLink>
+              <GuideLink
+                href="/marketing"
+                style={{
+                  background: "#0D0D12",
+                  color: "#fff",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                context="main"
+              >
+                <div
+                  style={{
+                    aspectRatio: "16/10",
+                    overflow: "hidden",
+                    background: "#141418",
+                  }}
+                >
+                  <img
+                    alt="마케팅 전략 회의"
+                    src={guideAsset("public/images/cards/card-marketing.jpg")}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    flex: "1",
+                    padding: "28px 32px 32px",
+                    display: "grid",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "12px",
+                      marginBottom: "28px",
+                    }}
+                  >
+                    <span
+                      className="eyebrow"
+                      style={{
+                        color: "#A99BFF",
+                      }}
+                    >
+                      {"02 · MARKETING"}
+                    </span>
+                    <span
+                      className="t-small"
+                      style={{
+                        border: "1px solid #55555E",
+                        padding: "4px 10px",
+                        color: "#C9C9D1",
+                      }}
+                    >
+                      {"문의 가능"}
+                    </span>
+                  </div>
+                  <span
+                    className="t-small"
+                    style={{
+                      color: "#A99BFF",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {"고객을 부르는 분야"}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--ff-display)",
+                      fontSize: "clamp(30px,3vw,40px)",
+                      fontWeight: "600",
+                      letterSpacing: "-.03em",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    {"Marketing"}
+                  </span>
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "통합 마케팅 · SNS 대행 운영 · SEO·AEO·GEO",
+                    )}
+                  </span>
+                  <span aria-hidden="true"></span>
+                  <span style={{ fontWeight: "600" }}>
+                    {"마케팅 상담하기 →"}
+                  </span>
+                </div>
+              </GuideLink>
+              <GuideLink
+                href="/lab"
+                style={{
+                  background: "#0D0D12",
+                  color: "#fff",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                context="main"
+              >
+                <div
+                  style={{
+                    aspectRatio: "16/10",
+                    overflow: "hidden",
+                    background: "#141418",
+                  }}
+                >
+                  <img
+                    alt="개발팀 작업 공간"
+                    src={guideAsset("public/images/cards/card-lab.jpg")}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    flex: "1",
+                    padding: "28px 32px 32px",
+                    display: "grid",
+                    gridTemplateRows: "auto auto auto auto 1fr auto",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "12px",
+                      marginBottom: "28px",
+                    }}
+                  >
+                    <span
+                      className="eyebrow"
+                      style={{
+                        color: "#A99BFF",
+                      }}
+                    >
+                      {"03 · DEV"}
+                    </span>
+                    <span
+                      className="t-small"
+                      style={{
+                        border: "1px solid #55555E",
+                        padding: "4px 10px",
+                        color: "#C9C9D1",
+                      }}
+                    >
+                      {"문의 가능"}
+                    </span>
+                  </div>
+                  <span
+                    className="t-small"
+                    style={{
+                      color: "#A99BFF",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {"시스템을 만드는 분야"}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--ff-display)",
+                      fontSize: "clamp(30px,3vw,40px)",
+                      fontWeight: "600",
+                      letterSpacing: "-.03em",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    {"Lab"}
+                  </span>
+                  <span className="home-division-services t-small">
+                    {divisionServiceItems(
+                      "업무 자동화 · 프로그램 · 웹사이트 · 쇼핑몰",
+                    )}
+                  </span>
+                  <span aria-hidden="true"></span>
+                  <span style={{ fontWeight: "600" }}>{"개발 상담하기 →"}</span>
+                </div>
+              </GuideLink>
+            </div>
+          </section>
           <WorkflowJourney data={this.props.journey} />
           <section
             style={{ background: "#fff", borderBottom: "1px solid #DAD8D1" }}

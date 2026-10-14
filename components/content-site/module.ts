@@ -5,10 +5,11 @@
 import type { ReactNode } from "react";
 import type {
   CsWorksLayout,
+  CsWorkCard,
   ServiceLandingData,
 } from "@/lib/content-site/types";
 
-export type ServiceSectionProps = { data: ServiceLandingData };
+export type ServiceSectionProps = { data: ServiceLandingData; works?: CsWorkCard[] };
 
 export type ServiceModule = {
   /** data-cs-section="hero"와 aria-labelledby="cs-hero-title"(CsHeroCopy)를 유지한다 */

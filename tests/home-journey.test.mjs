@@ -90,15 +90,13 @@ function strings(value, out = []) {
   return out;
 }
 
-test("five journey steps in order with readable titles", () => {
+test("requested three journey steps in development, marketing, content order", () => {
   assert.deepEqual(
     journeySteps.map((step) => step.id),
     [
-      "journey-consult",
-      "journey-brand",
       "journey-dev",
-      "journey-content",
       "journey-marketing",
+      "journey-content",
     ],
   );
   assert.ok(!journeySteps.some((step) => step.id === "journey-growth"));
@@ -242,9 +240,8 @@ test("copy avoids banned phrasing and keeps the AI influencer facts", async () =
 
 test("main page uses the journey, the six-service wording and no #process section", async () => {
   const main = await read("components/guide/main.jsx");
-  const cards = await read("components/home/home-services.tsx");
-  for (const label of REQUIRED.split(" · ")) assert.ok(cards.includes(label), label);
-  assert.match(main, /<HomeServices data=\{this\.props\.journey\}/);
+  for (const label of REQUIRED.split(" · ")) assert.ok(main.includes(label), label);
+  assert.doesNotMatch(main, /<HomeHero|<HomeServices/);
   assert.ok(!main.includes("브랜드 홍보 및 SNS 광고 영상"));
   assert.doesNotMatch(main, /import\s*\{\s*HomeReferences\s*\}/);
   assert.ok(main.includes("<WorkflowJourney data={this.props.journey} />"));
@@ -258,7 +255,10 @@ test("main page uses the journey, the six-service wording and no #process sectio
     "전문가가 품질을 지킵니다",
   ])
     assert.ok(!main.includes(gone), gone);
+  // R4 restores the original main intro; only its imported journey changes
+  assert.ok(main.includes("<ShowcaseVideo"), "company introduction remains available");
   assert.ok(main.includes("OUR STANDARD"));
+  assert.ok(main.includes("분야별 전문가들이"));
   assert.ok(!main.includes('href="#process"'));
 });
 
