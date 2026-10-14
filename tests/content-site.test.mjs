@@ -1018,8 +1018,9 @@ test("11-4. R6 가격: 360부터 2열 · 라벨/금액 2줄 · 카드마다 부�
   assert.match(pricing, /id="pricing"/, "#pricing anchor stays");
   assert.doesNotMatch(pricing, /data-plan|c\.cta|c\.vat|부가세 별도|PRICING_COMMON_LINES|revisions|bulk/);
   assert.match(pricing, /PRICING_COMMON\.vat/);
-  assert.equal((pricing.match(/cs-plan-badge/g) ?? []).length, 1, "single badge element");
-  assert.match(pricing, /plan\.bundle && index === 0/, "badge only on the featured plan");
+  assert.equal((pricing.match(/cs-pricing-badge/g) ?? []).length, 1, "single badge element, outside the plan boxes");
+  assert.doesNotMatch(pricing, /cs-plan-badge|index === 0/, "plan boxes share one structure (no badge inside a box)");
+  assert.match(pricing, /group\.bundle \?/, "badge only on the bundle group title");
   assert.equal((pricing.match(/<h3 className="cs-t-label">\{plan\.label\}<\/h3>/g) ?? []).length, 1);
   assert.deepEqual(Object.keys(CS_COPY.pricing), ["eyebrow", "title", "bundle"]);
   // 웹툰 3그룹 순서·금액은 content-pricing 그대로

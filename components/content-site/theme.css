@@ -1240,7 +1240,9 @@ body:has(.cs-site) {
 .cs-site .cs-plan--bundle {
   border-color: var(--cs-accent);
 }
-.cs-site .cs-plan-badge {
+/* 묶음 그룹 배지: 박스 밖 그룹 제목 자리(박스 안은 항상 라벨/금액 2줄) */
+.cs-site .cs-pricing-group .cs-pricing-badge {
+  justify-self: start;
   display: inline-flex;
   padding: var(--cs-s1) var(--cs-s3);
   border-radius: var(--cs-r-pill);

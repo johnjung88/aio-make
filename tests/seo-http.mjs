@@ -325,7 +325,7 @@ check(
   "main FAQ server HTML",
 );
 check(() => {
-  // /content 컨텐츠 사이트 홈(P2R WP-D): 컨텐츠 셸 안, 서버 HTML(목록 모드)에 서비스 6종·시작가·링크가 모두 있고
+  // /content 컨텐츠 사이트 홈(P2R WP-D): 컨텐츠 셸 안, 서버 HTML(R6: 서비스 카드 캐러셀 ch-depth, 카드마다 서비스 보기 링크)에 서비스 6종·링크가 모두 있고
   // 고객 작품 흔적·옛 셸·자리표시 문구가 없다.
   const html = bodies.get("/content");
   assert.match(html, /class="cs-site"/);
@@ -333,15 +333,18 @@ check(() => {
   assert.doesNotMatch(html, /guide-page|guide-subnav|guide-header|floating-contact/);
   assert.match(html, /id="services"/);
   assert.match(html, /id="process"/);
-  assert.match(html, /data-mode="list"/);
+  assert.match(html, /class="ch-gallery ch-gallery--depth"/);
+  assert.match(html, /data-slot="home-hero-reel"/);
   assert.match(html, /data-cs-section="hero"/);
   for (const s of services.filter((s) => s.division === "video"))
     assert.ok(
       html.includes(`href="/content/services/${s.id}"`),
       `/content links ${s.id}`,
     );
-  assert.equal((html.match(/class="ch-price /g) || []).length, 6);
-  assert.match(html, /연출 예시/);
+  assert.equal((html.match(/class="ch-depth-card"/g) || []).length, 6);
+  assert.equal((html.match(/ch-depth-service-link/g) || []).length, 6);
+  // 공개판 카드는 연출 이미지에 '연출 예시' 표기를 유지한다(R6 홈 히어로 연출 이미지만 삭제됨)
+  if (!referenceReview) assert.match(html, /연출 예시/);
   assert.doesNotMatch(html, /<video\b|\sautoplay[\s=>]/i, "reel slot is empty");
   assert.doesNotMatch(
     html,
@@ -365,7 +368,7 @@ check(() => {
       assert.equal((html.match(/<input[^>]*type="radio"/g) || []).length, 6);
       assert.ok(html.indexOf('type="radio"') < html.indexOf("<form"), "chooser outside form");
       assert.match(html, /가격 기준/);
-      assert.match(html, /표시 금액은 모두 부가세 별도입니다\./);
+      assert.match(html, /표시 금액은 모두 부가세 별도입니다/);
       assert.doesNotMatch(html, /모르겠어요|맞춤 견적/);
     }
     assert.doesNotMatch(plain, /<input[^>]*type="radio"[^>]*checked/);

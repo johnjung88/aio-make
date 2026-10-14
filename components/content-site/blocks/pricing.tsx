@@ -37,7 +37,10 @@ export function CsPricing({
           {groups.map((group) => (
             <div key={group.key} className="cs-pricing-group">
               {group.title ? (
-                <p className="cs-t-label" id={`cs-pricing-${group.key}`}>
+                <p
+                  className={"cs-t-label" + (group.bundle ? " cs-pricing-badge cs-t-caption" : "")}
+                  id={`cs-pricing-${group.key}`}
+                >
                   {group.title}
                 </p>
               ) : null}
@@ -46,24 +49,18 @@ export function CsPricing({
                 data-count={Math.min(group.plans.length, 4)}
                 aria-labelledby={group.title ? `cs-pricing-${group.key}` : undefined}
               >
-                {group.plans.map((plan, index) => {
-                  /* 강조 플랜은 묶음 그룹의 첫 플랜 하나뿐이다(배지·강조 테두리) */
-                  const featured = plan.bundle && index === 0;
-                  return (
-                    <li
-                      key={plan.key}
-                      className={"cs-plan" + (featured ? " cs-plan--bundle" : "")}
-                    >
-                      {featured ? (
-                        <span className="cs-plan-badge cs-t-caption">{c.bundle}</span>
-                      ) : null}
-                      <h3 className="cs-t-label">{plan.label}</h3>
-                      <p className="cs-plan-amount">
-                        <span className="cs-t-price">{formatWon(plan.amount)}</span>
-                      </p>
-                    </li>
-                  );
-                })}
+                {group.plans.map((plan) => (
+                  /* 묶음(함께 제작) 그룹은 배지를 그룹 제목에 두고, 박스는 모두 같은 구조(라벨/금액)로 둔다 */
+                  <li
+                    key={plan.key}
+                    className={"cs-plan" + (plan.bundle ? " cs-plan--bundle" : "")}
+                  >
+                    <h3 className="cs-t-label">{plan.label}</h3>
+                    <p className="cs-plan-amount">
+                      <span className="cs-t-price">{formatWon(plan.amount)}</span>
+                    </p>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
