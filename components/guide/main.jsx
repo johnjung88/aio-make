@@ -257,9 +257,6 @@ class Component extends GuideLogic {
                 </span>
                 {"입니다"}
               </blockquote>
-              <p className="t-caption main-standard-caption">
-                {"기획 · 제작 · 검수 · 인계"}
-              </p>
             </div>
           </section>
           <section>

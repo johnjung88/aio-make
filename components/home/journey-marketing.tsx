@@ -20,7 +20,6 @@ import {
 import { PlatformLogoMark } from "@/components/platform-frame/platform-frame";
 import {
   getPlatformLogo,
-  PLATFORM_TRADEMARK_NOTICE,
   type PlatformLogoId,
 } from "@/components/platform-frame/logos";
 import {
@@ -695,8 +694,6 @@ export function JourneyMarketing() {
           </li>
         ))}
       </ol>
-
-      <p className="wj-mk-notice">{PLATFORM_TRADEMARK_NOTICE}</p>
     </div>
   );
 }

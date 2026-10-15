@@ -117,8 +117,9 @@
 .cs-site .cs-home .ch-arrow--prev { left:0; }
 .cs-site .cs-home .ch-arrow--next { right:0; }
 
-/* ---------------------------------------------------------------- 제작 과정 4단계(R7)
- * 모바일: 단계마다 [장면 그림 | 번호·이름 / 받는 것] 머리 줄 + 아래 확인 문장 한 블록(4행 합계 600px 이내).
+/* ---------------------------------------------------------------- 제작 과정 4단계(R8)
+ * 머리(eyebrow·제목)는 가운데 정렬이고 단계 행은 왼쪽 기준을 그대로 둔다.
+ * 모바일: 단계마다 [장면 그림 | 번호·이름] 머리 줄 + 아래 설명 한 문장(4행 합계 600px 이내).
  * 768px: 2×2, 1024px부터 4열 가로. 칸마다 위 그림, 아래 글. 컨테이너는 읽기 폭 880 제한 없이 전체 폭을 쓴다.
  * 그림 틀은 허용 박스(이미지 틀)이며 글 영역에는 박스·그림자·기울임이 없다. 모든 움직임은 아래 no-preference 블록에 있다. */
 .cs-site .cs-home .ch-process {
@@ -142,8 +143,7 @@
   grid-template-columns: var(--ch-art-w) minmax(0, 1fr);
   grid-template-areas:
     "art name"
-    "art output"
-    "check check";
+    "text text";
   column-gap: var(--cs-s3);
   align-content: start;
   padding-block: var(--cs-s3);
@@ -160,7 +160,7 @@
 .cs-site .cs-home .ch-art-row:nth-child(3), .cs-site .cs-home .ch-art-slot:nth-child(3), .cs-site .cs-home .ch-art-frame:nth-child(3) { --r: 2; }
 .cs-site .cs-home .ch-step-name {
   grid-area: name;
-  align-self: end;
+  align-self: center;
   display: flex;
   align-items: baseline;
   gap: var(--cs-s2);
@@ -169,29 +169,18 @@
 .cs-site .cs-home .ch-step-num {
   color: var(--cs-accent-text);
 }
-.cs-site .cs-home .ch-step-check {
-  grid-area: check;
+.cs-site .cs-home .ch-step-text {
+  grid-area: text;
   min-width: 0;
   margin-top: var(--cs-s2);
-}
-.cs-site .cs-home .ch-step-output {
-  grid-area: output;
-  align-self: start;
-  min-width: 0;
 }
 .cs-site .cs-home .ch-step :where(p) {
   margin: 0;
 }
-.cs-site .cs-home .ch-step-check .cs-t-small {
+.cs-site .cs-home .ch-step-text.cs-t-small {
   color: var(--cs-fg-2);
   max-width: var(--cs-measure);
   text-wrap: pretty;
-}
-.cs-site .cs-home .ch-step-output {
-  color: var(--cs-fg-3);
-}
-.cs-site .cs-home .ch-step-output-value {
-  color: var(--cs-fg-2);
 }
 
 /* 장면 그림(이미지 틀). 크기 단위 --u는 틀 폭의 1%와 틀 높이의 1.6% 중 작은 값이라 틀 비율(16:10, 5:2)이 달라도 장면이 잘리지 않는다 */
@@ -331,8 +320,7 @@
     grid-template-areas:
       "art"
       "name"
-      "check"
-      "output";
+      "text";
     row-gap: var(--cs-s1);
     padding-block: var(--cs-s4) 0;
   }
@@ -342,7 +330,7 @@
     margin-bottom: var(--cs-s3);
   }
   .cs-site .cs-home .ch-step-name { align-self: start; }
-  .cs-site .cs-home .ch-step-check { margin-top: 0; }
+  .cs-site .cs-home .ch-step-text { margin-top: 0; }
 }
 @media (min-width: 1024px) {
   .cs-site .cs-home .ch-steps {

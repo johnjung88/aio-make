@@ -242,7 +242,7 @@ test("official logos only: all four platforms, no look-alike icons", async () =>
   assert.match(tsx, /platformOrder\.map\(\(id\)/);
 });
 
-test("no 'AI virtual example' mark, no performance claims, one trademark notice line", async () => {
+test("no 'AI virtual example' mark, no performance claims, no trademark notice line (R8 M12)", async () => {
   for (const file of [TSX, CSS, LIB]) {
     const text = await read(file);
     assert.ok(!text.includes("AI 가상 예시"), file);
@@ -251,8 +251,10 @@ test("no 'AI virtual example' mark, no performance claims, one trademark notice 
   const lib = strip(await read(LIB));
   assert.doesNotMatch(lib, /달성|평균|보장|공식 파트너|인증|제휴/);
   const tsx = await read(TSX);
-  assert.equal(tsx.match(/PLATFORM_TRADEMARK_NOTICE/g).length, 2); // import + one use
-  assert.equal(tsx.match(/className="wj-mk-notice"/g).length, 1);
+  assert.equal(tsx.match(/PLATFORM_TRADEMARK_NOTICE/g), null);
+  assert.equal(tsx.match(/wj-mk-notice/g), null);
+  assert.ok(!(await read(CSS)).includes("wj-mk-notice"));
+  // The shared constant stays in logos.ts for other uses.
   assert.equal(
     PLATFORM_TRADEMARK_NOTICE,
     "Instagram, Facebook, YouTube, TikTok은 각 회사의 상표입니다",

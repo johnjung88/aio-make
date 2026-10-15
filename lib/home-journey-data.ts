@@ -51,7 +51,6 @@ export const beforeShots: Record<string, BeforeShot> =
             height: 844,
             alt: "DR's Secret 기존 공식몰 첫 화면 모바일 캡처",
           },
-          caption: "기존 공식몰 첫 화면 · 2026-10-10 캡처",
         },
       }
     : {};

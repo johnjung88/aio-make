@@ -1171,6 +1171,8 @@ test("11-8. R6 정렬: 공통 CSS에 가운데 정렬 없음(가격 단위 구�
         // R7 사용자 확정: 푸터는 767px 이하(미디어 안)에서만 가운데 정렬이다
         const allowed =
           rule.selector.includes(".cs-price-row > .cs-price-unit::before") ||
+          // R8 C1·C2 사용자 확정: 컨텐츠 홈 SERVICES·PROCESS 머리는 align="center"일 때만 가운데 정렬이다
+          (rule.selector === ".cs-site .cs-head--center .cs-head-main" && path === THEME) ||
           (rule.selector === ".cs-site .cs-footer" && rule.inMedia && path === THEME);
         assert.ok(allowed, `${path} centered: ${rule.selector} { ${m[0]} }`);
       }

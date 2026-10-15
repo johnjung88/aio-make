@@ -84,17 +84,14 @@ const single = [
   contentHomeHero.videoPause,
   contentHomeHero.videoPlay,
   contentHomeServicesHead.eyebrow,
-  contentHomeServicesHead.lead,
   contentHomeServicesHead.detailLink,
   contentHomeProcessHead.eyebrow,
-  contentHomeProcessHead.checkLabel,
-  contentHomeProcessHead.outputLabel,
   contentHomeCta.eyebrow,
   contentHomeCta.button,
   ...contentHomeServices.flatMap((s) => [s.label, s.line]),
-  ...contentHomeProcess.flatMap((s) => [s.label, ...s.check, s.output]),
+  ...contentHomeProcess.flatMap((s) => [s.label, s.text]),
 ];
-const multi = [contentHomeProcessHead.lead, contentHomeCta.lead];
+const multi = [contentHomeCta.lead];
 const h2 = [
   contentHomeServicesHead.title,
   contentHomeProcessHead.title,
@@ -221,9 +218,40 @@ test("4. R2 문장 규칙: 화면 카피 마침표 금지·제목 줄 길이", (
   for (const t of h2)
     for (const line of t.split("\n"))
       assert.ok(line.length <= 11, `h2 line <= 11: ${line}`);
-  // 제작 과정 제목·리드는 승인된 R6 카피 그대로
+  // 제작 과정 제목은 승인된 R6 카피 그대로, 부제는 R8에서 삭제
   assert.equal(contentHomeProcessHead.title, "상담에서 납품까지\n네 단계로 진행합니다");
-  assert.equal(contentHomeProcessHead.lead, "단계마다 확인하는 것과 받는 것을 미리 알려드립니다");
+  assert.equal("lead" in contentHomeProcessHead, false, "process lead is deleted");
+  assert.equal("lead" in contentHomeServicesHead, false, "services lead is deleted");
+});
+
+test("4-1. 섹션 머리(R8): 가운데 정렬, 메인 키워드 강조는 제목 글자 그대로, 부제 삭제", () => {
+  // 강조 키워드는 제목 안에 한 번 있는 그대로의 글자다(스크린리더 문장 유지)
+  assert.equal(contentHomeServicesHead.titleEm, "형식");
+  assert.equal(contentHomeProcessHead.titleEm, "네 단계");
+  for (const [title, em] of [
+    [contentHomeServicesHead.title, contentHomeServicesHead.titleEm],
+    [contentHomeProcessHead.title, contentHomeProcessHead.titleEm],
+  ]) {
+    assert.equal(title.split(em).length, 2, `${em} appears once in ${title}`);
+    assert.doesNotMatch(em, /\n/);
+  }
+  // 렌더: 두 머리 모두 align="center" + emphasis, lead 없음
+  assert.match(showcase, /<CsSectionHead id="ch-services-title"[^>]*emphasis=\{head\.titleEm\}[^>]*align="center"/);
+  assert.doesNotMatch(showcase, /<CsSectionHead[^>]*lead=/);
+  assert.match(home, /emphasis=\{processHead\.titleEm\}\s+align="center"/);
+  assert.doesNotMatch(showcase + home, /head\.lead|processHead\.lead/);
+  // CsSectionHead: align prop은 기본 start(다른 페이지 영향 없음), 강조는 <em> 안의 같은 글자
+  const head = code(read("components/content-site/ui/section-head.tsx"));
+  assert.match(head, /align = "start"/);
+  assert.match(head, /align\?: "start" \| "center"/);
+  assert.match(head, /"cs-head-main cs-col-7"/, "start keeps the 7-column head");
+  assert.match(head, /<em className="cs-head-em">\{emphasis\}<\/em>/);
+  // theme.css: 가운데 변형은 머리 안 글자만 가운데로, 강조는 accent-text 색(eyebrow와 같은 대비 토큰)
+  const theme = code(read("components/content-site/theme.css"));
+  assert.match(declsOf(theme, ".cs-site .cs-head--center .cs-head-main"), /align-items:\s*center;[^}]*text-align:\s*center;/);
+  assert.match(declsOf(theme, ".cs-site .cs-head--center .cs-head-lead"), /margin-inline:\s*auto;/);
+  assert.match(declsOf(theme, ".cs-site .cs-head-em"), /color:\s*var\(--cs-accent-text\);/);
+  assert.match(declsOf(theme, ".cs-site .cs-head-em"), /font-style:\s*normal;/);
 });
 
 test("5. 표시 태그: 홈 카드 슬롯 태그와 공통 문구", () => {
@@ -602,35 +630,30 @@ test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", 
     ["상담", "기획", "제작", "납품"],
   );
   assert.equal(contentHomeProcess.length, 4);
+  // R8 C5·C6: 받는 것 줄은 데이터·라벨·렌더에서 모두 삭제, 설명은 승인된 한 문장 그대로
   assert.deepEqual(
-    contentHomeProcess.map((s) => s.output),
-    ["작업 범위와 견적", "기획안", "최종안", "채널별 최종 파일"],
+    contentHomeProcess.map((s) => s.text),
+    [
+      "서비스와 분량을 확정합니다",
+      "컨텐츠별로 기획한 내용을 전달하고 공유합니다",
+      "확정한 기획안대로 제작하고 공유합니다",
+      "게시할 채널에 맞춰 최종 편집후 결과물을 전달합니다",
+    ],
   );
-  assert.deepEqual(contentHomeProcessHead.checkLabel, "확인하는 것");
-  assert.deepEqual(contentHomeProcessHead.outputLabel, "받는 것");
-  const [consult, plan, make, deliver] = contentHomeProcess.map((s) => s.check.join(" "));
-  // 수정 횟수와 화면비 추가는 lib/content-pricing.ts의 확정 사실(기획안 수정 2회, 최종안 수정 1회, 다른 화면비 추가 별도)
+  for (const s of contentHomeProcess) {
+    assert.deepEqual(Object.keys(s).sort(), ["art", "label", "text"], s.label);
+    assert.doesNotMatch(s.text, /[.。]$/, s.text);
+    assert.doesNotMatch(s.text, /권리|원본|무제한|보장/, s.text);
+  }
+  assert.deepEqual(Object.keys(contentHomeProcessHead).sort(), ["eyebrow", "title", "titleEm"]);
+  // 수정 횟수와 화면비 추가는 이제 과정 표에 없고 lib/content-pricing.ts의 확정 사실로만 남는다
   assert.deepEqual(pricing.contentPricing.common.revisions, ["기획안 전달 후 수정 2회", "최종안 전달 후 수정 1회"]);
-  assert.match(plan, /기획안은 두 번까지 수정할 수 있습니다/);
-  assert.match(make, /최종안은 한 번 수정할 수 있습니다/);
-  assert.match(deliver, /게시할 채널의 화면 비율에 맞춰 파일을 정리합니다/);
-  assert.match(deliver, /다른 화면비 추가는 별도 견적입니다/);
-  assert.match(consult, /채널·일정·가진 자료로 서비스와 분량을 정합니다/);
-  assert.match(make, /AI로 초안을 만들고 담당자가 다듬습니다/);
   assert.ok(pricing.contentPricing.ad.notes.some((n) => /다른 화면비 추가/.test(n)), "pricing basis for the aspect-ratio fact");
-  // 수정 횟수는 기획·제작 행에만 있고, 근거 없는 업무 약속(권리 확인)과 미확인 납품 항목(원본 파일)을 쓰지 않는다
-  assert.doesNotMatch(consult, /수정/);
-  assert.doesNotMatch(deliver, /수정/);
-  for (const s of contentHomeProcess)
-    for (const text of [...s.check, s.output]) {
-      assert.doesNotMatch(text, /권리|원본|무제한|보장/, text);
-      assert.doesNotMatch(text, /[.。]$/, text);
-    }
 
   // 단계마다 장면 그림 종류(art)가 하나씩 있다: 체크리스트 · 콘티 · 흐림→선명 · 화면비 틀
   assert.deepEqual(contentHomeProcess.map((s) => s.art), ["checklist", "storyboard", "refine", "frames"]);
 
-  // 구조: 장식 패널·탭 없이 ol > li 4행, 행마다 그림(aria-hidden) · 번호·단계(h3) · 확인 문장 한 블록 · 받는 것
+  // 구조: 장식 패널·탭 없이 ol > li 4행, 행마다 그림(aria-hidden) · 번호·단계(h3) · 설명 한 문장
   const steps = code(read(join(componentDir, "process-steps.tsx")));
   assert.doesNotMatch(steps, /^\s*["']use client["']/m, "table is a server component");
   assert.doesNotMatch(steps, /role="tab|tabpanel|useState|homeCardMedia|useStageActivity/);
@@ -644,14 +667,11 @@ test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", 
     '<h3 className="ch-step-name cs-t-h3">',
     '<span className="ch-step-num cs-t-num" aria-hidden="true">',
     "{String(index + 1).padStart(2, \"0\")}",
-    '<div className="ch-step-check">',
-    "{head.checkLabel}",
-    '{step.check.join(" · ")}',
-    '<p className="ch-step-output cs-t-caption">',
-    "{head.outputLabel}",
-    "{step.output}",
+    '<p className="ch-step-text cs-t-small">{step.text}</p>',
   ])
     assert.ok(steps.includes(part), part);
+  // 받는 것 줄·확인하는 것 라벨은 렌더에 없다
+  assert.doesNotMatch(steps, /ch-step-output|ch-step-check|outputLabel|checkLabel|step\.output|step\.check|받는 것/);
   // 그림 소재는 공개 저장소 자체 소재(웹툰 컷)뿐이고 고객 작업물 경로가 없다
   assert.match(steps, /\/webtoon-v11\/cut-/);
   assert.doesNotMatch(steps, /reference-review|bwl-|yofree/i);
@@ -664,10 +684,10 @@ test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", 
   assert.doesNotMatch(run, /setInterval|setTimeout|requestAnimationFrame/);
   assert.ok(home.includes('<div className="cs-container cs-container--read">'));
   assert.ok(home.includes("<ProcessSteps />"));
-  assert.ok(home.includes("eyebrow={processHead.eyebrow}") && home.includes("title={processHead.title}") && home.includes("lead={processHead.lead}"));
+  assert.ok(home.includes("eyebrow={processHead.eyebrow}") && home.includes("title={processHead.title}"));
   assert.doesNotMatch(homeText + steps, /ProcessTabs|cs-t-statement|CONTENT BRIEF|예시/);
 
-  // CSS: 글 영역(.ch-step 행·이름·번호·확인·받는 것)에는 박스·그림자·기울임·애니메이션이 없다. 모바일은 [그림 | 이름·받는 것] + 확인 문장
+  // CSS: 글 영역(.ch-step 행·이름·번호·설명)에는 박스·그림자·기울임·애니메이션이 없다. 모바일은 [그림 | 이름] + 설명 문장
   const row = declsOf(css, ".cs-site .cs-home .ch-step");
   assert.match(row, /border-top:\s*1px solid var\(--cs-line\);/);
   assert.doesNotMatch(row, /border:|border-(left|right|bottom)|background|box-shadow|border-radius|transform/);
@@ -678,8 +698,10 @@ test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", 
   assert.match(wider, /\.ch-steps \{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 1fr\)\);/, "1024: 4 columns");
   // 컨테이너는 읽기 폭 880 제한 없이 전체 폭(--cs-container)을 쓴다
   assert.match(declsOf(css, ".cs-site .cs-home .ch-process .cs-container--read"), /max-width:\s*var\(--cs-container\);/);
-  const textRules = [...css.matchAll(/([^{}]*\.ch-step(?:-name|-num|-check|-output|-output-value)?\s*)\{([^}]*)\}/g)];
-  assert.ok(textRules.length >= 5, "step text rules found");
+  const textRules = [...css.matchAll(/([^{}]*\.ch-step(?:-name|-num|-text)?\s*)\{([^}]*)\}/g)];
+  assert.ok(textRules.length >= 4, "step text rules found");
+  assert.doesNotMatch(css, /ch-step-(?:check|output)/, "deleted output/check rules are gone");
+  assert.doesNotMatch(row, /"art output"|"output"|"check/, "no leftover grid areas");
   for (const [, selector, decls] of textRules)
     assert.doesNotMatch(decls, /box-shadow|border-radius|rotate|transform|animation|background\s*:|text-align|border\s*:/, selector.trim());
   // 장면 그림은 허용된 이미지 틀: 모션은 no-preference 안에서만(data-run ready/run), 데이터 없으면 완료 상태 정지

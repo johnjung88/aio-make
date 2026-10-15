@@ -12,7 +12,10 @@
   --wj-accent: var(--violet);
   --wj-step-gap: 64px;
   --wj-lead-gap: 32px;
-  --wj-rail-w: 240px;
+  --wj-rail-w: 250px;
+  --wj-rail-label-size: clamp(22px, 1.8vw, 26px);
+  --wj-rail-num-size: 16px;
+  --wj-rail-pad-y: 22px;
   --wj-col-gap: clamp(40px, 5vw, 88px);
   --wj-s1: 8px;
   --wj-s2: 12px;
@@ -79,16 +82,27 @@
   color: var(--wj-text-2);
   word-break: keep-all;
 }
-.wj .wj-caption {
-  color: var(--wj-text-3);
-  word-break: keep-all;
-}
 .wj .wj-item-title {
   color: var(--wj-ink);
   word-break: keep-all;
 }
 .wj .wj-intro {
   margin-bottom: var(--wj-s7);
+  text-align: center;
+}
+/* The intro has no lead any more: the title is the last line of the block. */
+.wj .wj-intro > :last-child {
+  margin-bottom: 0;
+}
+/* Step heads (eyebrow, title, lead) are centered in the right column.
+ * The step body keeps its own alignment. */
+.wj .wj-step > .wj-eyebrow,
+.wj .wj-step > .wj-step-title,
+.wj .wj-step > .wj-lead {
+  text-align: center;
+}
+.wj .wj-step > .wj-lead {
+  margin-inline: auto;
 }
 .wj .wj-step-body {
   margin-top: var(--wj-lead-gap);
@@ -111,31 +125,6 @@
 }
 
 /* 02 marketing: the cycle boxes are replaced by the WP-2 simulator. */
-
-/* Closing CTA */
-.wj .wj-closing {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--wj-s4);
-  margin-top: var(--wj-step-gap);
-  padding-top: var(--wj-s6);
-  border-top: 1px solid var(--wj-line);
-}
-.wj .wj-closing .wj-lead {
-  color: var(--wj-ink);
-}
-.guide-page .wj .wj-button {
-  padding: 18px 28px;
-  background: var(--wj-accent);
-  color: #fff;
-  text-decoration: none;
-}
-.guide-page .wj .wj-button:hover {
-  background: var(--wj-ink);
-  color: #fff;
-}
 
 /* Media entrance: transform only, text is never hidden */
 .wj .wj-media[data-reveal="pending"] {
@@ -176,14 +165,14 @@
 }
 .wj .wj-rail-list {
   display: grid;
-  gap: var(--wj-s1);
+  gap: var(--wj-s4);
 }
 .wj .wj-rail-link {
   position: relative;
   display: flex;
   align-items: baseline;
-  gap: var(--wj-s2);
-  padding: var(--wj-s1) 0 var(--wj-s1) var(--wj-s4);
+  gap: var(--wj-s3);
+  padding: var(--wj-rail-pad-y) 0 var(--wj-rail-pad-y) var(--wj-s5);
   color: var(--wj-text-3);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -205,6 +194,19 @@
 }
 .wj .wj-rail-link[aria-current="step"] .wj-num {
   color: var(--wj-accent);
+}
+/* Rail type is enlarged (R8): label at heading size, number 16px.
+ * Sizes come from the custom properties on .wj; these rules outrank the
+ * .t-nav and .eyebrow role rules (specificity 0,4,0). */
+.guide-public .guide-page .wj .wj-rail-label {
+  font-size: var(--wj-rail-label-size);
+  font-weight: var(--type-h3-weight);
+  line-height: var(--type-h3-leading);
+  letter-spacing: var(--type-h3-tracking);
+}
+.guide-public .guide-page .wj .wj-rail-link .wj-num {
+  font-size: var(--wj-rail-num-size);
+  font-weight: var(--type-h3-weight);
 }
 
 .wj .wj-steps {
@@ -234,6 +236,7 @@
   .wj .wj-step > .wj-eyebrow {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--wj-s1);
   }
   .wj .wj-step > .wj-eyebrow::before {
@@ -288,6 +291,13 @@
   }
   .wj .wj-main {
     min-width: 0;
+  }
+}
+
+/* Wide desktop: the full 280px rail. 1024-1279 keeps 250px so the body column stays wide. */
+@media (min-width: 1280px) {
+  .wj {
+    --wj-rail-w: 280px;
   }
 }
 

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   emptyJourneyData,
-  journeyClosing,
   journeyIntro,
   journeySteps,
   railLabel,
@@ -98,7 +97,6 @@ export function WorkflowJourney({
           <h2 id="wj-title" className="wj-title t-h2">
             {journeyIntro.title}
           </h2>
-          <p className="wj-lead t-lead">{journeyIntro.lead}</p>
         </header>
         <div className="wj-layout">
           <nav className="wj-rail" aria-label={railLabel}>
@@ -147,15 +145,6 @@ export function WorkflowJourney({
                 </li>
               ))}
             </ol>
-            <div className="wj-closing">
-              <p className="wj-lead t-lead">{journeyClosing.lead}</p>
-              <a
-                className="wj-button t-button"
-                href={journeyClosing.button.href}
-              >
-                {journeyClosing.button.label}
-              </a>
-            </div>
           </div>
         </div>
       </div>

@@ -1,12 +1,8 @@
-/* 제작 과정 4단계(서버, R7). 박스 장식 없이 단계마다 장면 그림(이미지 틀) + 단계 이름 + 확인 문장 + 받는 것을 둔다.
+/* 제작 과정 4단계(서버, R8). 박스 장식 없이 단계마다 장면 그림(이미지 틀) + 단계 이름 + 설명 한 문장을 둔다.
  * 그림은 공개 저장소 자체 소재(웹툰 컷)와 CSS 도형이며 장식이라 스크린리더에서 숨긴다.
  * 진행 모션은 process-run.tsx가 시작 신호만 주고, 모든 움직임과 순서 지연(--i 단계 번호, --r 그림 안 순번)은 content-home.css가 맡는다. */
 import Image from "next/image";
-import {
-  contentHomeProcess as steps,
-  contentHomeProcessHead as head,
-  type ContentHomeStepArt,
-} from "@/lib/content-home";
+import { contentHomeProcess as steps, type ContentHomeStepArt } from "@/lib/content-home";
 import { ProcessRun } from "./process-run";
 
 const CUT = (n: number) => `/webtoon-v11/cut-${String(n).padStart(2, "0")}.webp`;
@@ -80,13 +76,7 @@ export function ProcessSteps() {
             </span>
             {step.label}
           </h3>
-          <div className="ch-step-check">
-            <p className="cs-sr-only">{head.checkLabel}</p>
-            <p className="cs-t-small">{step.check.join(" · ")}</p>
-          </div>
-          <p className="ch-step-output cs-t-caption">
-            {head.outputLabel} · <span className="ch-step-output-value">{step.output}</span>
-          </p>
+          <p className="ch-step-text cs-t-small">{step.text}</p>
         </li>
       ))}
     </ProcessRun>

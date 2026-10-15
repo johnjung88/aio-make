@@ -94,21 +94,22 @@ function strings(value, out = []) {
 // 개발 → 마케팅 → 컨텐츠 순서로 보여준다. 번호만 01~03으로 바뀐다.
 // 2026-10-15(R6) 사용자 결정: 문장 끝 마침표만 없애고 나머지 원문은 그대로 둔다.
 // 2026-10-15(R7): 문장 사이 마침표 대신 줄바꿈으로 문장마다 한 줄을 쓴다(문구는 그대로).
+// 2026-10-15(R8): 세 단계 리드를 사용자가 정한 문구로 교체했다(M6, M8, M10).
 const ORIGINAL_STEPS = {
   "journey-dev": {
     railLabel: "개발",
     title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
-    lead: "정리한 브랜드 자료를 화면에 녹입니다\n방문한 고객이 제품을 살펴보고 문의나 구매로 이어지도록 동선을 설계합니다",
+    lead: "새롭게 기획한 브랜드 가이드를\n문의나 구매로 이어지도록 설계",
   },
   "journey-marketing": {
     railLabel: "마케팅",
     title: "계획하고 운영하고\n데이터로 고칩니다",
-    lead: "누구에게 어떤 메시지를 어느 채널에서 보여줄지 먼저 정합니다\n계획대로 SNS와 광고, 검색 노출을 운영하고 쌓인 데이터를 보며 계속 고칩니다",
+    lead: "어느 채널에, 어떻게 보여줄지 계획하고\n데이터를 쌓아, 개선하면서 성과 극대화",
   },
   "journey-content": {
     railLabel: "컨텐츠",
     title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
-    lead: "같은 브랜드 가이드로 타깃과 플랫폼에 맞는 형식을 고릅니다\n웹툰부터 광고 영상까지 기획과 제작을 한 팀이 맡습니다",
+    lead: "브랜드 가이드로 기준을 잡고\n웹툰부터 SNS 영상까지 직접 제작",
   },
 };
 
@@ -132,15 +133,11 @@ test("three journey steps (development, marketing, content) keep the 3214 wordin
     assert.equal(step.lead, original.lead, step.id);
   }
   assert.equal(journeyIntro.title, "기획부터 성과까지\n하나로 이어집니다");
-  assert.equal(
-    journeyIntro.lead,
-    "필요한 단계만 맡기셔도 됩니다. 단계마다 하는 일과 결과물을 살펴보세요",
-  );
+  // R8 M4: the HOW WE WORK subtitle is gone.
+  assert.equal("lead" in journeyIntro, false);
+  assert.equal("journeyClosing" in journeyModule, false);
   // R6: no sentence ends with a period.
-  for (const text of [
-    journeyIntro.lead,
-    ...journeySteps.map((step) => step.lead),
-  ])
+  for (const text of journeySteps.map((step) => step.lead))
     assert.ok(!/[.。]\s*$/.test(text), text);
   assert.ok(
     !journeySteps.some((step) =>
@@ -330,7 +327,7 @@ test("main page uses the journey, the six-service wording and no #process sectio
 });
 
 // R6 WP-M: 메인 `/` 왼쪽 정렬 · 분야 카드 4줄 · 공통 섹션 간격 · 닫는 문구
-test("main hero is left aligned with the agreed copy and two buttons", async () => {
+test("main hero is centered with the agreed copy and two buttons", async () => {
   const main = await read("components/guide/main.jsx");
   const css = await read("components/guide/ux.css");
   const hero = main.slice(
@@ -352,8 +349,18 @@ test("main hero is left aligned with the agreed copy and two buttons", async () 
   assert.ok(!/textAlign|alignItems/.test(hero), "no inline alignment");
   const block = css.slice(css.indexOf(".guide-main .main-hero-inner {"));
   const inner = block.slice(0, block.indexOf("}"));
-  assert.match(inner, /align-items: flex-start;/);
-  assert.match(inner, /text-align: left;/);
+  assert.match(inner, /align-items: center;/);
+  assert.match(inner, /text-align: center;/);
+  assert.doesNotMatch(inner, /flex-start|text-align: left/);
+  // R8 M1: eyebrow, lead (max-width) and the button row are centered as well.
+  const rule = (selector) => {
+    const start = css.indexOf(selector);
+    assert.ok(start >= 0, selector);
+    return css.slice(start, css.indexOf("}", start));
+  };
+  assert.match(rule(".guide-main .main-hero-eyebrow {"), /justify-content: center;/);
+  assert.match(rule(".guide-main .main-hero-lead {"), /margin: 0 auto;/);
+  assert.match(rule(".guide-main .main-hero-actions {"), /justify-content: center;/);
 });
 
 test("division cards are 01 개발 · 02 마케팅 · 03 컨텐츠 with four lines each", async () => {
@@ -406,9 +413,9 @@ test("division cards are 01 개발 · 02 마케팅 · 03 컨텐츠 with four lin
     "03 · DEV",
   ])
     assert.ok(!main.includes(gone), gone);
-  // The h2 is left aligned (no inline or class-based centering).
+  // R8 M2: the h2 is centered by class (no inline alignment).
   assert.ok(!/textAlign/.test(section));
-  assert.match(css, /\.main-divisions-title \{[^}]*text-align: left;/);
+  assert.match(css, /\.main-divisions-title \{[^}]*text-align: center;/);
   assert.match(
     css,
     /\.main-division-body \{[^}]*grid-template-rows: auto auto 1fr auto;/,
@@ -434,7 +441,7 @@ test("main sections use one section spacing token and no inline layout", async (
     .replace(/--main-[a-z0-9-]+:[^;]*;/g, "")
     .replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(declarations, /#(?!fff\b)[0-9a-f]{3,6}\b/i);
-  assert.doesNotMatch(block, /text-align:\s*center/);
+  assert.ok(!/main-standard-caption/.test(block), "OUR STANDARD caption rule is gone");
   // Hero, divisions, standard, FAQ and contact all use --section-y.
   for (const selector of [
     ".main-hero-inner",
@@ -459,7 +466,7 @@ test("main sections use one section spacing token and no inline layout", async (
   assert.match(wj, /--wj-step-gap: 96px;/);
 });
 
-test("OUR STANDARD is a left aligned closing line with a one-line caption", async () => {
+test("OUR STANDARD is a centered closing line without a caption", async () => {
   const main = await read("components/guide/main.jsx");
   const section = main.slice(
     main.indexOf('<section className="main-standard">'),
@@ -468,14 +475,80 @@ test("OUR STANDARD is a left aligned closing line with a one-line caption", asyn
   assert.ok(section.includes("만드는 일의 끝은,"));
   assert.ok(section.includes("고객이 쓰기 시작하는 순간"));
   assert.ok(section.includes("입니다"));
-  assert.ok(section.includes("기획 · 제작 · 검수 · 인계"));
+  assert.ok(!section.includes("기획 · 제작 · 검수 · 인계"));
+  assert.ok(!section.includes("main-standard-caption"));
   assert.ok(!section.includes("AIO MAKE의 작업 기준"));
   assert.ok(!/style=|textAlign|alignItems/.test(section));
   const css = await read("components/guide/ux.css");
   const inner = css.slice(css.indexOf(".guide-main .main-standard-inner {"));
   const rule = inner.slice(0, inner.indexOf("}"));
-  assert.match(rule, /align-items: flex-start;/);
-  assert.match(rule, /text-align: left;/);
+  assert.match(rule, /align-items: center;/);
+  assert.match(rule, /text-align: center;/);
+  assert.doesNotMatch(rule, /flex-start|text-align: left/);
+});
+
+test("R8 main journey: centered heads, removed subtitle, closing row, notices and dev caption", async () => {
+  const tsx = await read("components/home/workflow-journey.tsx");
+  const css = await read("components/home/workflow-journey.css");
+  // M3/M4: intro is centered and holds eyebrow + title only.
+  const intro = tsx.slice(tsx.indexOf('<header className="wj-intro">'), tsx.indexOf("</header>"));
+  assert.ok(intro.includes("journeyIntro.title"));
+  assert.ok(!intro.includes("journeyIntro.lead"));
+  assert.ok(!intro.includes("wj-lead"));
+  assert.match(css, /\.wj \.wj-intro \{[^}]*text-align: center;/);
+  // M7/M9/M16: every step head (eyebrow, title, lead) is centered in the right column.
+  const head = css.slice(css.indexOf(".wj .wj-step > .wj-eyebrow,"));
+  assert.match(
+    head.slice(0, head.indexOf("}")),
+    /\.wj \.wj-step > \.wj-eyebrow,\s*\.wj \.wj-step > \.wj-step-title,\s*\.wj \.wj-step > \.wj-lead \{\s*text-align: center;/,
+  );
+  assert.match(css, /\.wj \.wj-step > \.wj-lead \{\s*margin-inline: auto;/);
+  // The mobile step marker row is centered too.
+  assert.match(css, /\.wj \.wj-step > \.wj-eyebrow \{[^}]*justify-content: center;/);
+  // M11: closing consultation row is gone.
+  for (const gone of ["wj-closing", "journeyClosing", "wj-button"]) {
+    assert.ok(!tsx.includes(gone), `workflow-journey.tsx: ${gone}`);
+    assert.ok(!css.includes(gone), `workflow-journey.css: ${gone}`);
+  }
+  assert.ok(!tsx.includes("어디서부터 시작할지"));
+  // M12: trademark notice is not rendered in the marketing and content steps.
+  for (const file of ["journey-marketing", "journey-content"]) {
+    const src = await read(`components/home/${file}.tsx`);
+    const styles = await read(`components/home/${file}.css`);
+    assert.ok(!src.includes("PLATFORM_TRADEMARK_NOTICE"), `${file}.tsx`);
+    assert.ok(!/wj-mk-notice|wjc-notice/.test(src + styles), `${file}`);
+    assert.ok(!src.includes("각 회사의 상표입니다"), `${file}.tsx`);
+  }
+  // M13: the dev compare has no caption.
+  const compare = await read("components/home/journey-dev-compare.tsx");
+  const data = await read("lib/home-journey-data.ts");
+  assert.ok(!compare.includes("model.caption"));
+  assert.ok(!data.includes("기존 공식몰 첫 화면 · 2026-10-10 캡처"));
+  assert.ok(!data.includes("2026-10-10 캡처"));
+  assert.equal("caption" in (review.data.devProject.before ?? {}), false);
+});
+
+test("R8 rail is enlarged: 280px, heading-size label, 16px number, tall rows", async () => {
+  const css = await read("components/home/workflow-journey.css");
+  const tsx = await read("components/home/workflow-journey.tsx");
+  assert.match(css, /--wj-rail-w: 250px;/);
+  assert.match(css, /@media \(min-width: 1280px\) \{\s*\.wj \{\s*--wj-rail-w: 280px;/);
+  assert.match(css, /--wj-rail-label-size: clamp\(22px, 1\.8vw, 26px\);/);
+  assert.match(css, /--wj-rail-num-size: 16px;/);
+  assert.match(css, /--wj-rail-pad-y: 22px;/);
+  assert.match(
+    css,
+    /\.wj \.wj-rail-link \{[^}]*padding: var\(--wj-rail-pad-y\) 0 var\(--wj-rail-pad-y\) var\(--wj-s5\);/,
+  );
+  assert.match(
+    css,
+    /\.wj-rail-label \{\s*font-size: var\(--wj-rail-label-size\);\s*font-weight: var\(--type-h3-weight\);/,
+  );
+  assert.match(css, /\.wj-rail-link \.wj-num \{\s*font-size: var\(--wj-rail-num-size\);/);
+  assert.match(css, /\.wj \.wj-rail-list \{\s*display: grid;\s*gap: var\(--wj-s4\);/);
+  // Layout and fill still use the same variable and the three-step fill.
+  assert.match(css, /grid-template-columns: var\(--wj-rail-w\) minmax\(0, 1fr\);/);
+  assert.ok(tsx.includes('className="wj-rail-fill"'));
 });
 
 test("about page lists the six content services", async () => {

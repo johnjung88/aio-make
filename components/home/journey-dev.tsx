@@ -22,7 +22,6 @@ function toModel(project: DevProject | null): CompareModel {
     return {
       pc: { before: null, after: devFallback.media },
       mobile: null,
-      caption: null,
     };
   const { before, after, afterMobile } = project;
   return {
@@ -31,7 +30,6 @@ function toModel(project: DevProject | null): CompareModel {
       before && afterMobile
         ? { before: before.mobile, after: afterMobile }
         : null,
-    caption: before?.caption ?? null,
   };
 }
 

@@ -22,7 +22,6 @@ export type OpenState = { view: View; device: Device };
 export type CompareModel = {
   pc: { before: JourneyMedia | null; after: JourneyMedia };
   mobile: { before: JourneyMedia; after: JourneyMedia } | null;
-  caption: string | null;
 };
 
 const PC_SIZES = "(min-width: 1024px) 880px, 94vw";
@@ -344,7 +343,7 @@ export function CompareBlock({
           onOpen={open}
         />
       )}
-      {(model.mobile || model.caption) && (
+      {model.mobile && (
         <div className="wj-cmp-foot">
           {model.mobile && (
             <SegmentControl
@@ -357,9 +356,6 @@ export function CompareBlock({
                 setDevice(next);
               }}
             />
-          )}
-          {model.caption && (
-            <p className="wj-caption t-caption">{model.caption}</p>
           )}
         </div>
       )}

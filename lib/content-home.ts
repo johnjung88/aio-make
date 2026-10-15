@@ -115,54 +115,49 @@ export const contentHomeServices: ContentHomeService[] = [
 export const contentHomeServicesHead = {
   eyebrow: "SERVICES",
   title: "이야기에 맞는 형식\n결과물로 살펴보세요",
-  lead: "카드를 넘겨 제작 형식과 실제 작업물을 살펴보세요",
+  /** title 안에서 메인 키워드로 색을 줄 부분(CsSectionHead emphasis). 글자는 title 그대로다 */
+  titleEm: "형식",
   /** 선택된 카드 아래 캡션의 서비스 페이지 링크 */
   detailLink: "서비스 보기",
 };
 
-/* 제작 과정 4단계(R7). 수정 2회·1회와 다른 화면비 추가 별도는 lib/content-pricing.ts의 확정 사실이다.
- * check는 문장 단위 배열이며 화면에서는 " · "로 이어 한 블록으로 보인다(문장 끝 마침표 없음).
+/* 제작 과정 4단계(R8). 단계마다 이름과 한 문장 설명만 둔다(부제·받는 것 줄 삭제).
+ * text는 한 문장이며 문장 끝 마침표가 없다.
  * art는 단계마다 붙는 장면 그림의 종류(자체 소재와 CSS 모션)이다. */
 export type ContentHomeStepArt = "checklist" | "storyboard" | "refine" | "frames";
 
 export type ContentHomeStep = {
   label: string;
-  check: string[];
-  output: string;
+  text: string;
   art: ContentHomeStepArt;
 };
 
 export const contentHomeProcessHead = {
   eyebrow: "PROCESS",
   title: "상담에서 납품까지\n네 단계로 진행합니다",
-  lead: "단계마다 확인하는 것과 받는 것을 미리 알려드립니다",
-  checkLabel: "확인하는 것",
-  outputLabel: "받는 것",
+  /** title 안에서 메인 키워드로 색을 줄 부분(CsSectionHead emphasis). 글자는 title 그대로다 */
+  titleEm: "네 단계",
 };
 
 export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "상담",
-    check: ["채널·일정·가진 자료로 서비스와 분량을 정합니다"],
-    output: "작업 범위와 견적",
+    text: "서비스와 분량을 확정합니다",
     art: "checklist",
   },
   {
     label: "기획",
-    check: ["이야기 흐름과 장면 구성을 정리합니다", "기획안은 두 번까지 수정할 수 있습니다"],
-    output: "기획안",
+    text: "컨텐츠별로 기획한 내용을 전달하고 공유합니다",
     art: "storyboard",
   },
   {
     label: "제작",
-    check: ["확정한 기획안대로 AI로 초안을 만들고 담당자가 다듬습니다", "최종안은 한 번 수정할 수 있습니다"],
-    output: "최종안",
+    text: "확정한 기획안대로 제작하고 공유합니다",
     art: "refine",
   },
   {
     label: "납품",
-    check: ["게시할 채널의 화면 비율에 맞춰 파일을 정리합니다", "다른 화면비 추가는 별도 견적입니다"],
-    output: "채널별 최종 파일",
+    text: "게시할 채널에 맞춰 최종 편집후 결과물을 전달합니다",
     art: "frames",
   },
 ];

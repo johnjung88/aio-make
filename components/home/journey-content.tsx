@@ -7,7 +7,6 @@
  * - 소재 선택·크기 표·플랫폼 매핑은 lib/home-journey-platforms.ts, 위치·자동 넘김·입력은 use-depth-carousel.ts */
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { PLATFORM_TRADEMARK_NOTICE } from "@/components/platform-frame/logos";
 import { PlatformFrame } from "@/components/platform-frame/platform-frame";
 import type { ContentSelection } from "@/lib/home-journey";
 import {
@@ -241,7 +240,6 @@ export function JourneyContent({
           </button>
         ))}
       </div>
-      <p className="wjc-notice t-small">{PLATFORM_TRADEMARK_NOTICE}</p>
       <p className="wjc-sr" aria-live={running ? "off" : "polite"}>
         {`${current + 1} / ${count} ${active.label}`}
       </p>

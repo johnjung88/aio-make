@@ -173,7 +173,7 @@ test("콘텐츠 영역 화면비: 피드 4:5, 유튜브·페이스북 16:9, 쇼�
   assert.match(frameCss, /data-platform="webtoon"\]\s*\.pf-media\s*\{[^}]*flex:\s*1/);
 });
 
-test("사용자 결정: 'AI 가상 예시' 표기 없음, 틀에 조회·좋아요 숫자 없음, 상표 고지 문구 고정", () => {
+test("사용자 결정: 'AI 가상 예시' 표기 없음, 틀에 조회·좋아요 숫자 없음, 상표 고지 상수는 보존하되 메인 단계에는 그리지 않는다(R8)", () => {
   for (const [name, text] of [
     ["platform-frame.tsx", frameSrc],
     ["platform-frame.css", frameCss],
@@ -185,6 +185,11 @@ test("사용자 결정: 'AI 가상 예시' 표기 없음, 틀에 조회·좋아�
     PLATFORM_TRADEMARK_NOTICE,
     "Instagram, Facebook, YouTube, TikTok은 각 회사의 상표입니다",
   );
+  // R8 M12: 메인 마케팅·컨텐츠 단계는 상표 고지 줄을 그리지 않는다.
+  for (const file of ["journey-marketing.tsx", "journey-content.tsx"]) {
+    const src = read(join("components", "home", file));
+    assert.ok(!src.includes("PLATFORM_TRADEMARK_NOTICE"), file);
+  }
   // JSX 글자(태그 사이 텍스트)에 숫자 지표가 없다. 허용 글자는 "광고"뿐이다
   const jsxText = [...frameSrc.matchAll(/>([^<>{}\n]+)</g)].map((m) => m[1].trim()).filter(Boolean);
   assert.ok(jsxText.every((t) => !/\d/.test(t)), `숫자 글자: ${jsxText}`);

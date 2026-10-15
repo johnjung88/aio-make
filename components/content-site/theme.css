@@ -576,6 +576,18 @@ body:has(.cs-site) {
     margin-top: 0;
   }
 }
+/* 가운데 변형(align="center"): 머리 블록은 격자 전체 폭에서 eyebrow·h2·lead를 가운데 정렬한다. PC·모바일 같다 */
+.cs-site .cs-head--center .cs-head-main {
+  align-items: center;
+  text-align: center;
+}
+.cs-site .cs-head--center .cs-head-lead {
+  margin-inline: auto;
+}
+.cs-site .cs-head-em {
+  font-style: normal;
+  color: var(--cs-accent-text);
+}
 
 /* ---------------------------------------------------------------- 버튼·링크·태그 */
 .cs-site .cs-btn {

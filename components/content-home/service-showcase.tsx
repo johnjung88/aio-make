@@ -128,7 +128,7 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
 
  return <section id="services" className="ch-services" data-cs-section="services" aria-labelledby="ch-services-title">
   <div className="cs-container">
-   <CsSectionHead id="ch-services-title" eyebrow={head.eyebrow} title={head.title} lead={head.lead}/>
+   <CsSectionHead id="ch-services-title" eyebrow={head.eyebrow} title={head.title} emphasis={head.titleEm} align="center"/>
    <div className="ch-gallery ch-gallery--depth" ref={root} data-active={moving ? "true":"false"} data-autoplay={autoplay ? (running ? "running":"paused") : "off"} onKeyDown={keyboard} onFocus={focusIn} onBlur={focusOut} onPointerEnter={event=>{if(event.pointerType==="mouse")setHover(true);}} onPointerLeave={event=>{if(event.pointerType==="mouse")setHover(false);}}>
     <div className="ch-depth-stage" aria-label="서비스 작업물 카드" aria-roledescription="carousel" onClickCapture={event=>{if(suppressClick.current){event.preventDefault();event.stopPropagation();suppressClick.current=false;}}} onTouchStart={event=>{
      suppressClick.current=false;

@@ -53,7 +53,8 @@ export async function ContentHome() {
             id="ch-process-title"
             eyebrow={processHead.eyebrow}
             title={processHead.title}
-            lead={processHead.lead}
+            emphasis={processHead.titleEm}
+            align="center"
           />
           <ProcessSteps />
         </div>
