@@ -30,6 +30,6 @@ test("R8 B: motion grammar, cut planning and factual character process",()=>{
  assert.equal(motionGraphics.process.steps.length,6);assert.equal(motionGraphics.faq.length,7);
 });
 test("R8 B: asset manifest hashes preserve original evidence",()=>{
- const manifest=JSON.parse(read("public/content-examples/MANIFEST.json"));
+ const manifest=JSON.parse(read("content/media-manifest.json"));
  for(const f of manifest.files){assert.equal(createHash("sha256").update(readFileSync(f.path)).digest("hex"),f.sha256,f.path);}
 });

@@ -1,4 +1,5 @@
 // Prepare web derivatives in an ignored LOCAL directory. Customer originals are read only.
+// Provenance (including content/media-manifest.json) is private build evidence, never a public asset.
 // Usage: node scripts/prepare-reference-media.mjs <catalog> <previous-review-dir> <output-report-dir> <bwl-root> <healernet-root>
 import {
   readFile,
@@ -8,10 +9,11 @@ import {
   stat,
   link,
   rm,
+  realpath,
 } from "node:fs/promises";
 import { createReadStream } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
-import { resolve, join, extname, relative, dirname } from "node:path";
+import { resolve, join, extname, relative, dirname, basename, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import sharp from "sharp";
@@ -20,7 +22,7 @@ async function legacyMain() {
   const [catalogPath, previous, reportPath, bwl, hn] = process.argv.slice(2);
   if (!hn) throw new Error("Five input paths required");
   const roots = { bwl: resolve(bwl), hn: resolve(hn) };
-  const report = resolve(reportPath);
+  const report = await assertPrivateReportDirectory(reportPath);
   const out = resolve("public/reference-review");
   await mkdir(out, { recursive: true });
   await mkdir(report, { recursive: true });
@@ -204,6 +206,34 @@ async function legacyMain() {
       bytes: manifest.reduce((n, x) => n + x.bytes, 0),
     }),
   );
+}
+
+// Resolve existing parents too, so a junction cannot redirect a private-looking report into public.
+async function physicalPath(path) {
+  try {
+    return await realpath(path);
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+    return join(await physicalPath(dirname(path)), basename(path));
+  }
+}
+
+export async function assertPrivateReportDirectory(
+  directory,
+  { publicDirectory = resolve("public") } = {},
+) {
+  const report = resolve(directory);
+  const isInside = (parent, child) => {
+    const rel = relative(parent, child);
+    return !rel || (!rel.startsWith(`..\\`) && !rel.startsWith("../") && rel !== ".." && !isAbsolute(rel));
+  };
+  if (
+    isInside(resolve(publicDirectory), report) ||
+    isInside(await physicalPath(resolve(publicDirectory)), await physicalPath(report))
+  ) {
+    throw new Error("Report directory must be outside public: source paths and hashes are private");
+  }
+  return report;
 }
 
 async function exists(path) {

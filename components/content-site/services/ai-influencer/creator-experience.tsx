@@ -4,24 +4,15 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type TouchEvent } from "react";
 import { creatorRoster } from "@/lib/content-site/creator-roster";
-import { EXAMPLE_MEDIA } from "@/lib/content-site/example-media";
 import { useInViewPlay } from "../motion-runtime";
 
-type Creator = (typeof creatorRoster)[number];
+type CreatorCardMedia = { kind: "image" | "video"; src: string; poster?: string };
 
 const COUNT = creatorRoster.length;
 
 const DECK_MS = 4000;
 
 
-
-
-function cardMedia(creator: Creator) {
-  const slot = EXAMPLE_MEDIA.find((item) => item.id === creator.cardSlot);
-  if (slot && (slot.kind === "video" || slot.src.includes(creator.id)))
-    return { kind: slot.kind, src: slot.src, poster: slot.poster };
-  return { kind: "image" as const, src: creator.portrait, poster: undefined };
-}
 
 
 function place(index: number, active: number) {
@@ -73,7 +64,7 @@ function CardVideo({ src, poster, label, playing }: { src: string; poster?: stri
   return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none" aria-label={label} />;
 }
 
-export function CreatorDeck() {
+export function CreatorDeck({ cards }: { cards: readonly CreatorCardMedia[] }) {
   const root = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const rotating = useInViewPlay(root, { threshold: .3, pauseOnInteract: true });
@@ -88,7 +79,7 @@ export function CreatorDeck() {
   return <div ref={root} className="cs-svc-ai-influencer-deck">
     <div ref={stage} className="cs-svc-ai-influencer-orbit" {...swipe}>
       {creatorRoster.map((item, index) => {
-        const media = cardMedia(item);
+        const media = cards[index] ?? { kind: "image", src: item.portrait };
         const front = index === active;
         return <button key={item.id} type="button" className="cs-svc-ai-influencer-orbit-card" data-place={COUNT < 3 ? (front ? 0 : 2) : place(index, active)} aria-hidden={!front} tabIndex={-1} onClick={() => select(index)}>
           <span className="cs-svc-ai-influencer-orbit-media">

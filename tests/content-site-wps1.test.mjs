@@ -39,9 +39,9 @@ test("S1-1. 고객 정보 경계: 장면 전환 client 섬에는 고객 slug·�
   // 서비스 아래 모든 client 섬에 고객 문자열 0(WP-S2 파일 포함 전체 감시)
   for (const path of walk(SV).filter((f) => /\.tsx?$/.test(f) && isClient(f)))
     assert.doesNotMatch(read(path), CUSTOMER, `${path} client customer string`);
-  // 공개 예시 데이터·매니페스트에도 고객 문자열 0
+  // 공개 예시 데이터에는 고객 문자열 0
   assert.doesNotMatch(read("lib/content-site/example-media.ts"), CUSTOMER);
-  // R8 D1: the evidence manifest retains original customer source paths; it is never imported by UI.
+  // R8 D1/W4: source evidence is private in content/media-manifest.json, outside public and UI imports.
   // 내 랜딩은 고객 작품을 서버에서 slug로만 찾고 공개판 대체 화면은 슬롯을 쓴다
   for (const id of ["webtoon", "animation", "motion-graphics"])
     assert.ok(!isClient(`${SV}/${id}/landing.tsx`), id);
@@ -95,7 +95,7 @@ test("S1-3. 연출 예시 슬롯: 6개 서비스 · ID 규칙 · 파일 존재 �
 });
 
 test("S1-4. 복사 소재 매니페스트: AIO 생성물만 · SHA 일치 · 타사 캡처·로고 제외", () => {
-  const manifest = JSON.parse(read("public/content-examples/MANIFEST.json"));
+  const manifest = JSON.parse(read("content/media-manifest.json"));
   const listed = new Set(manifest.files.map((f) => f.path));
   // 서비스별 하위 폴더(WP-S1 슬롯)의 파일은 모두 출처가 기록돼 있다. 루트의 다른 WP 파일은 각자 관리
   const onDisk = SERVICES.filter((id) => existsSync(`public/content-examples/${id}`))

@@ -2,7 +2,8 @@ import Image from "next/image";
 import { CreatorDeck } from "./creator-experience";
 import { ServiceHero } from "../service-hero";
 import { aiInfluencerSignature as sig } from "@/lib/content-site/services/ai-influencer";
-import { getSlot } from "@/lib/content-site/example-media";
+import { getExampleMedia, getSlot } from "@/lib/content-site/example-media";
+import { creatorRoster } from "@/lib/content-site/creator-roster";
 import { r8Sections } from "@/lib/content-site/r8-sections";
 import { r8Details } from "@/lib/content-site/r8-details";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
@@ -12,6 +13,13 @@ import { ReelPlayer } from "../reel-player";
 import "./ai-influencer.css";
 
 const head = r8Sections["ai-influencer"];
+// Resolve only this deck's cards on the server; the complete example catalog stays out of client JS.
+const creatorCards = creatorRoster.map((creator) => {
+  const slot = getExampleMedia("ai-influencer", "card").find((item) => item.id === creator.cardSlot);
+  if (slot && (slot.kind === "video" || slot.src.includes(creator.id)))
+    return { kind: slot.kind, src: slot.src, poster: slot.poster };
+  return { kind: "image" as const, src: creator.portrait };
+});
 function Hero({ data }: ServiceSectionProps) { return <ServiceHero data={data} media={<ReelPlayer slot={getSlot("ai-hero-reel")} hero />} />; }
 function Signature() {
   return <>
@@ -25,7 +33,7 @@ function Signature() {
       </div><p className="cs-t-small cs-r8-note">{sig.sheet.note}</p><p className="cs-t-caption">AI 가상인물 · 연출 예시</p>
     </EditorialSection>
     <EditorialSection id="ai-products" head={head["ONE CHARACTER"]}><FigureRow snap items={["제품 영상 시안 · 세럼 · 18초","제품 영상 시안 · 세럼 · 20초","제품 영상 시안 · 클렌저 · 20초"].map((title,i)=>({title,body:"AI 가상인물 출연 · 제안용 시안",slot:`ai-product-reel-${i+1}`}))} /><p className="cs-t-small cs-r8-note">제안용 시안이며 게시용이 아닙니다</p></EditorialSection>
-    <EditorialSection id="ai-creators" head={head["OUR CREATORS"]}><CreatorDeck /></EditorialSection>
+    <EditorialSection id="ai-creators" head={head["OUR CREATORS"]}><CreatorDeck cards={creatorCards} /></EditorialSection>
     <EditorialSection id="ai-disclosure" head={{eyebrow:"DISCLOSURE",title:sig.disclosure.title,lead:sig.disclosure.body}}><ul className="cs-svc-ai-influencer-disclosure">{sig.disclosure.items.map(item=><li className="cs-tag cs-t-caption" key={item}>{item}</li>)}</ul></EditorialSection>
   </>;
 }

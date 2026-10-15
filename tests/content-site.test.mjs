@@ -872,7 +872,7 @@ test("10. 테마 맵·자산", () => {
       serviceId: id,
     });
   assert.equal(csRoute("/content/services/editing").service, "home");
-  // 벤치마크 v01 dist/assets 복사본(MANIFEST.json SHA-256과 같아야 한다)
+  // 벤치마크 v01 dist/assets 복사본(content/media-manifest.json SHA-256과 같아야 한다)
   const sha = {
     "hero.webp": "59790ca5952628e6eca342aa5b609f5f1e6f60633f4b51e8b859993eedfcad02",
     "brand.webp": "e238c98eb08f046021599410f613a61495e34cb5a74b33fdefbdaec15686ea22",

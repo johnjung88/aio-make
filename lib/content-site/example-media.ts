@@ -1,5 +1,7 @@
 /* R8 approved public sample slots. The separate work catalog retains its exact review gate.
- * W2 connects pending video src values in r8-media.ts; source evidence is in MANIFEST.json. */
+ * W2 connects pending video src values in r8-media.ts.
+ * Source evidence stays private in content/media-manifest.json; never import it here. */
+import "server-only";
 import { MEDIA_TAGS } from "./types.ts";
 import { R8_MEDIA } from "./r8-media.ts";
 
