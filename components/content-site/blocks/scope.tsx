@@ -1,15 +1,12 @@
-/* 포함·별도 범위: 가격 블록(CsPricing) 아래의 2열 텍스트 목록(박스 없음). 별도 섹션이 아니다(R6).
- * 같은 사실은 한 번만 쓰므로 진행 방식·FAQ가 맡는 문장(수정 횟수, 대량·정기 제작)은 목록에서 거른다.
- * 서비스 데이터에서 그 항목이 지워지면 이 필터는 아무 일도 하지 않는다. */
+/* R8 approved included, separate and preparation lists, centered below pricing. */
 import { CS_COPY } from "@/lib/content-site/copy";
 import type { ServiceLandingData } from "@/lib/content-site/types";
 
-/** 진행 방식(수정 2회·1회)과 FAQ(대량·정기 제작)에 이미 있는 문장 */
-const DUPLICATE_FACT = /수정\s*\d회|대량·정기/;
+
 
 export function CsScopeText({ scope }: { scope: ServiceLandingData["scope"] }) {
   const c = CS_COPY.scope;
-  const keep = (items: string[]) => items.filter((item) => !DUPLICATE_FACT.test(item));
+  const keep = (items: string[]) => items;
   const columns = (
     [
       ["included", c.included, keep(scope.included)],

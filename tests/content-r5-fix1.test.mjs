@@ -2,12 +2,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { getExampleMedia } from "../lib/content-site/example-media.ts";
 
-const read = (path) => readFileSync(path, "utf8");
+const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
 const code = (path) => read(path).replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 const SV = "components/content-site/services";
-const CUSTOMER = /reference-review|BWL|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|bwl-|yofree-|healernet-/i;
 
 test("FIX1-1. 홈 캐러셀: 영상 위에서 시작한 가로 스와이프도 넘어간다(조작 막대 영상·링크·버튼만 제외)", () => {
   const showcase = code("components/content-home/service-showcase.tsx");
@@ -36,18 +34,11 @@ test("FIX1-2. 브랜드 영상 프레임 확대: 모바일에서도 보이도록
   assert.doesNotMatch(css, /brand-film"\]\[data-motion-ready="true"\] \{[^}]*scale\(1\.[0-9]/);
 });
 
-test("FIX1-3. SNS 광고 공개판: 장면 전환 묶음이 예시 슬롯 3컷으로 렌더되고 고객 문자열이 없다", () => {
-  const landing = code(`${SV}/ad/landing.tsx`);
-  assert.match(landing, /<WorkSequence work=\{work\} portrait service="ad" labels=/);
-  const scenes = getExampleMedia("ad", "scene");
-  assert.equal(scenes.length, 3);
-  for (const slot of scenes) {
-    assert.equal(slot.aspect, "9x16");
-    assert.doesNotMatch(JSON.stringify(slot), CUSTOMER);
-  }
-  const sequence = code(`${SV}/work-sequence.tsx`);
-  assert.match(sequence, /portrait=\{slots\.every\(slot => slot\.aspect === "9x16"\)\}/);
-  assert.match(code(`${SV}/service-motion.css`), /\.cs-scene-chapter--ad \.cs-scene-screen\[data-portrait="true"\] \.cs-scene-image \{ object-fit:cover; \}/);
+test("FIX1-3. R8 ad uses actual source posters and a cut board instead of a public still sequence", () => {
+  const landing = read("components/content-site/services/ad/landing.tsx");
+  assert.match(landing, /CutBoard/);
+  assert.match(landing, /ad-hook-/);
+  assert.doesNotMatch(landing, /SceneSequence|WorkSequence|PUBLIC_SCENE_LABELS|adSignature.screens/);
 });
 
 test("FIX1-5·6. 광고 레일 태그는 한 줄, 애니메이션 히어로 태그는 위쪽에 둔다", () => {

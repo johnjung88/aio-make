@@ -1,0 +1,48 @@
+{
+  "file": ".qa\\r8-music\\r8-m04-goodnightmare.mp3",
+  "sha256": "b3793f15317a70bbbd857fa4a77872a42bcdc27445f25bce397bb7a442f91b9c",
+  "selectedBpm": 130.0,
+  "nearestPeakBpm": 130.02,
+  "broadSearchPeaks": [
+    {
+      "bpm": 130.02,
+      "score": 2326.8428
+    },
+    {
+      "bpm": 86.66,
+      "score": 2311.0083
+    },
+    {
+      "bpm": 173.22,
+      "score": 1668.7082
+    },
+    {
+      "bpm": 74.28,
+      "score": 1599.0032
+    },
+    {
+      "bpm": 104.04,
+      "score": 1504.1725
+    },
+    {
+      "bpm": 148.72,
+      "score": 262.3738
+    },
+    {
+      "bpm": 80.12,
+      "score": 230.3029
+    },
+    {
+      "bpm": 94.54,
+      "score": 214.0876
+    }
+  ],
+  "analyzedSeconds": 90.0,
+  "method": "up to 90 s mono 22050 Hz; positive STFT spectral flux; 70-180 BPM autocorrelation with 8 beat multiples",
+  "listening": "NOT_RUN; computational beat-grid verification, not human listening",
+  "note": "Goodnightmare also admits a 3:2 interpretation; Motions has weak/half-time pulses. The approved 130/120/130 grid is retained.",
+  "cutGridSeconds": 1.8461538461538463,
+  "musicStartSeconds": 0.245,
+  "fade": "80 ms in, 3 s out",
+  "normalization": "two-pass loudnorm I=-16 TP=-1.5 LRA=11; AAC 128k/48kHz"
+}

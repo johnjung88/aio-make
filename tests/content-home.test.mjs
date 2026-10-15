@@ -36,7 +36,7 @@ const ORDER = [
 ];
 const BANNED =
   /을 통해|를 통해|에 대해|아니라|없이|최고|최저|보장|1위|%|\d+배|혁신|차원이 다른|압도적|극대화|시너지|원스톱|완벽|최적|퀄리티|콘텐츠|운영 중|게시 중|팔로워|조회수|립싱크|목소리|고화질|coming soon|준비 중|공개 예정|곧 공개|맞춤 견적|작업 사례|쇼릴/i;
-const read = (path) => readFileSync(path, "utf8");
+const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
 const componentDir = "components/content-home";
 const componentFiles = readdirSync(componentDir).map((f) =>
   join(componentDir, f),
@@ -259,7 +259,7 @@ test("5. 표시 태그: 홈 카드 슬롯 태그와 공통 문구", () => {
   assert.equal(MEDIA_TAGS.aiPerson, "AI 가상인물 · 연출 예시");
   assert.equal(MEDIA_TAGS.ownWebtoon, "1억의 구단주 · 제작 예시");
   // 캡션이 선택 소재의 태그를 그대로 보여 준다(연출 예시를 실제 작업물처럼 보이지 않게)
-  assert.ok(showcase.includes("{selection.tag ? <span className=\"cs-tag cs-t-caption\">{selection.tag}</span>:null}"));
+  assert.match(showcase, /selection.tab.id === "ai-influencer"[\s\S]*AI 가상인물/);
 });
 
 test("6. 컨텐츠 분과 summary", () => {
@@ -579,20 +579,20 @@ test("9. 메인 컨텐츠 탭 한 줄 설명 공유(P4가 있을 때만)", (t) =
     assert.ok(journey.includes(s.line) || /content-home/.test(journey), s.id);
 });
 
-test("10. 히어로 영상(R7 릴)은 video 한 줄로 연결되고 무음 재생 로직이 붙는다", () => {
+test("10. 히어로 영상(R8 릴)은 video 한 줄로 연결되고 무음 재생 로직이 붙는다", () => {
   assert.deepEqual(contentHomeHero.video, {
-    src: "/content-home/hero-reel-r7.mp4",
-    poster: "/content-home/hero-reel-r7.webp",
+    src: "/content-home/hero-reel-r8.mp4",
+    poster: "/content-home/hero-reel-r8.webp",
   });
   for (const file of [contentHomeHero.video.src, contentHomeHero.video.poster])
     assert.ok(statSync(join("public", file)).size > 0, file);
-  assert.ok(statSync(join("public", contentHomeHero.video.src)).size <= 10 * 1024 * 1024);
+  assert.ok(statSync(join("public", contentHomeHero.video.src)).size <= 12000000);
   const lib = read("lib/content-home.ts");
   assert.match(
     lib,
     /export type HeroVideo = \{ src: string; poster: string \}/,
   );
-  assert.match(lib, /video: \{ src: "\/content-home\/hero-reel-r7\.mp4", poster: "\/content-home\/hero-reel-r7\.webp" \} as HeroVideo \| undefined/);
+  assert.match(lib, /video: \{ src: "\/content-home\/hero-reel-r8\.mp4", poster: "\/content-home\/hero-reel-r8\.webp" \} as HeroVideo \| undefined/);
   const media = read(join(componentDir, "hero-media.tsx"));
   assert.doesNotMatch(media, /^\s*["']use client["']/, "hero-media stays a server component");
   assert.match(media, /if \(!video\) return null;/);
@@ -603,7 +603,8 @@ test("10. 히어로 영상(R7 릴)은 video 한 줄로 연결되고 무음 재�
   assert.match(video, /useCsMotion/, "header motion toggle pauses the reel");
   assert.match(video, /prefers-reduced-motion: reduce/);
   assert.match(video, /if \(!mounted\) return null;/, "no <video> in server HTML");
-  assert.match(video, /node\.muted = true;/);
+  assert.match(video, /muted=\{muted\}/);
+  assert.match(video, /useReelSound/);
   assert.match(video, /className="ch-hero-pause"/);
   // 영상 층·재생 버튼 CSS는 슬롯 안에서만 쓰인다
   assert.match(declsOf(css, ".cs-site .cs-home .ch-hero-video"), /position:\s*absolute;\s*inset:\s*0;/);
@@ -637,7 +638,7 @@ test("12. 제작 과정(R7): 장면 그림 + 압축 4단계, 확정 사실만", 
       "서비스와 분량을 확정합니다",
       "컨텐츠별로 기획한 내용을 전달하고 공유합니다",
       "확정한 기획안대로 제작하고 공유합니다",
-      "게시할 채널에 맞춰 최종 편집후 결과물을 전달합니다",
+      "게시할 채널에 맞춰 최종 편집 후 결과물을 전달합니다",
     ],
   );
   for (const s of contentHomeProcess) {

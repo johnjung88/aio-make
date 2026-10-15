@@ -1,0 +1,48 @@
+{
+  "file": ".qa\\r8-music\\r8-m06-backbeat.mp3",
+  "sha256": "576aa0268ab27ce486f9238df3845ce104c3e05bad015ea08048ba79e88ac79a",
+  "selectedBpm": 130.0,
+  "nearestPeakBpm": 130.02,
+  "broadSearchPeaks": [
+    {
+      "bpm": 130.02,
+      "score": 20.7002
+    },
+    {
+      "bpm": 86.68,
+      "score": 16.2478
+    },
+    {
+      "bpm": 74.34,
+      "score": 13.9352
+    },
+    {
+      "bpm": 173.22,
+      "score": 13.7087
+    },
+    {
+      "bpm": 104.04,
+      "score": 13.3591
+    },
+    {
+      "bpm": 115.48,
+      "score": 1.44
+    },
+    {
+      "bpm": 148.72,
+      "score": 1.0934
+    },
+    {
+      "bpm": 75.72,
+      "score": 0.9523
+    }
+  ],
+  "analyzedSeconds": 46.211,
+  "method": "up to 90 s mono 22050 Hz; positive STFT spectral flux; 70-180 BPM autocorrelation with 8 beat multiples",
+  "listening": "NOT_RUN; computational beat-grid verification, not human listening",
+  "note": "Goodnightmare also admits a 3:2 interpretation; Motions has weak/half-time pulses. The approved 130/120/130 grid is retained.",
+  "cutGridSeconds": 1.8461538461538463,
+  "musicStartSeconds": 0.015,
+  "fade": "80 ms in, 3 s out",
+  "normalization": "two-pass loudnorm I=-16 TP=-1.5 LRA=11; AAC 128k/48kHz"
+}

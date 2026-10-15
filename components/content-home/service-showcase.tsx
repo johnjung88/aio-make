@@ -7,7 +7,7 @@
  *   정지가 풀리거나 카드가 바뀌면 타이머를 처음부터 다시 잰다
  * - 서비스 링크: 선택된 카드 아래 캡션에 '서비스명 · 한 줄 · 시작가 · 서비스 보기 →'. 선택된 카드 전체도 같은 링크, 옆 카드 클릭은 선택 이동
  * - reduced-motion: 자동 넘김과 영상 자동재생 없음, 옆 카드는 정적으로 보이고 수동 조작은 그대로
- * - 카드 소재: 검토판 실제 작업물 → 없으면 homeCardMedia 슬롯(영상 있으면 선택 카드만 muted 루프, 없으면 켄번스) */
+ * - 카드 소재: 공개판·검토판 모두 R8 승인 homeCardMedia 슬롯(영상 있으면 선택 카드만 muted 루프, 없으면 켄번스) */
 import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,22 +29,14 @@ type CardMedia =
  | { kind:"image"; src:string; alt:string; slot:string|null }
  | { kind:"comic"; pages:Page[]; slot:string|null };
 
-/** 검토판 실제 작업물이 우선이고, 공개판에서는 홈 카드 소재 슬롯을 쓴다 */
+/** R8 승인 카드 소재를 쓰며 검토 작품은 상세 링크만 제공한다 */
 function cardMedia(selection:ContentSelection):CardMedia {
- const media=selection.media;
- const comic=selection.tab.id==="webtoon";
- if(selection.work){
-  if(comic){
-   const pages=selection.work.media.filter(item=>item.kind!=="video").slice(0,2).map(page=>({src:page.src,alt:page.alt,width:page.width ?? 1024,height:page.height ?? 1536}));
-   if(pages.length) return {kind:"comic",pages,slot:null};
-  }
-  if(media.kind==="video") return {kind:"video",src:media.src,poster:media.poster,alt:media.alt,slot:null};
-  return {kind:"image",src:media.src,alt:media.alt,slot:null};
- }
+ const alt=selection.tab.fallback.alt;
+
  const slot=homeCardMedia[selection.tab.id];
- if(slot.video) return {kind:"video",src:slot.video,poster:slot.poster,alt:media.alt,slot:slot.slotId};
- if(comic) return {kind:"comic",pages:[{src:slot.poster,alt:media.alt,width:media.width,height:media.height}],slot:slot.slotId};
- return {kind:"image",src:slot.poster,alt:media.alt,slot:slot.slotId};
+ if(slot.video) return {kind:"video",src:slot.video,poster:slot.poster,alt,slot:slot.slotId};
+
+ return {kind:"image",src:slot.poster,alt,slot:slot.slotId};
 }
 
 /** 선택된 카드에만 마운트한다. 재생은 play()로만(서버 HTML에 autoplay 속성 없음) */
@@ -158,10 +150,11 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
       return <div key={selection.tab.id} className="ch-depth-card" data-pos={hidden ? "hidden" : distance} aria-hidden={!selected}>
        <WorkMedia media={cards[index]} selected={selected} play={selected && moving} reduced={reduced}/>
        {selected && linkable ? <Link className="ch-depth-open" href={service.href} tabIndex={-1} aria-hidden="true"/>:null}
+       {selection.tab.id === "ai-influencer" && <span className="ch-depth-ai-tag cs-tag cs-t-caption">AI 가상인물</span>}
        <div className="ch-depth-caption">
         <p className="ch-depth-title"><span className="cs-t-h3">{service.label}</span>{price ? <span className="ch-depth-price cs-t-small">{price.head}</span>:null}</p>
         <p className="ch-depth-line cs-t-small">{service.line}</p>
-        <div className="ch-depth-links">{selection.tag ? <span className="cs-tag cs-t-caption">{selection.tag}</span>:null}{selected && selection.work ? <Link className="cs-link" href={`/content/projects/${selection.work.slug}?service=${selection.tab.id}`}>작업 보기 <span aria-hidden="true">↗</span></Link>:null}<Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
+        <div className="ch-depth-links">{selection.tab.id === "ai-influencer" ? <span className="cs-tag cs-t-caption">AI 가상인물</span>:null}{selected && selection.work ? <Link className="cs-link" href={`/content/projects/${selection.work.slug}?service=${selection.tab.id}`}>작업 보기 <span aria-hidden="true">↗</span></Link>:null}<Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
        </div>
        {!selected && !hidden ? <button className="ch-depth-select" type="button" tabIndex={-1} aria-label={`${selection.tab.label} 선택`} onClick={()=>select(index)}/>:null}
       </div>;

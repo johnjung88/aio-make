@@ -33,3 +33,85 @@
   .cs-site .cs-service-production { grid-template-columns:1fr; gap:24px; }
 }
 .cs-site .cs-service-review-note { margin:24px 0 40px; color:var(--cs-fg-3); }
+/* R8 shared editorial media and cut boards. */
+.cs-site .cs-reel { position:relative; margin:0; overflow:hidden; background:var(--cs-surface); border:1px solid var(--cs-line); border-radius:var(--cs-r-md); aspect-ratio:16/9; }
+.cs-site .cs-reel[data-aspect="9x16"] { aspect-ratio:9/16; }
+.cs-site .cs-reel[data-aspect="2x3"] { aspect-ratio:2/3; }
+.cs-site .cs-reel[data-aspect="3x4"] { aspect-ratio:3/4; }
+.cs-site .cs-reel > img,.cs-site .cs-reel > video { width:100%; height:100%; display:block; object-fit:contain; }
+.cs-site .cs-reel--hero[data-aspect="2x3"] { width:min(100%,400px); margin-inline:auto; }
+.cs-site .cs-reel--hero[data-aspect="9x16"] { width:min(100%,360px); margin-inline:auto; }
+.cs-site .cs-reel--hero[data-aspect="16x9"] { max-height:660px; }
+.cs-site .cs-reel-toggle { position:absolute; right:12px; bottom:12px; min-height:44px; background:var(--cs-bg); }
+.cs-site .cs-figure-row { display:grid; grid-template-columns:minmax(0,1fr); gap:24px; list-style:none; margin:0; padding:0; }
+.cs-site .cs-figure-row > li { min-width:0; }
+.cs-site .cs-figure-copy { display:grid; gap:12px; padding-block:24px; }
+.cs-site .cs-figure-copy > .cs-t-body { color:var(--cs-fg-2); }
+.cs-site .cs-r8-note { margin-top:24px; color:var(--cs-fg-2); text-align:center; }
+.cs-site .cs-r8-two { display:grid; gap:32px; align-items:start; }
+.cs-site .cs-r8-two > * { min-width:0; }
+.cs-site .cs-r8-list { display:grid; gap:20px; }
+.cs-site .cs-r8-list > li { padding-block:16px; border-bottom:1px solid var(--cs-line); }
+.cs-site .cs-r8-list p { margin-top:8px; color:var(--cs-fg-2); }
+.cs-site .cs-r8-band { padding:28px; border:1px dashed var(--cs-line); margin-top:28px; }
+.cs-site .cs-r8-band h3 { margin-block:12px; }
+.cs-site .cs-cut-layout { display:grid; gap:32px; align-items:start; }
+.cs-site .cs-cut-player { min-width:0; }
+.cs-site .cs-cut-tabs { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+.cs-site .cs-cut-tabs [aria-pressed="true"] { color:var(--cs-accent-text); border-color:var(--cs-accent); }
+.cs-site .cs-cut-screen { margin:0 0 20px; }
+.cs-site .cs-cut-screen > img,.cs-site .cs-cut-screen > video { width:100%; aspect-ratio:16/9; object-fit:contain; background:var(--cs-surface); }
+.cs-site .cs-cut-screen[data-aspect="9x16"] > img,.cs-site .cs-cut-screen[data-aspect="9x16"] > video { aspect-ratio:9/16; max-height:640px; }
+.cs-site .cs-cut-screen figcaption { margin-top:12px; }
+.cs-site .cs-cut-list { list-style:none; padding:0; margin:0; }
+.cs-site .cs-cut-row { display:grid; gap:12px; width:100%; padding:24px 0; text-align:left; color:var(--cs-fg); border:0; border-top:1px solid var(--cs-line); background:transparent; cursor:pointer; }
+.cs-site .cs-cut-row[data-active="true"] { color:var(--cs-accent-text); }
+.cs-site .cs-cut-row:focus-visible { outline:2px solid var(--cs-accent); outline-offset:2px; }
+.cs-site .cs-cut-row > span { min-width:0; overflow-wrap:anywhere; }
+.cs-site .cs-cut-name { display:flex; flex-direction:column; gap:8px; }
+.cs-site .cs-cut-name img { width:80px; height:45px; object-fit:cover; }
+.cs-site .cs-cut-table-head { display:none; }
+.cs-site .cs-cut-help { margin-bottom:20px; }
+.cs-site .cs-cut-chapters { display:flex; list-style:none; padding:0; gap:2px; margin-bottom:24px; }
+.cs-site .cs-cut-chapters > li { flex:var(--chapter-length,1) 1 0; min-width:0; background:var(--cs-surface); border-top:3px solid var(--cs-accent); padding:10px 4px; overflow-wrap:anywhere; text-align:center; }
+@media(min-width:768px) {
+  .cs-site .cs-figure-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(min-width:1024px) {
+  .cs-site .cs-figure-row { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .cs-site .cs-figure-row[data-count="4"] { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .cs-site .cs-r8-two { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; }
+  .cs-site .cs-cut-layout { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); }
+  .cs-site .cs-cut-player { position:sticky; top:100px; }
+  .cs-site .cs-cut-row,.cs-site .cs-cut-table-head { grid-template-columns:80px 55px minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr); gap:12px; }
+  .cs-site .cs-cut-table-head { display:grid; padding-bottom:16px; }
+  .cs-site .cs-cut-row[data-sound="true"],.cs-site .cs-cut-table-head[data-sound="true"] { grid-template-columns:64px 48px minmax(0,1fr) minmax(0,.8fr) minmax(0,.8fr) minmax(0,1fr); }
+}
+@media(max-width:1023px) {
+  .cs-site .cs-service-editorial-grid,.cs-site .cs-service-editorial-hero--wide .cs-service-editorial-grid { grid-template-columns:minmax(0,1fr); grid-template-areas:"heading" "media" "copy"; gap:24px; }
+}
+@media(max-width:767px) {
+  .cs-site .cs-figure-row--snap { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; }
+  .cs-site .cs-figure-row--snap > li { flex:0 0 72vw; scroll-snap-align:start; }
+  .cs-site .cs-reel--hero[data-aspect="2x3"] { width:min(86%,320px); }
+  .cs-site .cs-reel--hero[data-aspect="9x16"] { width:min(84%,300px); }
+  .cs-site .cs-cut-chapters { flex-wrap:wrap; }
+  .cs-site .cs-cut-chapters > li { flex:1 1 20%; }
+}
+
+.cs-site .cs-cut-screen > img,.cs-site .cs-cut-screen > video {height:auto;}
+
+.cs-site .cs-figure-media{position:relative;} .cs-site .cs-figure-band{position:absolute;top:12%;inset-inline:16px;text-align:center;color:var(--cs-fg);}
+
+.cs-site .cs-reel > .cs-tag--overlay {top:12px;bottom:auto;max-width:calc(100% - 24px);}
+
+.cs-site .cs-reel-controls { position:absolute; right:12px; bottom:12px; display:flex; align-items:center; gap:8px; }
+.cs-site .cs-reel-controls .cs-reel-toggle { position:static; }
+.cs-site .cs-reel-controls .cs-btn { min-height:44px; min-width:44px; padding:8px 12px; background:var(--cs-bg); }
+.cs-site .cs-reel-controls .cs-btn:focus-visible { outline:2px solid var(--cs-accent); outline-offset:3px; }
+
+/* Wide hero captions reach the bottom edge; keep their controls below the picture. */
+.cs-site .cs-reel--hero[data-aspect="16x9"] { aspect-ratio:auto; max-height:none; }
+.cs-site .cs-reel--hero[data-aspect="16x9"] > video,
+.cs-site .cs-reel--hero[data-aspect="16x9"] > img { height:auto; aspect-ratio:16/9; max-height:660px; }
+.cs-site .cs-reel--hero[data-aspect="16x9"] .cs-reel-controls { position:static; justify-content:flex-end; padding:8px 12px; }

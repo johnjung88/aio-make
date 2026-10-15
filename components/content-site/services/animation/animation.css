@@ -41,3 +41,6 @@
   background: var(--cs-bg-2);
   color: var(--cs-fg-2);
 }
+
+/* R8 */
+.cs-svc-animation-scene-timeline {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px;list-style:none;padding:0;} .cs-svc-animation-scene-timeline li {min-width:0;display:grid;gap:12px;} .cs-svc-animation-lengths {margin-top:24px;display:grid;gap:12px;} @media(min-width:768px){.cs-svc-animation-scene-timeline{grid-template-columns:repeat(6,minmax(0,1fr));}}

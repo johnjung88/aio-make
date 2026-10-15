@@ -1963,3 +1963,30 @@ body:has(.cs-site) {
 @media(max-width:767px) {
  .cs-site .cs-article-header .cs-article-body { grid-template-columns:minmax(0,1fr); gap:20px; }
 }
+/* R8 Q30-Q31: center only the requested pricing/process/FAQ blocks. */
+.cs-site .cs-container--read-center { margin-inline:auto; }
+.cs-site [data-cs-section="process"] .cs-container--read,
+.cs-site [data-cs-section="faq"] .cs-container--read { margin-inline:auto; }
+.cs-site .cs-pricing-groups { width:100%; max-width:880px; margin-inline:auto; text-align:center; }
+.cs-site .cs-pricing-group { width:100%; margin-inline:auto; }
+.cs-site .cs-plan { align-items:center; text-align:center; }
+.cs-site .cs-plan > .cs-t-label { width:100%; }
+.cs-site .cs-plan--bundle + .cs-plan--bundle { padding-inline:20px; }
+.cs-site .cs-pricing-notes { text-align:center; justify-items:center; }
+.cs-site .cs-pricing-notes > li { max-width:640px; }
+.cs-site .cs-scope-grid { max-width:880px; margin-inline:auto; text-align:center; }
+.cs-site .cs-scope-list > li { padding-left:0; }
+.cs-site .cs-scope-list > li::before { display:none; }
+.cs-site .cs-scope-prepare { width:100%; max-width:640px; margin-inline:auto; }
+.cs-site [data-cs-section="process"] .cs-step { display:grid; grid-template-columns:minmax(0,1fr); justify-items:center; text-align:center; padding-block:24px; }
+.cs-site [data-cs-section="process"] .cs-step > * { grid-column:1; grid-row:auto; }
+.cs-site [data-cs-section="process"] .cs-step-body { max-width:560px; }
+.cs-site [data-cs-section="process"] .cs-step-check { justify-content:center; }
+.cs-site [data-cs-section="process"] .cs-step:last-child { border-bottom:1px solid var(--cs-line); }
+.cs-site .cs-faq-list { width:100%; max-width:760px; margin-inline:auto; }
+.cs-site .cs-faq-q { position:relative; justify-content:center; padding-inline:40px; text-align:center; }
+.cs-site .cs-faq-q > span:first-child { width:100%; }
+.cs-site .cs-faq-icon { position:absolute; right:0; top:50%; transform:translateY(-50%); }
+.cs-site .cs-faq-a { max-width:600px; margin-inline:auto; text-align:center; }
+@media(min-width:768px) and (max-width:1023px) { .cs-site .cs-pricing-groups { max-width:704px; } }
+@media(min-width:768px) { .cs-site [data-cs-section="process"] .cs-step { padding-block:28px; } }

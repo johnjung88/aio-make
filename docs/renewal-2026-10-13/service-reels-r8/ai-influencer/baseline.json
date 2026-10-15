@@ -1,0 +1,27 @@
+[
+  {
+    "path": "public\\content-examples\\ai-influencer\\service-reel-r8.mp4",
+    "sha256": "38ba84900595f248635936e550fba4508829760c335ce35b25db900717bcd6a3",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\ai-influencer\\service-reel-r8.mp4"
+  },
+  {
+    "path": "public\\content-examples\\ai-influencer\\service-reel-r8-poster.webp",
+    "sha256": "c44dbb74c3a28667f85defc8066aa92d11a2b108c62aaaf8c34ce73e096c8c8a",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\ai-influencer\\service-reel-r8-poster.webp"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\ai-influencer\\build.py",
+    "sha256": "0b410c4c431e15a7ade3f23a5aa170324122f60e7384289933d28200b0c66886",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\ai-influencer\\build.py"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\ai-influencer\\config.js",
+    "sha256": "ecc4b60f80ecdd72d5c7f8bc23b06384e0d5fcfa9e3dea9761bc7c5d352cd399",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\ai-influencer\\config.js"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\ai-influencer\\index.html",
+    "sha256": "102a85284bdd366386765b49b2692bc5ffcf2182a1824c9751ef728857a2a596",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\ai-influencer\\index.html"
+  }
+]

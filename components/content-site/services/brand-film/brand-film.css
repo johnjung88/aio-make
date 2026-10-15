@@ -132,6 +132,8 @@
 
 /* ---------------------------------------------------------------- 움직임 */
 @media (prefers-reduced-motion: no-preference) {
+  /* The film frame starts at .88 scale; keep its controls at least 44px on screen. */
+  .cs-svc-brand-film .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] .cs-reel-controls .cs-btn { min-height:51px; min-width:51px; }
   /* 30초 ↔ 60초: 너비를 다시 나누고(flex-grow) 켜진 칸이 순서대로 다시 들어온다 */
   .cs-svc-brand-film .cs-svc-brand-film-track li {
     transition-property: flex-grow, margin, padding, opacity, background-color, border-color, visibility;
@@ -158,3 +160,5 @@
 @media (hover: hover) {
   .cs-svc-brand-film .cs-svc-brand-film-toggle:hover { border-color: var(--cs-fg); }
 }
+
+.cs-svc-brand-film-story-list {list-style:none;padding:0;margin-top:24px;display:grid;gap:24px;} .cs-svc-brand-film-story-list li {display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;border-top:1px solid var(--cs-line);padding-top:24px;} .cs-svc-brand-film-story-list img{width:96px;height:auto;aspect-ratio:16/9;object-fit:contain;} .cs-svc-brand-film-story-list h4{margin:8px 0;} @media(max-width:767px){.cs-svc-brand-film-story-list li{grid-template-columns:56px minmax(0,1fr);gap:16px;}.cs-svc-brand-film-story-list img{width:56px;}}

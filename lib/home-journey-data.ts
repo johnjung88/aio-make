@@ -42,14 +42,14 @@ export const beforeShots: Record<string, BeforeShot> =
             src: "/reference-review/bwl-store/before-pc.webp",
             width: 1440,
             height: 900,
-            alt: "DR's Secret 기존 공식몰 첫 화면 PC 캡처",
+            alt: "기존 쇼핑몰 첫 화면 PC 캡처",
           },
           mobile: {
             kind: "image",
             src: "/reference-review/bwl-store/before-mobile.webp",
             width: 390,
             height: 844,
-            alt: "DR's Secret 기존 공식몰 첫 화면 모바일 캡처",
+            alt: "기존 쇼핑몰 첫 화면 모바일 캡처",
           },
         },
       }

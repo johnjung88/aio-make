@@ -1,4 +1,4 @@
-/** MCN 현행 계정 AGENTS와 채택 자산 근거 / 사용자 확정 범위: 4계정
+/** MCN 현행 계정 AGENTS와 채택 자산 근거 / 현재 확정된 인물 목록(계속 추가)
  * 피드는 기존 기준 이미지로 편집한 구성 예시이며 게시물이나 성과를 주장하지 않음
  * cardSlot: 히어로 회전 카드의 연출 예시 슬롯(lib/content-site/example-media.ts). 영상 슬롯이거나 파일명에 계정 id가 든
  * 이미지 슬롯이면 portrait를 대신한다(R5 WP-S2). 슬롯이 없으면 portrait를 쓴다

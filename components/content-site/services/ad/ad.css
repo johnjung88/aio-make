@@ -118,3 +118,6 @@
   @keyframes cs-svc-ad-rail-up { from { transform: translateY(0); } to { transform: translateY(calc(var(--svc-travel) * -1)); } }
   @keyframes cs-svc-ad-rail-down { from { transform: translateY(calc(var(--svc-travel) * -1)); } to { transform: translateY(0); } }
 }
+
+/* R8 */
+.cs-svc-ad-hero-frame {position:relative;width:100%;isolation:isolate;} .cs-svc-ad-hero-frame > .cs-reel {position:relative;z-index:1;} .cs-svc-ad-hero-rails {position:absolute;inset:0;opacity:.2;z-index:0;pointer-events:none;} @media(max-width:767px){.cs-svc-ad-hero-rails{display:none;}}

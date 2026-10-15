@@ -1,0 +1,12 @@
+[
+  {
+    "path": "public\\content-examples\\motion-graphics\\service-reel-r8.mp4",
+    "sha256": "8955b3e171cc5ecf08efc5a78b053d0d7aa23e5de452e8ea3ddea3a9f3b3dfd0",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\motion-graphics\\service-reel-r8.mp4"
+  },
+  {
+    "path": "public\\content-examples\\motion-graphics\\service-reel-r8-poster.webp",
+    "sha256": "74cf3a403e582d371b6515326aca45ccdde177226fb793161b249418570c9a3a",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\motion-graphics\\service-reel-r8-poster.webp"
+  }
+]

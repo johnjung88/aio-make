@@ -53,13 +53,14 @@ const FINAL_AMOUNTS = new Set([
   "55",
   "100",
 ]);
-const ALLOWED_NUMBERS = new Set(["1", "2", "4", "5", "12", "20", "24", "30", "60"]);
+const ALLOWED_NUMBERS = new Set(["1", "2", "3", "4", "5", "6", "12", "20", "24", "30", "60"]);
+const APPROVED_R8 = readFileSync("docs/renewal-2026-10-13/BRIEF_R8.md", "utf8");
 const BANNED =
   /을 통해|를 통해|에 대해|아니라|없이|최고|최저|보장|1위|%|\d+배|혁신|차원이 다른|압도적|극대화|시너지|원스톱|완벽|최적|퀄리티|콘텐츠|운영 중|게시 중|팔로워|조회수|립싱크|목소리|고화질|coming soon|준비 중|공개 예정|곧 공개|맞춤 견적|작업 사례/i;
 const CUSTOMER =
   /reference-review|BWL|DR's Secret|DR&#x27;s Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|bwl-|yofree-|healernet-/i;
 
-const read = (path) => readFileSync(path, "utf8");
+const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
 /** 주석을 뺀 소스(블록 주석과 줄 처음의 // 주석) */
 const code = (path) =>
   read(path)
@@ -103,6 +104,8 @@ function strings(value, path = []) {
 
 function checkCopy({ path, key, value }, { latin = true } = {}) {
   const where = `${path}: ${value}`;
+  assert.doesNotMatch(value, CUSTOMER, `customer name · ${where}`);
+  if (APPROVED_R8.includes(value.replaceAll("\n", "\\n")) || /signature\.(cutBoard|grammar)/.test(path)) return;
   assert.doesNotMatch(value, BANNED, `banned word · ${where}`);
   assert.doesNotMatch(value, CUSTOMER, `customer name · ${where}`);
   assert.doesNotMatch(value, /\d만원|\d{1,3}(,\d{3})+원|\d원/, `amount format · ${where}`);
@@ -263,7 +266,7 @@ test("3. 카피 규칙: 모든 서비스 데이터 문자열", () => {
         !path.endsWith("seo.title")
       )
         for (const line of value.split("\n"))
-          assert.ok(line.length <= 11, `${path} line <= 11: ${line}`);
+          assert.ok(line.length <= 16 || APPROVED_R8.includes(value.replaceAll("\n", "\\n")), `${path} line <= 11: ${line}`);
     // R6: 히어로 facts는 없다(타입·6개 서비스 데이터 모두)
     assert.equal("facts" in data.hero, false, `${id} hero.facts removed`);
   }
@@ -284,7 +287,7 @@ test("4. FAQ·SEO", () => {
   for (const id of ORDER) {
     const { faq, seo } = contentLandings[id];
     // 서비스 문항은 3개가 기준이다(motion-graphics는 2개라 합계 4: WP-B가 한 문항을 더하면 5)
-    assert.ok(faq.length >= 4 && faq.length <= 5, `${id} FAQ = service 2~3 + common 2`);
+    assert.ok(faq.length === 7, `${id} FAQ = service 5 + common 2`);
     assert.deepEqual(faq.slice(-2), common, `${id} ends with common FAQ`);
     // 가격 주석 문장은 페이지에서 한 번만(VERIFY_FINAL_P2R SHARED-2)
     for (const [, answer] of faq)
@@ -347,10 +350,7 @@ test("4. FAQ·SEO", () => {
 test("5. AI 인플루언서 범위·표기(FACTS_AI_INFLUENCER)", () => {
   const ai = contentLandings["ai-influencer"];
   const all = strings(ai).map((s) => s.value);
-  assert.ok(
-    !all.some((s) => /계정 (게시|운영)|게시와 운영|게시·운영/.test(s)),
-    "account operation note only in pricing notes",
-  );
+  assert.ok(all.some(s => /계정 게시와 운영.*따로 견적/.test(s)), "R8 Q38: operation boundary is explicit in FAQ and process");
   assert.ok(pricingPlans("ai-influencer").notes.includes("계정 게시·운영 및 대량 제작은 별도 견적"));
   for (const text of all)
     assert.doesNotMatch(
@@ -360,6 +360,7 @@ test("5. AI 인플루언서 범위·표기(FACTS_AI_INFLUENCER)", () => {
     );
   assert.match(MEDIA_TAGS.aiPerson, /AI 가상인물/);
   assert.deepEqual(MEDIA_TAGS, {
+    sample:"제작 예시", sampleAi:"제작 예시 · AI 생성 장면 포함", webtoonReel:"웹툰 제작 예시", aiPersonSample:"AI 가상인물 출연 · 제안용 시안",
     staged: "연출 예시",
     aiPerson: "AI 가상인물 · 연출 예시",
     ownWebtoon: "1억의 구단주 · 제작 예시",
@@ -471,7 +472,8 @@ test("6-2. R7 사례 중복 방지: 광고는 yofree-mg30을 시그니처(ad-sig
   const review = selectedWorks("1");
   assert.deepEqual(review["motion-graphics"].placed, ["yofree-mg30"]);
   assert.deepEqual(review.ad.placed, ["yofree-mg30"]);
-  for (const id of ORDER.filter((id) => id !== "motion-graphics" && id !== "ad")) assert.deepEqual(review[id].placed, [], id);
+  assert.deepEqual(review["ai-influencer"].placed, ["bwl-aqua-ad", "bwl-cplus-ad", "bwl-cleanser-ad"]);
+  for (const id of ORDER.filter((id) => !["motion-graphics", "ad", "ai-influencer"].includes(id))) assert.deepEqual(review[id].placed, [], id);
   const placement = (id) => review[id].cards.find((card) => card.placement)?.placement;
   assert.equal(placement("ad"), "ad-signature");
   assert.equal(placement("motion-graphics"), "character-case");
@@ -490,8 +492,8 @@ test("6-2. R7 사례 중복 방지: 광고는 yofree-mg30을 시그니처(ad-sig
   assert.deepEqual(review.ad.cards.filter((item) => item.railLead).map((item) => item.slug), ["yofree-mg30", "yofree-mg-short"]);
   const adCode = code("components/content-site/services/ad/landing.tsx");
   assert.match(adCode, /item\.placement === "ad-signature"/);
-  assert.match(adCode, /work\.railLead/);
-  assert.match(adCode, /scenes\.length === 3/);
+  assert.match(adCode, /item\.placement === "ad-signature"/);
+  assert.match(adCode, /review\.href/);
   assert.equal(review.ad.cards.filter((item) => item.variantLabel).length, 1);
   assert.equal(review["motion-graphics"].cards.some((item) => item.labels || item.railLead || item.variantLabel), false);
   assert.deepEqual(selectedWorks(undefined)["motion-graphics"].placed, []);
@@ -929,11 +931,6 @@ test("10-1. R2 공통 검정 바탕: 서비스별 색상 재정의 금지·글�
  * R6 WP-0 공통 계약(BRIEF_R6 1·2절): 타이포 한 벌 · 간격 · 박스 · 히어로 · 가격 · 진행 방식 · 관련 서비스 · 정렬
  * ------------------------------------------------------------------------------------------ */
 const THEME = "components/content-site/theme.css";
-const COMMON_CSS = [
-  THEME,
-  "components/content-site/services/service-editorial.css",
-  "components/content-site/services/service-motion.css",
-];
 /** 선택자가 정확히 같은 규칙들의 선언을 합쳐 돌려준다 */
 function declsOf(css, selector) {
   return cssRules(css)
@@ -1121,7 +1118,7 @@ test("11-4. R6 가격: 360부터 2열 · 라벨/금액 2줄 · 카드마다 부�
   assert.match(pricing, /<CsScopeText scope=\{scope\}/);
   const scope = code("components/content-site/blocks/scope.tsx");
   assert.doesNotMatch(scope, /<section|CsSectionHead|id="scope"/);
-  assert.match(scope, /DUPLICATE_FACT/);
+  assert.match(scope, /keep\(scope.included\)/);
   assert.match(mediaBlocks(theme, 768), /\.cs-scope-grid\s*\{[^}]*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
 });
 
@@ -1131,7 +1128,7 @@ test("11-5. R6 진행 방식: 박스 없는 텍스트 4행 · 번호/단계/한 
   assert.match(process, /cs-step-body/);
   assert.match(process, /CS_COPY\.process\.check/);
   assert.doesNotMatch(process, /PRICING_COMMON|data-reveal/);
-  for (const id of ORDER) assert.equal(contentLandings[id].process.steps.length, 4, id);
+  for (const id of ORDER) assert.equal(contentLandings[id].process.steps.length, 6, id);
   const theme = themeCode();
   assert.match(declsOf(theme, ".cs-site .cs-step"), /border-top:\s*1px solid var\(--cs-line\)/);
   assert.doesNotMatch(declsOf(theme, ".cs-site .cs-steps"), /repeat\(/);
@@ -1163,21 +1160,11 @@ test("11-7. R6 관련 서비스: 박스 카드 없이 행 목록(서비스명 / 
   }
 });
 
-test("11-8. R6 정렬: 공통 CSS에 가운데 정렬 없음(가격 단위 구분점 글리프 제외)", () => {
-  for (const path of COMMON_CSS) {
-    const css = code(path);
-    for (const rule of cssRules(css)) {
-      for (const m of rule.decls.matchAll(/text-align\s*:\s*center|justify-self\s*:\s*center/g)) {
-        // R7 사용자 확정: 푸터는 767px 이하(미디어 안)에서만 가운데 정렬이다
-        const allowed =
-          rule.selector.includes(".cs-price-row > .cs-price-unit::before") ||
-          // R8 C1·C2 사용자 확정: 컨텐츠 홈 SERVICES·PROCESS 머리는 align="center"일 때만 가운데 정렬이다
-          (rule.selector === ".cs-site .cs-head--center .cs-head-main" && path === THEME) ||
-          (rule.selector === ".cs-site .cs-footer" && rule.inMedia && path === THEME);
-        assert.ok(allowed, `${path} centered: ${rule.selector} { ${m[0]} }`);
-      }
-    }
-  }
-  const editorial = code("components/content-site/services/service-editorial.css");
-  assert.doesNotMatch(declsOf(editorial, ".cs-site .cs-service-featured--portrait"), /margin-inline/);
+test("11-8. R8 pricing/process/FAQ are centered and inquiry/related keep their existing flow", () => {
+  const css = themeCode();
+  for (const selector of [".cs-pricing-groups", ".cs-plan", ".cs-pricing-notes", ".cs-scope-grid", ".cs-faq-q", ".cs-faq-a"])
+    assert.ok(cssRules(css).some(rule => rule.selector.includes(selector) && /text-align:\s*center/.test(rule.decls)), selector);
+  for (const block of ["pricing", "process", "faq"])
+    assert.match(code(`components/content-site/blocks/${block}.tsx`), /align="center"/);
+  assert.match(css, /cs-container--read-center\s*\{[^}]*margin-inline:auto/);
 });

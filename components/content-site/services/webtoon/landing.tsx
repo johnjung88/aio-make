@@ -5,43 +5,35 @@
 import { WebtoonReader } from "./webtoon-experience";
 import { ServiceHero } from "../service-hero";
 import type { ServiceModule, ServiceSectionProps } from "../../module";
-import { CsMedia } from "../../ui/media";
 import { CsSectionHead } from "../../ui/section-head";
 import { webtoonSignature as sig } from "@/lib/content-site/services/webtoon";
-import { getExampleMedia } from "@/lib/content-site/example-media";
+import { getExampleMedia, getSlot } from "@/lib/content-site/example-media";
 import { MEDIA_TAGS } from "@/lib/content-site/types";
+import { r8Sections } from "@/lib/content-site/r8-sections";
+import { r8Details } from "@/lib/content-site/r8-details";
+import { EditorialSection } from "../editorial-section";
+import { FigureRow } from "../figure-row";
+import { ReelPlayer } from "../reel-player";
 import "./webtoon.css";
 
 /* ---------------------------------------------------------------- 자산 */
 /** 《1억의 구단주》 1회 12컷(AIO 자체 웹툰, 800×1200) */
 const CUTS = getExampleMedia("webtoon", "cut").map(({ src, alt }) => ({ src, alt }));
 /** 표지와 리더가 같은 sizes를 쓴다. 표지는 리더 첫 장(컷 1)과 같은 이미지가 연달아 나오지 않도록 컷 4(경기를 보며 환호하는 장면)를 쓴다 */
-const COVER = 3;
+
 const CUT_SIZES = "(max-width:767px) 80vw, 440px";
 
 /** poster는 같은 영상 17.6초 프레임(《1억의 구단주》 제목 + 장면)을 ffmpeg로 뽑은 1280×720 webp다.
  * 기존 /videos/webtoon-reference-poster.jpg(로고 엔드카드)는 메인 사이트가 쓰므로 그대로 둔다. */
-const MOTION_COMIC_VIDEO = {
-  src: "/videos/webtoon-reference-v02.mp4",
-  poster: "/webtoon-v11/motion-comic-poster.webp",
-};
 
-/* ---------------------------------------------------------------- 히어로: 표지 컷 1장 */
+/* R8: 30초 서비스 영상 슬롯, 연결 전에는 승인 표지 컷 */
 function Hero({ data }: ServiceSectionProps) {
-  const cover = CUTS[COVER];
+
   return (
     <ServiceHero
       data={data}
       media={
-        <CsMedia
-          ratio="2x3"
-          className="cs-svc-webtoon-hero-cover"
-          src={cover.src}
-          alt={cover.alt}
-          sizes={CUT_SIZES}
-          priority
-          tag={MEDIA_TAGS.ownWebtoon}
-        />
+        <ReelPlayer slot={getSlot("webtoon-hero-reel")} hero />
       }
     />
   );
@@ -93,17 +85,7 @@ function MotionComic() {
         />
         <div className="cs-grid cs-svc-webtoon-motion-grid">
           <div className="cs-col-7 cs-svc-webtoon-video">
-            <CsMedia
-              kind="video"
-              ratio="16x9"
-              className="cs-svc-webtoon-video-media"
-              src={MOTION_COMIC_VIDEO.src}
-              poster={MOTION_COMIC_VIDEO.poster}
-              alt={m.videoLabel}
-              controls
-              preload="none"
-              tag={MEDIA_TAGS.ownWebtoonVideo}
-            />
+            <ReelPlayer slot={getSlot("webtoon-motion-comic")} />
           </div>
           <div className="cs-col-5 cs-svc-webtoon-ways">
             <p className="cs-t-label" id="cs-webtoon-ways-label">
@@ -117,6 +99,7 @@ function MotionComic() {
                 </li>
               ))}
             </ul>
+            <a className="cs-link" href="#pricing">제작 가격 보기 ↓</a>
           </div>
         </div>
       </div>
@@ -127,7 +110,15 @@ function MotionComic() {
 function Signature() {
   return (
     <>
+      <EditorialSection id="webtoon-types" head={r8Sections.webtoon["STORY TYPES"]}>
+        <FigureRow snap items={r8Details.webtoon["STORY TYPES"].map((item, i) => ({ ...item, slot: `webtoon-type-${i + 1}` }))} />
+      </EditorialSection>
       <Reader />
+      <EditorialSection id="webtoon-craft" head={r8Sections.webtoon["ONE CUT"]}>
+        <div className="cs-svc-webtoon-craft-art"><p className="cs-t-body">장면과 대사를 글로 먼저 정리합니다</p><ReelPlayer slot={getSlot("webtoon-cut-4")} /><ReelPlayer slot={getSlot("webtoon-cut-8")} /></div>
+        <FigureRow items={r8Details.webtoon["ONE CUT"]} />
+        <p className="cs-t-small cs-r8-note">콘티와 대사는 기획안 단계에서 먼저 확인합니다</p>
+      </EditorialSection>
       <MotionComic />
     </>
   );

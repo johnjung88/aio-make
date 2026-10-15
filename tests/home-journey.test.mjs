@@ -23,7 +23,7 @@ const AI_LABEL = "87언니(AI 가상인물) 출연 · 제안용 시안";
 const FORBIDDEN =
   /을 통해|를 통해|에 대해|아니라|없이|최고|최저|보장|%|\d+배|운영 중|게시 중|팔로워|조회수|립싱크|목소리|고화질/;
 const root = new URL("../", import.meta.url);
-const read = (path) => readFile(new URL(path, root), "utf8");
+const read = async (path) => (await readFile(new URL(path, root), "utf8")).replaceAll("\r\n", "\n");
 const catalogWorks = [...reviewWorks, ...publicWorks];
 
 // Load the server-only journey data in a child process with a given review

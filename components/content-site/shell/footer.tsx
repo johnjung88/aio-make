@@ -90,6 +90,7 @@ export function ContentSiteFooter() {
             <span className="cs-footer-copy cs-t-caption">
               © 2026 AIO MAKE · All rights reserved
             </span>
+            <span className="cs-footer-copy cs-t-caption">음악: FreePD(CC0) · Kevin MacLeod · Bryan Teoh · Rafael Krux</span>
           </div>
         </div>
       </div>

@@ -1,0 +1,285 @@
+{
+  "sources": [
+    {
+      "id": "ai1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\04_닥터 시크릿_아쿠아세럼\\03_영상\\87언니\\01_시안\\K1_draft.mp4",
+      "sha256": "290a6006b478a06f6f420af9dc48206dad601267fce01fb56f6e0da54c7fafb2",
+      "originalUnchanged": true,
+      "start": 0,
+      "end": 4,
+      "frames": 120
+    },
+    {
+      "id": "ai2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\04_닥터 시크릿_아쿠아세럼\\03_영상\\87언니\\01_시안\\K2_draft.mp4",
+      "sha256": "8a19ed0153687a254dff06afb561be9314321ab6246b1321704cb2b3737ed2e4",
+      "originalUnchanged": true,
+      "start": 0,
+      "end": 4,
+      "frames": 120
+    },
+    {
+      "id": "ai3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\04_닥터 시크릿_아쿠아세럼\\03_영상\\87언니\\01_시안\\K3_draft.mp4",
+      "sha256": "8a6fc2e73bc904c2264c6414f8d26756b69d55f208de2364f71d433b3d8a3ed8",
+      "originalUnchanged": true,
+      "start": 0,
+      "end": 4,
+      "frames": 120
+    },
+    {
+      "id": "ai4",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\04_닥터 시크릿_아쿠아세럼\\03_영상\\87언니\\01_시안\\C4_draft.mp4",
+      "sha256": "9b64e3ee8688a42aef8a8c3d1733eb2b7d71327dab8b1409871e0b0643ca1957",
+      "originalUnchanged": true,
+      "start": 0,
+      "end": 4,
+      "frames": 120
+    },
+    {
+      "id": "aiproduct2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\05_닥터 시크릿_C플러스세럼\\03_영상\\87언니\\01_시안\\C3_draft.mp4",
+      "sha256": "c1be61f63c9e97b44ea8a0cdb0c4a589176cd09178698c69c5abcd329594525b",
+      "originalUnchanged": true,
+      "start": 0.2,
+      "end": 2.2,
+      "frames": 60
+    },
+    {
+      "id": "aiproduct3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\영상\\06_닥터 시크릿_클렌저1\\03_영상\\01_시안\\C3_draft.mp4",
+      "sha256": "5bbb8e35481e29cfc94516076593eaf6ea7e0b812473bdd6f714ec237370dac2",
+      "originalUnchanged": true,
+      "start": 0.2,
+      "end": 2.2,
+      "frames": 60
+    },
+    {
+      "id": "body",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_전신후보_03_다리8퍼줄임.png",
+      "sha256": "e50f7d334040c95a570d9add0eaaf617a3c47adbcbdb59d297a37dca76c29411",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_얼굴후보_02_의장생성.png",
+      "sha256": "e9c1464bd6fefa7545b1de3d158d902baed729292a8c558bf19f371dd990a5e8",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face1",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\01.png",
+      "sha256": "fabe0c0228a9ac0d7b3776acb52bd791723d0d3c9822c3f9bddec582f744371b",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face10",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\10.png",
+      "sha256": "24e07b4832e87d229cd455e76e847ac21abd35b4b86a7680c79368630b6fe163",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face11",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\11.png",
+      "sha256": "e7e5abc5b9601f1aac013f5b99d7f49ad14bc51f1409317c3c042393e5bfbfbd",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face12",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\12.png",
+      "sha256": "ae3a9b74e4425b3f5c1a5764c1b2e7a1aebffc2dba35c0f2624ab315b208a4ea",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face13",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\13.png",
+      "sha256": "21cdbf96358700494b361967c2184e0cc51d4f2493470591df06234316c884f6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face14",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\14.png",
+      "sha256": "1451206db0c79cfde214453ad901762de24cbcd8eb2510295f4d4f22b4bce0f9",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face15",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\15.png",
+      "sha256": "ebdd6c6b5a9d7051cb2488cc5e273cb76d3de40298833c6dd40d1437bcd69b09",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face16",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\16.png",
+      "sha256": "86033cf6de6365e6f1089b673ffe410579d330ec1e94fdf76fdde55ff402f52c",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face17",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\17.png",
+      "sha256": "a5be0ef67a7207c2238db75bd66d8fad95a35b18c7f656132884fdfd9a79090f",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face18",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\18.png",
+      "sha256": "4ca8a1d62cfadea2710051404dea2ec7fc2468bed5e2545bde61c06941b802c9",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face19",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\19.png",
+      "sha256": "e1ce8a755b03326dcd95d3c800862b77f63c93a519f4e60de1f30ed4d7c87e08",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face2",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\02.png",
+      "sha256": "a69f482653f9dafeda8c290492e9abd6b397ed5ea397155682bed6b53800a1b3",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face20",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\20.png",
+      "sha256": "7a2a80df24c4180749f9375a9cb4cda5741a7e7c97783c426df99e801f831090",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face3",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\03.png",
+      "sha256": "cfa4c9b889d8fec112160e98ae7973e9418fe4707080419cf83ff2ce2ea318b1",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face4",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\04.png",
+      "sha256": "3f150c07d05ca5427b65e13c00d30e9c3dc18c0b64bc2493d74f37aea97f8587",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face5",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\05.png",
+      "sha256": "885595dd3f5b817deac7d8f1eb70a02b8b0a17dad79c15b17bd71d601735c56f",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face6",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\06.png",
+      "sha256": "0bbd66207a1bad563a5f4a817f973fd0b4caf23ba83cc6eace005289a9bec441",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face7",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\07.png",
+      "sha256": "08693bbbac105bf96b408792587679186ee6365ef5f70f0a30bdd154b29fd451",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face8",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\08.png",
+      "sha256": "a758cfcc079d929808e1808c7c01464c83a891dc14d2ee95c5e5cb6c974afae7",
+      "originalUnchanged": true
+    },
+    {
+      "id": "face9",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\09.png",
+      "sha256": "27a10fa83cefe701a967c9b3b7ce797c41b9933a37218918ccb5d82aee43fec3",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highlight1",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\highlight_01_기록.png",
+      "sha256": "5db5d3d6559d485ed8220571fa544aacb07314828bdafa9cc1fc7e35c9d2f6b9",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highlight2",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\highlight_02_아침.png",
+      "sha256": "efae894c8ac4db50bef1107a378a36a5a7d3f870b10cff7ef7ecf6608e437a3d",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highlight3",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\highlight_03_밤.png",
+      "sha256": "96eb491a4f6f5aeefb1dd6c253db20dda7c94af48019f9161d6af63f8860dddd",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highlight4",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\highlight_04_사용기록.png",
+      "sha256": "35ea09627d557141d7ae3d68cda9d61b6487dace3e2245d7687d62703ab0ada6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highlight5",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\highlight_05_안내.png",
+      "sha256": "63027c11fac5ef6cf1726f2cba242310c83ba8cdece7956933522653ab69c7c9",
+      "originalUnchanged": true
+    },
+    {
+      "id": "profile",
+      "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\03_기록하는87\\01_계정관리\\02_브랜드·캐릭터자산\\profile\\profile.png",
+      "sha256": "ba1c98799f6f3dbba7eadd7c4f1fbf28cd5d1fd513e5ff4249dc9767d9319908",
+      "originalUnchanged": true
+    }
+  ],
+  "cuts": [
+    {
+      "time": 0.0,
+      "ideal": 0.0,
+      "error": 0.0
+    },
+    {
+      "time": 1.4,
+      "ideal": 1.411764705882353,
+      "error": 0.011764705882353121
+    },
+    {
+      "time": 5.633333333333334,
+      "ideal": 5.647058823529412,
+      "error": 0.013725490196078383
+    },
+    {
+      "time": 8.466666666666667,
+      "ideal": 8.470588235294118,
+      "error": 0.0039215686274509665
+    },
+    {
+      "time": 11.3,
+      "ideal": 11.294117647058824,
+      "error": 0.00588235294117645
+    },
+    {
+      "time": 14.133333333333333,
+      "ideal": 14.11764705882353,
+      "error": 0.01568627450980209
+    },
+    {
+      "time": 18.366666666666667,
+      "ideal": 18.35294117647059,
+      "error": 0.013725490196076606
+    },
+    {
+      "time": 19.766666666666666,
+      "ideal": 19.764705882352942,
+      "error": 0.001960784313723707
+    },
+    {
+      "time": 21.166666666666668,
+      "ideal": 21.176470588235297,
+      "error": 0.009803921568629193
+    },
+    {
+      "time": 25.4,
+      "ideal": 25.411764705882355,
+      "error": 0.011764705882356452
+    },
+    {
+      "time": 28.233333333333334,
+      "ideal": 28.23529411764706,
+      "error": 0.0019607843137272596
+    }
+  ],
+  "originalAudio": "discarded: JPEG extraction and H.264 picture encode -an; chosen music only",
+  "exclusion": "webtoon uses only approved product/gift pages and motioncomic [18,24); AI uses uncaptioned drafts only"
+}

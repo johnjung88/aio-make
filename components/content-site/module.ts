@@ -14,7 +14,7 @@ export type ServiceSectionProps = { data: ServiceLandingData; works?: CsWorkCard
 export type ServiceModule = {
   /** data-cs-section="hero"와 aria-labelledby="cs-hero-title"(ServiceHero)를 유지한다 */
   Hero: (props: ServiceSectionProps) => ReactNode;
-  /** 서비스 고유 섹션 1~2개(data-cs-section="signature") */
+  /** 서비스 고유 섹션 N개(data-cs-section="signature") */
   Signature?: (props: ServiceSectionProps) => ReactNode;
   /** 가격 섹션 바로 위 띠(예: AI 인플루언서 AI 가상인물 표기) */
   BeforePricing?: (props: ServiceSectionProps) => ReactNode;

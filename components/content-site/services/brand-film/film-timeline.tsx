@@ -10,6 +10,8 @@
 import { useEffect, useRef, useState } from "react";
 import { CsTag } from "../../ui/tag";
 import { useInViewPlay } from "../motion-runtime";
+import type { ExampleSlot } from "@/lib/content-site/example-media";
+import { ReelPlayer } from "../reel-player";
 
 export type FilmSource = { src: string; poster?: string; label: string; tag?: string };
 export type FilmLabels = { pause: string; play: string };
@@ -61,9 +63,10 @@ function FilmVideo({ source, labels, playing, onProgress, onFail }: { source: Fi
   </div>;
 }
 
-export function FilmScreen({ source, labels }: { source: FilmSource; labels: FilmLabels }) {
+export function FilmScreen({ source, labels, slot }: { source: FilmSource; labels: FilmLabels; slot?: ExampleSlot }) {
   const root = useRef<HTMLElement>(null);
   const playing = useInViewPlay(root, { threshold: .35 });
+  if (slot) return <ReelPlayer slot={slot} hero />;
   return <figure ref={root} className="cs-svc-brand-film-screen">
     <FilmVideo source={source} labels={labels} playing={playing} />
     {source.tag && <CsTag overlay>{source.tag}</CsTag>}
@@ -127,6 +130,5 @@ export function FilmTimeline({ source, labels }: { source?: FilmSource; labels: 
       </ol>
       <span className="cs-svc-brand-film-playhead" aria-hidden="true" />
     </div>
-    <p className="cs-t-caption cs-svc-brand-film-timeline-note">장면 역할을 설명하는 구성 예시 · 실제 초 단위 배분은 기획안에서 정합니다</p>
   </div>;
 }

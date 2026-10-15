@@ -32,7 +32,7 @@ export function CsPricing({
       aria-labelledby="cs-pricing-title"
     >
       <div className="cs-container">
-        <CsSectionHead id="cs-pricing-title" eyebrow={c.eyebrow} title={c.title} />
+        <CsSectionHead id="cs-pricing-title" eyebrow={c.eyebrow} title={c.title} align="center" />
         <div className="cs-pricing-groups">
           {groups.map((group) => (
             <div

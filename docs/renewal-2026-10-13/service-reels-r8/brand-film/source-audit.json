@@ -1,0 +1,189 @@
+{
+  "sources": [
+    {
+      "id": "logo",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_홍보영상\\최종\\hero-promo.mp4",
+      "start": 0.5,
+      "end": 2.5,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highres",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_사용자생성\\사다리차_영상 6.mp4",
+      "start": 0.5,
+      "end": 2.5,
+      "sha256": "9bf380e1ff786ea9f21605b1231640c47361acb96eabc347e22f30040759d59e",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highrise2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\highrise-02.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "2d19ad037173b47892cd6f912eb075d8960b0aeba546f7e2476412d886d5ead9",
+      "originalUnchanged": true
+    },
+    {
+      "id": "highrise3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\highrise-03.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "b485af737887e476c65c82640f0341c20b00f7aeb764d45d5169e227dc0474aa",
+      "originalUnchanged": true
+    },
+    {
+      "id": "airport1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\airport-01.mp4",
+      "start": 0,
+      "end": 2,
+      "sha256": "391fcb641416badafc213bcc952f933597eb690411896c95c926bb1954714a46",
+      "originalUnchanged": true
+    },
+    {
+      "id": "airportres",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_사용자생성\\공항_영상_추가.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "95e1474f49c7994c63694e0231f6bc40902b72eed8114a81c7ac059fa71ee029",
+      "originalUnchanged": true
+    },
+    {
+      "id": "airport3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\airport-03.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "b553fd443e5ea404a5bc34e7dc3cf1f88f8e159cefed47a76f3911015cc6ac9e",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mountain1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\mountain-01.mp4",
+      "start": 0,
+      "end": 2,
+      "sha256": "f96c8eaf3259be761f079486b5d98330c3c8691783f30ba5802ba22fb729ee02",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mountain2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\mountain-02.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "ac272b2e30fa1e903176a3cc0dd93e9529d977c2f411d5289a446c5a6b830745",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mountain3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_편집\\최종\\mountain-03.mp4",
+      "start": 1,
+      "end": 3,
+      "sha256": "69edf992f1d56cf0e574112b1bcc8b62033e2e91ec56aa2283b7b8a8b8600ecf",
+      "originalUnchanged": true
+    },
+    {
+      "id": "photo1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_홍보영상\\최종\\hero-promo.mp4",
+      "start": 52.6,
+      "end": 54.4,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "originalUnchanged": true
+    },
+    {
+      "id": "photo2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_홍보영상\\최종\\hero-promo.mp4",
+      "start": 54.4,
+      "end": 56.199999999999996,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "originalUnchanged": true
+    },
+    {
+      "id": "photo3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_홍보영상\\최종\\hero-promo.mp4",
+      "start": 56.2,
+      "end": 58.0,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "originalUnchanged": true
+    },
+    {
+      "id": "logoend",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261013_맥스테크\\02_웹사이트\\02_컨텐츠\\영상\\v05_홍보영상\\최종\\hero-promo.mp4",
+      "start": 58.1,
+      "end": 61.800000000000004,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "originalUnchanged": true
+    }
+  ],
+  "cuts": [
+    {
+      "time": 0.0,
+      "ideal": 0.0,
+      "error": 0.0
+    },
+    {
+      "time": 2.0,
+      "ideal": 2.0,
+      "error": 0.0
+    },
+    {
+      "time": 4.0,
+      "ideal": 4.0,
+      "error": 0.0
+    },
+    {
+      "time": 6.0,
+      "ideal": 6.0,
+      "error": 0.0
+    },
+    {
+      "time": 8.0,
+      "ideal": 8.0,
+      "error": 0.0
+    },
+    {
+      "time": 10.0,
+      "ideal": 10.0,
+      "error": 0.0
+    },
+    {
+      "time": 12.0,
+      "ideal": 12.0,
+      "error": 0.0
+    },
+    {
+      "time": 14.0,
+      "ideal": 14.0,
+      "error": 0.0
+    },
+    {
+      "time": 16.0,
+      "ideal": 16.0,
+      "error": 0.0
+    },
+    {
+      "time": 18.0,
+      "ideal": 18.0,
+      "error": 0.0
+    },
+    {
+      "time": 20.0,
+      "ideal": 20.0,
+      "error": 0.0
+    },
+    {
+      "time": 22.0,
+      "ideal": 22.0,
+      "error": 0.0
+    },
+    {
+      "time": 24.0,
+      "ideal": 24.0,
+      "error": 0.0
+    },
+    {
+      "time": 26.0,
+      "ideal": 26.0,
+      "error": 0.0
+    }
+  ],
+  "originalAudio": "discarded: frame extraction and picture encode -an; only chosen music is muxed"
+}

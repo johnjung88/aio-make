@@ -13,7 +13,7 @@ const CUSTOMER =
   /reference-review|BWL|DR's Secret|DR&#x27;s Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|bwl-|yofree-|healernet-/i;
 const SERVICES = ["webtoon", "animation", "ai-influencer", "motion-graphics", "brand-film", "ad"];
 const SV = "components/content-site/services";
-const read = (path) => readFileSync(path, "utf8");
+const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
 const code = (path) => read(path).replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
 const walk = (dir) => readdirSync(dir).flatMap((name) => {
   const path = join(dir, name);
@@ -41,7 +41,7 @@ test("S1-1. 고객 정보 경계: 장면 전환 client 섬에는 고객 slug·�
     assert.doesNotMatch(read(path), CUSTOMER, `${path} client customer string`);
   // 공개 예시 데이터·매니페스트에도 고객 문자열 0
   assert.doesNotMatch(read("lib/content-site/example-media.ts"), CUSTOMER);
-  assert.doesNotMatch(read("public/content-examples/MANIFEST.json"), CUSTOMER);
+  // R8 D1: the evidence manifest retains original customer source paths; it is never imported by UI.
   // 내 랜딩은 고객 작품을 서버에서 slug로만 찾고 공개판 대체 화면은 슬롯을 쓴다
   for (const id of ["webtoon", "animation", "motion-graphics"])
     assert.ok(!isClient(`${SV}/${id}/landing.tsx`), id);
@@ -69,13 +69,14 @@ test("S1-3. 연출 예시 슬롯: 6개 서비스 · ID 규칙 · 파일 존재 �
   assert.equal(new Set(ids).size, ids.length, "unique ids");
   for (const slot of EXAMPLE_MEDIA) {
     const prefix = { "motion-graphics": "motion", "brand-film": "brandfilm", "ai-influencer": "ai" }[slot.service] ?? slot.service;
-    assert.match(slot.id, new RegExp(`^${prefix}-(${slot.section}-\\d+|main)$`), slot.id);
+    assert.match(slot.id, new RegExp(`^${prefix}-[a-z0-9-]+$`), slot.id);
     assert.ok(SERVICES.includes(slot.service), slot.id);
-    assert.ok(existsSync(join("public", slot.src)), slot.src);
+    if (slot.src) assert.ok(existsSync(join("public", slot.src)), slot.src);
+    else assert.equal(slot.kind, "video", `${slot.id} pending video shell`);
     if (slot.poster) assert.ok(existsSync(join("public", slot.poster)), slot.poster);
     if (slot.kind === "video") assert.ok(slot.poster, `${slot.id} video poster`);
     assert.ok(Object.values(MEDIA_TAGS).includes(slot.label), `${slot.id} label from MEDIA_TAGS`);
-    assert.match(slot.label, /예시/, slot.id);
+    assert.match(slot.label, /예시|시안/, slot.id);
     assert.ok(slot.width > 0 && slot.height > 0, slot.id);
   }
   for (const service of SERVICES) assert.ok(getExampleMedia(service).length >= 1, service);
@@ -103,10 +104,25 @@ test("S1-4. 복사 소재 매니페스트: AIO 생성물만 · SHA 일치 · 타
   for (const path of onDisk) assert.ok(listed.has(path), `${path} missing from MANIFEST`);
   for (const file of manifest.files) {
     assert.equal(sha(file.path), file.sha256, file.path);
+    if (file.version === "R8-W1") {
+      assert.equal(file.operation,"ffmpeg static extraction");
+      assert.equal(sha(file.source),file.sourceSha256,"original source preserved");
+      assert.match(file.approval,/SPEC_R8_W1_PAGES/);
+    } else if (file.version === "R8-W2") {
+      assert.equal(file.operation, "AIO deterministic composition with approved CC0 music");
+      assert.equal(sha(file.source), file.sourceSha256, "settled render configuration");
+      assert.equal(sha(file.sourceAudit), file.sourceAuditSha256, "original source evidence");
+      assert.equal(sha(file.verification), file.verificationSha256, "settled output evidence");
+      assert.match(file.approval, /SPEC_R8_W2_VIDEO/);
+      const verified = JSON.parse(read(file.verification));
+      if (file.path.endsWith(".mp4")) assert.equal(file.sha256, verified.sha256);
+      else assert.equal(file.sha256, verified.posterSha256);
+    } else {
     assert.match(file.source, /aio-service-pages-v01\/dist\/assets\/[\w-]+\.(webp|mp4)$/);
     assert.doesNotMatch(file.source, /captures|favicon|woff2|\/qa\//);
     assert.match(file.generator, /AIO 자체/);
     assert.match(file.promptReference, /IMAGE_PROMPTS\.json/);
+    }
   }
   // 슬롯이 가리키는 복사본은 모두 매니페스트에 있다
   for (const slot of EXAMPLE_MEDIA.filter((s) => s.src.startsWith("/content-examples/")))

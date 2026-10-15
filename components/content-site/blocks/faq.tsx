@@ -21,10 +21,11 @@ export function CsFaq({
       data-cs-section="faq"
       aria-labelledby="cs-faq-title"
     >
-      <div className="cs-container cs-container--read">
+      <div className="cs-container cs-container--read cs-container--read-center">
         <CsSectionHead
           id="cs-faq-title"
           eyebrow={CS_COPY.faq.eyebrow}
+          align="center"
           title={CS_COPY.faq.title}
         />
         <div className="cs-faq-list">

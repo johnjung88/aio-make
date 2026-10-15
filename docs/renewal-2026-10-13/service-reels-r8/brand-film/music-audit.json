@@ -1,0 +1,47 @@
+{
+  "file": ".qa\\r8-music\\r8-m05-motions.mp3",
+  "sha256": "af6380fde14f41dc4762a0a69c558bfd03a8a88c10cb5c8f578a6d0bcb4750be",
+  "selectedBpm": 120.0,
+  "nearestPeakBpm": 120.18,
+  "broadSearchPeaks": [
+    {
+      "bpm": 120.18,
+      "score": 22.2367
+    },
+    {
+      "bpm": 79.98,
+      "score": 17.7725
+    },
+    {
+      "bpm": 159.84,
+      "score": 12.5877
+    },
+    {
+      "bpm": 96.0,
+      "score": 10.4111
+    },
+    {
+      "bpm": 144.22,
+      "score": 9.3058
+    },
+    {
+      "bpm": 127.6,
+      "score": 9.3017
+    },
+    {
+      "bpm": 168.26,
+      "score": 8.8678
+    },
+    {
+      "bpm": 174.44,
+      "score": 8.8169
+    }
+  ],
+  "method": "up to 90 s mono 22050 Hz; positive STFT spectral flux; 70-180 BPM autocorrelation with 8 beat multiples",
+  "listening": "NOT_RUN; computational beat-grid verification, not human listening",
+  "note": "Goodnightmare also admits a 3:2 interpretation; Motions has weak/half-time pulses. The approved 130/120/130 grid is retained.",
+  "cutGridSeconds": 2.0,
+  "musicStartSeconds": 0.24,
+  "fade": "80 ms in, 3 s out",
+  "normalization": "two-pass loudnorm I=-16 TP=-1.5 LRA=11; AAC 128k/48kHz"
+}

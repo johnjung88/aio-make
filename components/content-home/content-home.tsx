@@ -13,6 +13,7 @@ import {
 import { HeroMedia } from "./hero-media";
 import { ProcessSteps } from "./process-steps";
 import { ServiceShowcase } from "./service-showcase";
+import { ServiceCards } from "./service-cards";
 import "./content-home.css";
 
 export async function ContentHome() {
@@ -59,6 +60,8 @@ export async function ContentHome() {
           <ProcessSteps />
         </div>
       </section>
+
+      <ServiceCards />
 
       <section
         className="ch-cta"

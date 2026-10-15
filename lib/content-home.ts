@@ -18,7 +18,7 @@ export const contentHomeHero = {
   videoPlay: "영상 재생",
   /** 소재 슬롯 ID. 영상이 오면 아래 video 한 줄만 채운다 */
   reelSlot: "home-hero-reel",
-  video: { src: "/content-home/hero-reel-r7.mp4", poster: "/content-home/hero-reel-r7.webp" } as HeroVideo | undefined,
+  video: { src: "/content-home/hero-reel-r8.mp4", poster: "/content-home/hero-reel-r8.webp" } as HeroVideo | undefined,
 };
 
 /* 홈 캐러셀 카드 소재 슬롯(R5 WP-H, ASSET_REQUEST_R5)
@@ -38,13 +38,13 @@ export type HomeMediaSlot = {
 export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
   webtoon: {
     slotId: "home-card-webtoon",
-    poster: "/webtoon-v11/cut-01.webp",
+    poster: "/content-examples/webtoon/card-r8.webp",
     video: undefined,
     tag: MEDIA_TAGS.ownWebtoon,
   },
   animation: {
     slotId: "home-card-animation",
-    poster: "/creative-v06/video-animation.webp",
+    poster: "/content-examples/animation/card-r8.webp",
     video: undefined,
     tag: MEDIA_TAGS.staged,
   },
@@ -56,19 +56,19 @@ export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
   },
   "motion-graphics": {
     slotId: "home-card-motion-graphics",
-    poster: "/renewal/video.webp",
+    poster: "/content-examples/motion-graphics/card-r8.webp",
     video: undefined,
     tag: MEDIA_TAGS.staged,
   },
   "brand-film": {
     slotId: "home-card-brand-film",
-    poster: "/creative-v06/video-brand-film.webp",
+    poster: "/content-examples/brand-film/card-r8.webp",
     video: undefined,
     tag: MEDIA_TAGS.staged,
   },
   ad: {
     slotId: "home-card-ad",
-    poster: "/creative-v06/video-sns-ad.webp",
+    poster: "/content-examples/ad/card-r8.webp",
     video: undefined,
     tag: MEDIA_TAGS.staged,
   },
@@ -104,12 +104,12 @@ const service = (s: Omit<ContentHomeService, "href">): ContentHomeService => ({
 });
 
 export const contentHomeServices: ContentHomeService[] = [
-  service({ id: "webtoon", label: "웹툰", line: "제품을 설명하는 대신 이야기를 읽게 만드는 웹툰" }),
-  service({ id: "animation", label: "애니메이션", line: "브랜드 캐릭터가 살아 움직이는 애니메이션" }),
-  service({ id: "ai-influencer", label: "AI 인플루언서", line: "브랜드 전용 AI 가상인물을 만듭니다" }),
-  service({ id: "motion-graphics", label: "모션그래픽", line: "제품과 메시지를 간결하게 전하는 모션그래픽" }),
-  service({ id: "brand-film", label: "브랜드 홍보 영상", line: "브랜드의 생각을 한 편의 영상으로" }),
-  service({ id: "ad", label: "SNS 광고 영상", line: "첫 장면부터 제품에 집중하는 세로 광고" }),
+  service({ id: "webtoon", label: "웹툰", line: "제품 이야기를 컷으로 그려 전합니다" }),
+  service({ id: "animation", label: "애니메이션", line: "표정과 동작으로 말하는 브랜드 캐릭터" }),
+  service({ id: "ai-influencer", label: "AI 인플루언서", line: "정한 인물이 매번 같은 얼굴로 나옵니다" }),
+  service({ id: "motion-graphics", label: "모션그래픽", line: "읽는 순서에 맞춰 움직이는 로고와 문구" }),
+  service({ id: "brand-film", label: "브랜드 홍보 영상", line: "홈페이지에 올릴 회사 소개 한 편" }),
+  service({ id: "ad", label: "SNS 광고 영상", line: "제품 하나를 세로 화면에 담는 광고" }),
 ];
 
 export const contentHomeServicesHead = {
@@ -157,7 +157,7 @@ export const contentHomeProcess: ContentHomeStep[] = [
   },
   {
     label: "납품",
-    text: "게시할 채널에 맞춰 최종 편집후 결과물을 전달합니다",
+    text: "게시할 채널에 맞춰 최종 편집 후 결과물을 전달합니다",
     art: "frames",
   },
 ];

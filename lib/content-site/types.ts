@@ -63,6 +63,10 @@ export type ServiceLandingData = {
 
 /** 미디어 상태 태그. 새 태그가 필요하면 이 상수에만 추가한다("WP0 요청"). */
 export const MEDIA_TAGS = {
+  sample: "제작 예시",
+  sampleAi: "제작 예시 · AI 생성 장면 포함",
+  webtoonReel: "웹툰 제작 예시",
+  aiPersonSample: "AI 가상인물 출연 · 제안용 시안",
   /** AI가 만든 장면·배경·사물 이미지와 CSS 일러스트 */
   staged: "연출 예시",
   /** AI가 만든 사람이 보이는 이미지·영상은 모두 이 태그 */
@@ -108,7 +112,7 @@ export type CsWorkCard = {
   media: CsWorkMedia[];
   /** 서비스 고유 섹션에 실물을 붙이는 작품 표시. 이 값이 있으면 사례 목록(CsWorks)에서 빼 같은 작품을 두 번 보이지 않고, 목록 상한 계산에서도 뺀다.
    * "ad-signature"는 SNS 광고 시그니처(세로 3장면)에 붙는 작품이다(R7) */
-  placement?: "character-case" | "ad-signature";
+  placement?: "character-case" | "ad-signature" | "ai-product";
   /** 시그니처(placement "ad-signature") 3장면 이름. 서버가 만들어 내려준다. 클라이언트 파일에는 문구를 두지 않는다(R7) */
   signatureLabels?: readonly [string, string, string];
   /** 히어로 레일 앞칸에 이 작품의 9:16 포스터를 먼저 둔다(R7, SNS 광고) */
@@ -118,3 +122,26 @@ export type CsWorkCard = {
 };
 
 export type CsWorksLayout = "vertical" | "wide" | "webtoon";
+
+export type CsCut = {
+  no: string;
+  from: number;
+  to: number;
+  scene: string;
+  copy: string;
+  sound?: string;
+  intent: string;
+  thumb?: string;
+};
+
+export type CsCutBoard = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  tag: string;
+  sample: { label: string; src: string; poster: string; aspect: "16x9" | "9x16"; cuts?: CsCut[] }[];
+  cuts: CsCut[];
+  note: string;
+  chapters?: { name: string; from: number; to: number }[];
+};

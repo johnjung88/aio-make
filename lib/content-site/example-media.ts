@@ -1,8 +1,7 @@
-/* R5 공개판 연출 예시 소재 슬롯(WP-S1 소유, WP-S2는 읽기만).
- * 고객 레퍼런스는 공개 권리 HOLD라 공개판(검토 플래그 미설정)에서는 여기 슬롯만 쓴다. 검토판은 실제 작업물을 먼저 쓴다.
- * 소재 교체: 사용자가 만든 이미지·5초 영상을 public/content-examples/<service>/에 넣고 아래 슬롯의 src(+poster) 한 줄만 바꾼다.
- * 출처·해시는 public/content-examples/MANIFEST.json. 고객 이름·작품 경로는 이 파일에 두지 않는다(client 번들 경계). */
+/* R8 approved public sample slots. The separate work catalog retains its exact review gate.
+ * W2 connects pending video src values in r8-media.ts; source evidence is in MANIFEST.json. */
 import { MEDIA_TAGS } from "./types.ts";
+import { R8_MEDIA } from "./r8-media.ts";
 
 export type ExampleService =
   | "webtoon"
@@ -12,7 +11,7 @@ export type ExampleService =
   | "brand-film"
   | "ad";
 
-export type ExampleAspect = "16x9" | "9x16" | "2x3" | "4x5" | "1x1" | "3x2";
+export type ExampleAspect = "16x9" | "9x16" | "2x3" | "3x4" | "4x5" | "1x1" | "3x2";
 
 export type ExampleSlot = {
   /** `<service>-<section>-<n>` 또는 `<service>-main` */
@@ -71,7 +70,7 @@ const webtoonCuts: ExampleSlot[] = WEBTOON_SCENES.map((scene, i) => ({
 export const EXAMPLE_MEDIA: readonly ExampleSlot[] = [
   ...webtoonCuts,
 
-  { id: "animation-hero-1", service: "animation", section: "hero", kind: "image", src: `${DIR}/animation/animation-character.webp`, alt: "산호색 아치 아래 계단에 선 보라색 입체 캐릭터 연출 예시", label: STAGED, aspect: "2x3", width: 900, height: 1350, focus: [50, 30] },
+  { id: "animation-hero-1", service: "animation", section: "hero", kind: "video", src: "", poster: `${DIR}/animation/hero-r8.webp`, alt: "손을 들어 인사하는 클레이 캐릭터 제작 예시", label: MEDIA_TAGS.sample, aspect: "16x9", width: 960, height: 540 },
   { id: "animation-scene-1", service: "animation", section: "scene", kind: "image", src: `${DIR}/animation/animation-character.webp`, alt: "아치 아래로 걸어 나오는 입체 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 900, height: 1350, focus: [50, 30] },
   { id: "animation-scene-2", service: "animation", section: "scene", kind: "image", src: "/creative-v06/video-animation.webp", alt: "비 오는 밤 다리 위에서 빛나는 선물 상자를 든 너구리 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 1586, height: 992, focus: [40, 40] },
   { id: "animation-scene-3", service: "animation", section: "scene", kind: "image", src: "/renewal/animation-sample.webp", alt: "노을 진 성곽 마을 다리 위에서 등불을 든 캐릭터 장면 연출 예시", label: STAGED, aspect: "16x9", width: 1100, height: 733, focus: [40, 50] },
@@ -87,7 +86,6 @@ export const EXAMPLE_MEDIA: readonly ExampleSlot[] = [
   { id: "ai-card-3", service: "ai-influencer", section: "card", kind: "image", src: "/content-site/ai-influencer/grace-portrait.webp", alt: "그레이스의정원 · AI 가상인물", label: MEDIA_TAGS.aiPerson, aspect: "2x3", width: 900, height: 1350, focus: [50, 30] },
   { id: "ai-card-4", service: "ai-influencer", section: "card", kind: "image", src: "/content-site/ai-influencer/ssal-portrait.webp", alt: "쌀만드는아저씨 · AI 가상인물", label: MEDIA_TAGS.aiPerson, aspect: "2x3", width: 900, height: 1350, focus: [50, 30] },
 
-  { id: "brandfilm-main", service: "brand-film", section: "main", kind: "video", src: `${DIR}/brand-film/brandfilm-motion.mp4`, poster: `${DIR}/brand-film/brandfilm-poster.webp`, alt: "보라색 유리 리본 위로 카메라가 다가가는 브랜드 영상 연출 예시", label: MEDIA_TAGS.stagedMuted, aspect: "16x9", width: 1920, height: 1081 },
 
   /* 가운데 고정 9:16 화면. 2:3 원본을 CSS object-fit: cover로 세로 잘라 쓴다(파일 생성 없음). 9:16 영상이 오면 kind·src·poster만 바꾼다 */
   /* 장면 전환(SceneSequence) 3컷: 광고 후크 소재(ad-hook-*)가 오기 전까지 기존 광고 이미지를 재사용한다. 9:16 화면에 cover로 세운다 */
@@ -103,6 +101,7 @@ export const EXAMPLE_MEDIA: readonly ExampleSlot[] = [
   { id: "ad-rail-7", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-ribbon.webp`, alt: "", label: STAGED, aspect: "9x16", width: 1920, height: 1081, focus: [90, 50] },
   { id: "ad-rail-8", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-product.webp`, alt: "", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 80] },
   { id: "ad-rail-9", service: "ad", section: "rail", kind: "image", src: `${DIR}/ad/ad-webtoon.webp`, alt: "", label: STAGED, aspect: "9x16", width: 900, height: 1350, focus: [50, 70] },
+  ...R8_MEDIA,
 ];
 
 /** 서비스의 슬롯 전체(정의 순서 유지) */

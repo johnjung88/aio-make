@@ -14,8 +14,7 @@ import { useInViewPlay } from "../motion-runtime";
 
 export type RailCard =
   | { kind: "image"; src: string; width: number; height: number; focus?: string }
-  | { kind: "video"; src: string; poster?: string; focus?: string }
-  | { kind: "type"; text: string };
+  | { kind: "video"; src: string; poster?: string; focus?: string };
 
 const setFocus = (focus?: string) => (node: HTMLElement | null) => { if (node && focus) node.style.setProperty("--svc-focus", focus); };
 
@@ -31,7 +30,6 @@ function RailVideo({ src, poster, playing }: { src: string; poster?: string; pla
 }
 
 function RailItem({ card, playing }: { card: RailCard; playing: boolean }) {
-  if (card.kind === "type") return <div className="cs-svc-ad-rail-card cs-svc-ad-rail-card--type"><span className="cs-t-h3">{card.text}</span></div>;
   return <div ref={setFocus(card.focus)} className="cs-svc-ad-rail-card">
     {card.kind === "video"
       ? <RailVideo src={card.src} poster={card.poster} playing={playing} />
@@ -70,7 +68,7 @@ export function AdWorkVariants({ items, label, tag }: { items: WorkVariantItem[]
   return <div className="cs-svc-ad-variants">
     <div className="cs-media-stack">
       <div className="cs-media cs-ratio-9x16">
-        <video ref={player} src={current.src} poster={current.poster} controls playsInline preload="none" aria-label={current.alt} />
+        <video ref={player} src={current.src} poster={current.poster} muted controls playsInline preload="none" aria-label={current.alt} />
       </div>
       <CsTag>{tag}</CsTag>
     </div>

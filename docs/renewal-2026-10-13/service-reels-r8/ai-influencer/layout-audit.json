@@ -1,0 +1,407 @@
+{
+  "checks": [
+    {
+      "t": 0.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 2,
+      "text": [
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 0.7,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 2,
+      "text": [
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 1.3667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 2,
+      "text": [
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 1.4333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 2,
+      "text": [
+        "같은 얼굴로",
+        "20장을 고정합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 3.5167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 19,
+      "text": [
+        "같은 얼굴로",
+        "20장을 고정합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 5.6,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 21,
+      "text": [
+        "같은 얼굴로",
+        "20장을 고정합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 5.6667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 7.05,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 8.4333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 8.5,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 9.8833,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 11.2667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 11.3333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 12.7167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 14.1,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 14.1667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 16.25,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 18.3333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 편",
+        "한 컷씩 기획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 18.4,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 19.0667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 19.7333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 19.8,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 20.4667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 21.1333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 사람이",
+        "여러 편을 이어 갑니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 21.2,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "DAY 1",
+        "예정",
+        "20:00",
+        "DAY 2",
+        "DAY 3",
+        "DAY 4",
+        "운영 계획 예시",
+        "SNS 운영 기획",
+        "채널과 일정을 계획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 23.2833,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "DAY 1",
+        "예정",
+        "20:00",
+        "DAY 2",
+        "예정",
+        "20:00",
+        "DAY 3",
+        "예정",
+        "20:00",
+        "DAY 4",
+        "운영 계획 예시",
+        "SNS 운영 기획",
+        "채널과 일정을 계획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 25.3667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "DAY 1",
+        "예정",
+        "20:00",
+        "DAY 2",
+        "예정",
+        "20:00",
+        "DAY 3",
+        "예정",
+        "20:00",
+        "DAY 4",
+        "예정",
+        "20:00",
+        "운영 계획 예시",
+        "SNS 운영 기획",
+        "채널과 일정을 계획합니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 25.4333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 6,
+      "text": [
+        "운영 계획 예시",
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 26.8167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 6,
+      "text": [
+        "운영 계획 예시",
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 28.2,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 6,
+      "text": [
+        "운영 계획 예시",
+        "AI 인플루언서",
+        "브랜드 전용 AI 가상인물을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 28.2667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 28.9333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 29.6,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지",
+        "AI 가상인물",
+        "AI 가상인물"
+      ]
+    }
+  ],
+  "browserErrors": [],
+  "ownedBrowserClosed": true
+}

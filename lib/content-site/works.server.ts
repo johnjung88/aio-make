@@ -77,7 +77,7 @@ function toCard(work: WorkItem, service: ContentServiceId): CsWorkCard {
     scope: work.scope,
     label: workLabel(work),
     href: `/content/projects/${work.slug}?service=${service}`,
-    ...(placed ? { placement: placed.placement } : {}),
+    ...(placed ? { placement: placed.placement } : service === "ai-influencer" && aiPersonDraft.slugs.includes(work.slug) ? { placement: "ai-product" as const } : {}),
     ...(placed?.labels ? { signatureLabels: placed.labels } : {}),
     ...(service === "ad" && adRailLead.includes(work.slug) ? { railLead: true as const } : {}),
     ...(service === "ad" && !placed && portraitVideos > 1 ? { variantLabel: `${portraitVideos}안` } : {}),

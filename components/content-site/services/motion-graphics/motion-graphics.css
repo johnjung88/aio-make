@@ -76,3 +76,5 @@
     to { transform: rotate(360deg); }
   }
 }
+
+@media(min-width:1024px){.cs-svc-motion-graphics-planning .cs-figure-row{grid-template-columns:2fr 1fr 1fr;}}

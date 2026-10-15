@@ -1,0 +1,12 @@
+[
+  {
+    "path": "public\\content-examples\\ad\\service-reel-r8.mp4",
+    "sha256": "34576c9e835e6b00e5887354a8b0e52609a8498d4632989afec0e35f099ac08a",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\ad\\service-reel-r8.mp4"
+  },
+  {
+    "path": "public\\content-examples\\ad\\service-reel-r8-poster.webp",
+    "sha256": "2a38aa6c22b724cab7a01053012206db9d93f3f27a5ad46ae9c06db3220d3d5e",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\ad\\service-reel-r8-poster.webp"
+  }
+]

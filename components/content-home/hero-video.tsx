@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { useCsMotion } from "@/components/content-site/shell/frame";
 import { contentHomeHero, type HeroVideo } from "@/lib/content-home";
+import { useReelSound } from "@/components/content-site/services/reel-sound";
 
 const reducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -19,18 +20,22 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
   const [wantPlay, setWantPlay] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [shown, setShown] = useState(false);
+  const { muted, toggleSound } = useReelSound(ref);
 
   useEffect(() => setMounted(true), []);
 
   // 움직임 토글·reduced-motion → 자동재생 의도
   useEffect(() => {
-    setWantPlay(motion === "on" && !reducedMotion());
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setWantPlay(motion === "on" && !reducedMotion());
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
   }, [motion]);
 
   useEffect(() => {
     const node = ref.current;
     if (!mounted || !node) return;
-    node.muted = true;
     if (wantPlay) node.play().catch(() => setPlaying(false));
     else node.pause();
   }, [mounted, wantPlay]);
@@ -43,7 +48,7 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
         ref={ref}
         className="ch-hero-video"
         data-shown={shown ? "" : undefined}
-        muted
+        muted={muted}
         loop
         playsInline
         preload="metadata"
@@ -57,6 +62,7 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
       >
         <source src={video.src} type="video/mp4" />
       </video>
+      <div className="ch-hero-controls" role="group" aria-label="히어로 영상 조작">
       <button
         type="button"
         className="ch-hero-pause"
@@ -81,6 +87,10 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
           <Play size={18} aria-hidden="true" />
         )}
       </button>
+      <button type="button" className="ch-hero-sound cs-t-caption" aria-pressed={!muted} onClick={toggleSound}>
+        {muted ? "소리 켜기" : "소리 끄기"}
+      </button>
+      </div>
     </>
   );
 }

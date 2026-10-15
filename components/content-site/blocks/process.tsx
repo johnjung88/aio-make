@@ -15,11 +15,12 @@ export function CsProcess({
       data-cs-section="process"
       aria-labelledby="cs-process-title"
     >
-      <div className="cs-container cs-container--read">
+      <div className="cs-container cs-container--read cs-container--read-center">
         <CsSectionHead
           id="cs-process-title"
           eyebrow={CS_COPY.process.eyebrow}
           title={process.title}
+          align="center"
           lead={process.lead}
         />
         <ol className="cs-steps" data-count={process.steps.length}>

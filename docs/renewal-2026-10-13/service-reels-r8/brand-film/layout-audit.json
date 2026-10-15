@@ -1,0 +1,468 @@
+{
+  "checks": [
+    {
+      "t": 0.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "브랜드 홍보 영상",
+        "회사와 브랜드를 소개하는 영상",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 1.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "브랜드 홍보 영상",
+        "회사와 브랜드를 소개하는 영상",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 1.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "브랜드 홍보 영상",
+        "회사와 브랜드를 소개하는 영상",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 2.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 3.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 3.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 4.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 5.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 5.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 6.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 7.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 7.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 8.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 9.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 9.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 10.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 11.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 11.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 12.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 13.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 13.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 14.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 15.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 15.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 16.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 17.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 17.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 18.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 19.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 19.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품이",
+        "일하는 현장으로 이어집니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 20.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 21.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 21.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 22.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 23.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 23.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 24.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 25.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 25.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 26.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 28.0,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 29.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품으로",
+        "소개를 마무리합니다",
+        "연출 예시"
+      ]
+    }
+  ],
+  "browserErrors": [],
+  "ownedBrowserClosed": true
+}
