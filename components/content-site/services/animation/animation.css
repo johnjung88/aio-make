@@ -7,6 +7,8 @@
   .cs-svc-animation .cs-svc-animation-hero-example { max-width: min(100%, max(300px, calc((100svh - 240px) * 2 / 3))); }
   /* 대표 슬롯에 16:9 영상이 오면 세로 제한을 풀고 열 전체를 쓴다 */
   .cs-svc-animation .cs-svc-animation-hero-example[data-aspect="16x9"] { max-width: none; }
+  /* 2열 히어로: 대표 이미지를 미디어 열의 오른쪽 끝(컨테이너 오른쪽 선)에 맞춘다 */
+  .cs-svc-animation .cs-example-figure.cs-svc-animation-hero-example { margin-inline-start: auto; }
 }
 
 /* 영상 레퍼런스 그리드: 모바일 1열, 768부터 2열. 칸은 항상 16:9 */

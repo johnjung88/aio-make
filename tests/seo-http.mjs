@@ -148,11 +148,17 @@ for (const path of paths) {
       assert.doesNotMatch(html, /guide-header|guide-footer|floating-contact/);
       assert.doesNotMatch(html, /\sautoplay[\s=>]/i, "no autoplay attribute");
     }
-    if (/\/insights\/./.test(path))
-      assert.ok(
-        schema.some((s) => s["@type"] === "Article") &&
-          html.includes("최종 정리"),
-      );
+    if (/\/insights\/./.test(path)) {
+      if (path.startsWith("/content/")) {
+        // 컨텐츠 사이트 인사이트(content-site 셸): Article 스키마와 "최종 정리" 문구 없이 Organization 스키마만 쓴다
+        assert.ok(html.includes('class="cs-site"'), "content site shell");
+        assert.ok(!schema.some((s) => s["@type"] === "Article"), "content insight has no Article schema");
+      } else
+        assert.ok(
+          schema.some((s) => s["@type"] === "Article") &&
+            html.includes("최종 정리"),
+        );
+    }
   }, path);
   titles.set(title, path);
   if (value("og:image")) images.add(value("og:image"));
@@ -348,9 +354,16 @@ check(() => {
   assert.doesNotMatch(html, /<video\b|\sautoplay[\s=>]/i, "reel slot is empty");
   assert.doesNotMatch(
     html,
-    /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|제안용 시안|home-references|work-card|작업 사례|맞춤 견적|Blender|준비 중|공개 예정|coming soon/i,
+    /home-references|work-card|작업 사례|맞춤 견적|Blender|준비 중|공개 예정|coming soon/i,
   );
-  assert.doesNotMatch(html, /href="\/content\/work|href="\/content\/insights/);
+  // 고객명·검토용 자산 경로는 공개판에서만 금지한다(검토판은 레퍼런스 카드에 고객 작업물을 쓴다)
+  if (!referenceReview)
+    assert.doesNotMatch(
+      html,
+      /reference-review|BWL|DR&#x27;s Secret|DR's Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|제안용 시안/i,
+    );
+  // 헤더의 "인사이트" 링크(/content/insights)는 현행이다. 삭제된 /content/work 링크만 금지한다
+  assert.doesNotMatch(html, /href="\/content\/work/);
 }, "/content home server HTML");
 {
   // /content/contact (P2R WP-D): 서비스 선택 6개(폼 밖)·가격 기준·문의 폼, 없는 선택지 문구 없음

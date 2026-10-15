@@ -1807,9 +1807,14 @@ body:has(.cs-site) {
   gap: 0 var(--cs-s4);
   min-height: 72px;
   height: 100%;
-  padding-block: var(--cs-s3);
+  padding-block: var(--cs-s2);
   border-top: 1px solid var(--cs-line);
   color: var(--cs-fg);
+}
+@media (min-width: 768px) {
+  .cs-site .cs-related-row {
+    padding-block: var(--cs-s3);
+  }
 }
 .cs-site .cs-related-name {
   grid-area: name;

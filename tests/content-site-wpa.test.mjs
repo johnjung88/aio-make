@@ -138,7 +138,9 @@ test("A-2b. 웹툰 히어로: 표지 컷 1장만(캡션·링크·부채 없음),
   assert.match(hero, /<ServiceHero/);
   assert.equal((hero.match(/<CsMedia/g) ?? []).length, 1);
   assert.match(hero, /ratio="2x3"/);
-  assert.match(hero, /CUTS\[0\]/);
+  assert.match(hero, /CUTS\[COVER\]/);
+  // R-3: 표지 컷은 리더 첫 장(컷 1)과 다른 컷이다
+  assert.match(landing, /const COVER = 3;/);
   assert.match(hero, /tag=\{MEDIA_TAGS\.ownWebtoon\}/);
   assert.doesNotMatch(hero, /figcaption|<h2|<a |cs-link/);
   assert.doesNotMatch(landing, /WebtoonCover|WebtoonUnfold|Unfold/);
@@ -219,7 +221,8 @@ test("A-4. 두 랜딩은 서버에서 작품을 렌더하고 기존 client 경�
 test("A-5. 애니메이션: 영상 레퍼런스 영역(16:9 슬롯 그리드, 채워진 슬롯만, 빈 면 한 줄)과 삭제 항목", () => {
   const landing = code(`${AN}/landing.tsx`);
   // 레퍼런스: 슬롯 id 목록 → getSlot → src가 있는 슬롯만 렌더, 칸마다 ExampleFigure(영상은 src + poster, 이미지는 정지 화면)
-  assert.match(landing, /animationReferenceIds\.map\(\(id\) => getSlot\(id\)\)\.filter\(\(slot\) => slot\.src\.trim\(\) !== ""\)/);
+  // R-3: 바로 위 히어로와 같은 이미지(src)를 쓰는 슬롯은 그리드에서 뺀다
+  assert.match(landing, /animationReferenceIds\s*\.map\(\(id\) => getSlot\(id\)\)\s*\.filter\(\(slot\) => slot\.src\.trim\(\) !== "" && slot\.src !== HERO_SLOT\.src\)/);
   assert.match(landing, /REFERENCES\.length > 0/);
   assert.match(landing, /<ul className="cs-svc-animation-refs"/);
   assert.match(landing, /<ExampleFigure className="cs-svc-animation-ref" slot=\{slot\}/);
@@ -250,7 +253,8 @@ test("A-5. 애니메이션: 영상 레퍼런스 영역(16:9 슬롯 그리드, �
   // 섹션: 히어로 다음 레퍼런스(signature) 한 개
   assert.equal((landing.match(/data-cs-section="signature"/g) ?? []).length, 1);
   // 히어로: 텍스트 + 대표 슬롯 1개, 가격 한 줄
-  assert.match(landing, /slot=\{getSlot\("animation-hero-1"\)\}/);
+  assert.match(landing, /const HERO_SLOT = getSlot\("animation-hero-1"\)/);
+  assert.match(landing, /slot=\{HERO_SLOT\}/);
   assert.equal((landing.match(/<ServiceHero/g) ?? []).length, 1);
   assert.equal(contentLandings.animation.hero.title, "캐릭터와 장면을\n움직이는 영상으로");
   assert.equal(startingPrice("animation", true).line, "30만 원부터 · 30초 기준 · 부가세 별도");

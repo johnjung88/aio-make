@@ -9,8 +9,13 @@ import { animationReferenceIds, animationSignature as sig } from "@/lib/content-
 import { ServiceHero, ExampleFigure } from "../service-hero";
 import "./animation.css";
 
-/** 채워진 슬롯만 남긴다. 슬롯을 새로 정의해 id를 목록에 더하면 그리드가 한 칸 늘어난다 */
-const REFERENCES = animationReferenceIds.map((id) => getSlot(id)).filter((slot) => slot.src.trim() !== "");
+const HERO_SLOT = getSlot("animation-hero-1");
+
+/** 채워진 슬롯만 남기고, 바로 위 히어로와 같은 이미지를 쓰는 슬롯은 뺀다(같은 이미지가 연달아 보이지 않게).
+ * 슬롯을 새로 정의해 id를 목록에 더하면 그리드가 한 칸 늘어난다 */
+const REFERENCES = animationReferenceIds
+  .map((id) => getSlot(id))
+  .filter((slot) => slot.src.trim() !== "" && slot.src !== HERO_SLOT.src);
 
 function Hero({ data }: ServiceSectionProps) {
   return (
@@ -19,7 +24,7 @@ function Hero({ data }: ServiceSectionProps) {
       media={
         <ExampleFigure
           className="cs-svc-animation-hero-example"
-          slot={getSlot("animation-hero-1")}
+          slot={HERO_SLOT}
           sizes="(max-width:767px) 90vw, 50vw"
           priority
         />

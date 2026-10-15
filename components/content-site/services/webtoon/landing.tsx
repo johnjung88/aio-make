@@ -1,5 +1,5 @@
 /* webtoon 서비스 모듈(R6, BRIEF_R6 5절).
- * 순서: 히어로(표지 컷 1장) → ① 12컷 3D 책 리더 → ② 모션코믹(영상 + 한 줄 + 맡기는 방법 2개) → (공통) 가격 → 진행 방식 → FAQ → 문의 → 다른 서비스.
+ * 순서: 히어로(표지 컷 1장, 리더 첫 장과 다른 컷) → ① 12컷 3D 책 리더 → ② 모션코믹(영상 + 한 줄 + 맡기는 방법 2개) → (공통) 가격 → 진행 방식 → FAQ → 문의 → 다른 서비스.
  * 금액은 이 파일에 없다. 웹툰·모션코믹·함께 제작 금액은 #pricing(CsPricing) 한 곳에서만 보인다(VERIFY_FINAL_P2R WP-A-1).
  * 컷 경로·설명은 lib/content-site/example-media.ts의 webtoon-cut-1..12 슬롯 한 곳에 둔다(교체는 슬롯 한 줄). */
 import { WebtoonReader } from "./webtoon-experience";
@@ -15,7 +15,8 @@ import "./webtoon.css";
 /* ---------------------------------------------------------------- 자산 */
 /** 《1억의 구단주》 1회 12컷(AIO 자체 웹툰, 800×1200) */
 const CUTS = getExampleMedia("webtoon", "cut").map(({ src, alt }) => ({ src, alt }));
-/** 표지와 리더가 같은 sizes를 써서 같은 /_next/image 주소를 재사용한다 */
+/** 표지와 리더가 같은 sizes를 쓴다. 표지는 리더 첫 장(컷 1)과 같은 이미지가 연달아 나오지 않도록 컷 4(경기를 보며 환호하는 장면)를 쓴다 */
+const COVER = 3;
 const CUT_SIZES = "(max-width:767px) 80vw, 440px";
 
 /** poster는 같은 영상 17.6초 프레임(《1억의 구단주》 제목 + 장면)을 ffmpeg로 뽑은 1280×720 webp다.
@@ -27,7 +28,7 @@ const MOTION_COMIC_VIDEO = {
 
 /* ---------------------------------------------------------------- 히어로: 표지 컷 1장 */
 function Hero({ data }: ServiceSectionProps) {
-  const cover = CUTS[0];
+  const cover = CUTS[COVER];
   return (
     <ServiceHero
       data={data}

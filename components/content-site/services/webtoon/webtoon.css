@@ -12,6 +12,12 @@
   width: min(100%, 440px);
   border: 1px solid var(--cs-line);
 }
+/* 2열 히어로(768 이상): 표지를 미디어 열의 오른쪽 끝(컨테이너 오른쪽 선)에 맞춘다. 모바일은 왼쪽 시작 유지 */
+@media (min-width: 768px) {
+  .cs-svc-webtoon .cs-svc-webtoon-hero-cover {
+    margin-inline-start: auto;
+  }
+}
 
 /* ---------------------------------------------------------------- ① 12컷 리더 */
 .cs-svc-webtoon .cs-svc-webtoon-reader-grid {
