@@ -1,30 +1,13 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { realpath, stat } from "node:fs/promises";
-import path from "node:path";
 import { hasAdmin } from "@/lib/auth";
 import { database, databaseReady } from "@/lib/db";
 import { sameOrigin, readJson } from "@/lib/http";
 import { entrySchema, validateServiceCaseEntry, ServiceCaseConflictError, type ExistingServiceCaseEntry } from "@/lib/domain";
 import { CASE_BODY_PREFIX, serviceCaseSchema, type ServiceCase } from "@/lib/service-case-schema";
 import seedData from "@/content/service-cases-v14.json";
-
-async function checkPublicFiles(record: ServiceCase, extraPaths: string[]) {
-  const root = await realpath(path.resolve(process.cwd(), "public"));
-  const paths = new Set([
-    ...record.assets.flatMap((asset) => [asset.src, ...(asset.poster ? [asset.poster] : [])]),
-    ...record.stages.flatMap((stage) => stage.asset ? [stage.asset] : []),
-    ...extraPaths.filter((value) => value.startsWith("/")),
-  ]);
-  for (const source of paths) {
-    try {
-      const target = await realpath(path.resolve(root, `.${source}`));
-      if (!target.toLowerCase().startsWith(`${root}${path.sep}`.toLowerCase()) || !(await stat(target)).isFile()) throw new Error();
-    } catch {
-      throw new Error("연결한 결과물·포스터·과정 이미지가 사이트 public 폴더에 있는지 확인해주세요");
-    }
-  }
-}
+import publicMediaFiles from "@/lib/generated/public-media-files.generated.json";
+import { assertServiceCaseMedia } from "@/lib/service-case-media";
 export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
@@ -131,7 +114,7 @@ export async function POST(request: Request) {
         caseRecord = validated.record;
         previousRecord = validated.previous;
         if (!caseRecord) throw new Error("서비스 제작 사례를 확인해주세요");
-        await checkPublicFiles(caseRecord, [fields.cover_url, fields.video_url]);
+        assertServiceCaseMedia(caseRecord, [fields.cover_url, fields.video_url], publicMediaFiles);
         fields = { ...fields, body: validated.body, summary: fields.summary || caseRecord.summary };
         if (id) {
           expectedBody = existing.find((entry) => entry.id === id)?.body;

@@ -44,3 +44,12 @@ Export the committed tree for portable tests and deployment
 Keep the existing production environment settings and reference-review flag disabled
 Create a production deployment without assigning the live domains, verify it, then promote it and check the public domain
 Keep the previous production deployment available for rollback
+
+## Production packaging correction
+
+The first production attempt left the live domain unchanged because the admin case API exceeded the function size limit
+Its runtime public-file probe caused deployment tracing to include image and video bytes in the server function
+File existence is now checked against a small path index generated from actual public media during every build
+Results, posters, process evidence and local cover paths still require an existing file
+The build-index generator is the only script newly admitted to the CLI upload
+The original media hashes and public presentation are unchanged

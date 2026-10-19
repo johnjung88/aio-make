@@ -10,7 +10,8 @@ node_modules
 docs
 legacy
 tests
-scripts
+scripts/*
+!scripts/build-public-media-index.mjs
 design-system
 *.md
 **/*.log
