@@ -32,6 +32,8 @@ Local prototypes, capture/build logs, original-path ledgers and task scripts are
 
 Inquiry submission, database writes, email receipt, analytics event receipt, physical devices and external independent review were not exercised during this release. Later documentation-only commits do not change the deployed application or assets.
 
+The apex domain serves both released pages. The `www` alias is assigned in Vercel but its public DNS lookup currently returns no record; DNS settings were not changed by this release.
+
 ## Next conversation
 
 Continue with the existing webtoon v09 design and actual source documents, then extend the other five service detail pages. Preserve the approved home layouts, black service backgrounds, prices and hero v02. The current service routes still use the prior implementation: the newer detailed case journeys and case-management expansion have not been integrated yet. Read the versioned local service-detail resume prompt before changing those pages; do not restart planning or call the previews deployed implementation.
