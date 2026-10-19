@@ -1,10 +1,10 @@
 // Server-only selection for the main page journey (01 개발 · 03 컨텐츠).
-// Customer work data (project labels, before captures, review slugs, the
-// 87언니 label) lives only here and only when NEXT_PUBLIC_AIO_REFERENCE_REVIEW
-// is exactly "1". Unset or any other value means none of it is selected, so it
-// never reaches the server HTML, the RSC payload or a client bundle. Client
-// components receive the result as props and never import this module.
+// The company main development step uses one explicitly authorized case from
+// home-main-approved.ts. All other customer catalog selection below keeps its
+// exact NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" gate. Client components receive
+// plain props and never import this module.
 import "server-only";
+import { companyMainDevProject } from "./home-main-approved.ts";
 import type { Entry } from "./db";
 import { mergeGuideEntries } from "./guide-content.ts";
 import {
@@ -133,7 +133,7 @@ export function selectContentMedia(
 export function homeJourneyData(entries: Entry[] = []): HomeJourneyData {
   const catalog = displayWorkCatalog(mergeGuideEntries(entries, "reference"));
   return {
-    devProject: selectDevProject(catalog),
+    devProject: companyMainDevProject,
     contentSelections: contentTabs.map((tab) =>
       selectContentMedia(tab, catalog),
     ),

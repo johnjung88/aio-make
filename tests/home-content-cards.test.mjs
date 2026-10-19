@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import {
   cardHeightFor,
   cardPlan,
@@ -18,7 +19,7 @@ import {
   emptyJourneyData,
   fallbackContentSelection,
 } from "../lib/home-journey.ts";
-import { homeCarouselMotion } from "../lib/content-home.ts";
+import { homeCarouselMotion, homeCardMedia } from "../lib/content-home.ts";
 import { reviewWorks } from "../lib/work-catalog.ts";
 
 const root = new URL("../", import.meta.url);
@@ -107,43 +108,64 @@ test("six cards map services to platform frames exactly as the R7 table", () => 
   );
 });
 
-test("public cards use the own staged sources and no customer work", async () => {
+test("v11 public cards use exactly the approved actual media and retain their source context", async () => {
   const sources = publicPlans.map((plan) => {
     const { media } = plan;
     if (media.kind === "strip") return media.pages.map((page) => page.src);
     return [media.src, ...(media.kind === "video" ? [media.poster] : [])];
   });
-  assert.deepEqual(sources[0], Array.from({ length: 12 }, (_, i) => `/webtoon-v11/cut-${String(i + 1).padStart(2, "0")}.webp`));
+  assert.deepEqual(sources[0], [1, 5, 21].map(page => `/content-renewal-20261019/webtoon-${String(page).padStart(2, "0")}.webp`));
   assert.deepEqual(sources.slice(1), [
-    ["/creative-v06/video-animation.webp"],
-    ["/content-site/ai-influencer/unnie87-street.webp"],
-    ["/content-examples/motion-graphics/motion-product.webp"],
+    ["/content-renewal-20261019/yofree-character-02.webp"],
+    ["/content-renewal-20261019/ai-full.webp"],
     [
-      "/content-examples/brand-film/brandfilm-motion.mp4",
-      "/content-examples/brand-film/brandfilm-poster.webp",
+      "/content-renewal-20261019/bwl-brand-motion.mp4",
+      "/content-renewal-20261019/poster-bwl-brand-motion.webp",
     ],
-    ["/content-examples/ad/ad-product.webp"],
+    ["/content-renewal-20261019/healernet-motion.mp4", "/content-renewal-20261019/poster-healernet-motion.webp"],
+    ["/content-renewal-20261019/bwl-cplus-ad.mp4", "/content-renewal-20261019/poster-bwl-cplus-ad.webp"],
   ]);
-  for (const src of sources.flat()) assert.ok(await exists(src), src);
-  // Staged / AI-person tags stay (public rule); every public card carries one.
-  for (const plan of publicPlans) assert.ok(plan.tag, plan.id);
-  assert.match(publicPlans[0].tag, /1억의 구단주/);
-  assert.match(publicPlans[2].tag, /AI 가상인물/);
-  for (const index of [1, 3, 4, 5]) assert.equal(publicPlans[index].tag, "연출 예시");
-  for (const plan of publicPlans) assert.equal(plan.note, null, plan.id);
-  const text = JSON.stringify(publicPlans);
+  assert.equal(homeCardMedia.animation.images.length, 3);
+  assert.deepEqual(homeCardMedia.animation.images, [2, 3, 6].map(page => `/content-renewal-20261019/yofree-character-${String(page).padStart(2, "0")}.webp`));
+  assert.match(component, /homeCardMedia\.animation\.images\?\.map/, "the existing animation media slot shows all three actual poses");
+  const ledger = JSON.parse(await read("content/approved-main-assets-20261019.json"));
+  const approvedUrls = new Set(ledger.assets.map(asset => asset.publicPath));
+  for (const src of new Set([...sources.flat(), ...homeCardMedia.animation.images])) {
+    assert.match(src, /^\/content-renewal-20261019\/[\w.-]+\.(?:mp4|webp)$/);
+    assert.ok(approvedUrls.has(src), `${src} has approved private lineage`);
+    assert.ok(await exists(src), src);
+    const entry = ledger.assets.find(asset => asset.publicPath === src);
+    const bytes = await readFile(new URL(`public${src}`, root));
+    assert.equal(bytes.byteLength, entry.bytes, src);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), entry.sha256, src);
+    if (src.endsWith(".mp4")) assert.equal(bytes.toString("ascii", 4, 8), "ftyp", src);
+  }
+  assert.deepEqual(publicPlans.map(plan => plan.tag), [
+    "자체 기획 IP", "캐릭터·모션 활용", "AI 가상인물", "브랜드 모션", "기업 소개 영상", "제품 광고 영상",
+  ]);
+  assert.deepEqual(publicPlans.map(plan => plan.note), [
+    "《1억의 구단주》 · 웹툰 제작", "요프리 · 캐릭터 활용", "87언니 · AI 가상인물",
+    "DR’s Secret · 브랜드 모션", "힐러넷 · 기업 소개 영상", "C Plus · SNS 광고 영상",
+  ]);
+  // Only these individually allowlisted files and display labels bypass the old review gate.
+  // Other catalog identifiers and source paths still cannot enter the public card payload.
+  let text = JSON.stringify(publicPlans);
+  const approvedLiterals = [...approvedUrls, ...Object.values(homeCardMedia).flatMap(media => [media.caseLabel, media.alt])];
+  for (const value of approvedLiterals) text = text.replaceAll(JSON.stringify(value), '""');
   for (const word of customerWords)
     assert.ok(!text.includes(word), `public card data: ${word}`);
+  assert.doesNotMatch(text, /I:[\\/]|01_WORK|source_sha256|ASSET_LINEAGE|reference-review|before-pc|before-mobile/);
   assert.ok(!text.includes("AI 가상 예시"));
-  // Only the brand film is a video; only the motion card has the kinetic text.
+  // Actual work is not covered by a staged kinetic-text overlay.
   assert.deepEqual(
     publicPlans.map((plan) => plan.media.kind),
-    ["strip", "image", "image", "image", "video", "image"],
+    ["strip", "image", "image", "video", "video", "video"],
   );
   assert.deepEqual(
     publicPlans.map((plan) => plan.kinetic),
-    [false, false, false, true, false, false],
+    [false, false, false, false, false, false],
   );
+  assert.match(css, /\.wjc-card \.pf-media > video\s*\{[^}]*object-fit:\s*contain;/, "actual video is never cropped into the platform frame");
 });
 
 test("review selections use the server-selected work and keep its labels", () => {

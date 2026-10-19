@@ -1,9 +1,9 @@
 // R7 WP-3: 메인 #work 컨텐츠 단계의 플랫폼 카드 데이터와 캐러셀 계산(클라이언트 안전).
-// 고객 작업물 이름·경로는 이 파일에 두지 않는다. 검토판의 작업물은 서버가 고른 ContentSelection(props)으로만 들어온다.
-// 공개판(selection.work === null)은 아래 publicMedia(자체 '연출 예시' 소재)만 쓴다.
+// 회사 메인도 콘텐츠 홈과 같은 승인된 실제 소재를 쓴다. 별도 검토 작품은 서버가 고른 props로만 들어온다.
 import type { ContentSelection, ContentTabId } from "./home-journey.ts";
 import type { PlatformFrameKind } from "../components/platform-frame/platform-frame";
 import type { PlatformLogoId } from "../components/platform-frame/logos";
+import { homeCardMedia } from "./content-home.ts";
 
 export type CardImage = {
   src: string;
@@ -29,27 +29,30 @@ export type PlatformCardSpec = {
   /** 모션그래픽 카드의 CSS 글자 모션(공개판 이미지 소재에만) */
   kinetic?: boolean;
   publicMedia: CardMediaSpec;
+  tag: string;
+  sourceNote: string;
 };
 
-const WEBTOON_CUTS = 12;
-const webtoonPages: CardImage[] = Array.from({ length: WEBTOON_CUTS }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
+const webtoonPages: CardImage[] = [1, 5, 21].map((page) => {
+  const n = String(page).padStart(2, "0");
   return {
-    src: `/webtoon-v11/cut-${n}.webp`,
-    width: 800,
-    height: 1200,
-    alt: `1억의 구단주 웹툰 제작 예시 ${i + 1}컷`,
+    src: `/content-renewal-20261019/webtoon-${n}.webp`,
+    width: 1024,
+    height: 1536,
+    alt: `1억의 구단주 1화 실제 완성 페이지 ${n}`,
   };
 });
 
 // 서비스 6종 → 플랫폼 프레임(BRIEF_R7 §2-5). 카드 외곽은 모두 같은 9:19.5 폰 프레임이고
-// 플랫폼 화면비는 프레임 안 콘텐츠 영역이 보여준다. 4:5 원본이 없어 2:3 소재를 잘라 쓴다(CSS object-position).
+// 플랫폼 화면비는 배치 미리보기다. 실제 원본은 contain으로 표시해 잘리지 않게 한다.
 export const platformCards: Record<ContentTabId, PlatformCardSpec> = {
   webtoon: {
     platform: "webtoon",
     viewerTitle: "1억의 구단주 · 1화",
     note: "세로 스크롤",
     publicMedia: { kind: "strip", pages: webtoonPages },
+    tag: "자체 기획 IP",
+    sourceNote: homeCardMedia.webtoon.caseLabel,
   },
   animation: {
     platform: "youtube169",
@@ -57,11 +60,13 @@ export const platformCards: Record<ContentTabId, PlatformCardSpec> = {
     note: "YouTube 16:9",
     publicMedia: {
       kind: "image",
-      src: "/creative-v06/video-animation.webp",
-      width: 1586,
-      height: 992,
-      alt: "애니메이션 연출 예시 이미지",
+      src: homeCardMedia.animation.poster,
+      width: 497,
+      height: 942,
+      alt: homeCardMedia.animation.alt,
     },
+    tag: "캐릭터·모션 활용",
+    sourceNote: homeCardMedia.animation.caseLabel,
   },
   "ai-influencer": {
     platform: "reels",
@@ -69,24 +74,28 @@ export const platformCards: Record<ContentTabId, PlatformCardSpec> = {
     note: "Instagram 릴스 9:16",
     publicMedia: {
       kind: "image",
-      src: "/content-site/ai-influencer/unnie87-street.webp",
-      width: 1080,
-      height: 1935,
-      alt: "AI 인플루언서 연출 예시 이미지 · AI로 만든 가상인물",
+      src: homeCardMedia["ai-influencer"].images![1],
+      width: 1086,
+      height: 1448,
+      alt: homeCardMedia["ai-influencer"].alt,
     },
+    tag: "AI 가상인물",
+    sourceNote: homeCardMedia["ai-influencer"].caseLabel,
   },
   "motion-graphics": {
     platform: "tiktok",
     logo: "tiktok",
     note: "TikTok 9:16",
-    kinetic: true,
     publicMedia: {
-      kind: "image",
-      src: "/content-examples/motion-graphics/motion-product.webp",
-      width: 900,
-      height: 1350,
-      alt: "모션그래픽 연출 예시 이미지",
+      kind: "video",
+      src: homeCardMedia["motion-graphics"].video!,
+      poster: homeCardMedia["motion-graphics"].poster,
+      width: 1920,
+      height: 1080,
+      alt: homeCardMedia["motion-graphics"].alt,
     },
+    tag: "브랜드 모션",
+    sourceNote: homeCardMedia["motion-graphics"].caseLabel,
   },
   "brand-film": {
     platform: "fbvideo",
@@ -94,12 +103,14 @@ export const platformCards: Record<ContentTabId, PlatformCardSpec> = {
     note: "Facebook 피드 16:9",
     publicMedia: {
       kind: "video",
-      src: "/content-examples/brand-film/brandfilm-motion.mp4",
-      poster: "/content-examples/brand-film/brandfilm-poster.webp",
+      src: homeCardMedia["brand-film"].video!,
+      poster: homeCardMedia["brand-film"].poster,
       width: 1920,
-      height: 1081,
-      alt: "브랜드 홍보 영상 연출 예시 영상",
+      height: 1080,
+      alt: homeCardMedia["brand-film"].alt,
     },
+    tag: "기업 소개 영상",
+    sourceNote: homeCardMedia["brand-film"].caseLabel,
   },
   ad: {
     platform: "feed45",
@@ -107,12 +118,15 @@ export const platformCards: Record<ContentTabId, PlatformCardSpec> = {
     sponsored: true,
     note: "Instagram 피드 4:5",
     publicMedia: {
-      kind: "image",
-      src: "/content-examples/ad/ad-product.webp",
-      width: 900,
-      height: 1350,
-      alt: "SNS 광고 영상 연출 예시 이미지",
+      kind: "video",
+      src: homeCardMedia.ad.video!,
+      poster: homeCardMedia.ad.poster,
+      width: 1080,
+      height: 1920,
+      alt: homeCardMedia.ad.alt,
     },
+    tag: "제품 광고 영상",
+    sourceNote: homeCardMedia.ad.caseLabel,
   },
 };
 
@@ -239,7 +253,7 @@ function reviewMedia(selection: ContentSelection): CardMediaSpec {
 }
 
 /** 서버가 고른 선택지(ContentSelection) 하나를 카드 한 장의 표시 정보로 바꾼다.
- *  work가 있으면(검토판 고객 작업물 또는 공개 작업물) 그 소재를, 없으면 공개판 연출 예시 소재를 쓴다 */
+ *  work가 있으면 그 자료를, 없으면 콘텐츠 홈과 같은 승인된 실제 자료를 쓴다 */
 export function cardPlan(selection: ContentSelection): CardPlan {
   const spec = platformCards[selection.tab.id];
   const reviewed = Boolean(selection.work);
@@ -251,8 +265,8 @@ export function cardPlan(selection: ContentSelection): CardPlan {
     logo: spec.logo,
     sponsored: Boolean(spec.sponsored),
     title: reviewed ? (selection.work?.title ?? spec.viewerTitle) : spec.viewerTitle,
-    tag: selection.tag ?? (reviewed ? null : selection.caption),
-    note: reviewed ? selection.caption : null,
+    tag: reviewed ? selection.tag : spec.tag,
+    note: reviewed ? selection.caption : spec.sourceNote,
     caption: `${label} · ${spec.note}`,
     href: `/content/services/${selection.tab.id}`,
     linkLabel: `${label} 서비스 보기, 새 탭`,

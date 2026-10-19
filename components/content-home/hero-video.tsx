@@ -5,7 +5,7 @@
  *   토글로 멈추면 같이 멈추고, 이 버튼으로 영상만 따로 멈추거나 다시 재생할 수 있다(reduced-motion에서도 버튼으로 재생 가능).
  * - 'playing' 전에는 영상 층을 투명하게 둬 정지 이미지에서 깜빡임 없이 넘어간다. */
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { Maximize, Pause, Play } from "lucide-react";
 import { useCsMotion } from "@/components/content-site/shell/frame";
 import { contentHomeHero, type HeroVideo } from "@/lib/content-home";
 import { useReelSound } from "@/components/content-site/services/reel-sound";
@@ -20,9 +20,28 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
   const [wantPlay, setWantPlay] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [shown, setShown] = useState(false);
+  const [actualMuted, setActualMuted] = useState(true);
+  const [active, setActive] = useState(false);
+  const automaticPause = useRef(false);
   const { muted, toggleSound } = useReelSound(ref);
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!mounted || !ref.current) return;
+    let intersecting = false;
+    const sync = () => setActive(intersecting && !document.hidden);
+    const observer = new IntersectionObserver(([entry]) => {
+      intersecting = entry.isIntersecting;
+      sync();
+    }, { threshold: .05 });
+    observer.observe(ref.current);
+    document.addEventListener("visibilitychange", sync);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, [mounted]);
 
   // 움직임 토글·reduced-motion → 자동재생 의도
   useEffect(() => {
@@ -36,9 +55,12 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
   useEffect(() => {
     const node = ref.current;
     if (!mounted || !node) return;
-    if (wantPlay) node.play().catch(() => setPlaying(false));
-    else node.pause();
-  }, [mounted, wantPlay]);
+    if (wantPlay && active) node.play().catch(() => setPlaying(false));
+    else if (!node.paused) {
+      automaticPause.current = true;
+      node.pause();
+    }
+  }, [mounted, wantPlay, active]);
 
   if (!mounted) return null;
 
@@ -51,14 +73,22 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
         muted={muted}
         loop
         playsInline
+        controls
         preload="metadata"
         poster={video.poster}
-        aria-hidden="true"
+        onLoadedMetadata={() => setShown(true)}
+        onVolumeChange={event => setActualMuted(event.currentTarget.muted)}
+        aria-label="AIO MAKE 콘텐츠 제작 영상 · 59초"
+        onPlay={() => setWantPlay(true)}
         onPlaying={() => {
           setShown(true);
           setPlaying(true);
         }}
-        onPause={() => setPlaying(false)}
+        onPause={() => {
+          setPlaying(false);
+          if (automaticPause.current) automaticPause.current = false;
+          else setWantPlay(false);
+        }}
       >
         <source src={video.src} type="video/mp4" />
       </video>
@@ -87,9 +117,14 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
           <Play size={18} aria-hidden="true" />
         )}
       </button>
-      <button type="button" className="ch-hero-sound cs-t-caption" aria-pressed={!muted} onClick={toggleSound}>
-        {muted ? "소리 켜기" : "소리 끄기"}
+      <button type="button" className="ch-hero-sound cs-t-caption" aria-pressed={!actualMuted} onClick={toggleSound}>
+        {actualMuted ? "소리 켜기" : "소리 끄기"}
       </button>
+      <button type="button" className="ch-hero-pause" aria-label="영상 전체화면" onClick={() => {
+        const node = ref.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+        if (node?.requestFullscreen) node.requestFullscreen().catch(() => {});
+        else node?.webkitEnterFullscreen?.();
+      }}><Maximize size={18} aria-hidden="true"/></button>
       </div>
     </>
   );

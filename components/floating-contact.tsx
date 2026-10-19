@@ -24,11 +24,13 @@ export function FloatingContact() {
   const path = usePathname(),
     dialog = useRef<HTMLDialogElement>(null);
   const [keyboard, setKeyboard] = useState(false);
-  const suppressNearInline = path === "/content";
+  const suppressNearInline = path === "/content" || path === "/";
   const [inlineVisible, setInlineVisible] = useState(true);
   useEffect(() => {
     if (!suppressNearInline || typeof IntersectionObserver === "undefined") return;
-    const targets = Array.from(document.querySelectorAll("[data-inline-contact], #contact, .ch-cta"));
+    const targets = Array.from(document.querySelectorAll(path === "/"
+      ? ".wjpc, #contact"
+      : "[data-inline-contact], #contact, .ch-cta"));
     const visible = new Set<Element>();
     targets.forEach(target => {
       const rect = target.getBoundingClientRect();

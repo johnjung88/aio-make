@@ -1,5 +1,7 @@
 .git
 public/reference-review
+design-previews
+content/media-source-paths-20261019.json
 .next
 .next-dev
 node_modules

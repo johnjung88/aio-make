@@ -250,11 +250,11 @@ test("works build is deterministic and display visibility requires the exact loc
       );
       assert.equal(result.status, 0, result.stderr);
       assert.equal(
-        await readFile(output, "utf8"),
-        await readFile(
+        (await readFile(output, "utf8")).replaceAll("\r\n", "\n"),
+        (await readFile(
           new URL("../lib/generated/works.generated.ts", import.meta.url),
           "utf8",
-        ),
+        )).replaceAll("\r\n", "\n"),
       );
     }
     const catalogUrl = new URL("../lib/work-catalog.ts", import.meta.url).href;

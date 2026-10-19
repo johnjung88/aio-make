@@ -1,13 +1,5 @@
 "use client";
-/* 서비스 6종 3D 캐러셀(R6 WP-H).
- * - 카드 배치: React current → 카드별 data-pos(-2..2, hidden) → CSS 3D transform 보간(레퍼런스 updateCarousel 수치)
- * - 조작: 스테이지 좌우 가장자리의 이전·다음 화살표, 옆 카드 클릭, 키보드(←→ Home End), 가로 스와이프. 탭 칩·카운터·진행 막대·일시정지 없음
- * - 자동 넘김: useEffect 타이머. 이미지 카드 dwellMs, 영상 카드 videoDwellMs 뒤 다음 카드로 간다(homeCarouselMotion)
- *   정지 조건: 마우스 올림, 키보드 포커스, 터치 중, 화면 밖, 탭 숨김, 헤더 움직임 토글, reduced-motion
- *   정지가 풀리거나 카드가 바뀌면 타이머를 처음부터 다시 잰다
- * - 서비스 링크: 선택된 카드 아래 캡션에 '서비스명 · 한 줄 · 시작가 · 서비스 보기 →'. 선택된 카드 전체도 같은 링크, 옆 카드 클릭은 선택 이동
- * - reduced-motion: 자동 넘김과 영상 자동재생 없음, 옆 카드는 정적으로 보이고 수동 조작은 그대로
- * - 카드 소재: 공개판·검토판 모두 R8 승인 homeCardMedia 슬롯(영상 있으면 선택 카드만 muted 루프, 없으면 켄번스) */
+/* 승인된 3D 배치를 유지한다. 수동 정지/재개와 실제 작품 보기를 제공하고 화면 밖·숨김 탭·감소모션·수동정지·작품보기 중 자동 넘김을 멈춘다. */
 import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +14,9 @@ import type { ContentSelection } from "@/lib/home-journey";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import { useCsMotion } from "@/components/content-site/shell/frame";
 import { useStageActivity } from "./use-stage-activity";
+import { HomeArtwork } from "./home-artwork";
+import { HomeCasePreview } from "./home-case-preview";
+import type { ContentServiceId } from "@/lib/content-home";
 
 type Page = { src:string; alt:string; width:number; height:number };
 type CardMedia =
@@ -29,9 +24,9 @@ type CardMedia =
  | { kind:"image"; src:string; alt:string; slot:string|null }
  | { kind:"comic"; pages:Page[]; slot:string|null };
 
-/** R8 승인 카드 소재를 쓰며 검토 작품은 상세 링크만 제공한다 */
+/** 공개 허용된 실제 소재만 사용하고 private 검토 카탈로그는 읽지 않는다 */
 function cardMedia(selection:ContentSelection):CardMedia {
- const alt=selection.tab.fallback.alt;
+ const alt=homeCardMedia[selection.tab.id].alt;
 
  const slot=homeCardMedia[selection.tab.id];
  if(slot.video) return {kind:"video",src:slot.video,poster:slot.poster,alt,slot:slot.slotId};
@@ -51,13 +46,14 @@ function CardVideo({ media, play, reduced }: { media:Extract<CardMedia,{kind:"vi
  return <video ref={ref} src={media.src} poster={media.poster} muted loop playsInline preload="metadata" controls={reduced} aria-label={media.alt}/>;
 }
 
-function WorkMedia({ media, selected, play, reduced }: { media:CardMedia; selected:boolean; play:boolean; reduced:boolean }) {
+function WorkMedia({ id, media, selected, play, reduced }: { id:ContentServiceId; media:CardMedia; selected:boolean; play:boolean; reduced:boolean }) {
  const shape=media.kind==="comic" ? "ch-depth-media--comic" : "ch-depth-media--wide";
  let body:ReactNode=null;
  if(media.kind==="comic") body=<div className="ch-kb ch-depth-comic">{media.pages.map((page,index)=><Image key={page.src} src={page.src} alt={selected ? page.alt : ""} width={page.width} height={page.height} sizes="(min-width:768px) 260px, 270px" className={index ? "ch-depth-comic-second" : undefined}/>)}</div>;
  else if(media.kind==="video" && selected) body=<CardVideo media={media} play={play} reduced={reduced}/>;
+ else if(media.kind==="image") body=<HomeArtwork id={id} alt={selected}/>;
  else {
-  const src=media.kind==="video" ? media.poster : media.src;
+  const src=media.poster;
   body=src ? <div className="ch-kb"><Image src={src} alt={selected ? media.alt : ""} fill sizes="(min-width:768px) 540px, 280px"/></div> : null;
  }
  return <div className={`ch-depth-media ${shape}`} data-slot={media.slot ?? undefined} data-kind={media.kind}>{body}</div>;
@@ -68,13 +64,15 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
  const [hover,setHover]=useState(false);
  const [focusPause,setFocusPause]=useState(false);
  const [touching,setTouching]=useState(false);
+ const [manualPaused,setManualPaused]=useState(false);
+ const [previewId,setPreviewId]=useState<ContentServiceId|null>(null);
  const {root,active:inView,reduced}=useStageActivity();
  const {motion}=useCsMotion();
  const touch=useRef<{x:number;y:number}|null>(null);
  const suppressClick=useRef(false);
  const count=selections.length;
  const cards=selections.map(cardMedia);
- const moving=inView && motion==="on" && !reduced;
+ const moving=inView && motion==="on" && !reduced && !manualPaused && !previewId;
  const autoplay=!reduced;
  const running=moving && !hover && !focusPause && !touching;
  const dwellMs=cards[current]?.kind==="video" ? homeCarouselMotion.videoDwellMs : homeCarouselMotion.dwellMs;
@@ -148,22 +146,25 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
       // reduced-motion의 조작 막대 영상은 카드 전체 링크가 가리지 않는다(영상 조작이 우선, 캡션 링크는 그대로)
       const linkable=!(reduced && cards[index].kind==="video");
       return <div key={selection.tab.id} className="ch-depth-card" data-pos={hidden ? "hidden" : distance} aria-hidden={!selected}>
-       <WorkMedia media={cards[index]} selected={selected} play={selected && moving} reduced={reduced}/>
+       <WorkMedia id={selection.tab.id} media={cards[index]} selected={selected} play={selected && moving} reduced={reduced}/>
        {selected && linkable ? <Link className="ch-depth-open" href={service.href} tabIndex={-1} aria-hidden="true"/>:null}
        {selection.tab.id === "ai-influencer" && <span className="ch-depth-ai-tag cs-tag cs-t-caption">AI 가상인물</span>}
+       {selection.tab.id === "animation" && <span className="ch-content-note cs-tag cs-t-caption">캐릭터·모션 활용</span>}
        <div className="ch-depth-caption">
         <p className="ch-depth-title"><span className="cs-t-h3">{service.label}</span>{price ? <span className="ch-depth-price cs-t-small">{price.head}</span>:null}</p>
         <p className="ch-depth-line cs-t-small">{service.line}</p>
-        <div className="ch-depth-links">{selection.tab.id === "ai-influencer" ? <span className="cs-tag cs-t-caption">AI 가상인물</span>:null}{selected && selection.work ? <Link className="cs-link" href={`/content/projects/${selection.work.slug}?service=${selection.tab.id}`}>작업 보기 <span aria-hidden="true">↗</span></Link>:null}<Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
+        <div className="ch-depth-links"><button type="button" className="cs-link ch-case-open" tabIndex={selected ? undefined : -1} onClick={()=>setPreviewId(service.id)} aria-label={`${service.label} 실제 작품 보기`}>작품 보기 <span aria-hidden="true">↗</span></button><Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
        </div>
        {!selected && !hidden ? <button className="ch-depth-select" type="button" tabIndex={-1} aria-label={`${selection.tab.label} 선택`} onClick={()=>select(index)}/>:null}
       </div>;
      })}
      <button type="button" className="ch-arrow ch-arrow--prev cs-t-button" aria-label="이전 서비스" onClick={()=>select(current-1)}>←</button>
      <button type="button" className="ch-arrow ch-arrow--next cs-t-button" aria-label="다음 서비스" onClick={()=>select(current+1)}>→</button>
+     <div className="ch-gallery-tools"><span className="cs-t-caption">{String(current+1).padStart(2,"0")} / {String(count).padStart(2,"0")}</span><button type="button" className="cs-t-caption" disabled={reduced || motion!=="on"} aria-label={manualPaused ? "자동 넘김 재개" : "자동 넘김 일시정지"} aria-pressed={manualPaused} onClick={()=>setManualPaused(value=>!value)}>{reduced || motion!=="on" ? "정지" : manualPaused ? "▶" : "Ⅱ"}</button></div>
     </div>
     <p className="cs-sr-only" aria-live={running ? "off" : "polite"}>{`${current+1} / ${count} ${activeService.label}`}</p>
    </div>
   </div>
+  <HomeCasePreview id={previewId} onClose={()=>setPreviewId(null)}/>
  </section>;
 }

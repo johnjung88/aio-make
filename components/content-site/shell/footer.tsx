@@ -91,6 +91,7 @@ export function ContentSiteFooter() {
               © 2026 AIO MAKE · All rights reserved
             </span>
             <span className="cs-footer-copy cs-t-caption">음악: FreePD(CC0) · Kevin MacLeod · Bryan Teoh · Rafael Krux</span>
+            <span className="cs-footer-copy cs-t-caption">메인 영상 음악: Cat Walk · Arulo / Mixkit</span>
           </div>
         </div>
       </div>

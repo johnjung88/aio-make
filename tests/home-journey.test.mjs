@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import ts from "typescript";
 import * as journeyModule from "../lib/home-journey.ts";
 import {
   journeyIntro,
@@ -628,7 +630,7 @@ test("journey CSS uses role tokens only", async () => {
   assert.ok(!baseCss.includes("scroll-snap"));
 });
 
-test("review gate: unset, 0 and true select no customer work data", () => {
+test("review gate: only the single approved main case is public; other customer work stays gated", () => {
   // Review build: the server selects customer work (so the scan below is real).
   assert.ok(review.data.devProject);
   const reviewText = JSON.stringify(review);
@@ -644,20 +646,77 @@ test("review gate: unset, 0 and true select no customer work data", () => {
     assert.deepEqual(off.config.beforeShots, {}, state);
     assert.deepEqual(off.config.contentReviewSlugs, {}, state);
     assert.deepEqual(off.config.aiInfluencerDraft, { slugs: [], caption: "" });
-    assert.equal(off.data.devProject, null, state);
+    assert.deepEqual(off.data.devProject, review.data.devProject, `${state}: exactly the approved main case`);
     assert.equal(off.data.contentSelections.length, 6, state);
     for (const selection of off.data.contentSelections)
       assert.ok(
         !selection.work || publicWorks.some((w) => w.slug === selection.work.slug),
         `${state}: ${selection.work?.slug}`,
       );
-    const text = JSON.stringify(off);
+    const text = JSON.stringify({ ...off, data: { ...off.data, devProject: null } });
     for (const word of customerWords)
       assert.ok(!text.includes(word), `${state}: ${word}`);
   }
 });
 
-test("client journey modules hold no customer data and never import it", async () => {
+test("client journey modules protect private data; v10 exposes only allowlisted public home assets and copy", async () => {
+  const ledger = JSON.parse(await read("content/approved-main-assets-20261019.json"));
+  assert.equal(ledger.version, "v10");
+  const approvedHomePaths = new Set();
+  for (const entry of ledger.assets) {
+    assert.match(entry.publicPath, /^\/content-renewal-20261019\/[\w.-]+\.(?:mp4|webp)$/);
+    assert.ok(!approvedHomePaths.has(entry.publicPath), "no duplicate approved URL");
+    approvedHomePaths.add(entry.publicPath);
+    const bytes = await readFile(new URL(`public${entry.publicPath}`, root));
+    assert.equal(bytes.byteLength, entry.bytes, entry.publicPath);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), entry.sha256, entry.publicPath);
+  }
+  // This is an exact public-copy allowlist, not a module/brand-wide privacy exemption.
+  // Original paths, review slugs, titles outside this set, catalog imports and env reads remain checked.
+  const approvedHomeLiterals = new Set([
+    ...approvedHomePaths,
+    "1억의 구단주 1화의 실제 완성 페이지 05와 21",
+    "《1억의 구단주》 · 웹툰 제작",
+    "자체 기획 IP의 실제 완성 페이지입니다. 원고와 장면 구성을 정리해 인물의 행동과 대사를 컷으로 옮겼습니다",
+    "요프리 제품을 캐릭터로 만든 세 가지 포즈",
+    "요프리 · 캐릭터 활용",
+    "제품을 캐릭터로 만들고 표정과 포즈를 정리한 실제 제작물입니다. 캐릭터와 모션을 설계하는 작업 방식을 보여줍니다",
+    "자체 기획 AI 가상인물 87언니의 얼굴과 전신 기준 이미지",
+    "87언니 · AI 가상인물",
+    "자체 기획 AI 가상인물의 얼굴과 전신 기준 이미지입니다. 인물의 외형과 스타일을 먼저 정리하고 이미지 제작에 활용합니다",
+    "DR’s Secret 브랜드 모션 영상",
+    "DR’s Secret · 브랜드 모션",
+    "브랜드 이미지와 문구를 움직임으로 구성한 실제 제작 영상입니다",
+    "힐러넷 기업 소개 모션 영상",
+    "힐러넷 · 기업 소개 영상",
+    "회사의 서비스와 정보를 장면과 문구로 정리한 실제 제작 영상입니다",
+    "C Plus 제품을 소개하는 세로 광고 영상",
+    "C Plus · SNS 광고 영상",
+    "제품을 짧은 세로 화면에 담은 실제 제작 영상입니다. 도입 장면부터 제품 소개까지 화면의 흐름을 확인할 수 있습니다",
+  ]);
+  const publicHomeScanText = (text) => {
+    assert.doesNotMatch(text, /I:[\\/]|01_WORK|ASSET_LINEAGE|asset-manifest|source_sha256|source_map/, "private provenance never enters client home data");
+    const sourceFile = ts.createSourceFile("content-home.ts", text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+    assert.equal(sourceFile.parseDiagnostics.length, 0, "public home data is valid TypeScript");
+    const ranges = [];
+    const visit = (node) => {
+      if (ts.isStringLiteralLike(node)) {
+        const value = node.text;
+        if (value.startsWith("/content-renewal-20261019/"))
+          assert.ok(approvedHomePaths.has(value), `${value} is not in the approved asset ledger`);
+        if (approvedHomeLiterals.has(value)) ranges.push([node.getStart(sourceFile), node.end]);
+      }
+      ts.forEachChild(node, visit);
+    };
+    visit(sourceFile);
+    const parts = [];
+    let offset = 0;
+    for (const [start, end] of ranges.sort((a, b) => a[0] - b[0])) {
+      parts.push(text.slice(offset, start), '""');
+      offset = end;
+    }
+    return parts.join("") + text.slice(offset);
+  };
   const clientFiles = [
     "lib/home-journey.ts",
     "lib/content-home.ts",
@@ -674,7 +733,7 @@ test("client journey modules hold no customer data and never import it", async (
     if (file.startsWith("components/") && !/^\s*["']use client["']/.test(text)) continue;
     assert.doesNotMatch(
       text,
-      /from\s+["'][^"']*(home-journey-data|generated\/works)/,
+      /from\s+["'][^"']*(home-journey-data|home-main-approved|generated\/works)/,
       `${file} imports customer data`,
     );
     assert.doesNotMatch(
@@ -683,11 +742,15 @@ test("client journey modules hold no customer data and never import it", async (
       `${file}: only type imports from work-catalog`,
     );
     assert.ok(!text.includes("process.env"), `${file} reads the env`);
+    const privateScan = file === "lib/content-home.ts" ? publicHomeScanText(text) : text;
     for (const word of customerWords)
-      assert.ok(!text.includes(word), `${file}: ${word}`);
+      assert.ok(!privateScan.includes(word), `${file}: ${word}`);
   }
   const server = await read("lib/home-journey-data.ts");
   assert.match(server, /^import "server-only";$/m);
+  const approved = await read("lib/home-main-approved.ts");
+  assert.match(approved, /^import "server-only";$/m);
+  assert.doesNotMatch(approved, /from\s+["'][^"']*(work-catalog|generated\/works|db)["']|process\.env/, "the public exception does not import the private catalog or database");
   const gates = server.match(/process\.env\.[^\n]*/g);
   assert.equal(gates.length, 4);
   for (const gate of gates)
@@ -763,9 +826,9 @@ test("R7 step leads put each sentence on its own line", () => {
   }
 });
 
-test("R7 development step holds one DR's Secret case with before/after and no other customer", () => {
+test("v11 development step holds one approved DR’s Secret v03 home pair and no other customer", async () => {
   const project = review.data.devProject;
-  assert.equal(project.title, "DR's Secret 쇼핑몰");
+  assert.equal(project.title, "DR’s Secret 쇼핑몰");
   assert.ok(project.before && project.afterMobile);
   assert.equal(project.before.pc.width, 1440);
   // The detail object carries only what the dialog shows.
@@ -777,7 +840,34 @@ test("R7 development step holds one DR's Secret case with before/after and no ot
     "title",
   ]);
   assert.ok(!("work" in project) && !("config" in project));
-  assert.match(project.detail.scope, /주문·결제 기능은 운영하지 않습니다/);
+  assert.equal(project.detail.status, "PC·모바일 디자인 시안 v03");
+  assert.match(project.detail.description, /실제 주문과 결제는 받지 않는 레퍼런스/);
+  assert.match(project.detail.scope, /같은 홈 디자인 시안 v03/);
+  assert.deepEqual([project.after.width, project.after.height], [1440, 1000]);
+  assert.deepEqual([project.afterMobile.width, project.afterMobile.height], [390, 1000]);
+  assert.equal(project.after.src, "/company-main-20261019-v11/development/after-home-pc-v03.png");
+  assert.equal(project.afterMobile.src, "/company-main-20261019-v11/development/after-home-mobile-v03.png");
+  const approved = {
+    "before-home-pc.webp": [50306, "be4b1c1288a5127a407a3bc0cb154468a98d8a0abf3b1c23db43782493965c34"],
+    "before-home-mobile.webp": [25600, "22c2832e87cbf9cfdbbd0afa2703ab9cfc39bf82ac95db47b6ba153d9daa4281"],
+    "after-home-pc-v03.png": [347014, "a942f900539e773b4cce95ac55696db8e5c02fce28872370884b23d93f6b5c26"],
+    "after-home-mobile-v03.png": [135750, "606e73b29afa5bef09a2e047581d7020fe90691465ca2e771ea4b0d396f2ee87"],
+  };
+  const base = "/company-main-20261019-v11/development/";
+  assert.deepEqual([project.before.pc.src, project.before.mobile.src, project.after.src, project.afterMobile.src], Object.keys(approved).map(name => base + name));
+  const provenance = JSON.parse(await read("content/approved-main-assets-20261019.json")).development;
+  assert.equal(provenance.sameHomePair, true);
+  assert.equal(provenance.version, "v03");
+  assert.equal(provenance.pairId, "bwl-store-home-v03");
+  assert.deepEqual(provenance.afterSourceIds, ["bwl-store-home-v03/index-1440-viewport.png", "bwl-store-home-v03/index-390-viewport.png"]);
+  for (const [name, [bytes, sha256]] of Object.entries(approved)) {
+    const file = await readFile(new URL(`public${base}${name}`, root));
+    assert.equal(file.byteLength, bytes, name);
+    assert.equal(createHash("sha256").update(file).digest("hex"), sha256, name);
+    const entry = provenance.assets.find(asset => asset.publicPath === base + name);
+    assert.equal(entry?.sha256, sha256, `${name} links to the recorded source SHA`);
+    assert.equal(entry?.bytes, bytes);
+  }
   const text = JSON.stringify({
     project,
     devProjectConfig: review.config.devProjectConfig,
@@ -851,10 +941,11 @@ test("R7 detail dialog: native dialog, ESC, close button, backdrop, focus return
   assert.equal(journeyModule.devFallbackSteps.length, 4);
 });
 
-test("R7 public journey data holds no dev case, detail or customer string", () => {
+test("v11 public journey data includes only the approved case and excludes private catalog detail", () => {
   for (const [state, off] of Object.entries(offStates)) {
-    assert.equal(off.data.devProject, null, state);
-    const text = JSON.stringify(off);
+    assert.deepEqual(off.data.devProject, review.data.devProject, state);
+    assert.deepEqual(Object.keys(off.data.devProject).sort(), ["after", "afterMobile", "before", "detail", "title"]);
+    const text = JSON.stringify({ ...off, data: { ...off.data, devProject: null } });
     assert.ok(!text.includes('"detail"'), state);
     assert.doesNotMatch(
       text,

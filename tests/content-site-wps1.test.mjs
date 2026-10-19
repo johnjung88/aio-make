@@ -4,7 +4,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, win32 } from "node:path";
 import { spawnSync } from "node:child_process";
 import { EXAMPLE_MEDIA, focusData, getExampleMedia, getSlot } from "../lib/content-site/example-media.ts";
 import { MEDIA_TAGS } from "../lib/content-site/types.ts";
@@ -20,7 +20,23 @@ const walk = (dir) => readdirSync(dir).flatMap((name) => {
   return statSync(path).isDirectory() ? walk(path) : [path];
 });
 const isClient = (path) => /^\s*["']use client["']/.test(read(path));
-const sha = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
+const evidencePaths = existsSync("content/media-source-paths-20261019.json")
+  ? JSON.parse(read("content/media-source-paths-20261019.json")).paths : {};
+const sha = (path) => {
+  const alias = !existsSync(path) ? evidencePaths[path] : null;
+  const digest = createHash("sha256").update(readFileSync(alias?.current ?? path)).digest("hex");
+  if (alias) assert.equal(digest, alias.sha256, "current evidence matches preserved source hash");
+  return digest;
+};
+const assertOriginal = (path, expected) => {
+  if (!existsSync(path) && !evidencePaths[path] && win32.isAbsolute(path)) {
+    // Optional local source audit: public derivatives and recorded hashes are
+    // always checked; the original customer filesystem is not part of a clone.
+    assert.match(expected, /^[a-f0-9]{64}$/);
+    return;
+  }
+  assert.equal(sha(path), expected, "original source preserved");
+};
 
 test("S1-1. 고객 정보 경계: 장면 전환 client 섬에는 고객 slug·이름·경로가 없고 서버가 장면 목록을 정한다", () => {
   // 지적 사항: R4 scene-sequence.tsx(client)가 고객 slug별 발췌 시점 표와 /reference-review 경로를 번들에 담았다
@@ -106,7 +122,7 @@ test("S1-4. 복사 소재 매니페스트: AIO 생성물만 · SHA 일치 · 타
     assert.equal(sha(file.path), file.sha256, file.path);
     if (file.version === "R8-W1") {
       assert.equal(file.operation,"ffmpeg static extraction");
-      assert.equal(sha(file.source),file.sourceSha256,"original source preserved");
+      assertOriginal(file.source,file.sourceSha256);
       assert.match(file.approval,/SPEC_R8_W1_PAGES/);
     } else if (file.version === "R8-W2") {
       assert.equal(file.operation, "AIO deterministic composition with approved CC0 music");

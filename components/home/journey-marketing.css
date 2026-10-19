@@ -19,6 +19,7 @@
 
 .wj .wj-mk-label {
   margin: 0;
+  text-align: center;
   color: var(--wj-text-3);
   font-size: 14px;
   font-weight: 600;
@@ -123,6 +124,7 @@
 .wj .wj-mk-step {
   position: relative;
   display: grid;
+  justify-items: center;
   gap: 6px;
   width: 100%;
   padding: 0;
@@ -131,7 +133,7 @@
   background: transparent;
   color: var(--wj-ink);
   font: inherit;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   word-break: keep-all;
 }
@@ -142,6 +144,8 @@
   display: flex;
   /* R7-fix1: center the number box on the title box so the y-centers differ by 0 (baseline gave 2.8-3.4px). */
   align-items: center;
+  justify-content: center;
+  max-inline-size: 100%;
   gap: 8px;
   margin: 0;
 }
@@ -162,16 +166,28 @@
   letter-spacing: -0.02em;
 }
 .wj .wj-mk-task {
+  max-inline-size: 100%;
   color: var(--wj-accent);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.5;
+  text-wrap: balance;
 }
 .wj .wj-mk-desc {
+  display: grid;
+  justify-items: center;
+  inline-size: 100%;
+  max-inline-size: 28em;
+  margin-inline: auto;
   color: var(--wj-text-2);
   font-size: 15px;
   line-height: 1.7;
-  text-wrap: pretty;
+  text-align: center;
+}
+.wj .wj-mk-desc-line {
+  display: block;
+  max-inline-size: 100%;
+  text-wrap: balance;
 }
 .wj .wj-mk-rowfill {
   display: none;

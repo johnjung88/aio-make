@@ -69,3 +69,23 @@ next-env.d.ts
 /local-data/
 /public/reference-review/
 *.backup.json
+
+# Local review artifacts retain original-path evidence outside public commits.
+/design-previews/
+/content/media-source-paths-20261019.json
+/docs/renewal-2026-10-13/main-content-v10/
+/docs/renewal-2026-10-13/main-fixes-v11/
+/docs/renewal-2026-10-13/release-v12-local/
+/docs/renewal-2026-10-13/MAIN_FINISH_v10_*.md
+/docs/renewal-2026-10-13/MAIN_FIX_v11_*.md
+/docs/renewal-2026-10-13/RELEASE_v12_PREFLIGHT.md
+/scripts/capture-main-panel-v10.py
+/scripts/check-main-content-final-v10.py
+/scripts/check-main-content-v10.py
+/scripts/check-main-fixes-v11.py
+/scripts/finalize-main-content-v10.py
+/scripts/finalize-main-fixes-v11.py
+/scripts/freeze-main-fixes-v11.py
+/scripts/prepare-main-content-v10.py
+/scripts/resolve-media-evidence-v10.py
+/scripts/prepare-release-manifest.py

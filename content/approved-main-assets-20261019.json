@@ -1,0 +1,162 @@
+{
+  "version": "v10",
+  "release": "v12",
+  "assets": [
+    {
+      "publicPath": "/content-renewal-20261019/content-hero-v02.mp4",
+      "sha256": "2eaf074e040b600ca24239631a9c61f332373cb90eeffe409eeff57ecfb605c8",
+      "bytes": 14097604,
+      "sourceId": "MG-20261019-01_콘텐츠히어로_v02/AIO_콘텐츠히어로_16x9_web_v02.mp4"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/content-hero-v02.webp",
+      "sha256": "39f6b1e7736a7fa1368a3c56b20c9222a0a5f2a6d6d3503fe8cdf23afb045690",
+      "bytes": 47282,
+      "sourceId": "MG-20261019-01_콘텐츠히어로_v02/poster_v02.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/webtoon-01.webp",
+      "sha256": "9eae8080b09e570948beb32f8e2f4b79cbb45e783c89be28c27b352953c7e875",
+      "bytes": 362076,
+      "sourceId": "MAIN-APPROVED-20261019/webtoon-01.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/webtoon-05.webp",
+      "sha256": "61fe2f55abebb95f62a1c1a9ea525ec008b9419feeb4e094364b89de10a87227",
+      "bytes": 355946,
+      "sourceId": "MAIN-APPROVED-20261019/webtoon-05.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/webtoon-21.webp",
+      "sha256": "5de100aa01a8991bdf1d320e2c8c52eca999c1ea89f0999c378d82c8697cef3c",
+      "bytes": 306010,
+      "sourceId": "MAIN-APPROVED-20261019/webtoon-21.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/webtoon-characters.webp",
+      "sha256": "d74308900d0a73395172c1a4f4698f98baee3902b955f87d158e8e91ba575255",
+      "bytes": 252446,
+      "sourceId": "MAIN-APPROVED-20261019/webtoon-characters.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/yofree-character-02.webp",
+      "sha256": "f8df752db86d9daa4c26cfbb5c3003bdf19ae74974b15cd90bd52230e50f489b",
+      "bytes": 44908,
+      "sourceId": "MAIN-APPROVED-20261019/yofree-character-02.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/yofree-character-03.webp",
+      "sha256": "7d8e3b0910f73a907edea3f3cb2b37c76bf9d3435288b895797db203ceb21251",
+      "bytes": 32462,
+      "sourceId": "MAIN-APPROVED-20261019/yofree-character-03.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/yofree-character-06.webp",
+      "sha256": "08c365096a155c312e47ba3c7c5305bb74ee0cca523361db6fdf3a1ee92cdd0b",
+      "bytes": 39382,
+      "sourceId": "MAIN-APPROVED-20261019/yofree-character-06.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/ai-face.webp",
+      "sha256": "7bc0a8b55359eea46d7af9e0f7888c97669323be19bf2b2554a33a36ca183d9d",
+      "bytes": 231362,
+      "sourceId": "MAIN-APPROVED-20261019/ai-face.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/ai-full.webp",
+      "sha256": "e3477960e3ed03117a30ba9c5943a7a1af9bc2d1eeb68bdfb3bad18b10e89956",
+      "bytes": 85638,
+      "sourceId": "MAIN-APPROVED-20261019/ai-full.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/poster-bwl-brand-motion.webp",
+      "sha256": "26ba3be3de9b83d20ddce630a12c6e76c5886b1eb3c42a7f06465d59ce282897",
+      "bytes": 34044,
+      "sourceId": "MAIN-APPROVED-20261019/poster-bwl-brand-motion.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/poster-healernet-motion.webp",
+      "sha256": "aa546300b1d1be8164d6d9c4cd9bca86e4e6091763dad688caf4831b4bdda8c3",
+      "bytes": 48416,
+      "sourceId": "MAIN-APPROVED-20261019/poster-healernet-motion.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/poster-bwl-cplus-ad.webp",
+      "sha256": "eba35ab73c2837ad0419b10a1b93b78796ee6fc5ca228b60bafbfcf8e3de6c70",
+      "bytes": 130734,
+      "sourceId": "MAIN-APPROVED-20261019/poster-bwl-cplus-ad.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/sns-cplus-opening.webp",
+      "sha256": "f680640a015b992c36f42febf7043c0780b5cbb039c683d7ba5ef20e5a85ae46",
+      "bytes": 138438,
+      "sourceId": "MAIN-APPROVED-20261019/sns-cplus-opening.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/sns-cplus-middle.webp",
+      "sha256": "6a2d1a78ddf563398fca587e26a13fd750ceeaebca4a38d61f53eb90d94b2fb1",
+      "bytes": 120754,
+      "sourceId": "MAIN-APPROVED-20261019/sns-cplus-middle.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/sns-cplus-ending.webp",
+      "sha256": "7b7a5d0c7fbb277b542bc983a6c4dc67d91b0947693eac33888f6674ac60ab07",
+      "bytes": 127948,
+      "sourceId": "MAIN-APPROVED-20261019/sns-cplus-ending.webp"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/bwl-brand-motion.mp4",
+      "sha256": "032603d63a99b039ba0f3f9d9da6a031b132f7e84a4f14dca9215bbbab1a68fd",
+      "bytes": 32788579,
+      "sourceId": "MAIN-APPROVED-20261019/bwl-brand-motion.mp4"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/healernet-motion.mp4",
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "bytes": 19404425,
+      "sourceId": "MAIN-APPROVED-20261019/healernet-motion.mp4"
+    },
+    {
+      "publicPath": "/content-renewal-20261019/bwl-cplus-ad.mp4",
+      "sha256": "fe6bc8ec737e7a745061d959cbbdea1dfeaa72c5c0f55d7fb7391b4eb74980ea",
+      "bytes": 10579542,
+      "sourceId": "MAIN-APPROVED-20261019/bwl-cplus-ad.mp4"
+    }
+  ],
+  "development": {
+    "pairId": "bwl-store-home-v03",
+    "status": "PC·모바일 디자인 시안 v03",
+    "sameHomePair": true,
+    "version": "v03",
+    "afterSourceIds": [
+      "bwl-store-home-v03/index-1440-viewport.png",
+      "bwl-store-home-v03/index-390-viewport.png"
+    ],
+    "assets": [
+      {
+        "publicPath": "/company-main-20261019-v11/development/after-home-mobile-v03.png",
+        "sha256": "606e73b29afa5bef09a2e047581d7020fe90691465ca2e771ea4b0d396f2ee87",
+        "bytes": 135750,
+        "sourceId": "bwl-store-home-v03/after-home-mobile-v03.png"
+      },
+      {
+        "publicPath": "/company-main-20261019-v11/development/after-home-pc-v03.png",
+        "sha256": "a942f900539e773b4cce95ac55696db8e5c02fce28872370884b23d93f6b5c26",
+        "bytes": 347014,
+        "sourceId": "bwl-store-home-v03/after-home-pc-v03.png"
+      },
+      {
+        "publicPath": "/company-main-20261019-v11/development/before-home-mobile.webp",
+        "sha256": "22c2832e87cbf9cfdbbd0afa2703ab9cfc39bf82ac95db47b6ba153d9daa4281",
+        "bytes": 25600,
+        "sourceId": "bwl-store-home-v03/before-home-mobile.webp"
+      },
+      {
+        "publicPath": "/company-main-20261019-v11/development/before-home-pc.webp",
+        "sha256": "be4b1c1288a5127a407a3bc0cb154468a98d8a0abf3b1c23db43782493965c34",
+        "bytes": 50306,
+        "sourceId": "bwl-store-home-v03/before-home-pc.webp"
+      }
+    ]
+  }
+}

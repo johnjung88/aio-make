@@ -5,7 +5,7 @@ import Image from "next/image";
 import { contentHomeProcess as steps, type ContentHomeStepArt } from "@/lib/content-home";
 import { ProcessRun } from "./process-run";
 
-const CUT = (n: number) => `/webtoon-v11/cut-${String(n).padStart(2, "0")}.webp`;
+const CUT = (n: number) => `/content-renewal-20261019/webtoon-${String(n).padStart(2, "0")}.webp`;
 
 function Cut({ n, sizes }: { n: number; sizes: string }) {
   return <Image src={CUT(n)} alt="" fill sizes={sizes} className="ch-art-img" />;
@@ -27,9 +27,9 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
     case "storyboard":
       return (
         <>
-          {[1, 2, 3].map((n) => (
-            <span key={n} className="ch-art-slot">
-              <Cut n={n} sizes="(min-width:1024px) 80px, 40px" />
+          {["이야기", "캐릭터", "컷 구성"].map((label, index) => (
+            <span key={label} className="ch-art-slot">
+              <span className="ch-art-document"><b className="cs-t-caption">0{index + 1}</b><span className="cs-t-caption">{label}</span><i/><i/><i/></span>
             </span>
           ))}
         </>
@@ -37,7 +37,7 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
     case "refine":
       return (
         <span className="ch-art-draft">
-          <Cut n={2} sizes="(min-width:1024px) 240px, 80px" />
+          <Cut n={5} sizes="(min-width:1024px) 240px, 80px" />
         </span>
       );
     case "frames":
@@ -49,7 +49,7 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
               className="ch-art-frame"
               data-ratio={ratio}
             >
-              <Cut n={3} sizes="(min-width:1024px) 100px, 40px" />
+              <Cut n={21} sizes="(min-width:1024px) 100px, 40px" />
             </span>
           ))}
         </>
@@ -65,6 +65,7 @@ export function ProcessSteps() {
           key={step.label}
           className="ch-step"
         >
+          <div className="ch-step-top">
           <div className="ch-step-art" aria-hidden="true">
             <div className="ch-art-stage" data-art={step.art}>
               <StepArt kind={step.art} />
@@ -76,6 +77,7 @@ export function ProcessSteps() {
             </span>
             {step.label}
           </h3>
+          </div>
           <p className="ch-step-text cs-t-small">{step.text}</p>
         </li>
       ))}

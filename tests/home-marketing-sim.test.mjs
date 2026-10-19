@@ -91,6 +91,9 @@ test("stage copy matches the brief table word for word", () => {
       EXPECTED.stages[index],
     );
     assert.equal(stage.desc, EXPECTED.descs[index]);
+    assert.equal(stage.descLines.length, 2, stage.id);
+    assert.ok(stage.descLines.every(line => line === line.trim() && line.length > 0), stage.id);
+    assert.equal(stage.descLines.join(" "), stage.desc, `${stage.id}: line grouping preserves every original word`);
   });
 });
 
@@ -308,7 +311,7 @@ test("only one scene is mounted and animated at a time", async () => {
   );
 });
 
-test("number and title share one row with no eyebrow margin", async () => {
+test("v11 step copy is centered, keeps number/title in one row and wraps at clause boundaries", async () => {
   const css = strip(await read(CSS));
   assert.match(css, /\.wj \.wj-mk-step-head \{[^}]*display: flex;[^}]*align-items: center;[^}]*gap: 8px;[^}]*margin: 0;/);
   assert.match(css, /\.wj \.wj-mk-num \{[^}]*margin: 0;[^}]*font-size: 14px;[^}]*font-weight: 650;/);
@@ -316,8 +319,14 @@ test("number and title share one row with no eyebrow margin", async () => {
   assert.match(css, /\.wj-mk-name \{[^}]*font-size: 22px;/); // 1440
   assert.match(css, /\.wj \.wj-mk-task \{[^}]*font-size: 13px;[^}]*font-weight: 600;/);
   assert.match(css, /\.wj \.wj-mk-desc \{[^}]*font-size: 15px;[^}]*line-height: 1.7;/);
+  assert.match(css, /\.wj \.wj-mk-step \{[^}]*justify-items:\s*center;[^}]*text-align:\s*center;/);
+  assert.match(css, /\.wj \.wj-mk-step-head \{[^}]*justify-content:\s*center;/);
+  assert.match(css, /\.wj \.wj-mk-desc \{[^}]*max-inline-size:\s*28em;[^}]*text-align:\s*center;/);
+  assert.match(css, /\.wj \.wj-mk-desc-line \{[^}]*max-inline-size:\s*100%;[^}]*text-wrap:\s*balance;/);
   const tsx = await read(TSX);
   assert.ok(!/eyebrow/.test(tsx), "the global .eyebrow margin is not used");
+  assert.match(tsx, /item\.descLines\?\.length/);
+  assert.match(tsx, /className="wj-mk-desc-line"/);
   assert.match(
     tsx,
     /<span className="wj-mk-step-head">\s*<span className="wj-mk-num">\{item\.num\}<\/span>\s*<span className="wj-mk-name">\{item\.title\}<\/span>/,

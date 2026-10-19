@@ -17,6 +17,14 @@ import {
 
 const read = (path) => readFileSync(path, "utf8");
 const sha = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
+const evidenceHashMatches = (path, expected) => {
+  if (sha(path) === expected) return true;
+  // Git converts text EOLs on checkout/archive. Keep binary evidence strict;
+  // for text, accept only the LF/CRLF representation of the recorded bytes.
+  if (!/\.(md|txt|html|svg)$/i.test(path)) return false;
+  const lf = read(path).replaceAll("\r\n", "\n");
+  return [lf, lf.replaceAll("\n", "\r\n")].some(text => createHash("sha256").update(text).digest("hex") === expected);
+};
 const frameDir = "components/platform-frame";
 const evidenceDir = "docs/renewal-2026-10-13/license-evidence-r7";
 const logosEvidence = join(evidenceDir, "logos");
@@ -75,14 +83,14 @@ test("로고 근거: 원본·페이지 저장본이 있고 INDEX.sha256.txt의 S
   for (const f of files) {
     const key = `logos/${f}`;
     assert.ok(index.has(key), `INDEX에 ${key} 없음`);
-    assert.equal(index.get(key), sha(join(logosEvidence, f)), `${key} SHA-256`);
+    assert.ok(evidenceHashMatches(join(logosEvidence, f), index.get(key)), `${key} SHA-256 (Git LF/CRLF)`);
   }
   // 서비스 파일(public)도 SHA를 INDEX에 남긴다
   for (const id of platformLogoIds) {
     const logo = getPlatformLogo(id);
     if (!logo.src) continue;
     const key = `public${logo.src}`;
-    assert.equal(index.get(key), sha(join("public", logo.src)), `${key} SHA-256`);
+    assert.ok(evidenceHashMatches(join("public", logo.src), index.get(key)), `${key} SHA-256 (binary strict, text Git LF/CRLF)`);
   }
 });
 

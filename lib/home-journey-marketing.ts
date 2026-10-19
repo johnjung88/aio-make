@@ -22,6 +22,7 @@ export type MarketingStage = {
   /** "이 단계에서 하는 일" 줄 */
   task: string;
   desc: string;
+  descLines?: string[];
 };
 
 export const marketingStages: MarketingStage[] = [
@@ -31,6 +32,7 @@ export const marketingStages: MarketingStage[] = [
     title: "플랜 기획",
     task: "SEO·AEO·GEO 분석과 설계",
     desc: "고객이 검색창과 AI 답변에서 무엇을 묻는지 먼저 찾고, 채널마다 무엇을 언제 올릴지 정합니다",
+    descLines: ["고객이 검색창과 AI 답변에서 무엇을 묻는지 먼저 찾고,", "채널마다 무엇을 언제 올릴지 정합니다"],
   },
   {
     id: "operate",
@@ -38,6 +40,7 @@ export const marketingStages: MarketingStage[] = [
     title: "운영",
     task: "게시·댓글·검색 노출 관리",
     desc: "정한 일정에 맞춰 채널별 규격으로 올리고, 댓글과 메시지, 검색 노출을 함께 관리합니다",
+    descLines: ["정한 일정에 맞춰 채널별 규격으로 올리고,", "댓글과 메시지, 검색 노출을 함께 관리합니다"],
   },
   {
     id: "data",
@@ -45,6 +48,7 @@ export const marketingStages: MarketingStage[] = [
     title: "데이터 확인",
     task: "채널·검색 성과 모아 보기",
     desc: "채널별 조회와 반응, 사이트 유입, 검색 키워드를 한 화면에 모아 무엇이 통했는지 확인합니다",
+    descLines: ["채널별 조회와 반응, 사이트 유입, 검색 키워드를 한 화면에 모아", "무엇이 통했는지 확인합니다"],
   },
   {
     id: "improve",
@@ -52,6 +56,7 @@ export const marketingStages: MarketingStage[] = [
     title: "성과 개선",
     task: "다음 플랜에 반영",
     desc: "반응이 좋은 형식과 문장을 다음 플랜에 반영하고, 검색과 AI 답변에 쓰일 문단을 보강합니다",
+    descLines: ["반응이 좋은 형식과 문장을 다음 플랜에 반영하고,", "검색과 AI 답변에 쓰일 문단을 보강합니다"],
   },
 ];
 

@@ -7,70 +7,90 @@ export type { ContentServiceId } from "./content-site/types.ts";
 
 export type HeroVideo = { src: string; poster: string };
 
-/* 히어로는 16:9 영상 슬롯 하나다(R6). 사용자 메이킹 필름이 오면 아래 video 한 줄만 채운다(public/ 기준 절대경로).
- * 예: video: { src: "/content-home/making-film.mp4", poster: "/content-home/making-film.webp" }
- * 비어 있는 동안은 같은 16:9 비율의 어두운 면과 placeholder 한 줄만 보인다. 영상이 들어오면 placeholder는 렌더되지 않는다.
- * title은 화면에 보이지 않는 h1(접근성·검색용)이다. */
+/* 사용자 지정 v02 전달본과 포스터. 원본과 사본의 해시는 별도 비공개 검증 기록에서 관리한다. */
 export const contentHomeHero = {
   title: "AIO MAKE 컨텐츠 스튜디오",
   placeholder: "AIO MAKE CONTENT STUDIO",
   videoPause: "영상 일시정지",
   videoPlay: "영상 재생",
-  /** 소재 슬롯 ID. 영상이 오면 아래 video 한 줄만 채운다 */
+  /** 제작 완료된 전달 영상의 소재 슬롯 ID */
   reelSlot: "home-hero-reel",
-  video: { src: "/content-home/hero-reel-r8.mp4", poster: "/content-home/hero-reel-r8.webp" } as HeroVideo | undefined,
+  video: { src: "/content-renewal-20261019/content-hero-v02.mp4", poster: "/content-renewal-20261019/content-hero-v02.webp" } as HeroVideo | undefined,
 };
 
-/* 홈 캐러셀 카드 소재 슬롯(R5 WP-H, ASSET_REQUEST_R5)
- * - 슬롯 ID는 home-card-<서비스 slug>이다
- * - poster는 지금 쓰는 AIO 생성 이미지다. 사용자가 Higgsfield 5초 영상을 주면 해당 카드의 video 한 줄만 채운다
- *   예: video: "/content-examples/home-card-webtoon.mp4" (public/ 기준 절대경로, mp4 H.264 1MB 안팎)
- * - video가 있으면 선택된 카드에서만 muted 루프로 재생하고 나머지 카드는 poster를 보여준다
- * - video가 없으면 선택된 카드의 poster에 느린 켄번스를 준다
- * - 검토판에서 실제 작업물이 선택되면 그 작업물이 우선이고 이 슬롯은 공개판 대체 소재다 */
+/* 승인된 실제 작업물을 기존 카드 슬롯에 배치한다. 영상은 선택 카드에서만 재생하며 이미지 합성은 CSS로 구성한다. */
 export type HomeMediaSlot = {
   slotId: `home-card-${ContentServiceId}`;
   poster: string;
   video: string | undefined;
   tag: string;
+  alt: string;
+  caseLabel: string;
+  caseNote: string;
+  images?: string[];
+  layout?: "comic" | "poses" | "persona";
 };
 
 export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
   webtoon: {
     slotId: "home-card-webtoon",
-    poster: "/content-examples/webtoon/card-r8.webp",
+    poster: "/content-renewal-20261019/webtoon-05.webp",
     video: undefined,
     tag: MEDIA_TAGS.ownWebtoon,
+    alt: "1억의 구단주 1화의 실제 완성 페이지 05와 21",
+    images: ["/content-renewal-20261019/webtoon-05.webp", "/content-renewal-20261019/webtoon-21.webp"],
+    layout: "comic",
+    caseLabel: "《1억의 구단주》 · 웹툰 제작",
+    caseNote: "자체 기획 IP의 실제 완성 페이지입니다. 원고와 장면 구성을 정리해 인물의 행동과 대사를 컷으로 옮겼습니다",
   },
   animation: {
     slotId: "home-card-animation",
-    poster: "/content-examples/animation/card-r8.webp",
+    poster: "/content-renewal-20261019/yofree-character-02.webp",
     video: undefined,
-    tag: MEDIA_TAGS.staged,
+    tag: "캐릭터·모션 활용",
+    alt: "요프리 제품을 캐릭터로 만든 세 가지 포즈",
+    images: ["/content-renewal-20261019/yofree-character-02.webp", "/content-renewal-20261019/yofree-character-03.webp", "/content-renewal-20261019/yofree-character-06.webp"],
+    layout: "poses",
+    caseLabel: "요프리 · 캐릭터 활용",
+    caseNote: "제품을 캐릭터로 만들고 표정과 포즈를 정리한 실제 제작물입니다. 캐릭터와 모션을 설계하는 작업 방식을 보여줍니다",
   },
   "ai-influencer": {
     slotId: "home-card-ai-influencer",
-    poster: "/creative-v06/video-ai-influencer.webp",
+    poster: "/content-renewal-20261019/ai-face.webp",
     video: undefined,
     tag: MEDIA_TAGS.aiPerson,
+    alt: "자체 기획 AI 가상인물 87언니의 얼굴과 전신 기준 이미지",
+    images: ["/content-renewal-20261019/ai-face.webp", "/content-renewal-20261019/ai-full.webp"],
+    layout: "persona",
+    caseLabel: "87언니 · AI 가상인물",
+    caseNote: "자체 기획 AI 가상인물의 얼굴과 전신 기준 이미지입니다. 인물의 외형과 스타일을 먼저 정리하고 이미지 제작에 활용합니다",
   },
   "motion-graphics": {
     slotId: "home-card-motion-graphics",
-    poster: "/content-examples/motion-graphics/card-r8.webp",
-    video: undefined,
-    tag: MEDIA_TAGS.staged,
+    poster: "/content-renewal-20261019/poster-bwl-brand-motion.webp",
+    video: "/content-renewal-20261019/bwl-brand-motion.mp4",
+    tag: "브랜드 모션",
+    alt: "DR’s Secret 브랜드 모션 영상",
+    caseLabel: "DR’s Secret · 브랜드 모션",
+    caseNote: "브랜드 이미지와 문구를 움직임으로 구성한 실제 제작 영상입니다",
   },
   "brand-film": {
     slotId: "home-card-brand-film",
-    poster: "/content-examples/brand-film/card-r8.webp",
-    video: undefined,
-    tag: MEDIA_TAGS.staged,
+    poster: "/content-renewal-20261019/poster-healernet-motion.webp",
+    video: "/content-renewal-20261019/healernet-motion.mp4",
+    tag: "기업 소개 영상",
+    alt: "힐러넷 기업 소개 모션 영상",
+    caseLabel: "힐러넷 · 기업 소개 영상",
+    caseNote: "회사의 서비스와 정보를 장면과 문구로 정리한 실제 제작 영상입니다",
   },
   ad: {
     slotId: "home-card-ad",
-    poster: "/content-examples/ad/card-r8.webp",
-    video: undefined,
-    tag: MEDIA_TAGS.staged,
+    poster: "/content-renewal-20261019/poster-bwl-cplus-ad.webp",
+    video: "/content-renewal-20261019/bwl-cplus-ad.mp4",
+    tag: "세로 광고 영상",
+    alt: "C Plus 제품을 소개하는 세로 광고 영상",
+    caseLabel: "C Plus · SNS 광고 영상",
+    caseNote: "제품을 짧은 세로 화면에 담은 실제 제작 영상입니다. 도입 장면부터 제품 소개까지 화면의 흐름을 확인할 수 있습니다",
   },
 };
 
@@ -104,19 +124,19 @@ const service = (s: Omit<ContentHomeService, "href">): ContentHomeService => ({
 });
 
 export const contentHomeServices: ContentHomeService[] = [
-  service({ id: "webtoon", label: "웹툰", line: "제품 이야기를 컷으로 그려 전합니다" }),
-  service({ id: "animation", label: "애니메이션", line: "표정과 동작으로 말하는 브랜드 캐릭터" }),
-  service({ id: "ai-influencer", label: "AI 인플루언서", line: "정한 인물이 매번 같은 얼굴로 나옵니다" }),
-  service({ id: "motion-graphics", label: "모션그래픽", line: "읽는 순서에 맞춰 움직이는 로고와 문구" }),
-  service({ id: "brand-film", label: "브랜드 홍보 영상", line: "홈페이지에 올릴 회사 소개 한 편" }),
-  service({ id: "ad", label: "SNS 광고 영상", line: "제품 하나를 세로 화면에 담는 광고" }),
+  service({ id: "webtoon", label: "웹툰", line: "이야기를 컷으로 완성합니다" }),
+  service({ id: "animation", label: "애니메이션", line: "캐릭터의 표정과 동작을 설계합니다" }),
+  service({ id: "ai-influencer", label: "AI 인플루언서", line: "브랜드에 맞는 가상인물의 기준을 만듭니다" }),
+  service({ id: "motion-graphics", label: "모션그래픽", line: "제품과 문구를 움직임으로 전합니다" }),
+  service({ id: "brand-film", label: "브랜드 홍보 영상", line: "회사와 브랜드의 이야기를 담습니다" }),
+  service({ id: "ad", label: "SNS 광고 영상", line: "제품의 핵심을 짧고 선명하게 전합니다" }),
 ];
 
 export const contentHomeServicesHead = {
-  eyebrow: "SERVICES",
-  title: "이야기에 맞는 형식\n결과물로 살펴보세요",
+  eyebrow: "SELECTED WORK",
+  title: "기획한 이야기가\n이렇게 완성됩니다",
   /** title 안에서 메인 키워드로 색을 줄 부분(CsSectionHead emphasis). 글자는 title 그대로다 */
-  titleEm: "형식",
+  titleEm: "완성",
   /** 선택된 카드 아래 캡션의 서비스 페이지 링크 */
   detailLink: "서비스 보기",
 };
@@ -134,38 +154,38 @@ export type ContentHomeStep = {
 
 export const contentHomeProcessHead = {
   eyebrow: "PROCESS",
-  title: "상담에서 납품까지\n네 단계로 진행합니다",
+  title: "기획을 확인하고\n단계마다 함께 다듬습니다",
   /** title 안에서 메인 키워드로 색을 줄 부분(CsSectionHead emphasis). 글자는 title 그대로다 */
-  titleEm: "네 단계",
+  titleEm: "함께",
 };
 
 export const contentHomeProcess: ContentHomeStep[] = [
   {
     label: "상담",
-    text: "서비스와 분량을 확정합니다",
+    text: "목적과 채널, 제작 분량을 정합니다",
     art: "checklist",
   },
   {
     label: "기획",
-    text: "컨텐츠별로 기획한 내용을 전달하고 공유합니다",
+    text: "이야기와 문구, 장면 구성을 함께 확인합니다",
     art: "storyboard",
   },
   {
     label: "제작",
-    text: "확정한 기획안대로 제작하고 공유합니다",
+    text: "확인한 기획으로 장면을 만들고 수정 사항을 반영합니다",
     art: "refine",
   },
   {
     label: "납품",
-    text: "게시할 채널에 맞춰 최종 편집 후 결과물을 전달합니다",
+    text: "최종 검수 후 합의한 형식으로 결과물을 전달합니다",
     art: "frames",
   },
 ];
 
 export const contentHomeCta = {
   eyebrow: "CONTACT",
-  title: "어떤 컨텐츠가\n필요하신가요?",
-  lead: "만들고 싶은 컨텐츠와 일정을 알려주시면 담당자가 범위와 견적을 안내합니다",
+  title: "만들고 싶은 콘텐츠를\n이야기해 주세요",
+  lead: "용도와 채널, 필요한 분량을 알려주세요. 제작 범위와 견적을 안내합니다",
   button: "상담 신청",
   href: "/content/contact",
 };

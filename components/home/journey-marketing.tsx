@@ -686,7 +686,13 @@ export function JourneyMarketing() {
                 <span className="wj-mk-name">{item.title}</span>
               </span>
               <span className="wj-mk-task">{item.task}</span>
-              <span className="wj-mk-desc">{item.desc}</span>
+              <span className="wj-mk-desc">
+                {item.descLines?.length ? item.descLines.map((line, lineIndex, lines) => (
+                  <span className="wj-mk-desc-line" key={line}>
+                    {line}{lineIndex < lines.length - 1 ? " " : ""}
+                  </span>
+                )) : item.desc}
+              </span>
               <span className="wj-mk-rowfill" aria-hidden="true">
                 <Fill state={stageState(index)} sceneIndex={sceneIndex} />
               </span>

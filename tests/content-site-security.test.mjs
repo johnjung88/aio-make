@@ -38,7 +38,8 @@ test("R8 W4: public metadata contains no customer, local source or contact infor
 });
 
 test("R8 W4: preparation rejects provenance reports in public, including junction aliases", async () => {
-  const root = mkdtempSync(join(tmpdir(), "aio-r8-w4-"));
+  const tempRoot = resolve(tmpdir());
+  const root = mkdtempSync(join(tempRoot, "aio-r8-w4-"));
   const publicDirectory = join(root, "public");
   mkdirSync(publicDirectory);
   const options = { publicDirectory };
@@ -54,7 +55,7 @@ test("R8 W4: preparation rejects provenance reports in public, including junctio
     await assert.rejects(assertPrivateReportDirectory(join(alias, "new-report"), options), /Report directory must be outside public/);
     assert.equal(existsSync(join(publicDirectory, "new-report")), false);
   } finally {
-    assert.ok(root.startsWith(join(tmpdir(), "aio-r8-w4-")));
+    assert.ok(resolve(root).startsWith(join(tempRoot, "aio-r8-w4-")));
     rmSync(root, { recursive: true, force: true });
   }
 });

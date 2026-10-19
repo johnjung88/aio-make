@@ -3,7 +3,7 @@
  * - 색은 컨텐츠 사이트 토큰(--cs-*)과 그 color-mix만 쓴다. 숫자 색 리터럴 0, !important 0.
  * - 모든 선택자는 .cs-site .cs-home 안으로 한정한다(다른 페이지로 이동해도 누수 0).
  * - 섹션 간격은 공통 토큰(--cs-section-y, --cs-section-y-sm)만 쓴다. 섹션 위 선과 배경 교차 없음.
- * - 정렬은 왼쪽 기준이다. 가운데는 좌우 대칭인 16:9 영상 슬롯 하나뿐이다.
+ * - 제작 과정의 그림·제목·설명과 문의 구간은 가운데 정렬한다.
  * - 트랜지션과 루프 애니메이션은 prefers-reduced-motion: no-preference 안에서만 선언한다.
  *   화면 밖·탭 숨김·헤더 움직임 토글이면 갤러리의 data-active="false"가 루프를 멈춘다. */
 
@@ -26,14 +26,14 @@
   background: var(--cs-surface);
 }
 .cs-site .cs-home .ch-hero-img {
-  object-fit: cover;
+  object-fit: contain;
 }
 .cs-site .cs-home .ch-hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   opacity: 0;
 }
 .cs-site .cs-home .ch-hero-video[data-shown] {
@@ -103,7 +103,7 @@
 
 /* 캡션: 서비스명 · 시작가 / 한 줄 / 표시 태그 · 서비스 보기 →. 글자 아래 빈 곳은 카드 링크가 받고 링크만 직접 받는다 */
 .cs-site .cs-home .ch-depth-caption { position:relative; z-index:2; min-height:160px; padding:var(--cs-s4) var(--cs-s5); display:flex; flex-direction:column; align-items:flex-start; gap:var(--cs-s2); pointer-events:none; }
-.cs-site .cs-home .ch-depth-caption :where(a) { pointer-events:auto; }
+.cs-site .cs-home .ch-depth-caption :where(a,button) { pointer-events:auto; }
 .cs-site .cs-home .ch-depth-title,
 .cs-site .cs-home .ch-depth-line { margin:0; }
 .cs-site .cs-home .ch-depth-title { display:flex; flex-wrap:wrap; align-items:baseline; gap:0 var(--cs-s3); }
@@ -119,7 +119,7 @@
 
 /* ---------------------------------------------------------------- 제작 과정 4단계(R8)
  * 머리(eyebrow·제목)는 가운데 정렬이고 단계 행은 왼쪽 기준을 그대로 둔다.
- * 모바일: 단계마다 [장면 그림 | 번호·이름] 머리 줄 + 아래 설명 한 문장(4행 합계 600px 이내).
+ * 모바일: 가운데 묶은 [장면 그림 | 번호·이름]과 아래 가운데 설명을 네 행으로 배치한다.
  * 768px: 2×2, 1024px부터 4열 가로. 칸마다 위 그림, 아래 글. 컨테이너는 읽기 폭 880 제한 없이 전체 폭을 쓴다.
  * 그림 틀은 허용 박스(이미지 틀)이며 글 영역에는 박스·그림자·기울임이 없다. 모든 움직임은 아래 no-preference 블록에 있다. */
 .cs-site .cs-home .ch-process {
@@ -139,17 +139,15 @@
   --cs-t-small-size: 15px;
   --cs-t-small-leading: 1.6;
   position: relative;
-  display: grid;
-  grid-template-columns: var(--ch-art-w) minmax(0, 1fr);
-  grid-template-areas:
-    "art name"
-    "text text";
-  column-gap: var(--cs-s3);
-  align-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cs-s2);
   padding-block: var(--cs-s3);
   border-top: 1px solid var(--cs-line);
 }
-.cs-site .cs-home .ch-step-art { grid-area: art; align-self: center; }
+.cs-site .cs-home .ch-step-top { display:flex;align-items:center;justify-content:center;gap:var(--cs-s3);width:100%; }
+.cs-site .cs-home .ch-step-art { flex:none;width:var(--ch-art-w);align-self:center; }
 /* 모션 순서: 단계 번호(--i)와 그림 안 순번(--r) */
 .cs-site .cs-home .ch-step:nth-child(1) { --i: 0; }
 .cs-site .cs-home .ch-step:nth-child(2) { --i: 1; }
@@ -159,10 +157,10 @@
 .cs-site .cs-home .ch-art-row:nth-child(2), .cs-site .cs-home .ch-art-slot:nth-child(2), .cs-site .cs-home .ch-art-frame:nth-child(2) { --r: 1; }
 .cs-site .cs-home .ch-art-row:nth-child(3), .cs-site .cs-home .ch-art-slot:nth-child(3), .cs-site .cs-home .ch-art-frame:nth-child(3) { --r: 2; }
 .cs-site .cs-home .ch-step-name {
-  grid-area: name;
   align-self: center;
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: var(--cs-s2);
   margin: 0;
 }
@@ -170,17 +168,18 @@
   color: var(--cs-accent-text);
 }
 .cs-site .cs-home .ch-step-text {
-  grid-area: text;
   min-width: 0;
   margin-top: var(--cs-s2);
+  text-align: center;
+  word-break: keep-all;
 }
 .cs-site .cs-home .ch-step :where(p) {
   margin: 0;
 }
 .cs-site .cs-home .ch-step-text.cs-t-small {
   color: var(--cs-fg-2);
-  max-width: var(--cs-measure);
-  text-wrap: pretty;
+  max-width: min(100%, 32ch);
+  text-wrap: balance;
 }
 
 /* 장면 그림(이미지 틀). 크기 단위 --u는 틀 폭의 1%와 틀 높이의 1.6% 중 작은 값이라 틀 비율(16:10, 5:2)이 달라도 장면이 잘리지 않는다 */
@@ -287,16 +286,21 @@
 .cs-site .cs-home .ch-cta-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: var(--cs-s6);
 }
 .cs-site .cs-home .ch-cta-copy {
   display: flex;
   flex-direction: column;
   gap: var(--cs-s4);
+  align-items: center;
 }
+.cs-site .cs-home .ch-cta h2 { white-space:pre-line;text-wrap:balance;word-break:keep-all; }
 .cs-site .cs-home .ch-cta .cs-t-lead {
-  max-width: var(--cs-measure);
+  max-width: min(var(--cs-measure), 36ch);
+  text-wrap: balance;
+  word-break: keep-all;
   color: var(--cs-fg);
 }
 .cs-site .cs-home .ch-cta-button {
@@ -316,20 +320,17 @@
   }
   .cs-site .cs-home .ch-step {
     --cs-t-small-size: 16px;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "art"
-      "name"
-      "text";
     row-gap: var(--cs-s1);
     padding-block: var(--cs-s4) 0;
   }
+  .cs-site .cs-home .ch-step-top { flex-direction:column;gap:var(--cs-s3); }
   .cs-site .cs-home .ch-step-art {
     align-self: start;
     aspect-ratio: 5 / 2;
-    margin-bottom: var(--cs-s3);
+    margin-bottom: 0;
+    width: 100%;
   }
-  .cs-site .cs-home .ch-step-name { align-self: start; }
+  .cs-site .cs-home .ch-step-name { align-self: center; }
   .cs-site .cs-home .ch-step-text { margin-top: 0; }
 }
 @media (min-width: 1024px) {
@@ -342,9 +343,9 @@
   }
   .cs-site .cs-home .ch-step-art { aspect-ratio: 16 / 10; }
   .cs-site .cs-home .ch-cta-inner {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 @media (min-width: 1440px) {
@@ -452,8 +453,46 @@
 .cs-site .cs-home .ch-depth-ai-tag {position:absolute;left:12px;top:12px;z-index:2;}
 
 /* R8 W1 approved carousel crop and W2 sound controls. */
-.cs-site .cs-home .ch-depth-card:not(:has(.ch-depth-ai-tag)) .ch-depth-media[data-kind="image"] img { object-fit:cover; }
-.cs-site .cs-home .ch-hero-controls { position:absolute; right:var(--cs-s4); bottom:var(--cs-s4); z-index:3; display:flex; align-items:center; gap:8px; }
+.cs-site .cs-home .ch-hero-controls { position:absolute; right:var(--cs-s4); top:var(--cs-s4); z-index:3; display:flex; align-items:center; gap:8px; }
 .cs-site .cs-home .ch-hero-controls .ch-hero-pause { position:static; }
 .cs-site .cs-home .ch-hero-sound { min-width:88px; min-height:44px; padding:8px 12px; border:1px solid var(--cs-line); border-radius:var(--cs-r-pill); background:var(--cs-bg); color:var(--cs-fg); cursor:pointer; }
 .cs-site .cs-home .ch-hero-sound:focus-visible { outline:2px solid var(--cs-accent); outline-offset:3px; }
+
+/* v10: compositions and controls stay inside the approved image slots. */
+.cs-site .cs-home .ch-gallery-tools { position:absolute;z-index:12;right:calc(50% - 270px + 12px);top:36px;display:flex;align-items:center;gap:8px;padding-left:12px;border:1px solid var(--cs-line);border-radius:var(--cs-r-pill);background:color-mix(in srgb,var(--cs-bg) 88%,transparent);color:var(--cs-fg);font-variant-numeric:tabular-nums; }
+.cs-site .cs-home .ch-gallery-tools button { display:grid;place-items:center;min-width:44px;min-height:44px;padding:0;border:0;border-left:1px solid var(--cs-line);border-radius:0 var(--cs-r-pill) var(--cs-r-pill) 0;background:transparent;color:inherit;cursor:pointer; }
+.cs-site .cs-home .ch-gallery-tools button:disabled { cursor:default; }
+.cs-site .cs-home .ch-case-open { border:0;padding:0;background:transparent;color:var(--cs-fg);cursor:pointer; }
+.cs-site .cs-home .ch-content-art { position:absolute;inset:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;overflow:hidden;background:var(--cs-bg); }
+.cs-site .cs-home .ch-content-art img { position:static;width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;object-position:50% 28%; }
+.cs-site .cs-home .ch-content-art--poses { gap:0;align-items:center;background:var(--cs-fg); }
+.cs-site .cs-home .ch-content-art--poses img { object-fit:contain; }
+.cs-site .cs-home .ch-content-art--persona img { object-position:50% 25%; }
+.cs-site .cs-home .ch-content-note { position:absolute;z-index:2;left:12px;bottom:12px;background:var(--cs-bg); }
+.cs-site .cs-home .ch-art-document { height:100%;display:flex;flex-direction:column;gap:7%;padding:10%;background:var(--cs-fg);color:var(--cs-bg); }
+.cs-site .cs-home .ch-art-document .cs-t-caption { --cs-t-caption-size:clamp(4px,1.7cqw,9px);--cs-t-caption-leading:1.5; }
+.cs-site .cs-home .ch-art-document b { margin-bottom:12%; }
+.cs-site .cs-home .ch-art-document i { display:block;width:92%;height:2px;background:color-mix(in srgb,var(--cs-bg) 30%,transparent); }
+.cs-site .cs-home .ch-art-document i:last-child { width:63%; }
+.cs-site .cs-home .ch-case-dialog { width:min(960px,calc(100% - 32px));max-height:calc(100svh - 32px);margin:auto;padding:var(--cs-s5);border:1px solid var(--cs-line);border-radius:var(--cs-r-md);background:var(--cs-bg);color:var(--cs-fg);overscroll-behavior:contain; }
+.cs-site .cs-home .ch-case-dialog::backdrop { background:color-mix(in srgb,var(--cs-bg) 86%,transparent); }
+.cs-site .cs-home .ch-case-bar { display:flex;justify-content:space-between;align-items:center;gap:var(--cs-s3);margin-bottom:var(--cs-s4); }
+.cs-site .cs-home .ch-case-bar h2 { margin:0; }
+.cs-site .cs-home .ch-case-bar button { flex:none; }
+.cs-site .cs-home .ch-case-body { display:grid;gap:var(--cs-s4); }
+.cs-site .cs-home .ch-case-body > video { width:100%;max-height:65svh;object-fit:contain;background:var(--cs-surface); }
+.cs-site .cs-home .ch-case-body > p { color:var(--cs-fg-2);margin:0; }
+.cs-site .cs-home .ch-case-images { position:relative;min-height:360px;height:min(65svh,680px); }
+.cs-site .cs-home .ch-case-images .ch-content-art { overflow:auto;align-items:start; }
+.cs-site .cs-home .ch-case-images .ch-content-art img { height:auto;object-fit:contain; }
+.cs-site .cs-home .ch-service-card-image > img { object-fit:contain; }
+@media(min-width:768px) and (max-width:1023px) { .cs-site .cs-home .ch-gallery-tools { right:calc(50% - 225px + 12px); } }
+@media(max-width:767px) {
+  .cs-site .cs-home .ch-gallery-tools { right:calc(50% - 140px + 12px); }
+  .cs-site .cs-home .ch-depth-media .ch-content-art--comic { grid-auto-columns:100%; }
+  .cs-site .cs-home .ch-depth-media .ch-content-art--comic img:nth-child(2) { display:none; }
+  .cs-site .cs-home .ch-case-dialog { padding:var(--cs-s4); }
+  .cs-site .cs-home .ch-case-bar { align-items:flex-start; }
+  .cs-site .cs-home .ch-case-images .ch-content-art--comic { grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:1fr; }
+  .cs-site .cs-home .ch-hero-controls { right:var(--cs-s2);top:var(--cs-s2);gap:4px; }
+}

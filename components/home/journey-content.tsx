@@ -17,7 +17,9 @@ import {
   type CardPlan,
 } from "@/lib/home-journey-platforms";
 import { newTabProps } from "@/lib/new-tab";
+import { homeCardMedia } from "@/lib/content-home";
 import { useDepthCarousel } from "./use-depth-carousel";
+import { ProductionCase } from "./production-case";
 import "./journey-content.css";
 
 const CARD_SIZES = "(min-width: 1440px) 280px, 248px";
@@ -126,6 +128,9 @@ function CardBody({
       <div className="wjc-blank" />
     );
   }
+  if (plan.id === "animation" && media.src === homeCardMedia.animation.poster) {
+    return <div className="wjc-poses">{homeCardMedia.animation.images?.map((src, index) => <Image key={src} src={src} alt={selected && index === 0 ? media.alt : ""} width={524} height={942} sizes="100px" />)}</div>;
+  }
   return (
     <>
       <StillImage src={media.src} alt={selected ? media.alt : ""} />
@@ -139,7 +144,7 @@ function CardBody({
   );
 }
 
-export function JourneyContent({
+function JourneyContentCarousel({
   selections,
 }: {
   selections: ContentSelection[];
@@ -243,6 +248,19 @@ export function JourneyContent({
       <p className="wjc-sr" aria-live={running ? "off" : "polite"}>
         {`${current + 1} / ${count} ${active.label}`}
       </p>
+    </div>
+  );
+}
+
+export function JourneyContent({
+  selections,
+}: {
+  selections: ContentSelection[];
+}) {
+  return (
+    <div className="wjc-group">
+      <ProductionCase />
+      <JourneyContentCarousel selections={selections} />
     </div>
   );
 }
