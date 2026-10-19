@@ -1,7 +1,7 @@
 // WP0FIX — 컨텐츠 사이트 공통 셸 회귀 테스트.
 // (WP0-1) .cs-col-N(폭)과 .cs-col-start-M(시작)이 함께 쓰일 때 span이 사라지지 않는지
 //         theme.css 규칙을 1440px 기준으로 적용해 계산한다(VERIFY_G0: 문의 폼 카드 86px).
-// (WP0-2) 모바일 헤더: CONTENT STUDIO 라벨을 숨기지 않고, '서비스' 버튼은 아이콘으로 줄어도 이름을 유지한다.
+// (WP0-2) 모바일 헤더: 라벨을 유지하고, 전체 서비스는 숨김 메뉴 없이 직접 탐색한다(v15 사용자 요청).
 import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -191,10 +191,10 @@ test("WP0-1. 격자 유틸리티: 소스의 모든 cs-col 조합이 12열 안에
   assert.ok(seen >= 2, "cs-col usages found");
 });
 
-test("WP0-2. 모바일 헤더: CONTENT STUDIO 라벨 유지 · 서비스 버튼 이름 유지", () => {
+test("WP0-2. 모바일 헤더: CONTENT STUDIO 라벨 유지 · 전체 서비스 직접 메뉴", () => {
   const rules = cssRules(read(THEME));
   for (const rule of rules)
-    if (/\.cs-lockup-label\b/.test(rule.selector))
+    if (/\.cs-lockup-label\b/.test(rule.selector) && mediaMatches(rule.media, 390))
       assert.doesNotMatch(rule.decls, /display\s*:\s*none/, `label hidden: ${rule.selector}`);
   // <768 두 줄 잠금
   assert.ok(
@@ -209,12 +209,17 @@ test("WP0-2. 모바일 헤더: CONTENT STUDIO 라벨 유지 · 서비스 버튼 
   );
   const header = read("components/content-site/shell/header.tsx");
   assert.match(header, /className="cs-lockup-label cs-t-lockup"/);
-  for (const label of ["홈", "각 서비스", "인사이트", "상담 신청"])
+  for (const label of ["홈", "인사이트", "레퍼런스", "상담 신청"])
     assert.ok(header.includes(label), label);
-  assert.match(header, /aria-expanded=\{open\}/);
-  assert.match(header, /aria-controls=\{id\}/);
-  assert.match(header, /hidden=\{!open\}/);
+  assert.match(header, /<nav[^>]*aria-label="콘텐츠 전체 메뉴"/);
   assert.match(header, /CONTENT_SERVICES\.map/);
-  assert.match(header, /event\.key === "Escape"/);
+  assert.match(header, /href=\{contentServicePath\(service\.id\)\}/);
+  assert.match(header, /aria-current=\{path\.startsWith/);
+  assert.doesNotMatch(header, /각 서비스|aria-expanded|(?:^|\s)hidden=|<button\b/);
+  const overrides = cssRules(read("components/content-site/shell/header-v15.css"));
+  assert.ok(overrides.some((r) => /cs-header-v15-nav\b/.test(r.selector) && /overflow-x\s*:\s*auto/.test(r.decls)), "all links remain horizontally reachable");
+  for (const rule of overrides)
+    if (/\.cs-lockup-label\b/.test(rule.selector) && mediaMatches(rule.media, 390))
+      assert.doesNotMatch(rule.decls, /display\s*:\s*none/, `label hidden: ${rule.selector}`);
   assert.doesNotMatch(header, /MotionToggle|cs-motion-toggle/);
 });

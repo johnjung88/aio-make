@@ -8,8 +8,8 @@ export const r8Sections = {
     },
     "READ": {
       "eyebrow": "READ",
-      "title": "12컷 한 회를\n직접 넘겨보세요",
-      "lead": "《1억의 구단주》 1회를 책장처럼 한 컷씩 넘기거나 전체를 이어서 읽을 수 있습니다"
+      "title": "제작 사례 12P를\n직접 넘겨보세요",
+      "lead": "《1억의 구단주》의 미리보기 12P를 한 페이지씩 넘겨볼 수 있습니다"
     },
     "ONE CUT": {
       "eyebrow": "ONE CUT",

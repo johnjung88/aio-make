@@ -6,7 +6,7 @@ import { planOptions } from "../content-pricing.ts";
 import { contentLandings } from "./index.ts";
 import { contentServicePath, type ContentServiceId } from "./types.ts";
 
-export function serviceJsonLd(id: ContentServiceId) {
+export function serviceJsonLd(id: ContentServiceId, faqItems?: readonly (readonly [string, string])[]) {
   const data = contentLandings[id];
   const path = contentServicePath(id);
   const url = siteUrl + path;
@@ -37,7 +37,7 @@ export function serviceJsonLd(id: ContentServiceId) {
   const faq = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: data.faq.map(([question, answer]) => ({
+    mainEntity: (faqItems ?? data.faq).map(([question, answer]) => ({
       "@type": "Question",
       name: question,
       acceptedAnswer: { "@type": "Answer", text: answer },

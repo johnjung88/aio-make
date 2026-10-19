@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { indexable, siteDescription, siteName, siteUrl } from "@/lib/metadata";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 import "./globals.css";
+import "@/components/copy-alignment-v17.css";
 const pretendard = localFont({
   src: "../public/fonts/PretendardVariable.woff2",
   display: "swap",
@@ -63,7 +65,7 @@ export default function RootLayout({
       className={`${pretendard.variable} ${unbounded.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body>{children}</body>
+      <body>{children}<ScrollToTop /></body>
     </html>
   );
 }

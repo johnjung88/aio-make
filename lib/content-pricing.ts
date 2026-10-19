@@ -1,10 +1,18 @@
-/* 컨텐츠 서비스 가격(PRICING_FINAL_2026-10-14.md 3~9번 정본). 모든 금액은 부가세 별도
+/* 컨텐츠 서비스 가격(PRICING_FINAL_2026-10-14.md + 2026-10-19 사용자 v16 페이지 단위 변경). 모든 금액은 부가세 별도
  * 금액 리터럴은 이 파일에만 있다 lib/content-home.ts는 아래 이름을 그대로 re-export한다
  * SHOW_STARTING_PRICE가 /content 홈 시작가 표시의 유일한 끄기 스위치다
  * (서비스 페이지 가격 블록은 사용자 확정이라 이 스위치와 관계없이 항상 표시한다). */
 import type { ContentServiceId } from "./content-site/types.ts";
 
 export const SHOW_STARTING_PRICE = true;
+
+/** v16 사용자 지정: 디지털 웹툰 1P의 제작 기준. 기존 25P 원고와 같은 규격입니다. */
+export const WEBTOON_PAGE_STANDARD = {
+  width: 1024,
+  height: 1536,
+  ratio: "2:3",
+  label: "가로 1,024px × 세로 1,536px",
+} as const;
 
 export const contentPricing = {
   "ai-influencer": {
@@ -41,8 +49,8 @@ export const contentPricing = {
   },
   webtoon: {
     plans: [
-      { label: "12컷", amount: 100000 },
-      { label: "24컷", amount: 180000 },
+      { label: "12P", amount: 100000 },
+      { label: "24P", amount: 180000 },
     ],
   },
   "motion-comic": {
@@ -51,8 +59,8 @@ export const contentPricing = {
       { label: "60초", amount: 120000 },
     ],
     bundles: [
-      { label: "웹툰 12컷 + 모션코믹 30초", amount: 175000 },
-      { label: "웹툰 24컷 + 모션코믹 60초", amount: 300000 },
+      { label: "웹툰 12P + 모션코믹 30초", amount: 175000 },
+      { label: "웹툰 24P + 모션코믹 60초", amount: 300000 },
     ],
     notes: ["기존 웹툰을 영상화하는 가격 웹툰 신규 제작은 별도"],
   },
@@ -82,7 +90,7 @@ export function formatWon(amount: number): string {
 export type StartingPrice = {
   amount: number;
   amountText: string;
-  /** 굵게 보이는 앞부분 예: "25만 원부터", "12컷 10만 원부터" */
+  /** 굵게 보이는 앞부분 예: "25만 원부터", "12P 10만 원부터" */
   head: string;
   /** " · "로 이어지는 나머지 단위 마지막은 항상 "부가세 별도" */
   rest: string[];
@@ -97,7 +105,7 @@ const startingBasis: Record<
 > = {
   webtoon: {
     amount: contentPricing.webtoon.plans[0].amount,
-    prefix: "12컷",
+    prefix: "12P",
   },
   animation: {
     amount: contentPricing.animation.plans[0].amount,
@@ -207,7 +215,7 @@ function group(
 
 /** 웹툰 서비스 페이지의 모션코믹 주석(서비스 명세 1-5 문장). */
 const WEBTOON_NOTE =
-  "모션코믹은 기존 웹툰을 영상화하는 가격입니다 웹툰 신규 제작은 별도입니다";
+  "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다 웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요";
 
 export function pricingPlans(id: ContentServiceId): ServicePricing {
   switch (id) {

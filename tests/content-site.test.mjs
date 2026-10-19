@@ -16,6 +16,8 @@ import { CS_COPY } from "../lib/content-site/copy.ts";
 import { COMMON_FAQ } from "../lib/content-site/faq.ts";
 import { csRoute } from "../lib/content-site/theme-map.ts";
 import { serviceJsonLd } from "../lib/content-site/schema.ts";
+import { DETAIL_COPY } from "../lib/content-site/service-detail-content.ts";
+import { serviceCaseSchema } from "../lib/service-case-schema.ts";
 import {
   PRICING_COMMON,
   PRICING_COMMON_LINES,
@@ -24,6 +26,7 @@ import {
   planOptions,
   pricingPlans,
   startingPrice,
+  WEBTOON_PAGE_STANDARD,
 } from "../lib/content-pricing.ts";
 import * as contentHome from "../lib/content-home.ts";
 import { services } from "../lib/content.ts";
@@ -58,7 +61,78 @@ const APPROVED_R8 = readFileSync("docs/renewal-2026-10-13/BRIEF_R8.md", "utf8");
 const BANNED =
   /을 통해|를 통해|에 대해|아니라|없이|최고|최저|보장|1위|%|\d+배|혁신|차원이 다른|압도적|극대화|시너지|원스톱|완벽|최적|퀄리티|콘텐츠|운영 중|게시 중|팔로워|조회수|립싱크|목소리|고화질|coming soon|준비 중|공개 예정|곧 공개|맞춤 견적|작업 사례/i;
 const CUSTOMER =
-  /reference-review|BWL|DR's Secret|DR&#x27;s Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|bwl-|yofree-|healernet-/i;
+  /reference-review|BWL|DR's Secret|DR&#x27;s Secret|닥터시크릿|힐러넷|HEALERNET|YoFree|요프리|MAXTECH|맥스테크|bwl-|yofree-|healernet-|maxtech-/i;
+
+// v14/v15 authorization applies only to these named modules and explicit case IDs.
+// It does not change the historical review catalog gate or existing client boundaries.
+const DETAIL_CLIENT_MODULES = [
+  "service-detail/additional-cases.tsx",
+  "service-detail/character-details.tsx",
+  "service-detail/experience.tsx",
+  "service-detail/film-details.tsx",
+  "service-detail/film-preview.tsx",
+  "service-detail/record-detail.tsx",
+  "service-detail/service-tools.tsx",
+  "service-detail/shared.tsx",
+  "service-detail/webtoon-reader.tsx",
+  "service-detail/webtoon.tsx",
+];
+const REFERENCE_CLIENT_MODULES = ["references/reference-library.tsx"];
+const DETAIL_CUSTOMER_CLIENTS = new Set([
+  "service-detail/character-details.tsx",
+  "service-detail/film-details.tsx",
+  "service-detail/webtoon.tsx",
+]);
+const APPROVED_CASE_IDS_V14 = [
+  "CASE-AIO-BRAND-INTRO", "CASE-BWL-BRAND-AD", "CASE-BWL-BRAND-MOTION",
+  "CASE-BWL-CLEANSER-AD", "CASE-BWL-CPLUS-AD", "CASE-CLUBOWNER-EP01",
+  "CASE-HEALERNET-MOTION", "CASE-UNNIE87-MODEL", "CASE-YOFREE-CHARACTER",
+  "CASE-YOFREE-JINSANG", "CASE-YOFREE-NIGHT", "CASE-YOFREE-OUTING", "CASE-YOFREE-SHORT",
+];
+const APPROVED_CASE_IDS_V15 = [...APPROVED_CASE_IDS_V14, "CASE-MAXTECH-BRANDFILM"].sort();
+const YOFREE_MOTION_PAIRS_V15 = Array.from({ length: 6 }, (_, index) => {
+  const number = String(index + 1).padStart(2, "0");
+  return { src: `/service-detail-v15/yofree-pose-${number}.mp4`, poster: `/service-detail-v15/yofree-character-${number}.webp` };
+});
+const PRIVATE_DETAIL_MARKERS = /AIO_SERVICE_CASE_V1|sourceWorkIds|sourceSHA256|source_sha256|[IC]:[\\/]|\/mnt\/|(?:09_TRANSFER|01_WORK|06_GITHUB)[\\/]|SUPABASE_SERVICE_ROLE_KEY|access_token|refresh_token|sk-[A-Za-z0-9]{12,}/;
+const DETAIL_CSS_CONTRACTS = {
+  "service-detail/detail.css": {
+    scope: /^\.sd(?:[\s.:#>\[+~]|$)|^\.sd-[a-z]/,
+    keyframes: ["sd-enter"],
+  },
+  "service-detail/character-details.css": {
+    scope: /^(?:\.sd-(?:animation|ai)(?=[\s.:#>\[+~]|$)|:is\(\.sd-animation,\s*\.sd-ai\))/,
+    keyframes: ["sd-character-entrance"],
+  },
+  "service-detail/film-details.css": {
+    // The desktop type override adds .sd specificity only before this exact
+    // three-service group; it does not permit a general .sd prefix in film CSS.
+    scope: /^(?:\.sd-(?:motion|brand|ad)(?=[\s.:#>\[+~]|$)|(?:\.sd\s+)?:is\(\.sd-motion,\s*\.sd-brand,\s*\.sd-ad\)(?=[\s.:#>\[+~]|$))/,
+    keyframes: ["sdFilmEnter", "sdFilmSideReveal"],
+  },
+  "service-detail/webtoon-detail.css": {
+    scope: /^\.sd-webtoon(?=[\s.:#>\[+~]|$)/,
+    keyframes: ["wt-page-one", "wt-page-two"],
+  },
+  "service-detail/experience.css": {
+    scope: /^\.sd(?=[\s.:#>\[+~]|$)/,
+    keyframes: [],
+  },
+  "service-detail/service-tools.css": {
+    scope: /^\.sd(?=[\s.:#>\[+~]|$)/,
+    keyframes: [],
+  },
+  "references/references.css": {
+    scope: /^\.cr-page(?=[\s.:#>\[+~]|$)/,
+    keyframes: [],
+  },
+  "shell/header-v15.css": {
+    scope: /^\.cs-site\s+\.cs-header-v15(?=[-\s.:#>\[+~]|$)|^\.cs-site:has\(\.cs-header-v15\)$/,
+    keyframes: [],
+  },
+};
+
+const siteRelative = (path) => path.replaceAll("\\", "/").replace(/^components\/content-site\//, "");
 
 const read = (path) => readFileSync(path, "utf8").replaceAll("\r\n", "\n");
 /** 주석을 뺀 소스(블록 주석과 줄 처음의 // 주석) */
@@ -119,14 +193,20 @@ function checkCopy({ path, key, value }, { latin = true } = {}) {
     .replace(/9:16/g, "")
     .replace(/1080p/g, "")
     .replace(/87언니/g, "");
+  // v16: the user explicitly changed webtoon offers to page units and specified
+  // a fixed digital page. These exact measurements are not performance claims.
+  if (path.startsWith("webtoon.")) rest = rest
+    .replace(/\b(?:1,024|1,536)px/g, "")
+    .replace(/2:3/g, "")
+    .replace(/\b(?:1|12|24)P\b/g, "");
   for (const m of rest.matchAll(/\d+(?:\.\d+)?/g))
     assert.ok(ALLOWED_NUMBERS.has(m[0]), `number ${m[0]} not allowed · ${where}`);
   // 쉼표: 한 문장 1개 이하
-  for (const s of sentences(value))
+  for (const s of sentences(value.replace(/(?<=\d),(?=\d{3}(?:\D|$))/g, "")))
     assert.ok((s.match(/,/g) || []).length <= 1, `comma <= 1 · ${where}`);
   // 문장 끝에 쉼표절을 붙이지 않는다
   assert.doesNotMatch(value, /,\s*$/, `trailing comma · ${where}`);
-  // R2 사용자 결정: 모든 화면 문장의 마침표 금지, 소수 금액은 유지
+  // Keep the earlier rule for unchanged services; v16 webtoon copy uses short sentences.
   assert.doesNotMatch(value, /[가-힣]\.(?=\s|$)|\.$/, `no sentence stops · ${where}`);
   if (key === "question") {
     assert.match(value, /\?$/, `question ends with ? · ${where}`);
@@ -190,8 +270,8 @@ test("2. 가격: PRICING_FINAL 금액·주석과 정확히 같다", () => {
   assert.deepEqual(
     webtoon[2].plans.map((p) => [p.label, formatWon(p.amount)]),
     [
-      ["웹툰 12컷 + 모션코믹 30초", "17.5만 원"],
-      ["웹툰 24컷 + 모션코믹 60초", "30만 원"],
+      ["웹툰 12P + 모션코믹 30초", "17.5만 원"],
+      ["웹툰 24P + 모션코믹 60초", "30만 원"],
     ],
   );
   assert.deepEqual(
@@ -219,8 +299,9 @@ test("2. 가격: PRICING_FINAL 금액·주석과 정확히 같다", () => {
     "계정 게시·운영 및 대량 제작은 별도 견적",
   ]);
   assert.deepEqual(pricingPlans("webtoon").notes, [
-    "모션코믹은 기존 웹툰을 영상화하는 가격입니다 웹툰 신규 제작은 별도입니다",
+    "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다 웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요",
   ]);
+  assert.deepEqual(WEBTOON_PAGE_STANDARD, { width: 1024, height: 1536, ratio: "2:3", label: "가로 1,024px × 세로 1,536px" });
   assert.deepEqual(pricingPlans("animation").notes, []);
   assert.deepEqual(pricingPlans("brand-film").notes, []);
   assert.deepEqual(PRICING_COMMON_LINES, [
@@ -347,6 +428,23 @@ test("4. FAQ·SEO", () => {
   }
 });
 
+test("4-1. 새 상세의 화면 FAQ와 라우트 JSON-LD는 같은 FAQ를 사용한다", () => {
+  const route = code("app/(content-site)/content/services/[service]/page.tsx");
+  const detail = code("components/content-site/service-detail/index.tsx");
+  assert.match(route, /import\s*\{\s*DETAIL_COPY\s*\}\s*from\s*["']@\/lib\/content-site\/service-detail-content["']/);
+  assert.match(route, /serviceJsonLd\(service,\s*DETAIL_COPY\[service\]\.faq\)/);
+  assert.match(detail, /copy\s*=\s*DETAIL_COPY\[id\]/);
+  assert.match(detail, /copy\.faq\.map\(/);
+  for (const id of ORDER) {
+    const [baseService, , baseBreadcrumb] = serviceJsonLd(id);
+    const [service, faq, breadcrumb] = serviceJsonLd(id, DETAIL_COPY[id].faq);
+    assert.deepEqual(service, baseService, `${id} FAQ override preserves service, offers and VAT`);
+    assert.deepEqual(breadcrumb, baseBreadcrumb, `${id} FAQ override preserves canonical breadcrumbs`);
+    assert.equal(faq["@type"], "FAQPage");
+    assert.deepEqual(faq.mainEntity.map((question) => [question.name, question.acceptedAnswer.text]), DETAIL_COPY[id].faq, `${id} current visible FAQ`);
+  }
+});
+
 test("5. AI 인플루언서 범위·표기(FACTS_AI_INFLUENCER)", () => {
   const ai = contentLandings["ai-influencer"];
   const all = strings(ai).map((s) => s.value);
@@ -385,11 +483,16 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
     if (client) {
       assert.doesNotMatch(
         text,
-        /from\s+["'][^"']*(work-catalog|generated|home-journey-data|works\.server)[^"']*["']/,
+        /from\s+["'][^"']*(work-catalog|generated|home-journey-data|works\.server|service-cases\.server|\/db)[^"']*["']/,
         `${path} imports server data`,
       );
       assert.doesNotMatch(text, /from\s+["']@\/lib\/content-site["']/, `${path} imports all landing data`);
-      assert.doesNotMatch(text, CUSTOMER, `${path} client customer string`);
+      if (!DETAIL_CUSTOMER_CLIENTS.has(siteRelative(path)))
+        assert.doesNotMatch(text, CUSTOMER, `${path} client customer string`);
+      else {
+        assert.doesNotMatch(text, /reference-review/, `${path} cannot embed legacy private media paths`);
+        assert.doesNotMatch(text, PRIVATE_DETAIL_MARKERS, `${path} cannot expose case-body markers, source locations or tokens`);
+      }
     }
     assert.doesNotMatch(text, /process\.env/, `${path} reads env`);
     // R3 server renderers may look up a selected work by slug. Their rendered
@@ -399,9 +502,129 @@ test("6. 고객 데이터 경계: client 파일은 서버 전용 모듈을 impor
     const text = code(path);
     assert.ok(path.endsWith(".ts"), `${path} is .ts (no JSX)`);
     assert.doesNotMatch(text, /process\.env|from ["']react["']/, `${path} pure data`);
-    assert.doesNotMatch(text, CUSTOMER, `${path} customer string`);
+    if (path.replaceAll("\\", "/") !== "lib/content-site/service-detail-content.ts")
+      assert.doesNotMatch(text, CUSTOMER, `${path} customer string`);
+    else assert.doesNotMatch(text, PRIVATE_DETAIL_MARKERS, `${path} public copy contains private markers`);
     assert.doesNotMatch(text, /work-catalog|generated\/|home-journey-data|works\.server/, path);
   }
+});
+
+test("6-4. approved case IDs stay explicit and the original 85 media hashes remain frozen", () => {
+  const seedText = read("content/service-cases-v14.json");
+  const manifestText = read("content/service-detail-assets-v14.json");
+  const seed = JSON.parse(seedText);
+  const manifest = JSON.parse(manifestText);
+  for (const record of seed) assert.equal(serviceCaseSchema.safeParse(record).success, true, record.caseId);
+  assert.deepEqual(seed.map((record) => record.caseId).sort(), APPROVED_CASE_IDS_V15);
+  assert.equal(manifest.assets.length, 85);
+  // Freeze both the allowed paths and their hashes, so changing files plus the
+  // manifest together cannot silently broaden this specific user authorization.
+  const pinned = manifest.assets.map(({ path, sha256 }) => ({ path, sha256 }))
+    .sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  assert.equal(createHash("sha256").update(JSON.stringify(pinned)).digest("hex"), "fe87e313f0baace2aa1e0f06961fbc423f193d02726176d368590e488255d852");
+  const sourceLinks = manifest.assets.map(({ path, sourceId }) => ({ path, sourceId }))
+    .sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  assert.equal(createHash("sha256").update(JSON.stringify(sourceLinks)).digest("hex"), "433b362a99d369c54b5ebcd6c7503556bbaf8d308b34235d0a9bb0143957a4fe", "the original public source identities must not be relabeled along with a manifest edit");
+  assert.equal(new Set(sourceLinks.map((asset) => asset.sourceId)).size, 85);
+  const approved = new Set(manifest.assets.map((asset) => asset.path));
+  assert.equal(approved.size, 85);
+  assert.deepEqual(walkFiles("public/service-detail-v14").map((path) => `/${path.replaceAll("\\", "/").replace(/^public\//, "")}`).sort(), [...approved].sort());
+  for (const asset of manifest.assets) {
+    assert.match(asset.path, /^\/service-detail-v14\/[a-z0-9-]+\.(?:webp|mp4)$/);
+    const actual = readFileSync(join("public", asset.path));
+    assert.equal(actual.length, asset.bytes, asset.path);
+    assert.equal(createHash("sha256").update(actual).digest("hex"), asset.sha256, asset.path);
+  }
+  assert.doesNotMatch(manifestText, PRIVATE_DETAIL_MARKERS);
+  // sourceWorkIds is legitimate server-only seed linkage, never public copy.
+  for (const record of seed.filter((record) => APPROVED_CASE_IDS_V14.includes(record.caseId))) {
+    for (const asset of record.assets) {
+      if (asset.src.startsWith("/service-detail-v15/")) {
+        assert.equal(record.caseId, "CASE-YOFREE-CHARACTER", "only the specifically revised character case adds v15 material to the original cases");
+        assert.ok(YOFREE_MOTION_PAIRS_V15.some((pair) => pair.src === asset.src && pair.poster === asset.poster), `${record.caseId} must use its exact new motion/poster pairs`);
+      } else {
+        assert.ok(approved.has(asset.src), `${record.caseId} source must be approved`);
+        if (asset.poster) assert.ok(approved.has(asset.poster), `${record.caseId} poster must be approved`);
+      }
+    }
+    for (const stage of record.stages) if (stage.asset) assert.ok(approved.has(stage.asset), `${record.caseId} process image must be approved`);
+    const { sourceWorkIds, ...publicRecord } = record;
+    assert.ok(Array.isArray(sourceWorkIds));
+    assert.doesNotMatch(JSON.stringify(publicRecord), PRIVATE_DETAIL_MARKERS);
+  }
+  for (const name of DETAIL_CLIENT_MODULES)
+    assert.doesNotMatch(code(`components/content-site/${name}`), PRIVATE_DETAIL_MARKERS, name);
+  const maxtech = seed.find((record) => record.caseId === "CASE-MAXTECH-BRANDFILM");
+  assert.deepEqual(maxtech.sourceWorkIds, [], "unknown official work identity stays unfilled");
+  assert.equal(maxtech.productionStatus, "draft");
+  assert.match(maxtech.publicLabel, /시안/);
+  const character = seed.find((record) => record.caseId === "CASE-YOFREE-CHARACTER");
+  assert.equal(character.revision, 2);
+  assert.deepEqual(character.sourceWorkIds, ["AIO-WORK-YOFREE-AD-02"], "new pose outputs stay connected to the existing canonical source identity");
+  assert.equal(character.productionStatus, "draft");
+  assert.match(character.publicLabel, /시안/);
+  assert.equal(character.services.find((service) => service.id === "animation").relation, "direct");
+  assert.deepEqual(character.assets.slice(0, 4).map(({ src, poster }) => ({ src, ...(poster ? { poster } : {}) })), [
+    { src: "/service-detail-v14/yofree-character-03.webp" },
+    { src: "/service-detail-v14/yofree-kinetic.mp4", poster: "/service-detail-v14/poster-yofree-kinetic.webp" },
+    { src: "/service-detail-v14/yofree-premium.mp4", poster: "/service-detail-v14/poster-yofree-premium.webp" },
+    { src: "/service-detail-v14/yofree-motioncomic.mp4", poster: "/service-detail-v14/poster-yofree-motioncomic.webp" },
+  ], "the previous four results remain intact before the six new motions");
+  assert.deepEqual(character.assets.slice(4).map(({ src, poster }) => ({ src, poster })), YOFREE_MOTION_PAIRS_V15);
+});
+
+test("6-5. the new reference library receives only approved public case fields through the server reader", () => {
+  const route = code("app/(content-site)/content/references/page.tsx");
+  const client = code("components/content-site/references/reference-library.tsx");
+  assert.match(route, /await\s+allServiceCases\(\)/);
+  assert.match(route, /new Map\(records\.map\(\(record\)\s*=>\s*\[record\.caseId,\s*record\]\)\)/);
+  const fields = route.match(/unique\.map\(\(\{([^}]+)\}\)\s*=>\s*\(\{/);
+  assert.ok(fields, "the reference route projects a named public-field list");
+  assert.deepEqual(fields[1].split(",").map((field) => field.trim()).filter(Boolean).sort(), ["caseId", "title", "brand", "summary", "scope", "publicLabel", "productionStatus", "services", "assets"].sort());
+  assert.doesNotMatch(route, /\.\.\.(?:record|entry)\b/);
+  assert.doesNotMatch(client, PRIVATE_DETAIL_MARKERS);
+  assert.doesNotMatch(client, /work-catalog|works\.server|service-cases\.server|reference-review|process\.env/);
+  assert.match(client, /record\.publicLabel/);
+  assert.match(client, /record\.productionStatus\s*===\s*"draft"/);
+  assert.match(client, /record\.services\.some\(/);
+  assert.match(client, /terms\.every\(/);
+  assert.match(client, /setSelectedId\(null\)/);
+});
+
+test("6-6. the fourteen v15 assets retain their approved bytes, hashes, types and public source identities", () => {
+  const manifestText = read("content/service-detail-assets-v15.json");
+  const manifest = JSON.parse(manifestText);
+  assert.equal(manifest.version, "v15");
+  assert.equal(manifest.assets.length, 14);
+  assert.doesNotMatch(manifestText, PRIVATE_DETAIL_MARKERS);
+  const pinned = manifest.assets.map(({ path, bytes, sha256, kind, sourceId }) => ({ path, bytes, sha256, kind, sourceId }))
+    .sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
+  assert.equal(createHash("sha256").update(JSON.stringify(pinned)).digest("hex"), "31f76da8d299d688d8658ad04d29d07ee7b15138b6cdc6391d64b1fa74d868c5", "new files and their manifest cannot be replaced together without a separately reviewed contract change");
+  assert.equal(new Set(pinned.map((asset) => asset.sourceId)).size, 14);
+  const expected = [
+    ...YOFREE_MOTION_PAIRS_V15.flatMap(({ src, poster }) => [src, poster]),
+    "/service-detail-v15/maxtech/hero-promo.mp4", "/service-detail-v15/maxtech/poster.webp",
+  ].sort();
+  const approved = new Set(pinned.map((asset) => asset.path));
+  assert.equal(approved.size, 14);
+  assert.deepEqual([...approved].sort(), expected);
+  assert.deepEqual(walkFiles("public/service-detail-v15").map((path) => `/${path.replaceAll("\\", "/").replace(/^public\//, "")}`).sort(), expected, "unlisted extra public assets must not enter this authorization");
+  for (const asset of manifest.assets) {
+    assert.deepEqual(Object.keys(asset).sort(), ["path", "bytes", "sha256", "kind", "sourceId"].sort(), "public asset entries expose only the five approved fields");
+    assert.match(asset.sourceId, /^(?:yofree-(?:character|pose)-0[1-6]|maxtech-(?:hero-promo|poster))$/);
+    assert.equal(asset.kind, asset.path.endsWith(".mp4") ? "video" : "image");
+    const actual = readFileSync(join("public", asset.path));
+    assert.equal(actual.length, asset.bytes, asset.path);
+    assert.equal(createHash("sha256").update(actual).digest("hex"), asset.sha256, asset.path);
+  }
+  const seed = JSON.parse(read("content/service-cases-v14.json"));
+  for (const record of seed) {
+    const paths = [...record.assets.flatMap(({ src, poster }) => [src, ...(poster ? [poster] : [])]), ...record.stages.flatMap(({ asset }) => asset ? [asset] : [])];
+    for (const path of paths.filter((path) => path.startsWith("/service-detail-v15/")))
+      assert.ok(approved.has(path), `${record.caseId} must reference an approved new asset`);
+  }
+  const maxtech = seed.find((record) => record.caseId === "CASE-MAXTECH-BRANDFILM");
+  assert.deepEqual(maxtech.assets.map(({ src, poster }) => ({ src, poster })), [{ src: "/service-detail-v15/maxtech/hero-promo.mp4", poster: "/service-detail-v15/maxtech/poster.webp" }]);
 });
 
 /** works.server.ts를 검토 플래그(undefined = 미설정)로 자식 프로세스에서 불러 서비스별 사례를 받는다. */
@@ -555,6 +778,7 @@ function cssRules(css) {
             inMotionOk: stack.some((s) =>
               /^@media[^{]*prefers-reduced-motion:\s*no-preference/.test(s.head),
             ),
+            inMotionReduced: stack.some((s) => /^@media[^{]*prefers-reduced-motion:\s*reduce(?:\)|\s)/.test(s.head)),
           });
       }
       chunk = "";
@@ -639,7 +863,37 @@ function checkCss(path, { serviceId } = {}) {
   }
 }
 
-test("7. CSS: 역할 토큰만·@media 안 글자 속성 0·!important 0·서비스 선택자 범위", () => {
+function checkDetailCss(path, contract) {
+  const css = code(path);
+  const rules = cssRules(css);
+  assert.deepEqual(cssKeyframes(css).sort(), [...contract.keyframes].sort(), `${path} named entrance animations`);
+  assert.doesNotMatch(css, /@import\b|@font-face\b|url\s*\(/i, `${path} cannot introduce a font or unapproved asset load`);
+  for (const rule of rules) {
+    for (const selector of splitSelectors(rule.selector)) {
+      if (siteRelative(path) === "service-detail/detail.css" && selector === ".cs-site:has(.sd)") {
+        // The mobile bar is outside the .sd detail body but inside the same
+        // .cs-site frame. Only a frame containing .sd receives these three
+        // lavender tokens; neither the company main nor content home has .sd.
+        // Keep this exact selector and declarations, not a broader frame prefix.
+        assert.deepEqual(rule.decls.split(";").map((item) => item.replaceAll(/\s/g, "")).filter(Boolean).sort(), [
+          "--cs-accent:#b9aeff", "--cs-accent-text:#b9aeff", "--cs-on-accent:#14102a",
+        ].sort(), `${path} detail-frame mobile-bar colors only`);
+      } else if (siteRelative(path) === "shell/header-v15.css" && selector === ".cs-site:has(.cs-header-v15)") {
+        assert.match(rule.decls.trim(), /^--cs-header-h:\s*(?:76|112|116)px;?$/, "only the active content header reserves its exact frame height");
+      } else assert.match(selector, contract.scope, `${path} detail-only selector: ${selector}`);
+    }
+    for (const declaration of rule.decls.split(";").filter((item) => /!important/.test(item))) {
+      assert.equal(rule.inMotionReduced, true, `${path} !important only stops reduced-motion behavior`);
+      assert.match(declaration.trim(), /^(?:animation|transition)\s*:\s*none\s*!important$|^scroll-behavior\s*:\s*auto\s*!important$/, `${path} !important declaration`);
+    }
+    for (const declaration of rule.decls.matchAll(/(?:^|;)\s*font-family\s*:\s*([^;]+)/g))
+      assert.equal(declaration[1].trim(), "inherit", `${path} keeps the existing font family`);
+    if (/(?:^|[;\s])animation\s*:\s*(?!none)[^;]+/.test(rule.decls) && !rule.inMotionOk)
+      assert.ok(rules.some((item) => item.inMotionReduced && /animation\s*:\s*none/.test(item.decls)), `${path} entrance animation has an explicit reduced-motion stop`);
+  }
+}
+
+test("7. CSS: 기존 역할 토큰 유지·새 상세 명시 범위·감소모션 예외만 허용", () => {
   // 파서 자체 점검: @keyframes 단계는 규칙이 아니다(@media 안·밖 모두)
   const sample =
     ".cs-svc-x .a { opacity: 1; } @keyframes cs-svc-x-k { from { opacity: 0; } 50% { opacity: 0.5; } to { opacity: 1; } }" +
@@ -659,7 +913,10 @@ test("7. CSS: 역할 토큰만·@media 안 글자 속성 0·!important 0·서비
   );
   const cssFiles = siteFiles.filter((f) => f.endsWith(".css"));
   assert.ok(cssFiles.some((f) => f.endsWith("theme.css")));
+  assert.deepEqual(cssFiles.map(siteRelative).filter((path) => path.startsWith("service-detail/")).sort(), Object.keys(DETAIL_CSS_CONTRACTS).filter((path) => path.startsWith("service-detail/")).sort(), "new detail styles require an explicit scoped contract");
   for (const path of cssFiles) {
+    const detailContract = DETAIL_CSS_CONTRACTS[siteRelative(path)];
+    if (detailContract) { checkDetailCss(path, detailContract); continue; }
     const match = path.replaceAll("\\", "/").match(/services\/([^/]+)\/\1\.css$/);
     checkCss(path, { serviceId: match?.[1] });
   }
@@ -702,7 +959,15 @@ test("7-1. CSS: /content 홈(components/content-home)", () => {
 test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적 0 · 메인 내비 import 0", () => {
   for (const path of [...siteFiles, ...homeFiles]) {
     const text = code(path);
-    assert.doesNotMatch(text, /style=/, `${path} inline style`);
+    const inlinePermissions = {
+      "service-detail/experience.tsx": /style=\{\{\s*width:\s*`\$\{progress \* 100\}%`\s*\}\}/g,
+      "service-detail/service-tools.tsx": /style=\{\{\s*"--compare-split":\s*`\$\{split\}%`\s*\}\s*as\s+CSSProperties\}/g,
+    };
+    const permission = inlinePermissions[siteRelative(path)];
+    if (permission) {
+      assert.equal([...text.matchAll(permission)].length, 1, `${path} one bounded presentation value`);
+      assert.doesNotMatch(text.replace(permission, ""), /style=/, `${path} no additional inline style`);
+    } else assert.doesNotMatch(text, /style=/, `${path} inline style`);
     assert.doesNotMatch(text, /\/content\/work/, path);
     assert.doesNotMatch(text, /작업 사례|맞춤 견적/, path);
   }
@@ -712,7 +977,7 @@ test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적
       /import[^;]*\b(GuideNav|ServiceNavigation)\b/,
       path,
     );
-  // 공용 client 섬은 6개(frame·header·mobile-bar·motion-toggle·inquiry·reveal)
+  // The original six client islands remain fixed; v14 adds seven named detail modules.
   const shared = siteFiles.filter(
     (f) =>
       !/services[\\/]|contact[\\/]/.test(f) &&
@@ -723,6 +988,8 @@ test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적
     shared.map((f) => f.replaceAll("\\", "/").replace("components/content-site/", "")).sort(),
     [
       "blocks/inquiry.tsx",
+      ...REFERENCE_CLIENT_MODULES,
+      ...DETAIL_CLIENT_MODULES,
       "shell/frame.tsx",
       "shell/header.tsx",
       "shell/mobile-bar.tsx",
@@ -743,6 +1010,65 @@ test("8. 소스: style= 0 · /content/work 0 · 작업 사례 0 · 맞춤 견적
   // 서버 HTML에 autoplay 속성 없음(자동재생은 frame.tsx가 마운트 후 play)
   for (const path of siteFiles.filter((f) => /\.tsx$/.test(f)))
     assert.doesNotMatch(read(path), /\bautoPlay\b/, path);
+});
+
+test("8-4. the content header exposes all six service links and references without a hidden dropdown", () => {
+  const header = code("components/content-site/shell/header.tsx");
+  const css = code("components/content-site/shell/header-v15.css");
+  assert.match(header, /CONTENT_SERVICES\.map\(\(service\)/);
+  assert.match(header, /href=\{contentServicePath\(service\.id\)\}/);
+  assert.match(header, /aria-label="콘텐츠 전체 메뉴"/);
+  assert.match(header, /href="\/content\/references"/);
+  assert.match(header, /href="\/content\/insights"/);
+  assert.match(header, /href="\/content\/contact"/);
+  assert.doesNotMatch(header, /<details\b|<summary\b|각 서비스|cs-services-menu/);
+  assert.match(header, /aria-current=/);
+  assert.match(css, /overflow-x:\s*auto/);
+  assert.match(css, /min-height:\s*44px/);
+});
+
+test("8-5. the global top action is public-route scoped, keyboard accessible and respects reduced motion", () => {
+  const top = code("components/scroll-to-top.tsx");
+  const css = code("components/scroll-to-top.css");
+  assert.equal((code("app/layout.tsx").match(/<ScrollToTop\s*\/>/g) ?? []).length, 1, "the root layout owns one top action");
+  const pageNavigation = code("components/page-navigation.tsx");
+  assert.doesNotMatch(pageNavigation, /<button\b|맨 위로|scrollTo\(/, "the old company-page top action must not duplicate the root action");
+  assert.match(pageNavigation, /new ResizeObserver\(measure\)/);
+  assert.match(pageNavigation, /observer\.observe\(header\)/);
+  assert.match(pageNavigation, /--site-header-height/);
+  assert.match(pageNavigation, /observer\.disconnect\(\)/, "removing the button must preserve the guide header measurement cleanup");
+  assert.match(top, /if\s*\(path\.startsWith\("\/admin"\)\)\s*return null/);
+  assert.match(top, /aria-label="맨 위로 이동"/);
+  assert.match(top, /tabIndex=\{visible\s*&&\s*!keyboard\s*\?\s*0\s*:\s*-1\}/);
+  assert.match(top, /prefers-reduced-motion:\s*reduce/);
+  assert.match(top, /heading\.focus\(\{\s*preventScroll:\s*true\s*\}\)/);
+  assert.match(top, /Math\.min\(1,\s*Math\.max\(0,/);
+  assert.doesNotMatch(top, PRIVATE_DETAIL_MARKERS);
+  assert.doesNotMatch(top, /work-catalog|service-cases\.server|process\.env/);
+  assert.equal((top.match(/style=/g) ?? []).length, 1);
+  assert.match(top, /style=\{\{\s*"--top-progress":\s*progress\s*\}\s*as\s+CSSProperties\}/);
+  for (const rule of cssRules(css)) for (const selector of splitSelectors(rule.selector))
+    assert.ok(selector.startsWith(".aio-scroll-top") || selector === "body:has(.cs-mbar) .aio-scroll-top" || selector === "body:has(.floating-contact:not([hidden])) .aio-scroll-top", `top-only selector: ${selector}`);
+});
+
+test("8-6. v15 chapter progress and comparison allow only bounded user-facing presentation values", () => {
+  const experience = code("components/content-site/service-detail/experience.tsx");
+  const tools = code("components/content-site/service-detail/service-tools.tsx");
+  assert.match(experience, /setProgress\(Math\.max\(0,\s*Math\.min\(1,/);
+  assert.match(experience, /useCsMotion\(\)/);
+  assert.match(experience, /prefers-reduced-motion:\s*no-preference/);
+  assert.match(experience, /aria-label="상세 페이지 목차"/);
+  assert.match(experience, /tabIndex=\{visible\s*\?\s*0\s*:\s*-1\}/);
+  assert.match(experience, /media\.revert\(\)/);
+  assert.match(tools, /type="range"\s+min=\{0\}\s+max=\{100\}/);
+  assert.match(tools, /setSplit\(Number\(event\.target\.value\)\)/);
+  assert.match(tools, /setSplit\(0\)/);
+  assert.match(tools, /setSplit\(50\)/);
+  assert.match(tools, /setSplit\(100\)/);
+  for (const text of [experience, tools]) {
+    assert.doesNotMatch(text, PRIVATE_DETAIL_MARKERS);
+    assert.doesNotMatch(text, /work-catalog|works\.server|service-cases\.server|process\.env/);
+  }
 });
 
 test("8-2. 문의: CsInquiry에 서비스 선택(chooser) 모드 없음, 미선택 문구는 이 사이트 문장만", () => {
@@ -824,7 +1150,17 @@ test("9. 라우트·삭제·리다이렉트", () => {
   // 서비스 페이지: 6종 외는 404, 사례는 서버에서만
   const servicePage = read(`${group}/services/[service]/page.tsx`);
   assert.match(servicePage, /dynamicParams = false/);
-  assert.match(servicePage, /selectContentWorks/);
+  assert.match(servicePage, /if\s*\(!isContentServiceId\(service\)\)\s*notFound\(\)/);
+  assert.match(servicePage, /import\s*\{\s*serviceCases\s*\}\s*from\s*["']@\/lib\/service-cases\.server["']/);
+  assert.match(servicePage, /const\s+cases\s*=\s*await\s+serviceCases\(service\)/);
+  assert.match(servicePage, /<ServiceDetail\s+id=\{service\}\s+cases=\{cases\}\s*\/>/);
+  const caseServer = code("lib/service-cases.server.ts");
+  assert.match(caseServer.trimStart(), /^import\s*["']server-only["'];/);
+  assert.match(caseServer, /\.select\(["']id,body,is_published,rights_confirmed["']\)/);
+  assert.match(caseServer, /entry\.is_published\s*&&\s*entry\.rights_confirmed\s*\?\s*["']published["']\s*:\s*["']draft["']/);
+  assert.match(caseServer, /publicRecords\(mergeServiceCases\(seedServiceCases,\s*additions\)\)/);
+  assert.match(caseServer, /casesForService\(await\s+allServiceCases\(\),\s*id\)/);
+  assert.match(caseServer, /if\s*\(error\)\s*return\s*\[\]/);
   assert.match(servicePage, /serviceJsonLd/);
   // 레지스트리: 6종 모두 등록, 공통 블록 순서 고정
   // R6 순서: Hero → Signature → BeforePricing(AI) → Pricing(+포함·별도) → Process → Works(검토판) → FAQ → Inquiry → Related

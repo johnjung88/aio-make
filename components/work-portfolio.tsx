@@ -1,3 +1,4 @@
+import { displayCopy } from "@/lib/display-copy";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -104,7 +105,7 @@ export function WorkIndex({
           <span className="work-eyebrow">AIO MAKE / SELECTED WORK</span>
           <h1 className="t-h1" id="work-title">
             {title}
-            <span aria-hidden="true">.</span>
+
           </h1>
           <p className="t-body">
             웹사이트부터 영상과 웹툰까지,
@@ -181,6 +182,7 @@ export function WorkDetail({
   work: WorkItem;
   related: WorkItem[];
 }) {
+  work = displayCopy(work);
   const hero = work.media[0];
   const service = services.find(
     (item) =>

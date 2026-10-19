@@ -1,5 +1,12 @@
 import { z } from "zod";
 import { services } from "./content.ts";
+import {
+  CASE_BODY_PREFIX,
+  encodeServiceCaseBody,
+  parseServiceCaseBody,
+  serviceCaseSchema,
+  type ServiceCase,
+} from "./service-case-schema.ts";
 export const divisionSchema = z.enum(["marketing", "development", "video"]);
 export const contactSchema = z
   .object({
@@ -109,6 +116,10 @@ export const entrySchema = z
   });
 export function isSafeImageUrl(url: string) {
   if (
+    /^\/service-detail-v(?:14|15)\/(?:[\w-]+\/)*[\w.-]+\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(url) &&
+    !url.includes("..")
+  ) return true;
+  if (
     /^\/(renewal|portfolio|images)\/[\w./-]+$/.test(url) &&
     !url.includes("..")
   )
@@ -127,6 +138,10 @@ export function isSafeImageUrl(url: string) {
   }
 }
 export function isSafeMediaUrl(url: string) {
+  if (
+    /^\/service-detail-v(?:14|15)\/(?:[\w-]+\/)*[\w.-]+\.(?:mp4|webm)$/i.test(url) &&
+    !url.includes("..")
+  ) return true;
   if (isSafeImageUrl(url)) return true;
   try {
     const u = new URL(url);
@@ -141,6 +156,113 @@ export function isSafeMediaUrl(url: string) {
   } catch {
     return false;
   }
+}
+
+export type ServiceCaseEntryDraft = z.infer<typeof entrySchema>;
+export type ExistingServiceCaseEntry = { id: string; body: string; slug: string };
+export class ServiceCaseConflictError extends Error {}
+
+/** Pure validation is shared by the admin API and local fixtures; it never queries a database. */
+export function validateServiceCaseEntry(
+  entry: ServiceCaseEntryDraft,
+  existingEntries: ExistingServiceCaseEntry[] = [],
+  seedCases: ServiceCase[] = [],
+): { record: ServiceCase | null; previous: ServiceCase | null; body: string } {
+  if (!entry.body.startsWith(CASE_BODY_PREFIX)) {
+    return { record: null, previous: null, body: entry.body };
+  }
+  if (entry.type !== "reference" || entry.division !== "video") {
+    throw new Error("서비스 제작 사례는 콘텐츠 분야의 레퍼런스에서 작성해주세요");
+  }
+  if (entry.is_published && !entry.rights_confirmed) {
+    throw new Error("공개 권리와 내용의 사실을 확인해주세요");
+  }
+  let raw: Record<string, unknown>;
+  try {
+    const decoded: unknown = JSON.parse(entry.body.slice(CASE_BODY_PREFIX.length));
+    if (!decoded || typeof decoded !== "object" || Array.isArray(decoded)) throw new Error();
+    raw = decoded as Record<string, unknown>;
+  } catch {
+    throw new Error("서비스 사례 내용을 읽을 수 없습니다 보존된 본문을 복구한 뒤 저장해주세요");
+  }
+  if (entry.is_published && !["ready", "published"].includes(String(raw.publication))) {
+    throw new Error("공개 준비 상태를 '공개 준비 완료'로 바꾼 뒤 게시해주세요");
+  }
+  const candidate = {
+    ...raw,
+    title: entry.title,
+    slug: entry.slug,
+    summary: entry.summary || raw.scope,
+    order: entry.display_order,
+    publication: entry.is_published ? "published" : raw.publication === "published" ? "ready" : raw.publication,
+    services: Array.isArray(raw.services) ? raw.services.map((service) => {
+      if (!service || typeof service !== "object") return service;
+      return { ...service, description: service.description || raw.scope };
+    }) : raw.services,
+    assets: Array.isArray(raw.assets) ? raw.assets.map((asset) => {
+      if (!asset || typeof asset !== "object") return asset;
+      return { ...asset, alt: asset.alt || entry.title };
+    }) : raw.assets,
+  };
+  const parsed = serviceCaseSchema.safeParse(candidate);
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0];
+    throw new Error(`서비스 사례의 ${issue.path.join(" · ") || "내용"}을 확인해주세요: ${issue.message}`);
+  }
+  const record = parsed.data;
+  if (!record.services.some((service) => service.id === entry.service)) {
+    throw new Error("상단의 서비스가 관련 서비스에 연결되어 있는지 확인해주세요");
+  }
+  for (const asset of record.assets) {
+    if (asset.kind === "video" ? !isSafeMediaUrl(asset.src) || !/\.(?:mp4|webm)$/i.test(asset.src) : !isSafeImageUrl(asset.src)) {
+      throw new Error("결과물은 허용된 사이트 이미지·영상 경로를 사용해주세요");
+    }
+    if (asset.poster && !isSafeImageUrl(asset.poster)) {
+      throw new Error("영상 포스터는 허용된 사이트 이미지 경로를 사용해주세요");
+    }
+  }
+  if (record.stages.some((stage) => stage.asset && !isSafeImageUrl(stage.asset))) {
+    throw new Error("과정 자료는 허용된 사이트 이미지 경로를 사용해주세요");
+  }
+  const previousEntry = entry.id ? existingEntries.find((item) => item.id === entry.id) : undefined;
+  const previous = previousEntry ? parseServiceCaseBody(previousEntry.body) : null;
+  if (previous && previous.caseId !== record.caseId) {
+    throw new ServiceCaseConflictError("저장된 사례ID는 유지해주세요 별도 작업은 새 콘텐츠로 등록할 수 있습니다");
+  }
+  const canonical = previous ?? seedCases.find((item) => item.caseId === record.caseId);
+  if (canonical && record.revision !== canonical.revision) {
+    throw new ServiceCaseConflictError("다른 수정이 반영된 사례 버전입니다 최신 내용을 다시 열어 확인해주세요");
+  }
+  for (const item of existingEntries) {
+    if (item.id === entry.id) continue;
+    if (!item.body.startsWith(CASE_BODY_PREFIX)) continue;
+    const other = parseServiceCaseBody(item.body);
+    if (item.slug === record.slug || other?.slug === record.slug) {
+      throw new ServiceCaseConflictError("같은 주소의 서비스 사례가 이미 있습니다 기존 사례를 편집하거나 주소를 바꿔주세요");
+    }
+    if (!other) continue;
+    if (other.caseId === record.caseId) {
+      throw new ServiceCaseConflictError("같은 사례ID가 이미 등록되어 있습니다 기존 사례를 편집해주세요");
+    }
+    if (record.sourceWorkIds.some((workId) => other.sourceWorkIds.includes(workId))) {
+      throw new ServiceCaseConflictError("같은 기존 작품이 다른 사례에 연결되어 있습니다 기존 사례의 관련 서비스를 확장해주세요");
+    }
+  }
+  for (const other of seedCases) {
+    if (other.caseId === record.caseId) continue;
+    if (other.slug === record.slug) {
+      throw new ServiceCaseConflictError("기존 정본 사례와 주소가 같습니다 정본 사례를 불러오거나 다른 주소를 입력해주세요");
+    }
+    if (record.sourceWorkIds.some((workId) => other.sourceWorkIds.includes(workId))) {
+      throw new ServiceCaseConflictError("기존 정본 작품에 연결된 작업ID입니다 같은 정본 사례를 불러와 보완해주세요");
+    }
+  }
+  const normalized = {
+    ...record,
+    revision: canonical ? canonical.revision + 1 : record.revision,
+    featuredFor: canonical ? record.featuredFor : [],
+  };
+  return { record: normalized, previous, body: encodeServiceCaseBody(normalized) };
 }
 export const inquiryStatuses = [
   "new",

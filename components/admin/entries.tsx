@@ -5,6 +5,8 @@ import { isSafeImageUrl } from "@/lib/domain";
 import { ArrowUpRight } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
 import type { EntryData, EntryDraft } from "./types";
+import { ServiceCaseEditor } from "./service-case-editor";
+import { CASE_BODY_PREFIX, parseServiceCaseBody } from "@/lib/service-case-schema";
 type Props = {
   entries: EntryData;
   filteredEntries: EntryData["items"];
@@ -51,6 +53,8 @@ export function EntryPanel({
   const heading = useRef<HTMLHeadingElement>(null),
     opener = useRef<HTMLButtonElement | null>(null);
   const editorKey = editor ? (editor.id ?? "new") : null;
+  const structuredBody = !!editor?.body.startsWith(CASE_BODY_PREFIX);
+  const serviceCase = editor ? parseServiceCaseBody(editor.body) : null;
   useEffect(() => {
     if (editorKey) heading.current?.focus();
   }, [editorKey]);
@@ -170,6 +174,7 @@ export function EntryPanel({
               컨텐츠 종류
               <select
                 value={editor.type}
+                disabled={structuredBody}
                 onChange={(e) =>
                   updateEditor(
                     "type",
@@ -185,6 +190,7 @@ export function EntryPanel({
               분야
               <select
                 value={editor.division}
+                disabled={structuredBody}
                 onChange={(e) =>
                   setEditor({
                     ...editor,
@@ -228,6 +234,7 @@ export function EntryPanel({
               />
             </label>
           </div>
+          {structuredBody ? <p>서비스 사례의 콘텐츠 종류와 분야를 바꾸려면 먼저 일반 본문으로 전환하세요. 작성 중인 사례는 편집창에 보존됩니다.</p> : null}
           <label>
             제목
             <input
@@ -246,16 +253,20 @@ export function EntryPanel({
               onChange={(e) => updateEditor("summary", e.target.value)}
             />
           </label>
-          <label>
-            본문
-            <textarea
-              rows={10}
-              maxLength={30000}
-              value={editor.body}
-              onChange={(e) => updateEditor("body", e.target.value)}
-              placeholder="본문을 입력하세요 입력한 내용은 일반 텍스트로 표시됩니다"
-            />
-          </label>
+          {(editor.type === "reference" && editor.division === "video") || structuredBody ? (
+            <ServiceCaseEditor key={editorKey} entry={editor} onChange={(value) => setEditor(value)} />
+          ) : (
+            <label>
+              본문
+              <textarea
+                rows={10}
+                maxLength={30000}
+                value={editor.body}
+                onChange={(e) => updateEditor("body", e.target.value)}
+                placeholder="본문을 입력하세요 입력한 내용은 일반 텍스트로 표시됩니다"
+              />
+            </label>
+          )}
           <div className="form-row">
             <label>
               대표 이미지 경로
@@ -371,7 +382,7 @@ export function EntryPanel({
           <label className="check-label">
             <input
               type="checkbox"
-              disabled={!editor.rights_confirmed}
+              disabled={!editor.rights_confirmed || (structuredBody && (!serviceCase || !["ready", "published"].includes(serviceCase.publication)))}
               checked={editor.is_published}
               onChange={(e) => updateEditor("is_published", e.target.checked)}
             />
@@ -405,6 +416,9 @@ export function EntryPanel({
                 target="_blank"
                 rel="noopener noreferrer"
                 href={
+                  savedEntry.division === "video" && savedEntry.body.startsWith(CASE_BODY_PREFIX)
+                  ? `/content/services/${savedEntry.service}#case-${parseServiceCaseBody(savedEntry.body)?.caseId ?? ""}`
+                  :
                   "/" +
                   divisions.find((d) => d.id === savedEntry.division)?.path +
                   "/" +

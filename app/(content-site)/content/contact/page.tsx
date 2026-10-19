@@ -9,7 +9,7 @@ const video = divisionById("video")!;
 export function generateMetadata() {
   return pageMetadata(
     video.label + " 문의",
-    "웹툰부터 SNS 광고 영상까지 필요한 컨텐츠와 일정을 알려주세요. 담당자가 범위와 견적을 안내합니다.",
+    "웹툰부터 SNS 광고 영상까지 필요한 컨텐츠와 일정을 알려주세요 담당자가 범위와 견적을 안내합니다",
     "/" + video.path + "/contact",
   );
 }

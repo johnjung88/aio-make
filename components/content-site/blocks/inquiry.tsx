@@ -26,13 +26,20 @@ const UNDECIDED = CS_COPY.inquiry.planUndecided;
 export function CsInquiry({
   service,
   copy,
+  caseOptions = [],
+  defaultCase,
 }: {
   service?: ContentServiceId;
   copy: CsInquiryCopy;
+  caseOptions?: { caseId: string; title: string }[];
+  defaultCase?: { caseId: string; title: string };
 }) {
   const f = CS_COPY.inquiry.fields;
   const uid = useId();
   const [plan, setPlan] = useState<string>(UNDECIDED);
+  const [interest, setInterest] = useState(defaultCase);
+  const [material, setMaterial] = useState("상담 후 결정");
+  const [entryPoint, setEntryPoint] = useState("direct");
   const planRef = useRef<HTMLSelectElement>(null);
   const current = service;
   const options = current ? planOptions(current) : [];
@@ -40,7 +47,21 @@ export function CsInquiry({
   // 서비스가 바뀌면(문의 페이지의 선택) 희망 구성을 처음 값으로 되돌린다.
   useEffect(() => {
     setPlan(UNDECIDED);
-  }, [service]);
+    setInterest(defaultCase);
+    setMaterial("상담 후 결정");
+    setEntryPoint("direct");
+  }, [service, defaultCase]);
+
+  // A reference card carries the canonical case across service-page navigation.
+  useEffect(() => {
+    if (!current) return;
+    const requested = new URLSearchParams(window.location.search).get("caseId");
+    const picked = caseOptions.find((item) => item.caseId === requested);
+    if (picked) {
+      setInterest(picked);
+      setEntryPoint("reference");
+    }
+  }, [current, caseOptions]);
 
   // 가격표 '이 구성으로 상담' → 희망 구성 선택 + 스크롤 + 포커스
   useEffect(() => {
@@ -48,15 +69,22 @@ export function CsInquiry({
     const onClick = (event: MouseEvent) => {
       const link =
         event.target instanceof Element
-          ? event.target.closest<HTMLAnchorElement>("a[data-plan]")
+          ? event.target.closest<HTMLAnchorElement>("a[data-plan],a[data-case],a[data-material]")
           : null;
       if (!link) return;
       const picked = planOptions(current).find(
         (p) => p.key === link.dataset.plan,
       );
-      if (!picked) return;
+      const pickedCase = caseOptions.find((c) => c.caseId === link.dataset.case);
+      if (!picked && !pickedCase && !link.dataset.material) return;
       event.preventDefault();
-      setPlan(picked.option);
+      if (picked) setPlan(picked.option);
+      if (pickedCase) setInterest(pickedCase);
+      if (link.dataset.material) {
+        const aliases: Record<string, string> = { undecided: "상담 후 결정", partial: "일부 자료 있음", ready: "필요한 자료 있음" };
+        setMaterial(aliases[link.dataset.material] ?? link.dataset.material.slice(0, 100));
+      }
+      setEntryPoint(link.dataset.entry ?? "case");
       const reduce = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
@@ -67,7 +95,7 @@ export function CsInquiry({
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
-  }, [current]);
+  }, [current, caseOptions]);
 
   const id = (name: string) => `${uid}-${name}`;
 
@@ -96,6 +124,12 @@ export function CsInquiry({
                 homeLabel={CS_COPY.inquiry.homeLabel}
                 unselectedMessage={CS_COPY.inquiry.serviceMissing}
               >
+                {interest ? <div className="sd-inquiry-selection" aria-live="polite">
+                  <span className="sd-eyebrow">관심 제작 사례</span><strong>{interest.title}</strong><span>{plan}</span><span>자료: {material}</span>
+                  <input type="hidden" name="caseId" value={interest.caseId} />
+                  <input type="hidden" name="entryPoint" value={entryPoint} />
+                  <input type="hidden" name="planId" value={options.find((p) => p.option === plan)?.key ?? "undecided"} />
+                </div> : null}
                 <div className="cs-form-row">
                   <div className="cs-field">
                     <label htmlFor={id("name")} className="cs-field-label cs-t-label">
@@ -185,6 +219,12 @@ export function CsInquiry({
                     </select>
                   </div>
                 </div>
+                {defaultCase ? <div className="cs-field sd-material-field">
+                  <label htmlFor={id("materials")} className="cs-field-label cs-t-label">자료 준비 상태</label>
+                  <select id={id("materials")} name="자료 준비 상태" value={material} onChange={(event) => setMaterial(event.target.value)}>
+                    {Array.from(new Set(["상담 후 결정", "아이디어만 있음", "일부 자료 있음", "원고 있음", "캐릭터·이미지 있음", "완성 웹툰 있음", "기준 모델 있음", "제품 자료 있음", "필요한 자료 있음", material])).map((value) => <option key={value} value={value}>{value}</option>)}
+                  </select>
+                </div> : null}
                 <div className="cs-field">
                   <label htmlFor={id("reference")} className="cs-field-label cs-t-label">
                     {f.reference}

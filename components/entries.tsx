@@ -1,3 +1,4 @@
+import { displayCopy } from "@/lib/display-copy";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -20,6 +21,7 @@ export function GuideEntryCard({
   path: string;
   type: "reference" | "insight";
 }) {
+  entry = displayCopy(entry);
   const segment = type === "reference" ? "work" : "insights";
   return (
     <Link
@@ -50,7 +52,7 @@ export function GuideEntryCard({
         <p className="t-body">{entry.summary}</p>
         {type === "insight" && (
           <time dateTime={entry.created_at}>
-            {new Date(entry.created_at).toLocaleDateString("ko-KR")}
+            {new Date(entry.created_at).toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" })}
           </time>
         )}
       </div>
@@ -167,10 +169,11 @@ export async function EntryDetail({
 }) {
   const d = divisionByPath(division);
   if (!d || (d.id === "video" && type === "reference")) notFound();
-  const entry =
+  const sourceEntry =
     (await publicEntry(type, d.id, slug)) ??
     guideEntries(type, d.id).find((e) => e.slug === slug);
-  if (!entry) notFound();
+  if (!sourceEntry) notFound();
+  const entry = displayCopy(sourceEntry);
   const segment = type === "reference" ? "work" : "insights";
   const pagePath = `/${division}/${segment}/${entry.slug}`;
   return (

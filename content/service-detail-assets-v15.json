@@ -1,0 +1,104 @@
+{
+  "version": "v15",
+  "scope": "local review service enhancements; external publication and client acceptance separate",
+  "assets": [
+    {
+      "path": "/service-detail-v15/maxtech/hero-promo.mp4",
+      "bytes": 12820023,
+      "sha256": "5636731c4846b87c0d18393ee4d0c9ced1f80c1820f85760725f94611c876eae",
+      "kind": "video",
+      "sourceId": "maxtech-hero-promo"
+    },
+    {
+      "path": "/service-detail-v15/maxtech/poster.webp",
+      "bytes": 76842,
+      "sha256": "0bfc3415583429106aaded059b32696c1caf5fda4b22c770a7931ffdf8e22c23",
+      "kind": "image",
+      "sourceId": "maxtech-poster"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-01.webp",
+      "bytes": 993132,
+      "sha256": "fc451ad24a39566a58fd58c6f35406fc930b007884d20d24098105942dbd5f03",
+      "kind": "image",
+      "sourceId": "yofree-character-01"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-02.webp",
+      "bytes": 44908,
+      "sha256": "f8df752db86d9daa4c26cfbb5c3003bdf19ae74974b15cd90bd52230e50f489b",
+      "kind": "image",
+      "sourceId": "yofree-character-02"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-03.webp",
+      "bytes": 32462,
+      "sha256": "7d8e3b0910f73a907edea3f3cb2b37c76bf9d3435288b895797db203ceb21251",
+      "kind": "image",
+      "sourceId": "yofree-character-03"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-04.webp",
+      "bytes": 33408,
+      "sha256": "03cdb2003a0bbf526e49eb96c33b393dd1d49718552cff98a244fd07613e8eff",
+      "kind": "image",
+      "sourceId": "yofree-character-04"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-05.webp",
+      "bytes": 966538,
+      "sha256": "ce9f070abbec2b109d3ce5a1a321d388dea75cb275ee1798b7995f2c01863c49",
+      "kind": "image",
+      "sourceId": "yofree-character-05"
+    },
+    {
+      "path": "/service-detail-v15/yofree-character-06.webp",
+      "bytes": 39382,
+      "sha256": "08c365096a155c312e47ba3c7c5305bb74ee0cca523361db6fdf3a1ee92cdd0b",
+      "kind": "image",
+      "sourceId": "yofree-character-06"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-01.mp4",
+      "bytes": 407001,
+      "sha256": "04bed444e89e14e02788cbc3bd5d2202346421081459c5089b0729bf0ed72258",
+      "kind": "video",
+      "sourceId": "yofree-pose-01"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-02.mp4",
+      "bytes": 386603,
+      "sha256": "70204cb3cecc29627cb042eb2cc6f55277b3c56638324ff944d34e28bbdcb3b6",
+      "kind": "video",
+      "sourceId": "yofree-pose-02"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-03.mp4",
+      "bytes": 294895,
+      "sha256": "7797cbd6a7ad8817acf455fb97ecb86d8e9c15b4d087c3e592f90c7464207c44",
+      "kind": "video",
+      "sourceId": "yofree-pose-03"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-04.mp4",
+      "bytes": 770050,
+      "sha256": "4bf555836a1ea5967be7296546037d3f100b5a77dd128973afe644951e8ba00f",
+      "kind": "video",
+      "sourceId": "yofree-pose-04"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-05.mp4",
+      "bytes": 448643,
+      "sha256": "a0176d0b02b739d6da435bb89b0318602b6095d0084808d2ff3a7145bf6b0adc",
+      "kind": "video",
+      "sourceId": "yofree-pose-05"
+    },
+    {
+      "path": "/service-detail-v15/yofree-pose-06.mp4",
+      "bytes": 323777,
+      "sha256": "be6574809056cb79d30ce90c25da9b06ec37b7da29cfbf86bbb978a77138b1a7",
+      "kind": "video",
+      "sourceId": "yofree-pose-06"
+    }
+  ]
+}

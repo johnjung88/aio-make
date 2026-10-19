@@ -1,0 +1,601 @@
+{
+  "version": "v14",
+  "scope": "approved content service detail assets",
+  "assets": [
+    {
+      "path": "/service-detail-v14/webtoon-01.webp",
+      "bytes": 362076,
+      "sha256": "9eae8080b09e570948beb32f8e2f4b79cbb45e783c89be28c27b352953c7e875",
+      "kind": "image",
+      "sourceId": "webtoon-01"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-02.webp",
+      "bytes": 266554,
+      "sha256": "228bad1a706fa20a39ecad8b86082500600a600f9fad6607e5f751a14ec48eb3",
+      "kind": "image",
+      "sourceId": "webtoon-02"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-03.webp",
+      "bytes": 244602,
+      "sha256": "924d1fd109e60204fbc6c9fc304c11be54499bfbda8dba7ad7449d93f272378d",
+      "kind": "image",
+      "sourceId": "webtoon-03"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-04.webp",
+      "bytes": 260350,
+      "sha256": "159b1e60124241295df341bf5d5d7d2d03e597f8c16e4ede6b293693755bfa20",
+      "kind": "image",
+      "sourceId": "webtoon-04"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-05.webp",
+      "bytes": 355946,
+      "sha256": "61fe2f55abebb95f62a1c1a9ea525ec008b9419feeb4e094364b89de10a87227",
+      "kind": "image",
+      "sourceId": "webtoon-05"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-06.webp",
+      "bytes": 317944,
+      "sha256": "4f644d955bae5c8717fd9f1f935650723849bce136c5ad9eae3a92056e187008",
+      "kind": "image",
+      "sourceId": "webtoon-06"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-07.webp",
+      "bytes": 305814,
+      "sha256": "fec62bf2857b1a3edbd90d3cd0d313d7e2356a21592611d2c0691388e5faf903",
+      "kind": "image",
+      "sourceId": "webtoon-07"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-08.webp",
+      "bytes": 276828,
+      "sha256": "32afb6a82e6a4efefa30a21bc18344ea6a06020482e1a9f610fe535dafd03172",
+      "kind": "image",
+      "sourceId": "webtoon-08"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-09.webp",
+      "bytes": 396722,
+      "sha256": "d610dc7c91ddd136d49ef8da6dee8bf20f1fae3eb08b6b1f319e3dbf5ce0c3d6",
+      "kind": "image",
+      "sourceId": "webtoon-09"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-10.webp",
+      "bytes": 312126,
+      "sha256": "cc4b216fcd01b66a553df6f58b2827e81bd4e9c21c5d07aff992641469f4d028",
+      "kind": "image",
+      "sourceId": "webtoon-10"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-11.webp",
+      "bytes": 281138,
+      "sha256": "54082c3860f642ef946b01cee42330b410826ef0beaf89cf3fea5c8471816193",
+      "kind": "image",
+      "sourceId": "webtoon-11"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-12.webp",
+      "bytes": 282510,
+      "sha256": "eff3e3be03749db7e5dddac320ae1ebfef765a6164f0709b978a3df066520a80",
+      "kind": "image",
+      "sourceId": "webtoon-12"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-13.webp",
+      "bytes": 330542,
+      "sha256": "467733d1286c17567261bb87433fe97ffef8befcae49c9accea046bafa8eb8bc",
+      "kind": "image",
+      "sourceId": "webtoon-13"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-14.webp",
+      "bytes": 226576,
+      "sha256": "5ad65b819e92ea328d4d6e4108866bde1ab612675acadec7b3c6b493fe0ed294",
+      "kind": "image",
+      "sourceId": "webtoon-14"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-15.webp",
+      "bytes": 272530,
+      "sha256": "ca8e8bc283b05aab7121218a9072bb57cb6b123c9ac6c7c45939aed9c7440e57",
+      "kind": "image",
+      "sourceId": "webtoon-15"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-16.webp",
+      "bytes": 266606,
+      "sha256": "dedefe9faccba7cb68413aa550ced7b5ececc302f44ea83b6f7e6e83ba702efc",
+      "kind": "image",
+      "sourceId": "webtoon-16"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-17.webp",
+      "bytes": 266726,
+      "sha256": "193c0f4802e12587269725a3eb321e9557cec43eacb1cb076cd1169f5fc1cd85",
+      "kind": "image",
+      "sourceId": "webtoon-17"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-18.webp",
+      "bytes": 199508,
+      "sha256": "0d91435b48e237d68c81bd7b3ab919cfd2ea27a4f77ab63aeba8b8fff590e208",
+      "kind": "image",
+      "sourceId": "webtoon-18"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-19.webp",
+      "bytes": 196232,
+      "sha256": "2ddc8a4f437efcb6852ffa80def261fa94578e866c0996fa750cad308ce1c145",
+      "kind": "image",
+      "sourceId": "webtoon-19"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-20.webp",
+      "bytes": 217696,
+      "sha256": "376d3e3de1c281a125f5bb32a5793a5423836e46a0e58d480a23ad0ac82890d0",
+      "kind": "image",
+      "sourceId": "webtoon-20"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-21.webp",
+      "bytes": 306010,
+      "sha256": "5de100aa01a8991bdf1d320e2c8c52eca999c1ea89f0999c378d82c8697cef3c",
+      "kind": "image",
+      "sourceId": "webtoon-21"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-22.webp",
+      "bytes": 349878,
+      "sha256": "bed1fe4a4911667ed2813ccaf437d47204ff39c511d3a298d43ce39a33dbfc1c",
+      "kind": "image",
+      "sourceId": "webtoon-22"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-23.webp",
+      "bytes": 307170,
+      "sha256": "ffdb7c0fe0a14d1c30398c7920929b8b1d10fd82d0039087a2b53a434638b45d",
+      "kind": "image",
+      "sourceId": "webtoon-23"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-24.webp",
+      "bytes": 356852,
+      "sha256": "c0937dace4d48ff49f1e9f59f13a7c3d253bdbf4fb8614da0dd251f55a15cdcc",
+      "kind": "image",
+      "sourceId": "webtoon-24"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-25.webp",
+      "bytes": 314340,
+      "sha256": "cc8a4f08e9ce12bbade5856663c56040cbb37bf6ba8f976a4b14ff79239b43f2",
+      "kind": "image",
+      "sourceId": "webtoon-25"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-cover.webp",
+      "bytes": 266554,
+      "sha256": "228bad1a706fa20a39ecad8b86082500600a600f9fad6607e5f751a14ec48eb3",
+      "kind": "image",
+      "sourceId": "webtoon-cover"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-characters.webp",
+      "bytes": 252446,
+      "sha256": "d74308900d0a73395172c1a4f4698f98baee3902b955f87d158e8e91ba575255",
+      "kind": "image",
+      "sourceId": "webtoon-characters"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-before.webp",
+      "bytes": 287742,
+      "sha256": "a30f891bba64122d5f2b262b510a1bd8c5c45104361b1079c64ca96dfa94ccdb",
+      "kind": "image",
+      "sourceId": "webtoon-before"
+    },
+    {
+      "path": "/service-detail-v14/webtoon-after.webp",
+      "bytes": 282510,
+      "sha256": "eff3e3be03749db7e5dddac320ae1ebfef765a6164f0709b978a3df066520a80",
+      "kind": "image",
+      "sourceId": "webtoon-after"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-sheet.webp",
+      "bytes": 70486,
+      "sha256": "1d620333fe529ec45e869d61550cf56d153923b5c5252dae7f42e66b051c4595",
+      "kind": "image",
+      "sourceId": "yofree-character-sheet"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-01.webp",
+      "bytes": 9178,
+      "sha256": "3d03440e04b53a2221ea27c45be2762f08e2174460f21e991e6268a86bb77950",
+      "kind": "image",
+      "sourceId": "yofree-character-01"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-02.webp",
+      "bytes": 44908,
+      "sha256": "f8df752db86d9daa4c26cfbb5c3003bdf19ae74974b15cd90bd52230e50f489b",
+      "kind": "image",
+      "sourceId": "yofree-character-02"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-03.webp",
+      "bytes": 32462,
+      "sha256": "7d8e3b0910f73a907edea3f3cb2b37c76bf9d3435288b895797db203ceb21251",
+      "kind": "image",
+      "sourceId": "yofree-character-03"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-04.webp",
+      "bytes": 33408,
+      "sha256": "03cdb2003a0bbf526e49eb96c33b393dd1d49718552cff98a244fd07613e8eff",
+      "kind": "image",
+      "sourceId": "yofree-character-04"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-05.webp",
+      "bytes": 19110,
+      "sha256": "d7b9e76480ddff64cee68ad234813ff728744cc13766b75b4156eb6226cf6306",
+      "kind": "image",
+      "sourceId": "yofree-character-05"
+    },
+    {
+      "path": "/service-detail-v14/yofree-character-06.webp",
+      "bytes": 39382,
+      "sha256": "08c365096a155c312e47ba3c7c5305bb74ee0cca523361db6fdf3a1ee92cdd0b",
+      "kind": "image",
+      "sourceId": "yofree-character-06"
+    },
+    {
+      "path": "/service-detail-v14/ai-face.webp",
+      "bytes": 231362,
+      "sha256": "7bc0a8b55359eea46d7af9e0f7888c97669323be19bf2b2554a33a36ca183d9d",
+      "kind": "image",
+      "sourceId": "ai-face"
+    },
+    {
+      "path": "/service-detail-v14/ai-full.webp",
+      "bytes": 85638,
+      "sha256": "e3477960e3ed03117a30ba9c5943a7a1af9bc2d1eeb68bdfb3bad18b10e89956",
+      "kind": "image",
+      "sourceId": "ai-full"
+    },
+    {
+      "path": "/service-detail-v14/ai-t2.webp",
+      "bytes": 228888,
+      "sha256": "19b052d4b72e806b34121ed362e49b8f4839f90678a068087c63411bfdf18048",
+      "kind": "image",
+      "sourceId": "ai-t2"
+    },
+    {
+      "path": "/service-detail-v14/ai-t3.webp",
+      "bytes": 397578,
+      "sha256": "6e7a4ecf8078eacd3189f3a69d85aa270c14fc440cad3dffff58f08ebcdeb3e1",
+      "kind": "image",
+      "sourceId": "ai-t3"
+    },
+    {
+      "path": "/service-detail-v14/ai-selected.webp",
+      "bytes": 397578,
+      "sha256": "6e7a4ecf8078eacd3189f3a69d85aa270c14fc440cad3dffff58f08ebcdeb3e1",
+      "kind": "image",
+      "sourceId": "ai-selected"
+    },
+    {
+      "path": "/service-detail-v14/poster-clubowner-motion.webp",
+      "bytes": 174088,
+      "sha256": "58179a15ced5a26ac1e33c4317c059913bc7950106c6db905efe0a34700e144d",
+      "kind": "image",
+      "sourceId": "poster-clubowner-motion"
+    },
+    {
+      "path": "/service-detail-v14/poster-clubowner-highlight.webp",
+      "bytes": 174088,
+      "sha256": "58179a15ced5a26ac1e33c4317c059913bc7950106c6db905efe0a34700e144d",
+      "kind": "image",
+      "sourceId": "poster-clubowner-highlight"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-kinetic.webp",
+      "bytes": 102910,
+      "sha256": "0cf09df8e2a4b0afb72708f149b3c4f3e75cd92bb2ed7f5920f67d7c1f016d7b",
+      "kind": "image",
+      "sourceId": "poster-yofree-kinetic"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-premium.webp",
+      "bytes": 176720,
+      "sha256": "0d99a02a1a0aad2be12e0c029834ddba871f0c613b2cc80ac2219c1f90690379",
+      "kind": "image",
+      "sourceId": "poster-yofree-premium"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-motioncomic.webp",
+      "bytes": 172182,
+      "sha256": "6f138c24b767b6f60cc1e667984cc3b1114718b5bf640d482b3273ff43f07c70",
+      "kind": "image",
+      "sourceId": "poster-yofree-motioncomic"
+    },
+    {
+      "path": "/service-detail-v14/poster-bwl-cplus-ad.webp",
+      "bytes": 130734,
+      "sha256": "eba35ab73c2837ad0419b10a1b93b78796ee6fc5ca228b60bafbfcf8e3de6c70",
+      "kind": "image",
+      "sourceId": "poster-bwl-cplus-ad"
+    },
+    {
+      "path": "/service-detail-v14/poster-bwl-cleanser-ad.webp",
+      "bytes": 115984,
+      "sha256": "c7127ea4e08447d4951645cb882df70c333b733837c6b5dd99172a29210eb47f",
+      "kind": "image",
+      "sourceId": "poster-bwl-cleanser-ad"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-jinsang.webp",
+      "bytes": 60114,
+      "sha256": "c26d90ad352f851163dc2bdf6aa257357dfc82cf8bfdc4d0871414518d561aa2",
+      "kind": "image",
+      "sourceId": "poster-yofree-jinsang"
+    },
+    {
+      "path": "/service-detail-v14/poster-aio-brand-intro.webp",
+      "bytes": 7560,
+      "sha256": "7a57218efff7a458de870732ba8156a18ccccc707049dd1596450111a2343964",
+      "kind": "image",
+      "sourceId": "poster-aio-brand-intro"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-outing-motion.webp",
+      "bytes": 260106,
+      "sha256": "4a1ce7bc2a0841785e339fa5f0f79ebd6cb0067be9026734cdcae00abee05d8c",
+      "kind": "image",
+      "sourceId": "poster-yofree-outing-motion"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-night-motion.webp",
+      "bytes": 95956,
+      "sha256": "8ce608c1c7f87a33245b290705e09c184fa1dd2e97dd751cfc7b1b7e5b0007f9",
+      "kind": "image",
+      "sourceId": "poster-yofree-night-motion"
+    },
+    {
+      "path": "/service-detail-v14/poster-yofree-short-gift.webp",
+      "bytes": 132124,
+      "sha256": "ae3bbc86c61cccceff247b15db5aa8448209dfb6634da7514326d81e8dd5728a",
+      "kind": "image",
+      "sourceId": "poster-yofree-short-gift"
+    },
+    {
+      "path": "/service-detail-v14/yofree-scene-explain.webp",
+      "bytes": 118060,
+      "sha256": "a3aa783d533b4af7828bab85540121f7268810e6b15ecd08558c65edfd5a3fb9",
+      "kind": "image",
+      "sourceId": "yofree-scene-explain"
+    },
+    {
+      "path": "/service-detail-v14/yofree-scene-ending.webp",
+      "bytes": 135624,
+      "sha256": "6f0ab93a8ecf9842c663d84a9d1d5466544b59fe36c8bc2de3c7fcd82fa338b2",
+      "kind": "image",
+      "sourceId": "yofree-scene-ending"
+    },
+    {
+      "path": "/service-detail-v14/yofree-scene-hook.webp",
+      "bytes": 104210,
+      "sha256": "0af03f35b0249fc64663d152d52b6905fcfba64cb3448cfab91c674630974cd9",
+      "kind": "image",
+      "sourceId": "yofree-scene-hook"
+    },
+    {
+      "path": "/service-detail-v14/yofree-scene-cta.webp",
+      "bytes": 157234,
+      "sha256": "3b053bbe96fb4c358d6e0d70d86e350b4a7c883fcd7045617db42af368c8e168",
+      "kind": "image",
+      "sourceId": "yofree-scene-cta"
+    },
+    {
+      "path": "/service-detail-v14/sns-cplus-opening.webp",
+      "bytes": 138438,
+      "sha256": "f680640a015b992c36f42febf7043c0780b5cbb039c683d7ba5ef20e5a85ae46",
+      "kind": "image",
+      "sourceId": "sns-cplus-opening"
+    },
+    {
+      "path": "/service-detail-v14/sns-cplus-middle.webp",
+      "bytes": 120754,
+      "sha256": "6a2d1a78ddf563398fca587e26a13fd750ceeaebca4a38d61f53eb90d94b2fb1",
+      "kind": "image",
+      "sourceId": "sns-cplus-middle"
+    },
+    {
+      "path": "/service-detail-v14/sns-cplus-ending.webp",
+      "bytes": 127948,
+      "sha256": "7b7a5d0c7fbb277b542bc983a6c4dc67d91b0947693eac33888f6674ac60ab07",
+      "kind": "image",
+      "sourceId": "sns-cplus-ending"
+    },
+    {
+      "path": "/service-detail-v14/poster-bwl-brand-motion.webp",
+      "bytes": 34044,
+      "sha256": "26ba3be3de9b83d20ddce630a12c6e76c5886b1eb3c42a7f06465d59ce282897",
+      "kind": "image",
+      "sourceId": "poster-bwl-brand-motion"
+    },
+    {
+      "path": "/service-detail-v14/poster-bwl-brand-ad.webp",
+      "bytes": 48428,
+      "sha256": "41291913716e54293e540e14aea9b236dbe37fd158c58e02c24420293b50454a",
+      "kind": "image",
+      "sourceId": "poster-bwl-brand-ad"
+    },
+    {
+      "path": "/service-detail-v14/poster-healernet-motion.webp",
+      "bytes": 48416,
+      "sha256": "aa546300b1d1be8164d6d9c4cd9bca86e4e6091763dad688caf4831b4bdda8c3",
+      "kind": "image",
+      "sourceId": "poster-healernet-motion"
+    },
+    {
+      "path": "/service-detail-v14/yofree-scene-greeting.webp",
+      "bytes": 111664,
+      "sha256": "97b981095dc04d83a7d5da9b9b7a6aa6a9674752f3fc841ef7dd059bd4d5596c",
+      "kind": "image",
+      "sourceId": "yofree-scene-greeting"
+    },
+    {
+      "path": "/service-detail-v14/clubowner-highlight.mp4",
+      "bytes": 38791055,
+      "sha256": "fb8d25bc2d9f0bf31c1e303d2054a252295e1d42220de269912563c072da7383",
+      "kind": "video",
+      "sourceId": "clubowner-highlight"
+    },
+    {
+      "path": "/service-detail-v14/yofree-kinetic.mp4",
+      "bytes": 15671807,
+      "sha256": "2afa3740119014994c76a36736faa8654ca4102d0bf74344d00d036ff89168e2",
+      "kind": "video",
+      "sourceId": "yofree-kinetic"
+    },
+    {
+      "path": "/service-detail-v14/yofree-premium.mp4",
+      "bytes": 14196276,
+      "sha256": "03ee994150c0f9eaac08cf49cfb22a2c6d2478434d1ff11d3f47b1565e135e5d",
+      "kind": "video",
+      "sourceId": "yofree-premium"
+    },
+    {
+      "path": "/service-detail-v14/yofree-motioncomic.mp4",
+      "bytes": 18716308,
+      "sha256": "5a27cd2e1dbb7d2999e4eae4b2f1306ec2982afe8129e0fb18fda6c035e1e505",
+      "kind": "video",
+      "sourceId": "yofree-motioncomic"
+    },
+    {
+      "path": "/service-detail-v14/healernet-motion.mp4",
+      "bytes": 19404425,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "kind": "video",
+      "sourceId": "healernet-motion"
+    },
+    {
+      "path": "/service-detail-v14/bwl-brand-motion.mp4",
+      "bytes": 32788579,
+      "sha256": "032603d63a99b039ba0f3f9d9da6a031b132f7e84a4f14dca9215bbbab1a68fd",
+      "kind": "video",
+      "sourceId": "bwl-brand-motion"
+    },
+    {
+      "path": "/service-detail-v14/bwl-cplus-ad.mp4",
+      "bytes": 10579542,
+      "sha256": "fe6bc8ec737e7a745061d959cbbdea1dfeaa72c5c0f55d7fb7391b4eb74980ea",
+      "kind": "video",
+      "sourceId": "bwl-cplus-ad"
+    },
+    {
+      "path": "/service-detail-v14/bwl-cleanser-ad.mp4",
+      "bytes": 13208305,
+      "sha256": "6d982f8279a87699cf04235b22ad78a36371fc811d0b3478db5fed4dbb1a0d43",
+      "kind": "video",
+      "sourceId": "bwl-cleanser-ad"
+    },
+    {
+      "path": "/service-detail-v14/bwl-brand-ad.mp4",
+      "bytes": 11033928,
+      "sha256": "6f3f95be8eb71810af61d39b3f84a5eed87c9332f1ac19120fa4c98739d3ba1c",
+      "kind": "video",
+      "sourceId": "bwl-brand-ad"
+    },
+    {
+      "path": "/service-detail-v14/yofree-jinsang.mp4",
+      "bytes": 10299889,
+      "sha256": "6644db28e3c11e7b723d80af41d2c413664b9701a1b0c494a092005e2ed89f90",
+      "kind": "video",
+      "sourceId": "yofree-jinsang"
+    },
+    {
+      "path": "/service-detail-v14/aio-brand-intro.mp4",
+      "bytes": 3917950,
+      "sha256": "5bb8111d5ee8bab43cb4aa12d28f84224ead59692f485fd510ce143282c0f037",
+      "kind": "video",
+      "sourceId": "aio-brand-intro"
+    },
+    {
+      "path": "/service-detail-v14/yofree-outing-motion.mp4",
+      "bytes": 11777213,
+      "sha256": "10c81c6166df82e180ca813af382f4e7dc996e89961e495551cefe6e7a952341",
+      "kind": "video",
+      "sourceId": "yofree-outing-motion"
+    },
+    {
+      "path": "/service-detail-v14/yofree-night-motion.mp4",
+      "bytes": 22818455,
+      "sha256": "a1810c59d5899c6879502b7dceedeb48634377c78487d01f8ef28e6c6f39e55f",
+      "kind": "video",
+      "sourceId": "yofree-night-motion"
+    },
+    {
+      "path": "/service-detail-v14/yofree-short-gift.mp4",
+      "bytes": 16253611,
+      "sha256": "f7429db2e4bc181869892ee1ab036adb552c7cb4d2b6ab9f46cc183e3ff7dbf1",
+      "kind": "video",
+      "sourceId": "yofree-short-gift"
+    },
+    {
+      "path": "/service-detail-v14/bwl-motion-frame-02.webp",
+      "bytes": 7812,
+      "sha256": "fdedecbc39c8a66428793f784a82b2c24b2bfcb43439dc979a8bd87f2da7f16c",
+      "kind": "image",
+      "sourceId": "bwl-brand-motion-frame-2"
+    },
+    {
+      "path": "/service-detail-v14/bwl-motion-frame-10.webp",
+      "bytes": 16762,
+      "sha256": "a0bd4345d5f27bfc7063e66475bb52fec02e2f07812e8126dfea943ebe01cde3",
+      "kind": "image",
+      "sourceId": "bwl-brand-motion-frame-10"
+    },
+    {
+      "path": "/service-detail-v14/bwl-motion-frame-25.webp",
+      "bytes": 9834,
+      "sha256": "838d7b8ffd70ad90da7f64c1d39ed3d2b8c9377fb91c8c625c39a06c12db5b83",
+      "kind": "image",
+      "sourceId": "bwl-brand-motion-frame-25"
+    },
+    {
+      "path": "/service-detail-v14/bwl-brand-frame-02.webp",
+      "bytes": 28762,
+      "sha256": "3964b6fb0ade086360cd59c4efb1eca255426978a93e6f38f8d30adb7932f516",
+      "kind": "image",
+      "sourceId": "bwl-brand-ad-frame-2"
+    },
+    {
+      "path": "/service-detail-v14/bwl-brand-frame-10.webp",
+      "bytes": 67200,
+      "sha256": "188d1b7a4d04dd7119b619b987f0315a59a2d4b8e276af38b710e465efda7a05",
+      "kind": "image",
+      "sourceId": "bwl-brand-ad-frame-10"
+    },
+    {
+      "path": "/service-detail-v14/bwl-brand-frame-25.webp",
+      "bytes": 58786,
+      "sha256": "b7524143d73b074821dbaf4ff7c35d43d1b0a760ccd29e077585655fa627de5a",
+      "kind": "image",
+      "sourceId": "bwl-brand-ad-frame-25"
+    },
+    {
+      "path": "/service-detail-v14/yofree-outing-01.webp",
+      "bytes": 251738,
+      "sha256": "750a1712055d36da047aabcf7ddb0bace13ce33218823b749a4fa955d8cf3806",
+      "kind": "image",
+      "sourceId": "yofree-outing-webtoon-page-1"
+    }
+  ]
+}

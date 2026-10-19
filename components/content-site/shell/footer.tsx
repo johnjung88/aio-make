@@ -57,6 +57,7 @@ export function ContentSiteFooter() {
           <div className="cs-footer-col cs-col-3">
             <p className="cs-footer-heading cs-t-eyebrow">CONTACT</p>
             <ul className="cs-footer-links">
+              <li><Link href="/content/references" className="cs-t-nav">레퍼런스 모아보기</Link></li>
               <li>
                 <Link href="/content/contact" className="cs-t-nav">
                   {f.contact}

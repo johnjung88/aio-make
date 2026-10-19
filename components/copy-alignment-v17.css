@@ -1,0 +1,33 @@
+/* Public section introductions share the same centered axis */
+body .sd .sd-section-head{width:100%;max-width:960px;margin-inline:auto;text-align:center}
+body .sd .sd-section-head :is(.sd-lead,.sd-eyebrow,h2){margin-inline:auto}
+body .sd .sd-unit-note{text-align:center;margin-inline:auto}
+body .sd :is(.sd-price-group>h3,.sd-bundle-label,.sd-price-grid article,.sd-price-notes){text-align:center}
+body .sd .sd-price-grid .sd-text-link{margin-inline:auto}
+body .sd .sd-prepare-grid :is(b,p){text-align:center}
+body .sd .cs-inquiry-intro{text-align:center}
+body .sd .cs-inquiry-intro :is(h2,p){margin-inline:auto}
+body .cs-site :is(.cs-section-heading,.cs-section-head,.cs-article-header){margin-inline:auto;text-align:center}
+body .cs-site :is(.cs-section-heading,.cs-section-head,.cs-article-header) :is(.cs-t-lead,.cs-t-h2,.cs-t-display){margin-inline:auto}
+body .cs-site .cs-head{justify-items:center;text-align:center}
+body .cs-site .cs-head-main{grid-column:1/-1;width:100%;max-width:960px;margin-inline:auto;text-align:center}
+body .cs-site .cs-head-main :is(h2,p){margin-inline:auto}
+body .cs-site .cs-head-aside{grid-column:1/-1;margin-inline:auto;justify-self:center;text-align:center}
+body .cs-site .cs-contact-intro{grid-column:1/-1;width:100%;max-width:960px;text-align:center;margin-inline:auto}
+body .cs-site .cs-contact-intro :is(h1,p){margin-inline:auto}
+body .cs-site .cs-contact-basis{grid-column:1/-1;width:100%;max-width:880px;margin-inline:auto;text-align:center}
+body .cs-site .cs-inquiry-intro{text-align:center}
+body .cs-site .cs-inquiry-intro :is(h2,p){margin-inline:auto}
+body .guide-utility .page-intro{text-align:center;margin-inline:auto}
+body .guide-utility .page-intro :is(p,h1){margin-inline:auto}
+body .guide-page .guide-list-heading{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:24px}
+body .guide-page .service-section-heading{text-align:center;margin-inline:auto;align-items:center}
+body .guide-page .service-section-heading :is(p,h2){margin-inline:auto}
+body .service-overview .service-faq > :is(span,h2){display:block;text-align:center;margin-inline:auto}
+body .work-page .work-index-heading,body .work-detail-heading{align-items:center;text-align:center;margin-inline:auto}
+body .work-index-heading > p,.work-detail-heading > p{margin-inline:auto}
+body .guide-article > :is(.guide-kicker,h1,.guide-article-summary,.guide-article-byline){text-align:center;margin-inline:auto}
+body .guide-article > .guide-kicker{display:block}
+body .guide-main .main-faq-title{text-align:center}
+body .guide-main .main-contact-copy{align-items:center;text-align:center}
+body .guide-main .main-contact-copy :is(h2,p){margin-inline:auto}

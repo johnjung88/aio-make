@@ -142,7 +142,7 @@ test("1. 서비스 6종 순서·라벨·링크·한 줄 설명", () => {
 
 test("2. 시작가는 PRICING_FINAL 정본 값과 같고 lib/content-pricing.ts에서 온다", () => {
   const expected = {
-    webtoon: [100000, "12컷 10만 원부터 · 부가세 별도"],
+    webtoon: [100000, "12P 10만 원부터 · 부가세 별도"],
     animation: [300000, "30만 원부터 · 30초 기준 · 부가세 별도"],
     "ai-influencer": [
       100000,
@@ -162,7 +162,7 @@ test("2. 시작가는 PRICING_FINAL 정본 값과 같고 lib/content-pricing.ts�
     assert.match(price.line, /부가세 별도$/);
     assert.equal(startingPrice(id, false), null);
     assert.equal(price.note, undefined, `${id} has no option line`);
-    if (id === "webtoon") assert.equal(price.head, "12컷 10만 원부터");
+    if (id === "webtoon") assert.equal(price.head, "12P 10만 원부터");
     else assert.match(price.head, /^\d+(\.\d)?만 원부터$/);
   }
   assert.equal(formatWon(100000), "10만 원");

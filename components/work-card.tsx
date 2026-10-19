@@ -1,3 +1,4 @@
+import { displayCopy } from "@/lib/display-copy";
 // Client-safe work card. It imports only the WorkItem type from the work
 // catalog, so client components (home-references.tsx) can render server-
 // selected works without bundling the catalog module or its customer data.
@@ -13,6 +14,7 @@ export function WorkCard({
   work: WorkItem;
   heading?: "h2" | "h3";
 }) {
+  work = displayCopy(work);
   const cover = work.media[0];
   const label =
     services.find(

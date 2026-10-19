@@ -6,14 +6,14 @@ import { r8Details } from "../r8-details.ts";
 import { COMMON_FAQ } from "../faq.ts";
 import type { ServiceLandingData } from "../types.ts";
 
-/** 서비스 고유 섹션 문구(12컷 리더 · 모션코믹). 히어로 표지는 컷 1장이라 문구가 없다 */
+/** 서비스 고유 섹션 문구(12P 리더 · 모션코믹). 히어로 표지는 컷 1장이라 문구가 없다 */
 export const webtoonSignature = {
   types: r8Details.webtoon["STORY TYPES"], craft: r8Sections.webtoon["ONE CUT"],
   reader: {
     eyebrow: "READ",
-    title: "12컷 한 회를\n직접 넘겨보세요",
-    lead: "《1억의 구단주》 1회를 책장처럼 한 컷씩 넘기거나 전체를 이어서 읽을 수 있습니다",
-    label: "1억의 구단주 12컷 넘겨 보기",
+    title: "제작 사례 12P를\n직접 넘겨보세요",
+    lead: "《1억의 구단주》의 미리보기 12P를 한 페이지씩 넘겨볼 수 있습니다",
+    label: "1억의 구단주 12P 미리보기",
   },
   motionComic: {
     eyebrow: "MOTION COMIC",
@@ -24,11 +24,11 @@ export const webtoonSignature = {
     ways: [
       {
         title: "웹툰과 함께 맡길 때",
-        body: "12컷은 30초, 24컷은 60초 영상과 묶어 맡길 수 있습니다",
+        body: "12P은 30초, 24P은 60초 영상과 묶어 맡길 수 있습니다",
       },
       {
         title: "모션코믹만 맡길 때",
-        body: "이미 완성한 웹툰이 있다면 컷별 원본 이미지로 영상만 만듭니다",
+        body: "이미 완성한 웹툰이 있다면 완성 원고 이미지로 영상만 만듭니다",
       },
     ],
   },
@@ -40,15 +40,15 @@ export const webtoon: ServiceLandingData = {
   seo: {
     title: "브랜드 웹툰 제작",
     description:
-      "제품과 브랜드 이야기를 12컷·24컷 웹툰으로 그리고 모션코믹 영상으로 제작 · 웹툰 제작 12컷 10만 원부터, 부가세 별도",
+      "브랜드 웹툰 12P·24P 제작 1P는 가로 1,024px × 세로 1,536px이며 모션코믹도 함께 의뢰할 수 있습니다 웹툰 12P 10만 원부터, 부가세 별도",
   },
   hero: {
   "eyebrow": "WEBTOON",
   "title": "제품의 이야기를\n웹툰 한 편으로",
-  "lead": "제품을 만나는 순간부터 사용하는 장면까지 12컷·24컷 이야기로 엮어 컷별 이미지로 전달합니다"
+  "lead": "제품을 만나는 순간부터 사용하는 장면까지 12P·24P 이야기로 엮어 페이지별 이미지로 전달합니다"
 },
   process: {
-  "title": "줄거리에서\n컷별 완성본까지",
+  "title": "줄거리에서\n페이지별 완성본까지",
   "lead": "기획안과 최종안을 두 번 확인한 뒤 다음 단계로 넘어갑니다",
   "steps": [
     {
@@ -58,7 +58,7 @@ export const webtoon: ServiceLandingData = {
     },
     {
       "title": "형식·분량 결정",
-      "body": "이야기 형식과 12컷·24컷 중 분량을 정하고 줄거리를 씁니다",
+      "body": "이야기 형식과 12P·24P 중 분량을 정하고 줄거리를 씁니다",
       "check": "줄거리 확인"
     },
     {
@@ -78,14 +78,14 @@ export const webtoon: ServiceLandingData = {
     },
     {
       "title": "납품",
-      "body": "대사와 컷 순서를 확인한 뒤 컷별 완성 이미지를 전달합니다",
-      "check": "컷별 이미지 확인"
+      "body": "대사와 페이지 순서를 확인한 뒤 페이지별 완성 원고를 전달합니다",
+      "check": "페이지별 이미지 확인"
     }
   ]
 },
   scope: {
     included: [
-      "12컷 또는 24컷 한 회",
+      "12P 또는 24P 한 회",
       "줄거리 · 컷별 콘티 · 대사 · 작화 · 식자",
       "기획안 수정 2회 · 최종안 수정 1회",
     ],
@@ -98,8 +98,8 @@ export const webtoon: ServiceLandingData = {
   },
   faq: [
   [
-    "1컷은 어떻게 세고 분량은 어떻게 고르나요?",
-    "완성 이미지 1장을 1컷으로 세며 한 회는 12컷과 24컷 중에서 고릅니다 짧은 이야기는 12컷으로 충분하고 인물의 변화와 결말까지 담으려면 24컷이 어울립니다"
+    "1P는 어떤 규격이고 분량은 어떻게 고르나요?",
+    "1P는 가로 1,024px × 세로 1,536px입니다 12P·24P 중 필요한 분량을 고르고, 각 페이지의 장면과 대사를 함께 정합니다"
   ],
   [
     "모션코믹은 무엇인가요?",
@@ -107,7 +107,7 @@ export const webtoon: ServiceLandingData = {
   ],
   [
     "모션코믹만 따로 맡길 수 있나요?",
-    "이미 완성한 웹툰이 있다면 컷별 원본 이미지로 영상만 만들 수 있으며 30초와 60초 중에서 고릅니다"
+    "이미 완성한 웹툰이 있다면 완성 원고 이미지로 영상만 만들 수 있으며 30초와 60초 중에서 고릅니다"
   ],
   [
     "대사는 누가 쓰나요?",
@@ -123,7 +123,7 @@ export const webtoon: ServiceLandingData = {
   inquiry: {
     title: "어떤 이야기를\n그리고 싶으신가요?",
     lead: "제품과 독자를 알려주시면 콘티 방향과 견적을 안내합니다",
-    placeholder: "예: 우리 제품을 쓰는 직장인 이야기를 12컷으로 그리고 싶어요",
+    placeholder: "예: 우리 제품을 쓰는 직장인 이야기를 12P로 그리고 싶어요",
   },
   signature: webtoonSignature,
 };

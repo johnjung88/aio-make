@@ -1,8 +1,30 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { realpath, stat } from "node:fs/promises";
+import path from "node:path";
 import { hasAdmin } from "@/lib/auth";
 import { database, databaseReady } from "@/lib/db";
 import { sameOrigin, readJson } from "@/lib/http";
-import { entrySchema } from "@/lib/domain";
+import { entrySchema, validateServiceCaseEntry, ServiceCaseConflictError, type ExistingServiceCaseEntry } from "@/lib/domain";
+import { CASE_BODY_PREFIX, serviceCaseSchema, type ServiceCase } from "@/lib/service-case-schema";
+import seedData from "@/content/service-cases-v14.json";
+
+async function checkPublicFiles(record: ServiceCase, extraPaths: string[]) {
+  const root = await realpath(path.resolve(process.cwd(), "public"));
+  const paths = new Set([
+    ...record.assets.flatMap((asset) => [asset.src, ...(asset.poster ? [asset.poster] : [])]),
+    ...record.stages.flatMap((stage) => stage.asset ? [stage.asset] : []),
+    ...extraPaths.filter((value) => value.startsWith("/")),
+  ]);
+  for (const source of paths) {
+    try {
+      const target = await realpath(path.resolve(root, `.${source}`));
+      if (!target.toLowerCase().startsWith(`${root}${path.sep}`.toLowerCase()) || !(await stat(target)).isFile()) throw new Error();
+    } catch {
+      throw new Error("연결한 결과물·포스터·과정 이미지가 사이트 public 폴더에 있는지 확인해주세요");
+    }
+  }
+}
 export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json(
@@ -83,24 +105,67 @@ export async function POST(request: Request) {
         { error: parsed.error.issues[0].message },
         { status: 400 },
       );
-    const { id, ...fields } = parsed.data;
+    const { id, ...originalFields } = parsed.data;
+    let fields = originalFields;
+    let caseRecord: ServiceCase | null = null;
+    let previousRecord: ServiceCase | null = null;
+    let expectedBody: string | undefined;
+    const db = database();
+    if (fields.body.startsWith(CASE_BODY_PREFIX)) {
+      // Page through all content entries; filtering the marker locally also works
+      // with the existing local database adapter and avoids a fixed catalogue cap.
+      const existing: ExistingServiceCaseEntry[] = [];
+      const pageSize = 250;
+      for (let offset = 0; ; offset += pageSize) {
+        const result = await db.from("website_entries").select("id,body,slug")
+          .eq("type", "reference").eq("division", "video")
+          .order("id", { ascending: true }).range(offset, offset + pageSize - 1);
+        if (result.error) return NextResponse.json({ error: "기존 서비스 사례를 확인하지 못했습니다. 입력 내용을 보존하고 다시 저장해주세요" }, { status: 503 });
+        const rows = (result.data ?? []) as ExistingServiceCaseEntry[];
+        existing.push(...rows);
+        if (rows.length < pageSize) break;
+      }
+      try {
+        const seedCases = seedData.map((record) => serviceCaseSchema.parse(record));
+        const validated = validateServiceCaseEntry(parsed.data, existing, seedCases);
+        caseRecord = validated.record;
+        previousRecord = validated.previous;
+        if (!caseRecord) throw new Error("서비스 제작 사례를 확인해주세요");
+        await checkPublicFiles(caseRecord, [fields.cover_url, fields.video_url]);
+        fields = { ...fields, body: validated.body, summary: fields.summary || caseRecord.summary };
+        if (id) {
+          expectedBody = existing.find((entry) => entry.id === id)?.body;
+          if (expectedBody === undefined) return NextResponse.json({ error: "편집할 콘텐츠를 찾지 못했습니다. 최신 목록을 다시 확인해주세요" }, { status: 409 });
+        }
+      } catch (error) {
+        return NextResponse.json({ error: error instanceof Error ? error.message : "서비스 제작 사례 내용을 확인해주세요" }, { status: error instanceof ServiceCaseConflictError ? 409 : 400 });
+      }
+    }
     const query = id
-      ? database()
+      ? db
           .from("website_entries")
           .update({ ...fields, updated_at: new Date().toISOString() })
           .eq("id", id)
-      : database().from("website_entries").insert(fields);
+      : db.from("website_entries").insert(fields);
+    // Protect a validated revision against a second edit arriving during validation.
+    if (id && expectedBody !== undefined) query.eq("body", expectedBody);
     const { data, error } = await query.select().single();
     if (error)
       return NextResponse.json(
         {
           error:
-            error.code === "23505"
+            error.code === "PGRST116"
+              ? "다른 수정이 먼저 저장되었습니다. 최신 내용을 다시 열어 확인해주세요"
+              : error.code === "23505"
               ? "같은 주소가 이미 있습니다 슬러그를 바꿔주세요"
               : "컨텐츠 저장을 완료하지 못했습니다",
         },
         { status: 409 },
       );
+    if (caseRecord) {
+      const affected = new Set([...caseRecord.services, ...(previousRecord?.services ?? [])].map((service) => service.id));
+      for (const service of affected) revalidatePath(`/content/services/${service}`);
+    }
     return NextResponse.json({ success: true, item: data });
   } catch {
     return NextResponse.json(

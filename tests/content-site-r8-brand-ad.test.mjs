@@ -7,13 +7,16 @@ import { r8Boards } from "../lib/content-site/r8-boards.ts";
 import { getSlot } from "../lib/content-site/example-media.ts";
 
 const brief = readFileSync("docs/renewal-2026-10-13/BRIEF_R8.md", "utf8");
+const webtoonPageBrief = readFileSync("docs/renewal-2026-10-13/BRIEF_WEBTOON_PAGE_v16.md", "utf8");
+const copyAlignmentBrief = readFileSync("docs/renewal-2026-10-13/BRIEF_COPY_ALIGNMENT_v17.md", "utf8");
 test("R8 six services: every process step and FAQ matches the approved brief", () => {
   for (const [id, data] of Object.entries(contentLandings)) {
+    const currentBrief = id === "webtoon" ? brief + "\n" + webtoonPageBrief + "\n" + copyAlignmentBrief : brief;
     assert.equal(data.process.steps.length, 6, id);
     assert.equal(data.faq.length, 7, id);
-    for (const step of data.process.steps) for (const text of Object.values(step)) assert.ok(brief.includes(text), `${id}: ${text}`);
+    for (const step of data.process.steps) for (const text of Object.values(step)) assert.ok(currentBrief.includes(text), `${id}: ${text}`);
     for (const [q, a] of data.faq.slice(0, 5)) {
-      assert.ok(brief.includes(q), q); assert.ok(brief.includes(a), `${id}: ${a}`);
+      assert.ok(currentBrief.includes(q), q); assert.ok(currentBrief.includes(a), `${id}: ${a}`);
     }
   }
 });

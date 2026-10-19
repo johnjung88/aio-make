@@ -4,7 +4,7 @@ export const contentHomeCards = [
     "id": "webtoon",
     "label": "웹툰",
     "line": "이야기를 컷으로 그리는 분야",
-    "details": "웹툰 12컷·24컷 · 콘티와 대사 · 작화 · 모션코믹",
+    "details": "웹툰 12P·24P · 콘티와 대사 · 작화 · 모션코믹",
     "image": "/content-renewal-20261019/webtoon-05.webp",
     "alt": "1억의 구단주 1화 완성 페이지",
     "href": "/content/services/webtoon"

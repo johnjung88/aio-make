@@ -1,4 +1,5 @@
-/** Strip Korean sentence stops only: URLs, file extensions and decimal prices stay intact */
+import { withoutSentenceStops } from "../display-copy.ts";
+/** Public Korean and English prose shares the same no-full-stop presentation rule */
 export function studioText(value: string): string {
- return value.replace(/([가-힣])\.(?=\s|$)/g, "$1");
+ return withoutSentenceStops(value);
 }

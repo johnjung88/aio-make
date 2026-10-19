@@ -1,0 +1,971 @@
+[
+  {
+    "caseId": "CASE-CLUBOWNER-EP01",
+    "slug": "soccer-boss-s01-ep01",
+    "revision": 1,
+    "title": "1억의 구단주 1화",
+    "brand": "AIO 자체 IP",
+    "summary": "이야기 기획부터 원고·캐릭터·완성25P과40초 모션으로 이어진 자체 작품",
+    "scope": "이야기 기획·캐릭터 설정·원고·작화·모션 편집",
+    "publicLabel": "자체 IP 제작 사례",
+    "productionStatus": "completed",
+    "publication": "ready",
+    "sourceWorkIds": [],
+    "services": [
+      {
+        "id": "webtoon",
+        "relation": "direct",
+        "description": "원고와 같은 장면의 작화"
+      },
+      {
+        "id": "motion-graphics",
+        "relation": "usage",
+        "description": "같은 웹툰40초 모션 활용"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/webtoon-cover.webp",
+        "alt": "1화 새 게임 표지"
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-01.webp",
+        "alt": "1화 실제 완성 이미지01/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-02.webp",
+        "alt": "1화 실제 완성 이미지02/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-03.webp",
+        "alt": "1화 실제 완성 이미지03/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-04.webp",
+        "alt": "1화 실제 완성 이미지04/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-05.webp",
+        "alt": "1화 실제 완성 이미지05/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-06.webp",
+        "alt": "1화 실제 완성 이미지06/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-07.webp",
+        "alt": "1화 실제 완성 이미지07/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-08.webp",
+        "alt": "1화 실제 완성 이미지08/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-09.webp",
+        "alt": "1화 실제 완성 이미지09/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-10.webp",
+        "alt": "1화 실제 완성 이미지10/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-11.webp",
+        "alt": "1화 실제 완성 이미지11/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-12.webp",
+        "alt": "1화 실제 완성 이미지12/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-13.webp",
+        "alt": "1화 실제 완성 이미지13/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-14.webp",
+        "alt": "1화 실제 완성 이미지14/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-15.webp",
+        "alt": "1화 실제 완성 이미지15/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-16.webp",
+        "alt": "1화 실제 완성 이미지16/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-17.webp",
+        "alt": "1화 실제 완성 이미지17/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-18.webp",
+        "alt": "1화 실제 완성 이미지18/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-19.webp",
+        "alt": "1화 실제 완성 이미지19/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-20.webp",
+        "alt": "1화 실제 완성 이미지20/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-21.webp",
+        "alt": "1화 실제 완성 이미지21/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-22.webp",
+        "alt": "1화 실제 완성 이미지22/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-23.webp",
+        "alt": "1화 실제 완성 이미지23/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-24.webp",
+        "alt": "1화 실제 완성 이미지24/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "webtoon",
+        "src": "/service-detail-v14/webtoon-25.webp",
+        "alt": "1화 실제 완성 이미지25/25",
+        "width": 1024,
+        "height": 1536
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/clubowner-highlight.mp4",
+        "poster": "/service-detail-v14/poster-clubowner-highlight.webp",
+        "alt": "같은1화40초 모션",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "구단의 성장과 사람의 변화를 함께 그리는 자체 IP입니다 시즌 설정을1화의 원고와 장면으로 구체화하고 작화·대사·수정 과정을 연결했습니다",
+    "decisions": [
+      {
+        "title": "첫 화의 역할",
+        "description": "창단식에서 시작해 도현이 축구를 다시 즐기고 정훈을 만나는 흐름으로 좁혔습니다"
+      },
+      {
+        "title": "인물의 구분",
+        "description": "도현·정훈·지호의 역할과 외형 참조를 같은 작품의 등장 장면에 연결합니다"
+      },
+      {
+        "title": "같은 장면으로 비교",
+        "description": "원고 장면3의 월드컵 몰입 행동을 실제 완성05페이지와 연결합니다"
+      }
+    ],
+    "stages": [
+      {
+        "title": "캐릭터 참조",
+        "description": "실제 제작 참조시트로 인물과 외형을 구분합니다 별도의 고객 승인 이력을 덧붙이지 않습니다",
+        "asset": "/service-detail-v14/webtoon-characters.webp"
+      },
+      {
+        "title": "원고에서 같은 장면으로",
+        "description": "휴대전화를 내려놓고 경기에 몰입하는 행동을 원고 장면3에서 실제 완성05로 연결합니다",
+        "asset": "/service-detail-v14/webtoon-05.webp"
+      },
+      {
+        "title": "실제 수정 전",
+        "description": "같은 장면의 말풍선 위치와 꼬리를 보완하기 전의 실제 작업 파일입니다",
+        "asset": "/service-detail-v14/webtoon-before.webp"
+      },
+      {
+        "title": "수정·완성",
+        "description": "수정 지시가 연결된 같은 장면의 실제 완성 파일입니다 현재 리더12페이지에 대응합니다",
+        "asset": "/service-detail-v14/webtoon-after.webp"
+      }
+    ],
+    "featuredFor": [
+      "webtoon"
+    ],
+    "order": 10
+  },
+  {
+    "caseId": "CASE-YOFREE-CHARACTER",
+    "slug": "yofree-character",
+    "revision": 2,
+    "title": "요프리 캐릭터·모션 활용",
+    "brand": "YoFree",
+    "summary": "브랜드 캐릭터 6포즈의 짧은 동작과 실제 키네틱 영상 활용을 함께 확인",
+    "scope": "캐릭터 구축·포즈 자산·6종 동작 시안·타이포·모션 편집",
+    "publicLabel": "캐릭터·모션 활용 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-YOFREE-AD-02"
+    ],
+    "services": [
+      {
+        "id": "animation",
+        "relation": "direct",
+        "description": "브랜드 캐릭터 6포즈의 짧은 동작 제작 시안"
+      },
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "키네틱·프리미엄·모션코믹 표현"
+      },
+      {
+        "id": "ad",
+        "relation": "usage",
+        "description": "세로 제품 소개 표현"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/yofree-character-03.webp",
+        "alt": "요프리 인사 포즈"
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-kinetic.mp4",
+        "poster": "/service-detail-v14/poster-yofree-kinetic.webp",
+        "alt": "요프리 키네틱",
+        "width": 1080,
+        "height": 1920
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-premium.mp4",
+        "poster": "/service-detail-v14/poster-yofree-premium.webp",
+        "alt": "요프리 프리미엄",
+        "width": 1080,
+        "height": 1920
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-motioncomic.mp4",
+        "poster": "/service-detail-v14/poster-yofree-motioncomic.webp",
+        "alt": "요프리 모션코믹",
+        "width": 1080,
+        "height": 1920
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-01.mp4",
+        "poster": "/service-detail-v15/yofree-character-01.webp",
+        "alt": "요프리 걱정 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-02.mp4",
+        "poster": "/service-detail-v15/yofree-character-02.webp",
+        "alt": "요프리 윙크 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-03.mp4",
+        "poster": "/service-detail-v15/yofree-character-03.webp",
+        "alt": "요프리 인사 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-04.mp4",
+        "poster": "/service-detail-v15/yofree-character-04.webp",
+        "alt": "요프리 점프 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-05.mp4",
+        "poster": "/service-detail-v15/yofree-character-05.webp",
+        "alt": "요프리 수면 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/yofree-pose-06.mp4",
+        "poster": "/service-detail-v15/yofree-character-06.webp",
+        "alt": "요프리 가리킴 · 4초 동작 제작 시안",
+        "width": 960,
+        "height": 960
+      }
+    ],
+    "brief": "제품의 병 형태와 브랜드 인상을 캐릭터로 정리했습니다 6포즈에서 각각 짧은 동작 영상을 제작했고, 별도의 키네틱 영상에서는 인사·설명·엔딩에 같은 포즈 자산을 활용했습니다 고객 채택·납품·게시를 뜻하지 않습니다",
+    "decisions": [
+      {
+        "title": "한 캐릭터의 여러 역할",
+        "description": "같은 브랜드 캐릭터의 실제6포즈를 상황과 메시지에 맞춰 사용합니다"
+      },
+      {
+        "title": "실제 작업의 종류",
+        "description": "새 6종은 각 포즈의 4초 동작 제작 시안입니다 기존 30초 키네틱 영상은 컷아웃·포즈 전환·타이포 모션을 연결한 별도 표현안입니다"
+      }
+    ],
+    "stages": [
+      {
+        "title": "인사",
+        "description": "손 흔드는 실제 포즈를 영상 인사 장면과 연결합니다",
+        "asset": "/service-detail-v14/yofree-scene-greeting.webp"
+      },
+      {
+        "title": "설명",
+        "description": "제품과 문구 옆에서 가리키는 실제 장면입니다",
+        "asset": "/service-detail-v14/yofree-scene-explain.webp"
+      },
+      {
+        "title": "마무리",
+        "description": "같은 캐릭터를 제품·브랜드 엔딩에 다시 활용합니다",
+        "asset": "/service-detail-v14/yofree-scene-ending.webp"
+      }
+    ],
+    "featuredFor": [
+      "animation"
+    ],
+    "order": 20
+  },
+  {
+    "caseId": "CASE-UNNIE87-MODEL",
+    "slug": "unnie87-model",
+    "revision": 1,
+    "title": "87언니 AI 모델 구축",
+    "brand": "AIO 자체 가상인물",
+    "summary": "기준 얼굴·전신과 실제 시험의 불일치를 비교하고 보완한 자체 인물 구축",
+    "scope": "인물 정의·기준 이미지·장면별 검수와 보완",
+    "publicLabel": "자체 AI 가상인물 구축 사례",
+    "productionStatus": "completed",
+    "publication": "ready",
+    "sourceWorkIds": [],
+    "services": [
+      {
+        "id": "ai-influencer",
+        "relation": "direct",
+        "description": "인물 기준과 검수·보완"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/ai-face.webp",
+        "alt": "87언니 기준 얼굴"
+      },
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/ai-full.webp",
+        "alt": "기준 전신"
+      },
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/ai-t2.webp",
+        "alt": "T2 불일치 시험"
+      },
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/ai-t3.webp",
+        "alt": "T3 보완·채택"
+      }
+    ],
+    "brief": "인물 정의와 기준 얼굴·전신을 정하고 각도·조명·의상·제품 표현을 비교한 자체 가상인물 구축 기록입니다",
+    "decisions": [
+      {
+        "title": "기준부터 정하기",
+        "description": "얼굴과 전신을 구분해 인상·헤어·의상 기준을 정합니다"
+      },
+      {
+        "title": "장면별 검수",
+        "description": "기준과 다른 인상이 나온 시험을 그대로 성공 사례로 채택하지 않습니다"
+      }
+    ],
+    "stages": [
+      {
+        "title": "기준 얼굴",
+        "description": "비교의 출발점이 되는 채택 기준 이미지입니다",
+        "asset": "/service-detail-v14/ai-face.webp"
+      },
+      {
+        "title": "T2 불일치",
+        "description": "조명·의상·얼굴 인상이 달라진 실제 시험입니다",
+        "asset": "/service-detail-v14/ai-t2.webp"
+      },
+      {
+        "title": "T3 보완·채택",
+        "description": "조건을 보완해 다시 비교하고 내부 채택한 결과입니다 고객 납품·게시와는 구분합니다",
+        "asset": "/service-detail-v14/ai-t3.webp"
+      }
+    ],
+    "featuredFor": [
+      "ai-influencer"
+    ],
+    "order": 30
+  },
+  {
+    "caseId": "CASE-BWL-BRAND-MOTION",
+    "slug": "bwl-brand-motion",
+    "revision": 1,
+    "title": "DR’s Secret 브랜드 모션",
+    "brand": "DR’s Secret",
+    "summary": "로고·제품 자료와 타이포를 브랜드 흐름으로 정리한30초 모션",
+    "scope": "브랜드 시각 구성·타이포·모션 편집",
+    "publicLabel": "브랜드 모션 완성 v1",
+    "productionStatus": "completed",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-BWL-MOTION-01"
+    ],
+    "services": [
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "브랜드 자료에서 화면과 움직임으로"
+      },
+      {
+        "id": "brand-film",
+        "relation": "usage",
+        "description": "그래픽으로 브랜드를 소개하는 방식"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/bwl-brand-motion.mp4",
+        "poster": "/service-detail-v14/poster-bwl-brand-motion.webp",
+        "alt": "DR’s Secret30초 브랜드 모션",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "brief": "로고·제품 자료와 타이포를 브랜드 흐름으로 정리한30초 모션 브랜드 시각 구성·타이포·모션 편집",
+    "decisions": [],
+    "stages": [
+      {
+        "title": "도입",
+        "description": "같은 본편의 실제 도입 화면입니다",
+        "asset": "/service-detail-v14/bwl-motion-frame-02.webp"
+      },
+      {
+        "title": "핵심 장면",
+        "description": "같은 본편의 제품·메시지 전개 화면입니다",
+        "asset": "/service-detail-v14/bwl-motion-frame-10.webp"
+      },
+      {
+        "title": "마지막 흐름",
+        "description": "같은 본편의 실제 후반 화면입니다",
+        "asset": "/service-detail-v14/bwl-motion-frame-25.webp"
+      }
+    ],
+    "featuredFor": [
+      "motion-graphics"
+    ],
+    "order": 40
+  },
+  {
+    "caseId": "CASE-BWL-BRAND-AD",
+    "slug": "bwl-brand-ad",
+    "revision": 1,
+    "title": "DR’s Secret 브랜드 영상",
+    "brand": "DR’s Secret",
+    "summary": "같은 브랜드의 인물·제품·메시지를 엮은30초 가로 영상 시안",
+    "scope": "원고·생성 장면·제품 표현·편집",
+    "publicLabel": "브랜드 영상 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-BWL-AD-01"
+    ],
+    "services": [
+      {
+        "id": "brand-film",
+        "relation": "direct",
+        "description": "브랜드 메시지와 같은 본편"
+      },
+      {
+        "id": "ai-influencer",
+        "relation": "usage",
+        "description": "가상인물 제품영상 활용"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/bwl-brand-ad.mp4",
+        "poster": "/service-detail-v14/poster-bwl-brand-ad.webp",
+        "alt": "브랜드 영상30초 시안",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "brief": "같은 브랜드의 인물·제품·메시지를 엮은30초 가로 영상 시안 원고·생성 장면·제품 표현·편집",
+    "decisions": [],
+    "stages": [
+      {
+        "title": "도입",
+        "description": "같은 본편의 실제 도입 화면입니다",
+        "asset": "/service-detail-v14/bwl-brand-frame-02.webp"
+      },
+      {
+        "title": "핵심 장면",
+        "description": "같은 본편의 제품·메시지 전개 화면입니다",
+        "asset": "/service-detail-v14/bwl-brand-frame-10.webp"
+      },
+      {
+        "title": "마지막 흐름",
+        "description": "같은 본편의 실제 후반 화면입니다",
+        "asset": "/service-detail-v14/bwl-brand-frame-25.webp"
+      }
+    ],
+    "featuredFor": [
+      "brand-film"
+    ],
+    "order": 50
+  },
+  {
+    "caseId": "CASE-BWL-CPLUS-AD",
+    "slug": "bwl-cplus-ad",
+    "revision": 1,
+    "title": "C Plus SNS 광고",
+    "brand": "DR’s Secret C Plus",
+    "summary": "같은 제품의 시작·사용 장면·마지막 행동을 연결한20초 세로 광고 시안",
+    "scope": "AI 가상인물·제품 장면·자막·세로 편집",
+    "publicLabel": "AI 가상인물 출연 제안 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-BWL-AD-03"
+    ],
+    "services": [
+      {
+        "id": "ad",
+        "relation": "direct",
+        "description": "같은 제품의9:16 광고"
+      },
+      {
+        "id": "ai-influencer",
+        "relation": "usage",
+        "description": "제품영상 활용 시안"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/bwl-cplus-ad.mp4",
+        "poster": "/service-detail-v14/poster-bwl-cplus-ad.webp",
+        "alt": "C Plus20초 SNS 광고 시안",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "같은 제품의 시작·사용 장면·마지막 행동을 연결한20초 세로 광고 시안",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [
+      "ad"
+    ],
+    "order": 60
+  },
+  {
+    "caseId": "CASE-BWL-CLEANSER-AD",
+    "slug": "bwl-cleanser-ad",
+    "revision": 1,
+    "title": "클렌저1 제품영상",
+    "brand": "DR’s Secret",
+    "summary": "AI 가상인물과 제품 사용 장면을 연결한20초 세로 영상 시안",
+    "scope": "가상인물·제품 장면·자막·편집",
+    "publicLabel": "AI 가상인물 출연 제안 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-BWL-AD-04"
+    ],
+    "services": [
+      {
+        "id": "ad",
+        "relation": "direct",
+        "description": "다른 제품의 세로 광고"
+      },
+      {
+        "id": "ai-influencer",
+        "relation": "usage",
+        "description": "제품영상 활용 시안"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/bwl-cleanser-ad.mp4",
+        "poster": "/service-detail-v14/poster-bwl-cleanser-ad.webp",
+        "alt": "클렌저1 제안용 제품영상",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "AI 가상인물과 제품 사용 장면을 연결한20초 세로 영상 시안",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 70
+  },
+  {
+    "caseId": "CASE-HEALERNET-MOTION",
+    "slug": "healernet-motion",
+    "revision": 1,
+    "title": "힐러넷 회사 소개 모션",
+    "brand": "힐러넷",
+    "summary": "회사 자료·로고·제품·문구를 정리한30초 가로 소개 모션",
+    "scope": "회사 정보의 시각 구성·타이포·편집",
+    "publicLabel": "회사 소개 모션 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-HN-MOTION-01"
+    ],
+    "services": [
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "회사 정보를 모션으로 설명"
+      },
+      {
+        "id": "brand-film",
+        "relation": "usage",
+        "description": "회사 소개 목적의 그래픽 활용"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/healernet-motion.mp4",
+        "poster": "/service-detail-v14/poster-healernet-motion.webp",
+        "alt": "힐러넷 회사 소개 모션 시안",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "brief": "회사 자료·로고·제품·문구를 정리한30초 가로 소개 모션",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 80
+  },
+  {
+    "caseId": "CASE-YOFREE-OUTING",
+    "slug": "yofree-outing",
+    "revision": 1,
+    "title": "요프리 외출편",
+    "brand": "YoFree",
+    "summary": "제품 사용 상황을 웹툰으로 풀고 모션코믹으로 확장한 별도 작업",
+    "scope": "브랜드 웹툰·모션코믹 편집",
+    "publicLabel": "브랜드 웹툰·모션코믹 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-YOFREE-WEBTOON-01",
+      "AIO-WORK-YOFREE-MOTION-01"
+    ],
+    "services": [
+      {
+        "id": "webtoon",
+        "relation": "direct",
+        "description": "브랜드 사용 상황을 이야기로"
+      },
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "같은 웹툰의 모션 활용"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "image",
+        "src": "/service-detail-v14/yofree-outing-01.webp",
+        "alt": "요프리 외출편 웹툰"
+      },
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-outing-motion.mp4",
+        "poster": "/service-detail-v14/poster-yofree-outing-motion.webp",
+        "alt": "요프리 외출편 모션코믹",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "제품 사용 상황을 웹툰으로 풀고 모션코믹으로 확장한 별도 작업",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 90
+  },
+  {
+    "caseId": "CASE-YOFREE-NIGHT",
+    "slug": "yofree-night",
+    "revision": 1,
+    "title": "요프리 밤편 모션코믹",
+    "brand": "YoFree",
+    "summary": "별도 웹툰 이야기를 세로 모션코믹으로 편집한 작업",
+    "scope": "웹툰 장면·말풍선·속도·전환 편집",
+    "publicLabel": "모션코믹 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-YOFREE-WEBTOON-02",
+      "AIO-WORK-YOFREE-MOTION-02"
+    ],
+    "services": [
+      {
+        "id": "webtoon",
+        "relation": "usage",
+        "description": "웹툰의 영상 활용"
+      },
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "긴 이야기의 세로 모션 편집"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-night-motion.mp4",
+        "poster": "/service-detail-v14/poster-yofree-night-motion.webp",
+        "alt": "요프리 밤편 모션코믹",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "별도 웹툰 이야기를 세로 모션코믹으로 편집한 작업",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 100
+  },
+  {
+    "caseId": "CASE-YOFREE-SHORT",
+    "slug": "yofree-short",
+    "revision": 1,
+    "title": "요프리 선물 메시지",
+    "brand": "YoFree",
+    "summary": "같은 제품을 선물이라는 맥락으로 표현한 모션 광고 시안",
+    "scope": "제품·타이포·음악 리듬·편집",
+    "publicLabel": "제품 모션 광고 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [
+      "AIO-WORK-YOFREE-AD-01"
+    ],
+    "services": [
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "제품 메시지의 다른 표현"
+      },
+      {
+        "id": "ad",
+        "relation": "direct",
+        "description": "선물 맥락의 제품 광고"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-short-gift.mp4",
+        "poster": "/service-detail-v14/poster-yofree-short-gift.webp",
+        "alt": "요프리 선물 메시지 모션 시안",
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "brief": "같은 제품을 선물이라는 맥락으로 표현한 모션 광고 시안",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 110
+  },
+  {
+    "caseId": "CASE-YOFREE-JINSANG",
+    "slug": "yofree-jinsang",
+    "revision": 1,
+    "title": "요프리 진상품 납시오",
+    "brand": "YoFree",
+    "summary": "이야기·인물·제품을 연결한 실제25.3초 가로 영상",
+    "scope": "원고·장면 생성·대사·편집",
+    "publicLabel": "브랜드 영상 완성 v1 · 확인 대기",
+    "productionStatus": "completed",
+    "publication": "ready",
+    "sourceWorkIds": [],
+    "services": [
+      {
+        "id": "brand-film",
+        "relation": "direct",
+        "description": "제품 이야기를 브랜드 영상으로"
+      },
+      {
+        "id": "ad",
+        "relation": "usage",
+        "description": "이야기형 제품 소개"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/yofree-jinsang.mp4",
+        "poster": "/service-detail-v14/poster-yofree-jinsang.webp",
+        "alt": "요프리 진상품 납시오25.3초",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "brief": "이야기·인물·제품을 연결한 실제25.3초 가로 영상",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 120
+  },
+  {
+    "caseId": "CASE-AIO-BRAND-INTRO",
+    "slug": "aio-brand-intro",
+    "revision": 1,
+    "title": "AIO 브랜드 인트로",
+    "brand": "AIO MAKE",
+    "summary": "자체 브랜드 로고·기하·타이포를 음악 박자에 맞춘30초 모션",
+    "scope": "자체 브랜드의 타이포·그래픽·모션",
+    "publicLabel": "AIO 자체 브랜드 제작 사례",
+    "productionStatus": "completed",
+    "publication": "ready",
+    "sourceWorkIds": [],
+    "services": [
+      {
+        "id": "motion-graphics",
+        "relation": "direct",
+        "description": "로고·기하·타이포의 자체 모션"
+      },
+      {
+        "id": "brand-film",
+        "relation": "usage",
+        "description": "자체 브랜드 소개"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v14/aio-brand-intro.mp4",
+        "poster": "/service-detail-v14/poster-aio-brand-intro.webp",
+        "alt": "AIO 자체 브랜드 인트로",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "brief": "자체 브랜드 로고·기하·타이포를 음악 박자에 맞춘30초 모션",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 130
+  },
+  {
+    "caseId": "CASE-MAXTECH-BRANDFILM",
+    "slug": "maxtech-promo-film",
+    "revision": 1,
+    "title": "맥스테크 웹사이트 홍보영상",
+    "brand": "MAXTECH",
+    "summary": "고층 건물·공항·산악 장면과 장비 정보를 한 흐름으로 구성한 웹사이트 홍보영상 제작 시안",
+    "scope": "브랜드 메시지 구성·장면 전환·제품 정보와 타이포 편집",
+    "publicLabel": "맥스테크 웹사이트 홍보영상 · 제작 시안",
+    "productionStatus": "draft",
+    "publication": "ready",
+    "sourceWorkIds": [],
+    "services": [
+      {
+        "id": "brand-film",
+        "relation": "direct",
+        "description": "브랜드 소개와 장비 정보를 연결한 웹사이트 홍보영상 구성·편집"
+      }
+    ],
+    "assets": [
+      {
+        "kind": "video",
+        "src": "/service-detail-v15/maxtech/hero-promo.mp4",
+        "poster": "/service-detail-v15/maxtech/poster.webp",
+        "alt": "맥스테크 웹사이트 홍보영상 제작 시안 · 실제 61.8초",
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "brief": "웹사이트에서 장비의 쓰임과 브랜드를 하나의 영상으로 소개하는 제작 예시입니다 실제 납품·채택·게시나 현장 운용을 뜻하지 않습니다",
+    "decisions": [],
+    "stages": [],
+    "featuredFor": [],
+    "order": 45
+  }
+]
