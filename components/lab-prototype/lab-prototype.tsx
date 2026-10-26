@@ -602,7 +602,10 @@ export default function LabPrototype() {
             <textarea
               id="lab-brief"
               value={brief}
-              onChange={(event) => setBrief(event.target.value)}
+              onChange={(event) => {
+                resetRun();
+                setBrief(event.target.value);
+              }}
               disabled={runState === "running"}
               rows={4}
               maxLength={800}
