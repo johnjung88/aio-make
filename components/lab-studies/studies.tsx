@@ -78,7 +78,7 @@ function StudyHeader({
           </Link>
         ))}
       </nav>
-      <Link className={styles.backLink} href="/lab/studies">
+      <Link className={styles.backLink} href="/lab/studies" aria-label="세 시안 비교로 돌아가기">
         <span>세 시안 비교</span>
         <ArrowUpRight size={17} />
       </Link>
