@@ -85,7 +85,7 @@
   display: flex;
   gap: 25px;
   margin-left: auto;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 550;
 }
 .sectionBar nav a {
@@ -184,7 +184,7 @@
   justify-content: space-between;
   gap: 11px;
   padding: 10px 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   border: 0;
   border-bottom: 1px solid transparent;
@@ -212,300 +212,12 @@
   width: 30px;
   background: #bfc7d8;
 }
-.heroVisual {
-  min-width: 0;
-  padding-top: 12px;
-}
-.window {
-  border: 1px solid #dce1ec;
-  border-radius: 9px;
-  background: white;
-  box-shadow:
-    0 23px 70px -40px #1b2e7054,
-    0 3px 8px #112a5c03;
-  overflow: hidden;
-  transform: perspective(1600px) rotateY(-4deg) rotateX(1deg);
-  transition: transform 0.45s;
-}
-.window:hover {
-  transform: perspective(1600px) rotateY(0deg) rotateX(0deg);
-}
-.windowBar {
-  height: 42px;
-  background: #fcfcfe;
-  border-bottom: 1px solid #e6eaf2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 17px;
-  font:
-    9px var(--ff-mono),
-    monospace;
-  color: #8b94a7;
-}
-.windowDots {
-  display: flex;
-  gap: 4px;
-}
-.windowDots i {
-  width: 5px;
-  height: 5px;
-  background: #d5dbe6;
-  border-radius: 50%;
-}
-.livePill {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #6b788d;
-  font-size: 8px;
-}
-.livePill i {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #48a394;
-}
-.canvasToolbar {
-  padding: 17px 18px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.segmented {
-  display: flex;
-  background: #f0f2f7;
-  border: 1px solid #e9ecf2;
-  border-radius: 4px;
-  padding: 3px;
-}
-.segmented button {
-  border: 0;
-  background: transparent;
-  color: #9299a9;
-  font-size: 10px;
-  padding: 6px 12px;
-  border-radius: 2px;
-  min-height: 29px;
-}
-.segmented button[aria-pressed="true"] {
-  background: white;
-  box-shadow: 0 1px 4px #0f204715;
-  color: #26375d;
-  font-weight: 650;
-}
-.canvasHint {
-  font-size: 9px;
-  color: #8c96ab;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.diagram {
-  height: 313px;
-  position: relative;
-  background-image: radial-gradient(#dfe5f0 1px, transparent 1px);
-  background-size: 15px 15px;
-  margin: 13px 0 0;
-}
-.diagramCaption {
-  position: absolute;
-  top: 19px;
-  left: 23px;
-  font:
-    8px var(--ff-mono),
-    monospace;
-  letter-spacing: 0.11em;
-  color: #9ba5b9;
-}
-.connections {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  stroke: #cad3e5;
-  stroke-width: 1.1;
-}
-.dottedPath {
-  stroke-dasharray: 3 6;
-  opacity: 0.6;
-}
-.flowPath {
-  stroke: var(--lab-blue);
-  stroke-width: 1.8;
-  stroke-dasharray: 18 350;
-  animation: flow 5s linear infinite;
-  opacity: 0.8;
-}
-.graphNode {
-  position: absolute;
-  width: 112px;
-  height: 83px;
-  background: #fff;
-  border: 1px solid #dfe5f0;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 12px #152b6010;
-  color: #5b6b89;
-  font-size: 10px;
-  font-weight: 550;
-  transform: translate(-50%, -50%);
-  transition:
-    background 0.3s,
-    border-color 0.3s,
-    box-shadow 0.3s,
-    color 0.3s;
-}
-.graphNode:hover {
-  border-color: #6b88e9;
-  box-shadow: 0 5px 20px #3159ed20;
-}
-.nodeIcon {
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.nodePort {
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  border: 1px solid #bcc8e1;
-  position: absolute;
-  bottom: -3px;
-  border-radius: 50%;
-}
-.node0 {
-  left: 18%;
-  top: 34%;
-}
-.node1 {
-  left: 48%;
-  top: 34%;
-}
-.node2 {
-  left: 48%;
-  top: 69%;
-}
-.node3 {
-  left: 81%;
-  top: 69%;
-}
-.selectedNode {
-  border-color: #3159ed;
-  background: #f0f4ff;
-  color: #3159ed;
-  box-shadow:
-    0 0 0 3px #3159ed09,
-    0 6px 18px #3159ed0d;
-}
-.selectedNode .nodePort {
-  background: var(--lab-blue);
-  border-color: var(--lab-blue);
-}
-.diagramAxis,
-.diagramAxisEnd {
-  position: absolute;
-  bottom: 15px;
-  color: #a0aabe;
-  font:
-    8px var(--ff-mono),
-    monospace;
-  letter-spacing: 0.1em;
-}
-.diagramAxis {
-  left: 25px;
-}
-.diagramAxisEnd {
-  right: 25px;
-}
-.nodeDetail {
-  padding: 18px 20px;
-  border-top: 1px solid #e6ebf4;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  background: #fbfcff;
-  min-height: 88px;
-}
-.detailIndex {
-  width: 31px;
-  height: 31px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #dbe3f6;
-  color: var(--lab-blue);
-  font:
-    11px var(--ff-mono),
-    monospace;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
 .mono {
   font:
-    9px var(--ff-mono),
+    10px var(--ff-mono),
     monospace;
   letter-spacing: 0.035em;
   color: #8a96ac;
-}
-.nodeDetail p {
-  font-size: 11px;
-  color: #4e5c77;
-  margin-top: 4px;
-}
-.nodeDetail > svg {
-  margin-left: auto;
-  color: #99a6c0;
-}
-.windowStatus {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 18px;
-  border-top: 1px solid #e9edf4;
-  font:
-    7px var(--ff-mono),
-    monospace;
-  color: #9da7ba;
-}
-.windowStatus span:first-child {
-  font-family: var(--font-body);
-  font-size: 8px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.windowStatus i {
-  width: 3px;
-  height: 3px;
-  background: #7591e6;
-  border-radius: 50%;
-}
-.visualCaption {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 17px 4px;
-  color: #9aa4b8;
-  font-size: 9px;
-}
-.visualCaption > span:last-child {
-  margin-left: auto;
-  font:
-    8px var(--ff-mono),
-    monospace;
-  letter-spacing: 0.1em;
-}
-.plusMark {
-  font-size: 15px;
-  font-weight: 300;
-  color: #7182a5;
 }
 .connectionStrip {
   border-top: 1px solid var(--lab-line);
@@ -517,7 +229,7 @@
   gap: 24px;
   background: #f0f3f9;
   color: #8390a9;
-  font-size: 10px;
+  font-size: 13px;
 }
 .connectionStrip > div {
   display: flex;
@@ -528,7 +240,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 12px;
+  font-size: 13px;
   color: #52617b;
 }
 .connectionStrip a:first-child,
@@ -565,7 +277,7 @@
   letter-spacing: -0.045em;
 }
 .sectionHead > p {
-  font-size: 12px;
+  font-size: 13px;
   color: #7c879d;
   line-height: 1.85;
   padding-bottom: 5px;
@@ -625,7 +337,7 @@
   border-radius: 3px;
   color: #7f8da8;
   padding: 6px 10px;
-  font-size: 10px;
+  font-size: 13px;
   transition: all 0.2s;
 }
 .exampleTabs button[aria-pressed="true"] {
@@ -634,7 +346,7 @@
   border-color: #6f89c13b;
 }
 .inputLabel {
-  font-size: 11px;
+  font-size: 13px;
   color: #a1abc0;
   display: block;
   margin-bottom: 10px;
@@ -658,7 +370,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  font-size: 9px;
+  font-size: 13px;
   color: #697a99;
   margin-top: 9px;
 }
@@ -685,7 +397,7 @@
   gap: 8px;
   min-height: 44px;
   padding: 11px 18px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   border-radius: 3px;
   flex: 1;
@@ -719,7 +431,7 @@
   align-items: center;
   gap: 8px;
   color: #7c8ca7;
-  font-size: 10px;
+  font-size: 13px;
 }
 .switchTrack {
   width: 24px;
@@ -762,7 +474,7 @@
   gap: 10px;
 }
 .runStatus {
-  font-size: 9px;
+  font-size: 13px;
   color: #8e9bb4;
   display: flex;
   align-items: center;
@@ -820,18 +532,18 @@
   gap: 2px;
 }
 .pipeline strong {
-  font-size: 11px;
+  font-size: 13px;
   color: #7e8da9;
   transition: color 0.3s;
 }
 .pipeline li > div > span {
-  font-size: 9px;
+  font-size: 13px;
   color: #4e607f;
 }
 .stepState {
   margin-left: auto;
   font:
-    7px var(--ff-mono),
+    11px var(--ff-mono),
     monospace;
   letter-spacing: 0.06em;
   color: #435674;
@@ -883,7 +595,7 @@
   gap: 12px;
   color: #647693;
   min-height: 70px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .awaitingResult > svg {
   color: #4e6389;
@@ -897,12 +609,12 @@
   align-items: center;
   gap: 7px;
   color: #a4d5c8;
-  font-size: 11px;
+  font-size: 13px;
 }
 .readyResult > div > span:last-child {
   margin-left: auto;
   color: #8397ba;
-  font-size: 9px;
+  font-size: 13px;
 }
 .readyResult ul {
   display: grid;
@@ -911,7 +623,7 @@
   padding: 10px 0;
 }
 .readyResult li {
-  font-size: 10px;
+  font-size: 13px;
   color: #adbbd2;
   display: flex;
   align-items: center;
@@ -921,7 +633,7 @@
   color: #6a8795;
 }
 .readyResult > p {
-  font-size: 9px;
+  font-size: 13px;
   color: #6e809f;
 }
 .readyResult > p > b {
@@ -938,13 +650,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 10px;
+  font-size: 13px;
 }
 .errorResult {
   display: flex;
   gap: 10px;
   color: #e0aa81;
-  font-size: 11px;
+  font-size: 13px;
   animation: arrive 0.3s ease;
 }
 .errorResult > svg {
@@ -955,7 +667,7 @@
   font-weight: 550;
 }
 .errorResult p {
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.7;
   margin-top: 6px;
   color: #ad9388;
@@ -964,7 +676,7 @@
   border: 0;
   background: none;
   color: #dfb095;
-  font-size: 10px;
+  font-size: 13px;
   padding: 10px 0 0;
   display: flex;
   align-items: center;
@@ -976,7 +688,7 @@
   gap: 18px;
   max-width: 1280px;
   margin: 20px auto 0;
-  font-size: 9px;
+  font-size: 13px;
   color: #677590;
 }
 .workflowFoot > span:first-child {
@@ -1068,7 +780,7 @@
   pointer-events: none;
 }
 .serviceVisual > .mono {
-  font-size: 8px;
+  font-size: 9px;
 }
 .miniBrowser {
   margin-top: 15px;
@@ -1159,7 +871,7 @@
   display: inline-flex;
   gap: 20px;
   align-items: center;
-  font-size: 7px;
+  font-size: 9px;
   color: #8796b6;
   border-top: 1px solid #e9edf6;
   padding-top: 12px;
@@ -1197,7 +909,7 @@
   word-break: keep-all;
 }
 .serviceInfo > p {
-  font-size: 12px;
+  font-size: 13px;
   color: #7c879e;
   line-height: 1.9;
   margin-top: 14px;
@@ -1213,7 +925,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
+  font-size: 13px;
   color: #61718f;
 }
 .serviceInfo li > svg {
@@ -1223,7 +935,7 @@
   margin-top: 14px;
   color: var(--lab-blue);
   border-bottom-color: #ccd6f4;
-  font-size: 11px;
+  font-size: 13px;
 }
 .checkSection {
   border-block: 1px solid var(--lab-line);
@@ -1249,7 +961,7 @@
 .checkNote {
   display: flex;
   gap: 8px;
-  font-size: 9px;
+  font-size: 13px;
   line-height: 1.8;
   color: #99a5bb;
   margin-top: 35px;
@@ -1289,14 +1001,14 @@
   border: 1px solid #e1e7f3;
   border-radius: 2px;
   padding: 2px 5px;
-  font-size: 7px;
+  font-size: 13px;
 }
 .checkCard form {
   padding: 22px 22px 17px;
 }
 .checkCard label {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: #61718f;
   margin-bottom: 9px;
@@ -1319,7 +1031,7 @@
   flex: 1;
   border: 0;
   background: none;
-  font-size: 12px;
+  font-size: 13px;
   outline: none;
   color: #273958;
   padding: 6px 0;
@@ -1347,7 +1059,7 @@
   align-items: center;
   gap: 7px;
   margin-top: 12px;
-  font-size: 8px;
+  font-size: 13px;
   color: #9da9bd;
 }
 .checkScenario > span {
@@ -1359,7 +1071,7 @@
   color: #98a4ba;
   border-radius: 2px;
   padding: 3px 6px;
-  font-size: 8px;
+  font-size: 13px;
 }
 .checkScenario button[aria-pressed="true"] {
   background: #f1f5ff;
@@ -1395,10 +1107,10 @@
   background: #f0f3fa;
 }
 .checkPlaceholder p {
-  font-size: 10px;
+  font-size: 13px;
 }
 .checkPlaceholder > span {
-  font-size: 8px;
+  font-size: 13px;
   color: #b1bacc;
 }
 .checkLoading {
@@ -1409,7 +1121,7 @@
   justify-content: center;
   gap: 14px;
   color: #8299d2;
-  font-size: 11px;
+  font-size: 13px;
   min-height: 175px;
 }
 .checkResults {
@@ -1421,7 +1133,7 @@
   display: flex;
   justify-content: space-between;
   gap: 15px;
-  font-size: 10px;
+  font-size: 13px;
   color: #6681b8;
   padding: 13px 0;
   border-bottom: 1px solid #e9edf6;
@@ -1433,7 +1145,7 @@
   overflow-wrap: anywhere;
 }
 .domainLabel > span:last-child {
-  font-size: 8px;
+  font-size: 13px;
   color: #a4adc0;
 }
 .checkItem {
@@ -1454,12 +1166,12 @@
   flex-shrink: 0;
 }
 .checkItem strong {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 550;
   color: #526783;
 }
 .checkState {
-  font-size: 8px;
+  font-size: 13px;
   color: #6f9e95;
   margin-left: auto;
   white-space: nowrap;
@@ -1476,13 +1188,13 @@
   transform: rotate(45deg);
 }
 .checkItem > p {
-  font-size: 10px;
+  font-size: 13px;
   color: #7d8ba4;
   line-height: 1.8;
   padding: 0 0 13px 23px;
 }
 .checkItem > p > span {
-  font-size: 9px;
+  font-size: 13px;
   color: #a0abc1;
 }
 .checkCta {
@@ -1493,10 +1205,10 @@
   gap: 12px;
   color: #607ecc;
   padding: 13px 0 0;
-  font-size: 10px;
+  font-size: 13px;
 }
 .fieldError {
-  font-size: 10px !important;
+  font-size: 13px !important;
   color: #b96d58 !important;
   margin-top: 8px !important;
 }
@@ -1561,7 +1273,7 @@
   margin-top: 15px;
 }
 .processDetail > p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.9;
   color: #79869f;
   max-width: 360px;
@@ -1576,7 +1288,7 @@
   margin-top: 25px;
   border: 1px solid #e0e8f8;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 13px;
   color: #6f86b6;
 }
 .processDetail > div > svg:last-child {
@@ -1594,7 +1306,7 @@
 }
 .contactSection .eyebrow {
   color: #647ba8;
-  font-size: 8px;
+  font-size: 9px;
 }
 .contactCopy h2 {
   font-size: clamp(29px, 3.1vw, 44px);
@@ -1602,7 +1314,7 @@
   margin-top: 20px;
 }
 .contactCopy > p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.9;
   color: #8f9db8;
   margin-top: 21px;
@@ -1617,7 +1329,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 9px;
+  font-size: 13px;
   color: #9aa9c7;
 }
 .nextLinks a:hover {
@@ -1633,7 +1345,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 13px;
   color: #a4b3ce;
   padding-bottom: 13px;
   border-bottom: 1px solid #ffffff13;
@@ -1645,7 +1357,7 @@
   color: #6c85af;
 }
 .emptyDraft {
-  font-size: 12px;
+  font-size: 13px;
   color: #6c82a6;
   line-height: 1.8;
   padding: 24px 0 30px;
@@ -1661,7 +1373,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px;
+  font-size: 13px;
   color: #b1c0d8;
 }
 .contactDraft li > svg {
@@ -1680,7 +1392,7 @@
 .contactDraft .primaryButton {
   width: 100%;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 13px;
   min-height: 43px;
   padding: 10px 14px;
 }
@@ -1692,12 +1404,12 @@
   width: 100%;
   border: 0;
   background: transparent;
-  font-size: 10px;
+  font-size: 13px;
   color: #93a9cf;
   padding: 12px 0 0;
 }
 .copyStatus {
-  font-size: 8px;
+  font-size: 13px;
   color: #647eaa;
   line-height: 1.7;
   text-align: center;
@@ -1712,14 +1424,14 @@
   justify-content: space-between;
   gap: 20px;
   color: #4c638a;
-  font-size: 8px;
+  font-size: 9px;
 }
 .prototypeFoot > span:first-child {
   display: flex;
   align-items: center;
   gap: 7px;
   font-family: var(--ff-mono), monospace;
-  font-size: 7px;
+  font-size: 9px;
   letter-spacing: 0.08em;
 }
 .srOnly {
@@ -1736,10 +1448,15 @@
 :global(body):has(.page) :global(.floating-contact) {
   display: none;
 }
-@keyframes flow {
-  to {
-    stroke-dashoffset: -736;
-  }
+:global(body):has(.page) :global(.aio-scroll-top) {
+  display: none;
+}
+.prototypeFoot > a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 12px;
 }
 @keyframes spin {
   to {
@@ -1765,9 +1482,6 @@
   .hero h1 {
     font-size: 65px;
   }
-  .diagram {
-    height: 340px;
-  }
 }
 @media (max-width: 1100px) {
   .previewBadge {
@@ -1786,21 +1500,8 @@
   }
   .heroFoot {
     margin-top: 32px;
-    font-size: 7px;
-    gap: 9px;
-  }
-  .window {
-    transform: none;
-  }
-  .canvasHint {
-    display: none;
-  }
-  .graphNode {
-    width: 95px;
     font-size: 9px;
-  }
-  .nodeDetail p {
-    font-size: 10px;
+    gap: 9px;
   }
   .connectionStrip > span:last-child {
     display: none;
@@ -1820,7 +1521,7 @@
     font-size: 21px;
   }
   .serviceInfo > p {
-    font-size: 11px;
+    font-size: 13px;
   }
   .checkSection {
     gap: 48px;
@@ -1845,7 +1546,7 @@
   }
   .sectionBar nav {
     gap: 17px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .sectionBrand {
     font-size: 9px;
@@ -1877,24 +1578,6 @@
   .heroFoot {
     margin-top: 30px;
   }
-  .heroVisual {
-    width: min(100%, 580px);
-    margin: auto;
-    padding-top: 0;
-  }
-  .window {
-    transform: none;
-  }
-  .graphNode {
-    width: 112px;
-    font-size: 10px;
-  }
-  .diagram {
-    height: 310px;
-  }
-  .visualCaption {
-    font-size: 8px;
-  }
   .connectionStrip {
     padding: 17px 24px;
     justify-content: center;
@@ -1916,7 +1599,7 @@
   }
   .sectionHead > p {
     margin-top: 17px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .workflowSection {
     padding: 58px 24px 25px;
@@ -1936,7 +1619,7 @@
   .workflowFoot {
     flex-direction: column;
     gap: 7px;
-    font-size: 8px;
+    font-size: 12px;
   }
   .exampleTabs {
     margin-top: 23px;
@@ -1993,7 +1676,7 @@
     font-size: 12px;
   }
   .serviceInfo li {
-    font-size: 10px;
+    font-size: 12px;
   }
   .miniBrowser {
     transform: translateX(17px);
@@ -2041,10 +1724,10 @@
     font-size: 22px;
   }
   .processDetail > p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .processDetail > div {
-    font-size: 9px;
+    font-size: 12px;
     padding: 12px;
     align-items: flex-start;
   }
@@ -2075,6 +1758,9 @@
   .prototypeFoot > span:last-child {
     display: none;
   }
+  .prototypeFoot > span:nth-child(2) {
+    display: none;
+  }
 }
 @media (max-width: 480px) {
   .sectionBar {
@@ -2086,7 +1772,7 @@
   }
   .sectionBar nav {
     gap: 13px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .sectionBar nav a:last-child {
     display: none;
@@ -2112,120 +1798,20 @@
     gap: 15px;
   }
   .primaryButton {
-    font-size: 11px;
+    font-size: 12px;
     padding: 12px 14px;
     min-height: 43px;
     gap: 16px;
   }
   .hero .textButton {
-    font-size: 10px;
+    font-size: 12px;
   }
   .heroFoot {
-    font-size: 6px;
+    font-size: 8px;
     letter-spacing: 0.08em;
   }
   .heroFoot i {
     width: 18px;
-  }
-  .windowBar {
-    height: 35px;
-    padding-inline: 12px;
-    font-size: 7px;
-  }
-  .livePill {
-    font-size: 6px;
-  }
-  .canvasToolbar {
-    padding: 13px 12px 0;
-  }
-  .segmented button {
-    font-size: 8px;
-    min-height: 25px;
-    padding: 5px 10px;
-  }
-  .diagram {
-    height: 257px;
-    margin-top: 10px;
-    background-size: 13px 13px;
-  }
-  .diagramCaption {
-    font-size: 6px;
-    left: 16px;
-  }
-  .graphNode {
-    width: 84px;
-    height: 66px;
-    font-size: 8px;
-    gap: 6px;
-    border-radius: 4px;
-  }
-  .nodeIcon {
-    height: 19px;
-  }
-  .nodeIcon > svg {
-    width: 17px;
-    height: 17px;
-  }
-  .node0 {
-    left: 17%;
-    top: 34%;
-  }
-  .node1 {
-    left: 49%;
-    top: 34%;
-  }
-  .node2 {
-    left: 49%;
-    top: 69%;
-  }
-  .node3 {
-    left: 81%;
-    top: 69%;
-  }
-  .diagramAxis,
-  .diagramAxisEnd {
-    font-size: 6px;
-    bottom: 13px;
-  }
-  .diagramAxis {
-    left: 17px;
-  }
-  .diagramAxisEnd {
-    right: 17px;
-  }
-  .nodeDetail {
-    padding: 13px;
-    gap: 10px;
-    min-height: 73px;
-  }
-  .detailIndex {
-    width: 26px;
-    height: 26px;
-    font-size: 9px;
-  }
-  .nodeDetail .mono {
-    font-size: 7px;
-  }
-  .nodeDetail p {
-    font-size: 8px;
-    line-height: 1.7;
-    word-break: keep-all;
-  }
-  .nodeDetail > svg {
-    width: 14px;
-  }
-  .windowStatus {
-    font-size: 5px;
-    padding: 7px 11px;
-  }
-  .windowStatus span:first-child {
-    font-size: 6px;
-  }
-  .visualCaption {
-    font-size: 7px;
-  }
-  .visualCaption > span:last-child {
-    font-size: 6px;
   }
   .connectionStrip {
     padding: 15px 20px;
@@ -2234,11 +1820,11 @@
     gap: 14px;
   }
   .connectionStrip a {
-    font-size: 10px;
+    font-size: 12px;
     gap: 5px;
   }
   .connectionStrip b {
-    font-size: 6px;
+    font-size: 8px;
   }
   .connectionStrip > div > svg {
     width: 10px;
@@ -2258,14 +1844,14 @@
     justify-content: space-between;
   }
   .exampleTabs button {
-    font-size: 9px;
+    font-size: 12px;
     padding: 6px 8px;
   }
   .panelLabel {
     font-size: 8px;
   }
   .inputLabel {
-    font-size: 10px;
+    font-size: 12px;
   }
   .page .workflowInput textarea {
     font-size: 12px;
@@ -2273,41 +1859,41 @@
     min-height: 123px;
   }
   .requestMeta {
-    font-size: 8px;
+    font-size: 12px;
   }
   .requestMeta > span:first-child > svg {
     display: none;
   }
   .failureToggle {
-    font-size: 9px;
+    font-size: 12px;
   }
   .outputHeading .mono {
     font-size: 8px;
   }
   .pipeline strong {
-    font-size: 11px;
+    font-size: 12px;
   }
   .pipeline li > div > span {
-    font-size: 9px;
+    font-size: 12px;
   }
   .stepState {
-    font-size: 6px;
+    font-size: 12px;
   }
   .readyResult > div > span:last-child {
-    font-size: 8px;
+    font-size: 12px;
   }
   .readyResult > p > b {
-    font-size: 9px;
+    font-size: 12px;
   }
   .workflowFoot {
-    font-size: 8px;
+    font-size: 12px;
     line-height: 1.8;
   }
   .capabilitiesSection {
     padding: 51px 20px;
   }
   .serviceList strong {
-    font-size: 10px;
+    font-size: 12px;
   }
   .serviceList button {
     padding: 15px 3px;
@@ -2351,7 +1937,7 @@
     padding-top: 10px;
   }
   .visualLink {
-    font-size: 8px;
+    font-size: 12px;
     padding-top: 15px;
   }
   .serviceInfo h3 {
@@ -2368,7 +1954,7 @@
     gap: 8px;
   }
   .serviceInfo li {
-    font-size: 11px;
+    font-size: 12px;
   }
   .serviceInfo .textButton {
     margin-top: 8px;
@@ -2380,7 +1966,7 @@
     font-size: 31px;
   }
   .checkNote {
-    font-size: 8px;
+    font-size: 12px;
   }
   .checkCard form {
     padding: 20px 17px 16px;
@@ -2392,22 +1978,22 @@
     padding-inline: 17px;
   }
   .checkItem strong {
-    font-size: 9px;
+    font-size: 12px;
   }
   .checkItem > button {
     gap: 6px;
   }
   .checkState {
-    font-size: 7px;
+    font-size: 12px;
   }
   .checkItem > p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .checkPlaceholder {
     padding: 28px 16px 35px;
   }
   .checkPlaceholder > p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .processSection {
     padding: 50px 20px;
@@ -2437,7 +2023,7 @@
   }
   .processDetail > div {
     margin-top: 20px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .contactSection {
     padding: 46px 20px;
@@ -2447,26 +2033,26 @@
     font-size: 31px;
   }
   .contactCopy > p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .nextLinks {
     gap: 17px;
   }
   .nextLinks a {
-    font-size: 8px;
+    font-size: 12px;
   }
   .contactDraft {
     padding: 19px;
   }
   .emptyDraft {
-    font-size: 11px;
+    font-size: 12px;
     padding-block: 20px 24px;
   }
   .contactDraft li {
-    font-size: 10px;
+    font-size: 12px;
   }
   .copyStatus {
-    font-size: 7px;
+    font-size: 12px;
   }
   .prototypeFoot {
     padding: 13px 20px;
@@ -2483,11 +2069,459 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  .window,
-  .window:hover {
-    transform: none;
-  }
   .serviceVisual:hover .miniBrowser {
     transform: none;
+  }
+}
+
+.page section {
+  scroll-margin-top: 92px;
+}
+.hero {
+  padding-top: 62px;
+  padding-bottom: 72px;
+  gap: 56px;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  inset: 0 -48px;
+  background: radial-gradient(ellipse at 82% 40%, #dbe5fc88, transparent 57%);
+  pointer-events: none;
+}
+.heroCopy {
+  position: relative;
+  z-index: 1;
+  animation: heroCopyEnter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero h1 {
+  font-size: clamp(44px, 4.6vw, 68px);
+  line-height: 1.18;
+}
+.heroLead {
+  margin-top: 28px !important;
+}
+.heroActions {
+  margin-top: 32px;
+}
+.heroFoot {
+  margin-top: 42px;
+}
+.workflowPanel {
+  box-shadow: 0 24px 65px -40px #0009;
+}
+.workflowInput {
+  display: flex;
+  flex-direction: column;
+}
+.workflowInput textarea {
+  min-height: 160px !important;
+}
+.workflowOutput {
+  min-height: 610px;
+  scroll-margin-top: 92px;
+}
+.outputStop {
+  background: #22324e;
+  border: 1px solid #3b5074;
+  border-radius: 4px;
+  color: #c8d8f4;
+  padding: 7px 10px;
+  font-size: 12px;
+  min-height: 36px;
+}
+.outputHeading > .runStatus {
+  margin-left: auto;
+}
+.resultArea {
+  min-height: 246px;
+}
+.pipeline li {
+  padding-bottom: 24px;
+}
+.pipeline li > div > span {
+  color: #8090ad;
+}
+.pipeline strong {
+  color: #9aa8c0;
+}
+.stepState {
+  color: #788ba9;
+}
+.workflowFoot > span:last-child {
+  color: #8292ac;
+}
+.requestMeta,
+.failureToggle {
+  color: #96a5bf;
+}
+.readyResult li {
+  line-height: 1.8;
+}
+.readyResult > div {
+  flex-wrap: wrap;
+}
+.readyResult > p {
+  color: #91a3c0;
+}
+.readyResult > p > b {
+  line-height: 1.75;
+}
+.readyResult > button,
+.errorResult button {
+  min-height: 44px;
+}
+.servicePanel {
+  min-height: 360px;
+  animation: panelEnter 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.serviceInfo h3 {
+  font-size: 26px;
+}
+.serviceInfo > p {
+  line-height: 1.8;
+}
+.serviceInfo li {
+  line-height: 1.8;
+}
+.serviceList button {
+  min-height: 64px;
+}
+.checkNote {
+  color: #657592;
+}
+.checkPlaceholder,
+.checkLoading,
+.checkResults {
+  min-height: 310px;
+}
+.checkItem > button {
+  min-height: 56px;
+}
+.checkItem > p {
+  line-height: 1.9;
+  animation: panelEnter 0.25s ease both;
+}
+.checkState {
+  white-space: nowrap;
+}
+.domainLabel > span:first-child {
+  overflow-wrap: anywhere;
+}
+.checkResults {
+  animation: panelEnter 0.32s ease both;
+}
+.processDetail {
+  min-height: 270px;
+}
+.processDetail > p {
+  line-height: 1.85;
+}
+.processDetail > div {
+  line-height: 1.75;
+}
+.contactDraft li {
+  min-height: 42px;
+}
+.contactDraft li > button {
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copyButton {
+  min-height: 44px;
+}
+.copyStatus {
+  line-height: 1.7;
+  color: #8e9db7;
+}
+.notice {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px 12px 18px;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  background: #f9fbff;
+  border: 1px solid #c6d2ec;
+  box-shadow: 0 12px 45px #172b4f24;
+  color: #203455;
+  border-radius: 7px;
+  animation: toastEnter 0.25s ease both;
+}
+.notice > svg {
+  color: #3159ed;
+  flex-shrink: 0;
+}
+.notice > span {
+  font-size: 13px;
+}
+.notice > a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #3159ed;
+  font-weight: 600;
+  min-height: 32px;
+}
+.notice > button {
+  border: 0;
+  background: transparent;
+  color: #7785a0;
+  width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page button:active {
+  transform: translateY(1px);
+}
+@keyframes panelEnter {
+  from {
+    opacity: 0.3;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes heroCopyEnter {
+  from {
+    opacity: 0.25;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes toastEnter {
+  from {
+    opacity: 0;
+    margin-bottom: -7px;
+  }
+  to {
+    opacity: 1;
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 1100px) and (min-width: 801px) {
+  .hero {
+    gap: 32px;
+    padding-top: 55px;
+  }
+  .hero h1 {
+    font-size: 46px;
+  }
+  .serviceInfo h3 {
+    font-size: 23px;
+  }
+  .servicePanel {
+    gap: 24px;
+  }
+}
+@media (max-width: 800px) {
+  .hero {
+    padding-top: 44px;
+    gap: 40px;
+    padding-bottom: 42px;
+  }
+  .hero h1 {
+    font-size: clamp(43px, 7vw, 58px);
+  }
+  .heroLead {
+    margin-top: 22px !important;
+  }
+  .workflowOutput {
+    min-height: 590px;
+  }
+  .servicePanel {
+    min-height: 360px;
+  }
+  .serviceInfo h3 {
+    font-size: 25px;
+  }
+  .notice {
+    bottom: 18px;
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 38px;
+    gap: 38px;
+  }
+  .hero h1 {
+    font-size: clamp(35px, 10.4vw, 45px);
+    line-height: 1.25;
+  }
+  .heroLead {
+    font-size: 15px;
+  }
+  .heroActions {
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 27px;
+  }
+  .heroActions .primaryButton {
+    min-height: 48px;
+    font-size: 12px;
+  }
+  .heroActions .textButton {
+    min-height: 44px;
+    font-size: 12px;
+  }
+  .heroFoot {
+    margin-top: 29px;
+  }
+  .eyebrow {
+    font-size: 9px;
+  }
+  .sectionHead > p {
+    font-size: 13px;
+  }
+  .workflowInput,
+  .workflowOutput {
+    padding: 24px 18px;
+  }
+  .workflowOutput {
+    min-height: 635px;
+  }
+  .outputStop {
+    min-height: 44px;
+  }
+  .workflowInput textarea {
+    min-height: 154px !important;
+  }
+  .resultArea {
+    min-height: 273px;
+  }
+  .pipeline li {
+    padding-bottom: 27px;
+  }
+  .pipeline li > div > span {
+    font-size: 11px;
+  }
+  .stepState {
+    font-size: 8px;
+  }
+  .requestMeta {
+    font-size: 10px;
+  }
+  .exampleTabs button {
+    padding: 9px 7px;
+    font-size: 11px;
+    min-height: 42px;
+  }
+  .failureToggle {
+    min-height: 44px;
+    font-size: 11px;
+  }
+  .servicePanel {
+    min-height: 626px;
+    align-content: start;
+  }
+  .serviceInfo h3 {
+    font-size: 27px;
+  }
+  .serviceInfo > p {
+    font-size: 13px;
+  }
+  .serviceInfo li {
+    font-size: 12px;
+  }
+  .serviceInfo .textButton {
+    min-height: 44px;
+  }
+  .serviceList button {
+    min-height: 48px;
+  }
+  .serviceList strong {
+    font-size: 11px;
+  }
+  .checkNote {
+    font-size: 11px;
+  }
+  .checkScenario button {
+    min-height: 44px;
+  }
+  .checkItem > button {
+    flex-wrap: wrap;
+    column-gap: 7px;
+    row-gap: 4px;
+  }
+  .checkItem strong {
+    font-size: 12px;
+  }
+  .checkState {
+    font-size: 10px;
+  }
+  .checkItem > p {
+    font-size: 12px;
+  }
+  .checkPlaceholder p {
+    font-size: 12px;
+  }
+  .processDetail {
+    min-height: 265px;
+  }
+  .contactDraft {
+    padding: 23px 18px;
+  }
+  .nextLinks {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nextLinks a {
+    min-height: 36px;
+    font-size: 12px;
+  }
+  .notice {
+    gap: 8px;
+    padding: 8px 8px 8px 13px;
+  }
+  .notice > span {
+    font-size: 12px;
+  }
+  .notice > a {
+    font-size: 11px;
+    min-height: 40px;
+  }
+  .notice > button {
+    min-height: 44px;
+  }
+  .notice > a {
+    min-height: 44px;
+  }
+  .exampleTabs button {
+    min-height: 44px;
+  }
+  .sectionBar nav a {
+    min-height: 44px;
+  }
+  .contactDraft li > button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .copyStatus {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroCopy,
+  .servicePanel,
+  .checkResults,
+  .checkItem > p,
+  .notice {
+    animation: none;
   }
 }

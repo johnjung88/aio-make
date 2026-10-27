@@ -26,63 +26,10 @@ import {
   Plus,
 } from "lucide-react";
 import styles from "./lab-prototype.module.css";
+import SystemCanvas from "./system-canvas";
 
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
-const architecture = {
-  web: [
-    {
-      name: "브랜드 정보",
-      icon: FileText,
-      detail: "회사와 서비스의 핵심 정보를 정리합니다",
-      code: "content.source",
-    },
-    {
-      name: "읽히는 구조",
-      icon: Code2,
-      detail: "정보의 순서와 페이지의 의미를 설계합니다",
-      code: "structure.schema",
-    },
-    {
-      name: "사용자 경험",
-      icon: Layers3,
-      detail: "탐색과 선택이 실제 행동으로 이어집니다",
-      code: "interface.state",
-    },
-    {
-      name: "문의와 운영",
-      icon: Workflow,
-      detail: "요청을 남기고 다음 업무로 연결합니다",
-      code: "workflow.output",
-    },
-  ],
-  system: [
-    {
-      name: "요청 입력",
-      icon: FileText,
-      detail: "반복 업무의 시작점과 입력을 정합니다",
-      code: "request.input",
-    },
-    {
-      name: "분류와 검증",
-      icon: Code2,
-      detail: "필수 정보를 확인하고 처리 경로를 나눕니다",
-      code: "rules.validate",
-    },
-    {
-      name: "실행과 검수",
-      icon: ShieldCheck,
-      detail: "자동 처리와 사람이 확인할 지점을 구분합니다",
-      code: "review.required",
-    },
-    {
-      name: "결과와 다음 작업",
-      icon: Workflow,
-      detail: "사용할 수 있는 결과와 다음 작업을 묶습니다",
-      code: "handoff.ready",
-    },
-  ],
-};
 const examples = [
   {
     label: "웹사이트 의뢰",
@@ -165,7 +112,7 @@ const services = [
     display: ["데이터", "상태", "판단", "작업"],
   },
 ];
-const process = [
+const deliveryStages = [
   {
     title: "요청을 구조로",
     body: "현재 사이트와 반복 업무를 보고 실제 필요한 범위를 정리합니다",
@@ -245,10 +192,6 @@ function normaliseAddress(input: string) {
 }
 
 export default function LabPrototype() {
-  const [architectureMode, setArchitectureMode] = useState<"web" | "system">(
-    "web",
-  );
-  const [node, setNode] = useState(1);
   const [example, setExample] = useState(0);
   const [brief, setBrief] = useState(examples[0].text);
   const [runState, setRunState] = useState<RunState>("idle");
@@ -268,12 +211,34 @@ export default function LabPrototype() {
   const [draft, setDraft] = useState<string[]>([]);
   const [contactService, setContactService] = useState("website");
   const [copyState, setCopyState] = useState("");
+  const [notice, setNotice] = useState("");
+  const pageRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
+  const draftServices = useRef<Record<string, string>>({});
   const timers = useRef<number[]>([]);
   const checkTimer = useRef<number | null>(null);
   const generation = useRef(0);
   const addressInput = useRef<HTMLInputElement>(null);
   const service = services[serviceIndex];
-  const nodes = architecture[architectureMode];
+
+  useEffect(() => {
+    if (
+      !["completed", "failed"].includes(runState) ||
+      !window.matchMedia("(max-width: 800px)").matches
+    )
+      return;
+    const bounds = pageRef.current
+      ?.querySelector("#workflow")
+      ?.getBoundingClientRect();
+    if (!bounds || bounds.top >= window.innerHeight || bounds.bottom <= 0)
+      return;
+    outputRef.current?.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  }, [runState]);
 
   const clearRun = () => {
     generation.current += 1;
@@ -288,6 +253,43 @@ export default function LabPrototype() {
     },
     [],
   );
+  useEffect(() => {
+    if (!notice) return;
+    const timeout = window.setTimeout(() => setNotice(""), 5500);
+    return () => window.clearTimeout(timeout);
+  }, [notice]);
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+    const animations: Animation[] = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+            return;
+          animations.push(
+            entry.target.animate(
+              [
+                { opacity: 0.35, transform: "translateY(18px)" },
+                { opacity: 1, transform: "translateY(0)" },
+              ],
+              { duration: 650, easing: "cubic-bezier(.2,.7,.2,1)" },
+            ),
+          );
+        });
+      },
+      { threshold: 0.12 },
+    );
+    page
+      .querySelectorAll("[data-reveal]")
+      .forEach((element) => observer.observe(element));
+    return () => {
+      observer.disconnect();
+      animations.forEach((animation) => animation.cancel());
+    };
+  }, []);
   function resetRun() {
     clearRun();
     setRunState("idle");
@@ -323,10 +325,27 @@ export default function LabPrototype() {
     });
   }
   function addToDraft(item: string, selectedService = service.id) {
+    draftServices.current[item] = selectedService;
+    setNotice(
+      draft.includes(item)
+        ? "이미 상담 목록에 있습니다"
+        : "상담 목록에 담았습니다",
+    );
     setDraft((previous) =>
       previous.includes(item) ? previous : [...previous, item],
     );
     setContactService(selectedService);
+    setCopyState("");
+  }
+  function removeFromDraft(item: string) {
+    const remaining = draft.filter((value) => value !== item);
+    setDraft(remaining);
+    delete draftServices.current[item];
+    setContactService(
+      remaining.length
+        ? draftServices.current[remaining[remaining.length - 1]] || "website"
+        : "website",
+    );
     setCopyState("");
   }
   async function copyDraft() {
@@ -385,7 +404,7 @@ export default function LabPrototype() {
   ];
 
   return (
-    <div className={styles.page} data-lab-prototype>
+    <div className={styles.page} ref={pageRef} data-lab-prototype>
       <div className={styles.sectionBar}>
         <a href="#lab-top" className={styles.sectionBrand}>
           <span className={styles.square} /> AIO ENGINEERING{" "}
@@ -433,104 +452,7 @@ export default function LabPrototype() {
             <span>BUILD THE FLOW</span>
           </div>
         </div>
-        <div className={styles.heroVisual}>
-          <div className={styles.window}>
-            <div className={styles.windowBar}>
-              <span className={styles.windowDots}>
-                <i />
-                <i />
-                <i />
-              </span>
-              <span>aio / system.canvas</span>
-              <span className={styles.livePill}>
-                <i /> Live preview
-              </span>
-            </div>
-            <div className={styles.canvasToolbar}>
-              <div className={styles.segmented} aria-label="구조 미리보기">
-                {(["web", "system"] as const).map((mode) => (
-                  <button
-                    type="button"
-                    key={mode}
-                    aria-pressed={architectureMode === mode}
-                    onClick={() => {
-                      setArchitectureMode(mode);
-                      setNode(1);
-                    }}
-                  >
-                    {mode === "web" ? "웹 구조" : "운영 흐름"}
-                  </button>
-                ))}
-              </div>
-              <span className={styles.canvasHint}>
-                노드를 선택해 보세요 <CircleDot size={12} />
-              </span>
-            </div>
-            <div className={styles.diagram}>
-              <div className={styles.diagramCaption}>
-                {architectureMode === "web"
-                  ? "A READABLE FOUNDATION"
-                  : "AN OPERATING SYSTEM"}
-              </div>
-              <svg
-                className={styles.connections}
-                viewBox="0 0 600 330"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path d="M110 110H280Q300 110 300 130V190Q300 210 320 210H490" />
-                <path d="M110 110V210H490" className={styles.dottedPath} />
-                <path
-                  d="M110 110H280Q300 110 300 130V190Q300 210 320 210H490"
-                  className={styles.flowPath}
-                />
-              </svg>
-              {nodes.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.name}
-                    type="button"
-                    className={cx(
-                      styles.graphNode,
-                      styles["node" + index],
-                      index === node && styles.selectedNode,
-                    )}
-                    aria-pressed={node === index}
-                    onClick={() => setNode(index)}
-                  >
-                    <span className={styles.nodeIcon}>
-                      <Icon size={20} strokeWidth={1.5} />
-                    </span>
-                    <span>{item.name}</span>
-                    <span className={styles.nodePort} />
-                  </button>
-                );
-              })}
-              <span className={styles.diagramAxis}>INPUT</span>
-              <span className={styles.diagramAxisEnd}>OUTPUT</span>
-            </div>
-            <div className={styles.nodeDetail} aria-live="polite">
-              <span className={styles.detailIndex}>0{node + 1}</span>
-              <div>
-                <span className={styles.mono}>{nodes[node].code}</span>
-                <p>{nodes[node].detail}</p>
-              </div>
-              <ArrowUpRight size={17} />
-            </div>
-            <div className={styles.windowStatus}>
-              <span>
-                <i /> 모든 단계는 하나의 흐름으로
-              </span>
-              <span>4 NODES / CONNECTED</span>
-            </div>
-          </div>
-          <div className={styles.visualCaption}>
-            <span className={styles.plusMark}>+</span>
-            <span>화면의 뒤편에서, 운영의 다음 단계까지</span>
-            <span>01 — 04</span>
-          </div>
-        </div>
+        <SystemCanvas />
       </section>
 
       <div className={styles.connectionStrip}>
@@ -556,7 +478,7 @@ export default function LabPrototype() {
       </div>
 
       <section className={styles.workflowSection} id="workflow">
-        <div className={styles.sectionHead}>
+        <div className={styles.sectionHead} data-reveal>
           <div>
             <div className={styles.eyebrow}>01 / INTERACTIVE WORKFLOW</div>
             <h2>
@@ -643,7 +565,11 @@ export default function LabPrototype() {
                 type="button"
                 className={styles.resetButton}
                 aria-label="자동화 데모 초기화"
-                onClick={resetRun}
+                onClick={() => {
+                  resetRun();
+                  setBrief(examples[example].text);
+                  setFailureExample(false);
+                }}
               >
                 <RotateCcw size={17} />
               </button>
@@ -667,7 +593,7 @@ export default function LabPrototype() {
               누락 자료가 있을 때도 확인하기
             </button>
           </div>
-          <div className={styles.workflowOutput}>
+          <div className={styles.workflowOutput} ref={outputRef}>
             <div className={styles.outputHeading}>
               <span className={styles.mono}>WORKFLOW / EXECUTION</span>
               <span
@@ -693,6 +619,18 @@ export default function LabPrototype() {
                   "실행 대기"
                 )}
               </span>
+              {runState === "running" && (
+                <button
+                  className={styles.outputStop}
+                  type="button"
+                  onClick={() => {
+                    clearRun();
+                    setRunState("cancelled");
+                  }}
+                >
+                  중지
+                </button>
+              )}
             </div>
             <ol className={styles.pipeline}>
               {steps.map((step, index) => {
@@ -751,6 +689,7 @@ export default function LabPrototype() {
                       type="button"
                       onClick={() => {
                         if (brief.trim().length < 12) {
+                          setFailureExample(false);
                           setBrief(examples[example].text);
                           setRunState("idle");
                           setActiveStep(-1);
@@ -824,7 +763,7 @@ export default function LabPrototype() {
       </section>
 
       <section className={styles.capabilitiesSection} id="capabilities">
-        <div className={styles.sectionHead}>
+        <div className={styles.sectionHead} data-reveal>
           <div>
             <div className={styles.eyebrow}>02 / WHAT WE BUILD</div>
             <h2>
@@ -880,6 +819,7 @@ export default function LabPrototype() {
           </div>
           <div
             className={styles.servicePanel}
+            key={service.id}
             role="tabpanel"
             id="lab-service-panel"
             aria-labelledby={"service-tab-" + serviceIndex}
@@ -962,7 +902,7 @@ export default function LabPrototype() {
       </section>
 
       <section className={styles.checkSection} id="structure-check">
-        <div className={styles.checkIntro}>
+        <div className={styles.checkIntro} data-reveal>
           <div className={styles.eyebrow}>03 / A READABLE FOUNDATION</div>
           <h2>
             AI가 읽기 전에,
@@ -1001,7 +941,14 @@ export default function LabPrototype() {
                 autoComplete="url"
                 placeholder="example.com"
                 value={address}
-                onChange={(event) => setAddress(event.target.value)}
+                onChange={(event) => {
+                  if (checkTimer.current !== null)
+                    window.clearTimeout(checkTimer.current);
+                  setCheckLoading(false);
+                  setCheckResult(null);
+                  setAddressError("");
+                  setAddress(event.target.value);
+                }}
                 aria-invalid={!!addressError}
                 aria-describedby={addressError ? "lab-url-error" : undefined}
               />
@@ -1103,7 +1050,7 @@ export default function LabPrototype() {
       </section>
 
       <section className={styles.processSection} id="process">
-        <div className={styles.sectionHead}>
+        <div className={styles.sectionHead} data-reveal>
           <div>
             <div className={styles.eyebrow}>04 / BUILT TO KEEP WORKING</div>
             <h2>
@@ -1119,7 +1066,7 @@ export default function LabPrototype() {
         </div>
         <div className={styles.processGrid}>
           <div className={styles.processSteps}>
-            {process.map((item, index) => (
+            {deliveryStages.map((item, index) => (
               <button
                 type="button"
                 key={item.title}
@@ -1136,11 +1083,11 @@ export default function LabPrototype() {
             <span className={styles.eyebrow}>
               DELIVERABLE / 0{processIndex + 1}
             </span>
-            <h3>{process[processIndex].title}</h3>
-            <p>{process[processIndex].body}</p>
+            <h3>{deliveryStages[processIndex].title}</h3>
+            <p>{deliveryStages[processIndex].body}</p>
             <div>
               <FileText size={18} />
-              <span>{process[processIndex].output}</span>
+              <span>{deliveryStages[processIndex].output}</span>
               <Check size={16} />
             </div>
           </div>
@@ -1183,11 +1130,7 @@ export default function LabPrototype() {
                   <button
                     type="button"
                     aria-label={item + " 상담 목록에서 제거"}
-                    onClick={() =>
-                      setDraft((previous) =>
-                        previous.filter((value) => value !== item),
-                      )
-                    }
+                    onClick={() => removeFromDraft(item)}
                   >
                     <X size={14} />
                   </button>
@@ -1201,12 +1144,6 @@ export default function LabPrototype() {
               바로 상담을 시작할 수 있어요
             </p>
           )}
-          <Link
-            className={styles.primaryButton}
-            href={"/lab/contact?service=" + encodeURIComponent(contactService)}
-          >
-            선택한 범위로 문의하기 <ArrowUpRight size={17} />
-          </Link>
           {draft.length > 0 && (
             <button
               type="button"
@@ -1216,17 +1153,42 @@ export default function LabPrototype() {
               <Copy size={13} /> 요청 내용 복사하기
             </button>
           )}
+          <Link
+            className={styles.primaryButton}
+            href={"/lab/contact?service=" + encodeURIComponent(contactService)}
+          >
+            선택한 서비스로 문의하기 <ArrowUpRight size={17} />
+          </Link>
           <p className={styles.copyStatus} role="status">
             {copyState ||
-              "선택 내용은 이 화면에만 보관되며 자동 전송되지 않습니다"}
+              "서비스 종류만 연결됩니다. 선택 항목은 복사해 함께 남겨주세요"}
           </p>
         </div>
       </section>
+      {notice && (
+        <div className={styles.notice} role="status">
+          <CircleCheck size={17} />
+          <span>{notice}</span>
+          <a href="#lab-contact" onClick={() => setNotice("")}>
+            목록 보기 <ArrowUpRight size={14} />
+          </a>
+          <button
+            type="button"
+            aria-label="알림 닫기"
+            onClick={() => setNotice("")}
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
       <div className={styles.prototypeFoot}>
         <span>
           <CircleDot size={12} /> AIO MAKE / LAB PROTOTYPE
         </span>
         <span>직접 조작하는 화면 · 실제 제작 전 검토용</span>
+        <a href="#lab-top">
+          처음으로 <ArrowUpRight size={14} />
+        </a>
       </div>
     </div>
   );
