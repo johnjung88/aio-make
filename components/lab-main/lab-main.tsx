@@ -19,6 +19,7 @@ import {
 import { SampleDialog } from "@/components/lab-samples/dialog";
 import sampleStyles from "@/components/lab-samples/samples.module.css";
 import styles from "./lab-main.module.css";
+import { Prism } from "./prism";
 const BuildingScene = dynamic(
   () => import("@/components/lab-samples/building-scene"),
   {
@@ -171,6 +172,7 @@ export function LabMain() {
   const [copyStatus, setCopyStatus] = useState("");
   const [imageOpen, setImageOpen] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const [changed, setChanged] = useState("서비스");
   const current = services.find((s) => s.id === selected)!;
   const info = FLOOR_INFO[Math.max(0, floor)];
   const contactHref = `/content/contact?${new URLSearchParams({ service: selected, industry: current.industry, source: "lab" })}`;
@@ -206,6 +208,7 @@ export function LabMain() {
       items.includes(service) ? items : [...items, service],
     );
     setPhase(1);
+    setChanged("서비스");
     setReplay((n) => n + 1);
   };
   const consult = (value: string) => {
@@ -222,12 +225,25 @@ export function LabMain() {
     );
   };
   return (
-    <div className={styles.page} data-service={selected}>
+    <div
+      className={styles.page}
+      data-service={selected}
+      data-phase={phase}
+      data-change={changed}
+    >
       <a className={styles.skip} href="#experience">
         체험으로 바로가기
       </a>
       <header className={styles.header}>
         <Link href="/" aria-label="AIO 메인" className={styles.brand}>
+          <Image
+            className={styles.brandMark}
+            src="/brand/aio-logo.png"
+            width={64}
+            height={64}
+            alt=""
+            priority
+          />
           <Image
             src="/brand/aio-agency-logo-final/aio-agency-site-lockup-dark.svg"
             width={160}
@@ -247,14 +263,7 @@ export function LabMain() {
       </header>
       <noscript>
         <section className={styles.noScript}>
-          <h2>웹사이트·쇼핑몰·자동화 제작</h2>
-          <p>
-            가상 브랜드 기능 시연은 JavaScript를 켜면 직접 체험할 수 있습니다
-          </p>
-          <p>
-            웹사이트의 공간 탐색과 층별 보기, 쇼핑몰의 상품과 옵션 선택,
-            자동화의 입력과 처리 결과를 연결합니다
-          </p>
+          <p>JavaScript가 꺼져 있어 체험 대신 제작 상담으로 안내합니다</p>
           <a
             className={styles.cta}
             href="/content/contact?service=website&industry=architecture&source=lab"
@@ -266,13 +275,7 @@ export function LabMain() {
       <main>
         <section className={styles.hero} aria-labelledby="lab-title">
           <div className={styles.prism} aria-hidden="true">
-            <Image
-              src="/brand/aio-logo.png"
-              alt=""
-              width={650}
-              height={650}
-              priority
-            />
+            <Prism />
           </div>
           <div className={styles.intro}>
             <p className={styles.eyebrow}>
@@ -337,7 +340,7 @@ export function LabMain() {
                 </button>
               ))}
             </div>
-            <pre aria-label="선택한 화면 설정">
+            <pre aria-label="선택한 화면 설정" data-highlight={phase === 1}>
               <span>const</span> experience = {"{"}
               <br /> service: <b>&apos;{selected}&apos;</b>,<br /> view:{" "}
               <b>
@@ -374,6 +377,7 @@ export function LabMain() {
                       setFloor(Number(e.target.value));
                       setRoom(0);
                       setPhase(1);
+                      setChanged("층");
                     }}
                   >
                     <option value={-1}>전체</option>
@@ -389,6 +393,7 @@ export function LabMain() {
                     onChange={(e) => {
                       setExploded(e.target.checked);
                       setPhase(1);
+                      setChanged("층 분리");
                     }}
                   />
                   층 분리
@@ -400,6 +405,7 @@ export function LabMain() {
                     onChange={(e) => {
                       setPlan(e.target.checked);
                       setPhase(1);
+                      setChanged("평면");
                     }}
                   />
                   평면으로 보기
@@ -443,6 +449,7 @@ export function LabMain() {
             className={styles.stage}
             data-phase={phase}
             data-active={active}
+            data-change={changed}
           >
             <div className={styles.browserBar}>
               <i />
@@ -458,6 +465,11 @@ export function LabMain() {
               key={replay}
               aria-hidden="true"
             />
+            <ol className={styles.assembly} aria-label="화면 조립 순서">
+              <li data-complete={phase > 0}>설정 입력</li>
+              <li data-complete={phase > 0}>화면 연결</li>
+              <li data-complete={phase === 2}>선택 영역 반영</li>
+            </ol>
             <div hidden={selected !== "website"}>
               <div className={styles.spaceHeading}>
                 <p>CONCEPT SPACE / 가상 건축</p>
@@ -492,6 +504,8 @@ export function LabMain() {
                     night={false}
                     resetToken={0}
                     active={active && selected === "website"}
+                    brandLighting
+                    assemblyPhase={phase}
                     onFloor={setFloor}
                     onRoom={setRoom}
                   />

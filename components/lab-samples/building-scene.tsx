@@ -16,6 +16,8 @@ type Props = {
   onFloor: (floor: number) => void;
   onRoom: (room: number) => void;
   onStatus?: (status: "loading" | "ready" | "failed") => void;
+  brandLighting?: boolean;
+  assemblyPhase?: number;
 };
 
 export default function BuildingScene(props: Props) {
@@ -56,6 +58,14 @@ export default function BuildingScene(props: Props) {
       );
       if (disposed || !host.current) return;
       const el = host.current;
+      const brand = props.brandLighting;
+      const tokens = getComputedStyle(el);
+      const blue = new T.Color(
+        tokens.getPropertyValue("--blue").trim() || "#2F6BFF",
+      );
+      const cyan = new T.Color(
+        tokens.getPropertyValue("--cyan").trim() || "#06B6D4",
+      );
       const renderer = new T.WebGLRenderer({
         alpha: true,
         antialias: true,
@@ -68,7 +78,7 @@ export default function BuildingScene(props: Props) {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.outputColorSpace = T.SRGBColorSpace;
       renderer.toneMapping = T.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.18;
+      renderer.toneMappingExposure = brand ? 0.92 : 1.18;
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = T.PCFSoftShadowMap;
       renderer.domElement.setAttribute(
@@ -153,10 +163,17 @@ export default function BuildingScene(props: Props) {
       const fill = new T.DirectionalLight(0xe9eef7, 0.8);
       fill.position.set(10, 6, -8);
       scene.add(fill);
+      if (brand) {
+        const rim = new T.DirectionalLight(blue, 4.5);
+        rim.position.set(-9, 8, -8);
+        const bounce = new T.PointLight(cyan, 65, 30, 2);
+        bounce.position.set(7, 3, 6);
+        scene.add(rim, bounce);
+      }
       const mat = (color: number, roughness = 0.78) =>
         new T.MeshStandardMaterial({ color, roughness, metalness: 0.04 });
-      const stone = mat(0xe6dfd1),
-        edges = mat(0xf6f2e9),
+      const stone = mat(brand ? 0xb4b5b2 : 0xe6dfd1, brand ? 0.44 : 0.78),
+        edges = mat(brand ? 0xcdd7df : 0xf6f2e9, brand ? 0.32 : 0.78),
         wood = mat(0x766047),
         dark = mat(0x413e37),
         floorMat = mat(0xcfc2ac),
@@ -176,6 +193,11 @@ export default function BuildingScene(props: Props) {
         depthWrite: false,
       });
       const patch = mat(0xd9d7b4);
+      if (brand) {
+        patch.color.copy(cyan);
+        patch.emissive.copy(blue);
+        patch.emissiveIntensity = 0.45;
+      }
       const box = (
         parent: THREE.Object3D,
         size: number[],
@@ -210,7 +232,19 @@ export default function BuildingScene(props: Props) {
         parent.add(mesh);
         return mesh;
       };
-      box(scene, [20, 0.2, 15], [0, -0.32, 0], mat(0xe1ddcf));
+      box(
+        scene,
+        [20, 0.2, 15],
+        [0, -0.32, 0],
+        brand
+          ? new T.MeshPhysicalMaterial({
+              color: 0x101722,
+              metalness: 0.62,
+              roughness: 0.19,
+              clearcoat: 1,
+            })
+          : mat(0xe1ddcf),
+      );
       box(scene, [10, 0.25, 7.3], [0, -0.12, 0], stone);
       const landscape = new T.Group();
       scene.add(landscape);
@@ -469,8 +503,10 @@ export default function BuildingScene(props: Props) {
         previousRoom = -1,
         previousNight = false,
         previousExploded = false,
+        previousAssembly = -1,
         cameraMoving = true;
       let raf = 0;
+      let assemblyStarted = 0;
       const animate = () => {
         raf = 0;
         if (disposed) return;
@@ -484,6 +520,9 @@ export default function BuildingScene(props: Props) {
           p.room !== previousRoom ||
           p.night !== previousNight ||
           p.exploded !== previousExploded;
+        const assemblyChanged = (p.assemblyPhase ?? 2) !== previousAssembly;
+        if (assemblyChanged && p.assemblyPhase === 1)
+          assemblyStarted = performance.now();
         if (
           p.floor !== previousFloor ||
           p.resetToken !== previousReset ||
@@ -505,22 +544,32 @@ export default function BuildingScene(props: Props) {
         previousRoom = p.room;
         previousNight = p.night;
         previousExploded = p.exploded;
+        previousAssembly = p.assemblyPhase ?? 2;
         let moving = false;
         const alpha = motion.matches ? 1 : 0.085;
         for (let i = 0; i < floors.length; i++) {
           const f = floors[i];
           f.group.visible =
-            p.stage > 0 && (p.floor < 0 || i <= p.floor || p.exploded);
+            p.stage > 0 &&
+            (p.floor < 0 || i <= p.floor || p.exploded) &&
+            (p.assemblyPhase !== 1 ||
+              performance.now() - assemblyStarted >= i * 120);
           f.facade.visible = p.stage >= 2;
           f.interior.visible = p.stage >= 2;
-          const goalY = i * 2.7 + (p.exploded ? i * 1.75 : 0);
+          const goalY =
+            i * 2.7 +
+            (p.exploded ? i * 1.75 : p.assemblyPhase === 1 ? i * 0.85 : 0);
           f.group.position.y += (goalY - f.group.position.y) * alpha;
           if (Math.abs(goalY - f.group.position.y) > 0.002) moving = true;
           f.patches.forEach((mesh, r) => {
             mesh.material = p.floor === i && p.room === r ? patch : floorMat;
           });
         }
-        roof.visible = p.stage >= 2 && p.floor < 0 && !p.exploded;
+        roof.visible =
+          p.stage >= 2 &&
+          p.floor < 0 &&
+          !p.exploded &&
+          (p.assemblyPhase !== 1 || performance.now() - assemblyStarted >= 360);
         landscape.visible = p.stage === 3;
         const lightGoal = p.night ? 0.58 : 3.1;
         sun.intensity += (lightGoal - sun.intensity) * alpha;
@@ -537,7 +586,7 @@ export default function BuildingScene(props: Props) {
           moving = true;
         }
         const orbitChanged = controls.update();
-        if (dirty || changed || moving || orbitChanged) {
+        if (dirty || changed || assemblyChanged || moving || orbitChanged) {
           renderer.render(scene, camera);
           dirty = false;
         }
@@ -569,7 +618,7 @@ export default function BuildingScene(props: Props) {
       disposed = true;
       release();
     };
-  }, [attempt]);
+  }, [attempt, props.brandLighting]);
   return (
     <div ref={host} className={styles.threeHost}>
       {!ready && !failed && (

@@ -1476,3 +1476,429 @@
     transform: translate(36px, -20px) rotate(10deg);
   }
 }
+/* Sonnet L3 revision: a clear prism, compact first screen, and visible causality */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.brand img {
+  width: 160px;
+  height: 68px;
+}
+.brand .brandMark {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.hero {
+  --hero-title: 60px;
+  --scene-height: 280px;
+  grid-template-columns: 1fr 1.35fr;
+  grid-template-rows: auto auto 1fr auto;
+  padding-top: 16px;
+  padding-bottom: 24px;
+  gap: 18px 28px;
+}
+.hero::before {
+  background:
+    radial-gradient(
+      ellipse at 74% 16%,
+      color-mix(in srgb, var(--blue) 38%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 90% 75%,
+      color-mix(in srgb, var(--pink) 16%, transparent),
+      transparent 60%
+    );
+}
+.prism {
+  width: 730px;
+  height: 960px;
+  right: 8px;
+  top: -110px;
+  opacity: 1;
+  filter: none;
+  mask-image: none;
+  z-index: -1;
+}
+.prism > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.prism::before,
+.prism::after {
+  display: none;
+}
+.intro {
+  padding-top: 14px;
+}
+.intro h1 {
+  text-shadow: 0 3px 22px var(--bg);
+}
+.intro .eyebrow {
+  margin-bottom: 16px !important;
+}
+.intro .lead {
+  margin: 16px 0 !important;
+}
+.intro .cta {
+  min-height: 48px;
+  padding: 11px 24px;
+}
+.selector label > span {
+  min-height: 52px;
+}
+.codePanel {
+  padding: 16px 20px;
+  box-shadow: 0 0 28px color-mix(in srgb, var(--blue) 22%, transparent);
+}
+.codePanel pre {
+  margin: 10px 0;
+  line-height: 1.55;
+  font-size: 12px;
+}
+.codePanel pre[data-highlight="true"] {
+  border-left: 3px solid var(--cyan);
+  padding-left: 12px;
+  background: color-mix(in srgb, var(--blue) 18%, transparent);
+}
+.steps {
+  margin: 4px 0;
+}
+.config {
+  gap: 8px 12px;
+}
+.config label {
+  min-height: 44px;
+}
+.textButton {
+  min-height: 32px !important;
+  padding: 0;
+}
+.status {
+  font-size: 12px;
+  padding-top: 6px;
+}
+.stage {
+  align-self: end;
+  margin-top: 130px;
+  background: color-mix(in srgb, var(--panel) 95%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--blue) 30%, transparent),
+    0 22px 60px color-mix(in srgb, var(--blue) 25%, transparent);
+}
+.spaceHeading {
+  min-height: 125px;
+  padding: 16px 20px;
+}
+.spaceHeading h2 {
+  font-size: 26px;
+  line-height: 1.25;
+}
+.spaceHeading > span {
+  font-size: 12px;
+}
+.scene {
+  background: radial-gradient(
+    ellipse at 45% 95%,
+    color-mix(in srgb, var(--cyan) 30%, var(--bg)),
+    var(--bg) 72%
+  );
+  margin: 8px;
+}
+.stage[data-phase="0"] .scene {
+  filter: none;
+  opacity: 1;
+}
+.scene::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 2%;
+  height: 18%;
+  border-radius: 50%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    var(--blue),
+    var(--cyan),
+    transparent
+  );
+  opacity: 0.22;
+  filter: blur(12px);
+  pointer-events: none;
+}
+.floorButtons {
+  padding-bottom: 8px;
+}
+.spaceInfo {
+  padding: 12px 18px;
+}
+.spaceInfo p {
+  font-size: 12px;
+}
+.roomButtons {
+  padding-bottom: 10px;
+}
+.assembly {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 16px;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  counter-reset: assembly;
+}
+.assembly li {
+  counter-increment: assembly;
+  flex: 1;
+}
+.assembly li::before {
+  content: counter(assembly, decimal-leading-zero) " ";
+  color: var(--cyan);
+}
+.assembly li[data-complete="true"] {
+  color: var(--text);
+}
+.stage[data-phase="1"] .assembly li:nth-child(2) {
+  color: var(--cyan);
+}
+.stage[data-phase="1"][data-active="true"] .assembly li:last-child {
+  animation: assemblyHighlight 700ms ease-out both;
+}
+.connection {
+  z-index: 3;
+  left: -80px;
+  top: 49%;
+  width: 140px;
+  height: 72px;
+  border: 2px solid var(--cyan);
+  border-left: 0;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  background: none;
+  box-shadow:
+    0 0 16px var(--blue),
+    inset 0 0 8px color-mix(in srgb, var(--cyan) 30%, transparent);
+}
+.connection::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 16px 4px var(--cyan);
+}
+.stage[data-phase="0"] .connection {
+  opacity: 0.55;
+}
+.page[data-phase="1"][data-change="층"] .floorButtons,
+.page[data-phase="1"][data-change="평면"] .scene,
+.page[data-phase="1"][data-change="층 분리"] .scene {
+  outline: 2px solid var(--cyan);
+  outline-offset: -2px;
+}
+.sampleNote {
+  padding-top: 0;
+}
+@keyframes assemblyHighlight {
+  0% {
+    opacity: 0.25;
+    transform: translateY(6px);
+  }
+  45% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .hero {
+    --hero-title: 46px;
+    --scene-height: 260px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 18px;
+  }
+  .prism {
+    width: 620px;
+    right: -110px;
+    top: -75px;
+  }
+  .codePanel {
+    padding: 14px;
+  }
+  .config {
+    gap: 6px;
+  }
+  .spaceHeading h2 {
+    font-size: 22px;
+  }
+  .stage {
+    margin-top: 120px;
+  }
+}
+@media (max-width: 767px) {
+  .header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .brand img {
+    width: 126px;
+    height: 54px;
+  }
+  .brand .brandMark {
+    width: 38px;
+    height: 38px;
+  }
+  .header nav {
+    font-size: 12px;
+  }
+  .hero {
+    --hero-title: 44px;
+    --scene-height: 300px;
+    padding-top: 20px;
+    gap: 16px;
+  }
+  .intro {
+    padding-top: 0;
+  }
+  .prism {
+    width: 460px;
+    height: 605px;
+    right: -155px;
+    top: 10px;
+    opacity: 0.85;
+  }
+  .intro h1 {
+    max-width: 8em;
+  }
+  .intro .lead {
+    max-width: 17em;
+    text-shadow: 0 2px 10px var(--bg);
+  }
+  .codePanel {
+    padding: 12px 16px;
+  }
+  .stage {
+    margin-top: 0;
+  }
+  .spaceHeading {
+    min-height: 120px;
+  }
+  .spaceHeading h2 {
+    font-size: 20px;
+  }
+  .connection {
+    left: 50%;
+    top: -26px;
+    width: 30px;
+    height: 52px;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 2px solid var(--cyan);
+    border-right: 0;
+    border-radius: 0;
+  }
+  .connection::after {
+    right: auto;
+    left: -5px;
+    bottom: 0;
+  }
+  .assembly {
+    padding: 8px 10px;
+    gap: 4px;
+    font-size: 10px;
+  }
+  .sampleNote {
+    font-size: 12px;
+  }
+  .noScript {
+    padding: 16px 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prism {
+    transform: none;
+  }
+  .hero .prism::before,
+  .hero .prism::after {
+    animation: none !important;
+  }
+  .connection {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .codePanel {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: start;
+    gap: 6px 12px;
+    padding: 12px 16px;
+  }
+  .panelTitle,
+  .steps,
+  .textButton,
+  .status {
+    grid-column: 1 / -1;
+  }
+  .steps {
+    margin: 0;
+  }
+  .steps button {
+    min-height: 32px;
+  }
+  .codePanel pre {
+    margin: 0;
+    align-self: center;
+  }
+  .config {
+    flex-direction: column;
+    gap: 0;
+  }
+  .config select {
+    min-height: 38px;
+  }
+  .textButton {
+    justify-self: start;
+    min-height: 28px !important;
+  }
+  .intro h1 {
+    line-height: 1.08;
+  }
+}
+.header {
+  position: relative;
+  z-index: 2;
+}
+.intro h1 {
+  text-shadow:
+    0 2px 3px var(--bg),
+    0 0 18px var(--bg);
+}
+@media (min-width: 768px) {
+  .prism {
+    right: 170px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .prism {
+    right: 0;
+  }
+}
