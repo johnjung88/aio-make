@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { indexable, siteDescription, siteName, siteUrl } from "@/lib/metadata";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { GtmNoscript } from "@/components/gtm-noscript";
 
 import "./globals.css";
 import "@/components/copy-alignment-v17.css";
@@ -54,18 +55,25 @@ export const metadata: Metadata = {
     },
   },
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const gtmNoscript = await GtmNoscript({
+    canonicalHost: new URL(siteUrl).hostname,
+  });
   return (
     <html
       lang="ko"
       className={`${pretendard.variable} ${unbounded.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body>{children}<ScrollToTop /></body>
+      <body>
+        {gtmNoscript}
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   );
 }

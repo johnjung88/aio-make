@@ -3,6 +3,7 @@ import { contactRequestSchema } from "@/lib/domain";
 import { sameOrigin, readJson, rateLimit } from "@/lib/http";
 import { inquiryStoreReady, localMode } from "@/lib/local-store";
 import { saveInquiry, notifyInquiry } from "@/lib/inquiry-submit";
+import { sendMetaLead } from "@/lib/meta-conversions";
 export const runtime = "nodejs";
 export async function POST(request: Request) {
   if (!sameOrigin(request))
@@ -53,7 +54,15 @@ export async function POST(request: Request) {
       receivedAt: new Date().toISOString(),
       payload: parsed.data,
     });
-    if (!data.duplicate)
+    if (!data.duplicate) {
+      after(() =>
+        sendMetaLead(
+          request,
+          data,
+          parsed.data.service,
+          parsed.data.attribution.submitPath,
+        ),
+      );
       after(async () => {
         try {
           await notifyInquiry(data.inquiryId);
@@ -61,6 +70,7 @@ export async function POST(request: Request) {
           console.error("[inquiry-notification] pending reconciliation");
         }
       });
+    }
     return NextResponse.json(
       { success: true, data },
       { status: data.duplicate ? 200 : 201 },

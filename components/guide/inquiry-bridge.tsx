@@ -1,4 +1,5 @@
 "use client";
+import { trackLegacyLead } from "@/lib/analytics-config";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -206,14 +207,7 @@ export function InquiryBridge({
         throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
       trackLead(result.data, payload.data);
-      if (
-        !result.data.duplicate &&
-        !["127.0.0.1", "localhost"].includes(location.hostname)
-      )
-        window.gtag?.("event", "generate_lead", {
-          division,
-          service: selectedService.id,
-        });
+      trackLegacyLead(result.data, { division, service: selectedService.id });
     } catch (e) {
       setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {

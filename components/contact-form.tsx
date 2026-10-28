@@ -7,6 +7,7 @@ import { trackedContactSchema } from "@/lib/domain";
 import { InquiryPurpose } from "./inquiry-purpose";
 import { submissionAttribution } from "@/lib/attribution";
 import { track, trackLead, trackFormStart } from "@/lib/tracking-events";
+import { trackLegacyLead } from "@/lib/analytics-config";
 function FieldTitle({
   children,
   required = false,
@@ -121,12 +122,7 @@ export function ContactForm({
         throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
       trackLead(result.data, validated.data);
-      if (
-        !result.data.duplicate &&
-        location.hostname !== "localhost" &&
-        location.hostname !== "127.0.0.1"
-      )
-        window.gtag?.("event", "generate_lead", { division, service });
+      trackLegacyLead(result.data, { division, service });
     } catch (e) {
       setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {
@@ -279,7 +275,7 @@ export function ContactForm({
           <Link href="/privacy" target="_blank" rel="noopener noreferrer">
             개인정보 수집·이용
           </Link>
-          에 동의합니다
+          (방문 경로 정보 포함)에 동의합니다
         </span>
       </label>
       {error && (
