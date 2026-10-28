@@ -1,5 +1,6 @@
 import type { Attribution } from "./attribution.ts";
 import { utmKeys, clickIdKeys } from "./attribution.ts";
+import { purposeLabel } from "./tracking-config.ts";
 export type ExportInquiry = {
   id: string;
   created_at: string;
@@ -31,6 +32,7 @@ export const inquiryCsvHeaders = [
   "service",
   "message",
   "purpose",
+  "purpose_label",
   "found_via",
   ...utmKeys,
   ...utmKeys.map((key) => "first_" + key),
@@ -67,6 +69,7 @@ export function inquiryCsvRow(item: ExportInquiry) {
     meta?.service,
     item.raw_text,
     meta?.purpose,
+    purposeLabel(meta?.purpose),
     meta?.found_via,
     ...utmKeys.map((key) => source?.utm?.[key]),
     ...utmKeys.map((key) => source?.firstTouch?.utm?.[key]),

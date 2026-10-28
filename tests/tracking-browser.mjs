@@ -21,6 +21,8 @@ server.stderr.on("data", value => { serverOutput += value; });
 const checks = [], ids = [], errors = [];
 let browser, currentPage;
 const contactResponses = [];
+const expectedPurposeOptions = [["sales_ad", "매출을 위한 광고 컨텐츠"], ["brand_intro", "브랜드 및 회사 소개 컨텐츠"], ["sns_ops", "SNS 계정 운영을 위한 컨텐츠"], ["other", "기타"]];
+const purposeChoices = page => page.locator('input[name="purpose"]').evaluateAll(inputs => inputs.map(input => [input.value, input.closest("label").textContent.trim()]));
 const check = (name, condition = true) => { assert.ok(condition, name); checks.push({ name, status: "pass" }); };
 const events = page => page.evaluate(() => (window.dataLayer || []).filter(value => value && typeof value.event === "string" && value.event.startsWith("aio_")));
 async function fill(page, purpose = "sales_ad") {
@@ -70,6 +72,7 @@ try {
   check("short link preserves the requesting origin", new URL(page.url()).origin === origin);
   await page.waitForFunction(() => window.dataLayer?.some(value => value.event === "aio_page_view"));
   check("content link UTM", new URL(page.url()).searchParams.get("utm_content") === "a001_test-1");
+  check("content purpose labels and values match the approved copy", JSON.stringify(await purposeChoices(page)) === JSON.stringify(expectedPurposeOptions));
   await page.goto(page.url() + "&gclid=local_click_1&fbclid=local_fb_1&NaPm=ct%3Dlocal%7Cci%3Dfixture");
   await page.waitForFunction(() => window.dataLayer?.some(value => value.event === "aio_page_view"));
   const firstCookie = (await context.cookies()).find(value => value.name === "aio_first_touch");
@@ -119,10 +122,12 @@ try {
   await page.unroute("**/api/contact");
   await page.evaluate(() => sessionStorage.clear());
   await page.goto(origin + "/content/contact");
-  await fill(page, "unknown");
+  await fill(page, "other");
   const directResponse = page.waitForResponse("**/api/contact");
   await page.getByRole("button", { name: "상담 신청하기", exact: true }).click();
   ids.push((await (await directResponse).json()).data.inquiryId);
+  await page.waitForFunction(() => window.dataLayer?.some(value => value.event === "aio_lead" && value.purpose === "other"));
+  check("other purpose is sent to the API and dataLayer", captured.purpose === "other");
   check("next-session direct submission retains first touch and permits empty found-via", Object.keys(captured.attribution.utm).length === 0 && captured.attribution.firstTouch.utm.utm_source === "youtube" && !captured.found_via);
   check("first-touch cookie remains unchanged", (await context.cookies()).find(value => value.name === "aio_first_touch").value === firstCookie.value);
   const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
@@ -219,13 +224,15 @@ try {
   await page.getByRole("button", { name: "검색", exact: true }).click(); await filtered;
   await page.getByRole("button", { name: /상담 열기/ }).first().click();
   await page.getByRole("heading", { name: "유입", exact: true }).waitFor();
-  check("administrator detail renders both UTM sets and click-ID presence", await page.locator('section[aria-label="문의 유입 정보"]').innerText().then(value => value.includes("최초 유입") && value.includes("gclid 있음") && value.includes("매출을 올릴 광고")));
+  check("administrator detail renders both UTM sets and click-ID presence", await page.locator('section[aria-label="문의 유입 정보"]').innerText().then(value => value.includes("최초 유입") && value.includes("gclid 있음") && value.includes("매출을 위한 광고 컨텐츠")));
   await page.screenshot({ path: path.join(evidence, "admin-detail.png"), fullPage: true });
   const downloadEvent = page.waitForEvent("download");
   await page.getByRole("link", { name: "조건에 맞는 문의 CSV 내보내기" }).click();
   await (await downloadEvent).saveAs(path.join(evidence, "local-inquiries.csv"));
   const csv = await (await context.request.get(origin + "/api/admin/inquiries?" + query + "&format=csv")).text();
-  check("authenticated CSV includes filtered inquiry and attribution columns", csv.includes(ids[0]) && csv.includes('"first_utm_content"') && csv.includes('"found_via"') && !csv.includes(ids[1]));
+  check("authenticated CSV includes filtered inquiry and attribution columns", csv.includes(ids[0]) && csv.includes('"first_utm_content"') && csv.includes('"found_via"') && csv.includes('"purpose_label"') && csv.includes("매출을 위한 광고 컨텐츠") && !csv.includes(ids[1]));
+  const otherList = await (await context.request.get(origin + "/api/admin/inquiries?purpose=other")).json();
+  check("administrator other filter reads the new stored value", otherList.total === 1 && otherList.items[0].id === ids[1] && otherList.items[0].leads.source_meta.purpose === "other");
   const general = await context.request.post(origin + "/api/contact", {
     data: {
       ...captured,
@@ -250,6 +257,8 @@ try {
   }
   const invalid = await context.request.post(origin + "/api/contact", { data: { ...captured, purpose: undefined }, headers: { Origin: origin } });
   check("API rejects content purpose omission", invalid.status() === 400);
+  const legacyPurpose = await context.request.post(origin + "/api/contact", { data: { ...captured, purpose: "unknown", idempotencyKey: randomUUID() }, headers: { Origin: origin } });
+  check("API rejects legacy unknown on new submissions", legacyPurpose.status() === 400);
   check("anonymous CSV denied", (await fetch(origin + "/api/admin/inquiries?format=csv")).status === 401);
   await page.goto(origin + "/contact");
   await page.locator('select[name="division"]').selectOption("video");
@@ -258,6 +267,7 @@ try {
     (await page.locator('.inquiry-purpose input[name="purpose"]').count()) ===
       4,
   );
+  check("general purpose labels and values match the approved copy", JSON.stringify(await purposeChoices(page)) === JSON.stringify(expectedPurposeOptions));
   await page.locator('input[name="name"]').fill("[자체검증] 범용폼 회귀");
   await page
     .locator('input[name="email"]')

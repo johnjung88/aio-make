@@ -4,7 +4,11 @@ import { randomUUID } from "node:crypto";
 import { mkdtemp } from "node:fs/promises";
 import path from "node:path";
 import { tmpdir } from "node:os";
-import { shortLinkDestination } from "../lib/tracking-config.ts";
+import {
+  shortLinkDestination,
+  purposeOptions,
+  purposeLabel,
+} from "../lib/tracking-config.ts";
 import {
   captureAttribution,
   submissionAttribution,
@@ -182,6 +186,13 @@ test("blocked or malformed storage never blocks attribution retrieval or the for
   assert.doesNotThrow(() => submissionAttribution());
 });
 test("purpose and found-via are checked on the server-facing schema without invalidating historical envelopes", () => {
+  assert.deepEqual(purposeOptions, [
+    ["sales_ad", "매출을 위한 광고 컨텐츠"],
+    ["brand_intro", "브랜드 및 회사 소개 컨텐츠"],
+    ["sns_ops", "SNS 계정 운영을 위한 컨텐츠"],
+    ["other", "기타"],
+  ]);
+  assert.equal(purposeLabel("unknown"), "기타");
   const base = {
     name: "fixture",
     email: "fixture@example.test",
@@ -252,14 +263,24 @@ test("purpose and found-via are checked on the server-facing schema without inva
       division: "marketing",
       service: "integrated",
       formId: "content_contact",
-      purpose: "unknown",
+      purpose: "other",
     }).success,
     false,
     "content identity must match the service classification",
   );
   assert.equal(
-    trackedContactSchema.safeParse({ ...base, purpose: "unknown" }).success,
+    trackedContactSchema.safeParse({ ...base, purpose: "other" }).success,
     true,
+  );
+  assert.equal(
+    contactSchema.safeParse({ ...base, purpose: "unknown" }).success,
+    true,
+    "legacy purpose remains readable",
+  );
+  assert.equal(
+    trackedContactSchema.safeParse({ ...base, purpose: "unknown" }).success,
+    false,
+    "new submissions cannot use legacy unknown",
   );
   assert.equal(
     trackedContactSchema.safeParse({ ...base, purpose: "made_up" }).success,
@@ -302,7 +323,7 @@ test("external UTM punctuation, whitespace and Korean survive session, cookie an
     division: "video",
     service: "webtoon",
     formId: "content_contact",
-    purpose: "unknown",
+    purpose: "other",
     message: "tracking fixture",
     consent: true,
     website: "",
@@ -323,6 +344,7 @@ test("external UTM punctuation, whitespace and Korean survive session, cookie an
     "external free-form UTM is preserved in storage but not copied into dataLayer",
   );
   assert.equal(lead.utm_medium, "cpc");
+  assert.equal(lead.purpose, "other");
 });
 
 test("lead emits exactly once per successful saved ID; duplicates and missing IDs emit zero; no PII enters the event", () => {
@@ -457,6 +479,32 @@ test("saved JSON fields, server filtering beyond page one, and CSV fields agree 
     );
     assert.ok(csv.includes("'=fixture"));
     assert.ok(!csv.includes("fixture_id"));
+    const otherId = randomUUID();
+    await saveInquiry({
+      version: 1,
+      id: otherId,
+      receivedAt: new Date().toISOString(),
+      payload: {
+        ...payload,
+        idempotencyKey: otherId,
+        purpose: "other",
+        attribution: { ...source, utm: {} },
+      },
+    });
+    assert.equal(
+      (await inquiryList("all", "", 1, { purpose: "other" })).total,
+      52,
+      "other filter includes new other and historical unknown",
+    );
+    const legacy = await inquiryList("all", "", 1, { purpose: "unknown" });
+    assert.equal(legacy.total, 51, "legacy-only reading remains available");
+    assert.ok(inquiryCsvHeaders.includes("purpose_label"));
+    assert.ok(
+      inquiryCsvRow((await inquiryDetail(otherId)).item).includes(
+        '"other","기타"',
+      ),
+    );
+    assert.ok(inquiryCsvRow(legacy.items[0]).includes('"unknown","기타"'));
   } finally {
     await (await localDb()).close();
     delete globalThis.aioLocalDb;

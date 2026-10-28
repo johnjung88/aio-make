@@ -20,6 +20,7 @@ export async function GET(request: Request) {
   };
   if (
     filters.purpose &&
+    filters.purpose !== "unknown" &&
     !purposeOptions.some(([value]) => value === filters.purpose)
   )
     return NextResponse.json(

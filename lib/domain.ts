@@ -10,7 +10,7 @@ import {
 } from "./service-case-schema.ts";
 export const divisionSchema = z.enum(["marketing", "development", "video"]);
 export const purposeSchema = z.enum(
-  ["sales_ad", "brand_intro", "sns_ops", "unknown"],
+  ["sales_ad", "brand_intro", "sns_ops", "other", "unknown"],
   { errorMap: () => ({ message: "사용 목적을 골라주세요" }) },
 );
 export const foundViaSchema = z.enum([
@@ -112,6 +112,8 @@ export const contactSchema = z
 // signals, so deleting/changing formId or submitPath cannot exempt video inquiries.
 export function contactRequestSchema(fromContentPage = false) {
   return contactSchema.superRefine((value, ctx) => {
+    if (value.purpose === "unknown")
+      ctx.addIssue({ code: "custom", path: ["purpose"], message: "사용 목적을 다시 골라주세요" });
     const contentService =
       value.division === "video" &&
       services.some(

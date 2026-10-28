@@ -15,11 +15,15 @@ export const trackingPlacements = [
   "post",
 ] as const;
 export const purposeOptions = [
-  ["sales_ad", "매출을 올릴 광고"],
-  ["brand_intro", "브랜드 소개"],
-  ["sns_ops", "SNS 운영용 콘텐츠"],
-  ["unknown", "아직 모르겠어요"],
+  ["sales_ad", "매출을 위한 광고 컨텐츠"],
+  ["brand_intro", "브랜드 및 회사 소개 컨텐츠"],
+  ["sns_ops", "SNS 계정 운영을 위한 컨텐츠"],
+  ["other", "기타"],
 ] as const;
+export function purposeLabel(value?: string) {
+  const current = value === "unknown" ? "other" : value;
+  return purposeOptions.find(([id]) => id === current)?.[1] ?? "";
+}
 export const foundViaOptions = [
   ["youtube", "유튜브"],
   ["instagram", "인스타그램"],

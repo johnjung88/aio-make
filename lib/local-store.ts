@@ -130,7 +130,17 @@ export async function inquiryList(
       key === "purpose"
         ? "envelope->'payload'->>'purpose'"
         : "envelope->'payload'->'attribution'->'utm'->>'" + key + "'";
-    conditions.push(expression + "=$" + values.length);
+    if (key === "purpose" && filters[key] === "other") {
+      values.push("unknown");
+      conditions.push(
+        expression +
+          " IN ($" +
+          (values.length - 1) +
+          ",$" +
+          values.length +
+          ")",
+      );
+    } else conditions.push(expression + "=$" + values.length);
   }
   const where = conditions.length ? " WHERE " + conditions.join(" AND ") : "";
   const count = await db.query<{ total: number }>(

@@ -3,7 +3,11 @@ import { useEffect, useId, useRef } from "react";
 import { divisions, services } from "@/lib/content";
 import { inquiryStatuses, statusLabels } from "@/lib/domain";
 import type { Inquiry, Note, InquiryData } from "./types";
-import { purposeOptions, foundViaOptions } from "@/lib/tracking-config";
+import {
+  purposeOptions,
+  purposeLabel,
+  foundViaOptions,
+} from "@/lib/tracking-config";
 import { utmKeys, clickIdKeys } from "@/lib/attribution";
 type Props = {
   inquiries: InquiryData;
@@ -317,9 +321,8 @@ export function InquiryPanel({
             <h4>유입</h4>
             <p>
               사용 목적:{" "}
-              {purposeOptions.find(
-                ([value]) => value === selected.leads?.source_meta?.purpose,
-              )?.[1] ?? "기존 기록"}{" "}
+              {purposeLabel(selected.leads?.source_meta?.purpose) ||
+                "기존 기록"}{" "}
               · 어디서 보셨나요:{" "}
               {foundViaOptions.find(
                 ([value]) => value === selected.leads?.source_meta?.found_via,
