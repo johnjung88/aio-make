@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { captureAttribution } from "@/lib/attribution";
 import { SiteTracking } from "./tracking";
+import { analyticsAllowed, gtmId, gtmSnippet } from "@/lib/analytics-config";
 export function Analytics({
   measurementId,
   canonicalHost,
@@ -11,36 +12,53 @@ export function Analytics({
   measurementId: string;
   canonicalHost: string;
 }) {
+  const containerId = gtmId();
   const pathname = usePathname(),
     params = useSearchParams(),
     [enabled, setEnabled] = useState(false),
     lastSent = useRef<string | null>(null);
   useEffect(() => {
     setEnabled(
-      Boolean(measurementId) &&
-        location.hostname === canonicalHost &&
-        !["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname),
+      Boolean(containerId || measurementId) &&
+        analyticsAllowed({
+          hostname: location.hostname,
+          canonicalHost,
+          pathname,
+        }),
     );
-  }, [measurementId, canonicalHost]);
+  }, [measurementId, canonicalHost, containerId, pathname]);
+  useEffect(() => {
+    if (!enabled || !containerId || document.getElementById("gtm-init")) return;
+    const script = document.createElement("script");
+    script.id = "gtm-init";
+    script.textContent = gtmSnippet(containerId);
+    document.head.appendChild(script);
+  }, [enabled, containerId]);
   useEffect(() => {
     captureAttribution(pathname, new URLSearchParams(params));
   }, [pathname, params]);
   const sendPageView = useCallback(() => {
-    if (!enabled || !window.gtag || lastSent.current === pathname) return;
+    if (
+      containerId ||
+      !enabled ||
+      !window.gtag ||
+      lastSent.current === pathname
+    )
+      return;
     lastSent.current = pathname;
     window.gtag("event", "page_view", {
       page_path: pathname,
       page_location: location.origin + pathname,
       page_referrer: document.referrer.split("?")[0],
     });
-  }, [pathname, enabled]);
+  }, [pathname, enabled, containerId]);
   useEffect(() => {
     sendPageView();
   }, [sendPageView]);
   return (
     <>
       <SiteTracking pathname={pathname} />
-      {enabled ? (
+      {enabled && !containerId ? (
         <Script id="ga-init" strategy="afterInteractive" onReady={sendPageView}>
           {'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config",' +
             JSON.stringify(measurementId) +
