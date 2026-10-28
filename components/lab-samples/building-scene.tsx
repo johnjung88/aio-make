@@ -15,19 +15,27 @@ type Props = {
   active: boolean;
   onFloor: (floor: number) => void;
   onRoom: (room: number) => void;
+  onStatus?: (status: "loading" | "ready" | "failed") => void;
 };
 
 export default function BuildingScene(props: Props) {
   const host = useRef<HTMLDivElement>(null);
   const current = useRef(props);
+  const wake = useRef<() => void>(() => {});
+  const [attempt, setAttempt] = useState(0);
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  const { onStatus } = props;
+  useEffect(() => {
+    onStatus?.(failed ? "failed" : ready ? "ready" : "loading");
+  }, [failed, ready, onStatus]);
   const { floor: fallbackFloor, onFloor: selectFallbackFloor } = props;
   useEffect(() => {
     if (failed && fallbackFloor < 0) selectFallbackFloor(0);
   }, [failed, fallbackFloor, selectFallbackFloor]);
   useEffect(() => {
     current.current = props;
+    wake.current();
   }, [props]);
   useEffect(() => {
     let disposed = false;
@@ -69,6 +77,21 @@ export default function BuildingScene(props: Props) {
       );
       renderer.domElement.setAttribute("role", "img");
       el.appendChild(renderer.domElement);
+      const contextLost = (event: Event) => {
+        event.preventDefault();
+        release();
+        if (!disposed) {
+          setReady(false);
+          setFailed(true);
+        }
+      };
+      renderer.domElement.addEventListener("webglcontextlost", contextLost);
+      releases.push(() =>
+        renderer.domElement.removeEventListener(
+          "webglcontextlost",
+          contextLost,
+        ),
+      );
       const scene = new T.Scene();
       releases.push(() => {
         const geometries = new Set<THREE.BufferGeometry>(),
@@ -107,6 +130,7 @@ export default function BuildingScene(props: Props) {
         visible = true;
       controls.addEventListener("change", () => {
         dirty = true;
+        wake.current();
       });
       const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
       const sun = new T.DirectionalLight(0xfff1d8, 3.1);
@@ -389,6 +413,7 @@ export default function BuildingScene(props: Props) {
       const observer = new IntersectionObserver(([entry]) => {
         visible = entry.isIntersecting;
         dirty = true;
+        wake.current();
       });
       observer.observe(el);
       releases.push(() => observer.disconnect());
@@ -447,10 +472,11 @@ export default function BuildingScene(props: Props) {
         cameraMoving = true;
       let raf = 0;
       const animate = () => {
+        raf = 0;
         if (disposed) return;
-        raf = requestAnimationFrame(animate);
         const p = current.current;
         if (!p.active || !visible || document.hidden) return;
+        raf = requestAnimationFrame(animate);
         const changed =
           p.floor !== previousFloor ||
           p.resetToken !== previousReset ||
@@ -516,7 +542,22 @@ export default function BuildingScene(props: Props) {
           dirty = false;
         }
       };
-      animate();
+      wake.current = () => {
+        if (
+          !raf &&
+          !disposed &&
+          current.current.active &&
+          visible &&
+          !document.hidden
+        )
+          raf = requestAnimationFrame(animate);
+      };
+      document.addEventListener("visibilitychange", wake.current);
+      releases.push(() => {
+        document.removeEventListener("visibilitychange", wake.current);
+        wake.current = () => {};
+      });
+      wake.current();
       releases.push(() => cancelAnimationFrame(raf));
       if (!disposed) setReady(true);
     };
@@ -528,7 +569,7 @@ export default function BuildingScene(props: Props) {
       disposed = true;
       release();
     };
-  }, []);
+  }, [attempt]);
   return (
     <div ref={host} className={styles.threeHost}>
       {!ready && !failed && (
@@ -540,6 +581,16 @@ export default function BuildingScene(props: Props) {
       {failed && (
         <div className={styles.planFallback}>
           <p>이 기기에서는 평면으로 공간을 탐색할 수 있습니다</p>
+          <button
+            type="button"
+            onClick={() => {
+              setFailed(false);
+              setReady(false);
+              setAttempt((n) => n + 1);
+            }}
+          >
+            3D 다시 시도
+          </button>
           <FloorPlan
             floor={Math.max(0, props.floor)}
             room={props.room}

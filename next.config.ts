@@ -18,7 +18,14 @@ const config: NextConfig = {
   },
   poweredByHeader: false,
   async redirects() {
-    return [{ source: "/lab/:path+", destination: "/lab", permanent: true }];
+    // Retire old lab pages while allowing the lab's own static image assets.
+    return [
+      {
+        source: "/lab/:path((?!.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
+        destination: "/lab",
+        permanent: true,
+      },
+    ];
   },
   serverExternalPackages: ["@electric-sql/pglite"],
   devIndicators: false,

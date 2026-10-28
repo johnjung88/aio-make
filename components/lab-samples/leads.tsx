@@ -73,8 +73,10 @@ const GUIDE =
 
 export function LeadsSample({
   onConsult,
+  active = true,
 }: {
   onConsult: (summary: string) => void;
+  active?: boolean;
 }) {
   const [inputs, setInputs] = useState<LeadInput[]>(() =>
     DEFAULT_LEADS.map((l) => ({ ...l })),
@@ -151,7 +153,7 @@ export function LeadsSample({
     ]);
 
   useEffect(() => {
-    if (!running || paused || error || stage >= 3) return;
+    if (!active || !running || paused || error || stage >= 3) return;
     const timer = setTimeout(() => {
       const next = stage + 1;
       if (next === 2 && fault) {
@@ -187,7 +189,7 @@ export function LeadsSample({
       }
     }, 850);
     return () => clearTimeout(timer);
-  }, [running, paused, error, stage, fault, preview, master.length]);
+  }, [active, running, paused, error, stage, fault, preview, master.length]);
 
   const start = () => {
     if (running) {

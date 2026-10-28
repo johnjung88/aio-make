@@ -1,13 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { LabMain } from "@/components/lab-main/lab-main";
-
 export const metadata: Metadata = {
-  title: "웹사이트·쇼핑몰·자동화 제작",
+  title: "생각한 기능이 작동하는 화면으로 | AIO 랩",
   description:
-    "웹사이트·쇼핑몰·자동화를 실제 사용 장면으로 보여드립니다 내 업종과 업무를 골라 필요한 기능을 확인해보세요",
+    "웹사이트·쇼핑몰·자동화를 직접 체험하세요 가상 브랜드의 공간 탐색과 상품 선택, 업무 처리 흐름을 확인하고 필요한 구성으로 상담하세요",
   robots: { index: true, follow: true },
 };
-
 export default function LabPage() {
   return <LabMain />;
 }
