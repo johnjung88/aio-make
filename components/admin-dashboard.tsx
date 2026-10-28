@@ -86,6 +86,16 @@ export function AdminDashboard() {
     [statusFilter, setStatusFilter] = useState("all"),
     [search, setSearch] = useState(""),
     [appliedSearch, setAppliedSearch] = useState(""),
+    [trackingFilters, setTrackingFilters] = useState({
+      utm_campaign: "",
+      utm_content: "",
+      purpose: "",
+    }),
+    [draftTracking, setDraftTracking] = useState({
+      utm_campaign: "",
+      utm_content: "",
+      purpose: "",
+    }),
     [selected, setSelected] = useState<Inquiry | null>(null),
     [notes, setNotes] = useState<Note[]>([]),
     [nextStatus, setNextStatus] = useState("new"),
@@ -125,6 +135,7 @@ export function AdminDashboard() {
               page: String(page),
               status: statusFilter,
               search: appliedSearch,
+              ...trackingFilters,
             }),
           controller.signal,
         ),
@@ -170,7 +181,14 @@ export function AdminDashboard() {
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
-  }, [page, statusFilter, appliedSearch, entryPage, entryFilter]);
+  }, [
+    page,
+    statusFilter,
+    appliedSearch,
+    entryPage,
+    entryFilter,
+    trackingFilters,
+  ]);
   useEffect(() => {
     void refresh();
     return () => refreshRequest.current?.abort();
@@ -456,15 +474,34 @@ export function AdminDashboard() {
             busy={busy}
             loading={loading}
             appliedSearch={appliedSearch}
+            trackingFilters={draftTracking}
+            setTrackingFilters={setDraftTracking}
+            exportQuery={new URLSearchParams({
+              status: statusFilter,
+              search: appliedSearch,
+              ...trackingFilters,
+              format: "csv",
+            }).toString()}
             applySearch={() => {
               if (search.trim() === appliedSearch && page === 1) void refresh();
               setAppliedSearch(search.trim());
+              setTrackingFilters(draftTracking);
               setPage(1);
               setSelected(null);
             }}
             clearSearch={() => {
               setSearch("");
               setAppliedSearch("");
+              setDraftTracking({
+                utm_campaign: "",
+                utm_content: "",
+                purpose: "",
+              });
+              setTrackingFilters({
+                utm_campaign: "",
+                utm_content: "",
+                purpose: "",
+              });
               setPage(1);
               setSelected(null);
             }}

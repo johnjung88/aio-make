@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { contactSchema } from "@/lib/domain";
+import { trackedContactSchema } from "@/lib/domain";
 import { sameOrigin, readJson, rateLimit } from "@/lib/http";
 import { inquiryStoreReady, localMode } from "@/lib/local-store";
 import { saveInquiry, notifyInquiry } from "@/lib/inquiry-submit";
@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   try {
-    const parsed = contactSchema.safeParse(await readJson(request));
+    const parsed = trackedContactSchema.safeParse(await readJson(request));
     if (!parsed.success)
       return NextResponse.json(
         { success: false, error: parsed.error.issues[0].message },

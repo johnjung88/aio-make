@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { contactSchema } from "@/lib/domain";
+import { trackedContactSchema } from "@/lib/domain";
+import { submissionAttribution } from "@/lib/attribution";
+import { track, trackLead, trackFormStart } from "@/lib/tracking-events";
 import { divisionServices, type DivisionId } from "@/lib/content";
 
 type Props = {
@@ -61,6 +63,7 @@ export function InquiryBridge({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [receipt, setReceipt] = useState("");
+  const submitting = useRef(false);
   const formRef = useRef<HTMLFormElement>(null),
     resultRef = useRef<HTMLDivElement>(null);
   useEffect(() => setKey(crypto.randomUUID()), []);
@@ -69,7 +72,7 @@ export function InquiryBridge({
   }, [receipt]);
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (busy || !key) return;
+    if (busy || submitting.current || !key) return;
     setError("");
     const data = new FormData(event.currentTarget);
     let division = initialDivision;
@@ -83,6 +86,7 @@ export function InquiryBridge({
     const options = divisionServices(division);
     const serviceChoice = String(selection.service ?? "");
     if (!quick && !serviceChoice && !initialService) {
+      track("aio_form_error", { error_field: "service" });
       setError(unselectedMessage);
       return;
     }
@@ -131,6 +135,8 @@ export function InquiryBridge({
             "message",
             "consent",
             "website",
+            "purpose",
+            "found_via",
           ].includes(name) && String(value),
       )
       .map(
@@ -147,57 +153,27 @@ export function InquiryBridge({
     ]
       .filter(Boolean)
       .join("\n");
-    let sessionUid: string | undefined;
-    let landingPath = location.pathname;
-    const utm: Record<string, string> = {};
-    try {
-      sessionUid =
-        sessionStorage.getItem("aio_renewal_session") ?? crypto.randomUUID();
-      if (!/^[\da-f-]{36}$/i.test(sessionUid)) sessionUid = crypto.randomUUID();
-      sessionStorage.setItem("aio_renewal_session", sessionUid);
-      landingPath =
-        sessionStorage.getItem("aio_renewal_landing") ?? location.pathname;
-      const stored: unknown = JSON.parse(
-        sessionStorage.getItem("aio_renewal_utm") ?? "{}",
-      );
-      const params = new URLSearchParams(location.search);
-      for (const name of [
-        "utm_source",
-        "utm_medium",
-        "utm_campaign",
-        "utm_content",
-        "utm_term",
-      ]) {
-        const value =
-          stored && typeof stored === "object"
-            ? (stored as Record<string, unknown>)[name]
-            : undefined;
-        const text = typeof value === "string" ? value : params.get(name);
-        if (text) utm[name] = text.slice(0, 250);
-      }
-    } catch {}
     const quickContact = quick ? String(data.get("phone") ?? "").trim() : "";
     const quickEmail = quickContact.includes("@");
-    const payload = contactSchema.safeParse({
+    const payload = trackedContactSchema.safeParse({
       name: String(data.get("name") ?? ""),
       email: quickEmail ? quickContact : String(data.get("email") ?? ""),
       phone: quickEmail ? "" : String(data.get("phone") ?? ""),
       company: String(data.get("company") ?? ""),
       division,
       service: selectedService.id,
+      purpose: data.get("purpose") || undefined,
+      found_via: data.get("found_via") || undefined,
       message,
       consent: data.get("consent") === "on",
       website: String(data.get("website") ?? ""),
       idempotencyKey: key,
-      attribution: {
-        landingPath: landingPath.slice(0, 500),
-        submitPath: location.pathname,
-        referrer: document.referrer.split("?")[0].slice(0, 500),
-        utm,
-        sessionUid,
-      },
+      attribution: submissionAttribution(),
     });
     if (!payload.success) {
+      track("aio_form_error", {
+        error_field: String(payload.error.issues[0].path[0]),
+      });
       setError(payload.error.issues[0].message);
       const field = formRef.current?.elements.namedItem(
         quick && payload.error.issues[0].path[0] === "email"
@@ -213,6 +189,7 @@ export function InquiryBridge({
     formRef.current
       ?.querySelectorAll("[aria-invalid]")
       .forEach((field) => field.removeAttribute("aria-invalid"));
+    submitting.current = true;
     setBusy(true);
     try {
       const response = await fetch("/api/contact", {
@@ -224,6 +201,7 @@ export function InquiryBridge({
       if (!response.ok || !result.success)
         throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
+      trackLead(result.data, payload.data);
       if (
         !result.data.duplicate &&
         !["127.0.0.1", "localhost"].includes(location.hostname)
@@ -235,6 +213,7 @@ export function InquiryBridge({
     } catch (e) {
       setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {
+      submitting.current = false;
       setBusy(false);
     }
   }
@@ -260,6 +239,7 @@ export function InquiryBridge({
       style={style}
       className={"guide-inquiry" + (busy ? " is-busy" : "")}
       onSubmit={submit}
+      onChangeCapture={() => trackFormStart(formRef.current)}
       aria-busy={busy}
     >
       <fieldset disabled={busy || !key} className="guide-form-fields">

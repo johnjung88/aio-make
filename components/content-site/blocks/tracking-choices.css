@@ -1,0 +1,23 @@
+.cs-site .cs-tracking-choices {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--cs-s6);
+  min-width: 0;
+}
+.cs-site .cs-tracking-choices > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-s3) var(--cs-s5);
+}
+.cs-site .cs-tracking-choices label {
+  display: flex;
+  align-items: center;
+  gap: var(--cs-s2);
+  cursor: pointer;
+}
+.cs-site .cs-tracking-choices input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--cs-accent);
+}

@@ -15,6 +15,7 @@ import {
 } from "@/lib/content-site/types";
 import { CsInquiry } from "../blocks/inquiry";
 import { CONTACT_COPY } from "./copy";
+import { track, trackFormStart } from "@/lib/tracking-events";
 
 export function ContactFlow({
   initialService,
@@ -46,6 +47,7 @@ export function ContactFlow({
     event.preventDefault();
     event.stopPropagation();
     setMissing(true);
+    track("aio_form_error", { error_field: "service" });
     const node = chooserRef.current;
     if (!node) return;
     const reduce = window.matchMedia(
@@ -88,7 +90,11 @@ export function ContactFlow({
               {copy.hint}
             </p>
             {missing ? (
-              <p id={errorId} role="alert" className="cs-contact-error cs-t-small">
+              <p
+                id={errorId}
+                role="alert"
+                className="cs-contact-error cs-t-small"
+              >
                 {copy.missing}
               </p>
             ) : null}
@@ -106,6 +112,10 @@ export function ContactFlow({
                         missing ? `${errorId} ${hintId}` : hintId
                       }
                       onChange={() => {
+                        const form = document.querySelector<HTMLFormElement>(
+                          ".cs-contact-form form",
+                        );
+                        trackFormStart(form);
                         setChosen(s.id);
                         setMissing(false);
                       }}

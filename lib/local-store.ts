@@ -93,12 +93,25 @@ function present(row: {
       source_meta: {
         division: p.division,
         service: p.service,
+        purpose: p.purpose,
+        found_via: p.found_via,
         attribution: p.attribution,
       },
     },
   };
 }
-export async function inquiryList(status = "all", search = "", page = 1) {
+export type InquiryFilters = {
+  utm_campaign?: string;
+  utm_content?: string;
+  purpose?: string;
+};
+export async function inquiryList(
+  status = "all",
+  search = "",
+  page = 1,
+  filters: InquiryFilters = {},
+  pageSize = 50,
+) {
   const db = await inquiryDb();
   const values: unknown[] = [];
   const conditions: string[] = [];
@@ -109,6 +122,15 @@ export async function inquiryList(status = "all", search = "", page = 1) {
   if (search) {
     values.push("%" + search.replace(/[\\%_]/g, "\\$&") + "%");
     conditions.push("(envelope->'payload')::text ILIKE $" + values.length);
+  }
+  for (const key of ["utm_campaign", "utm_content", "purpose"] as const) {
+    if (!filters[key]) continue;
+    values.push(filters[key]);
+    const expression =
+      key === "purpose"
+        ? "envelope->'payload'->>'purpose'"
+        : "envelope->'payload'->'attribution'->'utm'->>'" + key + "'";
+    conditions.push(expression + "=$" + values.length);
   }
   const where = conditions.length ? " WHERE " + conditions.join(" AND ") : "";
   const count = await db.query<{ total: number }>(
@@ -126,8 +148,10 @@ export async function inquiryList(status = "all", search = "", page = 1) {
   }>(
     "SELECT * FROM inquiries" +
       where +
-      " ORDER BY created_at DESC,id LIMIT 50 OFFSET " +
-      (page - 1) * 50,
+      " ORDER BY created_at DESC,id LIMIT " +
+      Math.min(500, Math.max(1, Math.floor(pageSize))) +
+      " OFFSET " +
+      (page - 1) * Math.min(500, Math.max(1, Math.floor(pageSize))),
     values,
   );
   return {

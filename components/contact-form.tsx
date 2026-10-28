@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
 import { contactSchema } from "@/lib/domain";
+import { submissionAttribution } from "@/lib/attribution";
+import { track, trackLead, trackFormStart } from "@/lib/tracking-events";
 function FieldTitle({
   children,
   required = false,
@@ -39,6 +41,8 @@ export function ContactForm({
     [fieldErrors, setFieldErrors] = useState<Record<string, string>>({}),
     [receipt, setReceipt] = useState(""),
     [requestId, setRequestId] = useState("");
+  const submitting = useRef(false);
+  const invalidInTurn = useRef(false);
   const formRef = useRef<HTMLFormElement>(null),
     errorRef = useRef<HTMLParagraphElement>(null),
     successRef = useRef<HTMLHeadingElement>(null),
@@ -66,54 +70,11 @@ export function ContactForm({
   });
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (busy || !requestId) return;
+    if (busy || submitting.current || !requestId) return;
     setError("");
     setFieldErrors({});
     const form = event.currentTarget;
     const data = new FormData(form);
-    let sessionUid: string | undefined,
-      landingPath = location.pathname;
-    const utm: Record<string, string> = {};
-    try {
-      sessionUid =
-        sessionStorage.getItem("aio_renewal_session") ?? crypto.randomUUID();
-      if (
-        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-          sessionUid,
-        )
-      )
-        sessionUid = crypto.randomUUID();
-      sessionStorage.setItem("aio_renewal_session", sessionUid);
-      landingPath =
-        sessionStorage.getItem("aio_renewal_landing") ?? location.pathname;
-      const params = new URLSearchParams(location.search);
-      for (const key of [
-        "utm_source",
-        "utm_medium",
-        "utm_campaign",
-        "utm_content",
-        "utm_term",
-      ]) {
-        const value = params.get(key);
-        if (value) utm[key] = value.slice(0, 250);
-      }
-      const stored = sessionStorage.getItem("aio_renewal_utm");
-      if (stored) {
-        const values: unknown = JSON.parse(stored);
-        if (values && typeof values === "object") {
-          for (const key of [
-            "utm_source",
-            "utm_medium",
-            "utm_campaign",
-            "utm_content",
-            "utm_term",
-          ]) {
-            const value = (values as Record<string, unknown>)[key];
-            if (typeof value === "string") utm[key] = value.slice(0, 250);
-          }
-        }
-      }
-    } catch {}
     const payload = {
       name: data.get("name"),
       email: data.get("email"),
@@ -125,16 +86,13 @@ export function ContactForm({
       consent: data.get("consent") === "on",
       website: data.get("website"),
       idempotencyKey: requestId,
-      attribution: {
-        landingPath: landingPath.slice(0, 500),
-        submitPath: location.pathname.slice(0, 500),
-        referrer: document.referrer.split("?")[0].slice(0, 500),
-        utm,
-        sessionUid,
-      },
+      attribution: submissionAttribution(),
     };
     const validated = contactSchema.safeParse(payload);
     if (!validated.success) {
+      track("aio_form_error", {
+        error_field: String(validated.error.issues[0].path[0]),
+      });
       setFieldErrors(
         Object.fromEntries(
           validated.error.issues.map((issue) => [
@@ -146,6 +104,7 @@ export function ContactForm({
       setError(validated.error.issues[0].message);
       return;
     }
+    submitting.current = true;
     setBusy(true);
     try {
       const response = await fetch("/api/contact", {
@@ -157,6 +116,7 @@ export function ContactForm({
       if (!response.ok || !result.success)
         throw new Error(result.error ?? "문의 접수를 완료하지 못했습니다");
       setReceipt(result.data.inquiryId);
+      trackLead(result.data, validated.data);
       if (
         !result.data.duplicate &&
         location.hostname !== "localhost" &&
@@ -166,6 +126,7 @@ export function ContactForm({
     } catch (e) {
       setError(e instanceof Error ? e.message : "접수 중 오류가 발생했습니다");
     } finally {
+      submitting.current = false;
       setBusy(false);
     }
   }
@@ -187,6 +148,17 @@ export function ContactForm({
       ref={formRef}
       className="contact-form"
       onSubmit={submit}
+      onChangeCapture={() => trackFormStart(formRef.current)}
+      onInvalidCapture={(event) => {
+        if (invalidInTurn.current) return;
+        invalidInTurn.current = true;
+        track("aio_form_error", {
+          error_field: (event.target as HTMLInputElement).name,
+        });
+        queueMicrotask(() => {
+          invalidInTurn.current = false;
+        });
+      }}
       aria-busy={busy}
     >
       <div className="form-row">
@@ -320,9 +292,7 @@ export function ContactForm({
         {busy ? "접수 중…" : "프로젝트 문의 보내기"}
         <ArrowUpRight size={18} />
       </button>
-      <p className="form-hint">
-        필요한 작업과 희망 일정을 알려주세요
-      </p>
+      <p className="form-hint">필요한 작업과 희망 일정을 알려주세요</p>
     </form>
   );
 }

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { services } from "./content.ts";
+import { utmKeys } from "./attribution.ts";
 import {
   CASE_BODY_PREFIX,
   encodeServiceCaseBody,
@@ -8,6 +9,25 @@ import {
   type ServiceCase,
 } from "./service-case-schema.ts";
 export const divisionSchema = z.enum(["marketing", "development", "video"]);
+export const purposeSchema = z.enum(
+  ["sales_ad", "brand_intro", "sns_ops", "unknown"],
+  { errorMap: () => ({ message: "사용 목적을 골라주세요" }) },
+);
+export const foundViaSchema = z.enum([
+  "youtube",
+  "instagram",
+  "facebook",
+  "threads",
+  "naver",
+  "search",
+  "referral",
+  "other",
+]);
+const utmSchema = z
+  .record(z.string().regex(/^[A-Za-z0-9_-]{1,250}$/))
+  .refine((value) =>
+    Object.keys(value).every((key) => utmKeys.some((item) => item === key)),
+  );
 export const contactSchema = z
   .object({
     name: z.string().trim().min(1, "성함을 입력해주세요").max(100),
@@ -32,6 +52,8 @@ export const contactSchema = z
     company: z.string().trim().max(150).default(""),
     division: divisionSchema,
     service: z.string().max(50),
+    purpose: purposeSchema.optional(),
+    found_via: foundViaSchema.optional(),
     message: z
       .string()
       .trim()
@@ -48,6 +70,29 @@ export const contactSchema = z
       referrer: z.string().max(500).default(""),
       utm: z.record(z.string().max(250)).default({}),
       sessionUid: z.string().uuid().optional(),
+      firstTouch: z
+        .object({
+          utm: utmSchema,
+          landingPath: z.string().startsWith("/").max(500),
+          date: z.string().datetime(),
+        })
+        .optional(),
+      clickIds: z
+        .object({
+          gclid: z
+            .string()
+            .regex(/^[A-Za-z0-9_.~%|=:-]{1,1000}$/)
+            .optional(),
+          fbclid: z
+            .string()
+            .regex(/^[A-Za-z0-9_.~%|=:-]{1,1000}$/)
+            .optional(),
+          NaPm: z
+            .string()
+            .regex(/^[A-Za-z0-9_.~%|=:-]{1,1000}$/)
+            .optional(),
+        })
+        .optional(),
     }),
   })
   .superRefine((v, ctx) => {
@@ -64,6 +109,15 @@ export const contactSchema = z
         message: "해당 분야의 서비스를 선택해주세요",
       });
   });
+// Historical envelopes remain readable; new content-site submissions require a purpose.
+export const trackedContactSchema = contactSchema.superRefine((value, ctx) => {
+  if (/^\/content(?:\/|$)/.test(value.attribution.submitPath) && !value.purpose)
+    ctx.addIssue({
+      code: "custom",
+      path: ["purpose"],
+      message: "사용 목적을 골라주세요",
+    });
+});
 export const entrySchema = z
   .object({
     id: z.string().uuid().optional(),
