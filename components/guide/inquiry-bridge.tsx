@@ -6,12 +6,14 @@ import { trackedContactSchema } from "@/lib/domain";
 import { submissionAttribution } from "@/lib/attribution";
 import { track, trackLead, trackFormStart } from "@/lib/tracking-events";
 import { divisionServices, type DivisionId } from "@/lib/content";
+import { InquiryPurpose } from "../inquiry-purpose";
 
 type Props = {
   division: DivisionId;
   initialService?: string;
   selection?: Record<string, unknown>;
   quick?: boolean;
+  purposeProvided?: boolean;
   children: React.ReactNode;
   style?: React.CSSProperties;
   /** 접수 화면의 돌아가기 링크(기본 "/"). 컨텐츠 사이트는 "/content" */
@@ -53,6 +55,7 @@ export function InquiryBridge({
   initialService,
   selection = {},
   quick = false,
+  purposeProvided = false,
   children,
   style,
   homeHref = "/",
@@ -162,6 +165,7 @@ export function InquiryBridge({
       company: String(data.get("company") ?? ""),
       division,
       service: selectedService.id,
+      formId: division === "video" ? "content_contact" : "guide_inquiry",
       purpose: data.get("purpose") || undefined,
       found_via: data.get("found_via") || undefined,
       message,
@@ -243,6 +247,12 @@ export function InquiryBridge({
       aria-busy={busy}
     >
       <fieldset disabled={busy || !key} className="guide-form-fields">
+        {!purposeProvided &&
+        (quick
+          ? selection.service === "컨텐츠"
+          : initialDivision === "video") ? (
+          <InquiryPurpose />
+        ) : null}
         {children}
       </fieldset>
       <div className="honeypot" aria-hidden="true">

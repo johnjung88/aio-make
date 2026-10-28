@@ -6,6 +6,13 @@ export const utmKeys = [
   "utm_term",
 ] as const;
 export const clickIdKeys = ["gclid", "fbclid", "NaPm"] as const;
+export const utmValueLimit = 150;
+export function cleanUtmValue(value: string) {
+  return Array.from(value.replace(/\p{Cc}/gu, "").trim())
+    .slice(0, utmValueLimit)
+    .join("")
+    .trim();
+}
 export type FirstTouch = {
   utm: Record<string, string>;
   landingPath: string;
@@ -25,9 +32,11 @@ export function cleanUtm(value: unknown): Record<string, string> {
   if (value && typeof value === "object")
     for (const key of utmKeys) {
       const item = (value as Record<string, unknown>)[key];
-      // Identifiers only: never copy free text, contact fields or full URLs.
-      if (typeof item === "string" && /^[A-Za-z0-9_-]{1,250}$/.test(item))
-        result[key] = item;
+      // External campaigns may contain dots, spaces and search keywords.
+      if (typeof item === "string") {
+        const cleaned = cleanUtmValue(item);
+        if (cleaned) result[key] = cleaned;
+      }
     }
   return result;
 }

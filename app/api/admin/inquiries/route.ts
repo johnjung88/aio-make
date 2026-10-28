@@ -5,23 +5,22 @@ import { sameOrigin, readJson } from "@/lib/http";
 import { inquiryUpdateSchema } from "@/lib/domain";
 import { purposeOptions } from "@/lib/tracking-config";
 import { csvLine, inquiryCsvHeaders, inquiryCsvRow } from "@/lib/inquiry-csv";
+import { cleanUtm } from "@/lib/attribution";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   if (!(await hasAdmin()))
     return NextResponse.json({ error: "로그인이 필요합니다" }, { status: 401 });
   const p = new URL(request.url).searchParams;
+  const utm = cleanUtm(Object.fromEntries(p));
   const filters = {
-    utm_campaign: p.get("utm_campaign") ?? "",
-    utm_content: p.get("utm_content") ?? "",
+    utm_campaign: utm.utm_campaign ?? "",
+    utm_content: utm.utm_content ?? "",
     purpose: p.get("purpose") ?? "",
   };
   if (
-    [filters.utm_campaign, filters.utm_content].some(
-      (value) => value && !/^[A-Za-z0-9_-]{1,250}$/.test(value),
-    ) ||
-    (filters.purpose &&
-      !purposeOptions.some(([value]) => value === filters.purpose))
+    filters.purpose &&
+    !purposeOptions.some(([value]) => value === filters.purpose)
   )
     return NextResponse.json(
       { error: "유입 필터 값을 확인해주세요" },

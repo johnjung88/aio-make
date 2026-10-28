@@ -3,7 +3,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { divisions, divisionServices, type DivisionId } from "@/lib/content";
-import { contactSchema } from "@/lib/domain";
+import { trackedContactSchema } from "@/lib/domain";
+import { InquiryPurpose } from "./inquiry-purpose";
 import { submissionAttribution } from "@/lib/attribution";
 import { track, trackLead, trackFormStart } from "@/lib/tracking-events";
 function FieldTitle({
@@ -82,13 +83,16 @@ export function ContactForm({
       company: data.get("company"),
       division,
       service,
+      formId: "general_contact",
+      purpose:
+        division === "video" ? data.get("purpose") || undefined : undefined,
       message: data.get("message"),
       consent: data.get("consent") === "on",
       website: data.get("website"),
       idempotencyKey: requestId,
       attribution: submissionAttribution(),
     };
-    const validated = contactSchema.safeParse(payload);
+    const validated = trackedContactSchema.safeParse(payload);
     if (!validated.success) {
       track("aio_form_error", {
         error_field: String(validated.error.issues[0].path[0]),
@@ -239,6 +243,7 @@ export function ContactForm({
           </select>
         </label>
       </div>
+      {division === "video" ? <InquiryPurpose /> : null}
       <label>
         <FieldTitle required>어떤 작업이 필요한가요?</FieldTitle>
         <textarea

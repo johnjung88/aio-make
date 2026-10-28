@@ -136,6 +136,7 @@ export function CsInquiry({
             <div className="cs-inquiry-card">
               <InquiryBridge
                 division="video"
+                purposeProvided
                 initialService={current}
                 homeHref="/content"
                 homeLabel={CS_COPY.inquiry.homeLabel}

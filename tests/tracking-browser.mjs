@@ -2,7 +2,7 @@
 // PLAYWRIGHT_MODULE can point at an existing installation; no production values are loaded.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { randomBytes } from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 import { mkdir, mkdtemp, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { tmpdir } from "node:os";
@@ -50,10 +50,22 @@ try {
     const url = new URL(response.headers().location, origin);
     check("profile UTM " + source, url.pathname === "/content/contact" && url.searchParams.get("utm_source") === expected && url.searchParams.get("utm_medium") === "social" && url.searchParams.get("utm_campaign") === "a001_aio_contents" && url.searchParams.get("utm_term") === "profile");
   }
-  for (const suffix of ["/go/a002/yt", "/go/a001/xx", "/go/a001/c/bad%40id?s=yt&p=post", "/go/a001/c/good?s=x&p=post", "/go/a001/c/good?s=yt&p=x", "/go/a001/c/good?s=yt", "/go/a001/yt?p=bad"]) {
+  for (const suffix of ["/go/a002/yt", "/go/a001/xx", "/go/a001/c/bad%40id?s=yt&p=post", "/go/a001/c/good?s=x&p=post", "/go/a001/c/good?s=yt&p=x", "/go/a001/yt?p=bad"]) {
     const response = await context.request.get(origin + suffix, { maxRedirects: 0 });
     check("invalid link returns parameter-free contact " + suffix, response.status() === 307 && new URL(response.headers().location, origin).pathname === "/content/contact" && !new URL(response.headers().location, origin).search);
   }
+  const noPlacement = await context.request.get(
+    origin + "/go/a001/c/good?s=yt",
+    { maxRedirects: 0 },
+  );
+  const noPlacementUrl = new URL(noPlacement.headers().location, origin);
+  check(
+    "missing p preserves content UTMs without utm_term",
+    noPlacement.status() === 307 &&
+      noPlacementUrl.searchParams.get("utm_content") === "good" &&
+      noPlacementUrl.searchParams.get("utm_campaign") === "a001_aio_contents" &&
+      !noPlacementUrl.searchParams.has("utm_term"),
+  );
   await page.goto(origin + "/go/a001/c/a001_test-1?s=yt&p=description");
   check("short link preserves the requesting origin", new URL(page.url()).origin === origin);
   await page.waitForFunction(() => window.dataLayer?.some(value => value.event === "aio_page_view"));
@@ -120,7 +132,12 @@ try {
   });
   const mobilePage = await mobile.newPage();
   mobilePage.on("pageerror", () => errors.push("mobile-pageerror"));
-  await mobilePage.goto(origin + "/content/contact?utm_source=instagram");
+  const externalUtm = new URLSearchParams({
+    utm_source: " m.facebook.com ",
+    utm_campaign: "spring sale",
+    utm_term: "문\n의",
+  });
+  await mobilePage.goto(origin + "/content/contact?" + externalUtm);
   await fill(mobilePage);
   check("mobile form has no horizontal overflow", await mobilePage.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await mobilePage.screenshot({ path: path.join(evidence, "contact-mobile.png"), fullPage: true });
@@ -134,6 +151,65 @@ try {
   const query = "utm_campaign=a001_aio_contents&utm_content=a001_test-1&purpose=sales_ad";
   const list = await (await context.request.get(origin + "/api/admin/inquiries?" + query)).json();
   check("administrator server filters and saved source_meta", list.total === 1 && list.items[0].leads.source_meta.purpose === "sales_ad" && list.items[0].leads.source_meta.found_via === "youtube");
+  const externalList = await (
+    await context.request.get(
+      origin +
+        "/api/admin/inquiries?" +
+        new URLSearchParams({ utm_campaign: "spring sale" }),
+    )
+  ).json();
+  const externalSource =
+    externalList.items[0]?.leads.source_meta.attribution.utm;
+  check(
+    "external dotted, spaced and Korean UTMs persist through API, database and admin filter",
+    externalList.total === 1 &&
+      externalSource.utm_source === "m.facebook.com" &&
+      externalSource.utm_campaign === "spring sale" &&
+      externalSource.utm_term === "문의",
+  );
+  const beforeBypass = await (
+    await context.request.get(origin + "/api/admin/inquiries")
+  ).json();
+  for (const formId of [undefined, "general_contact", "guide_inquiry"]) {
+    const forged = await context.request.post(origin + "/api/contact", {
+      data: {
+        ...captured,
+        formId,
+        purpose: undefined,
+        idempotencyKey: randomUUID(),
+        attribution: { ...captured.attribution, submitPath: "/" },
+      },
+      headers: { Origin: origin },
+    });
+    check(
+      "forged submitPath and formId cannot bypass content purpose " +
+        String(formId),
+      forged.status() === 400,
+    );
+  }
+  const disguised = await context.request.post(origin + "/api/contact", {
+    data: {
+      ...captured,
+      division: "marketing",
+      service: "integrated",
+      formId: "general_contact",
+      purpose: undefined,
+      idempotencyKey: randomUUID(),
+      attribution: { ...captured.attribution, submitPath: "/" },
+    },
+    headers: { Origin: origin, Referer: origin + "/content/contact" },
+  });
+  check(
+    "server content-page context blocks simultaneous body-identity tampering",
+    disguised.status() === 400,
+  );
+  const afterBypass = await (
+    await context.request.get(origin + "/api/admin/inquiries")
+  ).json();
+  check(
+    "rejected purpose bypass attempts create no inquiries",
+    afterBypass.total === beforeBypass.total,
+  );
   await page.goto(origin + "/admin");
   await page.getByRole("button", { name: "문의·상담 내역", exact: true }).click();
   await page.getByLabel("utm_campaign", { exact: true }).fill("a001_aio_contents");
@@ -150,6 +226,24 @@ try {
   await (await downloadEvent).saveAs(path.join(evidence, "local-inquiries.csv"));
   const csv = await (await context.request.get(origin + "/api/admin/inquiries?" + query + "&format=csv")).text();
   check("authenticated CSV includes filtered inquiry and attribution columns", csv.includes(ids[0]) && csv.includes('"first_utm_content"') && csv.includes('"found_via"') && !csv.includes(ids[1]));
+  const general = await context.request.post(origin + "/api/contact", {
+    data: {
+      ...captured,
+      division: "marketing",
+      service: "integrated",
+      formId: "general_contact",
+      purpose: undefined,
+      idempotencyKey: randomUUID(),
+      attribution: { ...captured.attribution, submitPath: "/contact" },
+    },
+    headers: { Origin: origin, Referer: origin + "/contact" },
+  });
+  const generalBody = await general.json();
+  check(
+    "existing non-content inquiry remains accepted without purpose",
+    general.status() === 201,
+  );
+  ids.push(generalBody.data.inquiryId);
   for (const id of ids) {
     const status = await context.request.patch(origin + "/api/admin/inquiries", { data: { id, status: "rejected", note: "[자체검증] 로컬 시험 완료" }, headers: { Origin: origin } });
     check("local test inquiry closed " + id, status.ok());
@@ -157,6 +251,66 @@ try {
   const invalid = await context.request.post(origin + "/api/contact", { data: { ...captured, purpose: undefined }, headers: { Origin: origin } });
   check("API rejects content purpose omission", invalid.status() === 400);
   check("anonymous CSV denied", (await fetch(origin + "/api/admin/inquiries?format=csv")).status === 401);
+  await page.goto(origin + "/contact");
+  await page.locator('select[name="division"]').selectOption("video");
+  check(
+    "general form shows purpose choices for video inquiries",
+    (await page.locator('.inquiry-purpose input[name="purpose"]').count()) ===
+      4,
+  );
+  await page.locator('input[name="name"]').fill("[자체검증] 범용폼 회귀");
+  await page
+    .locator('input[name="email"]')
+    .fill("tracking-fixture@example.test");
+  await page
+    .locator('textarea[name="message"]')
+    .fill("콘텐츠 선택 시 목적 필수 회귀 시험");
+  await page.locator('input[name="consent"]').check();
+  await page
+    .getByRole("button", { name: "프로젝트 문의 보내기", exact: true })
+    .click();
+  await page
+    .getByRole("alert")
+    .filter({ hasText: "사용 목적을 골라주세요" })
+    .waitFor();
+  check("general form enforces purpose before a video request", true);
+  await page.locator('input[name="purpose"][value="brand_intro"]').check();
+  let generalCaptured;
+  await page.screenshot({ path: path.join(evidence, "general-content-form.png"), fullPage: true });
+  await page.route("**/api/contact", (route) => {
+    generalCaptured = route.request().postDataJSON();
+    return route.fulfill({
+      status: 201,
+      contentType: "application/json",
+      body: JSON.stringify({
+        success: true,
+        data: { inquiryId: randomUUID(), duplicate: false },
+      }),
+    });
+  });
+  await page
+    .getByRole("button", { name: "프로젝트 문의 보내기", exact: true })
+    .click();
+  await page
+    .getByRole("heading", { name: "문의가 접수되었습니다", exact: true })
+    .waitFor();
+  check(
+    "general content inquiry sends purpose and form identity",
+    generalCaptured.formId === "general_contact" &&
+      generalCaptured.division === "video" &&
+      generalCaptured.purpose === "brand_intro",
+  );
+  await page.unroute("**/api/contact");
+  await page.goto(origin + "/contact");
+  check(
+    "marketing form does not acquire a new required purpose field",
+    (await page.locator(".inquiry-purpose").count()) === 0,
+  );
+  await page.locator('select[name="division"]').selectOption("development");
+  check(
+    "development form does not acquire a new required purpose field",
+    (await page.locator(".inquiry-purpose").count()) === 0,
+  );
   await page.goto(origin + "/content/insights");
   const articleHref = await page.locator('a[href^="/content/insights/"]').first().getAttribute("href");
   await page.goto(origin + articleHref);

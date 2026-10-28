@@ -54,8 +54,8 @@ export function shortLinkDestination(
     segments.length !== (content ? 3 : 2) ||
     !source ||
     !Object.hasOwn(trackingSources, source) ||
-    !placement ||
-    !trackingPlacements.some((value) => value === placement) ||
+    (placement !== null &&
+      !trackingPlacements.some((value) => value === placement)) ||
     (content && !/^[A-Za-z0-9_-]{1,250}$/.test(contentId ?? "")) ||
     query.getAll("s").length > 1 ||
     query.getAll("p").length > 1
@@ -66,8 +66,8 @@ export function shortLinkDestination(
     utm_source: trackingSources[source],
     utm_medium: "social",
     utm_campaign: trackingAccounts[account],
-    utm_term: placement,
   });
+  if (placement) params.set("utm_term", placement);
   if (content) params.set("utm_content", contentId);
   return fallback + "?" + params.toString();
 }

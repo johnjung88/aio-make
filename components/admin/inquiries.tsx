@@ -133,7 +133,7 @@ export function InquiryPanel({
               <input
                 aria-label={key}
                 value={trackingFilters[key]}
-                maxLength={250}
+                maxLength={150}
                 onChange={(event) =>
                   setTrackingFilters({
                     ...trackingFilters,

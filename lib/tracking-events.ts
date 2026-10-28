@@ -66,6 +66,13 @@ export function track<E extends keyof Events>(
   }
 }
 const emittedLeads = new Set<string>();
+function eventUtm(value: unknown) {
+  return Object.fromEntries(
+    Object.entries(cleanUtm(value)).filter(([, text]) =>
+      /^[A-Za-z0-9_-]{1,150}$/.test(text),
+    ),
+  );
+}
 const startedForms = new WeakSet<object>();
 export function trackFormStart(form: object | null) {
   if (!form || startedForms.has(form)) return;
@@ -91,8 +98,8 @@ export function trackLead(
   )
     return false;
   emittedLeads.add(id);
-  const utm = cleanUtm(data.attribution.utm),
-    first = cleanUtm(data.attribution.firstTouch?.utm);
+  const utm = eventUtm(data.attribution.utm),
+    first = eventUtm(data.attribution.firstTouch?.utm);
   track("aio_lead", {
     event_id: id,
     division: data.division,

@@ -8,6 +8,8 @@ import { shortLinkDestination } from "../lib/tracking-config.ts";
 import {
   captureAttribution,
   submissionAttribution,
+  cleanUtm,
+  utmValueLimit,
 } from "../lib/attribution.ts";
 import {
   track,
@@ -15,7 +17,12 @@ import {
   trackFormStart,
   pageTracking,
 } from "../lib/tracking-events.ts";
-import { trackedContactSchema } from "../lib/domain.ts";
+import {
+  trackedContactSchema,
+  contactSchema,
+  contactRequestSchema,
+} from "../lib/domain.ts";
+import { services } from "../lib/content.ts";
 import {
   csvLine,
   inquiryCsvHeaders,
@@ -62,7 +69,6 @@ test("short links construct five UTMs from approved identifiers and reject every
     [["a001", "c", "bad@id"], "s=yt&p=post"],
     [["a001", "c", "good"], "s=bad&p=post"],
     [["a001", "c", "good"], "s=yt&p=bad"],
-    [["a001", "c", "good"], "s=yt"],
     [["a001", "c", "good"], "s=yt&s=ig&p=post"],
     [["a001", "yt", "extra"], ""],
     [["a001", "yt"], "p=bad"],
@@ -71,6 +77,20 @@ test("short links construct five UTMs from approved identifiers and reject every
       shortLinkDestination(segments, new URLSearchParams(query)),
       "/content/contact",
     );
+  const withoutPlacement = new URL(
+    shortLinkDestination(
+      ["a001", "c", "A01_test-7"],
+      new URLSearchParams("s=yt"),
+    ),
+    "https://example.test",
+  );
+  assert.equal(withoutPlacement.searchParams.size, 4);
+  assert.equal(withoutPlacement.searchParams.get("utm_content"), "A01_test-7");
+  assert.equal(
+    withoutPlacement.searchParams.get("utm_campaign"),
+    "a001_aio_contents",
+  );
+  assert.equal(withoutPlacement.searchParams.has("utm_term"), false);
 });
 
 function browser() {
@@ -182,6 +202,62 @@ test("purpose and found-via are checked on the server-facing schema without inva
   };
   assert.equal(trackedContactSchema.safeParse(base).success, false);
   assert.equal(
+    contactSchema.safeParse(base).success,
+    true,
+    "historical video envelopes remain readable",
+  );
+  for (const service of services.filter(
+    (value) => value.division === "video",
+  )) {
+    for (const formId of [
+      undefined,
+      "general_contact",
+      "guide_inquiry",
+      "content_contact",
+    ]) {
+      assert.equal(
+        trackedContactSchema.safeParse({
+          ...base,
+          service: service.id,
+          formId,
+          attribution: { ...base.attribution, submitPath: "/" },
+        }).success,
+        false,
+        `${service.id}/${formId} cannot bypass purpose by changing form identity or path`,
+      );
+    }
+  }
+  for (const [division, service] of [
+    ["marketing", "integrated"],
+    ["marketing", "ai-influencer"],
+    ["development", "website"],
+  ]) {
+    for (const formId of [undefined, "general_contact", "guide_inquiry"]) {
+      const other = { ...base, division, service, formId };
+      assert.equal(
+        trackedContactSchema.safeParse(other).success,
+        true,
+        "non-content forms remain compatible regardless of client submitPath",
+      );
+      assert.equal(
+        contactRequestSchema(true).safeParse(other).success,
+        false,
+        "server content-page context blocks simultaneous body-signal tampering",
+      );
+    }
+  }
+  assert.equal(
+    trackedContactSchema.safeParse({
+      ...base,
+      division: "marketing",
+      service: "integrated",
+      formId: "content_contact",
+      purpose: "unknown",
+    }).success,
+    false,
+    "content identity must match the service classification",
+  );
+  assert.equal(
     trackedContactSchema.safeParse({ ...base, purpose: "unknown" }).success,
     true,
   );
@@ -198,6 +274,57 @@ test("purpose and found-via are checked on the server-facing schema without inva
     false,
   );
 });
+test("external UTM punctuation, whitespace and Korean survive session, cookie and server normalization", () => {
+  browser();
+  const input = {
+    utm_source: "  m.facebook.com \n",
+    utm_campaign: " spring sale ",
+    utm_term: "문\u0000의\u0085",
+    utm_medium: "cpc",
+    utm_content: "콘텐츠".repeat(80),
+    name: "PRIVATE",
+  };
+  const normalized = cleanUtm(input);
+  assert.equal(normalized.utm_source, "m.facebook.com");
+  assert.equal(normalized.utm_campaign, "spring sale");
+  assert.equal(normalized.utm_term, "문의");
+  assert.equal(Array.from(normalized.utm_content).length, utmValueLimit);
+  assert.equal(normalized.name, undefined);
+  captureAttribution("/content", new URLSearchParams(input));
+  const attribution = submissionAttribution();
+  assert.deepEqual(attribution.utm, normalized);
+  assert.deepEqual(attribution.firstTouch.utm, normalized);
+  const parsed = trackedContactSchema.parse({
+    name: "fixture",
+    email: "fixture@example.test",
+    phone: "",
+    company: "",
+    division: "video",
+    service: "webtoon",
+    formId: "content_contact",
+    purpose: "unknown",
+    message: "tracking fixture",
+    consent: true,
+    website: "",
+    idempotencyKey: randomUUID(),
+    attribution: {
+      ...attribution,
+      utm: input,
+      firstTouch: { ...attribution.firstTouch, utm: input },
+    },
+  });
+  assert.deepEqual(parsed.attribution.utm, normalized);
+  assert.deepEqual(parsed.attribution.firstTouch.utm, normalized);
+  trackLead({ inquiryId: randomUUID(), duplicate: false }, parsed);
+  const lead = window.dataLayer.find((value) => value.event === "aio_lead");
+  assert.equal(
+    lead.utm_source,
+    undefined,
+    "external free-form UTM is preserved in storage but not copied into dataLayer",
+  );
+  assert.equal(lead.utm_medium, "cpc");
+});
+
 test("lead emits exactly once per successful saved ID; duplicates and missing IDs emit zero; no PII enters the event", () => {
   browser();
   const id = randomUUID(),
