@@ -310,11 +310,11 @@ export function LeadsSample({
       <div className={styles.leadIntro} data-reveal>
         <div>
           <span className={styles.eyebrow}>AIO / SALES OPERATIONS</span>
-          <h1>
+          <h2>
             리드를 찾는 일에서,
             <br />
             <em>관계를 이어가는 일까지</em>
-          </h1>
+          </h2>
         </div>
         <p>
           같은 고객을 두 번 접촉하지 않도록

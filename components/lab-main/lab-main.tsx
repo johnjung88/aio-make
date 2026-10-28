@@ -97,7 +97,7 @@ export function LabMain() {
   const [summary, setSummary] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
   const current = services.find((service) => service.id === selected)!;
-  const contactHref = `/lab/contact?${new URLSearchParams({ service: selected, industry: current.industry, source: "lab" })}`;
+  const contactHref = `/contact?${new URLSearchParams({ service: selected, industry: current.industry, source: "lab" })}`;
   const consult = (value: string) => {
     setSummary(value);
     setCopyStatus("");
@@ -233,7 +233,7 @@ export function LabMain() {
                   setCopyStatus("선택 내용을 복사했습니다");
                 } catch {
                   setCopyStatus(
-                    "복사하지 못했습니다. 위 내용을 직접 선택해 복사해주세요",
+                    "복사하지 못했습니다 위 내용을 직접 선택해 복사해주세요",
                   );
                 }
               }}

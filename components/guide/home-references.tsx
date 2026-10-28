@@ -26,7 +26,7 @@ export function HomeReferences({
   const category = fixedDivision ?? selected;
   const allHref =
     fixedDivision === "development"
-      ? "/lab/work"
+      ? "/lab"
       : fixedDivision === "marketing"
         ? "/marketing/work"
         : null;

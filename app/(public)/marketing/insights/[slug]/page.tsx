@@ -7,10 +7,10 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ division: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const p = await params,
-    d = divisionByPath(p.division),
+    d = divisionByPath("marketing"),
     e =
       d &&
       ((await publicEntry("insight", d.id, p.slug)) ??
@@ -37,8 +37,8 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ division: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const p = await params;
-  return <EntryDetail division={p.division} slug={p.slug} type="insight" />;
+  return <EntryDetail division="marketing" slug={p.slug} type="insight" />;
 }

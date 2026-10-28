@@ -232,11 +232,11 @@ export function FashionSample({
       )}
       <div className={styles.fashionIntro} data-reveal>
         <span className={styles.eyebrow}>THE EVERYDAY, CONSIDERED</span>
-        <h1>
+        <h2>
           덜어낼수록,
           <br />
           <em>오래 남는 옷</em>
-        </h1>
+        </h2>
         <p>
           형태와 질감에 집중한 두 가지 선택
           <br />

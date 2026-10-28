@@ -151,13 +151,6 @@ export function ServiceOverview({
           </p>
         )}
       </section>
-      {!marketing && (
-        <div className="lab-secondary review-container">
-          <span>추가 개발이 필요하다면</span>
-          <Link href="/lab/services/automation">업무 자동화 ↗</Link>
-          <Link href="/lab/services/program">프로그램 개발 ↗</Link>
-        </div>
-      )}
       <HomeReferences
         works={homeReferenceWorks(entries, division)}
         division={division}

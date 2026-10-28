@@ -252,14 +252,14 @@
   align-items: flex-end;
   padding: 45px 48px 35px;
 }
-.archHeading h1 {
+.archHeading h2 {
   font-size: clamp(32px, 3.3vw, 52px);
   font-weight: 430;
   line-height: 1.25;
   letter-spacing: -1.9px;
   margin-top: 15px;
 }
-.archHeading h1 em {
+.archHeading h2 em {
   color: #7d8866;
 }
 .archHeading > p {
@@ -759,13 +759,13 @@
   max-width: 145px;
   line-height: 1.9;
 }
-.fashionIntro h1 {
+.fashionIntro h2 {
   font-size: clamp(32px, 3.1vw, 48px);
   font-weight: 350;
   line-height: 1.3;
   letter-spacing: -1.7px;
 }
-.fashionIntro h1 em {
+.fashionIntro h2 em {
   font-weight: 500;
 }
 .fashionIntro p {
@@ -1382,14 +1382,14 @@
 .leadIntro .eyebrow {
   color: #7e9b8a;
 }
-.leadIntro h1 {
+.leadIntro h2 {
   font-size: clamp(32px, 3.3vw, 48px);
   font-weight: 500;
   letter-spacing: -1.6px;
   line-height: 1.3;
   margin-top: 16px;
 }
-.leadIntro h1 em {
+.leadIntro h2 em {
   color: #71917c;
 }
 .leadIntro > p {
@@ -2525,7 +2525,7 @@
     padding: 40px 30px 30px;
     grid-template-columns: 130px 1fr 190px;
   }
-  .fashionIntro h1 {
+  .fashionIntro h2 {
     font-size: 36px;
   }
   .productGrid {
@@ -2649,7 +2649,7 @@
     font-size: 7px;
     letter-spacing: 1.25px;
   }
-  .archHeading h1 {
+  .archHeading h2 {
     font-size: 32px;
     letter-spacing: -1.4px;
     line-height: 1.3;
@@ -2908,7 +2908,7 @@
     padding: 0;
     margin-bottom: 14px;
   }
-  .fashionIntro h1 {
+  .fashionIntro h2 {
     font-size: 33px;
     line-height: 1.35;
     letter-spacing: -1.3px;
@@ -3099,7 +3099,7 @@
   .leadIntro .eyebrow {
     font-size: 8px;
   }
-  .leadIntro h1 {
+  .leadIntro h2 {
     font-size: 31px;
     letter-spacing: -1.3px;
     line-height: 1.3;

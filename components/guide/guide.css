@@ -64,12 +64,6 @@ html:has(.guide-public) {
   background: #000;
   color: #fff;
 }
-.guide-lab-home,
-.guide-lab-services,
-.guide-lab-contact {
-  background: #0d0d12;
-  color: #f4f3ef;
-}
 .guide-marketing-home,
 .guide-marketing-services,
 .guide-marketing-contact {

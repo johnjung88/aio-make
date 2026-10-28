@@ -246,11 +246,11 @@ export function ArchitectureSample({
           <span className={styles.eyebrow}>
             SEONGSU COURTYARD / CONCEPT PROJECT
           </span>
-          <h1>
+          <h2>
             건물의 안쪽까지,
             <br />
             <em>공간의 이야기를 읽다</em>
-          </h1>
+          </h2>
         </div>
         <p>
           층을 고르고, 공간을 들여다보세요

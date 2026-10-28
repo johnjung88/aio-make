@@ -1112,14 +1112,15 @@ test("9. 라우트·삭제·리다이렉트", () => {
   assert.equal(existsSync("components/content-service"), false);
   assert.equal(existsSync("lib/content-service-plans.ts"), false);
   for (const path of [
-    "app/(public)/[division]/services/[service]/page.tsx",
-    "app/(public)/[division]/page.tsx",
+    "app/(public)/marketing/services/[service]/page.tsx",
+    "app/(public)/marketing/page.tsx",
   ]) {
     const text = code(path);
     assert.doesNotMatch(text, /content-service/, path);
     assert.doesNotMatch(text, /ContentHome/, path);
     assert.match(text, /d\.id === "video"\) notFound\(\)/, `${path} video branch → notFound`);
   }
+  assert.equal(existsSync("app/(public)/[division]"), false);
   for (const file of readdirSync(".").filter((f) => /^next\.config\./.test(f)))
     assert.doesNotMatch(read(file), /\/content\/work/, file);
   const group = "app/(content-site)/content";
