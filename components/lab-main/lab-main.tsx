@@ -110,43 +110,36 @@ const process = [
   [
     "의뢰",
     "목적과 자료 정리",
-    "Opus 기획",
     "사업과 방문자의 목적, 필요한 자료와 운영 조건을 정리합니다",
   ],
   [
     "벤치마크",
     "참고 흐름 분석",
-    "Opus 기획",
     "업종에 맞는 탐색과 입력 흐름을 비교하고 적용할 이유를 남깁니다",
   ],
   [
     "시안",
     "PC·모바일 방향",
-    "Opus 기획",
     "카피와 소재를 담은 화면을 제안하고 사용자가 방향을 고릅니다",
   ],
   [
     "작동 원형",
     "핵심 기능 체험",
-    "Codex 구현",
     "가장 중요한 선택과 반응을 먼저 만들어 실제로 확인합니다",
   ],
   [
     "구현",
     "화면과 상태 연결",
-    "Codex 구현",
     "선택값과 결과 화면을 연결하고 작은 화면에도 맞춰 만듭니다",
   ],
   [
     "검수",
     "정상·실패 확인",
-    "Sonnet 검수",
     "입력과 결과, 접근성, 실패와 대체 화면을 확인하고 수정합니다",
   ],
   [
     "인계",
     "운영 자료 전달",
-    "Codex 정리",
     "사용 방법과 복구 위치, 남은 확인을 정리해 운영 담당에게 연결합니다",
   ],
 ];
@@ -786,13 +779,13 @@ export function LabMain() {
               <h2 id="process-title">함께 만드는 과정</h2>
             </div>
             <p>
-              각 단계를 열어 제공물과 AI 역할을 확인하세요
+              각 단계를 열어 하는 일과 제공물을 확인하세요
               <br />
               시안과 완성 화면은 사용자가 확인합니다
             </p>
           </div>
           <div className={styles.process}>
-            {process.map(([name, result, role, description], i) => (
+            {process.map(([name, result, description], i) => (
               <details key={name}>
                 <summary>
                   <span>0{i + 1}</span>
@@ -801,7 +794,6 @@ export function LabMain() {
                   <b>+</b>
                 </summary>
                 <div>
-                  <strong>{role}</strong>
                   <p>{description}</p>
                   <small>
                     확인 기준 · 목적과 선택한 구성에 맞는지 사용자와 점검
@@ -809,23 +801,6 @@ export function LabMain() {
                 </div>
               </details>
             ))}
-          </div>
-          <div className={styles.aiRoles}>
-            <div>
-              <Code2 />
-              <h3>Opus 기획</h3>
-              <p>요청과 참고 자료를 화면의 흐름으로 정리</p>
-            </div>
-            <div>
-              <Monitor />
-              <h3>Codex 구현</h3>
-              <p>입력과 상태를 실제 작동 화면으로 연결</p>
-            </div>
-            <div>
-              <Layers3 />
-              <h3>Sonnet 검수</h3>
-              <p>다른 관점으로 화면과 예외 흐름 확인</p>
-            </div>
           </div>
         </section>
         <section className={styles.section} aria-labelledby="stack-title">

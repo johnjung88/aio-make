@@ -769,35 +769,6 @@
   border-radius: 8px;
   font-size: var(--text-small);
 }
-.process strong {
-  color: var(--cyan);
-}
-.aiRoles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-element);
-  margin-top: var(--space-block);
-}
-.aiRoles > div {
-  padding: var(--space-element);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: linear-gradient(
-    120deg,
-    color-mix(in srgb, var(--blue) 18%, var(--bg)),
-    var(--panel)
-  );
-}
-.aiRoles svg {
-  color: var(--cyan);
-}
-.aiRoles h3 {
-  font-size: var(--text-body);
-}
-.aiRoles p {
-  color: var(--muted);
-  font-size: var(--text-small);
-}
 .stack {
   display: grid;
   grid-template-columns: repeat(3, 1fr) 1.8fr;
@@ -1118,8 +1089,7 @@
     font-size: var(--text-h2);
   }
   .serviceCards,
-  .businessGrid,
-  .aiRoles {
+  .businessGrid {
     grid-template-columns: 1fr;
   }
   .serviceCards {
