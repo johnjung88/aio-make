@@ -261,7 +261,8 @@ export function InquiryBridge({
         </label>
       </div>
       <p className="guide-form-note t-body">
-        이메일 또는 전화번호를 입력해주세요{" "}
+        이메일 또는 전화번호를 입력해주세요 문의를 보내면 방문 경로
+        정보(유입 링크·광고 클릭 번호)가 함께 저장됩니다{" "}
         <Link href="/privacy" target="_blank" rel="noopener noreferrer">
           개인정보 수집·이용 안내
         </Link>
