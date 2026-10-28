@@ -1,4 +1,5 @@
 import type { Entry } from "@/lib/db";
+import type { Attribution } from "@/lib/attribution";
 export type Lead = {
   customer_name: string;
   company_name: string;
@@ -7,7 +8,9 @@ export type Lead = {
   source_meta?: {
     division?: string;
     service?: string;
-    attribution?: { landingPath?: string; utm?: Record<string, string> };
+    purpose?: string;
+    found_via?: string;
+    attribution?: Partial<Attribution>;
   };
 };
 export type Inquiry = {

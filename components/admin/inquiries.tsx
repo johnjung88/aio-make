@@ -3,6 +3,12 @@ import { useEffect, useId, useRef } from "react";
 import { divisions, services } from "@/lib/content";
 import { inquiryStatuses, statusLabels } from "@/lib/domain";
 import type { Inquiry, Note, InquiryData } from "./types";
+import {
+  purposeOptions,
+  purposeLabel,
+  foundViaOptions,
+} from "@/lib/tracking-config";
+import { utmKeys, clickIdKeys } from "@/lib/attribution";
 type Props = {
   inquiries: InquiryData;
   filteredInquiries: Inquiry[];
@@ -16,6 +22,17 @@ type Props = {
   busy: boolean;
   loading: boolean;
   appliedSearch: string;
+  trackingFilters: {
+    utm_campaign: string;
+    utm_content: string;
+    purpose: string;
+  };
+  setTrackingFilters: (value: {
+    utm_campaign: string;
+    utm_content: string;
+    purpose: string;
+  }) => void;
+  exportQuery: string;
   applySearch: () => void;
   clearSearch: () => void;
   setSearch: (v: string) => void;
@@ -40,6 +57,9 @@ export function InquiryPanel({
   busy,
   loading,
   appliedSearch,
+  trackingFilters,
+  setTrackingFilters,
+  exportQuery,
   applySearch,
   clearSearch,
   setSearch,
@@ -82,7 +102,9 @@ export function InquiryPanel({
           <button type="submit" className="secondary-button" disabled={loading}>
             검색
           </button>
-          {(search || appliedSearch) && (
+          {(search ||
+            appliedSearch ||
+            Object.values(trackingFilters).some(Boolean)) && (
             <button
               type="button"
               className="secondary-button"
@@ -109,7 +131,51 @@ export function InquiryPanel({
               ))}
             </select>
           </label>
+          {(["utm_campaign", "utm_content"] as const).map((key) => (
+            <label key={key}>
+              {key}
+              <input
+                aria-label={key}
+                value={trackingFilters[key]}
+                maxLength={150}
+                onChange={(event) =>
+                  setTrackingFilters({
+                    ...trackingFilters,
+                    [key]: event.target.value,
+                  })
+                }
+              />
+            </label>
+          ))}
+          <label>
+            사용 목적
+            <select
+              aria-label="사용 목적 필터"
+              value={trackingFilters.purpose}
+              onChange={(event) =>
+                setTrackingFilters({
+                  ...trackingFilters,
+                  purpose: event.target.value,
+                })
+              }
+            >
+              <option value="">전체 목적</option>
+              {purposeOptions.map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
         </form>
+        {inquiries.connected ? (
+          <a
+            className="secondary-button"
+            href={"/api/admin/inquiries?" + exportQuery}
+          >
+            조건에 맞는 문의 CSV 내보내기
+          </a>
+        ) : null}
       </div>
       {!inquiries.connected ? (
         <div className="admin-message">
@@ -251,6 +317,73 @@ export function InquiryPanel({
               selected.leads?.source_meta?.attribution?.landingPath ??
               "기존 기록"}
           </p>
+          <section aria-label="문의 유입 정보">
+            <h4>유입</h4>
+            <p>
+              사용 목적:{" "}
+              {purposeLabel(selected.leads?.source_meta?.purpose) ||
+                "기존 기록"}{" "}
+              · 어디서 보셨나요:{" "}
+              {foundViaOptions.find(
+                ([value]) => value === selected.leads?.source_meta?.found_via,
+              )?.[1] ?? "미선택"}
+            </p>
+            <div className="admin-table-wrap">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>항목</th>
+                    <th>이번 유입</th>
+                    <th>최초 유입</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {utmKeys.map((key) => (
+                    <tr key={key}>
+                      <th>{key}</th>
+                      <td>
+                        {selected.leads?.source_meta?.attribution?.utm?.[key] ||
+                          "없음"}
+                      </td>
+                      <td>
+                        {selected.leads?.source_meta?.attribution?.firstTouch
+                          ?.utm?.[key] || "없음"}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <th>랜딩</th>
+                    <td>
+                      {selected.leads?.source_meta?.attribution?.landingPath ??
+                        "없음"}
+                    </td>
+                    <td>
+                      {selected.leads?.source_meta?.attribution?.firstTouch
+                        ?.landingPath ?? "없음"}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              최초 유입 날짜:{" "}
+              {selected.leads?.source_meta?.attribution?.firstTouch?.date ??
+                "기존 기록"}
+            </p>
+            <p>
+              클릭ID:{" "}
+              {clickIdKeys
+                .map(
+                  (key) =>
+                    key +
+                    " " +
+                    (selected.leads?.source_meta?.attribution?.clickIds?.[key]
+                      ? "있음"
+                      : "없음"),
+                )
+                .join(" · ")}
+            </p>
+          </section>
           <div className="note-list">
             {notes.map((n) => (
               <div key={n.id}>

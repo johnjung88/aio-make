@@ -1,5 +1,5 @@
 import { NextResponse, after } from "next/server";
-import { contactSchema } from "@/lib/domain";
+import { contactRequestSchema } from "@/lib/domain";
 import { sameOrigin, readJson, rateLimit } from "@/lib/http";
 import { inquiryStoreReady, localMode } from "@/lib/local-store";
 import { saveInquiry, notifyInquiry } from "@/lib/inquiry-submit";
@@ -11,7 +11,17 @@ export async function POST(request: Request) {
       { status: 403 },
     );
   try {
-    const parsed = contactSchema.safeParse(await readJson(request));
+    let fromContentPage = false;
+    try {
+      const referer = new URL(request.headers.get("referer") ?? "");
+      fromContentPage =
+        referer.host ===
+          (request.headers.get("host") ?? new URL(request.url).host) &&
+        /^\/content(?:\/|$)/.test(referer.pathname);
+    } catch {}
+    const parsed = contactRequestSchema(fromContentPage).safeParse(
+      await readJson(request),
+    );
     if (!parsed.success)
       return NextResponse.json(
         { success: false, error: parsed.error.issues[0].message },

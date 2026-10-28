@@ -1073,7 +1073,7 @@ test("8-6. v15 chapter progress and comparison allow only bounded user-facing pr
 
 test("8-2. 문의: CsInquiry에 서비스 선택(chooser) 모드 없음, 미선택 문구는 이 사이트 문장만", () => {
   const inquiry = code("components/content-site/blocks/inquiry.tsx");
-  assert.doesNotMatch(inquiry, /\bchooser\b|type="radio"/);
+  assert.doesNotMatch(inquiry, /\bchooser\b|name="service"/);
   assert.match(inquiry, /unselectedMessage=\{CS_COPY\.inquiry\.serviceMissing\}/);
   assert.equal(CS_COPY.inquiry.serviceMissing, "요청 서비스를 하나 골라주세요");
   // '아직 모르겠어요' 선택지는 컨텐츠 사이트에 없으므로 그 선택지를 가리키는 문장도 없다

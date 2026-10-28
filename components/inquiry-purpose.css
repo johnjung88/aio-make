@@ -1,0 +1,28 @@
+.contact-form .inquiry-purpose,
+.guide-inquiry .inquiry-purpose {
+  border: 0;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  min-width: 0;
+}
+.inquiry-purpose > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+.contact-form .inquiry-purpose label,
+.guide-inquiry .inquiry-purpose label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.contact-form .inquiry-purpose input[type="radio"],
+.guide-inquiry .inquiry-purpose input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+}
