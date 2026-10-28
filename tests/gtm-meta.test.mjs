@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import vm from "node:vm";
 import ts from "typescript";
 import {
@@ -18,6 +18,18 @@ import { trackLead } from "../lib/tracking-events.ts";
 
 const id = "11111111-1111-4111-8111-111111111111";
 const receipt = { inquiryId: id, duplicate: false };
+test("GTM does not add noscript, request headers or a metadata-streaming override to the root", () => {
+  assert.equal(existsSync("components/gtm-noscript.tsx"), false);
+  const layout = readFileSync("app/layout.tsx", "utf8");
+  assert.match(layout, /export default function RootLayout\(/);
+  assert.doesNotMatch(layout, /GtmNoscript|next\/headers/);
+  assert.ok(
+    !readFileSync("middleware.ts", "utf8").includes("x-aio-tracking-path"),
+  );
+  assert.ok(
+    !readFileSync("next.config.ts", "utf8").includes("htmlLimitedBots"),
+  );
+});
 function globalValue(t, key, value) {
   const before = Object.getOwnPropertyDescriptor(globalThis, key);
   Object.defineProperty(globalThis, key, {

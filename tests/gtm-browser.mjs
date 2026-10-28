@@ -133,17 +133,15 @@ try {
       (await page.locator('head script[src*="/gtm.js"]').count()) === 1,
     );
     check(
-      "noscript is the first body element",
-      await page.evaluate(
-        () => document.body.firstElementChild?.tagName === "NOSCRIPT",
-      ),
+      "GTM noscript iframe is absent from DOM",
+      (await page
+        .locator('noscript iframe[src*="googletagmanager"]')
+        .count()) === 0,
     );
     const html = await (await context.request.get(origin + "/privacy")).text();
     check(
-      "server HTML contains body-first noscript iframe",
-      /<body[^>]*><!--[^>]*-->*\s*<noscript>|<body[^>]*>\s*<noscript>/.test(
-        html,
-      ),
+      "server HTML omits GTM noscript iframe",
+      !html.includes("googletagmanager.com/ns.html"),
     );
   } else {
     check(
