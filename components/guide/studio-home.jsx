@@ -21,7 +21,6 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
-import LAB_DATA from "./lab-data";
 import { HomeReferences } from "./home-references";
 
 class Component extends GuideLogic {

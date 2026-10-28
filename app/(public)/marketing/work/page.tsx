@@ -9,12 +9,11 @@ import { workMatchesService } from "@/lib/work-catalog";
 
 export const dynamic = "force-dynamic";
 type Props = {
-  params: Promise<{ division: string }>;
   searchParams: Promise<{ service?: string; page?: string }>;
 };
 
-export async function generateMetadata({ params, searchParams }: Props) {
-  const d = divisionByPath((await params).division);
+export async function generateMetadata({ searchParams }: Props) {
+  const d = divisionByPath("marketing");
   if (!d || d.id === "video") notFound();
   const { service, page } = await searchParams;
   const works = displayWorkCatalog(
@@ -50,8 +49,8 @@ export async function generateMetadata({ params, searchParams }: Props) {
   };
 }
 
-export default async function DivisionWork({ params, searchParams }: Props) {
-  const d = divisionByPath((await params).division);
+export default async function DivisionWork({ searchParams }: Props) {
+  const d = divisionByPath("marketing");
   if (!d || d.id === "video") notFound();
   const query = await searchParams;
   const works = displayWorkCatalog(

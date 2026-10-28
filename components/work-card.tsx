@@ -23,7 +23,12 @@ export function WorkCard({
         service.division === work.division,
     )?.name ?? "작업";
   return (
-    <Link className="work-card" href={work.canonicalPath}>
+    <Link
+      className="work-card"
+      href={
+        work.canonicalPath.startsWith("/lab/") ? "/lab" : work.canonicalPath
+      }
+    >
       <div
         className={`work-card-media work-media-${cover?.presentation ?? "wide"}`}
       >

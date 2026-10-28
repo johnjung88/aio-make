@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
-if (process.env.VERCEL && process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1") {
-  throw new Error("Customer reference review is local only. Confirm publication rights before release.");
+if (
+  process.env.VERCEL &&
+  process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
+) {
+  throw new Error(
+    "Customer reference review is local only. Confirm publication rights before release.",
+  );
 }
 const config: NextConfig = {
   // Unset means off. Next inlines only NEXT_PUBLIC_ values that exist, so an
@@ -12,6 +17,16 @@ const config: NextConfig = {
       process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ? "1" : "0",
   },
   poweredByHeader: false,
+  async redirects() {
+    // Retire old lab pages while allowing the lab's own static image assets.
+    return [
+      {
+        source: "/lab/:path((?!.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
+        destination: "/lab",
+        permanent: true,
+      },
+    ];
+  },
   serverExternalPackages: ["@electric-sql/pglite"],
   devIndicators: false,
   distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
@@ -35,8 +50,10 @@ const config: NextConfig = {
       {
         source: "/:path*",
         headers: [
-          ...(process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" || process.env.VERCEL_ENV === "preview"
-            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }] : []),
+          ...(process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ||
+          process.env.VERCEL_ENV === "preview"
+            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+            : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "X-Frame-Options", value: "DENY" },

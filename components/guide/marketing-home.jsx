@@ -21,7 +21,6 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
-import LAB_DATA from "./lab-data";
 
 const V = "#6B4DFF",
   VL = "#A99BFF",

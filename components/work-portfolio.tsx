@@ -105,7 +105,6 @@ export function WorkIndex({
           <span className="work-eyebrow">AIO MAKE / SELECTED WORK</span>
           <h1 className="t-h1" id="work-title">
             {title}
-
           </h1>
           <p className="t-body">
             웹사이트부터 영상과 웹툰까지,
@@ -189,7 +188,10 @@ export function WorkDetail({
       item.id === work.primaryService && item.division === work.division,
   );
   const division = divisions.find((item) => item.id === work.division)!;
-  const serviceHref = `/${division.path}/services/${work.primaryService}`;
+  const serviceHref =
+    division.id === "development"
+      ? "/lab"
+      : `/${division.path}/services/${work.primaryService}`;
   const serviceName = service?.name ?? `${division.label} 서비스`;
   return (
     <div className="work-page">
@@ -333,7 +335,7 @@ export function WorkDetail({
             </p>
           </div>
           <Link
-            href={`/${division.path}/contact${service ? `?service=${service.id}` : ""}`}
+            href={`${division.id === "development" ? "/contact" : `/${division.path}/contact`}${service ? `?service=${service.id}` : ""}`}
           >
             서비스 문의 ↗
           </Link>

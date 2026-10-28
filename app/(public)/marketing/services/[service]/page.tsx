@@ -12,10 +12,10 @@ import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ division: string; service: string }>;
+  params: Promise<{ service: string }>;
 }) {
   const p = await params,
-    d = divisionByPath(p.division),
+    d = divisionByPath("marketing"),
     s = d && serviceById(d.id, p.service);
   return d && s && d.id !== "video"
     ? pageMetadata(s.name, s.description, "/" + d.path + "/services/" + s.id)
@@ -24,10 +24,10 @@ export async function generateMetadata({
 export default async function ServicePage({
   params,
 }: {
-  params: Promise<{ division: string; service: string }>;
+  params: Promise<{ service: string }>;
 }) {
   const p = await params,
-    d = divisionByPath(p.division),
+    d = divisionByPath("marketing"),
     s = d && serviceById(d.id, p.service);
   // /content/services/*는 컨텐츠 사이트 라우트 그룹이 처리한다. 이 분기는 도달하지 않는다.
   if (!d || !s || d.id === "video") notFound();

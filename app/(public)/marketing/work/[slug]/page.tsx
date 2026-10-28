@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ division: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const p = await params,
-    d = divisionByPath(p.division);
+    d = divisionByPath("marketing");
   if (!d || d.id === "video") notFound();
   const e =
     (await publicEntry("reference", d.id, p.slug)) ??
@@ -29,10 +29,10 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ division: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const p = await params;
-  const d = divisionByPath(p.division);
+  const d = divisionByPath("marketing");
   if (!d || d.id === "video") notFound();
-  return <EntryDetail division={p.division} slug={p.slug} type="reference" />;
+  return <EntryDetail division="marketing" slug={p.slug} type="reference" />;
 }

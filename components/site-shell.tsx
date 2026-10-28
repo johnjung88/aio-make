@@ -123,9 +123,7 @@ export function Header() {
                 ? "/marketing/contact"
                 : path.startsWith("/content")
                   ? "/content/contact"
-                  : path.startsWith("/lab")
-                    ? "/lab/contact"
-                    : "/contact"
+                  : "/contact"
             }
             onClick={() => setOpen(false)}
           >

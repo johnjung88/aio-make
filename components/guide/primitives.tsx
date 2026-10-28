@@ -85,6 +85,7 @@ const serviceKeys: Record<string, string> = {
 const publicPath = (division: string) =>
   division === "video" ? "content" : division;
 export function guideServiceHref(division: string, key: string) {
+  if (division === "lab") return "/lab";
   return `/${publicPath(division)}/services/${serviceKeys[key] ?? key}`;
 }
 export function guideContactKey(key?: string, division?: string) {
@@ -103,7 +104,9 @@ export function guideHref(href: string, context = "main") {
       ? "/#work"
       : context === "video" || context === "content"
         ? "/content"
-        : `/${publicPath(context)}/work`;
+        : context === "lab"
+          ? "/lab"
+          : `/${publicPath(context)}/work`;
   if (href === "AIO 메인 시안.dc.html") return "/";
   if (href.startsWith("AIO 메인 시안.dc.html#"))
     return "/" + href.slice(href.indexOf("#"));
@@ -121,15 +124,15 @@ export function guideHref(href: string, context = "main") {
   const division = matched[1],
     query = new URLSearchParams(href.split("?")[1] ?? ""),
     key = query.get("s");
+  if (division === "lab") {
+    return href.includes("문의")
+      ? "/contact" + (key ? "?service=" + (serviceKeys[key] ?? key) : "")
+      : "/lab";
+  }
   if (href.includes("서비스"))
     return guideServiceHref(
       division,
-      key ??
-        (division === "lab"
-          ? "website"
-          : division === "video"
-            ? "webtoon"
-            : "integrated"),
+      key ?? (division === "video" ? "webtoon" : "integrated"),
     );
   if (href.includes("문의"))
     return (
@@ -346,20 +349,23 @@ export function GuideNav({
     brand = studio ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
   const first =
     division === "lab" ? "website" : studio ? "webtoon" : "integrated";
-  const items = [
-    ["home", "홈", `/${publicPath(division)}`],
-    ["services", "서비스", `/${publicPath(division)}/services/${first}`],
-    ...(!studio
-      ? [
-          [
-            "cases",
-            division === "marketing" ? "운영 사례" : "레퍼런스",
-            `/${publicPath(division)}/work`,
-          ],
-        ]
-      : []),
-    ["insights", "인사이트", `/${publicPath(division)}/insights`],
-  ];
+  const items =
+    division === "lab"
+      ? [["home", "개발", "/lab"]]
+      : [
+          ["home", "홈", `/${publicPath(division)}`],
+          ["services", "서비스", `/${publicPath(division)}/services/${first}`],
+          ...(!studio
+            ? [
+                [
+                  "cases",
+                  division === "marketing" ? "운영 사례" : "레퍼런스",
+                  `/${publicPath(division)}/work`,
+                ],
+              ]
+            : []),
+          ["insights", "인사이트", `/${publicPath(division)}/insights`],
+        ];
   return (
     <nav
       ref={navRef}
@@ -390,7 +396,9 @@ export function GuideNav({
         </div>
         <Link
           className="guide-nav-cta"
-          href={`/${publicPath(division)}/contact`}
+          href={
+            division === "lab" ? "/contact" : `/${publicPath(division)}/contact`
+          }
         >
           {division === "marketing"
             ? "운영 문의"

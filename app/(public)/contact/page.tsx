@@ -1,12 +1,19 @@
 import { ContactForm } from "@/components/contact-form";
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
+import { serviceById } from "@/lib/content";
 export const metadata = pageMetadata(
   "프로젝트 문의",
   "목표와 필요한 작업을 알려주세요 범위를 확인한 뒤 견적과 일정을 안내합니다",
   "/contact",
 );
-export default function Contact() {
+export default async function Contact({
+  searchParams,
+}: {
+  searchParams: Promise<{ service?: string }>;
+}) {
+  const requested = (await searchParams).service;
+  const service = requested ? serviceById("development", requested) : undefined;
   return (
     <div className="guide-page guide-utility">
       <div className="container page-intro">
@@ -36,7 +43,10 @@ export default function Contact() {
             <a href="mailto:aiomake2023@gmail.com">aiomake2023@gmail.com</a>
           </p>
         </aside>
-        <ContactForm />
+        <ContactForm
+          initialDivision={service ? "development" : undefined}
+          initialService={service?.id}
+        />
       </div>
     </div>
   );

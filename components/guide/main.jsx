@@ -22,7 +22,6 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
-import LAB_DATA from "./lab-data";
 import { WorkflowJourney } from "@/components/home/workflow-journey";
 import { NewTabHint } from "@/components/new-tab-hint";
 import { newTabProps } from "@/lib/new-tab";

@@ -22,7 +22,6 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
-import LAB_DATA from "./lab-data";
 
 const U = (id) => guideAsset(id);
 const N = (arr) =>

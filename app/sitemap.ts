@@ -16,6 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/content/references",
   ];
   for (const d of divisions) {
+    if (d.id === "development") {
+      paths.push("/lab");
+      continue;
+    }
     paths.push(
       "/" + d.path,
       "/" + d.path + "/contact",
@@ -35,7 +39,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guideEntries("insight"),
   ]) {
     const d = divisions.find((d) => d.id === e.division);
-    if (d && !(d.id === "video" && e.type === "reference"))
+    if (
+      d &&
+      d.id !== "development" &&
+      !(d.id === "video" && e.type === "reference")
+    )
       paths.push(
         "/" +
           d.path +

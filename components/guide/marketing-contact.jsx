@@ -21,7 +21,6 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
-import LAB_DATA from "./lab-data";
 
 const MAP = {
   integrated: "통합 마케팅 (월 200만 원부터 · VAT 별도)",
