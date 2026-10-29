@@ -82,7 +82,7 @@ function PrivacyTable({
 
 export default function Privacy() {
   return (
-    <div className="guide-page guide-utility">
+    <div className={`guide-page guide-utility ${styles.policyPage}`}>
       <div className="container page-intro">
         <Eyebrow>PRIVACY</Eyebrow>
         <h1>개인정보처리방침</h1>

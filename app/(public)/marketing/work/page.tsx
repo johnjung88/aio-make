@@ -26,7 +26,7 @@ export default async function MarketingWork() {
       <section className="mk-container mk-section">
         <div className="mk-page-title">
           <p className="mk-eyebrow">PRODUCTION DIRECTION</p>
-          <h1>어떤 결과물을\n받게 될까요</h1>
+          <h1>{"어떤 결과물을\n받게 될까요"}</h1>
           <p className="mk-lead">
             서비스별 결과물과 운영 방향을 먼저 살펴보세요
           </p>

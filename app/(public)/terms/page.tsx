@@ -1,5 +1,6 @@
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
+import styles from "../privacy/privacy.module.css";
 export const metadata = pageMetadata(
   "이용 안내",
   "프로젝트 문의, 견적, 제작과 검수에 관한 AIO MAKE 이용 안내",
@@ -7,7 +8,7 @@ export const metadata = pageMetadata(
 );
 export default function Terms() {
   return (
-    <div className="guide-page guide-utility">
+    <div className={`guide-page guide-utility ${styles.policyPage}`}>
       <div className="container page-intro">
         <Eyebrow>TERMS</Eyebrow>
         <h1>이용 안내</h1>
