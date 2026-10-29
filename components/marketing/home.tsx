@@ -13,9 +13,10 @@ import {
 import { monthlySteps, type MarketingId } from "@/lib/marketing-renewal";
 export function MarketingHome() {
   const [recommended, setRecommended] = useState<MarketingId | "">("sns");
+  const [stage, setStage] = useState(0);
   return (
     <div className="mk-home" data-recommended={recommended}>
-      <section className="mk-home-hero">
+      <section className="mk-home-hero" data-stage={stage}>
         <div className="mk-container">
           <p className="mk-eyebrow">AIO MAKE MARKETING</p>
           <h1>
@@ -35,7 +36,7 @@ export function MarketingHome() {
             <Link href="/marketing/contact">상담하기 ↗</Link>
           </div>
         </div>
-        <div className="mk-channel-ribbon">
+        <div className="mk-channel-ribbon" id="channel-preview">
           <MarketingPicture
             name="home-ribbon"
             alt="같은 브랜드의 인스타그램 피드, 블로그 글, 검색 답변이 나란히 이어지는 채널 화면"
@@ -43,10 +44,28 @@ export function MarketingHome() {
         </div>
         <div className="mk-container">
           <ol className="mk-journey">
-            <li>01 노출</li>
-            <li>02 유입</li>
-            <li>03 문의</li>
+            {["01 노출", "02 유입", "03 문의"].map((label, index) => (
+              <li key={label}>
+                <button
+                  type="button"
+                  aria-pressed={stage === index}
+                  aria-controls="channel-preview"
+                  onClick={() => setStage(index)}
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
           </ol>
+          <p className="mk-caption" aria-live="polite">
+            {
+              [
+                "인스타그램에서 브랜드를 만납니다",
+                "블로그에서 자세한 정보를 확인합니다",
+                "검색 답변에서 문의할 곳으로 이어집니다",
+              ][stage]
+            }
+          </p>
           <p className="mk-caption">가상 브랜드 카페 리프 · 제작 방향 예시</p>
         </div>
       </section>

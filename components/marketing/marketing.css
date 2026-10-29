@@ -2,7 +2,7 @@
 /* W-RW2: content studio spacing and type, scoped to marketing surfaces. */
 :is(.marketing-renewal, .mk-shell) {
   --mk-bg: #0d0b12;
-  --mk-panel: #17131e;
+  --mk-panel: var(--sd-surface);
   --mk-panel-soft: #211a2c;
   --mk-text: #f7f5f2;
   --mk-muted: #c0bbc9;
@@ -296,12 +296,12 @@
 }
 /* Hero and result screens */
 .mk-home-hero {
-  padding-block: 64px 0;
+  padding-block: 32px 0;
   text-align: center;
   overflow: hidden;
 }
 .mk-home-hero h1 {
-  margin: 20px 0 24px;
+  margin: 16px 0 20px;
 }
 .mk-home-hero .mk-actions {
   justify-content: center;
@@ -309,7 +309,7 @@
 }
 .mk-channel-ribbon {
   max-width: 1800px;
-  margin: 48px auto 0;
+  margin: 24px auto 0;
   padding: 0 24px;
 }
 .mk-picture {
@@ -334,6 +334,18 @@
   padding: 0;
   background: transparent;
   box-shadow: 0 30px 100px color-mix(in srgb, var(--mk-decor) 8%, transparent);
+  transition: transform 400ms ease;
+  transform: translateX(1.5%);
+}
+.mk-home-hero[data-stage="1"] .mk-channel-ribbon .mk-picture {
+  transform: translateX(0);
+}
+.mk-home-hero[data-stage="2"] .mk-channel-ribbon .mk-picture {
+  transform: translateX(-1.5%);
+}
+.mk-journey button {
+  width: 100%;
+  text-align: center;
 }
 .mk-journey {
   display: grid;
@@ -1187,7 +1199,7 @@
     padding: 10px 14px;
   }
   .mk-home-hero {
-    padding-top: 48px;
+    padding-top: 24px;
   }
   .mk-home-hero h1 {
     font-size: var(--mk-display);
@@ -1202,10 +1214,17 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 0;
-    margin-top: 32px;
+    margin-top: 20px;
   }
   .mk-channel-ribbon .mk-picture {
     aspect-ratio: 21/8;
+    transform: translateX(27%);
+  }
+  .mk-home-hero[data-stage="1"] .mk-channel-ribbon .mk-picture {
+    transform: translateX(0);
+  }
+  .mk-home-hero[data-stage="2"] .mk-channel-ribbon .mk-picture {
+    transform: translateX(-27%);
   }
   .mk-journey li {
     padding: 14px 0;

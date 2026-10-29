@@ -67,11 +67,11 @@ export function MarketingPicture({
       {(hero || name === "home-touchpoints") && (
         <source
           media="(max-width: 767px)"
-          srcSet={`/marketing-renewal/${name}-mobile.webp`}
+          srcSet={`/marketing-renewal/${name}-mobile.webp?v=rw2r`}
         />
       )}
       <Image
-        src={`/marketing-renewal/${name}.webp`}
+        src={`/marketing-renewal/${name}.webp?v=rw2r`}
         alt={alt}
         quality={90}
         width={hero ? 1600 : 1200}

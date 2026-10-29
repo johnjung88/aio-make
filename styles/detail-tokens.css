@@ -1,6 +1,7 @@
 ﻿/* Shared detail-page values copied from content-site/theme.css (W-RW2).
    Additive tokens only: other divisions opt in without changing content studio. */
 :root {
+  --sd-surface: #141414;
   --sd-container: 1440px;
   --sd-gutter: clamp(20px, 4vw, 56px);
   --sd-section: clamp(64px, 7vw, 96px);
