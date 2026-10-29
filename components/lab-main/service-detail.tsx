@@ -11,6 +11,7 @@ import {
   developmentQuoteTerms,
 } from "@/lib/development-offers";
 import { ServiceExperience } from "./service-experience";
+import { ServiceHeroSample } from "./service-hero-sample";
 import styles from "./service-detail.module.css";
 
 const steps = [
@@ -44,34 +45,25 @@ export function LabServiceDetail({ id }: { id: string }) {
           <span>/</span>
           <span>{service.name}</span>
         </nav>
-        <p className={styles.eyebrow}>{detail.eyebrow}</p>
-        <h1>
-          {detail.title.split("\n").map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </h1>
-        <p className={styles.lead}>{service.description}</p>
-        <div className={styles.actions} data-lab-inline-cta>
-          <a className={styles.button} href="#service-experience">
-            작동 샘플 체험하기 ↓
-          </a>
-          <Link className={styles.secondary} href={labContactPath(id)}>
-            {service.name} 상담 ↗
-          </Link>
-        </div>
-        <div className={styles.heroVisual} aria-hidden="true">
-          <span>
-            {id === "website"
-              ? "EXPLORE"
-              : id === "shopping-mall"
-                ? "SELECT"
-                : id === "automation"
-                  ? "CONNECT"
-                  : "BUILD"}
-          </span>
-          <div />
-          <div />
-          <div />
+        <div className={styles.heroGrid}>
+          <div className={styles.heroCopy}>
+            <p className={styles.eyebrow}>{detail.eyebrow}</p>
+            <h1>
+              {detail.title.split("\n").map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h1>
+            <p className={styles.lead}>{service.description}</p>
+            <div className={styles.actions} data-lab-inline-cta>
+              <a className={styles.button} href="#service-experience">
+                작동 샘플 체험하기 ↓
+              </a>
+              <Link className={styles.secondary} href={labContactPath(id)}>
+                {service.name} 상담 ↗
+              </Link>
+            </div>
+          </div>
+          <ServiceHeroSample service={id} />
         </div>
       </section>
       <section className={styles.section} id="service-experience">
