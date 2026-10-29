@@ -25,7 +25,7 @@ export function marketingContact(
 export const marketingCopy = {
   integrated: {
     eyebrow: "INTEGRATED MARKETING",
-    title: "흩어진 채널을\n한 달의 운영으로 묶습니다",
+    title: "흩어진 채널을\n함께 운영합니다",
     intro:
       "원본 컨텐츠 20개를 만들어\n채널 형식에 맞게 바꾸고 합산 100건을 게시합니다",
     price: "월 200만 원부터",
@@ -106,7 +106,7 @@ export const marketingCopy = {
   },
   seo: {
     eyebrow: "SEO · AEO · GEO",
-    title: "고객이 묻는 질문에\n내 사이트가 답하도록",
+    title: "고객의 질문에\n답하는 사이트",
     intro:
       "검색 접근성과 정보 구조를 점검하고\n제안에서 끝나지 않게 실제 사이트에 적용합니다",
     price: "맞춤 견적",

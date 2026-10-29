@@ -271,32 +271,20 @@ export function MarketingArtwork({
     );
   } else if (name === "integrated-hero") {
     content = (
-      <div className="mk-output-integrated">
-        <Publication
-          file="material-0"
-          title="이달의 메뉴 이야기"
-          channel="BRAND CONTENT"
-          priority={hero}
-        />
-        <CampaignScene hero />
-      </div>
+      <Publication
+        file="material-0"
+        title="이달의 메뉴 이야기"
+        channel="BRAND CONTENT · 월간 운영 예시"
+        priority={hero}
+      />
     );
   } else if (name === "integrated-result-2") {
     content = (
-      <div className="mk-output-three">
-        {["INSTAGRAM", "BLOG", "SHORTS"].map((channel, i) => (
-          <Publication
-            key={channel}
-            file={["material-3", "f3a2-food-serve", "f3a2-food-prep"][i]}
-            title={
-              ["메뉴를 소개하고", "재료를 설명하고", "만드는 순간을 전합니다"][
-                i
-              ]
-            }
-            channel={channel}
-          />
-        ))}
-      </div>
+      <Publication
+        file="f3a2-food-serve"
+        title="오늘의 식탁에 담은 제철 재료"
+        channel="BLOG · 채널별 형식 예시"
+      />
     );
   } else if (name.startsWith("integrated-")) {
     content = (
@@ -361,6 +349,8 @@ export function MarketingArtwork({
     );
   } else if (name === "ai-influencer-result-3") {
     content = <Document kind="persona" />;
+  } else if (name === "seo-result-3") {
+    content = <Document kind="handoff" />;
   } else if (name.startsWith("seo-")) {
     content = (
       <SearchScene

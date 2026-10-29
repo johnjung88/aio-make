@@ -249,7 +249,6 @@ export function MarketingDetail({
           <Link href="/terms">이용 안내</Link>
         </p>
       </section>
-      <MarketingInquiry service={id} />
       <section className="mk-section mk-container">
         <MarketingHead
           id="related-title"
@@ -269,6 +268,7 @@ export function MarketingDetail({
           </p>
         )}
       </section>
+      <MarketingInquiry service={id} />
     </div>
   );
 }
