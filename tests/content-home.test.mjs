@@ -249,7 +249,7 @@ test("4-1. 섹션 머리: 가운데 정렬, 승인된 강조 키워드와 부제
     assert.doesNotMatch(em, /\n/);
   }
   // 렌더: 두 머리 모두 align="center" + emphasis, lead 없음
-  assert.match(showcase, /<CsSectionHead id="ch-services-title"[^>]*emphasis=\{head\.titleEm\}[^>]*align="center"/);
+  assert.match(showcase, /<CsSectionHead id="ch-services-title"[^>]*emphasis=\{heading\.titleEm\}[^>]*align="center"/);
   assert.doesNotMatch(showcase, /<CsSectionHead[^>]*lead=/);
   assert.match(home, /emphasis=\{processHead\.titleEm\}\s+align="center"/);
   assert.doesNotMatch(showcase + home, /head\.lead|processHead\.lead/);
@@ -558,11 +558,11 @@ test("8-6. 실제 작품 dialog와 서비스 링크를 구분하고 옆 카드�
   for (const part of [
     '<p className="ch-depth-title"><span className="cs-t-h3">{service.label}</span>',
     '<p className="ch-depth-line cs-t-small">{service.line}</p>',
-    '<Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link>',
+    '<Link className="cs-link ch-depth-service-link" href={service.href} {...contentLinkProps(service.href,path)} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span>{contentLinkProps(service.href,path).target && <NewTabHint/>}</Link>',
   ])
     assert.ok(hasSource(showcase, part), part);
   // 카드 자체 링크: 선택된 카드에만, 같은 서비스 주소. 옆 카드는 선택 버튼(이동 없음)
-  assert.ok(hasSource(showcase, '{selected && linkable ? <Link className="ch-depth-open" href={service.href} tabIndex={-1} aria-hidden="true"/>:null}'));
+  assert.ok(hasSource(showcase, '{selected && linkable ? <Link className="ch-depth-open" href={service.href} {...contentLinkProps(service.href,path)} tabIndex={-1} aria-hidden="true"/>:null}'));
   assert.ok(hasSource(showcase, "const linkable=!(reduced && cards[index].kind===\"video\");"));
   assert.ok(hasSource(showcase, '{!selected && !hidden ? <button className="ch-depth-select" type="button" tabIndex={-1} aria-label={`${selection.tab.label} 선택`} onClick={()=>select(index)}/>:null}'));
   // 서비스 6곳 모두 공개판에서 도달 가능: 카드마다 service.href 링크가 렌더되고 주소는 /content/services/<id>

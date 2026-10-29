@@ -1,214 +1,337 @@
-import { servicePlans } from "@/lib/service-plans";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  labServices,
-  labDetails,
-  labServicePath,
-  labContactPath,
-} from "@/lib/lab-services";
-import {
-  developmentOffer,
-  developmentQuoteTerms,
-} from "@/lib/development-offers";
-import { ServiceExperience } from "./service-experience";
-import { ServiceHeroSample } from "./service-hero-sample";
-import styles from "./service-detail.module.css";
-
-const steps = [
-  [
-    "목적과 범위",
-    "방문자와 담당자의 목적, 필요한 기능과 운영 조건을 함께 정리합니다",
+  ClipboardList,
+  PanelsTopLeft,
+  ScanLine,
+  PackageCheck,
+} from "lucide-react";
+import content from "@/lib/lab-renewal-content.json";
+import { labServices, labServicePath } from "@/lib/lab-services";
+import { contactSelection } from "@/lib/lab-renewal-engine";
+import { CsSectionHead } from "@/components/content-site/ui/section-head";
+import { RenewalSignature } from "./renewal-signature";
+import { DeviceVisual } from "./renewal-visual";
+import { LazySample } from "./renewal-sample";
+import styles from "./renewal.module.css";
+type Id = keyof typeof content;
+export function SectionHead({
+  id,
+  eyebrow,
+  title,
+  lead,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+}) {
+  const emphasis = title.split("\n").at(-1)?.split(" ").at(0);
+  return (
+    <div className={styles.head}>
+      <CsSectionHead
+        id={id}
+        align="center"
+        eyebrow={eyebrow}
+        title={title}
+        lead={lead}
+        emphasis={emphasis}
+      />
+    </div>
+  );
+}
+const prices: Record<Id, [string, string, string][]> = {
+  website: [
+    ["1~9페이지", "10만 원", "사업과 서비스를 담은 기본 구성"],
+    ["10~20페이지", "20만 원", "서비스별 상세 페이지까지"],
+    ["21페이지 이상", "30만 원부터", "페이지와 기능 범위 별도 문의"],
   ],
-  [
-    "화면과 원형",
-    "자료와 카피를 담은 시안을 확인하고 핵심 선택 흐름을 먼저 체험합니다",
+  "shopping-mall": [
+    ["단순 복사", "15만 원", "완성 템플릿 디자인 복사"],
+    ["풀 세팅", "30만 원", "복사 + 기본 로고·배너 제작·적용"],
   ],
-  [
-    "구현과 검수",
-    "정상·실패 흐름과 PC·모바일 화면을 확인하고 합의한 범위에 맞게 수정합니다",
+  automation: [
+    [
+      "입출력과 연결 서비스 기준",
+      "맞춤 제작",
+      "입력 엑셀·CSV·연결 서비스\n처리 정리·대조·조건 판단\n결과 파일·기록·알림",
+    ],
   ],
-  [
-    "운영 인계",
-    "사용 방법과 결과 확인, 복구 조건과 남은 확인을 정리해 전달합니다",
+  program: [
+    [
+      "기능과 역할 기준",
+      "요청별 개별 견적",
+      "사용자 사용할 사람과 역할\n기능 입력·조회·수정·처리\n환경 웹 또는 설치형 등 협의",
+    ],
   ],
-];
-
+};
+const outputs: Record<Id, [string, string, string][]> = {
+  website: [
+    ["stay", "활판재", "객실과 시설을 둘러보는 구성"],
+    ["clinic", "서리온결", "진료 안내와 예약 문의 · AI 생성 인물 포함"],
+    ["food", "모그레빗", "메뉴 소개와 주문 안내"],
+  ],
+  "shopping-mall": [
+    ["logo", "기본 로고", "몰 머리와 파비콘에 맞춘 형태"],
+    ["banner", "메인 배너", "PC와 모바일 크기"],
+    ["check", "적용 확인", "화면과 이동 경로 점검표"],
+  ],
+  automation: [
+    ["result", "결과 파일", "일치와 확인 필요를 나눈 시트"],
+    ["error", "오류 내역", "어느 줄이 왜 멈췄는지"],
+    ["guide", "운영 안내", "실행·재실행·수동 처리 순서"],
+  ],
+  program: [
+    ["detail", "상세와 변경 내역", "누가 무엇을 바꿨는지"],
+    ["permission", "권한 설정", "역할마다 다른 메뉴"],
+    ["mobile", "모바일 담당자 화면", "배정된 일만 보기"],
+  ],
+};
+const icons = [ClipboardList, PanelsTopLeft, ScanLine, PackageCheck];
 export function LabServiceDetail({ id }: { id: string }) {
-  const service = labServices.find((s) => s.id === id)!;
-  const detail = labDetails[id];
-  const offer = developmentOffer(id);
+  const key = id as Id,
+    data = content[key],
+    service = labServices.find((s) => s.id === id)!;
+  const slot = (name: string) =>
+    data.slots[name as keyof typeof data.slots] as {
+      eyebrow: string;
+      title: string;
+      lead: string;
+      body: string;
+    };
+  const hero = slot("S1"),
+    fit = slot("S1b")
+      .body.split(/ · 0[123] /)
+      .map((x) => x.replace(/^01 /, ""));
+  const heading = (s: string) => {
+    const h = slot(s);
+    return (
+      <SectionHead
+        id={`${s}-title`}
+        eyebrow={h.eyebrow}
+        title={h.title}
+        lead={h.lead}
+      />
+    );
+  };
+  const decision = (part: string) =>
+    data.decision
+      .find((row) => row[0].includes(part))?.[1]
+      .replace(/\*\*/g, "")
+      .replace(/\([^)]*D-\d+[^)]*\)/g, "") || "";
+  const scope = [
+    ["포함", decision("범위")],
+    ["별도 협의", decision("별도")],
+    ["준비하면 좋은 것", decision("준비물")],
+  ];
+  const segments = [
+    ...slot("S5").body.matchAll(/0([1-4]) ([^"\[]+)"([^"]+)" \[([^\]]+)\]/g),
+  ];
   return (
     <main className={styles.page} data-service={id}>
       <section className={styles.hero}>
-        <nav aria-label="현재 위치" className={styles.breadcrumb}>
-          <Link href="/lab">개발 홈</Link>
-          <span>/</span>
-          <span>{service.name}</span>
-        </nav>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>{detail.eyebrow}</p>
+            <p className={styles.eyebrow}>{hero.eyebrow}</p>
             <h1>
-              {detail.title.split("\n").map((line) => (
-                <span key={line}>{line}</span>
+              {hero.title.split("\n").map((line, i) => (
+                <span key={line}>
+                  {i > 0 ? "\n" : ""}
+                  {i === 1 ? <em>{line}</em> : line}
+                </span>
               ))}
             </h1>
-            <p className={styles.lead}>{service.description}</p>
-            <div className={styles.actions} data-lab-inline-cta>
-              <a className={styles.button} href="#service-experience">
-                작동 샘플 체험하기 ↓
-              </a>
-              <Link className={styles.secondary} href={labContactPath(id)}>
+            <p className={styles.lead}>{hero.lead}</p>
+            <p className={styles.priceLine}>
+              {id === "website"
+                ? "1~9페이지 10만 원부터"
+                : id === "shopping-mall"
+                  ? "단순 복사 15만 원 · 풀 세팅 30만 원"
+                  : id === "automation"
+                    ? "맞춤 제작 · 입출력과 연결 서비스 기준"
+                    : "요청별 개별 견적"}
+            </p>
+            <div className={styles.actions}>
+              <Link
+                className={styles.button}
+                href={contactSelection(id, "hero")}
+              >
                 {service.name} 상담 ↗
               </Link>
+              <a className={styles.secondary} href="#signature">
+                {id === "website"
+                  ? "페이지 구성해 보기"
+                  : id === "shopping-mall"
+                    ? "두 방법 비교해 보기"
+                    : id === "automation"
+                      ? "샘플 직접 실행하기"
+                      : "역할별 화면 보기"}{" "}
+                ↓
+              </a>
             </div>
           </div>
-          <ServiceHeroSample service={id} />
-        </div>
-      </section>
-      <section className={styles.section} id="service-experience">
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>01 / WORKING SAMPLE</p>
-          <h2>
-            {id === "website"
-              ? "공간의 안쪽까지 직접 살펴보세요"
-              : id === "shopping-mall"
-                ? "스타일을 고르고 선택을 확인하세요"
-                : "입력부터 결과까지 직접 확인하세요"}
-          </h2>
-          <p>
-            {id === "website"
-              ? "가상 시안 · 실제 문의 전송 없음"
-              : id === "shopping-mall"
-                ? "가상 상품 · 실제 주문·결제 없음"
-                : id === "automation"
-                  ? "가상 흐름 · 실제 외부 발송·저장 없음"
-                  : "가상 관리 화면 · 실제 외부 발송·저장 없음"}
-          </p>
-          {id === "program" && (
-            <p>
-              자동화 샘플을 재사용한 관리 화면 예시 · 로그인과 권한 기능은
-              상담에서 협의합니다
-            </p>
-          )}
-        </div>
-        <ServiceExperience service={id} sample={detail.sample} />
-      </section>
-      <section className={styles.section}>
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>02 / SCOPE & FEATURES</p>
-          <h2>필요한 기능부터 함께 정합니다</h2>
-          <p>{service.audience}</p>
-        </div>
-        <div className={styles.cards}>
-          {detail.features.map(([title, body], i) => (
-            <article key={title}>
-              <span className={styles.number}>0{i + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-        <div className={styles.scope}>
-          <div>
-            <h3>제공 범위</h3>
-            <ul>
-              {service.outcomes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3>상담 전 준비할 자료</h3>
-            <ul>
-              {service.inputs.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className={styles.price} id="pricing">
-          <p className={styles.eyebrow}>PUBLIC OFFER</p>
-          <h3>{offer.title}</h3>
-          <p>{offer.summary}</p>
-          {offer.lines.length > 0 && (
-            <ul>
-              {offer.lines.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          )}
-          <p>{developmentQuoteTerms}</p>
-          <a href="#lab-inquiry">이 범위로 상담하기 ↗</a>
-        </div>
-      </section>
-      <section className={styles.section} id="process">
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>03 / STEP BY STEP</p>
-          <h2>확인하며 만드는 과정</h2>
-        </div>
-        <div className={styles.steps}>
-          {steps.map(([title, body], i) => (
-            <article key={title}>
-              <span className={styles.number}>0{i + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className={styles.section} id="gallery">
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>04 / CONCEPT GALLERY</p>
-          <h2>관련 가상 샘플 갤러리</h2>
-          <p>
-            포트폴리오용 가상 브랜드 · 이미지 시안과 작동 샘플을 구분해
-            안내합니다
-          </p>
-        </div>
-        <div className={styles.gallery}>
-          {detail.gallery.map(([src, title, body]) => (
-            <article key={src}>
-              <a href={src} aria-label={`${title} 이미지 크게 보기`}>
-                <Image
-                  src={src}
-                  width={720}
-                  height={900}
-                  alt={`${title} 가상 샘플`}
+          {id === "website" ? (
+            <DeviceVisual name="space" hero />
+          ) : (
+            <div className={`${styles.visual} ${styles.heroVisual}`}>
+              <picture>
+                <source
+                  media="(max-width:900px)"
+                  srcSet={`/lab-renewal/${id}-hero-mobile.webp`}
                 />
-              </a>
+                <Image
+                  src={`/lab-renewal/${id}-hero.webp`}
+                  alt={`${service.name} 제작 방향 예시 전체 화면`}
+                  width={1600}
+                  height={1000}
+                  fetchPriority="high"
+                />
+              </picture>
+            </div>
+          )}
+        </div>
+      </section>
+      <aside className={styles.summaryStrip}>
+        <ol className={styles.fits}>
+          {fit.map((s, i) => (
+            <li key={s}>
+              <span>0{i + 1}</span>
+              {s}
+            </li>
+          ))}
+        </ol>
+        <div className={styles.stripBottom}>
+          <p>{prices[key].map((p) => `${p[0]} ${p[1]}`).join(" · ")}</p>
+          <a href="#pricing">구성과 가격 보기 ↓</a>
+        </div>
+      </aside>
+      <section
+        className={styles.section}
+        id="signature"
+        aria-labelledby="S2-title"
+      >
+        {heading("S2")}
+        <RenewalSignature service={id} />
+      </section>
+      <section
+        className={styles.section}
+        id="deliverables"
+        aria-labelledby="S3-title"
+      >
+        {heading("S3")}
+        <div className={styles.cards}>
+          {outputs[key].map(([variant, title, body]) => (
+            <article className={styles.card} key={variant}>
+              {id === "website" ? (
+                <DeviceVisual name={variant} />
+              ) : (
+                <div className={styles.visual}>
+                  <Image
+                    src={`/lab-renewal/${id}-${variant}.webp`}
+                    alt={`${title} 제작 방향 예시`}
+                    width={1600}
+                    height={1200}
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <h3>{title}</h3>
               <p>{body}</p>
             </article>
           ))}
         </div>
+        {id !== "website" && (
+          <p className={styles.note}>가상 브랜드로 만든 제작 방향 예시입니다</p>
+        )}
       </section>
-      <section className={styles.section} id="faq">
-        <div className={styles.heading}>
-          <p className={styles.eyebrow}>05 / FAQ</p>
-          <h2>제작 전 궁금한 점</h2>
+      <section
+        className={styles.section}
+        id="pricing"
+        aria-labelledby="S4-title"
+      >
+        {heading("S4")}
+        <div className={styles.prices}>
+          {prices[key].map(([label, price, body], i) => (
+            <article className={styles.priceCard} key={label}>
+              <h3>{label}</h3>
+              <strong>{price}</strong>
+              <p style={{ whiteSpace: "pre-line" }}>{body}</p>
+              <Link
+                className={styles.button}
+                href={contactSelection(
+                  id,
+                  "pricing",
+                  id === "shopping-mall" ? (i ? "full" : "copy") : "",
+                )}
+              >
+                이 구성으로 상담하기 ↗
+              </Link>
+            </article>
+          ))}
         </div>
+        <p className={styles.note}>
+          {id === "website"
+            ? "대시보드 +3만 원 · 기능 범위 사전 합의"
+            : id === "shopping-mall"
+              ? "풀 세팅 30만 원에 복사 15만 원을 더하지 않습니다\n템플릿 이용권 · 복사 가능 여부 · 모바일 지원을 먼저 확인합니다"
+              : ""}
+        </p>
+        <div className={styles.scope}>
+          {scope.map(([title, body]) => (
+            <div key={title}>
+              <h3>{title}</h3>
+              <ul>
+                {body.split(" / ").map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p className={styles.note}>
+          {decision("결과물")}
+          <br />
+          VAT 포함 여부와 납기·수정·지원 조건은 개별 견적에서 정합니다
+        </p>
+      </section>
+      <section
+        className={styles.section}
+        id="process"
+        aria-labelledby="S5-title"
+      >
+        {heading("S5")}
+        <div className={styles.steps}>
+          {segments.map((m, i) => {
+            const Icon = icons[i];
+            return (
+              <article key={m[1]}>
+                <Icon aria-hidden="true" />
+                <p className={styles.eyebrow}>0{m[1]}</p>
+                <h3>{m[2].trim()}</h3>
+                <p>{m[3]}</p>
+                <span className={styles.chip}>확인할 것 · {m[4]}</span>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+      {id !== "program" && (
+        <section
+          className={styles.section}
+          id="working-sample"
+          aria-labelledby="S6-title"
+        >
+          {heading("S6")}
+          <LazySample service={id} />
+        </section>
+      )}
+      <section className={styles.section} id="faq" aria-labelledby="S7-title">
+        {heading("S7")}
         <div className={styles.faq}>
-          <p>
-            <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link> ·{" "}
-            <a href="#pricing">가격과 범위</a> ·{" "}
-            <Link href="/terms">이용 안내</Link>
-          </p>
-          {[
-            ...detail.faq,
-            ...servicePlans[id].faq.filter(
-              ([q]) => !detail.faq.some(([existing]) => existing === q),
-            ),
-            [
-              "가격과 납기는 어떻게 정하나요?",
-              "위 공개 가격 안내와 준비된 자료, 필요한 기능을 기준으로 범위를 확인합니다\n납기와 수정·지원 조건은 개별 견적에서 정합니다",
-            ],
-          ].map(([q, a], index) => (
-            <details key={q} id={`faq-${index + 1}`}>
+          {data.faq.map(([q, a], i) => (
+            <details key={q} id={`faq-${i + 1}`}>
               <summary>
-                {q}
-                <span aria-hidden="true">+</span>
+                <h3>{q}</h3>
               </summary>
               <p>{a}</p>
             </details>
@@ -219,29 +342,43 @@ export function LabServiceDetail({ id }: { id: string }) {
         className={`${styles.section} ${styles.inquiry}`}
         id="lab-inquiry"
       >
-        <p className={styles.eyebrow}>LET’S MAKE IT WORK</p>
-        <h2>
-          지금, 당신의 아이디어를
-          <br />
-          작동하는 화면으로
-        </h2>
-        <p>필요한 기능과 준비한 자료를 남겨주세요</p>
-        <Link className={styles.button} href={labContactPath(id)}>
+        <p className={styles.eyebrow}>CONTACT</p>
+        <h2>{slot("S8").title}</h2>
+        <p>{slot("S8").lead}</p>
+        <Link className={styles.button} href={contactSelection(id, "inquiry")}>
           {service.name} 상담하기 ↗
         </Link>
+        <p className={styles.note}>{slot("S8").body.match(/"([^"]+)"/)?.[1]}</p>
       </section>
-      <nav
-        className={`${styles.section} ${styles.related}`}
-        aria-label="다른 개발 서비스"
-      >
-        {labServices
-          .filter((s) => s.id !== id)
-          .map((s) => (
-            <Link key={s.id} href={labServicePath(s.id)}>
-              {s.name} ↗
-            </Link>
-          ))}
-      </nav>
+      <section className={styles.section} aria-labelledby="related-title">
+        <SectionHead
+          id="related-title"
+          eyebrow="OTHER SERVICES"
+          title="다른 개발 서비스"
+        />
+        <div className={styles.cards}>
+          {labServices
+            .filter((s) => s.id !== id)
+            .map((s) => (
+              <article key={s.id} className={styles.card}>
+                <Link href={labServicePath(s.id)}>
+                  <div className={styles.visual}>
+                    <Image
+                      src={`/lab-renewal/card-${s.id}.webp`}
+                      alt={`${s.name} 결과물 예시`}
+                      width={1200}
+                      height={900}
+                      loading="lazy"
+                    />
+                  </div>
+                  <h3>{s.name}</h3>
+                  <p>{s.description}</p>
+                  <span className={styles.cardLink}>서비스 보기 →</span>
+                </Link>
+              </article>
+            ))}
+        </div>
+      </section>
     </main>
   );
 }

@@ -181,12 +181,8 @@ const assetSlots: Record<string, string> = {
   "main-mkt-s2": "/renewal/influencer-sample.webp",
   "main-lab-big": "/images/guide/public/portfolio/corp-novatek/live.png",
   "main-lab-s1": "/images/guide/images/portfolio/ws-shop-desktop.png",
-  "main-lab-s2":
-    "/images/guide/portfolio/blogautopilot-multinational/real-demo/app-schedule.png",
   "lab-works-website": "/images/guide/portfolio/corp-novatek/live.png",
   "lab-works-shop": "/images/guide/images/portfolio/ws-shop-desktop.png",
-  "lab-works-automation":
-    "/images/guide/portfolio/blogautopilot-multinational/real-demo/app-schedule.png",
   "lab-works-program": "/images/guide/portfolio/v-aio-admin/dashboard.png",
 };
 // All published imagery is supplied by the user or generated for this website.

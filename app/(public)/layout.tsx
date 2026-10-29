@@ -14,6 +14,7 @@ import "@/components/guide/ux.css";
 import "@/components/work-portfolio.css";
 import "@/components/guide/type.css";
 import "@/components/shared-renewal.css";
+import "@/components/home/main-about-renewal.css";
 export default function PublicLayout({
   children,
 }: {

@@ -1,4 +1,4 @@
-// Main-site links into content and lab open a new tab with NewTabHint
+// Entry links into content, marketing and lab open a new tab with NewTabHint
 // Each area keeps its own internal navigation in the same tab
 export const NEW_TAB_HINT = "새 탭에서 열림";
 

@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { contentLinkProps } from "@/lib/new-tab";
+import { NewTabHint } from "@/components/new-tab-hint";
 import {
  contentHomeServices as services,
  contentHomeServicesHead as head,
@@ -59,7 +62,8 @@ function WorkMedia({ id, media, selected, play, reduced }: { id:ContentServiceId
  return <div className={`ch-depth-media ${shape}`} data-slot={media.slot ?? undefined} data-kind={media.kind}>{body}</div>;
 }
 
-export function ServiceShowcase({ selections }: { selections: ContentSelection[] }) {
+export function ServiceShowcase({ selections, heading = head }: { selections: ContentSelection[]; heading?: { eyebrow: string; title: string; titleEm: string } }) {
+ const path=usePathname();
  const [current,setCurrent]=useState(0);
  const [hover,setHover]=useState(false);
  const [focusPause,setFocusPause]=useState(false);
@@ -118,7 +122,7 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
 
  return <section id="services" className="ch-services" data-cs-section="services" aria-labelledby="ch-services-title">
   <div className="cs-container">
-   <CsSectionHead id="ch-services-title" eyebrow={head.eyebrow} title={head.title} emphasis={head.titleEm} align="center"/>
+   <CsSectionHead id="ch-services-title" eyebrow={heading.eyebrow} title={heading.title} emphasis={heading.titleEm} align="center"/>
    <div className="ch-gallery ch-gallery--depth" ref={root} data-active={moving ? "true":"false"} data-autoplay={autoplay ? (running ? "running":"paused") : "off"} onKeyDown={keyboard} onFocus={focusIn} onBlur={focusOut} onPointerEnter={event=>{if(event.pointerType==="mouse")setHover(true);}} onPointerLeave={event=>{if(event.pointerType==="mouse")setHover(false);}}>
     <div className="ch-depth-stage" aria-label="서비스 작업물 카드" aria-roledescription="carousel" onClickCapture={event=>{if(suppressClick.current){event.preventDefault();event.stopPropagation();suppressClick.current=false;}}} onTouchStart={event=>{
      suppressClick.current=false;
@@ -147,13 +151,13 @@ export function ServiceShowcase({ selections }: { selections: ContentSelection[]
       const linkable=!(reduced && cards[index].kind==="video");
       return <div key={selection.tab.id} className="ch-depth-card" data-pos={hidden ? "hidden" : distance} aria-hidden={!selected}>
        <WorkMedia id={selection.tab.id} media={cards[index]} selected={selected} play={selected && moving} reduced={reduced}/>
-       {selected && linkable ? <Link className="ch-depth-open" href={service.href} tabIndex={-1} aria-hidden="true"/>:null}
+       {selected && linkable ? <Link className="ch-depth-open" href={service.href} {...contentLinkProps(service.href,path)} tabIndex={-1} aria-hidden="true"/>:null}
        {selection.tab.id === "ai-influencer" && <span className="ch-depth-ai-tag cs-tag cs-t-caption">AI 가상인물</span>}
        {selection.tab.id === "animation" && <span className="ch-content-note cs-tag cs-t-caption">캐릭터·모션 활용</span>}
        <div className="ch-depth-caption">
         <p className="ch-depth-title"><span className="cs-t-h3">{service.label}</span>{price ? <span className="ch-depth-price cs-t-small">{price.head}</span>:null}</p>
         <p className="ch-depth-line cs-t-small">{service.line}</p>
-        <div className="ch-depth-links"><button type="button" className="cs-link ch-case-open" tabIndex={selected ? undefined : -1} onClick={()=>setPreviewId(service.id)} aria-label={`${service.label} 실제 작품 보기`}>작품 보기 <span aria-hidden="true">↗</span></button><Link className="cs-link ch-depth-service-link" href={service.href} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span></Link></div>
+        <div className="ch-depth-links"><button type="button" className="cs-link ch-case-open" tabIndex={selected ? undefined : -1} onClick={()=>setPreviewId(service.id)} aria-label={`${service.label} 실제 작품 보기`}>작품 보기 <span aria-hidden="true">↗</span></button><Link className="cs-link ch-depth-service-link" href={service.href} {...contentLinkProps(service.href,path)} tabIndex={selected ? undefined : -1} aria-label={`${service.label} ${head.detailLink}`}>{head.detailLink} <span aria-hidden="true">→</span>{contentLinkProps(service.href,path).target && <NewTabHint/>}</Link></div>
        </div>
        {!selected && !hidden ? <button className="ch-depth-select" type="button" tabIndex={-1} aria-label={`${selection.tab.label} 선택`} onClick={()=>select(index)}/>:null}
       </div>;

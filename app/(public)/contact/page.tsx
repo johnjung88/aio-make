@@ -10,12 +10,19 @@ export const metadata = pageMetadata(
 export default async function Contact({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<{
+    service?: string;
+    source?: string;
+    message?: string;
+    plan?: string;
+    entry?: string;
+  }>;
 }) {
-  const requested = (await searchParams).service;
+  const query = await searchParams;
+  const requested = query.service;
   const service = requested ? serviceById("development", requested) : undefined;
   return (
-    <div className="guide-page guide-utility">
+    <div className="guide-page guide-utility rw-contact-page">
       <div className="container page-intro">
         <Eyebrow>LET’S MAKE YOUR NEXT</Eyebrow>
         <h1>
@@ -46,6 +53,15 @@ export default async function Contact({
         <ContactForm
           initialDivision={service ? "development" : undefined}
           initialService={service?.id}
+          initialMessage={
+            query.source === "lab" ? query.message?.slice(0, 400) : undefined
+          }
+          initialPlan={
+            query.source === "lab" ? query.plan?.slice(0, 40) : undefined
+          }
+          initialEntry={
+            query.source === "lab" ? query.entry?.slice(0, 40) : undefined
+          }
         />
       </div>
     </div>
