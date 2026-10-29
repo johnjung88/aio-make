@@ -6,6 +6,7 @@ import {
   contentLinkProps,
   isContentHref,
   isLabHref,
+  isMarketingHref,
   newTabProps,
 } from "../lib/new-tab.ts";
 
@@ -45,6 +46,25 @@ test("content hrefs open in a new tab from the main site only", () => {
   );
   // Lab links open from other areas, while internal lab navigation stays put.
   assert.deepEqual(contentLinkProps("/marketing", "/"), newTabProps);
+  for (const href of [
+    "/marketing",
+    "/marketing/",
+    "/marketing/services/sns",
+    "/marketing?x=1",
+    "/marketing#finder",
+  ]) {
+    assert.ok(isMarketingHref(href));
+    assert.deepEqual(contentLinkProps(href, "/about"), newTabProps);
+    assert.deepEqual(contentLinkProps(href, "/marketing/services/seo"), {});
+  }
+  for (const href of [
+    "/marketings",
+    "https://example.com/marketing",
+    "#marketing",
+  ]) {
+    assert.ok(!isMarketingHref(href));
+    assert.deepEqual(contentLinkProps(href, "/"), {});
+  }
   for (const href of [
     "/lab",
     "/lab/",

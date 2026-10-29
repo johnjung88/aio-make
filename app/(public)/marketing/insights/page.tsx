@@ -1,17 +1,44 @@
-import { EntryList } from "@/components/entries";
-import { divisionByPath } from "@/lib/content";
+import Link from "next/link";
+import { publicEntries } from "@/lib/db";
+import { mergeGuideEntries } from "@/lib/guide-content";
 import { pageMetadata } from "@/lib/metadata";
+import { MarketingInquiry } from "@/components/marketing/blocks";
 export const dynamic = "force-dynamic";
-export async function generateMetadata() {
-  const d = divisionByPath("marketing");
-  return d
-    ? pageMetadata(
-        d.label + " 인사이트",
-        `${d.label} 프로젝트를 준비하는 방법과 의뢰 전 확인할 자료를 AIO MAKE 가이드에서 살펴보세요`,
-        "/" + d.path + "/insights",
-      )
-    : {};
-}
-export default function Page() {
-  return <EntryList division="marketing" type="insight" />;
+export const metadata = pageMetadata(
+  "마케팅 인사이트",
+  "자료 준비부터 운영 흐름까지, 마케팅 의뢰에 필요한 이야기",
+  "/marketing/insights",
+);
+export default async function Page() {
+  const entries = mergeGuideEntries(
+    await publicEntries("insight", "marketing"),
+    "insight",
+    "marketing",
+  );
+  return (
+    <>
+      <section className="mk-container mk-section">
+        <div className="mk-page-title">
+          <p className="mk-eyebrow">INSIGHTS</p>
+          <h1>운영 전에 읽어보세요</h1>
+          <p className="mk-lead">
+            자료 준비부터 운영 흐름까지, 마케팅 의뢰에 필요한 이야기
+          </p>
+        </div>
+        <div className="mk-insights">
+          {entries.map((entry, i) => (
+            <article key={entry.id}>
+              <span className="mk-eyebrow">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h2>{entry.title}</h2>
+              <p>{entry.summary}</p>
+              <Link href={"/marketing/insights/" + entry.slug}>글 읽기 ↗</Link>
+            </article>
+          ))}
+        </div>
+      </section>
+      <MarketingInquiry />
+    </>
+  );
 }

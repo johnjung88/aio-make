@@ -1,0 +1,473 @@
+{
+  "task": "W-RW2",
+  "generator": "Built-in image_gen (3 contact sheets) + HTML/Playwright + Sharp",
+  "brand": "가상 브랜드 카페 리프",
+  "count": 58,
+  "totalBytes": 3185750,
+  "assets": [
+    {
+      "file": "/marketing-renewal/ai-influencer-card.webp",
+      "bytes": 55566,
+      "width": 1200,
+      "height": 900,
+      "sha256": "31f0b3533bcd20b559c811b699b7dfa5f12b1a224dc3a15b2f503c5d2b925550",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/ai-influencer-hero-mobile.webp",
+      "bytes": 52198,
+      "width": 1000,
+      "height": 1250,
+      "sha256": "5540d0c6dd9da8b9c0b24bce36f465727444aa8dc2f1bc4ce2c1858f13a3e7e9",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/ai-influencer-hero.webp",
+      "bytes": 53384,
+      "width": 1600,
+      "height": 1000,
+      "sha256": "c2ba2c5d09a16ba2f6cffbbf569226f22cfc6ca1c7253f6f684427e07e26df80",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/ai-influencer-result-1.webp",
+      "bytes": 55566,
+      "width": 1200,
+      "height": 900,
+      "sha256": "31f0b3533bcd20b559c811b699b7dfa5f12b1a224dc3a15b2f503c5d2b925550",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/ai-influencer-result-2.webp",
+      "bytes": 66134,
+      "width": 1200,
+      "height": 900,
+      "sha256": "56f2b3e3f3d5085c26ab798370ef235d54e85f3bdc4c27cbde73a18ebff77904",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/ai-influencer-result-3.webp",
+      "bytes": 24328,
+      "width": 1200,
+      "height": 900,
+      "sha256": "9d91db094df2a3bda3aa93cbcb48ce0bb7e71bc5046d5335fb7a93d08f201c5a",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/feed-0.webp",
+      "bytes": 33224,
+      "width": 500,
+      "height": 500,
+      "sha256": "c1a93119d9d9139577009876bbb7eb61f40555abdb5bf1cf123130c9be0dc7a3",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-1.webp",
+      "bytes": 26060,
+      "width": 500,
+      "height": 500,
+      "sha256": "7e25d420ca84793c0fb873e1e53119776aea9aa9f044cc8985366153d28966fb",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-2.webp",
+      "bytes": 64868,
+      "width": 500,
+      "height": 500,
+      "sha256": "98659ff27d9fb2ae7ba05a055e486bffdfbbc808b80a8d8b8fc0fd301db2af55",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-3.webp",
+      "bytes": 67898,
+      "width": 500,
+      "height": 500,
+      "sha256": "8b92efe02394b057a59427eb745e9f2168adec33e4849eb2d1e7dd152bfff34b",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-4.webp",
+      "bytes": 58886,
+      "width": 500,
+      "height": 500,
+      "sha256": "a25a66cac7f0739d890cd06afe7537a05e230c57449ea8390f758d271f71bb2a",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-5.webp",
+      "bytes": 38260,
+      "width": 500,
+      "height": 500,
+      "sha256": "3e6f9e433a363d7e5535fd8793dbcec790fb721c666c3ed728b114397d050505",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-6.webp",
+      "bytes": 44756,
+      "width": 500,
+      "height": 500,
+      "sha256": "45610454b24423768acbd479021135e30ecbeeef4aefb6ddc572a978510ea8a0",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-7.webp",
+      "bytes": 37346,
+      "width": 500,
+      "height": 500,
+      "sha256": "25f2a279e37ac29f7761221a5a4de6aafa9bec4cc9e3745736f4f68dae2d0763",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/feed-8.webp",
+      "bytes": 44122,
+      "width": 500,
+      "height": 500,
+      "sha256": "8e4ff77953d4fc1fe29859edd6cfcac5bccaba2370278fc17bfde742170a282e",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/home-ribbon.webp",
+      "bytes": 75000,
+      "width": 2000,
+      "height": 760,
+      "sha256": "4cb6e97b95fe21cdeef6056b2864a1078abbae08ffec52636b2a9fe22a3f993c",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/home-touchpoints-mobile.webp",
+      "bytes": 93288,
+      "width": 800,
+      "height": 1600,
+      "sha256": "cac27444e103502c62337e42595529a9e40b153705b174d6bff7ccb917c7c47e",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/home-touchpoints.webp",
+      "bytes": 52814,
+      "width": 1600,
+      "height": 686,
+      "sha256": "27094b0a36c0f394b17b8a7b2ad4f08af49563294bac73175d55d8ff34327121",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-card.webp",
+      "bytes": 34222,
+      "width": 1200,
+      "height": 900,
+      "sha256": "c2fff957d751a0c89ef7d315084104521be80e5239e4d40042611825d82cb0b3",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-hero-mobile.webp",
+      "bytes": 25180,
+      "width": 1000,
+      "height": 1250,
+      "sha256": "2d99dfa1882323ef779846aeef182295c6fc4d51dfffd0099e4445651adcff68",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-hero.webp",
+      "bytes": 51012,
+      "width": 1600,
+      "height": 1000,
+      "sha256": "e958edfa44ff754961bbd2d4482e9e8c67759932e689746b11df483a6bd9c219",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-result-1.webp",
+      "bytes": 28790,
+      "width": 1200,
+      "height": 900,
+      "sha256": "d82a1370683ede64d23651b0001e82f5d1e9447000392cdb317dcd82f2ca9f18",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-result-2.webp",
+      "bytes": 74028,
+      "width": 1200,
+      "height": 900,
+      "sha256": "e737a5586e09c25abced3854e194374e1922a6799e5e4545d34e85d73d241d3e",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/integrated-result-3.webp",
+      "bytes": 34222,
+      "width": 1200,
+      "height": 900,
+      "sha256": "c2fff957d751a0c89ef7d315084104521be80e5239e4d40042611825d82cb0b3",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/material-0.webp",
+      "bytes": 90300,
+      "width": 700,
+      "height": 875,
+      "sha256": "6adc91376e8e14f0fcdf2d00cdd6ac4cb0d315b809871041399b6c8c9ea62720",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/material-1.webp",
+      "bytes": 52044,
+      "width": 700,
+      "height": 875,
+      "sha256": "b534dc8b60175da8d923c5a73e717dd15da04d1fbfdd943be836a8032f8e2492",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/material-2.webp",
+      "bytes": 85072,
+      "width": 700,
+      "height": 875,
+      "sha256": "5fa299e049048f08dda91f9d9c3e5eade0b90c6b1d47349dfd238df6799de495",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/material-3.webp",
+      "bytes": 128070,
+      "width": 700,
+      "height": 875,
+      "sha256": "5381d2d83be3081b33e550884125a899af6360a17039ab11cb48b2fbf989aa19",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-0.webp",
+      "bytes": 39140,
+      "width": 700,
+      "height": 875,
+      "sha256": "2dfb627665daf98231de8a14d22e4c6d7101ca606bb3dacb297ab4e577f6f782",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-1.webp",
+      "bytes": 21768,
+      "width": 700,
+      "height": 875,
+      "sha256": "48116ad023b420b3edad8319a41c45c7ea02ed870033a26308270c2fcc0e2025",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-2.webp",
+      "bytes": 60076,
+      "width": 700,
+      "height": 875,
+      "sha256": "b6b4c53febd9e2ae5165c9e4d3116da0f13a1acdabcb242350b5f23823c2bdaf",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-role-0.webp",
+      "bytes": 44582,
+      "width": 700,
+      "height": 875,
+      "sha256": "e397c77e7a2a5fe953764ee54a3b07a8562615173cd37cde6655c278f310bda5",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-role-1.webp",
+      "bytes": 35022,
+      "width": 700,
+      "height": 875,
+      "sha256": "659466cbbebf6fdd4b8674af5cc0559581bdbdbba0414e4c8d734622fd9a69bd",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/persona-role-2.webp",
+      "bytes": 58514,
+      "width": 700,
+      "height": 875,
+      "sha256": "7b12017a01a33a1925a5edae9e36e3df04c01b7fa51ebc8eb2ceee81ffb02ca1",
+      "kind": "AI-generated photo crop"
+    },
+    {
+      "file": "/marketing-renewal/preview-0-0.webp",
+      "bytes": 57734,
+      "width": 480,
+      "height": 600,
+      "sha256": "33ff47ca271effe9d28f50a5018ab9dc132e0b91be3762e21a4a1449ea07f635",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-0-1.webp",
+      "bytes": 32340,
+      "width": 480,
+      "height": 360,
+      "sha256": "b64f526198a8eb0aa19e2a56d3361c006f62988c2c242755cf38b736600be89c",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-0-2.webp",
+      "bytes": 45040,
+      "width": 360,
+      "height": 640,
+      "sha256": "872738e14696d581674c208d4f580a0ea63c81001e01e48e44fc77cab4a39b47",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-1-0.webp",
+      "bytes": 34918,
+      "width": 480,
+      "height": 600,
+      "sha256": "4cf9b964beea309a98b3f7aa32e033348723b6fd5afc6e1dc3691d36669f8fb1",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-1-1.webp",
+      "bytes": 13392,
+      "width": 480,
+      "height": 360,
+      "sha256": "8b9e9fffe7445d976ea3e6e05ac245ab20980c457f623e660c77e3c565e0f6ee",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-1-2.webp",
+      "bytes": 27004,
+      "width": 360,
+      "height": 640,
+      "sha256": "aaa754c6fda1234012bead605a2245049761fe0b22fed5c73860040e5027ef0c",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-2-0.webp",
+      "bytes": 54496,
+      "width": 480,
+      "height": 600,
+      "sha256": "c57c21a7e576f91fe1fbfc3515e5ce40d733e627bdf75a43cce427fce4e55f11",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-2-1.webp",
+      "bytes": 40374,
+      "width": 480,
+      "height": 360,
+      "sha256": "49da4e779bb662fb7968cd63942bb05880a102d4eb8be27a490a09384f57b496",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-2-2.webp",
+      "bytes": 40292,
+      "width": 360,
+      "height": 640,
+      "sha256": "2d9ab1333499151e540b9bafe86f89a6a03fce617db389a51e2e4718e432af67",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-3-0.webp",
+      "bytes": 79002,
+      "width": 480,
+      "height": 600,
+      "sha256": "d704bae97cab39b847f381626889c7c0fc890820b3c36bff4e81ce4e666988b3",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-3-1.webp",
+      "bytes": 48566,
+      "width": 480,
+      "height": 360,
+      "sha256": "a8be0c5e986a9fa219f3c90e6fc09c83e6b2768b0a5bb24732873aca60bc3585",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/preview-3-2.webp",
+      "bytes": 60174,
+      "width": 360,
+      "height": 640,
+      "sha256": "9d901fa2e8bf58e5cf06f68195c7f5e71bef5dbddbca4cca7dc5c644042b3c44",
+      "kind": "photo crop for interactive preview"
+    },
+    {
+      "file": "/marketing-renewal/seo-card.webp",
+      "bytes": 24666,
+      "width": 1200,
+      "height": 900,
+      "sha256": "e73e8f3cbe5d0f06e63ef5c5c6b983d599fccae58b4acd15d1eac552c451ee7d",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/seo-hero-mobile.webp",
+      "bytes": 35116,
+      "width": 1000,
+      "height": 1250,
+      "sha256": "28b85ef888f1e0d16b1fc3f467182a377de784be248a26c36396c4ee0a167f0b",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/seo-hero.webp",
+      "bytes": 27490,
+      "width": 1600,
+      "height": 1000,
+      "sha256": "3f94dbb73295ab7af540b39463861148d8664c51d03ba99ca394a909f38683c2",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/seo-result-1.webp",
+      "bytes": 31722,
+      "width": 1200,
+      "height": 900,
+      "sha256": "f409439f7c798f567bef4708976511e312d0a6fdf5c831d0166d955b7779b818",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/seo-result-2.webp",
+      "bytes": 27336,
+      "width": 1200,
+      "height": 900,
+      "sha256": "97e40801b9678bba7719341516aff38d2c995efb208cad5771cf67ff69e6b644",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/seo-result-3.webp",
+      "bytes": 25542,
+      "width": 1200,
+      "height": 900,
+      "sha256": "dd0b2582cbe346dd560b73ab746dee75cb7423aa38c332258853878876c7f32b",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-card.webp",
+      "bytes": 102738,
+      "width": 1200,
+      "height": 900,
+      "sha256": "c8ee083c89d9e7abf5b86881f39ce312fef171279a32812ab5d9c69f90d70c01",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-hero-mobile.webp",
+      "bytes": 52038,
+      "width": 1000,
+      "height": 1250,
+      "sha256": "18ae859dc8f86ba324524851d0ea6b23e49e03d7ee08423401773d888b552774",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-hero.webp",
+      "bytes": 96494,
+      "width": 1600,
+      "height": 1000,
+      "sha256": "8718e18182e6ad578e60f20e6d9a75decb71570aaa45160edf97c167ce3cd0e0",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-result-1.webp",
+      "bytes": 218484,
+      "width": 1200,
+      "height": 1500,
+      "sha256": "6a0e613dbcaaf23262f62cd42835718ac1df009e22f925a2231141a003334c09",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-result-2.webp",
+      "bytes": 70530,
+      "width": 1200,
+      "height": 1500,
+      "sha256": "3efdfdbfb5ceade4cdd2b11eb156a46e619cc5b2d2f4cf5e82ee2d66459c11d0",
+      "kind": "HTML screen capture"
+    },
+    {
+      "file": "/marketing-renewal/sns-result-3.webp",
+      "bytes": 134522,
+      "width": 1200,
+      "height": 1500,
+      "sha256": "751ec201a3f20fb55bce6506e8e3bfb0424360e4b1ca2e68b366a8e5bce8670a",
+      "kind": "HTML screen capture"
+    }
+  ]
+}

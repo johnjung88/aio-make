@@ -1,5 +1,5 @@
 import { EntryDetail } from "@/components/entries";
-import { notFound } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import { divisionByPath } from "@/lib/content";
 import { publicEntry } from "@/lib/db";
 import { guideEntries } from "@/lib/guide-content";
@@ -34,5 +34,17 @@ export default async function Page({
   const p = await params;
   const d = divisionByPath("marketing");
   if (!d || d.id === "video") notFound();
+  const entry =
+    (await publicEntry("reference", d.id, p.slug)) ??
+    guideEntries("reference", d.id).find((e) => e.slug === p.slug);
+  if (entry?.kind === "example")
+    redirect(
+      "/marketing/services/" +
+        (["integrated", "sns", "ai-influencer", "seo"].includes(
+          entry.service ?? "",
+        )
+          ? entry.service
+          : "integrated"),
+    );
   return <EntryDetail division="marketing" slug={p.slug} type="reference" />;
 }

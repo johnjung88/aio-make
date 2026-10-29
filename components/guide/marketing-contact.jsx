@@ -1,517 +1,180 @@
 "use client";
-/* Generated from the preserved design by scripts/restore-guide.py.
- * Layout and copy changes belong in the compiler adaptation or shared primitives.
- * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
-import {
-  GuideLogic,
-  GuideImage,
-  GuideMedia,
-  GuideLink,
-  GuideNav,
-  GuideCloud,
-  GuideEffects,
-  GuideOffer,
-  developmentOffer,
-  guideAsset,
-  guideServiceHref,
-  guideContactKey,
-  adaptGuideValues,
-  marketingExamples,
-} from "./primitives";
+import { useState } from "react";
+import Link from "next/link";
 import { InquiryBridge } from "./inquiry-bridge";
-import { divisionServices } from "@/lib/content";
-import { servicePlans } from "@/lib/service-plans";
-
-const MAP = Object.fromEntries(
-  divisionServices("marketing").map((service) => [
-    service.id === "ai-influencer" ? "ai" : service.id,
-    `${service.name} (${servicePlans[service.id].price}${service.id === "seo" ? " · 맞춤 견적" : " · VAT 별도"})`,
-  ]),
-);
-const G = [
-  ["service", "원하는 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],
-  [
-    "ind",
-    "업종 *",
-    [
-      "요식",
-      "뷰티",
-      "병원·의원",
-      "교육·학원",
-      "쇼핑몰",
-      "부동산",
-      "숙박·여행",
-      "전문직(법률·세무)",
-      "기타",
-    ],
-  ],
-  [
-    "pain",
-    "현재 고민 (여러 개 선택 가능)",
-    [
-      "유입이 적다",
-      "문의·구매로 이어지지 않는다",
-      "계정이 방치돼 있다",
-      "검색에 나오지 않는다",
-      "AI 답변에 나오지 않는다",
-      "운영할 사람이 없다",
-    ],
-  ],
-  ["when", "희망 시작일", ["바로", "2주 이내", "1개월 이내", "협의"]],
-];
-const MULTI = { pain: true };
-class Component extends GuideLogic {
-  state = {
-    service:
-      MAP[guideContactKey(this.props.service, "marketing")] ||
-      (() => {
-        try {
-          return MAP[new URLSearchParams(location.search).get("s")] || "";
-        } catch (e) {
-          return "";
-        }
-      })(),
-    ind: "",
-    pain: [],
-    when: "",
-    sent: false,
-  };
-  renderVals() {
-    return {
-      groups: G.map(([key, label, opts]) => ({
-        label,
-        opts: opts.map((o) => {
-          const multi = MULTI[key];
-          const on = multi
-            ? this.state[key].includes(o)
-            : this.state[key] === o;
-          return {
-            selected: on,
-            label: o,
-            bg: on ? "var(--violet)" : "transparent",
-            fg: on ? "var(--mk-white)" : "var(--mk-text)",
-            bd: on ? "var(--violet)" : "var(--mk-line)",
-            pick: () =>
-              this.setState((s) =>
-                multi
-                  ? {
-                      [key]: on
-                        ? s[key].filter((x) => x !== o)
-                        : [...s[key], o],
-                    }
-                  : { [key]: o },
-              ),
-          };
-        }),
-      })),
-      sent: this.state.sent,
-      notSent: !this.state.sent,
-      submit: (e) => {
-        e.preventDefault();
-        this.setState({ sent: true });
-      },
-    };
-  }
-
-  render() {
-    const values = adaptGuideValues(
-      "marketing-contact",
-      this.renderVals(),
-      this.props,
-    );
-    const { groups, notSent, sent, submit } = values;
-    const isSeo = this.state.service === MAP.seo;
-    const isIntegrated = this.state.service === MAP.integrated;
-    return (
-      <div className="guide-page guide-marketing-contact marketing-contact-dark">
-        <GuideEffects />
-        <div
-          style={{
-            background: "var(--mk-bg)",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <GuideNav division="marketing" active="contact" />
-          <section
-            className="l-container"
-            style={{
-              width: "100%",
-              boxSizing: "border-box",
-              margin: "0 auto",
-              paddingBlock: "var(--section-y-sm)",
-              paddingInline: "var(--gutter)",
-              display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit,minmax(min(100%,440px),1fr))",
-              gap: "56px",
-            }}
-          >
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-            >
-              <span
-                className="eyebrow"
-                style={{
-                  color: "var(--lavender)",
-                }}
-              >
-                {"START MARKETING"}
-              </span>
-              <div
-                data-fit="balance"
-                style={{ width: "fit-content", maxWidth: "100%" }}
-              >
-                <h1
-                  className="t-h1"
-                  style={{
-                    margin: "0",
-                  }}
-                >
-                  <span data-fit-line="">{"상담만 남기셔도"}</span>
-                  <span data-fit-line="">{"분석 자료를 드립니다"}</span>
-                </h1>
-              </div>
-              <p
-                className="t-lead"
-                style={{
-                  margin: "0",
-                  color: "var(--mk-muted)",
-                }}
-              >
-                {"업종과 운영 중인 채널을 남겨주시면 "}
-                <strong style={{ color: "var(--lavender)" }}>
-                  {"시장, 경쟁사, 운영 방향 분석 자료"}
-                </strong>
-                {"를 정리해 드립니다"}
-              </p>
-              <p className="t-body mk-contact-note">
-                통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트
-                구축 또는 리뉴얼 1회를 제공합니다
-              </p>
-              <p className="t-body mk-contact-note">
-                범위와 운영 실비는 견적에서 확인합니다
-              </p>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  borderTop: "1.5px solid var(--mk-bg)",
-                  marginTop: "12px",
-                  maxWidth: "420px",
-                }}
-              >
-                <div
-                  className="t-small"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    padding: "14px 0",
-                    borderBottom: "1px solid var(--mk-line)",
-                  }}
-                >
-                  <span style={{ color: "var(--mk-muted)" }}>{"계약"}</span>
-                  <strong style={{ fontWeight: "600" }}>
-                    {isSeo
-                      ? "프로젝트 단위"
-                      : isIntegrated
-                        ? "최소 3개월"
-                        : "서비스별 확인"}
-                  </strong>
-                </div>
-                <div
-                  className="t-small"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    padding: "14px 0",
-                    borderBottom: "1px solid var(--mk-line)",
-                  }}
-                >
-                  <span style={{ color: "var(--mk-muted)" }}>
-                    {"일정·수정"}
-                  </span>
-                  <strong style={{ fontWeight: "600" }}>
-                    {"견적에서 합의"}
-                  </strong>
-                </div>
-                <div
-                  className="t-small"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    padding: "14px 0",
-                    borderBottom: "1px solid var(--mk-line)",
-                  }}
-                >
-                  <span style={{ color: "var(--mk-muted)" }}>
-                    {isSeo ? "구축 이후" : "월 운영 혜택"}
-                  </span>
-                  <strong style={{ fontWeight: "600" }}>
-                    {isSeo ? "월 유지관리 선택" : "기본 사이트 1회"}
-                  </strong>
-                </div>
-              </div>
-            </div>
-            {sent ? (
-              <React.Fragment>
-                <div
-                  style={{
-                    border: "1px solid var(--violet)",
-                    padding: "40px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "12px",
-                    justifyContent: "center",
-                  }}
-                >
-                  <strong className="t-lead">{"문의가 접수되었습니다"}</strong>
-                  <span style={{ color: "var(--mk-muted)" }}>
-                    {"마케팅 담당자가 확인한 뒤 연락드리겠습니다"}
-                  </span>
-                </div>
-              </React.Fragment>
-            ) : null}
-            {notSent ? (
-              <React.Fragment>
-                <InquiryBridge
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "24px",
-                  }}
-                  division="marketing"
-                  selection={this.state}
-                  initialService={this.props.service}
-                  quick={false}
-                >
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns:
-                        "repeat(auto-fit,minmax(min(100%,200px),1fr))",
-                      gap: "22px",
-                    }}
-                  >
-                    <label
-                      className="t-label t-small"
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                        color: "var(--mk-muted)",
-                      }}
-                    >
-                      {"고객명 *"}
-                      <input
-                        className="t-body"
-                        placeholder="홍길동"
-                        required={true}
-                        style={{
-                          border: "none",
-                          borderBottom: "1.5px solid var(--mk-line)",
-                          padding: "10px 0",
-                          outline: "none",
-                          background: "transparent",
-                          color: "var(--mk-text)",
-                        }}
-                        name="name"
-                      />
-                    </label>
-                    <label
-                      className="t-label t-small"
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                        color: "var(--mk-muted)",
-                      }}
-                    >
-                      {"연락처 "}
-                      <input
-                        className="t-body"
-                        placeholder="010-0000-0000"
-                        style={{
-                          border: "none",
-                          borderBottom: "1.5px solid var(--mk-line)",
-                          padding: "10px 0",
-                          outline: "none",
-                          background: "transparent",
-                          color: "var(--mk-text)",
-                        }}
-                        type="tel"
-                        name="phone"
-                      />
-                    </label>
-                  </div>
-                  <label
-                    className="t-label t-small"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                      color: "var(--mk-muted)",
-                    }}
-                  >
-                    {"이메일 "}
-                    <input
-                      className="t-body"
-                      placeholder="name@company.com"
-                      style={{
-                        border: "none",
-                        borderBottom: "1.5px solid var(--mk-line)",
-                        padding: "10px 0",
-                        outline: "none",
-                        background: "transparent",
-                        color: "var(--mk-text)",
-                      }}
-                      type="email"
-                      name="email"
-                    />
-                  </label>
-                  {(groups || []).map((g, __index4) => (
-                    <React.Fragment key={__index4}>
-                      <div
-                        className="t-small"
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "10px",
-                          color: "var(--mk-muted)",
-                        }}
-                      >
-                        {g.label}
-                        {"\n          "}
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "8px",
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          {(g.opts || []).map((o, __index7) => (
-                            <React.Fragment key={__index7}>
-                              <button
-                                className="t-button"
-                                onClick={o.pick}
-                                style={{
-                                  cursor: "pointer",
-                                  padding: "10px 16px",
-                                  borderRadius: "999px",
-                                  border: "1px solid " + o.bd,
-                                  background: o.bg,
-                                  color: o.fg,
-                                }}
-                                type="button"
-                                aria-pressed={o.selected}
-                              >
-                                {o.label}
-                              </button>
-                            </React.Fragment>
-                          ))}
-                        </div>
-                      </div>
-                    </React.Fragment>
-                  ))}
-                  <label
-                    className="t-label t-small"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                      color: "var(--mk-muted)",
-                    }}
-                  >
-                    {"운영 중인 채널·계정 URL"}
-                    <input
-                      className="t-body"
-                      placeholder="인스타그램, 블로그, 홈페이지 주소 등"
-                      style={{
-                        border: "none",
-                        borderBottom: "1.5px solid var(--mk-line)",
-                        padding: "10px 0",
-                        outline: "none",
-                        background: "transparent",
-                        color: "var(--mk-text)",
-                      }}
-                      name="detail3"
-                    />
-                  </label>
-                  <label
-                    className="t-label t-small"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                      color: "var(--mk-muted)",
-                    }}
-                  >
-                    {"요청 내용"}
-                    <textarea
-                      className="t-body"
-                      placeholder="브랜드 소개와 원하는 방향을 자유롭게 적어주세요"
-                      rows={5}
-                      style={{
-                        border: "1px solid var(--mk-line)",
-                        padding: "16px",
-                        outline: "none",
-                        background: "transparent",
-                        color: "var(--mk-text)",
-                        resize: "vertical",
-                      }}
-                      name="message"
-                    ></textarea>
-                  </label>
-                  <label
-                    className="t-label t-small"
-                    style={{
-                      display: "flex",
-                      gap: "10px",
-                      alignItems: "center",
-                      color: "var(--mk-muted)",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <input
-                      className="t-body"
-                      required={true}
-                      style={{
-                        width: "18px",
-                        height: "18px",
-                        accentColor: "var(--violet)",
-                      }}
-                      type="checkbox"
-                      name="consent"
-                    />
-                    {"개인정보 수집·이용에 동의합니다 (필수)"}
-                  </label>
-                  <button
-                    className="t-button t-button--lg"
-                    style={{
-                      cursor: "pointer",
-                      border: "none",
-                      background: "var(--violet)",
-                      color: "var(--mk-white)",
-                      padding: "20px",
-                    }}
-                    type="submit"
-                  >
-                    {"문의 보내기"}
-                  </button>
-                </InquiryBridge>
-              </React.Fragment>
-            ) : null}
-          </section>
+import {
+  marketingIds,
+  marketingNames,
+  marketingCopy,
+} from "@/lib/marketing-renewal";
+export default function MarketingContact({
+  service = "",
+  initialMessage = "",
+  selectedPlan = "",
+  entry = "",
+}) {
+  const [choice, setChoice] = useState(service);
+  const [industry, setIndustry] = useState("");
+  const current = marketingIds.includes(choice) ? choice : "";
+  return (
+    <div className="mk-contact">
+      <section className="mk-container mk-section">
+        <div className="mk-page-title">
+          <p className="mk-eyebrow">START MARKETING</p>
+          <h1>
+            상담만 남기셔도
+            <br />
+            <em>분석 자료</em>를 드립니다
+          </h1>
+          <p className="mk-lead">
+            업종과 운영 중인 채널을 남겨주시면
+            <br />
+            시장, 경쟁사, 운영 방향 분석 자료를 정리해 드립니다
+          </p>
         </div>
-      </div>
-    );
-  }
+        <div className="mk-contact-grid">
+          <aside>
+            <h2>
+              현재 상황부터
+              <br />
+              알려주세요
+            </h2>
+            <p>
+              준비된 자료와 원하는 운영 방향을 알려주세요
+              <br />
+              범위와 일정, 필요한 자료를 함께 정리합니다
+            </p>
+            {current && (
+              <div className="mk-contact-plan">
+                <h3>{marketingNames[current]}</h3>
+                <strong className="mk-price">
+                  {marketingCopy[current].price}
+                </strong>
+                <p>{marketingCopy[current].term}</p>
+              </div>
+            )}
+            <p className="mk-contact-benefit">
+              통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트 구축
+              또는 리뉴얼 1회를 제공합니다
+              <br />
+              범위와 운영 실비는 견적에서 확인합니다
+            </p>
+          </aside>
+          <InquiryBridge
+            division="marketing"
+            initialService={service}
+            selection={{
+              service:
+                choice === "unknown"
+                  ? "아직 모르겠어요"
+                  : marketingNames[current] || "",
+              ind: industry,
+            }}
+            homeHref="/marketing"
+            homeLabel="마케팅 홈으로 돌아가기"
+          >
+            <fieldset className="mk-choices">
+              <legend>원하는 서비스 *</legend>
+              <div>
+                {[...marketingIds, "unknown"].map((id) => (
+                  <button
+                    type="button"
+                    key={id}
+                    aria-pressed={choice === id}
+                    onClick={() => setChoice(id)}
+                  >
+                    {id === "unknown" ? "아직 모르겠어요" : marketingNames[id]}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+            {selectedPlan && (
+              <p className="mk-selected-plan">선택한 구성 · {selectedPlan}</p>
+            )}
+            {selectedPlan && (
+              <input type="hidden" name="선택한 구성" value={selectedPlan} />
+            )}
+            {entry && <input type="hidden" name="상담 진입" value={entry} />}
+            <div className="mk-form-row">
+              <label>
+                고객명 *
+                <input
+                  name="name"
+                  required
+                  autoComplete="name"
+                  placeholder="이름을 입력하세요"
+                />
+              </label>
+              <label>
+                연락처
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder="010-0000-0000"
+                />
+              </label>
+            </div>
+            <label>
+              이메일
+              <input
+                type="email"
+                name="email"
+                autoComplete="email"
+                placeholder="name@company.com"
+              />
+            </label>
+            <p className="mk-caption">
+              이메일 또는 연락처 중 하나를 남겨주세요
+            </p>
+            <label>
+              업종
+              <select
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
+              >
+                <option value="">업종을 선택하세요</option>
+                {[
+                  "카페·음식점",
+                  "뷰티·헬스",
+                  "제품·쇼핑몰",
+                  "병원·교육 등 지역 서비스",
+                  "B2B·전문 서비스",
+                  "기타",
+                ].map((v) => (
+                  <option key={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              운영 중인 채널·계정 URL
+              <input
+                name="reference"
+                placeholder="인스타그램, 블로그, 홈페이지 주소 등"
+              />
+            </label>
+            <label>
+              요청 내용
+              <textarea
+                name="message"
+                rows={7}
+                defaultValue={initialMessage}
+                placeholder="브랜드 소개와 원하는 방향을 자유롭게 적어주세요"
+              />
+            </label>
+            <label className="mk-consent">
+              <input name="consent" type="checkbox" required />
+              개인정보 수집·이용에 동의합니다 (필수)
+            </label>
+            <p>
+              <Link href="/privacy">개인정보처리방침 보기 →</Link>
+            </p>
+            <button className="mk-primary" type="submit">
+              문의 보내기 ↗
+            </button>
+          </InquiryBridge>
+        </div>
+      </section>
+    </div>
+  );
 }
-
-export default Component;

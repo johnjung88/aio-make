@@ -1,523 +1,828 @@
 "use client";
-
-import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  marketingContact,
+  marketingNames,
+  marketingCopy,
+  monthlySteps,
+  seoSteps,
+  personaTopics,
+  type MarketingId,
+} from "@/lib/marketing-renewal";
+import { MarketingHead } from "./blocks";
 
-type Step = {
-  title: string;
-  copy: string;
-  image: string;
+function Choices({
+  label,
+  items,
+  value,
+  onChange,
+}: {
   label: string;
   items: string[];
-};
-const coffee = "/creative-v06/marketing-sns.webp";
-const creator = "/content-examples/ai-influencer/ai-creator.webp";
-const homeSteps: Step[] = [
-  {
-    title: "노출",
-    copy: "고객이 궁금해하는 이야기로 브랜드를 발견하게 합니다",
-    image: creator,
-    label: "컨텐츠와 채널",
-    items: ["고객 질문 정리", "브랜드 컨텐츠 제작", "채널에 맞는 게시"],
-  },
-  {
-    title: "유입",
-    copy: "검색과 채널에서 필요한 정보를 찾아 방문으로 이어지게 합니다",
-    image: coffee,
-    label: "검색과 랜딩",
-    items: ["질문에 답하는 페이지", "검색 접근성 점검", "다음 행동 안내"],
-  },
-  {
-    title: "문의",
-    copy: "서비스를 이해하고 상담할 수 있도록 문의 접점을 정리합니다",
-    image: coffee,
-    label: "상담으로 연결",
-    items: ["제공 범위 확인", "자료와 질문 준비", "문의 경로 점검"],
-  },
-];
-
-export function CampaignExperience({
-  steps = homeSteps,
-  kind = "home",
-}: {
-  steps?: Step[];
-  kind?: string;
+  value: string;
+  onChange: (value: string) => void;
 }) {
-  const [selected, setSelected] = useState(0);
-  const [failedImages, setFailedImages] = useState<string[]>([]);
-  const current = steps[selected];
   return (
-    <div className={`mk-experience mk-experience--${kind}`}>
-      <div className="mk-flow-label">
-        <span className="mk-decor-dot" />
-        {kind === "home" ? "운영 흐름 예시" : "제작 방향 예시"}
-        <span>실제 운영 데이터가 아닙니다</span>
+    <fieldset className="mk-choices">
+      <legend>{label}</legend>
+      <div
+        onKeyDown={(e) => {
+          if (
+            !["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(e.key)
+          )
+            return;
+          e.preventDefault();
+          const direction = ["ArrowRight", "ArrowDown"].includes(e.key)
+            ? 1
+            : -1;
+          const index =
+            (items.indexOf(value) + direction + items.length) % items.length;
+          onChange(items[index]);
+          e.currentTarget.querySelectorAll("button")[index]?.focus();
+        }}
+      >
+        {items.map((item) => (
+          <button
+            type="button"
+            key={item}
+            aria-pressed={value === item}
+            onClick={() => onChange(item)}
+          >
+            {item}
+          </button>
+        ))}
       </div>
-      <div className="mk-scene">
-        <div className="mk-ribbon" aria-hidden="true" />
-        <div className="mk-photo-panel">
-          {failedImages.includes(current.image) ? (
-            <div className="mk-image-fallback">
-              <strong>{current.label}</strong>
-              <p>
-                이미지를 불러오지 못했습니다
-                <br />
-                아래 설명으로 흐름을 확인하세요
-              </p>
+    </fieldset>
+  );
+}
+export function MarketingFinder({
+  onRecommend,
+}: {
+  onRecommend: (id: MarketingId | "") => void;
+}) {
+  const [industry, setIndustry] = useState("카페·음식점");
+  const situations = [
+    "사진과 자료는 있는데 올릴 내용이 없어요",
+    "채널이 여러 개라 따로 놀아요",
+    "설명해 줄 출연자가 없어요",
+    "사이트가 있는데 검색과 AI 답변에서 잘 안 보여요",
+  ];
+  const [situation, setSituation] = useState(situations[0]);
+  const [method, setMethod] = useState("매달 맡기고 싶어요");
+  const index = situations.indexOf(situation);
+  const id: MarketingId = (
+    ["sns", "integrated", "ai-influencer", "seo"] as const
+  )[index];
+  const once = method === "한 번 제대로 고치고 싶어요";
+  const content = index === 2 && once;
+  const update = (s: string, m: string) => {
+    setSituation(s);
+    setMethod(m);
+    onRecommend(
+      s === situations[2] && m === "한 번 제대로 고치고 싶어요"
+        ? ""
+        : (["sns", "integrated", "ai-influencer", "seo"] as const)[
+            situations.indexOf(s)
+          ],
+    );
+  };
+  return (
+    <section className="mk-section mk-container" id="finder">
+      <MarketingHead
+        id="finder-title"
+        eyebrow="FIND YOUR FIT"
+        title={"지금 가장 막힌 곳을\n골라 보세요"}
+        lead="세 가지를 고르면 맞는 운영 방식과 첫 달 흐름을 보여드립니다"
+      />
+      <div className="mk-interaction">
+        <div className="mk-controls">
+          <Choices
+            label="01 업종"
+            items={[
+              "카페·음식점",
+              "뷰티·헬스",
+              "제품·쇼핑몰",
+              "병원·교육 등 지역 서비스",
+              "B2B·전문 서비스",
+            ]}
+            value={industry}
+            onChange={setIndustry}
+          />
+          <Choices
+            label="02 지금 상황"
+            items={situations}
+            value={situation}
+            onChange={(v) => update(v, method)}
+          />
+          <Choices
+            label="03 맡기는 방식"
+            items={["매달 맡기고 싶어요", "한 번 제대로 고치고 싶어요"]}
+            value={method}
+            onChange={(v) => update(situation, v)}
+          />
+          <button
+            className="mk-reset"
+            onClick={() => {
+              setIndustry("카페·음식점");
+              update(situations[0], "매달 맡기고 싶어요");
+            }}
+          >
+            처음으로
+          </button>
+          <a className="mk-result-jump" href="#finder-result">
+            결과 보기 ↓
+          </a>
+        </div>
+        <div className="mk-result" id="finder-result">
+          <p className="mk-caption">
+            추천은 선택한 내용에 따른 안내예요 · 상담에서 함께 확인합니다
+          </p>
+          <p className="mk-eyebrow">YOUR NEXT STEP</p>
+          <h3 aria-live="polite">
+            {content ? "AI 인플루언서 제작" : marketingNames[id]}
+          </h3>
+          <p>
+            {industry}의{" "}
+            {
+              [
+                "사진과 자료로 꾸준한 게시를 시작합니다",
+                "흩어진 채널과 담당 업무를 함께 정리합니다",
+                "브랜드를 설명할 인물과 말투를 만듭니다",
+                "고객 질문에 답하는 사이트 구조를 정리합니다",
+              ][index]
+            }
+          </p>
+          <strong className="mk-price">
+            {content ? "10만 원부터" : marketingCopy[id].price}
+          </strong>
+          <p>
+            {content
+              ? "캐릭터 1명 세팅 + 이미지 5장 · 게시와 운영 별도"
+              : marketingCopy[id].term}
+          </p>
+          {once && index < 2 && (
+            <p>
+              {index === 0
+                ? "월 갱신이라 한 달만 시작할 수 있어요"
+                : "최소 3개월 운영 상품이에요"}
+            </p>
+          )}
+          {index === 3 && !once && <p>구축 이후 월 유지관리 선택</p>}
+          <p className="mk-check">
+            첫 확인 ·{" "}
+            {industry === "카페·음식점"
+              ? "메뉴 사진과 매장 정보 확인"
+              : `${industry}의 제품·서비스 자료 확인`}
+          </p>
+          <ol className="mk-mini-flow">
+            {(id === "seo" ? seoSteps : monthlySteps).map(([title], i) => (
+              <li key={title}>
+                <span>0{i + 1}</span>
+                {title}
+              </li>
+            ))}
+          </ol>
+          <Link
+            className="mk-primary"
+            href={
+              content
+                ? "/content/services/ai-influencer"
+                : `/marketing/services/${id}`
+            }
+            {...(content
+              ? {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  "aria-label":
+                    "AI 인플루언서 제작 자세히 보기 · 새 탭에서 열림",
+                }
+              : {})}
+          >
+            {content ? "AI 인플루언서 제작" : marketingNames[id]} 자세히 보기{" "}
+            {content ? "↗ 새 탭" : "→"}
+          </Link>
+          <Link
+            className="mk-secondary"
+            href={marketingContact(
+              id,
+              "home-finder",
+              "",
+              `업종: ${industry}\n상황: ${situation}\n방식: ${method}`,
+            )}
+          >
+            이 상황으로 상담하기 ↗
+          </Link>
+          {once && index === 1 && (
+            <Link className="mk-secondary" href="/marketing/services/seo">
+              한 번의 개선이 필요하다면 SEO·AEO·GEO →
+            </Link>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+const channelNames = [
+  "인스타그램",
+  "네이버 블로그",
+  "쇼츠",
+  "스레드",
+  "지도 정보",
+  "검색 노출용 글",
+];
+function ChannelPlanner() {
+  const [selected, setSelected] = useState(channelNames.slice(0, 5));
+  const [counts, setCounts] = useState<Record<string, number>>(
+    Object.fromEntries(channelNames.map((c) => [c, 20])),
+  );
+  const [tile, setTile] = useState(0);
+  const sum = selected.reduce((n, c) => n + counts[c], 0);
+  const valid = selected.length === 5;
+  const message = `선택 채널: ${selected.map((c) => `${c} ${counts[c]}건`).join(", ")}`;
+  return (
+    <>
+      <div className="mk-controls">
+        <fieldset className="mk-choices">
+          <legend>01 채널 고르기 · 정확히 5개</legend>
+          <div>
+            {channelNames.map((c) => (
               <button
-                type="button"
+                key={c}
+                aria-pressed={selected.includes(c)}
                 onClick={() =>
-                  setFailedImages(
-                    failedImages.filter((image) => image !== current.image),
+                  setSelected(
+                    selected.includes(c)
+                      ? selected.filter((v) => v !== c)
+                      : selected.length < 5
+                        ? [...selected, c]
+                        : selected,
                   )
                 }
               >
-                이미지 다시 보기
+                {c}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+        <p>{valid ? "5개 채널 선택 완료" : "5개를 골라 주세요"}</p>
+        <fieldset disabled={!valid} className="mk-allocation">
+          <legend>02 게시 건수 나누기</legend>
+          {selected.map((c) => (
+            <div key={c}>
+              <span>{c}</span>
+              <button
+                aria-label={`${c} 5건 줄이기`}
+                onClick={() =>
+                  setCounts({ ...counts, [c]: Math.max(0, counts[c] - 5) })
+                }
+              >
+                −
+              </button>
+              <output>{counts[c]}</output>
+              <button
+                aria-label={`${c} 5건 늘리기`}
+                onClick={() =>
+                  setCounts({ ...counts, [c]: Math.min(100, counts[c] + 5) })
+                }
+              >
+                +
               </button>
             </div>
-          ) : (
-            <Image
-              key={current.image}
-              src={current.image}
-              alt={
-                kind === "ai-influencer"
-                  ? "가상 인물 컨텐츠 제작 방향"
-                  : "브랜드 컨텐츠 제작 방향 이미지"
-              }
-              fill
-              sizes="(max-width: 767px) 80vw, 420px"
-              priority={kind === "home"}
-              onError={() =>
-                setFailedImages((images) => [...images, current.image])
-              }
-            />
-          )}
-          <span className="mk-photo-caption">{current.label}</span>
-        </div>
-        <div className="mk-result-card">
-          <div className="mk-window-bar" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </div>
-          <span className="mk-kicker">
-            {kind === "seo"
-              ? "질문에서 페이지로"
-              : kind === "sns"
-                ? "채널 게시 계획"
-                : kind === "ai-influencer"
-                  ? "브랜드 인물 기준"
-                  : "고객 접점 설계"}
-          </span>
-          <strong>{current.title}</strong>
-          <ul>
-            {current.items.map((item, i) => (
-              <li key={item}>
-                <span>0{i + 1}</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <span className="mk-result-stamp">계획 → 제작 → 확인</span>
-        </div>
-      </div>
-      <div className="mk-step-buttons" aria-label="예시 단계 선택">
-        {steps.map((step, i) => (
-          <button
-            type="button"
-            key={step.title}
-            aria-pressed={selected === i}
-            onClick={() => setSelected(i)}
-          >
-            <span>0{i + 1}</span>
-            {step.title}
-            <span aria-hidden="true">↗</span>
-          </button>
-        ))}
-      </div>
-      <p className="mk-current-copy" role="status" aria-live="polite">
-        {current.copy}
-      </p>
-      <noscript>
-        <div className="mk-noscript">
-          {steps.map((step) => (
-            <p key={step.title}>
-              <strong>{step.title}</strong> · {step.copy} ·{" "}
-              {step.items.join(" / ")}
-            </p>
           ))}
-        </div>
-      </noscript>
-    </div>
-  );
-}
-
-export function ServiceExperience({
-  service,
-  steps,
-}: {
-  service: string;
-  steps: [string, string][];
-}) {
-  const [selected, setSelected] = useState(0);
-  const [failed, setFailed] = useState(false);
-  const items: Record<string, string[][]> = {
-    integrated: [
-      ["고객 질문", "보유 자료", "운영 중인 채널"],
-      ["원본 컨텐츠", "사실과 표현 검수", "채널별 재구성"],
-      ["짧은 컨텐츠", "이미지와 설명", "게시 일정"],
-      ["게시 내역", "확인 가능한 반응", "다음 운영 계획"],
-    ],
-    sns: [
-      ["서비스 선택 질문", "이용 방법 질문", "비교할 정보"],
-      ["핵심 장면", "이미지 문구", "브랜드 톤 확인"],
-      ["사용 장면", "짧은 설명", "채널 형식 확인"],
-      ["쇼츠", "인스타그램", "네이버 블로그"],
-    ],
-    "ai-influencer": [
-      ["외형과 말투", "브랜드의 역할", "이용 권리 확인"],
-      ["확인된 제품 정보", "설명할 주제", "장면과 대사"],
-      ["인물 일관성", "제품 정보 검수", "30초 기준 구성"],
-      ["쇼츠와 인스타그램", "채널별 변형", "다음 주제 확인"],
-    ],
-    seo: [
-      ["누가 이용하나요?", "무엇을 제공하나요?", "어떻게 문의하나요?"],
-      ["대상과 제공 범위", "가격 기준과 FAQ", "관련 페이지 연결"],
-      ["페이지 본문", "메타와 사이트맵", "구조화 데이터"],
-      ["검색 접근성", "링크와 화면", "분석 수집 여부"],
-    ],
-  };
-  const currentItems = items[service][selected];
-  const labels: Record<string, string> = {
-    integrated: "통합 운영 지도",
-    sns: "게시 일정과 피드",
-    "ai-influencer": "가상 인물 제작 보드",
-    seo: "검색과 AI 답변 설계",
-  };
-  return (
-    <div className={`mk-experience mk-experience--${service}`}>
-      <div className="mk-flow-label">
-        <span className="mk-decor-dot" />
-        제작 방향 예시<span>실제 운영 데이터가 아닙니다</span>
+          <button
+            onClick={() =>
+              setCounts(Object.fromEntries(channelNames.map((c) => [c, 20])))
+            }
+          >
+            고르게 나누기
+          </button>
+        </fieldset>
+        <a className="mk-result-jump" href="#signature-result">
+          결과 보기 ↓
+        </a>
       </div>
-      <div
-        className={`mk-service-scene mk-board--${service}`}
-        data-stage={selected}
-      >
-        <div className="mk-board-heading">
-          <span className="mk-kicker">{labels[service]}</span>
-          <strong>{steps[selected][0]}</strong>
+      <div className="mk-result" id="signature-result">
+        <p className="mk-caption">
+          배치 예시예요 · 채널별 수량과 형식은 월간 계획에서 함께 정합니다
+        </p>
+        <h3>한 달 게시 캘린더</h3>
+        <p aria-live="polite">
+          원본 20개 · 게시 {sum}건 · 채널 {selected.length}개
+        </p>
+        <div className="mk-total" data-valid={sum === 100 && valid}>
+          <span style={{ width: `${Math.min(sum, 100)}%` }} />
         </div>
-        {service === "integrated" && (
-          <div className="mk-channel-map">
-            <div className="mk-map-source">
-              <span>브랜드의 고객 질문</span>
-              <strong>
-                {selected === 0
-                  ? "어떤 상황에서 이용하나요?"
-                  : "이용 장면을 설명하는 원본"}
-              </strong>
-              <small>
-                {selected === 0
-                  ? "질문과 자료를 한곳에"
-                  : "월 원본 20개 기준 · 계약 조건"}
-              </small>
-            </div>
-            <div className="mk-map-connector" aria-hidden="true">
-              ↓
-            </div>
-            <div className="mk-channel-nodes">
-              {["쇼츠", "인스타그램", "블로그", "지도·검색", "문의 접점"]
-                .slice(0, selected < 2 ? 1 : 5)
-                .map((channel, i) => (
-                  <div key={channel}>
-                    <span>0{i + 1}</span>
-                    <strong>{selected < 2 ? "원본 준비" : channel}</strong>
-                    <small>
-                      {selected === 3
-                        ? "게시 내역 → 다음 기획"
-                        : selected === 2
-                          ? "길이·문구·형식 재구성"
-                          : currentItems[selected]}
-                    </small>
-                  </div>
-                ))}
-            </div>
-            <p className="mk-board-note">
-              {selected === 3
-                ? "5개 채널 합산 100건 기준 · 채널별 배분은 월간 합의"
-                : selected === 2
-                  ? "원본과 채널별 게시 건수는 다릅니다"
-                  : "자료 확인 → 원본 제작 → 채널 연결 → 운영 확인"}
-            </p>
-          </div>
-        )}
-        {service === "sns" && (
-          <div className="mk-social-board">
-            <div className="mk-calendar">
-              <span>게시 계획 예시 · 날짜 미지정</span>
-              <div>
-                {["월", "화", "수", "목", "금"].map((day, i) => (
-                  <div
-                    key={day}
-                    className={i === selected ? "is-selected" : ""}
+        <p>
+          {sum === 100
+            ? "합계 100건이에요"
+            : sum < 100
+              ? `합계 100건까지 ${100 - sum}건 남았어요`
+              : `합계 100건보다 ${sum - 100}건 많아요`}
+        </p>
+        <div className="mk-calendar">
+          {Array.from({ length: 4 }, (_, week) => (
+            <div key={week}>
+              <strong>{week + 1}주</strong>
+              {selected.map((c) => (
+                <p key={c}>
+                  {c}
+                  <span
+                    className="mk-dots"
+                    aria-label={`${Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0)}건`}
                   >
-                    <b>{day}</b>
-                    <small>
-                      {["질문", "이미지", "컨텐츠", "게시", "검토"][i]}
-                    </small>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {selected === 0 ? (
-              <div className="mk-question-stack">
-                {currentItems.map((item) => (
-                  <p key={item}>↳ {item}</p>
-                ))}
-              </div>
-            ) : (
-              <div className={`mk-feed-preview mk-feed-preview--${selected}`}>
-                <div className="mk-feed-media">
-                  {failed ? (
-                    <div className="mk-image-fallback">
-                      <strong>컨텐츠 구성 예시</strong>
-                      <p>
-                        이미지를 불러오지 못했습니다
-                        <br />
-                        설명과 게시 계획을 확인하세요
-                      </p>
-                      <button type="button" onClick={() => setFailed(false)}>
-                        이미지 다시 보기
-                      </button>
-                    </div>
-                  ) : (
-                    <Image
-                      src={coffee}
-                      alt="기존 커피 소재를 활용한 SNS 제작 예시"
-                      fill
-                      sizes="(max-width: 767px) 85vw, 320px"
-                      onError={() => setFailed(true)}
-                    />
-                  )}
-                  <span>
-                    {selected === 1
-                      ? "이미지 문구 배치"
-                      : selected === 2
-                        ? "짧은 컨텐츠 장면 구성"
-                        : "채널별 게시 미리보기"}
+                    {"·".repeat(
+                      Math.floor(counts[c] / 4) +
+                        (week < counts[c] % 4 ? 1 : 0),
+                    )}
                   </span>
-                </div>
-                <div>
-                  <span className="mk-kicker">
-                    {selected === 3 ? "채널 배치" : "제작 구성"}
-                  </span>
-                  {currentItems.map((item) => (
-                    <p key={item}>{item}</p>
-                  ))}
-                </div>
-              </div>
-            )}
-            <p className="mk-board-note">
-              이미지 원본 월 12개 · 컨텐츠 원본 월 4개 기준
-            </p>
-          </div>
-        )}
-        {service === "ai-influencer" && (
-          <div className={`mk-creator-board mk-creator-stage-${selected}`}>
-            {selected === 1 ? (
-              <div className="mk-storyboard">
-                <span className="mk-kicker">컨텐츠 장면 기획 예시</span>
-                {[
-                  "도입 · 고객의 질문",
-                  "설명 · 확인된 브랜드 정보",
-                  "마무리 · 다음 행동 안내",
-                ].map((scene, i) => (
-                  <div key={scene}>
-                    <span>SCENE 0{i + 1}</span>
-                    <strong>{scene}</strong>
-                    <p>
-                      {
-                        [
-                          "어떤 점이 궁금하신가요?",
-                          "핵심 정보와 이용 장면을 설명합니다",
-                          "제공 범위와 문의 방법을 확인하세요",
-                        ][i]
-                      }
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : selected === 3 ? (
-              <div className="mk-publish-preview">
-                <span className="mk-kicker">채널별 변형 예시</span>
-                {["쇼츠 · 세로형 구성", "인스타그램 · 피드 구성"].map(
-                  (channel) => (
-                    <div key={channel}>
-                      <strong>{channel}</strong>
-                      <p>인물과 말투 유지</p>
-                      <small>자막·표지·게시 문구 확인</small>
-                    </div>
-                  ),
-                )}
-              </div>
-            ) : (
-              <div className="mk-creator-portrait">
-                {failed ? (
-                  <div className="mk-image-fallback">
-                    <strong>가상 인물 예시</strong>
-                    <p>이미지를 불러오지 못했습니다</p>
-                    <button type="button" onClick={() => setFailed(false)}>
-                      이미지 다시 보기
-                    </button>
-                  </div>
-                ) : (
-                  <Image
-                    src={creator}
-                    alt="브랜드 전용 가상 인물 제작 방향 예시"
-                    fill
-                    sizes="(max-width: 767px) 85vw, 320px"
-                    onError={() => setFailed(true)}
-                  />
-                )}
-                <span>
-                  {
-                    [
-                      "인물 기준",
-                      "장면 기획",
-                      "검수용 프레임",
-                      "채널 미리보기",
-                    ][selected]
-                  }
-                </span>
-                {selected === 2 && (
-                  <div className="mk-frame-review">
-                    <strong>정보·표현 검수용</strong>
-                    <span>00:00 / 00:30 · 구성 예시</span>
-                  </div>
-                )}
-              </div>
-            )}
-            <div className="mk-creator-script">
-              <span className="mk-kicker">
-                {
-                  [
-                    "외형과 말투 설정",
-                    "장면과 대사 구성",
-                    "생성 후 검수",
-                    "게시와 다음 주제",
-                  ][selected]
-                }
-              </span>
-              {currentItems.map((item, i) => (
-                <div key={item}>
-                  <span>0{i + 1}</span>
-                  <strong>{item}</strong>
-                  <small>
-                    {
-                      [
-                        "기준 합의",
-                        "기획안 확인",
-                        "사실·권리 확인",
-                        "운영 내역 확인",
-                      ][selected]
-                    }
-                  </small>
-                </div>
+                </p>
               ))}
             </div>
-            <p className="mk-board-note">
-              가상 인물 예시 · 구축비 없음 · 월 원본 8개 · 30초 기준
-            </p>
-          </div>
-        )}
-        {service === "seo" && (
-          <div className="mk-search-board">
-            <div className="mk-search-query">
-              <span>검색 질문 예시</span>
-              <strong>이 서비스는 누구에게 필요한가요?</strong>
-            </div>
-            {selected === 0 ? (
-              <div className="mk-search-questions">
-                {currentItems.map((item) => (
-                  <p key={item}>
-                    {item} <span>→</span>
-                  </p>
-                ))}
-              </div>
-            ) : selected === 1 ? (
-              <div className="mk-answer-outline">
-                <span className="mk-kicker">답변 페이지 뼈대</span>
-                {currentItems.map((item, i) => (
-                  <p key={item}>
-                    <span>H{i + 1}</span>
-                    {item}
-                  </p>
-                ))}
-              </div>
-            ) : selected === 2 ? (
-              <div className="mk-source-preview">
-                <span className="mk-kicker">소스와 CMS 적용안</span>
-                {currentItems.map((item) => (
-                  <p key={item}>
-                    <code>
-                      &lt;
-                      {item === "페이지 본문"
-                        ? "article"
-                        : item === "메타와 사이트맵"
-                          ? "meta"
-                          : "schema"}
-                      &gt;
-                    </code>
-                    {item}
-                  </p>
-                ))}
-              </div>
-            ) : (
-              <div className="mk-search-result">
-                <span className="mk-kicker">검색 결과 · AI 답변 인용 예시</span>
-                <strong>서비스 대상과 제공 범위 안내</strong>
-                <p>대상·범위·문의 방법을 확인할 수 있는 페이지</p>
-                <div className="mk-ai-citation">
-                  AI 답변의 참고 자료 → 서비스 안내 페이지
-                </div>
-                <small>검색 노출·인용은 보장하지 않습니다</small>
-              </div>
-            )}
-            <p className="mk-board-note">
-              {selected === 3
-                ? currentItems.join(" · ")
-                : "질문 수집 → 답변 설계 → 실제 적용 → 검수"}
-            </p>
-          </div>
-        )}
-      </div>
-      <div className="mk-step-buttons" aria-label="예시 단계 선택">
-        {steps.map(([title], i) => (
-          <button
-            type="button"
-            key={title}
-            aria-pressed={selected === i}
-            onClick={() => setSelected(i)}
-          >
-            <span>0{i + 1}</span>
-            {title}
-            <span aria-hidden="true">↗</span>
-          </button>
-        ))}
-      </div>
-      <p className="mk-current-copy" role="status" aria-live="polite">
-        {steps[selected][1]}
-      </p>
-      <noscript>
-        <div className="mk-noscript">
-          {steps.map(([title, copy]) => (
-            <p key={title}>
-              <strong>{title}</strong> · {copy}
-            </p>
           ))}
         </div>
-      </noscript>
+        <p>03 원본을 눌러 채널별 재구성 보기</p>
+        <div className="mk-originals">
+          {Array.from({ length: 20 }, (_, i) => (
+            <button
+              key={i}
+              aria-pressed={tile === i}
+              onClick={() => setTile(i)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        <p aria-live="polite">
+          원본 {tile + 1} →{" "}
+          {selected
+            .filter((c) => counts[c] >= 20 || tile < counts[c])
+            .join(" · ") || "배치된 채널 없음"}
+        </p>
+        <SignatureContact
+          id="integrated"
+          plan="channels"
+          message={message}
+          disabled={!valid || sum !== 100}
+        />
+      </div>
+    </>
+  );
+}
+const materials = [
+  "카페 신메뉴",
+  "스킨케어 제품",
+  "필라테스 수업 공간",
+  "반찬 세트",
+];
+function SnsPreview() {
+  const [material, setMaterial] = useState(materials[0]);
+  const [name, setName] = useState("");
+  const [point, setPoint] = useState("");
+  const [question, setQuestion] = useState("뭐가 달라요?");
+  const index = materials.indexOf(material);
+  const defaultNames = [
+    "귀리 라떼",
+    "데일리 세럼",
+    "오후 필라테스",
+    "오늘의 반찬",
+  ];
+  const defaultPoints = [
+    "우유 대신 귀리로 만들어요",
+    "제품 정보를 확인하고 사용해요",
+    "수업 공간을 먼저 둘러보세요",
+    "식탁에 바로 꺼내 놓으세요",
+  ];
+  const title = name || defaultNames[index];
+  const detail = point || defaultPoints[index];
+  const how =
+    index === 0 || index === 3
+      ? "어떻게 먹어요?"
+      : index === 2
+        ? "어떻게 이용해요?"
+        : "어떻게 써요?";
+  return (
+    <>
+      <div className="mk-controls">
+        <Choices
+          label="01 예시 소재"
+          items={materials}
+          value={material}
+          onChange={(v) => {
+            setMaterial(v);
+            setQuestion("뭐가 달라요?");
+          }}
+        />
+        <label>
+          02 이름
+          <input
+            maxLength={16}
+            value={name}
+            placeholder={defaultNames[index]}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label>
+          알리고 싶은 한 가지
+          <input
+            maxLength={30}
+            value={point}
+            placeholder={defaultPoints[index]}
+            onChange={(e) => setPoint(e.target.value)}
+          />
+        </label>
+        <Choices
+          label="03 고객 질문"
+          items={[how, "뭐가 달라요?", "언제 좋아요?"]}
+          value={question}
+          onChange={setQuestion}
+        />
+        <a className="mk-result-jump" href="#signature-result">
+          결과 보기 ↓
+        </a>
+      </div>
+      <div className="mk-result" id="signature-result">
+        <p className="mk-caption">
+          형식 예시예요 · 실제 문구와 디자인은 자료를 보고 함께 정합니다
+        </p>
+        <p className="mk-sr" aria-live="polite">
+          {material} 소재로 {title}의 세 채널 미리보기
+        </p>
+        <div className="mk-phones">
+          {["인스타그램", "네이버 블로그", "쇼츠"].map((channel, i) => (
+            <article className={`mk-phone mk-phone-${i}`} key={channel}>
+              <header>{channel}</header>
+              <Image
+                src={`/marketing-renewal/preview-${index}-${i}.webp`}
+                width={400}
+                height={500}
+                alt={material}
+              />
+              <div>
+                <small>
+                  {i === 1 ? "고객 질문에 답합니다" : "제작 방향 예시"}
+                </small>
+                <h4>
+                  {i === 1 ? `${title}, ${question} 직접 알려드려요` : title}
+                </h4>
+                <p>
+                  {question}
+                  <br />
+                  {detail}
+                </p>
+                {i === 1 && (
+                  <p>
+                    자료에서 확인한 사실로 소개하고
+                    <br />
+                    궁금한 내용을 차근차근 안내합니다
+                  </p>
+                )}
+                {i === 2 && (
+                  <ol>
+                    <li>소재 소개</li>
+                    <li>{detail}</li>
+                    <li>매장·구매 안내</li>
+                  </ol>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+        <p>이렇게 바꾼 결과물이 한 달에 원본 16개만큼 쌓입니다</p>
+        <div className="mk-originals">
+          {Array.from({ length: 16 }, (_, i) => (
+            <span key={i}>
+              {i < 12 ? "이미지" : "컨텐츠"} {i < 12 ? i + 1 : i - 11}
+            </span>
+          ))}
+        </div>
+        <SignatureContact
+          id="sns"
+          plan="preview"
+          message={`소재: ${material}\n이름: ${title}\n알리고 싶은 점: ${detail}\n고객 질문: ${question}`}
+        />
+      </div>
+    </>
+  );
+}
+const roles = [
+  "브랜드 안내자",
+  "사용법을 알려주는 사람",
+  "일상을 보여주는 크리에이터",
+];
+function PersonaPlanner() {
+  const [product, setProduct] = useState("스킨케어");
+  const [role, setRole] = useState(roles[0]);
+  const [tone, setTone] = useState("친근하게");
+  const index = roles.indexOf(role);
+  return (
+    <>
+      <div className="mk-controls">
+        <Choices
+          label="01 제품 종류"
+          items={Object.keys(personaTopics)}
+          value={product}
+          onChange={setProduct}
+        />
+        <Choices
+          label="02 인물 역할"
+          items={roles}
+          value={role}
+          onChange={setRole}
+        />
+        <Choices
+          label="03 말투"
+          items={["차분하게", "친근하게", "밝고 빠르게"]}
+          value={tone}
+          onChange={setTone}
+        />
+        <a className="mk-result-jump" href="#signature-result">
+          결과 보기 ↓
+        </a>
+      </div>
+      <div className="mk-result" id="signature-result">
+        <p className="mk-caption">
+          편성 예시예요 · 실제 주제는 확인된 제품 정보로 함께 정합니다
+        </p>
+        <p className="mk-sr" aria-live="polite">
+          {product} · {role} · {tone} 말투의 한 달 8편 편성
+        </p>
+        <div className="mk-persona">
+          <Image
+            src={`/marketing-renewal/persona-role-${index}.webp`}
+            width={400}
+            height={500}
+            alt={`AIO 가상 인물 · ${role} 장면`}
+          />
+          <div>
+            <p className="mk-eyebrow">PERSONA CARD</p>
+            <h3>{role}</h3>
+            <p>
+              {tone === "친근하게"
+                ? "오늘은 제가 쓰는 순서대로 보여드릴게요"
+                : tone === "차분하게"
+                  ? "먼저 제품 정보와 사용 순서를 살펴보겠습니다"
+                  : "지금부터 하나씩 함께 살펴봐요"}
+            </p>
+            <p>
+              같은 얼굴·헤어 유지
+              <br />
+              실제 후기처럼 말하지 않기
+            </p>
+          </div>
+        </div>
+        <div className="mk-month">
+          {Array.from({ length: 4 }, (_, w) => (
+            <details key={w} open>
+              <summary>{w + 1}주</summary>
+              {personaTopics[product][index]
+                .slice(w * 2, w * 2 + 2)
+                .map((topic, i) => (
+                  <div key={topic}>
+                    <span>{topic}</span>
+                    <small>{i ? "인스타그램" : "쇼츠 9:16"}</small>
+                  </div>
+                ))}
+            </details>
+          ))}
+        </div>
+        <SignatureContact
+          id="ai-influencer"
+          plan="persona"
+          message={`제품 종류: ${product}\n역할: ${role}\n말투: ${tone}`}
+        />
+      </div>
+    </>
+  );
+}
+const pageItems = [
+  "페이지 제목과 설명",
+  "질문형 소제목과 첫 문장 답",
+  "가격·범위 문단",
+  "자주 묻는 질문 구조화 데이터",
+  "사이트맵·색인 허용",
+];
+const industryQuestions: Record<string, string[]> = {
+  "세무·법률": [
+    "비용은 얼마인가요?",
+    "누가 받을 수 있나요?",
+    "얼마나 걸리나요?",
+    "무엇을 준비하나요?",
+  ],
+  병원: [
+    "어떤 진료를 하나요?",
+    "예약이 필요한가요?",
+    "무엇을 준비하나요?",
+    "어디에 있나요?",
+  ],
+  "B2B 제조": [
+    "어떤 규격이 있나요?",
+    "어디에 사용하나요?",
+    "견적은 어떻게 받나요?",
+    "무엇을 준비하나요?",
+  ],
+  쇼핑몰: [
+    "어떤 제품인가요?",
+    "배송은 어떻게 되나요?",
+    "어떻게 사용하나요?",
+    "구성은 무엇인가요?",
+  ],
+  교육: [
+    "누가 수강하나요?",
+    "무엇을 배우나요?",
+    "수업은 언제 하나요?",
+    "무엇을 준비하나요?",
+  ],
+};
+function SeoPreview() {
+  const [industry, setIndustry] = useState("세무·법률");
+  const [name, setName] = useState("");
+  const [region, setRegion] = useState("");
+  const [question, setQuestion] = useState(industryQuestions[industry][0]);
+  const [enabled, setEnabled] = useState(pageItems);
+  const [view, setView] = useState("정리 후");
+  const service =
+    name ||
+    {
+      "세무·법률": "법인 기장 대행",
+      병원: "진료 안내",
+      "B2B 제조": "산업 부품",
+      쇼핑몰: "제품 안내",
+      교육: "수업 안내",
+    }[industry];
+  const has = (i: number) => enabled.includes(pageItems[i]);
+  return (
+    <>
+      <div className="mk-controls">
+        <Choices
+          label="01 업종"
+          items={Object.keys(industryQuestions)}
+          value={industry}
+          onChange={(v) => {
+            setIndustry(v);
+            setQuestion(industryQuestions[v][0]);
+          }}
+        />
+        <label>
+          02 서비스 이름
+          <input
+            maxLength={20}
+            placeholder={service}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label>
+          지역 · 선택
+          <input
+            maxLength={10}
+            placeholder="지역을 입력하세요"
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+          />
+        </label>
+        <Choices
+          label="03 고객 질문"
+          items={industryQuestions[industry]}
+          value={question}
+          onChange={setQuestion}
+        />
+        <fieldset className="mk-switches">
+          <legend>04 페이지에 넣을 항목</legend>
+          {pageItems.map((item) => (
+            <label key={item}>
+              <input
+                type="checkbox"
+                checked={enabled.includes(item)}
+                onChange={() =>
+                  setEnabled(
+                    enabled.includes(item)
+                      ? enabled.filter((v) => v !== item)
+                      : [...enabled, item],
+                  )
+                }
+              />
+              {item}
+            </label>
+          ))}
+        </fieldset>
+        <a className="mk-result-jump" href="#signature-result">
+          결과 보기 ↓
+        </a>
+      </div>
+      <div className="mk-result" id="signature-result">
+        <p className="mk-caption">
+          표시 방식 예시예요 · 실제 검색 결과와 AI 답변이 아니며 순위나 인용을
+          보장하지 않습니다
+        </p>
+        <Choices
+          label="비교 화면"
+          items={["정리 전", "정리 후"]}
+          value={view}
+          onChange={setView}
+        />
+        <div className="mk-search-comparison" data-view={view}>
+          {["정리 전", "정리 후"].map((v, i) => (
+            <article key={v} data-compare={v}>
+              <p className="mk-eyebrow">{v}</p>
+              <div className="mk-search-card">
+                <small>서비스 페이지 · 검색 표시 예시</small>
+                <h3>
+                  {i === 1 && has(0)
+                    ? `${region} ${service} | ${question}`
+                    : "홈 | 회사소개 | 서비스"}
+                </h3>
+                <p>
+                  {i === 1 && has(0)
+                    ? `${service}의 대상과 제공 범위, 상담에 필요한 자료를 확인하세요`
+                    : "회사소개 · 서비스 · 문의 · 찾아오시는 길"}
+                </p>
+              </div>
+              <div className="mk-answer-card">
+                <strong>질문에 대한 답변 예시</strong>
+                <p>
+                  {i === 1 && has(1)
+                    ? `${question}\n${service}의 조건과 절차를 서비스 페이지에서 안내합니다`
+                    : "이 사이트에서 확인할 수 있는 정보가 적습니다"}
+                </p>
+                {i === 1 && has(2) && (
+                  <p>비용은 제공 범위와 준비 자료를 확인한 뒤 정합니다</p>
+                )}
+                {i === 1 && has(1) && (
+                  <small>
+                    참고한 곳: {service} 서비스 페이지
+                    {has(2) ? " · 가격 문단" : ""}
+                  </small>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+        <p aria-live="polite">
+          적용 항목 {enabled.length}개 ·{" "}
+          {has(3) ? "FAQ 구조화 데이터 포함" : "FAQ 구조화 데이터 미포함"} ·{" "}
+          {has(4) ? "사이트맵·색인 허용 점검" : "색인 설정 점검 제외"}
+        </p>
+        <ul>
+          {enabled.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <SignatureContact
+          id="seo"
+          plan="checklist"
+          message={`업종: ${industry}\n서비스: ${service}\n지역: ${region}\n질문: ${question}\n관심 항목: ${enabled.join(", ")}`}
+        />
+      </div>
+    </>
+  );
+}
+function SignatureContact({
+  id,
+  plan,
+  message,
+  disabled,
+}: {
+  id: MarketingId;
+  plan: string;
+  message: string;
+  disabled?: boolean;
+}) {
+  return disabled ? (
+    <p className="mk-check">
+      5개 채널과 합계 100건을 맞추면 상담으로 이어집니다
+    </p>
+  ) : (
+    <Link
+      className="mk-primary"
+      href={marketingContact(id, "signature", plan, message)}
+    >
+      이 내용으로 상담하기 ↗
+    </Link>
+  );
+}
+export function ServiceExperience({ service }: { service: MarketingId }) {
+  const [revision, setRevision] = useState(0);
+  return (
+    <div>
+      <div
+        key={revision}
+        className={`mk-interaction mk-interaction-${service}`}
+      >
+        {service === "integrated" ? (
+          <ChannelPlanner />
+        ) : service === "sns" ? (
+          <SnsPreview />
+        ) : service === "ai-influencer" ? (
+          <PersonaPlanner />
+        ) : (
+          <SeoPreview />
+        )}
+      </div>
+      <button className="mk-reset" onClick={() => setRevision((v) => v + 1)}>
+        처음으로
+      </button>
     </div>
   );
 }

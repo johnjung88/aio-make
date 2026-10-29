@@ -1,226 +1,273 @@
-import { ServiceExperience } from "./experience";
 import Link from "next/link";
 import { type Service } from "@/lib/content";
 import { servicePlans } from "@/lib/service-plans";
-import { ServiceNavigation } from "@/components/guide/service-navigation";
-
+import {
+  marketingCopy,
+  marketingIds,
+  marketingNames,
+  marketingContact,
+  monthlySteps,
+  seoSteps,
+  aiSteps,
+  type MarketingId,
+} from "@/lib/marketing-renewal";
+import { NewTabHint } from "@/components/new-tab-hint";
+import { ServiceExperience } from "./experience";
+import {
+  MarketingHead,
+  MarketingPicture,
+  MarketingCards,
+  MarketingProcess,
+  MarketingFaq,
+  MarketingInquiry,
+} from "./blocks";
 export function MarketingDetail({
   service,
-  references,
 }: {
   service: Service;
   references?: React.ReactNode;
 }) {
-  const plan = servicePlans[service.id];
-  const monthly = service.id !== "seo";
-  const root = "marketing";
-  const contact = `/${root}/contact?service=${service.id}`;
-  const stages = monthly
-    ? [
-        [
-          "목표와 자료 확인",
-          "고객·브랜드·채널과 자료의 이용 범위를 확인합니다",
-        ],
-        [
-          "월간 계획 합의",
-          "원본 수량과 채널별 게시 계획, 검토 일정을 정합니다",
-        ],
-        ["제작과 게시", "초안과 결과물을 검수하고 합의한 채널에서 운영합니다"],
-        [
-          "보고와 다음 계획",
-          "운영 내역과 확인 가능한 반응을 바탕으로 다음 계획을 조정합니다",
-        ],
-      ]
-    : [
-        [
-          "요구사항 정리",
-          "현재 환경과 자료를 보고 작업 범위·견적·일정을 합의합니다",
-        ],
-        [
-          "구조와 작업안 확인",
-          "필요한 화면 또는 작업 흐름과 고객 확인 항목을 정합니다",
-        ],
-        [
-          "구현과 실제 검수",
-          "합의한 환경에서 화면과 기능, 오류 상황을 확인합니다",
-        ],
-        ["인계와 운영 안내", plan.handoff],
-      ];
+  const id = service.id as MarketingId;
+  if (!marketingIds.includes(id)) return null;
+  const plan = servicePlans[id],
+    copy = marketingCopy[id];
+  const steps =
+    id === "seo"
+      ? seoSteps
+      : id === "ai-influencer"
+        ? aiSteps
+        : monthlySteps.map((step, i) =>
+            id === "sns"
+              ? [
+                  step[0],
+                  step[1],
+                  [
+                    "보유 사진 목록",
+                    "월간 주제",
+                    "게시 전 초안",
+                    "다음 달 주제",
+                  ][i],
+                ]
+              : step,
+          );
   return (
-    <div className={`guide-page service-detail service-dark`}>
-      <ServiceNavigation division={root} />
-      <section className="service-hero service-hero-visual review-container">
-        <div className="service-hero-copy">
-          <span className="review-eyebrow">{service.name}</span>
-          <h1 className="t-h1" aria-label={plan.headline.replace("\n", " ")}>
-            {plan.headline.split("\n").map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-          </h1>
-          <p className="t-body">{plan.intro}</p>
+    <div className={"mk-detail mk-detail-" + id}>
+      <section className="mk-detail-hero mk-container">
+        <div className="mk-detail-copy">
+          <p className="mk-eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p className="mk-lead">{copy.intro}</p>
           <p className="mk-hero-price">
-            {plan.price} · {plan.term}
+            <strong>{copy.price}</strong>
+            <span>{copy.term}</span>
           </p>
-          <div className="service-actions">
-            <Link className="service-primary" href={contact}>
-              이 서비스 문의하기 ↗
-            </Link>
-            <a href="#service-scope">제공 범위 살펴보기 ↓</a>
-          </div>
         </div>
-        <ServiceExperience service={service.id} steps={plan.example.steps} />
-        <aside
-          id="pricing"
-          className="service-price"
-          aria-label="가격과 제공 기준"
-        >
-          <span>가격과 제공 기준</span>
-          <strong>{plan.price}</strong>
-          <p className="t-body">{plan.term}</p>
+        <div className="mk-hero-image">
+          <MarketingPicture
+            name={id + "-hero"}
+            alt={marketingNames[id] + " 결과물 방향 예시"}
+            hero
+          />
+        </div>
+        <div className="mk-actions">
+          <Link className="mk-primary" href={marketingContact(id, "hero")}>
+            {marketingNames[id]} 상담하기 ↗
+          </Link>
+          <a href="#signature">{copy.secondary} ↓</a>
+        </div>
+      </section>
+      <section className="mk-fit mk-container">
+        <ol>
+          {plan.fit.map((fit, i) => (
+            <li key={fit}>
+              <span>0{i + 1}</span>
+              {fit}
+            </li>
+          ))}
+        </ol>
+        <div>
+          <span>
+            {copy.price} · {copy.term}
+          </span>
+          <a href="#pricing">구성과 가격 보기 ↓</a>
+        </div>
+        {id === "seo" && (
+          <p>
+            SEO 검색이 읽는 구조 · AEO 질문에 바로 답하는 문단 · GEO AI가 참고할
+            사실 정보
+          </p>
+        )}
+      </section>
+      <section className="mk-section mk-container" id="signature">
+        <MarketingHead
+          id="signature-title"
+          eyebrow={copy.signature[0]}
+          title={copy.signature[1]}
+          lead={copy.signature[2]}
+        />
+        <ServiceExperience service={id} />
+      </section>
+      <section className="mk-section mk-container" id="deliverables">
+        <MarketingHead
+          id="results-title"
+          eyebrow="WHAT YOU GET"
+          title={copy.resultsTitle}
+          lead={copy.resultsLead}
+        />
+        <div className="mk-deliverables">
+          {copy.results.map(([title, desc], i) => (
+            <figure key={title}>
+              <MarketingPicture
+                name={id + "-result-" + (i + 1)}
+                alt={title + " 화면 예시"}
+              />
+              <figcaption>
+                <h3>{title}</h3>
+                <p>{desc}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <p className="mk-caption">제작 방향 예시</p>
+      </section>
+      <section className="mk-section mk-container" id="pricing">
+        <MarketingHead
+          id="pricing-title"
+          eyebrow="SCOPE & PRICE"
+          title={copy.pricingTitle}
+          lead={
+            id === "seo"
+              ? "접근 가능한 환경을 확인한 뒤 견적을 드립니다"
+              : "표시 금액은 부가세 별도입니다"
+          }
+        />
+        <div className="mk-pricing">
+          <div>
+            <p className="mk-eyebrow">{marketingNames[id]}</p>
+            <strong className="mk-price">{copy.price}</strong>
+            <p>{copy.term}</p>
+            <Link className="mk-primary" href={marketingContact(id, "pricing")}>
+              이 구성으로 상담 ↗
+            </Link>
+          </div>
           <dl>
-            {plan.facts.map(([label, value]) => (
+            {plan.facts.slice(0, 3).map(([label, value]) => (
               <div key={label}>
                 <dt>{label}</dt>
                 <dd>{value}</dd>
               </div>
             ))}
           </dl>
-          <p className="service-price-note t-body">
-            {monthly
-              ? "세부 제작·수정·게시 범위는 상담 후 견적과 운영 계획에서 정합니다"
-              : "사이트 진단과 실제 적용·검수 범위는 접근 가능한 환경을 확인한 뒤 견적에서 정합니다"}
+        </div>
+        {id === "integrated" && (
+          <p className="mk-note">
+            원본은 새로 만드는 컨텐츠 · 게시는 채널에 올리는 횟수
           </p>
-        </aside>
-      </section>
-      <section className="service-fit review-container">
-        <h2 className="t-h2">이럴 때 잘 맞습니다</h2>
-        <ul>
-          {plan.fit.map((fit, index) => (
-            <li key={fit}>
-              <span>0{index + 1}</span>
-              {fit}
-            </li>
+        )}
+        <div className="mk-scope">
+          {[
+            ["포함", plan.included],
+            ["별도 협의", plan.optional],
+            ["준비하면 좋은 것", service.inputs],
+          ].map(([title, items]) => (
+            <div key={String(title)}>
+              <h3>{title}</h3>
+              <ul>
+                {(items as string[]).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-      </section>
-      <section id="service-scope" className="service-scope review-container">
-        <div className="service-section-heading">
-          <span className="review-eyebrow">제공 범위</span>
-          <h2 className="t-h2">맡길 일과 준비할 일을 분명하게</h2>
-          <p className="t-body">포함 항목과 추가 협의 사항을 먼저 맞춥니다</p>
         </div>
-        <div className="service-scope-grid">
-          <div>
-            <h3 className="t-h3">제공하는 일</h3>
-            <ul>
-              {plan.included.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="t-h3">별도 협의</h3>
-            <ul>
-              {plan.optional.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="t-h3">고객이 준비할 자료</h3>
-            <ul>
-              {service.inputs.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p className="t-body">
-              {
-                "현재 준비된 자료부터 알려주세요\n부족한 부분은 상담에서 함께\n              정리합니다"
-              }
+        {id !== "seo" && (
+          <p className="mk-note">
+            월 운영 상품 혜택 · 기본 소개·문의 사이트 구축 또는 리뉴얼 1회
+            <br />
+            페이지 수와 수정·유지 범위는 견적에서 정합니다
+            <br />
+            쇼핑몰·정기결제·추가 기능과 운영 실비는 별도이며 결합 시 혜택 중복
+            적용은 별도 확인합니다
+          </p>
+        )}
+        {id === "ai-influencer" && (
+          <>
+            <p className="mk-note">
+              가상 인물을 실제 사용 후기의 주인공으로 표현하지 않습니다
             </p>
-          </div>
-        </div>
-        {monthly && (
-          <div className="service-benefit">
-            <strong>
-              월 운영 상품 혜택 · 기본 소개·문의 사이트 구축 또는 리뉴얼 1회
-            </strong>
-            <p className="t-body">
-              {
-                "페이지 수와 수정·유지 범위는 견적에서 정합니다\n쇼핑몰·정기결제·추가 기능과 지속 운영 실비는 별도이며, 상품 결합 시 혜택 중복 적용은 별도 확인합니다"
-              }
+            <p className="mk-note">
+              <Link
+                href="/content/services/ai-influencer"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                한 번만 만들고 싶다면 컨텐츠 분야 AI 인플루언서 제작 보기{" "}
+                <NewTabHint />
+              </Link>
             </p>
-          </div>
+          </>
         )}
       </section>
-      <section className="service-example review-container">
-        <div className="service-section-heading">
-          <span className="review-eyebrow">구성 예시</span>
-          <h2 className="t-h2">{plan.example.title}</h2>
-        </div>
-        <ol className="service-example-flow">
-          {plan.example.steps.map(([title, description], index) => (
-            <li key={title}>
-              <span className="example-step-no">0{index + 1}</span>
-              <h3 className="t-h3">{title}</h3>
-              <p className="t-body">{description}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="service-example-note t-body">{plan.example.note}</p>
+      <section className="mk-section mk-container">
+        <MarketingHead
+          id="process-title"
+          eyebrow="PROCESS"
+          title={copy.processTitle}
+          lead={
+            id === "sns"
+              ? "초안을 확인한 뒤 채널에 게시합니다"
+              : "단계마다 고객이 확인할 것을 먼저 정합니다"
+          }
+        />
+        <MarketingProcess steps={steps} />
       </section>
-      {references}
-      <section className="service-process review-container">
-        <div className="service-section-heading">
-          <span className="review-eyebrow">진행 방법</span>
-          <h2 className="t-h2">
-            {monthly
-              ? "한 달의 운영을 함께 확인합니다"
-              : "범위 합의부터 실제 사용까지"}
-          </h2>
-        </div>
-        <ol>
-          {stages.map(([title, description], index) => (
-            <li key={title}>
-              <span>0{index + 1}</span>
-              <h3 className="t-h3">{title}</h3>
-              <p className="t-body">{description}</p>
-            </li>
-          ))}
-        </ol>
-        {monthly && <p className="service-handoff t-body">{plan.handoff}</p>}
-      </section>
-      <section className="service-faq review-container" id="faq">
-        <p>
+      <section id="faq" className="mk-section mk-container">
+        <MarketingHead
+          id="faq-title"
+          eyebrow="FAQ"
+          title={
+            id === "seo"
+              ? "진단 전에\n많이 묻는 질문"
+              : "운영 전에\n많이 묻는 질문"
+          }
+        />
+        <MarketingFaq
+          faq={
+            id === "integrated"
+              ? [
+                  ...plan.faq,
+                  [
+                    "사이트도 만들어 주나요?",
+                    "월 운영 상품에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회가 포함됩니다\n페이지 수와 수정·유지 범위는 견적에서 정합니다",
+                  ],
+                ]
+              : plan.faq
+          }
+        />
+        <p className="mk-note">
           <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link> ·{" "}
-          <a href="#pricing">가격과 범위</a> ·{" "}
           <Link href="/terms">이용 안내</Link>
         </p>
-        <div className="service-section-heading">
-          <span className="review-eyebrow">자주 묻는 질문</span>
-          <h2 className="t-h2">의뢰 전에 확인하세요</h2>
-        </div>
-        <div>
-          {plan.faq.map(([question, answer], index) => (
-            <details key={question} id={`faq-${index + 1}`}>
-              <summary>
-                {question}
-                <span aria-hidden="true">+</span>
-              </summary>
-              <p className="t-body">{answer}</p>
-            </details>
-          ))}
-        </div>
       </section>
-      <section className="service-next review-container">
-        <span className="review-eyebrow">{service.name} 상담</span>
-        <h2 className="t-h2">현재 상황부터 알려주세요</h2>
-        <p className="t-body">
-          현재 상황과 필요한 결과물, 참고 자료를 알려주세요
-        </p>
-        <Link href={contact} className="service-primary">
-          이 서비스 문의하기 ↗
-        </Link>
+      <MarketingInquiry service={id} />
+      <section className="mk-section mk-container">
+        <MarketingHead
+          id="related-title"
+          eyebrow="OTHER SERVICES"
+          title={"다른 운영도\n살펴보세요"}
+        />
+        <MarketingCards current={id} />
+        {id === "seo" && (
+          <p className="mk-note">
+            <Link
+              href="/lab/services/website"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              사이트부터 새로 만들어야 한다면 웹사이트 제작 <NewTabHint />
+            </Link>
+          </p>
+        )}
       </section>
     </div>
   );

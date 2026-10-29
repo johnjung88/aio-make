@@ -67,6 +67,7 @@ export function FloatingContact() {
     }
     dialog.current?.showModal();
   }
+  if (division === "marketing") return null;
   return (
     <>
       <nav
