@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { MonthlyMarketingBoard } from "./monthly-marketing-board";
 import { useRef, useState } from "react";
 import { GuideLink } from "@/components/guide/primitives";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
@@ -19,12 +20,11 @@ export const divisions = [
   {
     name: "마케팅",
     href: "/marketing",
-    image:
-      "/images/guide/portfolio/blogautopilot-multinational/real-demo/app-schedule.png",
-    alt: "컨텐츠 발행 일정과 채널을 관리하는 운영 화면",
+    image: "",
+    alt: "가상 브랜드 월간 운영 보드 화면 구성 예시",
     line: "고객을 부르는 분야",
     services: "통합 마케팅 · SNS 대행 운영 · SEO·AEO·GEO",
-    note: "컨텐츠 운영 도구 화면",
+    note: "달빛정원 · 가상 브랜드 화면 구성 예시",
   },
   {
     name: "컨텐츠",
@@ -48,15 +48,19 @@ export function DivisionCards() {
       {divisions.map((item, i) => (
         <GuideLink key={item.href} className="rw-division" href={item.href}>
           <div
-            className={`rw-card-media${item.previews ? " rw-card-media--collage" : ""}`}
+            className={`rw-card-media${item.previews ? " rw-card-media--collage" : ""}${item.href === "/marketing" ? " rw-card-media--board" : ""}`}
           >
-            <Image
-              src={item.image}
-              alt={item.alt}
-              width={960}
-              height={640}
-              sizes="(min-width:768px) 33vw, 100vw"
-            />
+            {item.href === "/marketing" ? (
+              <MonthlyMarketingBoard compact />
+            ) : (
+              <Image
+                src={item.image}
+                alt={item.alt}
+                width={960}
+                height={640}
+                sizes="(min-width:768px) 33vw, 100vw"
+              />
+            )}
             {item.previews?.map((src, index) => (
               <Image
                 key={src}
@@ -71,7 +75,9 @@ export function DivisionCards() {
                 sizes="(min-width:768px) 20vw, 60vw"
               />
             ))}
-            <span className="rw-media-note cs-t-caption">{item.note}</span>
+            {item.href !== "/marketing" && (
+              <span className="rw-media-note cs-t-caption">{item.note}</span>
+            )}
           </div>
           <div className="rw-card-body">
             <span className="cs-t-num">0{i + 1}</span>

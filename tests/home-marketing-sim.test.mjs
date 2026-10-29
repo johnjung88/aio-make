@@ -373,10 +373,12 @@ test("stepper and phone are wired as buttons with names and pressed state", asyn
   assert.match(tsx, /data-blink=\{index === 0 && showLoop && stage === 3\}/);
 });
 
-test("RW1 marketing uses a filled operating screen and four concise steps", async () => {
+test("RW1R marketing uses an illustrative monthly board and four steps", async () => {
 const wj=await read('components/home/workflow-journey.tsx');
- assert.ok(wj.includes('real-demo/app-dashboard.png'));
- for(const text of ['목표와 채널 설정','컨텐츠 기획','발행과 운영','데이터 확인·개선']) assert.ok(wj.includes(text));
+ assert.ok(wj.includes('<MonthlyMarketingBoard />'));
+ const board=await read('components/home/monthly-marketing-board.tsx');
+ assert.doesNotMatch(wj,/real-demo\/app-(dashboard|schedule)/);
+ for(const text of ['목표와 채널 설정','컨텐츠 기획','발행과 운영','데이터 확인·개선']) assert.ok(board.includes(text));
  assert.doesNotMatch(wj,/JourneyMarketing|SocialIcon|wj-mk-phone/);
  assert.equal(journeyModule.journeySteps.find(s=>s.id==='journey-marketing').lead.split('\n').length,2);
 });

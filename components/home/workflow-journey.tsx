@@ -1,5 +1,6 @@
 ﻿"use client";
 import Image from "next/image";
+import { MonthlyMarketingBoard } from "./monthly-marketing-board";
 import {
   emptyJourneyData,
   journeySteps,
@@ -75,33 +76,7 @@ export function WorkflowJourney({
             title={marketing.title}
             lead={marketing.lead}
           />
-          <ol className="rw-marketing-steps cs-t-body">
-            {[
-              "목표와 채널 설정",
-              "컨텐츠 기획",
-              "발행과 운영",
-              "데이터 확인·개선",
-            ].map((label, i) => (
-              <li key={label}>
-                <span className="cs-t-num">0{i + 1}</span>
-                {label}
-              </li>
-            ))}
-          </ol>
-          <figure>
-            <div className="rw-work-media">
-              <Image
-                src="/images/guide/portfolio/blogautopilot-multinational/real-demo/app-dashboard.png"
-                alt="발행 현황과 예약 일정을 확인하는 컨텐츠 운영 도구 화면"
-                width={1600}
-                height={1000}
-                sizes="(min-width:1200px) 1120px, 100vw"
-              />
-            </div>
-            <figcaption className="cs-t-small">
-              컨텐츠 운영 도구 화면 · 채널과 발행 현황을 한곳에서 확인합니다
-            </figcaption>
-          </figure>
+          <MonthlyMarketingBoard />
           <GuideLink
             className="cs-btn cs-btn--ghost rw-work-link"
             href="/marketing"

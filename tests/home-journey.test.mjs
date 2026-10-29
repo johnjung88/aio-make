@@ -106,7 +106,7 @@ const ORIGINAL_STEPS = {
   "journey-marketing": {
     railLabel: "마케팅",
     title: "계획하고 운영하고\n데이터로 고칩니다",
-    lead: "어느 채널에, 어떻게 보여줄지 계획하고\n데이터를 쌓아, 개선하면서 성과 극대화",
+    lead: "어느 채널에, 어떻게 보여줄지 계획하고\n반응을 확인하고 다음 계획에 반영합니다",
   },
   "journey-content": {
     railLabel: "컨텐츠",
