@@ -1,18 +1,108 @@
-﻿import Image from "next/image";
+"use client";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
+import { FloorPlan, FLOOR_INFO } from "@/components/lab-samples/architecture";
 import styles from "./renewal.module.css";
-
-export function HomeScene() {
-  return (
-    <figure className={styles.homeScreen}>
+const BuildingScene = dynamic(
+  () => import("@/components/lab-samples/building-scene"),
+  {
+    ssr: false,
+    loading: () => (
       <Image
-        src="/lab-renewal/home-website.webp"
-        width={1440}
+        src="/lab-renewal/nest-preview.webp"
+        width={1600}
         height={900}
-        priority
-        sizes="(max-width: 900px) 100vw, 65vw"
-        alt="여백결 샘플 사이트 실행 화면 · 공간 사진과 상담 동선을 담은 홈페이지"
+        alt="NEST 가상 건축 화면"
       />
-      <figcaption>여백결 · 가상 브랜드 샘플 사이트 실행 화면</figcaption>
-    </figure>
+    ),
+  },
+);
+export function HomeScene() {
+  const [floor, setFloor] = useState(-1),
+    [room, setRoom] = useState(0),
+    [reduced, setReduced] = useState(true),
+    [active, setActive] = useState(false),
+    [failed, setFailed] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const mq = matchMedia("(prefers-reduced-motion: reduce)");
+    const change = () => setReduced(mq.matches);
+    change();
+    mq.addEventListener("change", change);
+    let visible = false;
+    const update = () => setActive(visible && !document.hidden);
+    const observer = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      update();
+    });
+    if (ref.current) observer.observe(ref.current);
+    document.addEventListener("visibilitychange", update);
+    return () => {
+      mq.removeEventListener("change", change);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", update);
+    };
+  }, []);
+  return (
+    <div className={styles.homeBuilding}>
+      <div className={styles.homeScene} ref={ref}>
+        {reduced || failed ? (
+          <FloorPlan
+            floor={Math.max(0, floor)}
+            room={room}
+            onRoom={(value) => {
+              if (floor < 0) setFloor(0);
+              setRoom(value);
+            }}
+          />
+        ) : (
+          <BuildingScene
+            floor={floor}
+            room={room}
+            stage={3}
+            exploded={false}
+            night={false}
+            resetToken={0}
+            active={active}
+            onFloor={(value) => {
+              setFloor(value);
+              setRoom(0);
+            }}
+            onRoom={setRoom}
+            onStatus={(s) => {
+              if (s === "failed") setFailed(true);
+            }}
+            brandLighting
+            viewPadding={0.98}
+          />
+        )}
+      </div>
+      <div className={`${styles.choices} ${styles.floorControls}`}>
+        {["전체", "1층", "2층", "3층"].map((s, i) => (
+          <button
+            key={s}
+            type="button"
+            aria-pressed={floor === i - 1}
+            onClick={() => {
+              setFloor(i - 1);
+              setRoom(0);
+            }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <p className={styles.note} aria-live="polite">
+        {floor < 0
+          ? "NEST · 가상 건축 공간"
+          : `${floor + 1}층 · ${FLOOR_INFO[floor].spaces[room].name} · ${FLOOR_INFO[floor].spaces[room].detail}`}
+        {reduced
+          ? " · 감소 모션에서는 평면으로 탐색합니다"
+          : failed
+            ? " · 평면 대체 화면"
+            : " · 드래그로 회전하고 층을 선택해 둘러보세요"}
+      </p>
+    </div>
   );
 }

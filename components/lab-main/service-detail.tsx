@@ -13,6 +13,7 @@ import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import { RenewalSignature } from "./renewal-signature";
 import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
+import { OutputPreview } from "./output-preview";
 import styles from "./renewal.module.css";
 type Id = keyof typeof content;
 export function SectionHead({
@@ -224,6 +225,8 @@ export function LabServiceDetail({ id }: { id: string }) {
             <article className={styles.card} key={variant}>
               {id === "website" ? (
                 <DeviceVisual name={variant} />
+              ) : id === "automation" || id === "program" ? (
+                <OutputPreview variant={variant} />
               ) : (
                 <div className={styles.visual}>
                   <Image
