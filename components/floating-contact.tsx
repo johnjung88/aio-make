@@ -24,13 +24,13 @@ export function FloatingContact() {
   const path = usePathname(),
     dialog = useRef<HTMLDialogElement>(null);
   const [keyboard, setKeyboard] = useState(false);
-  const suppressNearInline = path === "/content" || path === "/";
+  const suppressNearInline = path === "/content" || path === "/" || path.startsWith("/about");
   const [inlineVisible, setInlineVisible] = useState(true);
   useEffect(() => {
     if (!suppressNearInline || typeof IntersectionObserver === "undefined") return;
     const targets = Array.from(document.querySelectorAll(path === "/"
       ? "#work, .wjpc, #contact"
-      : "[data-inline-contact], #contact, .ch-cta"));
+      : "[data-inline-contact], #contact, .ch-cta, .rw-about-hero"));
     const visible = new Set<Element>();
     targets.forEach(target => {
       const rect = target.getBoundingClientRect();
@@ -73,7 +73,7 @@ export function FloatingContact() {
         className="floating-contact"
         data-home={path === "/" ? "true" : undefined}
         aria-label="빠른 상담"
-        hidden={keyboard || (suppressNearInline && inlineVisible)}
+        hidden={path === "/contact" || keyboard || (suppressNearInline && inlineVisible)}
       >
         <button onClick={openFaq}>자주 묻는 질문</button>
         <Link href={href}>
