@@ -86,7 +86,7 @@ export function LabHeader() {
             onClick={() => setOpen(false)}
           >
             <Link href="/">AIO MAKE 홈</Link>
-            <Link href="/content">콘텐츠 스튜디오</Link>
+            <Link href="/content">{"컨텐츠 스튜디오"}</Link>
             <Link href="/marketing">마케팅</Link>
             <Link href="/lab#gallery">가상 샘플 갤러리</Link>
             <Link href="/lab#process">제작 과정</Link>
@@ -129,7 +129,7 @@ export function LabFooter() {
           <Link href={labContactPath()}>제작 상담</Link>
           <a href={`mailto:${BUSINESS_EMAIL}`}>{BUSINESS_EMAIL}</a>
           <Link href="/">AIO MAKE 홈 ↗</Link>
-          <Link href="/content">콘텐츠 스튜디오</Link>
+          <Link href="/content">{"컨텐츠 스튜디오"}</Link>
           <Link href="/marketing">마케팅</Link>
         </nav>
       </div>

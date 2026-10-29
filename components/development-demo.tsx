@@ -45,8 +45,9 @@ export function DevelopmentDemo({ service = "website" }: { service?: string }) {
             담아보기 <span>+</span>
           </button>
           <p>
-            장바구니와 디자인 전환을 보여주는 UI 예시입니다 실제 결제는
-            없습니다
+            {
+              "장바구니와 디자인 전환을 보여주는 UI 예시입니다\n실제 결제는 없습니다"
+            }
           </p>
         </div>
       ) : service === "automation" ? (

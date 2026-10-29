@@ -302,7 +302,7 @@ test("2. 가격: PRICING_FINAL 금액·주석과 정확히 같다", () => {
     "계정 게시·운영 및 대량 제작은 별도 견적",
   ]);
   assert.deepEqual(pricingPlans("webtoon").notes, [
-    "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다 웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요",
+    "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다\n웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요",
   ]);
   assert.deepEqual(WEBTOON_PAGE_STANDARD, { width: 1024, height: 1536, ratio: "2:3", label: "가로 1,024px × 세로 1,536px" });
   assert.deepEqual(pricingPlans("animation").notes, []);

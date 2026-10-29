@@ -83,7 +83,7 @@ export function ServiceExperience({
               try {
                 await navigator.clipboard.writeText(summary);
                 setCopyStatus(
-                  "선택 내용을 복사했습니다 문의 내용에 붙여넣어주세요",
+                  "선택 내용을 복사했습니다\n문의 내용에 붙여넣어주세요",
                 );
               } catch {
                 setCopyStatus("위 내용을 직접 선택해 복사해주세요");

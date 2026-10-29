@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { serviceById } from "@/lib/content";
 export const metadata = pageMetadata(
   "프로젝트 문의",
-  "목표와 필요한 작업을 알려주세요 범위를 확인한 뒤 견적과 일정을 안내합니다",
+  "목표와 필요한 작업을 알려주세요\n범위를 확인한 뒤 견적과 일정을 안내합니다",
   "/contact",
 );
 export default async function Contact({

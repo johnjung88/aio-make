@@ -61,7 +61,7 @@ export function InquiryBridge({
   style,
   homeHref = "/",
   homeLabel = "홈으로 돌아가기",
-  unselectedMessage = "요청 서비스를 선택해주세요 아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다",
+  unselectedMessage = "요청 서비스를 선택해주세요\n아직 정하지 않았다면 ‘아직 모르겠어요’를 선택할 수 있습니다",
 }: Props) {
   const [key, setKey] = useState(""),
     [busy, setBusy] = useState(false),
@@ -273,10 +273,12 @@ export function InquiryBridge({
           </>
         ) : (
           <>
-            이메일 또는 전화번호를 입력해주세요 문의를 보내면 방문 경로
-            정보(유입 링크·광고 클릭 번호)가 함께 저장됩니다{" "}
+            {
+              "이메일 또는 전화번호를 입력해주세요\n문의를 보내면 방문 경로 정보(유입 링크·광고 클릭 번호)가 함께 저장됩니다"
+            }{" "}
           </>
         )}
+        <br />
         <Link href="/privacy" target="_blank" rel="noopener noreferrer">
           개인정보 수집·이용 안내
         </Link>

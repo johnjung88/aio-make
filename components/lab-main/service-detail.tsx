@@ -184,7 +184,7 @@ export function LabServiceDetail({ id }: { id: string }) {
           ))}
         </div>
       </section>
-      <section className={styles.section}>
+      <section className={styles.section} id="faq">
         <div className={styles.heading}>
           <p className={styles.eyebrow}>05 / FAQ</p>
           <h2>제작 전 궁금한 점</h2>
@@ -202,7 +202,7 @@ export function LabServiceDetail({ id }: { id: string }) {
             ),
             [
               "가격과 납기는 어떻게 정하나요?",
-              "위 공개 가격 안내와 준비된 자료, 필요한 기능을 기준으로 범위를 확인합니다 납기와 수정·지원 조건은 개별 견적에서 정합니다",
+              "위 공개 가격 안내와 준비된 자료, 필요한 기능을 기준으로 범위를 확인합니다\n납기와 수정·지원 조건은 개별 견적에서 정합니다",
             ],
           ].map(([q, a], index) => (
             <details key={q} id={`faq-${index + 1}`}>

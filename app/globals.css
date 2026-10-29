@@ -1,3 +1,14 @@
+/* Public prose respects authored sentence boundaries, including FAQ data. */
+:where(.guide-page, .cs-site, .sd, .review-container, [data-service]) p {
+  white-space: pre-line;
+}
+.sd-price-notes li {
+  white-space: pre-line;
+}
+.guide-utility .project-checklist :is(p, li) {
+  color: var(--ink);
+}
+
 :root {
   --ff-text:
     var(--font-body), "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",

@@ -40,7 +40,11 @@ export function WebtoonScope() {
             </button>
             <figcaption>
               <strong>이 페이지 전체가 1P</strong>
-              <span>한 페이지 안에 여러 장면을 구성합니다 아래 예시는 화면용 축소본입니다</span>
+              <span>
+                {
+                  "한 페이지 안에 여러 장면을 구성합니다\n아래 예시는 화면용 축소본입니다"
+                }
+              </span>
             </figcaption>
           </figure>
           <div className="episode-comparison">
