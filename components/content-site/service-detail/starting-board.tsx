@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { homeCardMedia } from "@/lib/content-home";
+import { homeCardMedia, homeStartingMotionFrames } from "@/lib/content-home";
 import { useState } from "react";
 import {
   DETAIL_COPY,
@@ -25,7 +25,7 @@ const starts: Record<ContentServiceId, [string, string, string][]> = {
     [
       "완성 웹툰이 있어요",
       "영상으로 옮길 장면부터",
-      "기존 웹툰 영상화에 사용할 원본과 장면을 확인합니다 신규 웹툰과 함께 만드는 구성도 비교할 수 있습니다",
+      "기존 웹툰 영상화에 사용할 원본과 장면을 확인합니다\n신규 웹툰과 함께 만드는 구성도 비교할 수 있습니다",
     ],
   ],
   animation: [
@@ -59,7 +59,7 @@ const starts: Record<ContentServiceId, [string, string, string][]> = {
     [
       "제품영상이 필요해요",
       "제품 정보와 장면부터",
-      "확인된 제품 정보와 필요한 장면·분량을 정합니다 AI 가상인물이 출연하는 연출 영상으로 제작합니다",
+      "확인된 제품 정보와 필요한 장면·분량을 정합니다\nAI 가상인물이 출연하는 연출 영상으로 제작합니다",
     ],
   ],
   "motion-graphics": [
@@ -88,7 +88,7 @@ const starts: Record<ContentServiceId, [string, string, string][]> = {
     [
       "사진·영상이 있어요",
       "보유 장면과 추가 자료부터",
-      "사용할 수 있는 사진·영상과 부족한 장면을 확인합니다 현장 촬영은 별도로 협의합니다",
+      "사용할 수 있는 사진·영상과 부족한 장면을 확인합니다\n현장 촬영은 별도로 협의합니다",
     ],
     [
       "활용처가 정해져 있어요",
@@ -110,7 +110,7 @@ const starts: Record<ContentServiceId, [string, string, string][]> = {
     [
       "게시 채널이 정해져 있어요",
       "채널과 다음 행동부터",
-      "시청자와 릴스·쇼츠 등 채널을 확인하고 상세페이지나 문의처로 이어질 마지막 장면을 정합니다 광고 집행은 별도입니다",
+      "시청자와 릴스·쇼츠 등 채널을 확인하고 상세페이지나 문의처로 이어질 마지막 장면을 정합니다\n광고 집행은 별도입니다",
     ],
   ],
 };
@@ -183,7 +183,11 @@ export function StartingBoard({ service }: { service: ContentServiceId }) {
       </div>
       <div id="prepare" className="cr-prepare">
         <h3>준비하면 좋은 것</h3>
-        <p>준비된 내용부터 알려주세요 자료와 분량은 상담하면서 정해도 됩니다</p>
+        <p>
+          준비된 내용부터 알려주세요
+          <br />
+          자료와 분량은 상담하면서 정해도 됩니다
+        </p>
         <dl>
           {DETAIL_COPY[service].prepare.map(([name, text]) => (
             <div key={name}>
@@ -208,22 +212,29 @@ function StartingVisual({
   if (service === "webtoon")
     return (
       <figure className="cr-visual cr-comic">
-        <div className="cr-script">
-          <span>장면 구성 예시</span>
-          <b>인물의 행동</b>
-          <i aria-hidden="true" />
-          <b>장면과 대사</b>
-          <i aria-hidden="true" />
-          <span>원고에서 컷으로 →</span>
+        <div className="cr-comic-step">
+          <span>01 · 콘티 구성 예시</span>
+          <svg
+            viewBox="0 0 280 400"
+            role="img"
+            aria-label="인물의 얼굴, 대화, 경기 장면을 세 칸으로 나눈 콘티 설명 스케치"
+          >
+            <rect x="8" y="8" width="264" height="146" />
+            <path d="M24 142Q40 94 88 94T156 142 M63 62Q63 28 88 28T113 62Q113 94 88 94T63 62 M164 28H250V72H190L174 90V72H164Z M8 170H272V260H8Z M8 278H272V392H8Z M24 248L72 195L130 248 M152 190H254V225H180L165 240V225H152Z M24 365L252 300 M24 385L252 320 M104 338L130 306L153 327L137 351L162 377 M130 306L149 288 M104 338L78 324 M137 351L112 379" />
+            <circle cx="154" cy="290" r="10" />
+          </svg>
         </div>
-        <Image
-          src={asset("webtoon-05")}
-          width={280}
-          height={400}
-          alt={homeCardMedia.webtoon.caseLabel + " 완성 페이지 05"}
-        />
+        <div className="cr-comic-step">
+          <span>02 · 완성 페이지</span>
+          <Image
+            src={asset("webtoon-05")}
+            width={280}
+            height={400}
+            alt={homeCardMedia.webtoon.caseLabel + " 완성 페이지 05"}
+          />
+        </div>
         <figcaption>
-          원고 → 장면 → 완성 페이지 · {homeCardMedia.webtoon.tag}
+          콘티 도해 → 실제 완성 페이지 · 콘티는 제작 흐름을 설명하는 예시입니다
         </figcaption>
       </figure>
     );
@@ -251,51 +262,56 @@ function StartingVisual({
   if (service === "ai-influencer")
     return (
       <figure className="cr-visual cr-persona">
-        <Image
-          src={asset("ai-face")}
-          width={220}
-          height={260}
-          alt={homeCardMedia["ai-influencer"].caseLabel + " 기준 얼굴"}
-        />
-        <div>
-          <span>IDENTITY REFERENCE</span>
-          <b>기준 인물 → 활용 장면</b>
-          <ul>
-            <li>얼굴의 특징</li>
-            <li>전신과 스타일</li>
-            <li>장면별 일관성</li>
-          </ul>
-        </div>
+        {["ai-face", "ai-full"].map((name, i) => (
+          <div key={name}>
+            <Image
+              src={asset(name)}
+              width={400}
+              height={520}
+              alt={
+                homeCardMedia["ai-influencer"].caseLabel +
+                (i === 0 ? " 기준 얼굴" : " 기준 전신")
+              }
+            />
+            <span>
+              {i === 0
+                ? "기준 얼굴 · 인상과 특징"
+                : "기준 전신 · 비례와 스타일"}
+            </span>
+          </div>
+        ))}
         <figcaption>
-          {homeCardMedia["ai-influencer"].caseLabel} · 기준 이미지
+          {homeCardMedia["ai-influencer"].caseLabel} · 얼굴과 전신의 기준 이미지
         </figcaption>
       </figure>
     );
   if (service === "motion-graphics")
     return (
       <figure className="cr-visual cr-keyframes">
-        <div className="cr-keyframe-labels">
-          <span>등장</span>
-          <span>강조</span>
-          <span>마무리</span>
-        </div>
-        <svg
-          viewBox="0 0 600 150"
-          role="img"
-          aria-label="문구가 등장해 강조된 뒤 마무리되는 키프레임 곡선 예시"
-        >
-          <path className="cr-axis" d="M20 125H580 M20 20V125" />
-          <path d="M20 120C120 120 150 30 300 30S470 120 580 120" />
-          {[
-            [20, 120],
-            [300, 30],
-            [580, 120],
-          ].map(([cx, cy], i) => (
-            <circle key={cx} cx={cx} cy={cy} r={selected === i ? 9 : 6} />
+        <div className="cr-scene-strip">
+          {homeStartingMotionFrames.map(({ time, src }, i) => (
+            <div key={time} data-active={selected === i}>
+              <Image
+                src={src}
+                width={480}
+                height={270}
+                alt={`${homeCardMedia["motion-graphics"].caseLabel} ${time}초 장면`}
+              />
+              <span>
+                {
+                  [
+                    "02초 · 제형의 등장",
+                    "10초 · 손과 제형 강조",
+                    "25초 · 브랜드 씰",
+                  ][i]
+                }
+              </span>
+            </div>
           ))}
-        </svg>
+        </div>
         <figcaption>
-          움직임 설계 예시 · 문구의 등장과 강조 타이밍을 정합니다
+          {homeCardMedia["motion-graphics"].caseLabel} · 실제 본편의 등장 → 강조
+          → 마무리
         </figcaption>
       </figure>
     );
@@ -306,11 +322,28 @@ function StartingVisual({
           {["소개", "핵심 메시지", "마지막 안내"].map((label, i) => (
             <li key={label} data-active={selected === i}>
               <span>SCENE 0{i + 1}</span>
-              <div aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
+              <svg
+                viewBox="0 0 240 135"
+                role="img"
+                aria-label={label + " 장면 구성 도해"}
+              >
+                {i === 0 ? (
+                  <>
+                    <path d="M20 112V48L75 20L130 48V112 M42 112V65H108V112 M148 45H220 M148 65H207 M148 85H220" />
+                    <path d="M58 45H92" />
+                  </>
+                ) : i === 1 ? (
+                  <>
+                    <rect x="25" y="28" width="70" height="82" rx="8" />
+                    <path d="M39 28V18H81V28 M40 60H80 M40 77H80 M120 36H220 M120 58H200 M120 80H220 M120 102H185" />
+                  </>
+                ) : (
+                  <>
+                    <rect x="30" y="30" width="180" height="75" rx="8" />
+                    <path d="M55 53H185 M55 69H149 M55 86H130 M164 78L180 86L164 94" />
+                  </>
+                )}
+              </svg>
               <b>{label}</b>
             </li>
           ))}
@@ -323,27 +356,34 @@ function StartingVisual({
   return (
     <figure className="cr-visual cr-formats">
       <div>
-        {["릴스", "쇼츠"].map((channel) => (
-          <div key={channel}>
-            <div className="cr-portrait">
+        {[
+          ["릴스", "9:16", "sns-cplus-opening"],
+          ["피드", "4:5", "sns-cplus-middle"],
+          ["유튜브", "16:9", "sns-cplus-ending"],
+        ].map(([channel, ratio, image], i) => (
+          <div key={channel} data-format={i}>
+            <div className="cr-format-image">
               <Image
-                src={asset("sns-cplus-opening")}
-                width={180}
-                height={320}
+                src={asset(image)}
+                width={480}
+                height={854}
                 alt={
                   homeCardMedia.ad.caseLabel +
                   " · " +
                   channel +
-                  " 세로 화면 배치 예시"
+                  " 화면 크롭 예시"
                 }
               />
             </div>
-            <span>{channel} · 9:16</span>
+            <span>
+              {channel} · {ratio}
+            </span>
           </div>
         ))}
       </div>
       <figcaption>
-        채널별 세로 화면 배치 예시 · 추가 규격은 상담에서 확인합니다
+        C Plus 시안의 서로 다른 장면을 활용한 채널별 크롭 예시 · 추가 규격은
+        상담에서 확인합니다
       </figcaption>
     </figure>
   );

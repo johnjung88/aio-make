@@ -40,7 +40,7 @@ function Pricing({ id }: { id: ContentServiceId }) {
       </article>)}</div>
     </div>)}</div>
     <ul className="sd-price-notes">{[PRICING_COMMON.vat, ...notes, PRICING_COMMON.revisions, PRICING_COMMON.bulk].map((note) => <li key={note}>{note}</li>)}</ul>
-    {id === "webtoon" ? <p className="sd-lead sd-unit-note">{`1P 기준: ${WEBTOON_PAGE_STANDARD.label} (세로형 ${WEBTOON_PAGE_STANDARD.ratio})\n웹툰 상품은 12P·24P, 영상 상품은 30초·60초입니다 대표 사례는 25P와 40초 영상으로 제작했습니다`}</p> : null}
+    {id === "webtoon" ? <p className="sd-lead sd-unit-note">{`1P 기준: ${WEBTOON_PAGE_STANDARD.label} (세로형 ${WEBTOON_PAGE_STANDARD.ratio})\n웹툰 상품은 12P·24P, 영상 상품은 30초·60초입니다\n대표 사례는 25P와 40초 영상으로 제작했습니다`}</p> : null}
     <div className="sd-scope"><div><h3>함께 확인하는 범위</h3><ul>{DETAIL_SCOPE[id].included.map((line) => <li key={line}>{line}</li>)}</ul></div>
       <div><h3>의뢰에 맞춰 정하는 항목</h3><ul>{DETAIL_SCOPE[id].confirm.map((line) => <li key={line}>{line}</li>)}<li>납기·추가 규격·편집 원본·사용 조건은 의뢰 범위를 확인해 안내합니다</li></ul></div></div>
   </DetailSection>;

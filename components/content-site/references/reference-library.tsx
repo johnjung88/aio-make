@@ -105,7 +105,7 @@ export function ContentReferenceLibrary({ cases }: { cases: ReferenceCase[] }) {
   return <div className="cr-page">
     <header className="cr-heading cr-container">
       <p className="cr-eyebrow">AIO MAKE · REFERENCES</p>
-      <div className="cr-heading-grid"><h1>실제로 만든 컨텐츠를<br />한곳에서 살펴보세요</h1><p>웹툰부터 SNS 광고까지, 작품의 기획과 표현을 비교해 보세요 각 사례의 실제 결과물과 제작 범위, 시안 상태를 함께 보여드립니다</p></div>
+      <div className="cr-heading-grid"><h1>실제로 만든 컨텐츠를<br />한곳에서 살펴보세요</h1><p>웹툰부터 SNS 광고까지, 작품의 기획과 표현을 비교해 보세요<br />각 사례의 실제 결과물과 제작 범위, 시안 상태를 함께 보여드립니다</p></div>
     </header>
 
     <section className="cr-container cr-library" aria-label="서비스별 제작 사례">

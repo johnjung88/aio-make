@@ -16,11 +16,11 @@ const media = "/service-detail-v14/";
 const characterMedia = "/service-detail-v15/";
 
 const poses = [
-  { short: "걱정", name: "걱정하는 표정", purpose: "이야기 속 고민을 표현할 때 사용할 수 있는 표정입니다 사용할 상황과 감정에 맞춰 포즈를 고릅니다" },
+  { short: "걱정", name: "걱정하는 표정", purpose: "이야기 속 고민을 표현할 때 사용할 수 있는 표정입니다\n사용할 상황과 감정에 맞춰 포즈를 고릅니다" },
   { short: "윙크", name: "정제를 들고 윙크하기", purpose: "윙크하는 포즈를 마지막 제품 장면에 다시 등장시켜 캐릭터와 브랜드를 연결했습니다" },
   { short: "인사", name: "손 흔들며 인사하기", purpose: "손을 흔드는 포즈로 제품 설명에 앞서 캐릭터를 소개합니다" },
-  { short: "점프", name: "가볍게 점프하기", purpose: "점프하는 포즈로 등장한 뒤 손을 흔드는 포즈로 바뀝니다 실제 영상에서 포즈의 연결을 볼 수 있습니다" },
-  { short: "수면", name: "베개에서 잠들기", purpose: "휴식하는 상황을 표현하도록 마련한 포즈입니다 필요한 장면과 감정을 골라 캐릭터의 역할을 확장할 수 있습니다" },
+  { short: "점프", name: "가볍게 점프하기", purpose: "점프하는 포즈로 등장한 뒤 손을 흔드는 포즈로 바뀝니다\n실제 영상에서 포즈의 연결을 볼 수 있습니다" },
+  { short: "수면", name: "베개에서 잠들기", purpose: "휴식하는 상황을 표현하도록 마련한 포즈입니다\n필요한 장면과 감정을 골라 캐릭터의 역할을 확장할 수 있습니다" },
   { short: "가리킴", name: "제품을 가리켜 설명하기", purpose: "옆을 가리키는 포즈를 제품과 문구 옆에 배치해 설명하는 역할을 맡겼습니다" },
 ] as const;
 
@@ -120,7 +120,7 @@ export function AnimationDetail() {
       <DetailSection
         eyebrow="START WITH YOUR MATERIALS"
         title="지금 가진 자료에서 시작합니다"
-        lead="캐릭터가 준비된 정도에 맞춰 시작점을 정합니다 선택한 자료 상태는 아래 상담에 함께 남습니다"
+        lead="캐릭터가 준비된 정도에 맞춰 시작점을 정합니다\n선택한 자료 상태는 아래 상담에 함께 남습니다"
       >
         <div className="sd-character-materials" role="group" aria-label="애니메이션 제작 자료 상태">
           {materialOptions.map((option, index) => (
@@ -142,14 +142,14 @@ export function AnimationDetail() {
         id="animation-case"
         eyebrow="YOFREE · CHARACTER STUDY"
         title={<>제품의 특징을,<br />캐릭터의 인상으로</>}
-        lead="제품 병의 형태와 노란 브랜드 색을 캐릭터에 담았습니다 투명한 캡과 둥근 손발, 표정이 브랜드를 설명하는 자산으로 이어집니다"
+        lead="제품 병의 형태와 노란 브랜드 색을 캐릭터에 담았습니다\n투명한 캡과 둥근 손발, 표정이 브랜드를 설명하는 자산으로 이어집니다"
       >
         <div className="sd-character-origin">
           <DetailImage src={`${media}yofree-character-sheet.webp`} alt="병 모양 몸체와 투명 캡, 노란 라벨을 유지하며 표정과 행동이 달라지는 요프리 캐릭터 6포즈" caption="YoFree · 실제 캐릭터 6포즈 자산" />
           <div className="sd-character-origin-copy">
             <span className="sd-character-tag">브랜드 캐릭터 구축·모션 활용 시안</span>
             <h3>같은 캐릭터가<br />여러 역할을 맡도록</h3>
-            <p>고민을 표현하고, 인사하고, 제품을 가리키는 포즈를 마련했습니다 장면마다 필요한 감정과 역할을 골라 화면에 배치합니다</p>
+            <p>고민을 표현하고, 인사하고, 제품을 가리키는 포즈를 마련했습니다<br />장면마다 필요한 감정과 역할을 골라 화면에 배치합니다</p>
             <dl>
               <div><dt>형태</dt><dd>제품 병과 투명 캡의 특징</dd></div>
               <div><dt>색과 질감</dt><dd>노란 라벨과 부드러운 클레이 표현</dd></div>
@@ -162,7 +162,7 @@ export function AnimationDetail() {
       <DetailSection
         eyebrow="SIX POSES, DIFFERENT ROLES"
         title="표정을 고르면, 캐릭터가 움직입니다"
-        lead="같은 캐릭터의 이미지 6종을 바탕으로 짧은 동작 영상을 만들었습니다 표정을 선택해 재생하고 원본 이미지를 확대해 비교할 수 있습니다"
+        lead="같은 캐릭터의 이미지 6종을 바탕으로 짧은 동작 영상을 만들었습니다\n표정을 선택해 재생하고 원본 이미지를 확대해 비교할 수 있습니다"
       >
         <div className="sd-character-pose-layout">
           <div className="sd-character-pose-stage">
@@ -185,7 +185,7 @@ export function AnimationDetail() {
               <DetailImage className="sd-character-original-zoom" src={`${characterMedia}yofree-character-${poseNumber}.webp`} alt={`${pose.name} 원본 캐릭터 이미지`} caption="원본 이미지" />
             </div>
             <div className="sd-character-pose-caption" aria-live="polite"><span>0{poseIndex + 1} / 06</span><strong>{pose.name}</strong></div>
-            <p className="sd-character-motion-note" id="character-motion-note" aria-live="polite">{motionError ? "동작 영상을 불러오지 못했습니다 원본 이미지를 확대해 볼 수 있습니다" : reduceMotion || motion === "paused" ? "4초 · 동작 제작 시안 · 재생 버튼으로 확인하세요" : "4초 · 동작 제작 시안 · 표정을 선택하면 재생합니다"}</p>
+            <p className="sd-character-motion-note" id="character-motion-note" aria-live="polite">{motionError ? "동작 영상을 불러오지 못했습니다\n원본 이미지를 확대해 볼 수 있습니다" : reduceMotion || motion === "paused" ? "4초 · 동작 제작 시안 · 재생 버튼으로 확인하세요" : "4초 · 동작 제작 시안 · 표정을 선택하면 재생합니다"}</p>
           </div>
           <div className="sd-character-pose-controls">
             <div className="sd-character-pose-options" role="group" aria-label="캐릭터 여섯 포즈 선택">
@@ -211,7 +211,7 @@ export function AnimationDetail() {
         id="animation-motion"
         eyebrow="SAME CHARACTER IN MOTION"
         title={<>고른 포즈가,<br />영상 속 장면으로</>}
-        lead="같은 캐릭터를 인사·설명·엔딩에 사용한 실제 키네틱 모션그래픽입니다 장면을 고른 뒤 영상의 재생 버튼을 누르면 그 구간부터 볼 수 있습니다"
+        lead="같은 캐릭터를 인사·설명·엔딩에 사용한 실제 키네틱 모션그래픽입니다\n장면을 고른 뒤 영상의 재생 버튼을 누르면 그 구간부터 볼 수 있습니다"
       >
         <div className="sd-character-motion-layout">
           <div className="sd-character-scenes" role="group" aria-label="같은 캐릭터가 사용된 영상 구간 선택">
@@ -230,14 +230,14 @@ export function AnimationDetail() {
         </div>
         <div className="sd-character-scope-note">
           <strong>캐릭터 포즈와 타이포를 연결한 모션 활용 사례입니다</strong>
-          <p>위 영상은 등장·포즈 교체·제품 설명을 편집한 키네틱 모션그래픽입니다 새 애니메이션에서 필요한 동작과 연기는 의뢰 내용에 맞춰 범위를 정합니다</p>
+          <p>위 영상은 등장·포즈 교체·제품 설명을 편집한 키네틱 모션그래픽입니다<br />새 애니메이션에서 필요한 동작과 연기는 의뢰 내용에 맞춰 범위를 정합니다</p>
         </div>
       </DetailSection>
 
       <DetailSection
         eyebrow="YOUR NEXT CHARACTER"
         title="우리 캐릭터는 어떤 장면에서 움직일까요"
-        lead="원하는 행동과 전할 말부터 알려주세요 캐릭터 구축과 영상 제작에 필요한 범위를 함께 확인합니다"
+        lead="원하는 행동과 전할 말부터 알려주세요\n캐릭터 구축과 영상 제작에 필요한 범위를 함께 확인합니다"
       >
         <div className="sd-character-request-grid">
           <article><span>01 · 행동</span><h3>어떤 동작을 하나요</h3><p>손을 흔들기, 제품 가리키기처럼 꼭 필요한 행동과 캐릭터의 감정을 정합니다</p></article>

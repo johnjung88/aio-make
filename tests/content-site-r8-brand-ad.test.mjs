@@ -7,16 +7,31 @@ import { r8Boards } from "../lib/content-site/r8-boards.ts";
 import { getSlot } from "../lib/content-site/example-media.ts";
 
 const brief = readFileSync("docs/renewal-2026-10-13/BRIEF_R8.md", "utf8");
-const webtoonPageBrief = readFileSync("docs/renewal-2026-10-13/BRIEF_WEBTOON_PAGE_v16.md", "utf8");
-const copyAlignmentBrief = readFileSync("docs/renewal-2026-10-13/BRIEF_COPY_ALIGNMENT_v17.md", "utf8");
+const webtoonPageBrief = readFileSync(
+  "docs/renewal-2026-10-13/BRIEF_WEBTOON_PAGE_v16.md",
+  "utf8",
+);
+const copyAlignmentBrief = readFileSync(
+  "docs/renewal-2026-10-13/BRIEF_COPY_ALIGNMENT_v17.md",
+  "utf8",
+);
+// W-H3R2 permits sentence line breaks while preserving every approved word.
+const containsCopy = (source, text) =>
+  source.replace(/\s+/g, " ").includes(text.replace(/\s+/g, " "));
 test("R8 six services: every process step and FAQ matches the approved brief", () => {
   for (const [id, data] of Object.entries(contentLandings)) {
-    const currentBrief = id === "webtoon" ? brief + "\n" + webtoonPageBrief + "\n" + copyAlignmentBrief : brief;
+    const currentBrief =
+      id === "webtoon"
+        ? brief + "\n" + webtoonPageBrief + "\n" + copyAlignmentBrief
+        : brief;
     assert.equal(data.process.steps.length, 6, id);
     assert.equal(data.faq.length, 7, id);
-    for (const step of data.process.steps) for (const text of Object.values(step)) assert.ok(currentBrief.includes(text), `${id}: ${text}`);
+    for (const step of data.process.steps)
+      for (const text of Object.values(step))
+        assert.ok(containsCopy(currentBrief, text), `${id}: ${text}`);
     for (const [q, a] of data.faq.slice(0, 5)) {
-      assert.ok(currentBrief.includes(q), q); assert.ok(currentBrief.includes(a), `${id}: ${a}`);
+      assert.ok(containsCopy(currentBrief, q), q);
+      assert.ok(containsCopy(currentBrief, a), `${id}: ${a}`);
     }
   }
 });
@@ -24,8 +39,10 @@ test("R8 sample boards: six documented cuts, source thumbnails, safe excluded ra
   for (const [id, board] of Object.entries(r8Boards)) {
     assert.equal(board.cuts.length, 6, id);
     for (const cut of board.cuts) {
-      assert.ok(cut.to > cut.from); assert.ok(existsSync(`public${cut.thumb}`));
-      assert.ok(brief.includes(cut.scene)); assert.ok(brief.includes(cut.intent));
+      assert.ok(cut.to > cut.from);
+      assert.ok(existsSync(`public${cut.thumb}`));
+      assert.ok(containsCopy(brief, cut.scene));
+      assert.ok(containsCopy(brief, cut.intent));
     }
     for (const sample of board.sample) {
       assert.ok(existsSync(`public${sample.poster}`));
@@ -33,12 +50,19 @@ test("R8 sample boards: six documented cuts, source thumbnails, safe excluded ra
     }
   }
   assert.equal(r8Boards["motion-graphics"].cuts.at(-1).to, 25.5);
-  assert.ok(r8Details.ad.cuts.every(c => !/화장실/.test(c.copy)));
+  assert.ok(r8Details.ad.cuts.every((c) => !/화장실/.test(c.copy)));
   assert.equal(r8Boards["brand-film"].chapters.length, 8);
 });
 test("R8 service hero slots can show posters before W2 media is connected", () => {
-  for (const id of ["webtoon-hero-reel", "ai-hero-reel", "motion-hero-reel", "brandfilm-main", "ad-hero-reel"]) {
-    const slot = getSlot(id); assert.equal(slot.kind, "video");
+  for (const id of [
+    "webtoon-hero-reel",
+    "ai-hero-reel",
+    "motion-hero-reel",
+    "brandfilm-main",
+    "ad-hero-reel",
+  ]) {
+    const slot = getSlot(id);
+    assert.equal(slot.kind, "video");
     assert.ok(existsSync(`public${slot.poster}`));
     if (slot.src) assert.ok(existsSync(`public${slot.src}`));
   }

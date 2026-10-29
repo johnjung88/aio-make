@@ -91,11 +91,11 @@ export const motionGraphics: ServiceLandingData = {
   ],
   [
     "길이와 가격은 어떻게 되나요?",
-    `30초와 60초 중에서 고를 수 있습니다 단순형은 30초 ${formatWon(contentPricing["motion-graphics"].plans[0].amount)} 60초 ${formatWon(contentPricing["motion-graphics"].plans[1].amount)} 맞춤형은 30초 ${formatWon(contentPricing["motion-graphics"].plans[2].amount)} 60초 ${formatWon(contentPricing["motion-graphics"].plans[3].amount)}입니다`
+    `30초와 60초 중에서 고를 수 있습니다\n단순형은 30초 ${formatWon(contentPricing["motion-graphics"].plans[0].amount)} 60초 ${formatWon(contentPricing["motion-graphics"].plans[1].amount)} 맞춤형은 30초 ${formatWon(contentPricing["motion-graphics"].plans[2].amount)} 60초 ${formatWon(contentPricing["motion-graphics"].plans[3].amount)}입니다`
   ],
   [
     "컷별 기획안에는 무엇이 들어 있나요?",
-    "컷마다 길이와 화면 구성, 자막 문구, 전환을 표로 정리하고 색과 서체를 보여주는 스타일프레임을 함께 보내드립니다 기획안은 전달 후 2회까지 수정할 수 있습니다"
+    "컷마다 길이와 화면 구성, 자막 문구, 전환을 표로 정리하고 색과 서체를 보여주는 스타일프레임을 함께 보내드립니다\n기획안은 전달 후 2회까지 수정할 수 있습니다"
   ],
   [
     "가로형과 세로형을 모두 받을 수 있나요?",
@@ -103,7 +103,7 @@ export const motionGraphics: ServiceLandingData = {
   ],
   [
     "음악은 어떻게 정하나요?",
-    "영상의 박자에 맞는 곡을 고르고 사용 허락이 확인된 곡만 넣습니다 포함 범위는 견적 상담에서 안내합니다"
+    "영상의 박자에 맞는 곡을 고르고 사용 허락이 확인된 곡만 넣습니다\n포함 범위는 견적 상담에서 안내합니다"
   ]
 ,
     ...COMMON_FAQ,
