@@ -10,7 +10,7 @@ import content from "@/lib/lab-renewal-content.json";
 import { labServices, labServicePath } from "@/lib/lab-services";
 import { contactSelection } from "@/lib/lab-renewal-engine";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
-import { RenewalSignature } from "./renewal-signature";
+import { RenewalSignature, ShopHero } from "./renewal-signature";
 import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
 import { OutputPreview } from "./output-preview";
@@ -174,6 +174,10 @@ export function LabServiceDetail({ id }: { id: string }) {
           </div>
           {id === "website" ? (
             <DeviceVisual name="space" hero />
+          ) : id === "shopping-mall" ? (
+            <div className={styles.shopHero}>
+              <ShopHero />
+            </div>
           ) : (
             <div className={`${styles.visual} ${styles.heroVisual}`}>
               <picture>

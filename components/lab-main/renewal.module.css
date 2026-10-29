@@ -306,6 +306,8 @@
 }
 .note {
   margin-top: 24px !important;
+  margin-inline: auto;
+  text-align: center;
   color: var(--sd-muted);
   font-size: 14px;
   white-space: pre-line;
@@ -1478,10 +1480,61 @@
   width: min(100%, 280px);
 }
 .plannerGrid {
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 .plannerGrid .sitePreview {
   width: min(100%, 360px);
+}
+.page[data-service="shopping-mall"] .signatureGrid,
+.page[data-service="program"] .signatureGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.page[data-service="website"] .controls,
+.page[data-service="shopping-mall"] .controls,
+.page[data-service="program"] .controls,
+.page[data-service="website"] .result,
+.page[data-service="shopping-mall"] .result,
+.page[data-service="program"] .result {
+  position: static;
+}
+.page[data-service="website"] .controls,
+.page[data-service="shopping-mall"] .controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+.page[data-service="website"] .result {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  align-content: start;
+  padding-top: 32px;
+  border-top: 1px solid var(--sd-line);
+}
+.page[data-service="website"] .result > :not(.sitePreview) {
+  grid-column: 1;
+}
+.page[data-service="website"] .result > .sitePreview {
+  grid-column: 1;
+  grid-row: auto;
+}
+.shopHero {
+  width: 100%;
+  min-width: 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.shopHero .shopScreen {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .page[data-service="website"] .controls,
+  .page[data-service="shopping-mall"] .controls,
+  .page[data-service="website"] .result {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .page[data-service="website"] .result > .sitePreview {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 .centerAction {
   display: flex;

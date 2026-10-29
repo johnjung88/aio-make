@@ -38,8 +38,25 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 48px 24px;
+}
+.groups {
+  display: grid;
+  gap: 64px;
+}
+.group > h2 {
+  margin: 0 0 24px;
+  color: #f7f5f2;
+}
+.page .insights:global(.cs-insight-list) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+@media (max-width: 900px) {
+  .page .insights:global(.cs-insight-list) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .card {
   min-width: 0;
@@ -62,7 +79,7 @@
   height: 100%;
   object-fit: contain;
 }
-.card h2 {
+.card h3 {
   margin: 0;
   color: #f7f5f2;
 }

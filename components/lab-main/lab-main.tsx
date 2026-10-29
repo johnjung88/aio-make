@@ -136,10 +136,11 @@ export function LabMain() {
               </article>
             ))}
         </div>
-        <p className={styles.note}>가상 브랜드로 만든 제작 방향 예시입니다</p>
-        <p className={styles.note}>
-          <Link href={labServicePath("program")}>프로그램 개발 살펴보기 →</Link>
-        </p>
+        <div className={styles.signatureConsult}>
+          <Link className={styles.secondary} href={labServicePath("program")}>
+            프로그램 개발 살펴보기 →
+          </Link>
+        </div>
       </section>
       <section className={styles.section} id="gallery">
         <SectionHead

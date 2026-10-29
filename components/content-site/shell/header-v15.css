@@ -18,7 +18,7 @@
 @media (max-width: 1279px) {
   .cs-site:has(.cs-header-v15) { --cs-header-h: 112px; }
   .cs-site .cs-header-v15 .cs-header-v15-inner { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 60px 51px; grid-template-areas: "brand action" "nav nav"; gap: 0 18px; }
-  .cs-site .cs-header-v15-nav > ul { justify-content: space-between; gap: 10px; }
+  .cs-site .cs-header-v15-nav > ul { justify-content: flex-start; gap: 24px; }
   .cs-site .cs-header-v15-nav .cs-nav-link { min-height: 47px; font-size: 13px; }
   .cs-site .cs-header-v15 .cs-header-v15-cta { min-height: 38px; padding: 8px 16px; }
 }
@@ -30,8 +30,8 @@
   .cs-site .cs-header-v15 .cs-brand .brand { font-size: 22px; }
   .cs-site .cs-header-v15 .cs-lockup-divider { display: none; }
   .cs-site .cs-header-v15 .cs-lockup-label { font-size: 9px; }
-  .cs-site .cs-header-v15 .cs-header-v15-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; scrollbar-color: #5c526b transparent; padding-bottom: 3px; }
-  .cs-site .cs-header-v15-nav > ul { width: max-content; min-width: 100%; gap: 23px; justify-content: flex-start; padding-inline: 3px; }
+  .cs-site.cs-site .cs-header-v15 .cs-header-v15-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; scrollbar-color: #5c526b transparent; padding-bottom: 3px; mask-image: linear-gradient(to right, transparent, #000 14px, #000 calc(100% - 14px), transparent); }
+  .cs-site.cs-site .cs-header-v15-nav > ul { width: max-content; min-width: 100%; gap: 23px; justify-content: flex-start; padding-inline: 16px; }
   .cs-site .cs-header-v15-nav .cs-nav-link { min-height: 44px; font-size: 13px; }
   .cs-site .cs-header-v15 .cs-header-v15-nav::-webkit-scrollbar { height: 3px; }
   .cs-site .cs-header-v15 .cs-header-v15-nav::-webkit-scrollbar-thumb { background: #5c526b; border-radius: 4px; }

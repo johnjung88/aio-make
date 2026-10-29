@@ -18,7 +18,7 @@ export default function LabInsightsPage() {
             웹사이트·쇼핑몰·자동화를 준비하는 데 필요한 이야기
           </p>
         </header>
-        <div className="cs-insight-list">
+        <div className={`cs-insight-list ${styles.insights}`}>
           {labInsights.map((entry) => (
             <article className="cs-insight-card" key={entry.slug}>
               <span className="cs-t-eyebrow">{entry.category}</span>

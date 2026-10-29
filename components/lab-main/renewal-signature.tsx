@@ -363,6 +363,10 @@ function ShopPreview({
     </div>
   );
 }
+export function ShopHero() {
+  return <ShopPreview full brand="모그레빗" mood="모던 블랙" category="의류" />;
+}
+
 export function ShopComparison() {
   const [plan, setPlan] = useState("단순 복사"),
     [brand, setBrand] = useState("모그레빗"),
