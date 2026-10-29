@@ -16,6 +16,7 @@ import styles from "./shell.module.css";
 export function LabHeader() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const [navEnd, setNavEnd] = useState(false);
   const nav = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -39,7 +40,7 @@ export function LabHeader() {
         }
       }}
     >
-      <div className={styles.headerInner}>
+      <div className={styles.headerInner} data-nav-end={navEnd}>
         <Link
           href="/lab"
           className={styles.lockup}
@@ -49,7 +50,15 @@ export function LabHeader() {
           <Brand />
           <span>DEVELOPMENT LAB</span>
         </Link>
-        <nav ref={nav} className={styles.nav} aria-label="개발 전체 메뉴">
+        <nav
+          ref={nav}
+          className={styles.nav}
+          aria-label="개발 전체 메뉴"
+          onScroll={() => {
+            const n = nav.current;
+            if (n) setNavEnd(n.scrollLeft + n.clientWidth >= n.scrollWidth - 3);
+          }}
+        >
           <Link href="/lab" aria-current={path === "/lab" ? "page" : undefined}>
             홈
           </Link>
@@ -88,8 +97,6 @@ export function LabHeader() {
             <Link href="/">AIO MAKE 홈</Link>
             <Link href="/content">{"컨텐츠 스튜디오"}</Link>
             <Link href="/marketing">마케팅</Link>
-            <Link href="/lab#gallery">가상 샘플 갤러리</Link>
-            <Link href="/lab#process">제작 과정</Link>
           </nav>
         )}
       </div>

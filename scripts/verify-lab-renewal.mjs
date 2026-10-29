@@ -1,0 +1,47 @@
+import fs from 'node:fs/promises';
+import {createRequire} from 'node:module';
+import assert from 'node:assert/strict';
+import sharp from 'sharp';
+const require=createRequire(import.meta.url);
+const {chromium}=require('C:/AIO-PC2/50-scratch/codex/261025/01_browser-check/node_modules/playwright');
+const output='C:/AIO-PC2/30-handoff/15_메인_리뉴얼/captures_RW3';await fs.mkdir(output,{recursive:true});
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--disable-gpu']});
+const flowsOnly=process.argv.includes('--flows-only');
+const results={viewports:flowsOnly?JSON.parse(await fs.readFile(`${output}/verification.json`,'utf8')).viewports:[],flows:[],errors:[],images:[],comparisons:[]};
+try{
+ const page=await browser.newPage();page.on('pageerror',e=>results.errors.push(e.message));
+ const base='http://127.0.0.1:3118';
+ const waitImages=async()=>page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(im=>im.complete?Promise.resolve():new Promise(r=>{im.onload=r;im.onerror=r;setTimeout(r,2500)})))});
+ if(!flowsOnly)for(const width of [1440,390,360,375,768,1024]){
+ await page.setViewportSize({width,height:width===1440?1000:844});
+ for(const [slug,route] of [['lab','/lab'],...['website','shopping-mall','automation','program'].map(id=>[id,`/lab/services/${id}`])]){
+  const response=await page.goto(base+route);
+  await page.evaluate(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=innerHeight){scrollTo(0,y);await new Promise(r=>setTimeout(r,100))}scrollTo(0,0)});
+  await waitImages();await page.waitForTimeout(350);
+  const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,h1:document.querySelectorAll('h1').length,broken:[...document.images].filter(i=>i.complete&&!i.naturalWidth).map(i=>i.src),sections:[...document.querySelectorAll('main section[id]')].map(x=>x.id)}));
+  results.viewports.push({width,route,status:response.status(),...layout});assert.equal(response.status(),200);assert.equal(layout.h1,1);assert.ok(layout.scroll<=width,`${route} overflow ${width}/${layout.scroll}`);assert.equal(layout.broken.length,0,`${route} broken images`);
+  if(width===1440||width===390){await page.screenshot({path:`${output}/${slug}_${width}_hero.png`});await page.screenshot({path:`${output}/${slug}_${width}_full.png`,fullPage:true});for(const id of slug==='lab'?['services','gallery','process','lab-inquiry']:['signature','deliverables','pricing','process','lab-inquiry']){await page.locator(`#${id}`).screenshot({path:`${output}/${slug}_${width}_${id}.png`});}}
+ }
+ }
+ await page.setViewportSize({width:1440,height:1000});
+ await page.goto(base+'/lab/services/website');
+ for(let i=0;i<15;i++)await page.getByRole('button',{name:'서비스 상세 늘리기'}).click();
+ await page.getByLabel('직접 추가할 페이지').fill('이용 안내');await page.getByRole('button',{name:/페이지 추가/}).click();
+ assert.match(await page.locator('#planner-result').innerText(),/20페이지 · 20만 원 구간/);
+ await page.getByLabel('직접 추가할 페이지').fill('추가 페이지');await page.getByRole('button',{name:/페이지 추가/}).click();
+ assert.match(await page.locator('#planner-result').innerText(),/21페이지 · 30만 원부터/);
+ await page.getByLabel('대시보드 필요',{exact:true}).check();await page.getByLabel('사진·이미지 자료가 없어요').check();
+ const link=page.locator('#planner-result').getByRole('link',{name:'이 내용으로 상담하기 ↗'});const href=await link.getAttribute('href');const query=new URL(href,base).searchParams;assert.equal(query.get('plan'),'pages-21');assert.ok(query.get('message').includes('대시보드: 필요'));
+ await link.click();await page.waitForURL('**/contact?**');assert.ok((await page.locator('textarea[name=message]').inputValue()).includes('ページ')===false);assert.equal(await page.locator('textarea[name=message]').inputValue(),query.get('message'));assert.match(await page.locator('form.contact-form').innerText(),/選択|선택한 구성/);await page.locator('textarea[name=message]').fill('방문자가 바꾼 문의 내용');results.flows.push('website: 20/21 tier, options, plan/message prefill and edit');
+ await page.goto(base+'/lab/services/shopping-mall');await page.getByRole('button',{name:'풀 세팅',exact:true}).click();await page.getByLabel('브랜드 이름').fill('테스트 브랜드');await page.getByRole('button',{name:'파스텔',exact:true}).click();await page.getByRole('button',{name:'식품',exact:true}).click();await page.getByRole('button',{name:'모바일',exact:true}).click();await page.getByLabel(/복사 ↔ 풀 세팅 비교/).fill('65');const shopHref=await page.locator('#signature').getByRole('link',{name:'이 내용으로 상담하기 ↗'}).getAttribute('href');assert.match(shopHref,/plan=full/);assert.ok(new URL(shopHref,base).searchParams.get('message').includes('테스트 브랜드'));await page.locator('#signature').screenshot({path:`${output}/shop_full_comparison.png`});results.flows.push('shop: full total 30, brand/mood/category, mobile, comparison range, query');
+ await page.goto(base+'/lab/services/automation');await page.getByRole('button',{name:'대조 실행',exact:true}).click();await page.waitForTimeout(900);assert.match(await page.locator('#signature').innerText(),/대조 완료 · 일치 9 · 확인 필요 3/);await page.getByRole('button',{name:'확인 필요',exact:true}).click();assert.match(await page.locator('#signature').innerText(),/수량 없음/);await page.getByLabel(/규칙 바꾸기/).check();await page.getByRole('button',{name:'대조 실행',exact:true}).click();await page.waitForTimeout(900);assert.match(await page.locator('#signature').innerText(),/대조 완료 · 일치 10 · 확인 필요 2/);results.flows.push('automation: 12 records, 3 exceptions, normalization moves one record to match');
+ await page.goto(base+'/lab/services/program');assert.equal(await page.locator('#signature article').count(),4);await page.getByRole('button',{name:'담당자',exact:true}).click();assert.equal(await page.locator('#signature article').count(),5);await page.locator('#signature article select').first().selectOption('처리 완료');await page.getByRole('button',{name:'관리자',exact:true}).click();assert.equal(await page.locator('#signature article').count(),8);await page.getByRole('button',{name:'변경 내역 보기',exact:true}).click();assert.match(await page.locator('#signature').innerText(),/담당자 · 요청/);await page.getByLabel('관리자 담당자 배정',{exact:true}).uncheck();assert.equal(await page.locator('#signature article select').count(),8);await page.locator('#signature').screenshot({path:`${output}/program_admin.png`});results.flows.push('program: role filter 4/5/8, state mutation, history, permission hides assignment');
+ // Lazy working sample and fallback behavior.
+ for(const id of ['website','shopping-mall','automation']){await page.goto(base+`/lab/services/${id}`);await page.getByRole('button',{name:'샘플 열기 ↗',exact:true}).click();await page.getByRole('button',{name:'샘플 닫기',exact:true}).waitFor();await page.waitForTimeout(1200);await page.getByRole('button',{name:'샘플 닫기',exact:true}).click();results.flows.push(`${id}: explicit lazy sample open/close`);}
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'/lab');assert.ok(await page.locator('main svg').count()>0);results.flows.push('reduced motion: floor plan fallback');
+ await page.setViewportSize({width:390,height:844});await page.goto(base+'/lab/services/program');const nav=page.getByRole('navigation',{name:'개발 전체 메뉴'});await nav.evaluate(n=>n.scrollLeft=0);await page.waitForTimeout(100);const first=await nav.getByRole('link',{name:'홈',exact:true}).boundingBox();assert.ok(first.x>=20);await nav.evaluate(n=>n.scrollLeft=n.scrollWidth);await page.waitForTimeout(100);assert.equal(await page.locator('[data-nav-end=true]').count(),1);await page.getByRole('button',{name:'다른 분야 메뉴 열기'}).click();await page.keyboard.press('Escape');assert.equal(await page.getByRole('button',{name:'다른 분야 메뉴 열기'}).getAttribute('aria-expanded'),'false');results.flows.push('mobile: first tab visible, scroll indicator ends, menu Escape');
+ for(const width of [1440,390]){await page.setViewportSize({width,height:width===1440?1000:844});for(const [slug,route] of [['content','/content'],['content-detail','/content/services/ai-influencer']]){await page.goto(base+route);await waitImages();await page.screenshot({path:`${output}/${slug}_${width}_hero.png`});await page.screenshot({path:`${output}/${slug}_${width}_full.png`,fullPage:true});}}
+ const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const staticPage=await nojs.newPage();await staticPage.goto(base+'/lab/services/website');assert.match(await staticPage.locator('#planner-result').innerText(),/4페이지/);results.flows.push('JS disabled: static planner default and consultation link');await nojs.close();
+ for(const width of [1440,390])for(const slug of ['lab','website','shopping-mall','automation','program']){const reference=slug==='lab'?'content':'content-detail';const a=await sharp(`${output}/${reference}_${width}_hero.png`).png().toBuffer(),b=await sharp(`${output}/${slug}_${width}_hero.png`).png().toBuffer();const height=width===1440?1000:844;const file=`compare_${slug}_${width}.png`;await sharp({create:{width:width*2,height,channels:3,background:'#07080c'}}).composite([{input:a,left:0,top:0},{input:b,left:width,top:0}]).png().toFile(`${output}/${file}`);results.comparisons.push(file);}
+ console.log(JSON.stringify(results,null,2));
+}catch(error){results.failure=error.stack;console.error(error);process.exitCode=1}finally{await fs.writeFile(`${output}/verification.json`,JSON.stringify(results,null,2));await browser.close()}

@@ -1,0 +1,15 @@
+{
+  "method": "Local HTML screen mockups captured with Chromium; existing photos recomposed; no new AI image generation",
+  "sources": [
+    "public/renewal/shop-products.webp",
+    "public/portfolio/detail-page/_categories/fashion.jpg",
+    "public/portfolio/detail-page/_categories/food.jpg",
+    "public/lab/sample-website.webp"
+  ],
+  "screens": "scripts/build-lab-renewal-media.mjs",
+  "approvedPlan": "45_기획_서비스상세.MD 0,6-9 + Opus",
+  "nestPreview": {
+    "source": "live /lab Three.js scene",
+    "capture": "C:/AIO-PC2/30-handoff/15_메인_리뉴얼/captures_RW3/nest-live.png"
+  }
+}
