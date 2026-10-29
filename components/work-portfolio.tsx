@@ -107,9 +107,15 @@ export function WorkIndex({
             {title}
           </h1>
           <p className="t-body">
-            웹사이트부터 영상과 웹툰까지,
-            <br />
-            작업의 목적과 제작 범위를 살펴보세요
+            {division === "marketing" ? (
+              "서비스별 제작 방향과 운영 범위를 살펴보세요"
+            ) : (
+              <>
+                웹사이트부터 영상과 웹툰까지,
+                <br />
+                작업의 목적과 제작 범위를 살펴보세요
+              </>
+            )}
           </p>
         </div>
         <div className="work-index-toolbar">

@@ -4,7 +4,7 @@ import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
 import { breadcrumbSchema } from "@/lib/seo";
-import { ServiceDetail } from "@/components/guide/service-detail";
+import { MarketingDetail } from "@/components/marketing/detail";
 import { WorkCard } from "@/components/work-portfolio";
 import { mergeGuideEntries } from "@/lib/guide-content";
 import { displayWorkCatalog, workMatchesService } from "@/lib/work-catalog";
@@ -59,7 +59,7 @@ export default async function ServicePage({
   );
   return (
     <>
-      <ServiceDetail service={s} references={references} />
+      <MarketingDetail service={s} references={references} />
 
       <JsonLd
         data={{

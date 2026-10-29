@@ -2,7 +2,7 @@
 /* Generated from the preserved design by scripts/restore-guide.py.
  * Layout and copy changes belong in the compiler adaptation or shared primitives.
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
-/* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import {
   GuideLogic,
@@ -21,13 +21,15 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
+import { divisionServices } from "@/lib/content";
+import { servicePlans } from "@/lib/service-plans";
 
-const MAP = {
-  integrated: "통합 마케팅 (월 200만 원부터 · VAT 별도)",
-  sns: "SNS 대행 운영 (월 100만 원 · VAT 별도)",
-  ai: "AI 인플루언서 마케팅 (월 100만 원 · VAT 별도)",
-  seo: "SEO·AEO·GEO",
-};
+const MAP = Object.fromEntries(
+  divisionServices("marketing").map((service) => [
+    service.id === "ai-influencer" ? "ai" : service.id,
+    `${service.name} (${servicePlans[service.id].price}${service.id === "seo" ? " · 맞춤 견적" : " · VAT 별도"})`,
+  ]),
+);
 const G = [
   ["service", "원하는 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],
   [
@@ -88,9 +90,9 @@ class Component extends GuideLogic {
           return {
             selected: on,
             label: o,
-            bg: on ? "#6B4DFF" : "transparent",
-            fg: on ? "#fff" : "#F4F3EF",
-            bd: on ? "#6B4DFF" : "#575763",
+            bg: on ? "var(--violet)" : "transparent",
+            fg: on ? "var(--mk-white)" : "var(--mk-text)",
+            bd: on ? "var(--violet)" : "var(--mk-line)",
             pick: () =>
               this.setState((s) =>
                 multi
@@ -127,7 +129,7 @@ class Component extends GuideLogic {
         <GuideEffects />
         <div
           style={{
-            background: "#0D0D12",
+            background: "var(--mk-bg)",
             minHeight: "100vh",
             display: "flex",
             flexDirection: "column",
@@ -154,7 +156,7 @@ class Component extends GuideLogic {
               <span
                 className="eyebrow"
                 style={{
-                  color: "#B2A3FF",
+                  color: "var(--lavender)",
                 }}
               >
                 {"START MARKETING"}
@@ -177,24 +179,27 @@ class Component extends GuideLogic {
                 className="t-lead"
                 style={{
                   margin: "0",
-                  color: "#D6D6DC",
+                  color: "var(--mk-muted)",
                 }}
               >
                 {"업종과 운영 중인 채널을 남겨주시면 "}
-                <strong style={{ color: "#B2A3FF" }}>
+                <strong style={{ color: "var(--lavender)" }}>
                   {"시장, 경쟁사, 운영 방향 분석 자료"}
                 </strong>
                 {"를 정리해 드립니다"}
-                <br />
-                {
-                  "통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회를 제공합니다 범위와 운영 실비는 견적에서 확인합니다"
-                }
+              </p>
+              <p className="t-body mk-contact-note">
+                통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트
+                구축 또는 리뉴얼 1회를 제공합니다
+              </p>
+              <p className="t-body mk-contact-note">
+                범위와 운영 실비는 견적에서 확인합니다
               </p>
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  borderTop: "1.5px solid #0D0D12",
+                  borderTop: "1.5px solid var(--mk-bg)",
                   marginTop: "12px",
                   maxWidth: "420px",
                 }}
@@ -206,10 +211,10 @@ class Component extends GuideLogic {
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
-                    borderBottom: "1px solid #DAD8D1",
+                    borderBottom: "1px solid var(--mk-line)",
                   }}
                 >
-                  <span style={{ color: "#B5B5C2" }}>{"계약"}</span>
+                  <span style={{ color: "var(--mk-muted)" }}>{"계약"}</span>
                   <strong style={{ fontWeight: "600" }}>
                     {isSeo
                       ? "프로젝트 단위"
@@ -225,10 +230,12 @@ class Component extends GuideLogic {
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
-                    borderBottom: "1px solid #DAD8D1",
+                    borderBottom: "1px solid var(--mk-line)",
                   }}
                 >
-                  <span style={{ color: "#B5B5C2" }}>{"일정·수정"}</span>
+                  <span style={{ color: "var(--mk-muted)" }}>
+                    {"일정·수정"}
+                  </span>
                   <strong style={{ fontWeight: "600" }}>
                     {"견적에서 합의"}
                   </strong>
@@ -240,10 +247,10 @@ class Component extends GuideLogic {
                     justifyContent: "space-between",
                     gap: "16px",
                     padding: "14px 0",
-                    borderBottom: "1px solid #DAD8D1",
+                    borderBottom: "1px solid var(--mk-line)",
                   }}
                 >
-                  <span style={{ color: "#B5B5C2" }}>
+                  <span style={{ color: "var(--mk-muted)" }}>
                     {isSeo ? "구축 이후" : "월 운영 혜택"}
                   </span>
                   <strong style={{ fontWeight: "600" }}>
@@ -256,7 +263,7 @@ class Component extends GuideLogic {
               <React.Fragment>
                 <div
                   style={{
-                    border: "1px solid #6B4DFF",
+                    border: "1px solid var(--violet)",
                     padding: "40px",
                     display: "flex",
                     flexDirection: "column",
@@ -265,7 +272,7 @@ class Component extends GuideLogic {
                   }}
                 >
                   <strong className="t-lead">{"문의가 접수되었습니다"}</strong>
-                  <span style={{ color: "#D6D6DC" }}>
+                  <span style={{ color: "var(--mk-muted)" }}>
                     {"마케팅 담당자가 확인한 뒤 연락드리겠습니다"}
                   </span>
                 </div>
@@ -298,7 +305,7 @@ class Component extends GuideLogic {
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                        color: "#B5B5C2",
+                        color: "var(--mk-muted)",
                       }}
                     >
                       {"고객명 *"}
@@ -308,11 +315,11 @@ class Component extends GuideLogic {
                         required={true}
                         style={{
                           border: "none",
-                          borderBottom: "1.5px solid #A8A69E",
+                          borderBottom: "1.5px solid var(--mk-line)",
                           padding: "10px 0",
                           outline: "none",
                           background: "transparent",
-                          color: "#F4F3EF",
+                          color: "var(--mk-text)",
                         }}
                         name="name"
                       />
@@ -323,7 +330,7 @@ class Component extends GuideLogic {
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                        color: "#B5B5C2",
+                        color: "var(--mk-muted)",
                       }}
                     >
                       {"연락처 "}
@@ -332,11 +339,11 @@ class Component extends GuideLogic {
                         placeholder="010-0000-0000"
                         style={{
                           border: "none",
-                          borderBottom: "1.5px solid #A8A69E",
+                          borderBottom: "1.5px solid var(--mk-line)",
                           padding: "10px 0",
                           outline: "none",
                           background: "transparent",
-                          color: "#F4F3EF",
+                          color: "var(--mk-text)",
                         }}
                         type="tel"
                         name="phone"
@@ -349,7 +356,7 @@ class Component extends GuideLogic {
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      color: "#B5B5C2",
+                      color: "var(--mk-muted)",
                     }}
                   >
                     {"이메일 "}
@@ -358,11 +365,11 @@ class Component extends GuideLogic {
                       placeholder="name@company.com"
                       style={{
                         border: "none",
-                        borderBottom: "1.5px solid #A8A69E",
+                        borderBottom: "1.5px solid var(--mk-line)",
                         padding: "10px 0",
                         outline: "none",
                         background: "transparent",
-                        color: "#F4F3EF",
+                        color: "var(--mk-text)",
                       }}
                       type="email"
                       name="email"
@@ -376,7 +383,7 @@ class Component extends GuideLogic {
                           display: "flex",
                           flexDirection: "column",
                           gap: "10px",
-                          color: "#B5B5C2",
+                          color: "var(--mk-muted)",
                         }}
                       >
                         {g.label}
@@ -418,7 +425,7 @@ class Component extends GuideLogic {
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      color: "#B5B5C2",
+                      color: "var(--mk-muted)",
                     }}
                   >
                     {"운영 중인 채널·계정 URL"}
@@ -427,11 +434,11 @@ class Component extends GuideLogic {
                       placeholder="인스타그램, 블로그, 홈페이지 주소 등"
                       style={{
                         border: "none",
-                        borderBottom: "1.5px solid #A8A69E",
+                        borderBottom: "1.5px solid var(--mk-line)",
                         padding: "10px 0",
                         outline: "none",
                         background: "transparent",
-                        color: "#F4F3EF",
+                        color: "var(--mk-text)",
                       }}
                       name="detail3"
                     />
@@ -442,7 +449,7 @@ class Component extends GuideLogic {
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
-                      color: "#B5B5C2",
+                      color: "var(--mk-muted)",
                     }}
                   >
                     {"요청 내용"}
@@ -451,11 +458,11 @@ class Component extends GuideLogic {
                       placeholder="브랜드 소개와 원하는 방향을 자유롭게 적어주세요"
                       rows={5}
                       style={{
-                        border: "1px solid #A8A69E",
+                        border: "1px solid var(--mk-line)",
                         padding: "16px",
                         outline: "none",
                         background: "transparent",
-                        color: "#F4F3EF",
+                        color: "var(--mk-text)",
                         resize: "vertical",
                       }}
                       name="message"
@@ -467,7 +474,7 @@ class Component extends GuideLogic {
                       display: "flex",
                       gap: "10px",
                       alignItems: "center",
-                      color: "#D6D6DC",
+                      color: "var(--mk-muted)",
                       cursor: "pointer",
                     }}
                   >
@@ -477,7 +484,7 @@ class Component extends GuideLogic {
                       style={{
                         width: "18px",
                         height: "18px",
-                        accentColor: "#6B4DFF",
+                        accentColor: "var(--violet)",
                       }}
                       type="checkbox"
                       name="consent"
@@ -489,8 +496,8 @@ class Component extends GuideLogic {
                     style={{
                       cursor: "pointer",
                       border: "none",
-                      background: "#6B4DFF",
-                      color: "#fff",
+                      background: "var(--violet)",
+                      color: "var(--mk-white)",
                       padding: "20px",
                     }}
                     type="submit"
