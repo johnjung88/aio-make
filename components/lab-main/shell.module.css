@@ -1,10 +1,10 @@
 .frame {
-  --lab-bg: #05070a;
+  --lab-bg: #080808;
   --lab-panel: #101722;
   --lab-text: #f5f7fa;
   --lab-muted: #bac5d2;
-  --lab-blue: #2f6bff;
-  --lab-cyan: #06b6d4;
+  --lab-blue: #6b4dff;
+  --lab-cyan: #b9aeff;
   --lab-line: #303b4b;
   background: var(--lab-bg);
   color: var(--lab-text);
@@ -29,7 +29,7 @@
 
 /* W-RW3: content v15 proportions and readable service navigation */
 .frame {
-  --lab-bg: #07080c;
+  --lab-bg: #080808;
   --lab-panel: #11131b;
   --lab-line: #ffffff1a;
   --lab-text: #f7f5f2;
@@ -77,27 +77,34 @@
   letter-spacing: 0.11em;
   color: var(--lab-muted);
 }
-.lockup :global(.brand) {
+.brand :global(.brand.guide-brand) {
   display: inline-flex;
   align-items: baseline;
-  gap: 3px;
+  gap: 7px;
+  font-family: var(--ff-display);
   font-size: 23px;
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: -0.06em;
   white-space: nowrap;
   color: var(--lab-text);
 }
-.lockup :global(.brand b) {
+.brand :global(.brand b) {
   font-weight: 850;
 }
-.lockup :global(.brand span) {
+.brand :global(.brand span) {
   font-weight: 350;
 }
-.lockup :global(.brand i) {
+.brand :global(.brand.guide-brand i) {
+  display: block;
+  position: static;
+  align-self: auto;
+  flex: 0 0 6px;
   width: 6px;
   height: 6px;
-  background: var(--violet);
-  margin-left: 2px;
+  border-radius: 0;
+  transform: none;
+  background: #6b4dff;
+  margin: 0;
 }
 .nav {
   display: flex;
@@ -424,5 +431,29 @@
   .frame {
     --space-edge: clamp(20px, 4vw, 56px);
     --space-section: clamp(64px, 7vw, 96px);
+  }
+}
+
+/* W-F3b: the brand and CTA share one centered 64px mobile row */
+@media (max-width: 1279px) {
+  .headerInner {
+    grid-template-rows: 64px 51px;
+  }
+  .header .lockup {
+    justify-content: center;
+    height: 64px;
+    min-height: 0;
+  }
+  .header .actions {
+    height: 64px;
+    min-height: 0;
+  }
+}
+@media (max-width: 767px) {
+  .header .lockup {
+    gap: 1px;
+  }
+  .brand :global(.brand.guide-brand) {
+    font-size: 22px;
   }
 }

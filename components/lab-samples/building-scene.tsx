@@ -18,6 +18,7 @@ type Props = {
   onStatus?: (status: "loading" | "ready" | "failed") => void;
   onInteract?: () => void;
   brandLighting?: boolean;
+  viewPadding?: number;
   assemblyPhase?: number;
 };
 
@@ -430,10 +431,9 @@ export default function BuildingScene(props: Props) {
         if (!width || !height) return;
         renderer.setSize(width, height, false);
         const aspect = width / height;
-        const extent = Math.max(
-          current.current.exploded ? 9.5 : 6.9,
-          7.3 / aspect,
-        );
+        const extent =
+          Math.max(current.current.exploded ? 9.5 : 6.9, 7.3 / aspect) *
+          (props.viewPadding ?? 1);
         camera.left = -extent * aspect;
         camera.right = extent * aspect;
         camera.top = extent;
@@ -622,7 +622,7 @@ export default function BuildingScene(props: Props) {
       disposed = true;
       release();
     };
-  }, [attempt, props.brandLighting]);
+  }, [attempt, props.brandLighting, props.viewPadding]);
   return (
     <div ref={host} className={styles.threeHost}>
       {!ready && !failed && (

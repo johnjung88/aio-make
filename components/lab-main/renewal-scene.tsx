@@ -74,6 +74,7 @@ export function HomeScene() {
               if (s === "failed") setFailed(true);
             }}
             brandLighting
+            viewPadding={1.15}
           />
         )}
       </div>

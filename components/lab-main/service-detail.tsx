@@ -257,7 +257,11 @@ export function LabServiceDetail({ id }: { id: string }) {
               <strong>{price}</strong>
               <p style={{ whiteSpace: "pre-line" }}>{body}</p>
               <Link
-                className={styles.button}
+                className={
+                  prices[key].length > 1 && i !== 1
+                    ? styles.secondary
+                    : styles.button
+                }
                 href={contactSelection(
                   id,
                   "pricing",
@@ -364,7 +368,11 @@ export function LabServiceDetail({ id }: { id: string }) {
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
                     <Image
-                      src={`/lab-renewal/card-${s.id}.webp`}
+                      src={
+                        s.id === "website"
+                          ? "/lab/clinic-pc.webp"
+                          : `/lab-renewal/card-${s.id}.webp`
+                      }
                       alt={`${s.name} 결과물 예시`}
                       width={1200}
                       height={900}

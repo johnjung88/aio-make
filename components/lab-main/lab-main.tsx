@@ -110,9 +110,14 @@ export function LabMain() {
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
                     <Image
-                      src={`/lab-renewal/card-${s.id}.webp`}
+                      src={
+                        s.id === "website"
+                          ? "/lab/clinic-pc.webp"
+                          : `/lab-renewal/card-${s.id}.webp`
+                      }
                       width={1200}
-                      height={900}
+                      height={s.id === "website" ? 1000 : 900}
+                      sizes="(max-width: 600px) 90vw, 30vw"
                       alt={`${s.name} 작동 화면 전체 예시`}
                       loading="lazy"
                     />
@@ -122,6 +127,11 @@ export function LabMain() {
                   </p>
                   <h3>{s.name}</h3>
                   <p>{s.description}</p>
+                  {s.id === "website" && (
+                    <p className={styles.note}>
+                      가상 브랜드 화면 · AI 생성 인물 포함
+                    </p>
+                  )}
                   <span className={styles.cardLink}>
                     {s.name} 자세히 보기 →
                   </span>
@@ -144,7 +154,7 @@ export function LabMain() {
         <div className={styles.homeGallery}>
           {gallery.map(([name, title, body, features]) => (
             <article className={styles.card} key={name}>
-              <DeviceVisual name={name} />
+              <DeviceVisual name={name} mobileOnly={name === "clinic"} />
               <h3>{title}</h3>
               <p>
                 {body}

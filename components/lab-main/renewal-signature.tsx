@@ -145,7 +145,7 @@ export function PagePlanner() {
             }}
           />
           <fieldset>
-            <legend>필요한 페이지</legend>
+            <legend>필요한 페이지 · 여러 개 선택</legend>
             <div className={styles.checks}>
               {fixed.map((s) => (
                 <label key={s}>
@@ -159,78 +159,81 @@ export function PagePlanner() {
                       )
                     }
                   />
-                  {s}
+                  <span>{s === "홈" ? "홈 · 필수" : s}</span>
                 </label>
               ))}
             </div>
           </fieldset>
-          <div>
-            <p>서비스 상세 개수</p>
-            <div className={styles.counter}>
-              <button
-                className={styles.smallButton}
-                aria-label="서비스 상세 줄이기"
-                onClick={() => setCount(Math.max(0, count - 1))}
-              >
-                −
-              </button>
-              <output aria-label="서비스 상세 개수">{count}</output>
-              <button
-                className={styles.smallButton}
-                aria-label="서비스 상세 늘리기"
-                onClick={() => setCount(Math.min(15, count + 1))}
-              >
-                +
-              </button>
+          <details className={styles.plannerExtras}>
+            <summary>상세 페이지·추가 기능 설정</summary>
+            <div>
+              <p>서비스 상세 개수</p>
+              <div className={styles.counter}>
+                <button
+                  className={styles.smallButton}
+                  aria-label="서비스 상세 줄이기"
+                  onClick={() => setCount(Math.max(0, count - 1))}
+                >
+                  −
+                </button>
+                <output aria-label="서비스 상세 개수">{count}</output>
+                <button
+                  className={styles.smallButton}
+                  aria-label="서비스 상세 늘리기"
+                  onClick={() => setCount(Math.min(15, count + 1))}
+                >
+                  +
+                </button>
+              </div>
             </div>
-          </div>
-          <label>
-            직접 추가할 페이지
-            <input
-              className={styles.input}
-              value={name}
-              maxLength={30}
-              placeholder="예: 이용 안내"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <button
-            className={styles.smallButton}
-            disabled={!name.trim() || extra.length >= 5}
-            onClick={() => {
-              setExtra([...extra, name.trim()]);
-              setName("");
-            }}
-          >
-            페이지 추가 ({extra.length}/5)
-          </button>
-          {extra.map((s, i) => (
+            <label>
+              직접 추가할 페이지
+              <input
+                className={styles.input}
+                value={name}
+                maxLength={30}
+                placeholder="예: 이용 안내"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
             <button
               className={styles.smallButton}
-              key={i}
-              onClick={() => setExtra(extra.filter((_, at) => at !== i))}
+              disabled={!name.trim() || extra.length >= 5}
+              onClick={() => {
+                setExtra([...extra, name.trim()]);
+                setName("");
+              }}
             >
-              {s} 삭제 ×
+              페이지 추가 ({extra.length}/5)
             </button>
-          ))}
-          <div className={styles.checks}>
-            {[
-              "대시보드 필요",
-              "사진·이미지 자료가 없어요",
-              "회원·결제·예약이 필요해요",
-            ].map((s, i) => (
-              <label key={s}>
-                <input
-                  type="checkbox"
-                  checked={flags[i]}
-                  onChange={() =>
-                    setFlags(flags.map((v, j) => (i === j ? !v : v)))
-                  }
-                />
-                {s}
-              </label>
+            {extra.map((s, i) => (
+              <button
+                className={styles.smallButton}
+                key={i}
+                onClick={() => setExtra(extra.filter((_, at) => at !== i))}
+              >
+                {s} 삭제 ×
+              </button>
             ))}
-          </div>
+            <div className={styles.checks}>
+              {[
+                "대시보드 필요",
+                "사진·이미지 자료가 없어요",
+                "회원·결제·예약이 필요해요",
+              ].map((s, i) => (
+                <label key={s}>
+                  <input
+                    type="checkbox"
+                    checked={flags[i]}
+                    onChange={() =>
+                      setFlags(flags.map((v, j) => (i === j ? !v : v)))
+                    }
+                  />
+                  <span>{s}</span>
+                </label>
+              ))}
+            </div>
+          </details>
           <a className={styles.mobileResult} href="#planner-result">
             결과 보기 ↓
           </a>
@@ -259,12 +262,55 @@ export function PagePlanner() {
               <span key={i}>↳ {s}</span>
             ))}
           </div>
-          <div className={styles.phone}>
-            <strong>{industry}</strong>
-            <small>{pages.join(" · ")}</small>
-            {["첫 화면", "서비스", "신뢰 자료", "문의"].map((s) => (
-              <div key={s}>{s}</div>
-            ))}
+          <div
+            className={styles.sitePreview}
+            aria-label="선택한 페이지를 반영한 모바일 웹사이트 예시"
+          >
+            <div className={styles.previewHeader}>
+              <strong>YOUR BRAND</strong>
+              <span>{industry}</span>
+            </div>
+            <div className={styles.previewNav}>
+              {list.map((s) => (
+                <span key={s}>{s}</span>
+              ))}
+            </div>
+            <div className={styles.previewHero}>
+              <Image
+                src="/lab-renewal/shop-0-2.webp"
+                width={1600}
+                height={600}
+                sizes="360px"
+                alt="가상 웹사이트의 생활 소품 사진"
+              />
+              <div>
+                <span>WELCOME</span>
+                <strong>
+                  우리의 이야기가
+                  <br />
+                  시작되는 곳
+                </strong>
+              </div>
+            </div>
+            <div className={styles.previewBody}>
+              <small>{industry} · 페이지 구성 예시</small>
+              <h3>
+                {pages.includes("서비스")
+                  ? "필요한 서비스를 한눈에"
+                  : "브랜드를 만나는 첫 화면"}
+              </h3>
+              <p>방문자에게 필요한 정보부터 차근차근 안내합니다</p>
+              <div className={styles.previewLinks}>
+                {list
+                  .filter((s) => s !== "홈")
+                  .map((s) => (
+                    <span key={s}>
+                      {s}
+                      <b aria-hidden="true">↗</b>
+                    </span>
+                  ))}
+              </div>
+            </div>
           </div>
           <p className={styles.note}>
             고른 항목 1개를 1페이지로 계산한 안내입니다
