@@ -629,8 +629,8 @@
   margin-top: var(--cs-s3);
 }
 .cs-site #starting-point .sd-section-head {
-  text-align: left;
-  margin-inline: 0;
+  text-align: center;
+  margin-inline: auto;
 }
 .cs-site .cr-prepare {
   margin-top: var(--cs-s6);
@@ -687,9 +687,12 @@
   font-size: var(--cs-t-caption-size);
 }
 
-/* Left-aligned section heads retain their reading measure without auto indents. */
+/* Keep the description on the same center line as its section title. */
 .cs-site .sd .sd-section-head .sd-lead {
-  margin-inline: 0;
+  margin-inline: auto;
+}
+.cs-site #starting-point .sd-section-head .sd-lead {
+  margin-inline: auto;
 }
 .cs-site :is(p, dd, .cs-faq-a) {
   white-space: pre-line;

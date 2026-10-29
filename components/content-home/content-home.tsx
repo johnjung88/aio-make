@@ -45,7 +45,7 @@ export async function ContentHome() {
             emphasis={processHead.titleEm}
             align="center"
           />
-          <ProcessSteps />
+          <ProcessSteps distinctFrames />
         </div>
       </section>
 

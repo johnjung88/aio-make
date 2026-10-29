@@ -38,7 +38,7 @@ function StepArt({ kind, distinctFrames = false }: { kind: ContentHomeStepArt; d
     case "refine":
       return (
         <span className="ch-art-draft">
-          <Cut n={5} sizes="(min-width:1024px) 240px, 80px" />
+          <Cut n={distinctFrames ? 11 : 5} detail={distinctFrames} sizes="(min-width:1024px) 240px, 80px" />
         </span>
       );
     case "frames":
