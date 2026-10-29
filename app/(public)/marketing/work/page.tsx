@@ -40,8 +40,8 @@ export default async function MarketingWork() {
               href={"/marketing/services/" + id}
             >
               <MarketingPicture
-                name={id + "-result-1"}
-                alt={marketingCopy[id].results[0][0] + " 예시"}
+                name={id + "-card"}
+                alt={marketingNames[id] + " 제작 방향 예시"}
               />
               <div className="mk-card-body">
                 <h2>{marketingNames[id]}</h2>

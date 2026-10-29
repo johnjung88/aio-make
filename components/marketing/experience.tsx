@@ -459,7 +459,11 @@ function SnsPreview() {
             <article className={`mk-phone mk-phone-${i}`} key={channel}>
               <header>{channel}</header>
               <Image
-                src={`/marketing-renewal/preview-${index}-${i}.webp`}
+                src={
+                  index === 0
+                    ? `/marketing-renewal/f3a2-${["sns-pour", "sns-beans", "sns-takeaway"][i]}.webp`
+                    : `/marketing-renewal/${index === 1 ? ["preview-1-0", "f3a2-skin-texture", "f3a2-skin-routine"][i] : index === 2 ? ["preview-2-0", "f3a2-channel-prep", "f3a2-channel-motion"][i] : ["preview-3-0", "f3a2-food-prep", "f3a2-food-serve"][i]}.webp`
+                }
                 width={400}
                 height={500}
                 alt={material}

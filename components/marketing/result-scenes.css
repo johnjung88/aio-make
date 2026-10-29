@@ -1,0 +1,301 @@
+/* Customer-facing design samples use native text and full-frame photography. */
+.mk-search-scene,
+.mk-campaign-scene {
+  height: 100%;
+  min-width: 0;
+  background: #faf8f4;
+  color: #29252f;
+  display: flex;
+  flex-direction: column;
+}
+.mk-scene-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #eee9f7;
+  border-bottom: 1px solid #d8cfeb;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.mk-scene-bar > span:first-child {
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+.mk-scene-bar > span:last-child {
+  color: #625570;
+}
+.mk-scene-body {
+  padding: 22px;
+  flex: 1;
+}
+.mk-search-query {
+  background: #fff;
+  border: 1px solid #cdc1e5;
+  border-radius: 24px;
+  padding: 12px 16px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.mk-scene-tabs {
+  display: flex;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd6e4;
+  font-size: 13px;
+}
+.mk-scene-tabs > :first-child {
+  color: #6947ba;
+  font-weight: 700;
+}
+.mk-search-hit {
+  padding-top: 18px;
+}
+.mk-search-hit > span {
+  font-size: 13px;
+  color: #6b6371;
+}
+.mk-search-hit > strong {
+  display: block;
+  color: #5c3999;
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 8px 0;
+}
+.marketing-renewal .mk-scene-body p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 8px 0;
+  color: #615869;
+}
+.mk-search-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 14px;
+}
+.mk-search-photos img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.mk-answer-card {
+  padding: 22px 0 0;
+}
+.mk-scene-tag {
+  display: block;
+  color: #72509f;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.mk-answer-card > strong,
+.mk-search-scene-site .mk-scene-body > strong {
+  display: block;
+  font-size: clamp(24px, 3cqi, 32px);
+  line-height: 1.35;
+}
+.mk-answer-source {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #eee9f7;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.mk-answer-source b {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+}
+.mk-search-scene-site > img {
+  width: 100%;
+  height: 43%;
+  min-height: 120px;
+  object-fit: cover;
+}
+.mk-scene-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.mk-scene-links > span {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cfc5df;
+  font-size: 13px;
+}
+.mk-campaign-feature {
+  position: relative;
+  flex: 1;
+  min-height: 190px;
+  overflow: hidden;
+}
+.mk-campaign-feature > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.mk-campaign-feature > div {
+  position: relative;
+  padding: 24px;
+  background: linear-gradient(90deg, #151015bc, transparent);
+  min-height: 100%;
+  color: white;
+}
+.mk-campaign-feature .mk-scene-tag {
+  color: #e6daff;
+}
+.mk-campaign-feature strong {
+  font-size: clamp(25px, 3.5cqi, 38px);
+  line-height: 1.25;
+  white-space: pre-line;
+}
+.mk-campaign-list {
+  padding: 8px 20px;
+}
+.mk-campaign-list > div {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr auto;
+  gap: 12px;
+  padding: 14px 0;
+  align-items: center;
+  border-bottom: 1px solid #ddd6e4;
+  font-size: 14px;
+}
+.mk-campaign-list > div:last-child {
+  border: 0;
+}
+.mk-campaign-list span {
+  color: #675b70;
+}
+.mk-service-card :is(.mk-search-scene, .mk-campaign-scene) {
+  height: 100%;
+}
+.mk-service-card .mk-search-secondary {
+  display: none;
+}
+.mk-service-card .mk-scene-body {
+  padding: 16px 20px;
+}
+.mk-service-card .mk-scene-bar {
+  padding-block: 12px;
+}
+.mk-service-card .mk-scene-tabs {
+  padding-block: 10px;
+}
+.mk-service-card .mk-search-hit {
+  padding-top: 12px;
+}
+.mk-service-card .mk-search-hit strong {
+  font-size: 19px;
+}
+.mk-service-card .mk-campaign-feature {
+  min-height: 150px;
+}
+.mk-service-card .mk-campaign-list > div {
+  padding-block: 10px;
+}
+.mk-output-integrated > .mk-campaign-scene {
+  min-height: 480px;
+}
+.mk-output-ribbon > .mk-search-scene {
+  min-height: 380px;
+}
+@media (max-width: 767px) {
+  .mk-output-ribbon > .mk-search-scene {
+    display: none;
+  }
+  .mk-output-ribbon[data-active="2"] > .mk-search-scene {
+    display: flex;
+  }
+  .mk-service-card .mk-search-secondary {
+    display: none;
+  }
+  .mk-service-card .mk-scene-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .mk-service-card .mk-campaign-feature {
+    min-height: 125px;
+  }
+  .mk-service-card .mk-campaign-list > div {
+    gap: 8px;
+    font-size: 13px;
+    padding-block: 8px;
+  }
+  .mk-service-card .mk-search-query {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .mk-service-card .mk-search-hit strong {
+    font-size: 18px;
+  }
+  .mk-service-card .mk-search-photos {
+    margin-top: 8px;
+  }
+}
+.mk-service-card .mk-scene-compact .mk-scene-body {
+  padding: 12px 16px;
+}
+.mk-service-card .mk-scene-compact .mk-search-query {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+.mk-service-card .mk-scene-compact .mk-scene-tabs {
+  padding-block: 10px;
+  gap: 14px;
+}
+.mk-service-card .mk-scene-compact .mk-search-hit {
+  padding-top: 10px;
+}
+.mk-service-card .mk-scene-compact .mk-search-hit > strong {
+  font-size: 18px;
+}
+.mk-service-card .mk-scene-compact .mk-search-hit > p {
+  display: none;
+}
+.mk-service-card .mk-scene-compact .mk-campaign-feature {
+  min-height: 0;
+}
+.mk-service-card .mk-scene-compact .mk-campaign-feature > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.mk-service-card .mk-scene-compact .mk-campaign-feature strong {
+  font-size: 24px;
+}
+.mk-artwork .mk-search-scene-site > img {
+  height: 38%;
+}
+.mk-artwork .mk-search-photos img {
+  height: auto;
+}
+.mk-deliverables .mk-search-scene .mk-scene-body {
+  padding: 18px;
+}
+.mk-deliverables .mk-search-secondary {
+  padding-top: 12px;
+}
+.mk-deliverables .mk-search-secondary > p {
+  display: none;
+}
+.mk-deliverables .mk-artwork {
+  height: 480px;
+}
+.mk-deliverables .mk-answer-card > strong {
+  font-size: 24px;
+}
+.mk-deliverables .mk-answer-source {
+  margin-top: 16px;
+}
+.mk-deliverables .mk-answer-card {
+  padding-top: 18px;
+}

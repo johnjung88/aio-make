@@ -7,7 +7,6 @@ import {
   SectionHead,
   companySteps,
 } from "@/components/home/renewal-sections";
-import { ProcessSteps } from "@/components/content-home/process-steps";
 import "@/components/content-site/theme.css";
 import "@/components/content-home/content-home.css";
 import "@/components/home/main-about-renewal.css";
@@ -29,13 +28,36 @@ function AboutDivisionCards() {
       {divisions.map((item, i) => (
         <GuideLink key={item.href} className="rw-division" href={item.href}>
           <div className="rw-card-media">
-            <Image
-              src={images[i]}
-              alt={labels[i]}
-              width={960}
-              height={600}
-              sizes="(min-width:768px) 33vw, 100vw"
-            />
+            {i === 1 ? (
+              <div className="rw-marketing-strip">
+                {["sns-pour", "sns-beans", "sns-takeaway"].map((scene, n) => (
+                  <div key={scene}>
+                    <Image
+                      src={`/marketing-renewal/f3a2-${scene}.webp`}
+                      alt={
+                        [
+                          "라떼 제조 게시 소재",
+                          "재료 안내 게시 소재",
+                          "테이크아웃 게시 소재",
+                        ][n]
+                      }
+                      width={320}
+                      height={600}
+                      sizes="(min-width:768px) 11vw, 33vw"
+                    />
+                    <span>{["메뉴", "재료", "일상"][n]}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Image
+                src={images[i]}
+                alt={labels[i]}
+                width={960}
+                height={600}
+                sizes="(min-width:768px) 33vw, 100vw"
+              />
+            )}
           </div>
           <div className="rw-card-body">
             <span className="cs-t-num">0{i + 1}</span>
@@ -135,14 +157,33 @@ export default function About() {
               title={"범위를 정하고,\n완성까지 확인합니다"}
               lead="목적과 자료를 확인한 뒤 기획·제작·검수를 거쳐 전달합니다"
             />
-            <ProcessSteps
-              distinctFrames
-              steps={companySteps.map((step) => ({
-                label: step.title,
-                text: step.body,
-                art: step.art,
-              }))}
-            />
+            <ol className="rw-about-process-scenes">
+              {companySteps.map((step, i) => (
+                <li key={step.title}>
+                  <Image
+                    src={`/marketing-renewal/f3a2-process-${["brief", "plan", "make", "review"][i]}.webp`}
+                    alt={
+                      [
+                        "자료와 목적을 함께 살펴보는 장면",
+                        "사진과 색상으로 제작 방향을 정리하는 장면",
+                        "제품 촬영 소재를 만드는 장면",
+                        "완성된 시안을 함께 검토하는 장면",
+                      ][i]
+                    }
+                    width={720}
+                    height={540}
+                    sizes="(min-width:1024px) 25vw, (min-width:768px) 50vw, 100vw"
+                  />
+                  <h3 className="cs-t-h3">
+                    <span className="cs-t-num">0{i + 1}</span> {step.title}
+                  </h3>
+                  <p className="cs-t-small">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+            <p className="cs-t-caption rw-process-disclaimer">
+              제작 과정을 설명하는 가상 장면 이미지
+            </p>
           </div>
         </section>
       </div>

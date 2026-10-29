@@ -92,7 +92,7 @@
 }
 .mk-eyebrow,
 .marketing-renewal .cs-t-eyebrow {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 650;
   letter-spacing: 0.14em;
   line-height: 1.5;
@@ -219,7 +219,7 @@
   margin-left: 3px;
 }
 .mk-lockup > span:last-child:not(.brand) {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--mk-muted);
   border-left: 1px solid var(--mk-line);
@@ -646,7 +646,7 @@
   display: inline-block;
 }
 .mk-faq-list {
-  max-width: 760px;
+  max-width: none;
   margin: auto;
 }
 .mk-faq-list details {
@@ -1215,7 +1215,7 @@
   .mk-lockup > span:last-child:not(.brand) {
     border: 0;
     padding: 0;
-    font-size: 10px;
+    font-size: 13px;
   }
   .mk-header nav {
     justify-content: flex-start;
@@ -1644,7 +1644,7 @@
   aspect-ratio: 21/9;
 }
 .mk-lockup > span:last-child:not(.brand) {
-  font-size: 12px;
+  font-size: 13px;
 }
 /* W-F3a: result surfaces occupy the frame without a second dark mockup canvas. */
 .mk-artwork {
@@ -1707,7 +1707,7 @@
   justify-content: center;
 }
 .mk-output-kicker {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   font-weight: 650;
   color: #685193;
@@ -1798,7 +1798,7 @@
 }
 .mk-output-three .mk-publication-label {
   padding-inline: 10px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .mk-output-three .mk-publication-copy {
   padding: 12px 10px;
@@ -1886,7 +1886,7 @@
   display: none;
 }
 .mk-service-card .mk-publication-label {
-  font-size: 12px;
+  font-size: 13px;
   padding: 12px;
 }
 .mk-service-card .mk-output-document {
@@ -2090,6 +2090,6 @@
     aspect-ratio: 1/2;
   }
   .mk-lockup > span:last-child:not(.brand) {
-    font-size: 12px;
+    font-size: 13px;
   }
 }

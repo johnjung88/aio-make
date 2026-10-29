@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CampaignScene, SearchScene } from "./result-scenes";
 
 function Photo({
   file,
@@ -210,14 +211,14 @@ export function MarketingArtwork({
           title="재료와 구성을 자세히 읽고"
           channel="BLOG"
         />
-        <Document kind="search" />
+        <SearchScene variant="answer" />
       </div>
     );
   } else if (name === "home-touchpoints") {
     content = (
       <div className="mk-output-flow">
         <Publication
-          file="material-2"
+          file="f3a2-source-studio"
           title="원본 · 수업 공간"
           channel="SOURCE"
         />
@@ -225,10 +226,10 @@ export function MarketingArtwork({
           {["INSTAGRAM", "BLOG", "SHORTS"].map((channel, i) => (
             <Publication
               key={channel}
-              file={`preview-2-${i}`}
+              file={`f3a2-${["channel-class", "channel-prep", "channel-motion"][i]}`}
               title={
                 [
-                  "공간을 먼저 보여주고",
+                  "수업 장면을 먼저 보여주고",
                   "수업 준비를 설명하고",
                   "이용 장면을 짧게 전합니다",
                 ][i]
@@ -272,12 +273,12 @@ export function MarketingArtwork({
     content = (
       <div className="mk-output-integrated">
         <Publication
-          file="feed-6"
+          file="material-0"
           title="이달의 메뉴 이야기"
           channel="BRAND CONTENT"
           priority={hero}
         />
-        <Document kind="plan" />
+        <CampaignScene hero />
       </div>
     );
   } else if (name === "integrated-result-2") {
@@ -286,8 +287,12 @@ export function MarketingArtwork({
         {["INSTAGRAM", "BLOG", "SHORTS"].map((channel, i) => (
           <Publication
             key={channel}
-            file={`preview-3-${i}`}
-            title="오늘의 식탁"
+            file={["material-3", "f3a2-food-serve", "f3a2-food-prep"][i]}
+            title={
+              ["메뉴를 소개하고", "재료를 설명하고", "만드는 순간을 전합니다"][
+                i
+              ]
+            }
             channel={channel}
           />
         ))}
@@ -295,8 +300,9 @@ export function MarketingArtwork({
     );
   } else if (name.startsWith("integrated-")) {
     content = (
-      <Document
-        kind={name.endsWith("3") || name.endsWith("card") ? "report" : "plan"}
+      <CampaignScene
+        report={name.endsWith("3")}
+        compact={name.endsWith("card")}
       />
     );
   } else if (name === "ai-influencer-card") {
@@ -356,14 +362,18 @@ export function MarketingArtwork({
   } else if (name === "ai-influencer-result-3") {
     content = <Document kind="persona" />;
   } else if (name.startsWith("seo-")) {
-    const kind = name.endsWith("1")
-      ? "audit"
-      : name.endsWith("2")
-        ? "page"
-        : name.endsWith("3")
-          ? "handoff"
-          : "search";
-    content = <Document kind={kind} />;
+    content = (
+      <SearchScene
+        compact={name.endsWith("card")}
+        variant={
+          name.endsWith("2")
+            ? "site"
+            : name.endsWith("3") || name.endsWith("hero")
+              ? "answer"
+              : "search"
+        }
+      />
+    );
   } else {
     return null;
   }
