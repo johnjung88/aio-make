@@ -31,7 +31,7 @@
   text-decoration: none;
 }
 .frame :focus-visible {
-  outline: 3px solid var(--lab-cyan);
+  outline: 3px solid var(--violet);
   outline-offset: 4px;
 }
 .header {
@@ -82,7 +82,7 @@
 .lockup :global(.brand i) {
   width: 6px;
   height: 6px;
-  background: var(--lab-blue);
+  background: var(--violet);
   margin-left: 2px;
 }
 .nav {
@@ -103,7 +103,7 @@
 .nav a:hover {
   color: var(--lab-text);
   text-decoration: underline;
-  text-decoration-color: var(--lab-cyan);
+  text-decoration-color: var(--lavender);
   text-underline-offset: 9px;
 }
 .actions {
@@ -126,7 +126,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-inline);
-  background: var(--lab-blue);
+  background: var(--violet);
   color: var(--lab-text);
   padding: 10px 18px;
   border-radius: 999px;
@@ -204,7 +204,7 @@
   left: var(--space-edge);
   top: -100px;
   z-index: 100;
-  background: var(--lab-blue);
+  background: var(--violet);
   padding: var(--space-element);
 }
 .skip:focus {
@@ -238,6 +238,14 @@
     grid-column: 1 / -1;
     grid-row: 2;
     overflow-x: auto;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--lab-bg) 12px,
+      var(--lab-bg) calc(100% - 16px),
+      transparent
+    );
+    scroll-padding-inline: var(--space-element);
     justify-content: flex-start;
     padding-block: var(--space-inline);
     gap: 24px;

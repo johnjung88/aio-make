@@ -157,14 +157,19 @@ export function LabMobileBar() {
   const [keyboard, setKeyboard] = useState(false);
   useEffect(() => {
     const targets = document.querySelectorAll(
-      "[data-lab-inline-cta], #lab-inquiry",
+      "[data-hero-sample], [data-lab-inline-cta], #lab-inquiry",
     );
     const visible = new Set<Element>();
+    let heroPassed = !document.querySelector("[data-hero-sample]");
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e) =>
-        e.isIntersecting ? visible.add(e.target) : visible.delete(e.target),
-      );
-      setHidden(visible.size > 0);
+      entries.forEach((e) => {
+        if (e.target.hasAttribute("data-hero-sample")) {
+          heroPassed = e.boundingClientRect.bottom <= 0;
+        }
+        if (e.isIntersecting) visible.add(e.target);
+        else visible.delete(e.target);
+      });
+      setHidden(!heroPassed || visible.size > 0);
     });
     targets.forEach((t) => observer.observe(t));
     return () => observer.disconnect();
