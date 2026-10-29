@@ -26,6 +26,20 @@
   word-break: keep-all;
   overflow-wrap: break-word;
 }
+
+/* W-RW3: content v15 proportions and readable service navigation */
+.frame {
+  --lab-bg: #07080c;
+  --lab-panel: #11131b;
+  --lab-line: #ffffff1a;
+  --lab-text: #f7f5f2;
+  --lab-muted: #c0bbc9;
+  --space-edge: clamp(20px, 4vw, 56px);
+  --space-section: clamp(64px, 7vw, 96px);
+  --text-small: 14px;
+  --text-eyebrow: 12px;
+  font-family: var(--ff-text), sans-serif;
+}
 .frame a {
   color: inherit;
   text-decoration: none;
@@ -307,5 +321,108 @@
 @media (prefers-reduced-motion: reduce) {
   .mobileBar {
     transition: none;
+  }
+}
+/* Navigation overrides intentionally follow legacy media rules */
+.headerInner {
+  max-width: 1440px;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+.nav a {
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--lab-muted);
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+.nav a[aria-current] {
+  color: var(--lab-text);
+  border-bottom-color: var(--violet);
+  text-decoration: none;
+}
+.actions button {
+  display: none;
+}
+@media (min-width: 1280px) {
+  .lockup {
+    gap: 12px;
+  }
+  .lockup > span:last-child {
+    max-width: 125px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .nav {
+    gap: 20px;
+  }
+}
+@media (max-width: 1279px) {
+  .headerInner {
+    padding-top: 0;
+    row-gap: 0;
+  }
+  .lockup,
+  .actions {
+    min-height: 60px;
+  }
+  .nav {
+    height: 51px;
+    padding: 0 3px;
+    justify-content: space-between;
+    mask-image: none;
+    scrollbar-width: thin;
+    scrollbar-color: #5c526b transparent;
+  }
+  .nav::-webkit-scrollbar {
+    height: 3px;
+  }
+  .nav::-webkit-scrollbar-thumb {
+    background: #5c526b;
+  }
+  .nav a {
+    min-height: 48px;
+  }
+  .nav {
+    position: relative;
+    scroll-behavior: auto;
+  }
+}
+@media (max-width: 767px) {
+  .lockup,
+  .actions {
+    min-height: 64px;
+  }
+  .actions button {
+    display: grid;
+  }
+  .lockup > span:last-child {
+    font-size: 10px;
+  }
+  .nav {
+    justify-content: flex-start;
+    gap: 24px;
+    scroll-padding-inline: 3px;
+  }
+  .footer {
+    padding-bottom: 64px;
+  }
+  .headerInner::after {
+    content: "";
+    position: absolute;
+    right: 20px;
+    bottom: 3px;
+    width: 24px;
+    height: 46px;
+    background: linear-gradient(90deg, transparent, var(--lab-bg));
+    pointer-events: none;
+  }
+  .headerInner[data-nav-end="true"]::after {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .frame {
+    --space-edge: clamp(20px, 4vw, 56px);
+    --space-section: clamp(64px, 7vw, 96px);
   }
 }

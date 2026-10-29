@@ -30,9 +30,15 @@ declare global {
 export function ContactForm({
   initialDivision = "marketing",
   initialService,
+  initialMessage = "",
+  initialPlan = "",
+  initialEntry = "",
 }: {
   initialDivision?: DivisionId;
   initialService?: string;
+  initialMessage?: string;
+  initialPlan?: string;
+  initialEntry?: string;
 }) {
   const [division, setDivision] = useState<DivisionId>(initialDivision),
     [service, setService] = useState(
@@ -239,10 +245,27 @@ export function ContactForm({
           </select>
         </label>
       </div>
+      {initialDivision === "development" && initialPlan ? (
+        <p>
+          선택한 구성:{" "}
+          {initialPlan.startsWith("pages-")
+            ? `페이지 ${initialPlan.slice(6)}개`
+            : ((
+                {
+                  copy: "단순 복사",
+                  full: "풀 세팅",
+                  flow: "업무 흐름",
+                  roles: "역할별 화면",
+                } as Record<string, string>
+              )[initialPlan] ?? initialPlan)}
+          <input type="hidden" name="entry" value={initialEntry} />
+        </p>
+      ) : null}
       {division === "video" ? <InquiryPurpose /> : null}
       <label>
         <FieldTitle required>어떤 작업이 필요한가요?</FieldTitle>
         <textarea
+          defaultValue={initialMessage}
           {...inputProps("message")}
           rows={6}
           required
