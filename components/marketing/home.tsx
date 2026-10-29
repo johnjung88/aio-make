@@ -10,7 +10,13 @@ import {
   MarketingFaq,
   MarketingInquiry,
 } from "./blocks";
-import { monthlySteps, type MarketingId } from "@/lib/marketing-renewal";
+import {
+  monthlySteps,
+  marketingIds,
+  marketingNames,
+  marketingCopy,
+  type MarketingId,
+} from "@/lib/marketing-renewal";
 export function MarketingHome() {
   const [recommended, setRecommended] = useState<MarketingId | "">("sns");
   const [stage, setStage] = useState(0);
@@ -20,15 +26,11 @@ export function MarketingHome() {
         <div className="mk-container">
           <p className="mk-eyebrow">AIO MAKE MARKETING</p>
           <h1>
-            고객의 질문에서
+            고객의 질문을
             <br />
-            <em>문의까지</em> 이어지도록
+            <em>문의로</em> 잇습니다
           </h1>
-          <p className="mk-lead">
-            컨텐츠와 채널 운영
-            <br />
-            검색 개선을 연결합니다
-          </p>
+          <p className="mk-lead">컨텐츠와 채널 운영, 검색 개선을 연결합니다</p>
           <div className="mk-actions">
             <a className="mk-primary" href="#finder">
               우리에게 맞는 운영 찾기 ↓
@@ -89,6 +91,42 @@ export function MarketingHome() {
           <br />
           세부 범위와 운영 실비는 견적에서 구분합니다
         </p>
+      </section>
+      <section
+        className="mk-container mk-section mk-home-comparison"
+        aria-labelledby="compare-title"
+      >
+        <MarketingHead
+          id="compare-title"
+          eyebrow="SCOPE & PRICE"
+          title={"맡길 범위와 가격을\n한눈에 비교하세요"}
+          lead="제작과 게시 범위를 확인한 뒤 필요한 운영을 선택하세요"
+        />
+        <table className="mk-compare-table">
+          <caption>마케팅 서비스별 기본 가격과 계약 단위 · 부가세 별도</caption>
+          <thead>
+            <tr>
+              <th scope="col">담당 범위</th>
+              <th scope="col">가격 · 운영 단위</th>
+            </tr>
+          </thead>
+          <tbody>
+            {marketingIds.map((id) => (
+              <tr key={id}>
+                <th scope="row">
+                  <Link href={`/marketing/services/${id}`}>
+                    {marketingNames[id]} ↗
+                  </Link>
+                  <span>{marketingCopy[id].intro}</span>
+                </th>
+                <td>
+                  <strong>{marketingCopy[id].price}</strong>
+                  <span>{marketingCopy[id].term}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
       <section className="mk-container mk-section">
         <MarketingHead

@@ -1,5 +1,6 @@
 ﻿"use client";
 import Image from "next/image";
+import { useState } from "react";
 import { GuideLink } from "./primitives";
 import {
   divisions,
@@ -73,6 +74,24 @@ function AboutDivisionCards() {
   );
 }
 export default function About() {
+  const [division, setDivision] = useState(0);
+  const scopes = [
+    [
+      "웹사이트·쇼핑몰·프로그램·업무 자동화",
+      "합의한 기능과 화면, 실제 사용 환경에서 확인할 항목",
+      "기존 사이트와 업무 흐름, 필요한 기능",
+    ],
+    [
+      "통합 마케팅·SNS 운영·검색 정보 개선",
+      "제작 컨텐츠와 게시 내역, 확인한 반응과 다음 계획",
+      "보유 소재와 운영 채널, 알리고 싶은 내용",
+    ],
+    [
+      "웹툰·애니메이션·영상·AI 인플루언서",
+      "합의한 규격의 완성 파일과 검수 내용",
+      "제작 목적과 참고 자료, 사용할 채널",
+    ],
+  ];
   return (
     <div className="guide-page cs-site rw-site rw-about">
       <section
@@ -111,26 +130,10 @@ export default function About() {
               alt="가상 음료 브랜드 웹사이트 디자인 샘플"
               width={960}
               height={600}
-              sizes="(min-width:768px) 30vw, 60vw"
+              sizes="(min-width:768px) 58vw, 100vw"
               priority
             />
-            <Image
-              src="/marketing-renewal/feed-7.webp"
-              alt="가상 카페의 공간을 소개하는 게시 소재"
-              width={600}
-              height={600}
-              sizes="(min-width:768px) 20vw, 40vw"
-            />
-            <Image
-              src="/service-detail-v14/webtoon-03.webp"
-              alt="자체 기획 웹툰 완성 원고"
-              width={600}
-              height={900}
-              sizes="(min-width:768px) 20vw, 40vw"
-            />
-            <figcaption>
-              가상 브랜드 웹사이트·게시 소재와 자체 기획 웹툰
-            </figcaption>
+            <figcaption>모그레빗 · 가상 브랜드 웹사이트 제작 샘플</figcaption>
           </figure>
         </div>
       </section>
@@ -142,6 +145,62 @@ export default function About() {
             title={"하나의 브랜드,\n세 분야의 전문가"}
           />
           <AboutDivisionCards />
+        </div>
+      </section>
+      <section
+        className="rw-section rw-about-scope"
+        aria-labelledby="rw-scope-title"
+      >
+        <div className="cs-container">
+          <SectionHead
+            id="rw-scope-title"
+            eyebrow="WORK TOGETHER"
+            title={"필요한 분야를 고르고,\n전달받을 결과를 확인하세요"}
+            lead="구체적인 수량과 일정, 비용은 자료를 확인한 뒤 견적에서 정합니다"
+          />
+          <div
+            className="rw-scope-choices"
+            role="group"
+            aria-label="담당 분야 선택"
+          >
+            {divisions.map((item, i) => (
+              <button
+                type="button"
+                key={item.name}
+                aria-pressed={division === i}
+                aria-controls="rw-scope-result"
+                onClick={() => setDivision(i)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+          <div id="rw-scope-result" aria-live="polite">
+            <h3 className="cs-t-h3">
+              {divisions[division].name} 분야에서 함께할 일
+            </h3>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">담당 범위</th>
+                  <th scope="col">완성 결과 · 준비 자료</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">{scopes[division][0]}</th>
+                  <td>{scopes[division][1]}</td>
+                </tr>
+                <tr>
+                  <th scope="row">시작 전 함께 확인</th>
+                  <td>{scopes[division][2]}</td>
+                </tr>
+              </tbody>
+            </table>
+            <GuideLink className="cs-link" href={divisions[division].href}>
+              {divisions[division].name} 구성과 범위 보기 ↗
+            </GuideLink>
+          </div>
         </div>
       </section>
       <div className="cs-home">
