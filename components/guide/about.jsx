@@ -75,6 +75,7 @@ export default function About() {
               lead="목적과 자료를 확인한 뒤 기획·제작·검수를 거쳐 전달합니다"
             />
             <ProcessSteps
+              distinctFrames
               steps={companySteps.map((step) => ({
                 label: step.title,
                 text: step.body,

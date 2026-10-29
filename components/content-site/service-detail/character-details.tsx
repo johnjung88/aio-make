@@ -120,7 +120,7 @@ export function AnimationDetail() {
       <DetailSection
         eyebrow="START WITH YOUR MATERIALS"
         title="지금 가진 자료에서 시작합니다"
-        lead="캐릭터가 준비된 정도에 맞춰 시작점을 정합니다\n선택한 자료 상태는 아래 상담에 함께 남습니다"
+        lead={"캐릭터가 준비된 정도에 맞춰 시작점을 정합니다\n선택한 자료 상태는 아래 상담에 함께 남습니다"}
       >
         <div className="sd-character-materials" role="group" aria-label="애니메이션 제작 자료 상태">
           {materialOptions.map((option, index) => (
@@ -142,7 +142,7 @@ export function AnimationDetail() {
         id="animation-case"
         eyebrow="YOFREE · CHARACTER STUDY"
         title={<>제품의 특징을,<br />캐릭터의 인상으로</>}
-        lead="제품 병의 형태와 노란 브랜드 색을 캐릭터에 담았습니다\n투명한 캡과 둥근 손발, 표정이 브랜드를 설명하는 자산으로 이어집니다"
+        lead={"제품 병의 형태와 노란 브랜드 색을 캐릭터에 담았습니다\n투명한 캡과 둥근 손발, 표정이 브랜드를 설명하는 자산으로 이어집니다"}
       >
         <div className="sd-character-origin">
           <DetailImage src={`${media}yofree-character-sheet.webp`} alt="병 모양 몸체와 투명 캡, 노란 라벨을 유지하며 표정과 행동이 달라지는 요프리 캐릭터 6포즈" caption="YoFree · 실제 캐릭터 6포즈 자산" />
@@ -162,7 +162,7 @@ export function AnimationDetail() {
       <DetailSection
         eyebrow="SIX POSES, DIFFERENT ROLES"
         title="표정을 고르면, 캐릭터가 움직입니다"
-        lead="같은 캐릭터의 이미지 6종을 바탕으로 짧은 동작 영상을 만들었습니다\n표정을 선택해 재생하고 원본 이미지를 확대해 비교할 수 있습니다"
+        lead={"같은 캐릭터의 이미지 6종을 바탕으로 짧은 동작 영상을 만들었습니다\n표정을 선택해 재생하고 원본 이미지를 확대해 비교할 수 있습니다"}
       >
         <div className="sd-character-pose-layout">
           <div className="sd-character-pose-stage">
@@ -211,7 +211,7 @@ export function AnimationDetail() {
         id="animation-motion"
         eyebrow="SAME CHARACTER IN MOTION"
         title={<>고른 포즈가,<br />영상 속 장면으로</>}
-        lead="같은 캐릭터를 인사·설명·엔딩에 사용한 실제 키네틱 모션그래픽입니다\n장면을 고른 뒤 영상의 재생 버튼을 누르면 그 구간부터 볼 수 있습니다"
+        lead={"같은 캐릭터를 인사·설명·엔딩에 사용한 실제 키네틱 모션그래픽입니다\n장면을 고른 뒤 영상의 재생 버튼을 누르면 그 구간부터 볼 수 있습니다"}
       >
         <div className="sd-character-motion-layout">
           <div className="sd-character-scenes" role="group" aria-label="같은 캐릭터가 사용된 영상 구간 선택">
@@ -237,7 +237,7 @@ export function AnimationDetail() {
       <DetailSection
         eyebrow="YOUR NEXT CHARACTER"
         title="우리 캐릭터는 어떤 장면에서 움직일까요"
-        lead="원하는 행동과 전할 말부터 알려주세요\n캐릭터 구축과 영상 제작에 필요한 범위를 함께 확인합니다"
+        lead={"원하는 행동과 전할 말부터 알려주세요\n캐릭터 구축과 영상 제작에 필요한 범위를 함께 확인합니다"}
       >
         <div className="sd-character-request-grid">
           <article><span>01 · 행동</span><h3>어떤 동작을 하나요</h3><p>손을 흔들기, 제품 가리키기처럼 꼭 필요한 행동과 캐릭터의 감정을 정합니다</p></article>

@@ -511,6 +511,20 @@
 .mk-detail-sns .mk-deliverables .mk-picture {
   aspect-ratio: 4/5;
 }
+
+.mk-sns-mobile { display: none; }
+@media (max-width: 767px) {
+  .mk-sns-desktop { display: none; }
+  .mk-detail-sns .mk-hero-image { aspect-ratio: auto; }
+  .mk-sns-mobile { display: grid; gap: 28px; padding: 20px; }
+  .mk-sns-phone { margin: 0; border: 5px solid #343039; border-radius: 26px; overflow: hidden; background: #faf8f1; color: #28252d; }
+  .mk-sns-phone-bar { padding: 14px; font-size: 13px; border-bottom: 1px solid #d3cdd6; }
+  .mk-sns-phone img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+  .mk-sns-phone figcaption { padding: 18px; }
+  .mk-sns-phone strong { font-size: 20px; }
+  .mk-sns-phone p { font-size: 16px; line-height: 1.7; margin: 8px 0 0; }
+  .mk-detail-sns .mk-sns-phone :is(strong, p) { color: #28252d; }
+}
 .mk-pricing {
   border: 1px solid var(--mk-line);
   background: var(--mk-panel);

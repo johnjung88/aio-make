@@ -3,6 +3,17 @@
   overflow-wrap: anywhere;
 }
 
+.policyPage.policyPage {
+  background: #f7f5f2;
+  color: #28252d;
+}
+
+.policyPage.policyPage :global(.page-intro) :is(h1, p),
+.policyPage.policyPage :global(.prose),
+.policyPage.policyPage :global(.prose) :is(h2, h3, p, li, th, td, a) {
+  color: #28252d;
+}
+
 .table {
   width: 100%;
   table-layout: fixed;

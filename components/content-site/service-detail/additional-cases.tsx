@@ -10,7 +10,7 @@ export type PublicServiceCase = Pick<ServiceCase, "caseId" | "title" | "summary"
 export function AdditionalCases({ cases, service }: { cases: PublicServiceCase[]; service: ContentServiceId }) {
   const [count, setCount] = useState(3);
   if (!cases.length) return null;
-  return <DetailSection id="additional-cases" eyebrow="MORE WORK" title="더 다양한 제작 사례" lead="같은 작업의 화면비·수정판은 하나의 사례로 연결합니다\n관심 있는 방식으로 제작을 상담해 보세요">
+  return <DetailSection id="additional-cases" eyebrow="MORE WORK" title="더 다양한 제작 사례" lead={"같은 작업의 화면비·수정판은 하나의 사례로 연결합니다\n관심 있는 방식으로 제작을 상담해 보세요"}>
     <div className="sd-case-list">{cases.slice(0, count).map((record) => {
       const cover = record.assets.find((a) => a.kind !== "video") ?? record.assets[0];
       const movie = record.assets.find((a) => a.kind === "video");

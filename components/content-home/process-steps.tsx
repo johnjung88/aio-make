@@ -7,11 +7,12 @@ import { ProcessRun } from "./process-run";
 
 const CUT = (n: number) => `/content-renewal-20261019/webtoon-${String(n).padStart(2, "0")}.webp`;
 
-function Cut({ n, sizes }: { n: number; sizes: string }) {
-  return <Image src={CUT(n)} alt="" fill sizes={sizes} className="ch-art-img" />;
+function Cut({ n, sizes, detail = false }: { n: number; sizes: string; detail?: boolean }) {
+  const src = detail ? `/service-detail-v14/webtoon-${String(n).padStart(2, "0")}.webp` : CUT(n);
+  return <Image src={src} alt="" fill sizes={sizes} className="ch-art-img" />;
 }
 
-function StepArt({ kind }: { kind: ContentHomeStepArt }) {
+function StepArt({ kind, distinctFrames = false }: { kind: ContentHomeStepArt; distinctFrames?: boolean }) {
   switch (kind) {
     case "checklist":
       return (
@@ -43,13 +44,13 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
     case "frames":
       return (
         <>
-          {(["916", "45", "169"] as const).map((ratio) => (
+          {(["916", "45", "169"] as const).map((ratio, index) => (
             <span
               key={ratio}
               className="ch-art-frame"
               data-ratio={ratio}
             >
-              <Cut n={21} sizes="(min-width:1024px) 100px, 40px" />
+              <Cut n={distinctFrames ? [10, 16, 21][index] : 21} detail={distinctFrames} sizes="(min-width:1024px) 100px, 40px" />
             </span>
           ))}
         </>
@@ -57,7 +58,7 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
   }
 }
 
-export function ProcessSteps({ steps = defaultSteps }: { steps?: { label: string; text: string; art: ContentHomeStepArt }[] } = {}) {
+export function ProcessSteps({ steps = defaultSteps, distinctFrames = false }: { steps?: { label: string; text: string; art: ContentHomeStepArt }[]; distinctFrames?: boolean } = {}) {
   return (
     <ProcessRun count={steps.length}>
       {steps.map((step, index) => (
@@ -68,7 +69,7 @@ export function ProcessSteps({ steps = defaultSteps }: { steps?: { label: string
           <div className="ch-step-top">
           <div className="ch-step-art" aria-hidden="true">
             <div className="ch-art-stage" data-art={step.art}>
-              <StepArt kind={step.art} />
+              <StepArt kind={step.art} distinctFrames={distinctFrames} />
             </div>
           </div>
           <h3 className="ch-step-name cs-t-h3">

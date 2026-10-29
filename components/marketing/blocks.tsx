@@ -60,6 +60,27 @@ export function MarketingPicture({
   alt: string;
   hero?: boolean;
 }) {
+  if (name === "sns-hero") {
+    return (
+      <>
+        <div className="mk-sns-desktop">
+          <MarketingPicture name="sns-hero-desktop" alt={alt} hero={hero} />
+        </div>
+        <div className="mk-sns-mobile" aria-label="채널별 게시 화면 구성 예시">
+          {[
+            ["INSTAGRAM", "오늘의 귀리 라떼", "우유 대신 귀리로 만듭니다", 0],
+            ["SHORTS", "오늘의 식탁", "메뉴의 재료와 사용 장면을 소개합니다", 3],
+          ].map(([channel, title, text, photo]) => (
+            <figure className="mk-sns-phone" key={channel}>
+              <div className="mk-sns-phone-bar">{channel} · 화면 구성 예시</div>
+              <Image src={`/marketing-renewal/material-${photo}.webp`} alt={`${title} 게시 소재 예시`} width={600} height={600} sizes="(max-width:767px) 80vw, 1px" />
+              <figcaption><strong>{title}</strong><p>{text}</p></figcaption>
+            </figure>
+          ))}
+        </div>
+      </>
+    );
+  }
   return (
     <picture
       className={`mk-picture${hero ? " mk-picture-hero" : ""}${name === "home-touchpoints" ? " mk-picture-flow" : ""}`}
@@ -67,11 +88,11 @@ export function MarketingPicture({
       {(hero || name === "home-touchpoints") && (
         <source
           media="(max-width: 767px)"
-          srcSet={`/marketing-renewal/${name}-mobile.webp?v=rw2r`}
+          srcSet={`/marketing-renewal/${name === "sns-hero-desktop" ? "sns-hero" : name}-mobile.webp?v=rw2r`}
         />
       )}
       <Image
-        src={`/marketing-renewal/${name}.webp?v=rw2r`}
+        src={`/marketing-renewal/${name === "sns-hero-desktop" ? "sns-hero" : name}.webp?v=rw2r`}
         alt={alt}
         quality={90}
         width={hero ? 1600 : 1200}

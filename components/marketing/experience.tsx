@@ -208,7 +208,7 @@ export function MarketingFinder({
             href={marketingContact(
               id,
               "home-finder",
-              "",
+              { integrated: "channels", sns: "preview", "ai-influencer": "persona", seo: "checklist" }[id],
               `업종: ${industry}\n상황: ${situation}\n방식: ${method}`,
             )}
           >
