@@ -44,7 +44,7 @@ test("content hrefs open in a new tab from the main site only", () => {
     {},
   );
   // Lab links open from other areas, while internal lab navigation stays put.
-  assert.deepEqual(contentLinkProps("/marketing", "/"), {});
+  assert.deepEqual(contentLinkProps("/marketing", "/"), newTabProps);
   for (const href of [
     "/lab",
     "/lab/",
@@ -85,51 +85,20 @@ test("header and footer 컨텐츠 links carry target=_blank, rel noopener and th
   }
 });
 
-test("main page content and lab links open in a new tab; marketing stays in place", async () => {
-  const main = await read("components/guide/main.jsx");
-  const card = (href) => {
-    const start = main.indexOf(`href="${href}"`);
-    assert.ok(start > 0, href);
-    return main.slice(start, main.indexOf("</GuideLink>", start));
-  };
-  assert.match(card("/content"), /\{\.\.\.newTabProps\}/);
-  assert.match(card("/content"), /<NewTabHint \/>/);
-  assert.match(card("/lab"), /\{\.\.\.newTabProps\}/);
-  assert.match(card("/lab"), /<NewTabHint \/>/);
-  for (const href of ["/marketing"]) {
-    assert.doesNotMatch(card(href), /newTabProps|NewTabHint|_blank/, href);
-  }
-
-  // R7: the main #work step rows (LinkRow, JourneyAnchor) and the content card
-  // service link are gone. The active content card link opens in a new tab and is
-  // checked by the WP-3 card test (tests/home-content-cards.test.mjs).
-  const journey = await read("components/home/workflow-journey.tsx");
-  assert.ok(!journey.includes("LinkRow"));
-  assert.ok(!journey.includes("JourneyAnchor"));
-  const content = await read("components/home/journey-content.tsx");
-  assert.ok(!content.includes("서비스 자세히 보기"));
-  assert.match(content, /\{\.\.\.newTabProps\}/);
-
-  const hint = await read("components/new-tab-hint.tsx");
-  assert.match(hint, /className="new-tab-hint"/);
-  const css = await read("components/new-tab-hint.css");
-  assert.match(css, /\.new-tab-hint\s*\{[^}]*clip/);
+test("RW1 marketing entry opens a safe new tab and internal navigation stays put", async () => {
+for(const href of ['/marketing','/marketing/','/marketing?x=1','/marketing#services','/marketing/services/integrated']) {
+ assert.deepEqual(contentLinkProps(href,'/'),newTabProps);assert.deepEqual(contentLinkProps(href,'/about'),newTabProps);assert.deepEqual(contentLinkProps(href,'/marketing/services/sns'),{});
+ }
+ for(const href of ['/marketings','https://example.com/marketing','#marketing']) assert.deepEqual(contentLinkProps(href,'/'),{});
+ const primitives=await read('components/guide/primitives.tsx');assert.match(primitives,/newTab.target && !props.target && <NewTabHint/);
 });
 
-test("workflow link arrows keep a gap and #divisions cards share one row layout", async () => {
-  const css = await read("components/home/workflow-journey.css");
-  assert.ok(!css.includes(".wj-link"));
-  const main = await read("components/guide/main.jsx");
-  const ux = await read("components/guide/ux.css");
-  // Three cards, one class: number+name, one line, services (1fr), link.
-  assert.equal(main.split('className="main-division"').length - 1, 3);
-  assert.equal(main.split('className="main-division-body"').length - 1, 3);
-  assert.match(
-    ux,
-    /\.main-division-body \{[^}]*grid-template-rows: auto auto 1fr auto;/,
-  );
-  assert.ok(!main.includes('gridTemplateRows: "auto auto auto auto 1fr auto"'));
-  assert.ok(!main.includes('"auto 1fr auto auto auto auto"'));
+test("RW1 result cards share one responsive grid in main and about", async () => {
+const css=await read('components/home/main-about-renewal.css');
+ const compact=css.replace(/\s+/g,'');
+ assert.ok(compact.includes('grid-template-columns:repeat(3,minmax(0,1fr))'));
+ assert.ok(compact.includes('.rw-divisions,.rw-site.rw-team-roles{grid-template-columns:minmax(0,1fr)'));
+ assert.ok(compact.includes('.rw-card-body.cs-link{margin-top:auto'));
 });
 
 test("unused workGroups and the old GuideMedia caption are gone", async () => {

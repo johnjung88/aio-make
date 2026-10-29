@@ -2,7 +2,7 @@
  * 그림은 공개 저장소 자체 소재(웹툰 컷)와 CSS 도형이며 장식이라 스크린리더에서 숨긴다.
  * 진행 모션은 process-run.tsx가 시작 신호만 주고, 모든 움직임과 순서 지연(--i 단계 번호, --r 그림 안 순번)은 content-home.css가 맡는다. */
 import Image from "next/image";
-import { contentHomeProcess as steps, type ContentHomeStepArt } from "@/lib/content-home";
+import { contentHomeProcess as defaultSteps, type ContentHomeStepArt } from "@/lib/content-home";
 import { ProcessRun } from "./process-run";
 
 const CUT = (n: number) => `/content-renewal-20261019/webtoon-${String(n).padStart(2, "0")}.webp`;
@@ -57,7 +57,7 @@ function StepArt({ kind }: { kind: ContentHomeStepArt }) {
   }
 }
 
-export function ProcessSteps() {
+export function ProcessSteps({ steps = defaultSteps }: { steps?: { label: string; text: string; art: ContentHomeStepArt }[] } = {}) {
   return (
     <ProcessRun count={steps.length}>
       {steps.map((step, index) => (

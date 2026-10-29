@@ -424,19 +424,11 @@ test("carousel hook: stage activity, pause rules, keys, swipe only in 3D", () =>
   assert.ok(!/\sstyle=/.test(component));
 });
 
-test("JourneyContent keeps the selections prop and the step still passes it", async () => {
-  assert.match(
-    component,
-    /export function JourneyContent\(\{\s*selections,\s*\}: \{\s*selections: ContentSelection\[\];\s*\}\)/,
-  );
-  const journey = await read("components/home/workflow-journey.tsx");
-  assert.match(
-    journey,
-    /<JourneyContent selections=\{data\.contentSelections\} \/>/,
-  );
-  assert.match(component, /import "\.\/journey-content\.css"/);
-  // Media entrance class stays so the step reveal observer still finds the stage.
-  assert.match(component, /className="wjc-stage wj-media"/);
+test("RW1 main reuses the operational content gallery with server selections", async () => {
+const journey=await read('components/home/workflow-journey.tsx');
+ assert.ok(journey.includes('import { ServiceShowcase } from "@/components/content-home/service-showcase"'));
+ assert.match(journey, /<ServiceShowcase\s+selections=\{data.contentSelections\}/);
+ assert.doesNotMatch(journey,/ProductionCase|JourneyContent/);
 });
 
 test("card frames use PlatformFrame only, with official logos and no brand icons", () => {
