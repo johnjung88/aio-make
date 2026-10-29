@@ -220,13 +220,20 @@ export default function About() {
               {companySteps.map((step, i) => (
                 <li key={step.title}>
                   <Image
-                    src={`/marketing-renewal/f3a2-process-${["brief", "plan", "make", "review"][i]}.webp`}
+                    src={
+                      [
+                        "/lab/space-pc.webp",
+                        "/service-detail-v14/webtoon-03.webp",
+                        "/marketing-renewal/f3a2-skin-texture.webp",
+                        "/service-detail-v14/bwl-motion-frame-10.webp",
+                      ][i]
+                    }
                     alt={
                       [
-                        "자료와 목적을 함께 살펴보는 장면",
-                        "사진과 색상으로 제작 방향을 정리하는 장면",
-                        "제품 촬영 소재를 만드는 장면",
-                        "완성된 시안을 함께 검토하는 장면",
+                        "가상 건축 브랜드 웹사이트 디자인 샘플",
+                        "자체 기획 웹툰의 장면 구성 원고",
+                        "스킨케어 제품의 게시 소재 제작 예시",
+                        "비더화이트랩 브랜드 모션 제작 장면",
                       ][i]
                     }
                     width={720}
@@ -241,7 +248,8 @@ export default function About() {
               ))}
             </ol>
             <p className="cs-t-caption rw-process-disclaimer">
-              제작 과정을 설명하는 가상 장면 이미지
+              분야별 제작 결과 예시 · 가상 브랜드 웹사이트, 자체 기획 웹툰, 게시
+              소재, 브랜드 모션
             </p>
           </div>
         </section>

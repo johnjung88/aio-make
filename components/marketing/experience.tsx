@@ -237,7 +237,21 @@ const channelNames = [
   "지도 정보",
   "검색 노출용 글",
 ];
-function ChannelPlanner() {
+const calendarMaterials = [
+  ["f3a2-channel-class", "수업 장면"],
+  ["f3a2-channel-prep", "수업 준비"],
+  ["f3a2-channel-motion", "동작 안내"],
+  ["preview-2-0", "공간 소개"],
+];
+type ResetProps = { onReset: () => void };
+function ResetButton({ onReset }: ResetProps) {
+  return (
+    <button type="button" className="mk-reset" onClick={onReset}>
+      처음으로
+    </button>
+  );
+}
+function ChannelPlanner({ onReset }: ResetProps) {
   const [selected, setSelected] = useState(channelNames.slice(0, 5));
   const [counts, setCounts] = useState<Record<string, number>>(
     Object.fromEntries(channelNames.map((c) => [c, 20])),
@@ -307,6 +321,7 @@ function ChannelPlanner() {
         <a className="mk-result-jump" href="#signature-result">
           결과 보기 ↓
         </a>
+        <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
         <p className="mk-caption">
@@ -330,20 +345,31 @@ function ChannelPlanner() {
           {Array.from({ length: 4 }, (_, week) => (
             <div key={week}>
               <strong>{week + 1}주</strong>
-              {selected.map((c) => (
-                <p key={c}>
-                  {c}
-                  <span
-                    className="mk-dots"
-                    aria-label={`${Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0)}건`}
-                  >
-                    {"·".repeat(
-                      Math.floor(counts[c] / 4) +
-                        (week < counts[c] % 4 ? 1 : 0),
-                    )}
-                  </span>
-                </p>
-              ))}
+              <Image
+                className="mk-week-material"
+                src={`/marketing-renewal/${calendarMaterials[week][0]}.webp`}
+                width={400}
+                height={240}
+                sizes="(max-width:767px) 80vw, 25vw"
+                alt={`${week + 1}주 ${calendarMaterials[week][1]} 게시 소재 예시`}
+              />
+              <p className="mk-week-topic">{calendarMaterials[week][1]}</p>
+              {selected.map((c) => {
+                const count =
+                  Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0);
+                return (
+                  <div className="mk-calendar-post" key={c}>
+                    <span>
+                      {c}
+                      <small>
+                        {count > 0
+                          ? `${count}건 · ${calendarMaterials[week][1]}`
+                          : "게시 없음"}
+                      </small>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>
@@ -355,7 +381,7 @@ function ChannelPlanner() {
               aria-pressed={tile === i}
               onClick={() => setTile(i)}
             >
-              {i + 1}
+              <span>원본 {i + 1}</span>
             </button>
           ))}
         </div>
@@ -381,7 +407,7 @@ const materials = [
   "필라테스 수업 공간",
   "반찬 세트",
 ];
-function SnsPreview() {
+function SnsPreview({ onReset }: ResetProps) {
   const [material, setMaterial] = useState(materials[0]);
   const [name, setName] = useState("");
   const [point, setPoint] = useState("");
@@ -446,6 +472,7 @@ function SnsPreview() {
         <a className="mk-result-jump" href="#signature-result">
           결과 보기 ↓
         </a>
+        <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
         <p className="mk-caption">
@@ -513,7 +540,7 @@ const roles = [
   "사용법을 알려주는 사람",
   "일상을 보여주는 크리에이터",
 ];
-function PersonaPlanner() {
+function PersonaPlanner({ onReset }: ResetProps) {
   const [product, setProduct] = useState("스킨케어");
   const [role, setRole] = useState(roles[0]);
   const [tone, setTone] = useState("친근하게");
@@ -542,6 +569,7 @@ function PersonaPlanner() {
         <a className="mk-result-jump" href="#signature-result">
           결과 보기 ↓
         </a>
+        <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
         <p className="mk-caption">
@@ -637,7 +665,7 @@ const industryQuestions: Record<string, string[]> = {
     "무엇을 준비하나요?",
   ],
 };
-function SeoPreview() {
+function SeoPreview({ onReset }: ResetProps) {
   const [industry, setIndustry] = useState("세무·법률");
   const [name, setName] = useState("");
   const [region, setRegion] = useState("");
@@ -712,6 +740,7 @@ function SeoPreview() {
         <a className="mk-result-jump" href="#signature-result">
           결과 보기 ↓
         </a>
+        <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
         <p className="mk-caption">
@@ -806,6 +835,7 @@ function SignatureContact({
 }
 export function ServiceExperience({ service }: { service: MarketingId }) {
   const [revision, setRevision] = useState(0);
+  const reset = () => setRevision((v) => v + 1);
   return (
     <div>
       <div
@@ -813,18 +843,15 @@ export function ServiceExperience({ service }: { service: MarketingId }) {
         className={`mk-interaction mk-interaction-${service}`}
       >
         {service === "integrated" ? (
-          <ChannelPlanner />
+          <ChannelPlanner onReset={reset} />
         ) : service === "sns" ? (
-          <SnsPreview />
+          <SnsPreview onReset={reset} />
         ) : service === "ai-influencer" ? (
-          <PersonaPlanner />
+          <PersonaPlanner onReset={reset} />
         ) : (
-          <SeoPreview />
+          <SeoPreview onReset={reset} />
         )}
       </div>
-      <button className="mk-reset" onClick={() => setRevision((v) => v + 1)}>
-        처음으로
-      </button>
     </div>
   );
 }
