@@ -83,7 +83,7 @@ export function FilmStage() {
         <h1 id="ch-hero-title">
           기획한 이야기가
           <br />
-          <span>움직이는 장면으로</span>
+          움직이는 장면으로
         </h1>
         <p className="cs-t-lead">영상부터 웹툰까지 실제 결과물을 살펴보세요</p>
         <div className="cf-actions">
@@ -91,7 +91,7 @@ export function FilmStage() {
             작품 골라보기 <span aria-hidden="true">↓</span>
           </a>
           <Link className="cs-link" href="/content/contact">
-            제작 상담 ↗
+            상담 신청 ↗
           </Link>
         </div>
       </div>
@@ -135,13 +135,15 @@ export function FilmStage() {
               }
               onClick={() => (offset ? select(index) : setPreview(id))}
             >
-              <Image
-                src={item.poster}
-                alt={item.alt}
-                fill
-                priority={offset === 0}
-                sizes={offset ? "20vw" : "(min-width:768px) 55vw, 86vw"}
-              />
+              <span className="cf-picture">
+                <Image
+                  src={item.poster}
+                  alt={item.alt}
+                  fill
+                  priority={offset === 0}
+                  sizes={offset ? "20vw" : "(min-width:768px) 55vw, 86vw"}
+                />
+              </span>
               {!offset ? (
                 <span className="cf-open">
                   {item.video ? "▶ 크게 재생" : "이미지 크게 보기 ↗"}
@@ -212,7 +214,7 @@ export function FilmStage() {
         </button>
       </div>
       <div className="cf-bottom cs-t-caption">
-        <span>선택한 작품을 크게 확인하세요 · {selected + 1} / 6</span>
+        <span>{selected + 1} / 6</span>
         <button
           ref={introButton}
           type="button"
@@ -245,7 +247,7 @@ export function FilmStage() {
         }}
       >
         <div className="ch-case-bar">
-          <h2 className="cs-t-h3">AIO MAKE 콘텐츠 스튜디오</h2>
+          <h2 className="cs-t-h3">AIO MAKE 컨텐츠 스튜디오</h2>
           <button
             className="cs-btn"
             type="button"

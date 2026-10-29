@@ -184,7 +184,7 @@ export const contentHomeProcess: ContentHomeStep[] = [
 
 export const contentHomeCta = {
   eyebrow: "CONTACT",
-  title: "만들고 싶은 콘텐츠를\n이야기해 주세요",
+  title: "만들고 싶은 컨텐츠를\n이야기해 주세요",
   lead: "용도와 채널, 필요한 분량을 알려주세요 제작 범위와 견적을 안내합니다",
   button: "상담 신청",
   href: "/content/contact",

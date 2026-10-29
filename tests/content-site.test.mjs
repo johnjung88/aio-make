@@ -1018,7 +1018,7 @@ test("8-4. the content header exposes all six service links and references witho
   const css = code("components/content-site/shell/header-v15.css");
   assert.match(header, /CONTENT_SERVICES\.map\(\(service\)/);
   assert.match(header, /href=\{contentServicePath\(service\.id\)\}/);
-  assert.match(header, /aria-label="콘텐츠 전체 메뉴"/);
+  assert.match(header, /aria-label="컨텐츠 전체 메뉴"/);
   assert.match(header, /href="\/content\/references"/);
   assert.match(header, /href="\/content\/insights"/);
   assert.match(header, /href="\/content\/contact"/);

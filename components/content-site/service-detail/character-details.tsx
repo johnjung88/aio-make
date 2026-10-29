@@ -294,8 +294,8 @@ export function AiInfluencerDetail() {
           <dl>
             <div><dt>시청자와 역할</dt><dd>누구에게 무엇을 소개할 인물인지</dd></div>
             <div><dt>외형의 인상</dt><dd>연령대의 인상·헤어·의상·피부 표현</dd></div>
-            <div><dt>콘텐츠의 톤</dt><dd>이미지의 분위기·말투·피해야 할 표현</dd></div>
-            <div><dt>사용할 장면</dt><dd>제품 소개·브랜드 이미지·SNS 콘텐츠</dd></div>
+            <div><dt>컨텐츠의 톤</dt><dd>이미지의 분위기·말투·피해야 할 표현</dd></div>
+            <div><dt>사용할 장면</dt><dd>제품 소개·브랜드 이미지·SNS 컨텐츠</dd></div>
           </dl>
         </div>
       </DetailSection>
@@ -328,7 +328,7 @@ export function AiInfluencerDetail() {
 
       <DetailSection
         eyebrow="FROM IDENTITY TO CONTENT"
-        title={<>같은 인물의 기준을,<br />브랜드 콘텐츠에 연결합니다</>}
+        title={<>같은 인물의 기준을,<br />브랜드 컨텐츠에 연결합니다</>}
         lead={"BWL 제품 소개와 사용 장면에 AI 인물을 활용한 제안 시안입니다\n얼굴과 손, 제품의 형태·라벨·표기를 함께 확인합니다"}
       >
         <div className="sd-ai-product-films">
@@ -340,11 +340,11 @@ export function AiInfluencerDetail() {
 
       <DetailSection
         eyebrow="THE NEXT USE OF YOUR MODEL"
-        title="다음 콘텐츠도 같은 기준에서 이어갑니다"
+        title="다음 컨텐츠도 같은 기준에서 이어갑니다"
         lead={"채택한 인물 설정과 기준 이미지를 다음 제작에도 활용합니다\n필요한 이미지·영상 수량과 사용 매체·기간·범위를 함께 정합니다"}
       >
         <div className="sd-ai-next-grid">
-          <article><span>01 · 만들 콘텐츠</span><h3>이미지와 영상</h3><p>상품 상세·배너·SNS 이미지·제품영상 등 필요한 형식과 수량을 정합니다</p></article>
+          <article><span>01 · 만들 컨텐츠</span><h3>이미지와 영상</h3><p>상품 상세·배너·SNS 이미지·제품영상 등 필요한 형식과 수량을 정합니다</p></article>
           <article><span>02 · 쓰일 곳</span><h3>매체와 사용 범위</h3><p>홈페이지·SNS·광고 중 사용할 매체와 기간, 브랜드의 활용 범위를 확인합니다</p></article>
           <article><span>03 · 이어갈 제작</span><h3>기준과 추가 작업</h3><p>{"얼굴·의상·스타일을 기준으로 후속 장면을 만듭니다\n외형 변경·음성·독점 사용은 별도로 협의합니다"}</p></article>
         </div>

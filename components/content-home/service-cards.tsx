@@ -6,7 +6,7 @@ import { HomeArtwork } from "./home-artwork";
 export function ServiceCards() {
   return <section className="ch-all-services cs-section" data-cs-section="all-services" aria-labelledby="ch-all-services-title">
     <div className="cs-container">
-      <CsSectionHead id="ch-all-services-title" eyebrow="ALL SERVICES" title={"필요한 콘텐츠를\n골라 맡기세요"} emphasis="골라" align="center" />
+      <CsSectionHead id="ch-all-services-title" eyebrow="ALL SERVICES" title={"필요한 컨텐츠를\n골라 맡기세요"} emphasis="골라" align="center" />
       <ul className="ch-service-cards">
         {contentHomeCards.map((card, index) => <li key={card.id}>
           <Link className="ch-service-card" href={card.href}>

@@ -1,15 +1,14 @@
 ﻿/* W-H3: content-only contract, H1 shared-renewal.css stays untouched */
 .cs-site.cs-site {
-  --cr-bg: #05070a;
-  --cr-panel: #10101a;
-  --cr-text: #f5f7fa;
-  --cr-muted: #bac5d2;
-  --cr-line: #36303b;
-  --cr-white: #ffffff;
-  --cr-pink: #ec008c;
-  --cr-rose: #ff3b7c;
-  --cr-violet-deep: #4930bd;
-  --cr-error: #ffd0c9;
+  --cr-bg: var(--renewal-bg, #05070a);
+  --cr-panel: var(--renewal-panel, #101722);
+  --cr-text: var(--renewal-text, #f5f7fa);
+  --cr-muted: var(--renewal-muted, #c2c0cc);
+  --cr-line: var(--renewal-line, #303b4b);
+  --cr-white: var(--renewal-white, #fff);
+  --cr-pink: var(--brand-pink, #ec008c);
+  --cr-violet-deep: var(--violet-deep, #4930bd);
+  --cr-error: var(--lavender);
   --cs-bg: var(--cr-bg);
   --cs-bg-2: var(--cr-bg);
   --cs-surface: var(--cr-panel);
@@ -103,9 +102,6 @@
   word-break: keep-all;
   text-wrap: balance;
 }
-.cs-site .cf-heading h1 span {
-  color: var(--cr-text);
-}
 .cs-site .cf-heading > p {
   color: var(--cr-muted);
   margin-block: 0 var(--cs-s5);
@@ -118,13 +114,14 @@
 }
 .cs-site .cf-prism {
   position: absolute;
-  right: 10%;
+  right: 14%;
+  opacity: 0.22;
   top: 0;
   width: 280px;
   height: 300px;
   z-index: -1;
   filter: drop-shadow(
-    0 0 50px color-mix(in srgb, var(--cr-pink) 70%, transparent)
+    0 0 50px color-mix(in srgb, var(--cr-pink) 25%, transparent)
   );
   transform: rotate(14deg);
 }
@@ -144,7 +141,7 @@
   background: linear-gradient(
     120deg,
     var(--cr-pink),
-    var(--cr-rose),
+    var(--cr-pink),
     var(--cr-pink)
   );
 }
@@ -200,7 +197,7 @@
 }
 .cs-site .cf-frame[data-position="0"] {
   flex-basis: 48%;
-  aspect-ratio: 16/8.5;
+  aspect-ratio: 16/9;
   box-shadow: 0 0 32px color-mix(in srgb, var(--cr-pink) 35%, transparent);
 }
 .cs-site .cf-frame img {
@@ -208,9 +205,8 @@
 }
 .cs-site .cf-open {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  right: var(--cs-s3);
+  bottom: var(--cs-s3);
   white-space: nowrap;
   background: color-mix(in srgb, var(--cr-bg) 88%, transparent);
   color: var(--cr-white);
@@ -446,9 +442,10 @@
 }
 .cs-site .cr-start-scope ul {
   margin: 0;
-  padding-left: var(--cs-s4);
-  font-size: var(--cs-t-small-size);
-  line-height: var(--cs-t-small-leading);
+  padding: 0;
+  list-style: none;
+  font-size: var(--cs-t-caption-size);
+  line-height: var(--cs-t-body-leading);
   color: var(--cr-muted);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -464,7 +461,7 @@
       transform: translateY(16px) rotate(14deg);
     }
     to {
-      opacity: 1;
+      opacity: 0.22;
       transform: rotate(14deg);
     }
   }
@@ -472,7 +469,7 @@
 @media (max-width: 1023px) {
   .cs-site .cf-prism {
     right: 2%;
-    opacity: 0.5;
+    opacity: 0.18;
   }
   .cs-site .cr-starting {
     grid-template-columns: 1fr;
@@ -499,18 +496,19 @@
   }
   .cs-site .cf-prism {
     top: 200px;
-    right: -16px;
+    right: 16px;
     width: 150px;
     height: 150px;
-    opacity: 0.8;
+    opacity: 0.18;
   }
   .cs-site .cf-film {
-    margin: var(--cs-s7) -54% 0;
+    margin: var(--cs-s6) -20% 0;
+    transform: none;
     gap: var(--cs-s2);
   }
   .cs-site .cf-frame[data-position="0"] {
-    flex-basis: 43%;
-    aspect-ratio: 16/11;
+    flex-basis: 64%;
+    aspect-ratio: 16/9;
   }
   .cs-site .cf-selection {
     margin-top: var(--cs-s6);
@@ -557,11 +555,11 @@
 
 @media (min-width: 1024px) {
   .cs-site .cf-film {
-    margin-top: -40px;
+    margin-top: calc(-2 * var(--cs-s7));
   }
   .cs-site .cf-frame[data-position="0"] {
     flex-basis: 44%;
-    aspect-ratio: 16/7;
+    aspect-ratio: 16/9;
   }
   .cs-site .cf-selection {
     margin-top: var(--cs-s4);
@@ -597,9 +595,285 @@
     ),
     linear-gradient(
       155deg,
-      var(--cr-rose),
+      var(--cr-pink),
       var(--cr-pink) 40%,
       color-mix(in srgb, var(--cr-pink) 45%, var(--cr-violet-deep)) 65%,
-      var(--cr-rose)
+      var(--cr-pink)
     );
+}
+/* W-H3R: poster area and action row never overlap */
+.cs-site .cf-frame {
+  padding: 0;
+}
+.cs-site .cf-picture {
+  position: absolute;
+  inset: 0;
+}
+.cs-site .cf-frame[data-position="0"] .cf-picture {
+  bottom: 44px;
+}
+.cs-site .cf-open {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: var(--cs-s2);
+  border: 0;
+  border-top: 1px solid var(--cr-line);
+  border-radius: 0;
+  font-size: var(--cs-t-caption-size);
+}
+.cs-site .cr-start-scope li + li {
+  margin-top: var(--cs-s3);
+}
+.cs-site #starting-point .sd-section-head {
+  text-align: left;
+  margin-inline: 0;
+}
+.cs-site .cr-prepare {
+  margin-top: var(--cs-s6);
+  padding-top: var(--cs-s5);
+  border-top: 1px solid var(--cr-line);
+  scroll-margin-top: var(--cs-header-h);
+}
+.cs-site .cr-prepare > p {
+  color: var(--cr-muted);
+  font-size: var(--cs-t-body-size);
+  line-height: var(--cs-t-body-leading);
+}
+.cs-site .cr-prepare dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cs-s5);
+}
+.cs-site .cr-prepare dt {
+  font-size: var(--cs-t-body-size);
+  font-weight: var(--cs-t-h3-weight);
+}
+.cs-site .cr-prepare dd {
+  margin: var(--cs-s2) 0 0;
+  color: var(--cr-muted);
+  font-size: var(--cs-t-caption-size);
+  line-height: var(--cs-t-body-leading);
+}
+.cs-site .cr-visual {
+  margin: 0 0 var(--cs-s6);
+  padding: var(--cs-s5);
+  background: var(--cr-panel);
+  border: 1px solid var(--cr-line);
+  border-radius: var(--cs-r-md);
+  color: var(--cr-text);
+}
+.cs-site .cr-visual figcaption {
+  grid-column: 1 / -1;
+  margin-top: var(--cs-s4);
+  color: var(--cr-muted);
+  font-size: var(--cs-t-caption-size);
+  line-height: var(--cs-t-body-leading);
+}
+.cs-site .cr-visual img {
+  object-fit: contain;
+  max-width: 100%;
+}
+.cs-site .cr-visual span {
+  color: var(--cr-muted);
+  font-size: var(--cs-t-caption-size);
+}
+.cs-site .cr-comic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--cs-s4);
+}
+.cs-site .cr-comic > img {
+  width: 100%;
+  height: 260px;
+}
+.cs-site .cr-script {
+  display: grid;
+  align-content: center;
+  gap: var(--cs-s3);
+  padding: var(--cs-s4);
+  border: 1px solid var(--cr-line);
+}
+.cs-site .cr-script i {
+  height: 12px;
+  border-block: 1px solid var(--cr-muted);
+  width: 80%;
+}
+.cs-site .cr-poses > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cs-s3);
+}
+.cs-site .cr-poses > div > div {
+  text-align: center;
+  border-bottom: 2px solid var(--cr-line);
+  padding-bottom: var(--cs-s3);
+}
+.cs-site .cr-poses [data-active="true"] {
+  border-color: var(--lavender);
+}
+.cs-site .cr-poses img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  margin-bottom: var(--cs-s3);
+}
+.cs-site .cr-persona {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--cs-s5);
+  align-items: center;
+}
+.cs-site .cr-persona > img {
+  width: 100%;
+  height: 240px;
+}
+.cs-site .cr-persona b {
+  display: block;
+  margin-block: var(--cs-s4);
+}
+.cs-site .cr-persona ul {
+  padding-left: var(--cs-s4);
+  line-height: var(--cs-t-body-leading);
+  font-size: var(--cs-t-body-size);
+}
+.cs-site .cr-keyframe-labels {
+  display: flex;
+  justify-content: space-between;
+}
+.cs-site .cr-keyframes svg {
+  width: 100%;
+  height: 200px;
+  overflow: visible;
+}
+.cs-site .cr-keyframes path {
+  fill: none;
+  stroke: var(--lavender);
+  stroke-width: 3;
+}
+.cs-site .cr-keyframes .cr-axis {
+  stroke: var(--cr-line);
+  stroke-width: 1;
+}
+.cs-site .cr-keyframes circle {
+  fill: var(--violet);
+  stroke: var(--cr-text);
+  stroke-width: 2;
+}
+.cs-site .cr-storyboard ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--cs-s4);
+}
+.cs-site .cr-storyboard li {
+  border: 1px solid var(--cr-line);
+  padding: var(--cs-s4);
+}
+.cs-site .cr-storyboard li[data-active="true"] {
+  border-color: var(--lavender);
+}
+.cs-site .cr-storyboard li > div {
+  display: grid;
+  gap: var(--cs-s3);
+  margin-block: var(--cs-s4);
+  height: 110px;
+  align-content: center;
+}
+.cs-site .cr-storyboard i {
+  height: 10px;
+  background: var(--cr-line);
+}
+.cs-site .cr-storyboard i:first-child {
+  width: 50%;
+  height: 35px;
+  background: color-mix(in srgb, var(--violet) 35%, var(--cr-panel));
+}
+.cs-site .cr-storyboard b {
+  font-size: var(--cs-t-body-size);
+}
+.cs-site .cr-formats > div {
+  display: flex;
+  gap: var(--cs-s6);
+  justify-content: center;
+  text-align: center;
+}
+.cs-site .cr-portrait {
+  aspect-ratio: 9/16;
+  max-width: 160px;
+  border: 2px solid var(--cr-line);
+  border-radius: var(--cs-r-md);
+  padding: var(--cs-s2);
+  margin-bottom: var(--cs-s3);
+}
+.cs-site .cr-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 767px) {
+  .cs-site.cs-site .cs-header-v15 .cs-header-v15-nav {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 12px,
+      black calc(100% - 24px),
+      transparent
+    );
+    scrollbar-color: var(--lavender) transparent;
+  }
+  .cs-site.cs-site .cs-header-v15-nav > ul {
+    padding-inline: var(--cs-s4) var(--cs-s6);
+  }
+  .cs-site .cr-prepare dl {
+    grid-template-columns: 1fr;
+  }
+  .cs-site .cr-visual {
+    padding: var(--cs-s4);
+  }
+  .cs-site .cr-comic > img {
+    height: 200px;
+  }
+  .cs-site .cr-script {
+    padding: var(--cs-s3);
+  }
+  .cs-site .cr-poses img {
+    height: 110px;
+  }
+  .cs-site .cr-persona {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--cs-s3);
+  }
+  .cs-site .cr-persona > img {
+    height: 200px;
+  }
+  .cs-site .cr-storyboard ol {
+    grid-template-columns: 1fr;
+  }
+  .cs-site .cr-storyboard li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--cs-s3);
+  }
+  .cs-site .cr-storyboard li > div {
+    display: none;
+  }
+  .cs-site .cr-formats > div {
+    gap: var(--cs-s4);
+  }
+}
+
+.cs-site .cr-script b,
+.cs-site .cr-persona b,
+.cs-site .cr-persona li {
+  font-size: var(--cs-t-caption-size);
+}
+.cs-site .cf-frame:not([data-position="0"]) img {
+  object-fit: cover;
 }

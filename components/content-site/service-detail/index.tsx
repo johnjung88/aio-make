@@ -58,9 +58,6 @@ export function ServiceDetail({ id, cases }: { id: ContentServiceId; cases: Serv
     <StartingBoard service={id} />
     <AdditionalCases cases={publicCases} service={id} />
     <Pricing id={id} />
-    <DetailSection id="prepare" eyebrow="BEFORE WE START" title="이 정도만 알려주세요" lead="준비된 내용부터 알려주세요 자료와 분량은 상담하면서 정해도 됩니다">
-      <div className="sd-prepare-grid">{copy.prepare.map(([title, body]) => <div key={title}><b>{title}</b><p>{body}</p></div>)}</div>
-    </DetailSection>
     <DetailSection id="faq" eyebrow="FAQ" title="의뢰 전에 궁금한 점">
       <div className="sd-faq-list">{copy.faq.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div>
     </DetailSection>
