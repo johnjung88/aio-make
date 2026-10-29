@@ -13,6 +13,7 @@ import { CS_COPY } from "@/lib/content-site/copy";
 import { siteUrl } from "@/lib/metadata";
 import { organizationSchema } from "@/lib/seo";
 import "@/components/content-site/theme.css";
+import "@/components/content-site/content-renewal.css";
 
 export default function ContentSiteLayout({
   children,

@@ -14,6 +14,7 @@ import { AdditionalCases, type PublicServiceCase } from "./additional-cases";
 import { RecordDetail } from "./record-detail";
 import { ServiceExperience } from "./experience";
 import { ServiceTools } from "./service-tools";
+import { StartingBoard } from "./starting-board";
 import "./detail.css";
 
 const detail = { webtoon: WebtoonDetail, animation: AnimationDetail, "ai-influencer": AiInfluencerDetail, "motion-graphics": MotionGraphicsDetail, "brand-film": BrandFilmDetail, ad: AdDetail };
@@ -54,6 +55,7 @@ export function ServiceDetail({ id, cases }: { id: ContentServiceId; cases: Serv
   return <div className={`sd sd-service-${id}`}><ServiceExperience>
     {useAuthoredJourney ? <Detail /> : <RecordDetail service={id} record={primary ? publicCase(primary) : null} />}
     <ServiceTools service={id} />
+    <StartingBoard service={id} />
     <AdditionalCases cases={publicCases} service={id} />
     <Pricing id={id} />
     <DetailSection id="prepare" eyebrow="BEFORE WE START" title="이 정도만 알려주세요" lead="준비된 내용부터 알려주세요 자료와 분량은 상담하면서 정해도 됩니다">

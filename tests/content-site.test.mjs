@@ -74,6 +74,7 @@ const DETAIL_CLIENT_MODULES = [
   "service-detail/record-detail.tsx",
   "service-detail/service-tools.tsx",
   "service-detail/shared.tsx",
+  "service-detail/starting-board.tsx",
   "service-detail/webtoon-reader.tsx",
   "service-detail/webtoon.tsx",
 ];
