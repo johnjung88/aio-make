@@ -32,7 +32,12 @@ function cardMedia(selection:ContentSelection):CardMedia {
  const alt=homeCardMedia[selection.tab.id].alt;
 
  const slot=homeCardMedia[selection.tab.id];
- if(slot.video) return {kind:"video",src:slot.video,poster:slot.poster,alt,slot:slot.slotId};
+ if(slot.video) {
+  const poster = selection.tab.id === "motion-graphics" ? "/content-fb3/motion-05.webp"
+   : selection.tab.id === "brand-film" ? "/content-fb3/healernet-16.webp"
+   : selection.tab.id === "ad" ? "/service-detail-v14/sns-cplus-ending.webp" : slot.poster;
+  return {kind:"video",src:slot.video,poster,alt,slot:slot.slotId};
+ }
 
  return {kind:"image",src:slot.poster,alt,slot:slot.slotId};
 }
@@ -146,7 +151,7 @@ export function ServiceShowcase({ selections, heading = head }: { selections: Co
       const selected=index===current;
       const hidden=Math.abs(distance)>2;
       const service=services.find(item=>item.id===selection.tab.id) ?? services[index];
-      const price=startingPrice(service.id);
+      const price=service.id === "webtoon" ? null : startingPrice(service.id);
       // reduced-motion의 조작 막대 영상은 카드 전체 링크가 가리지 않는다(영상 조작이 우선, 캡션 링크는 그대로)
       const linkable=!(reduced && cards[index].kind==="video");
       return <div key={selection.tab.id} className="ch-depth-card" data-pos={hidden ? "hidden" : distance} aria-hidden={!selected}>

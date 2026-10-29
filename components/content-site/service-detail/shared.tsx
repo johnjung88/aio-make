@@ -105,7 +105,7 @@ export function CaseCta({ caseId, caseTitle, children, plan, material, entryPoin
 }
 
 export function ServiceOverview({ service, items }: { service: ContentServiceId; items: string[] }) {
-  const price = startingPrice(service);
+  const price = service === "webtoon" ? null : startingPrice(service);
   return <section className="sd-overview" id="service-overview" aria-label="제작 범위와 시작 가격">
     <div className="sd-container"><ul>{items.map((item, i) => <li key={item}><span aria-hidden="true">0{i + 1}</span><p>{item}</p></li>)}</ul>
       {price ? <p className="sd-starting-price">{price.line}<a href="#pricing">구성과 가격 보기 ↓</a></p> : null}

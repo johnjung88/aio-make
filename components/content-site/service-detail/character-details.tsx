@@ -107,7 +107,7 @@ export function AnimationDetail() {
         <div className="sd-character-banner">
           <span className="sd-character-banner-orbit" aria-hidden="true" />
           <span className="sd-character-banner-word" aria-hidden="true">HELLO!</span>
-          <DetailImage src={`${characterMedia}yofree-character-03.webp`} alt="손을 흔들며 인사하는 요프리 브랜드 캐릭터의 전신" eager zoom={false} />
+          <DetailImage src={`${characterMedia}yofree-character-04.webp`} alt="가볍게 점프하는 요프리 브랜드 캐릭터의 전신" eager zoom={false} />
           <span className="sd-character-banner-caption">ONE CHARACTER<br />MANY STORIES</span>
         </div>
       </DetailHero>
@@ -272,8 +272,8 @@ export function AiInfluencerDetail() {
         primaryLabel="AI 모델 제작 사례 보기"
       >
         <div className="sd-ai-banner">
-          <DetailImage className="sd-ai-banner-face" src={`${media}ai-face.webp`} alt="87언니의 채택 기준 얼굴 화보" eager zoom={false} />
-          <DetailImage className="sd-ai-banner-full" src={`${media}ai-full.webp`} alt="같은 가상인물 87언니의 채택 기준 전신 화보" eager zoom={false} />
+          <DetailImage className="sd-ai-banner-face" src={`${media}sns-cplus-opening.webp`} alt="87언니 AI 가상인물을 활용한 제품영상의 첫 장면" eager zoom={false} />
+          <DetailImage className="sd-ai-banner-full" src={`${media}sns-cplus-ending.webp`} alt="같은 가상인물이 제품을 소개하는 영상의 마지막 장면" eager zoom={false} />
           <span className="sd-ai-banner-caption">87 UNNIE<br /><small>AIO VIRTUAL MODEL</small></span>
         </div>
       </DetailHero>
@@ -318,7 +318,7 @@ export function AiInfluencerDetail() {
         lead={"기준 얼굴과 장면 시험을 비교한 실제 과정입니다\n단계별 보완 내용을 살펴보고, 이미지를 눌러 확대해 보세요"}
       >
         <div className="sd-ai-stage-options" role="group" aria-label="AI 모델 기준과 보완 과정 선택">
-          {aiStages.map((item, index) => <button type="button" key={item.asset} aria-pressed={stageIndex === index} onClick={() => setStageIndex(index)}><small>0{index + 1}</small><strong>{item.short}</strong><span>{index === 0 ? "채택 기준 얼굴" : index === 1 ? "보완 전 · T2" : "보완 후 채택 · T3"}</span></button>)}
+          {aiStages.map((item, index) => <button type="button" key={item.asset} aria-pressed={stageIndex === index} onClick={() => setStageIndex(index)}><small>0{index + 1}</small><strong>{item.short}</strong><span>{index === 0 ? "채택 기준 얼굴" : index === 1 ? "보완 전" : "보완 후 채택"}</span></button>)}
         </div>
         <div className="sd-ai-comparison">
           {aiStages.map((item, index) => <div className="sd-ai-comparison-item" key={item.asset} data-selected={stageIndex === index}><DetailImage src={`${media}${item.asset}`} alt={item.alt} caption={item.label} /></div>)}

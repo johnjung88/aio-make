@@ -185,11 +185,11 @@ export function MotionGraphicsDetail() {
           <DetailVideo
             src={`${media}bwl-brand-motion.mp4`}
             poster={`${media}poster-bwl-brand-motion.webp`}
-            label="DR’s Secret 브랜드 모션 v1 · 30초 · 16:9 · 사용자 확정"
+            label="DR’s Secret 브랜드 모션 · 30초 · 16:9 · 사용자 확정"
             startAt={activeScene?.time}
           />
           <div className="fd-hero-scenes" role="group" aria-label="모션 본편의 실제 장면 선택">{motionScenes.map((item, index) => <button key={item.time} type="button" aria-pressed={heroScene === index} onClick={() => { seekScene(heroStage.current, item.time); setHeroScene(index); }}><Image src={`${media}${item.image}`} alt="" width={1280} height={720} unoptimized /><span><small>{String(item.time).padStart(2, "0")}초</small><strong>{item.title}</strong></span></button>)}</div>
-          <div className="fd-hero-reading" aria-live="polite"><p>{activeScene?.description ?? "장면을 고른 뒤 재생 버튼을 누르면 같은 본편의 해당 구간부터 볼 수 있습니다"}</p><button className="fd-preview-open" type="button" aria-haspopup="dialog" onClick={(event) => setPreview({ src: `${media}bwl-brand-motion.mp4`, poster: `${media}${activeScene?.image ?? "poster-bwl-brand-motion.webp"}`, title: "DR’s Secret 브랜드 모션", label: "30초 · 16:9 · 사용자 확정 v1 · 고객 전달·게시와 별도", caseId: "CASE-BWL-BRAND-MOTION", startAt: activeScene?.time, trigger: event.currentTarget })}>큰 영상 보기 ↗</button></div>
+          <div className="fd-hero-reading" aria-live="polite"><p>{activeScene?.description ?? "장면을 고른 뒤 재생 버튼을 누르면 같은 본편의 해당 구간부터 볼 수 있습니다"}</p><button className="fd-preview-open" type="button" aria-haspopup="dialog" onClick={(event) => setPreview({ src: `${media}bwl-brand-motion.mp4`, poster: `${media}${activeScene?.image ?? "poster-bwl-brand-motion.webp"}`, title: "DR’s Secret 브랜드 모션", label: "30초 · 16:9 · 사용자 확정 · 고객 전달·게시와 별도", caseId: "CASE-BWL-BRAND-MOTION", startAt: activeScene?.time, trigger: event.currentTarget })}>큰 영상 보기 ↗</button></div>
         </div>
       </DetailHero>
 
@@ -203,7 +203,7 @@ export function MotionGraphicsDetail() {
         <div className="fd-case-summary">
           <div><span>제작 범위</span><p>기획·화면 구성·타이포·도형 모션·기존 사진과 영상 편집</p></div>
           <div><span>실제 결과</span><p>30초 · 1920×1080 · 16:9 · 60fps</p></div>
-          <div><span>작품 상태</span><p>사용자 확정 v1<br />고객 전달·게시와 별도</p></div>
+          <div><span>작품 상태</span><p>사용자 확정<br />고객 전달·게시와 별도</p></div>
         </div>
         <div className="fd-process-intro">
           <div className="fd-process-number" aria-hidden="true">01—03</div>
@@ -223,7 +223,7 @@ export function MotionGraphicsDetail() {
           <DetailImage src={`${media}bwl-motion-frame-25.webp`} alt="같은 모션 25초의 브랜드 씰 마무리" caption="25초 · 같은 형태를 브랜드 씰로 마무리" />
         </div>
         <div className="fd-result-film">
-          <DetailVideo src={`${media}bwl-brand-motion.mp4`} poster={`${media}poster-bwl-brand-motion.webp`} label="DR’s Secret 브랜드 모션그래픽 본편 · 사용자 확정 v1 · 30초" />
+          <DetailVideo src={`${media}bwl-brand-motion.mp4`} poster={`${media}poster-bwl-brand-motion.webp`} label="DR’s Secret 브랜드 모션그래픽 본편 · 사용자 확정 · 30초" />
           <div className="fd-result-copy"><h3>실제 30초 본편</h3><p>제품·타이포·도형과 실사 자료를 한 화면의 리듬으로 편집했습니다<br />이 작품의 자료 선택과 표현을 참고해 원하는 모션의 범위를 상담할 수 있습니다</p><CaseCta caseId="CASE-BWL-BRAND-MOTION" caseTitle="DR’s Secret 브랜드 모션그래픽" entryPoint="service-featured-case">이런 모션 제작 문의</CaseCta></div>
         </div>
       </DetailSection>
@@ -239,11 +239,11 @@ export function MotionGraphicsDetail() {
 const brandWorks: FilmWork[] = [
   {
     id: "yofree-jinsang", caseId: "CASE-YOFREE-JINSANG", title: "YoFree · 진상품 납시오", category: "product", categoryLabel: "이야기·인물·제품",
-    description: "이야기와 인물, 대사·소리에서 마지막 캐릭터와 제품으로 연결하는 브랜드 영상입니다", format: "25.3초 · 16:9", status: "완성 v1 · 확인 대기 · 드래프트 기반 확대본",
+    description: "이야기와 인물, 대사·소리에서 마지막 캐릭터와 제품으로 연결하는 브랜드 영상입니다", format: "25.3초 · 16:9", status: "완성 · 확인 대기 · 드래프트 기반 확대본",
   },
   {
     id: "bwl-brand-motion", caseId: "CASE-BWL-BRAND-MOTION", title: "DR’s Secret · 브랜드 모션", category: "product", categoryLabel: "제품·그래픽·브랜드",
-    description: "같은 브랜드를 제품 사진과 제형 영상, 도형과 타이포로 소개하는 방식입니다", format: "30초 · 16:9", status: "사용자 확정 v1 · 고객 전달·게시와 별도",
+    description: "같은 브랜드를 제품 사진과 제형 영상, 도형과 타이포로 소개하는 방식입니다", format: "30초 · 16:9", status: "사용자 확정 · 고객 전달·게시와 별도",
   },
   {
     id: "healernet-motion", caseId: "CASE-HEALERNET-MOTION", title: "HEALERNET · 회사 홍보 모션", category: "company", categoryLabel: "회사·정보·제품",
@@ -282,7 +282,6 @@ export function BrandFilmDetail() {
           <div><span>작품 상태</span><p>30초 · 16:9<br />제안용 드래프트 시안</p></div>
         </div>
         <div className="fd-brand-message">
-          <p className="fd-kicker">THE MESSAGE · 실제 기획 원고 v02</p>
           <blockquote>내 피부에 맞춘 루틴,<br />닥터 시크릿</blockquote>
           <p>기획에서 정한 마지막 문구입니다<br />서로 다른 시간의 인물 장면과 제품을 이 메시지로 모았습니다</p>
         </div>
@@ -304,7 +303,7 @@ export function BrandFilmDetail() {
         <div className="fd-work-grid">{brandWorks.map((work) => <FilmCard key={work.id} work={work} />)}</div>
       </DetailSection>
 
-      <DetailSection eyebrow="YOUR BRAND, YOUR FILM" title={"무엇을 소개할지 정하면\n구성이 선명해집니다"}>
+      <DetailSection eyebrow="브랜드 영상 기획" title={"무엇을 소개할지 정하면\n구성이 선명해집니다"}>
         <div className="fd-decision-grid"><article><span>01</span><h3>누구에게 보여줄까요</h3><p>처음 만나는 고객인지, 제품을 검토하는 담당자인지 시청자를 정합니다</p></article><article><span>02</span><h3>무엇을 기억할까요</h3><p>회사와 브랜드의 여러 정보 중 한 편에서 전할 핵심 메시지를 고릅니다</p></article><article><span>03</span><h3>어디에서 사용할까요</h3><p>홈페이지·소개 화면·행사 등 사용처와 보유 자료에 맞춰 길이와 규격을 협의합니다</p></article></div>
       </DetailSection>
       <FilmPreview selection={preview} onClose={() => setPreview(null)} />

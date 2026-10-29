@@ -687,8 +687,11 @@
   font-size: var(--cs-t-caption-size);
 }
 
-/* Left-aligned section heads retain their reading measure without auto indents. */
+/* Keep the description on the same center line as its section title. */
 .cs-site .sd .sd-section-head .sd-lead {
+  margin-inline: auto;
+}
+.cs-site #starting-point .sd-section-head .sd-lead {
   margin-inline: 0;
 }
 .cs-site :is(p, dd, .cs-faq-a) {

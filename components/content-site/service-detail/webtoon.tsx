@@ -26,7 +26,7 @@ function WebtoonHeroPages({ onRead }: { onRead: (page: number, event: MouseEvent
   const banner = useRef<HTMLDivElement>(null);
   const choices = useRef<Array<HTMLButtonElement | null>>([]);
   const frame = useRef(0);
-  const [front, setFront] = useState<1 | 5>(1);
+  const [front, setFront] = useState<3 | 4>(3);
   const [entered, setEntered] = useState(false);
   const [reduced, setReduced] = useState(true);
   const [finePointer, setFinePointer] = useState(false);
@@ -76,28 +76,28 @@ function WebtoonHeroPages({ onRead }: { onRead: (page: number, event: MouseEvent
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
     const next = event.key === "Home" ? 0 : event.key === "End" ? 1 : index === 0 ? 1 : 0;
-    setFront(next === 0 ? 1 : 5);
+    setFront(next === 0 ? 3 : 4);
     choices.current[next]?.focus();
   }
 
   return <div className="wt-hero-presentation">
     <div className="wt-banner-toolbar">
       <div role="group" aria-label="배너에서 앞에 볼 완성 페이지 선택">
-        {([1, 5] as const).map((page, index) => <button key={page} type="button" ref={(node) => { choices.current[index] = node; }} aria-pressed={front === page} onClick={() => setFront(page)} onKeyDown={(event) => selectWithKeys(event, index)}>{page === 1 ? "01 / 창단식" : "05 / 월드컵"}</button>)}
+        {([3, 4] as const).map((page, index) => <button key={page} type="button" ref={(node) => { choices.current[index] = node; }} aria-pressed={front === page} onClick={() => setFront(page)} onKeyDown={(event) => selectWithKeys(event, index)}>{page === 3 ? "03 / 체결식" : "04 / 일상"}</button>)}
       </div>
       <button className="wt-banner-replay" type="button" disabled={reduced || !finePointer} onClick={() => setReplay((value) => value + 1)} aria-label={reduced ? "동작 줄이기 설정 사용 중" : !finePointer ? "페이지 선택 버튼으로 작품을 직접 선택하세요" : "페이지 펼침 동작 다시 보기"}>다시 펼치기 <span aria-hidden="true">↻</span></button>
     </div>
     <div ref={banner} className="wt-banner-pages" aria-label="같은 1화의 실제 완성 페이지" data-front={front} data-entered={entered} data-reduced={reduced} onPointerMove={look} onPointerLeave={resetLook}>
-      <button key={`one-${replay}`} className="wt-banner-page wt-banner-page-one" type="button" onFocus={() => setFront(1)} onClick={(event) => onRead(1, event)} aria-label="1화 창단식 01페이지 크게 읽기">
-        <img src={`${A}webtoon-01.webp`} alt="《1억의 구단주》 창단식 실제 완성 01페이지" fetchPriority="high" width={1024} height={1536} />
-        <span>01 / 창단식 <b>크게 읽기 ↗</b></span>
+      <button key={`one-${replay}`} className="wt-banner-page wt-banner-page-one" type="button" onFocus={() => setFront(3)} onClick={(event) => onRead(3, event)} aria-label="1화 체결식 03페이지 크게 읽기">
+        <img src={`${A}webtoon-03.webp`} alt="《1억의 구단주》 체결식 실제 완성 03페이지" fetchPriority="high" width={1024} height={1536} />
+        <span>03 / 체결식 <b>크게 읽기 ↗</b></span>
       </button>
-      <button key={`two-${replay}`} className="wt-banner-page wt-banner-page-two" type="button" onFocus={() => setFront(5)} onClick={(event) => onRead(5, event)} aria-label="같은 작품 월드컵 05페이지 크게 읽기">
-        <img src={`${A}webtoon-05.webp`} alt="같은 작품의 월드컵 몰입 실제 완성 05페이지" width={1024} height={1536} />
-        <span>05 / 월드컵 <b>크게 읽기 ↗</b></span>
+      <button key={`two-${replay}`} className="wt-banner-page wt-banner-page-two" type="button" onFocus={() => setFront(4)} onClick={(event) => onRead(4, event)} aria-label="같은 작품 일상 04페이지 크게 읽기">
+        <img src={`${A}webtoon-04.webp`} alt="같은 작품의 일상 실제 완성 04페이지" width={1024} height={1536} />
+        <span>04 / 일상 <b>크게 읽기 ↗</b></span>
       </button>
     </div>
-    <p className="wt-banner-instruction" aria-live="polite">{front === 1 ? "창단식의 첫 장면" : "축구에 몰입하는 월드컵 장면"}<br />페이지를 눌러 완성본 25P를 읽어보세요</p>
+    <p className="wt-banner-instruction" aria-live="polite">{front === 3 ? "체결식에서 이어지는 인물의 이야기" : "인물의 일상과 경기 관람 장면"}<br />페이지를 눌러 완성본 25P를 읽어보세요</p>
   </div>;
 }
 
@@ -159,9 +159,9 @@ export function WebtoonDetail() {
           <div className="wt-unit-measure">
             <span className="wt-unit-width" aria-hidden="true">가로 {WEBTOON_PAGE_STANDARD.width.toLocaleString("ko-KR")}px</span>
             <span className="wt-unit-height" aria-hidden="true">세로 {WEBTOON_PAGE_STANDARD.height.toLocaleString("ko-KR")}px</span>
-            <button type="button" className="wt-unit-page" onClick={(event) => openPage(5, event)} aria-label={`${WEBTOON_PAGE_STANDARD.label}, ${WEBTOON_PAGE_STANDARD.ratio} 비율의 실제 완성 05P 크게 읽기`}><img src={`${A}webtoon-05.webp`} alt="여러 컷으로 구성된 실제 완성 05P 전체" loading="lazy" width={WEBTOON_PAGE_STANDARD.width} height={WEBTOON_PAGE_STANDARD.height} /></button>
+            <button type="button" className="wt-unit-page" onClick={(event) => openPage(6, event)} aria-label={`${WEBTOON_PAGE_STANDARD.label}, ${WEBTOON_PAGE_STANDARD.ratio} 비율의 실제 완성 06P 크게 읽기`}><img src={`${A}webtoon-06.webp`} alt="여러 컷으로 구성된 실제 완성 06P 전체" loading="lazy" width={WEBTOON_PAGE_STANDARD.width} height={WEBTOON_PAGE_STANDARD.height} /></button>
           </div>
-          <figcaption>실제 완성 05P · 원본 비율 그대로<br />페이지를 눌러 크게 읽기 ↗</figcaption>
+          <figcaption>실제 완성 06P · 원본 비율 그대로<br />페이지를 눌러 크게 읽기 ↗</figcaption>
         </figure>
         <div className="wt-unit-copy">
           <dl className="wt-unit-specs"><div><dt>1P 크기</dt><dd>{WEBTOON_PAGE_STANDARD.width.toLocaleString("ko-KR")} × {WEBTOON_PAGE_STANDARD.height.toLocaleString("ko-KR")}px</dd></div><div><dt>가로 : 세로</dt><dd>{WEBTOON_PAGE_STANDARD.ratio}</dd></div><div><dt>상품 분량</dt><dd>12P 또는 24P</dd></div></dl>
@@ -237,7 +237,7 @@ export function WebtoonDetail() {
           <button type="button" className="wt-stage-page" onClick={(event) => openPage(1, event)} aria-label="참조 인물이 등장하는 완성01페이지 읽기"><img src={`${A}webtoon-01.webp`} alt="같은 캐릭터들이 등장하는 창단식 완성 장면" loading="lazy" width={1024} height={1536} /><span>같은 작품의 실제 등장 장면 · 01 / 25 ↗</span></button>
         </div>
         <div id="wt-stage-panel-finished" className="wt-stage-panel" role="tabpanel" tabIndex={0} aria-labelledby="wt-stage-tab-finished" hidden={stage !== "finished"}>
-          {[1, 5].map((page) => <button key={page} type="button" className="wt-stage-page" onClick={(event) => openPage(page, event)} aria-label={`실제 완성 ${page}페이지 크게 읽기`}><img src={`${A}webtoon-${String(page).padStart(2, "0")}.webp`} alt={`같은 1화의 ${page === 1 ? "창단식" : "월드컵 경기"} 실제 완성 페이지`} loading="lazy" width={1024} height={1536} /><span>{String(page).padStart(2, "0")} / {page === 1 ? "창단식" : "월드컵"} · 크게 읽기 ↗</span></button>)}
+          {[8, 9].map((page) => <button key={page} type="button" className="wt-stage-page" onClick={(event) => openPage(page, event)} aria-label={`실제 완성 ${page}페이지 크게 읽기`}><img src={`${A}webtoon-${String(page).padStart(2, "0")}.webp`} alt={`같은 1화의 실제 완성 ${page}페이지`} loading="lazy" width={1024} height={1536} /><span>{String(page).padStart(2, "0")} / 완성 장면 · 크게 읽기 ↗</span></button>)}
         </div>
         <p className="wt-workbench-caption">《1억의 구단주》 1화 《새 게임》 · 완성본 25P <button type="button" onClick={(event) => openPage(1, event)}>처음부터 읽기 ↗</button></p>
       </div>
@@ -266,7 +266,7 @@ export function WebtoonDetail() {
 
     <DetailSection id="webtoon-reading" eyebrow="07 / 완성 웹툰" title={"실제 완성본을\n전체 흐름으로 확인하세요"} lead={"1화 《새 게임》 완성본 25P입니다\n장면을 고르거나 처음부터 읽어보세요"}>
       <div className="wt-reading-three">
-        {[[1, "창단식 프롤로그"], [5, "월드컵 경기 장면"], [21, "도현과 정훈의 첫 만남"]].map(([number, label]) => <button key={number} type="button" onClick={(event) => openPage(Number(number), event)} aria-label={`${label} ${number}페이지부터 크게 읽기`}><img src={`${A}webtoon-${String(number).padStart(2, "0")}.webp`} alt={`1화 실제 ${label}`} loading="lazy" width={1024} height={1536} /><span><b>{String(number).padStart(2, "0")}</b>{label} ↗</span></button>)}
+        {[[10, "축구 팬을 살펴보는 도현"], [16, "축구 게임과 선수 조사"], [21, "도현과 정훈의 첫 만남"]].map(([number, label]) => <button key={number} type="button" onClick={(event) => openPage(Number(number), event)} aria-label={`${label} ${number}페이지부터 크게 읽기`}><img src={`${A}webtoon-${String(number).padStart(2, "0")}.webp`} alt={`1화 실제 ${label}`} loading="lazy" width={1024} height={1536} /><span><b>{String(number).padStart(2, "0")}</b>{label} ↗</span></button>)}
       </div>
       <div className="wt-reading-end"><div><button type="button" className="wt-text-button" onClick={(event) => openPage(1, event)}>1화 25P 전체 읽기 ↗</button><p>한 화의 흐름을 확인한 뒤<br />필요한 이야기와 페이지 수를 상담해보세요</p></div><CaseCta caseId={CASE_ID} caseTitle={CASE_TITLE} entryPoint="finished-case">이 사례로 웹툰 제작 상담</CaseCta></div>
     </DetailSection>

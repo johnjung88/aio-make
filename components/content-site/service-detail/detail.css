@@ -19,3 +19,7 @@
 .sd .sd-unit-note{margin-top:24px;max-width:52em}
 
 .sd-price-grid .sd-plan-title{font:inherit;font-weight:600;margin:0 0 12px}
+
+/* Price labels, amounts and actions share the center of their own card. */
+.sd .sd-price-group { text-align:center; }
+.sd .sd-price-grid article { text-align:center; }

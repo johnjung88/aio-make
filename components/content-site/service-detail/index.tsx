@@ -82,12 +82,15 @@ const publicCase = ({
   title,
   summary,
   scope,
-  publicLabel,
+  publicLabel: publicLabel.replace(/\s+v\d+\b/gi, ""),
   assets,
   services,
   brief,
   decisions,
-  stages,
+  stages: stages.map((stage) => ({
+    ...stage,
+    title: stage.title.replace(/\bT[23]\s*/g, ""),
+  })),
 });
 
 function Pricing({ id }: { id: ContentServiceId }) {

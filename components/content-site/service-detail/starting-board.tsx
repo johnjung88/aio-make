@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { homeCardMedia, homeStartingMotionFrames } from "@/lib/content-home";
+import { homeCardMedia } from "@/lib/content-home";
 import { useState } from "react";
 import {
   DETAIL_COPY,
@@ -262,26 +262,26 @@ function StartingVisual({
   if (service === "ai-influencer")
     return (
       <figure className="cr-visual cr-persona">
-        {["ai-face", "ai-full"].map((name, i) => (
+        {["cleanser-02", "cleanser-12"].map((name, i) => (
           <div key={name}>
             <Image
-              src={asset(name)}
+              src={`/content-fb3/${name}.webp`}
               width={400}
               height={520}
               alt={
                 homeCardMedia["ai-influencer"].caseLabel +
-                (i === 0 ? " 기준 얼굴" : " 기준 전신")
+                (i === 0 ? " 제품 소개 장면" : " 제품 사용 장면")
               }
             />
             <span>
               {i === 0
-                ? "기준 얼굴 · 인상과 특징"
-                : "기준 전신 · 비례와 스타일"}
+                ? "같은 인물 · 제품 소개"
+                : "같은 인물 · 제품 사용"}
             </span>
           </div>
         ))}
         <figcaption>
-          {homeCardMedia["ai-influencer"].caseLabel} · 얼굴과 전신의 기준 이미지
+          {homeCardMedia["ai-influencer"].caseLabel} · 클렌저 제품영상의 다른 활용 장면
         </figcaption>
       </figure>
     );
@@ -289,10 +289,10 @@ function StartingVisual({
     return (
       <figure className="cr-visual cr-keyframes">
         <div className="cr-scene-strip">
-          {homeStartingMotionFrames.map(({ time, src }, i) => (
+          {[5, 15, 20].map((time, i) => (
             <div key={time} data-active={selected === i}>
               <Image
-                src={src}
+                src={`/content-fb3/motion-${String(time).padStart(2, "0")}.webp`}
                 width={480}
                 height={270}
                 alt={`${homeCardMedia["motion-graphics"].caseLabel} ${time}초 장면`}
@@ -300,9 +300,9 @@ function StartingVisual({
               <span>
                 {
                   [
-                    "02초 · 제형의 등장",
-                    "10초 · 손과 제형 강조",
-                    "25초 · 브랜드 씰",
+                    "05초 · 제형과 타이포",
+                    "15초 · 제품에 가까이",
+                    "20초 · 여러 제품 연결",
                   ][i]
                 }
               </span>
@@ -310,8 +310,8 @@ function StartingVisual({
           ))}
         </div>
         <figcaption>
-          {homeCardMedia["motion-graphics"].caseLabel} · 실제 본편의 등장 → 강조
-          → 마무리
+          {homeCardMedia["motion-graphics"].caseLabel} · 실제 본편의 제형 → 제품
+          → 제품 구성
         </figcaption>
       </figure>
     );

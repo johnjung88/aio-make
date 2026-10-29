@@ -10,7 +10,7 @@ export function ServiceCards() {
       <ul className="ch-service-cards">
         {contentHomeCards.map((card, index) => <li key={card.id}>
           <Link className="ch-service-card" href={card.href}>
-            <div className="ch-service-card-image"><HomeArtwork id={card.id}/>{card.id === "ai-influencer" && <span className="cs-tag cs-t-caption">AI 가상인물</span>}{card.id === "animation" && <span className="cs-tag cs-t-caption">캐릭터·모션 활용</span>}</div>
+            <div className="ch-service-card-image"><HomeArtwork id={card.id} placement="services"/>{card.id === "ai-influencer" && <span className="cs-tag cs-t-caption">AI 가상인물</span>}{card.id === "animation" && <span className="cs-tag cs-t-caption">캐릭터·모션 활용</span>}</div>
             <div className="ch-service-card-copy">
               <p className="cs-t-eyebrow">{String(index + 1).padStart(2, "0")}</p>
               <h3 className="cs-t-h3">{card.label}</h3>

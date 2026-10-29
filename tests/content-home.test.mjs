@@ -190,7 +190,7 @@ test("2. 시작가는 PRICING_FINAL 정본 값과 같고 lib/content-pricing.ts�
   assert.equal(pricing.contentPricing, contentPricing);
   assert.equal(pricing.SHOW_STARTING_PRICE, SHOW_STARTING_PRICE);
   assert.match(showcase, /import \{ startingPrice \} from "@\/lib\/content-pricing"/);
-  assert.ok(hasSource(showcase, "const price = startingPrice(service.id);"));
+  assert.ok(hasSource(showcase, 'const price = service.id === "webtoon" ? null : startingPrice(service.id);'), "FB3 C2 hides the webtoon starting-price line while keeping other services");
   assert.match(showcase, /className="ch-depth-price cs-t-small"[\s\S]*?\{price\.head\}/);
   for (const { path, text } of sources)
     assert.doesNotMatch(text, /\b\d{2,3}000\b|\b1000000\b/, `${path} amount literal`);
@@ -721,7 +721,7 @@ test("12. 제작 과정: 승인된 4단계·실제 작화·구매자가 확인�
   assert.match(run, /observer\.disconnect\(\)/, "one-shot: observer is released after the first run");
   assert.doesNotMatch(run, /setInterval|setTimeout|requestAnimationFrame/);
   assert.ok(hasSource(home, '<div className="cs-container cs-container--read">'));
-  assert.ok(hasSource(home, "<ProcessSteps />"));
+  assert.ok(hasSource(home, "<ProcessSteps distinctFrames />"), "FB3 P2 uses distinct finished cuts in the process frames");
   assert.ok(hasSource(home, "eyebrow={processHead.eyebrow}") && hasSource(home, "title={processHead.title}"));
   assert.doesNotMatch(homeText + steps, /ProcessTabs|cs-t-statement|CONTENT BRIEF|예시/);
 
