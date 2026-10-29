@@ -13,6 +13,7 @@ import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import { RenewalSignature } from "./renewal-signature";
 import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
+import { OutputPreview } from "./output-preview";
 import styles from "./renewal.module.css";
 type Id = keyof typeof content;
 export function SectionHead({
@@ -74,7 +75,7 @@ const outputs: Record<Id, [string, string, string][]> = {
   "shopping-mall": [
     ["logo", "기본 로고", "몰 머리와 파비콘에 맞춘 형태"],
     ["banner", "메인 배너", "PC와 모바일 크기"],
-    ["check", "적용 확인", "화면과 이동 경로 점검표"],
+    ["check", "상품 상세", "상품 사진과 옵션이 이어지는 화면"],
   ],
   automation: [
     ["result", "결과 파일", "일치와 확인 필요를 나눈 시트"],
@@ -224,6 +225,8 @@ export function LabServiceDetail({ id }: { id: string }) {
             <article className={styles.card} key={variant}>
               {id === "website" ? (
                 <DeviceVisual name={variant} />
+              ) : id === "automation" || id === "program" ? (
+                <OutputPreview variant={variant} />
               ) : (
                 <div className={styles.visual}>
                   <Image
@@ -257,7 +260,11 @@ export function LabServiceDetail({ id }: { id: string }) {
               <strong>{price}</strong>
               <p style={{ whiteSpace: "pre-line" }}>{body}</p>
               <Link
-                className={styles.button}
+                className={
+                  prices[key].length > 1 && i !== 1
+                    ? styles.secondary
+                    : styles.button
+                }
                 href={contactSelection(
                   id,
                   "pricing",
@@ -364,7 +371,11 @@ export function LabServiceDetail({ id }: { id: string }) {
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
                     <Image
-                      src={`/lab-renewal/card-${s.id}.webp`}
+                      src={
+                        s.id === "website"
+                          ? "/lab/clinic-pc.webp"
+                          : `/lab-renewal/card-${s.id}.webp`
+                      }
                       alt={`${s.name} 결과물 예시`}
                       width={1200}
                       height={900}

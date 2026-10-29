@@ -1,4 +1,5 @@
 .page {
+  --sd-bg: #080808;
   background: var(--sd-bg);
   color: var(--sd-text);
   font-size: 16px;
@@ -94,7 +95,7 @@
 }
 .eyebrow {
   color: var(--sd-em);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   font-weight: 650;
 }
@@ -152,7 +153,7 @@
 }
 .head :global(.cs-t-eyebrow) {
   color: var(--sd-em);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
 }
 .head :global(.cs-head-main) {
@@ -221,8 +222,13 @@
   background: var(--sd-panel);
   border: 1px solid var(--sd-line);
   border-radius: var(--sd-radius);
-  padding: 8px;
+  padding: 0;
   overflow: hidden;
+}
+.visual picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .visual img {
   width: 100%;
@@ -246,19 +252,19 @@
 }
 .devices img:first-child {
   position: absolute;
-  left: 2%;
-  top: 8%;
-  width: 82%;
-  height: 80%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: center;
 }
 .devices img:last-child {
   position: absolute;
-  right: 2%;
-  bottom: 4%;
-  width: 27%;
-  height: 66%;
+  right: 0;
+  bottom: 0;
+  width: 25%;
+  height: 72%;
   object-fit: contain;
   filter: drop-shadow(0 8px 15px var(--sd-shadow));
 }
@@ -382,22 +388,22 @@
   white-space: pre-line;
 }
 .sampleGate {
-  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 20px;
   max-width: 1000px;
   margin: auto;
 }
 .sampleGate > img {
   width: 100%;
-  max-height: 480px;
+  height: auto;
+  max-height: none;
   object-fit: contain;
   background: var(--sd-panel);
   border-radius: var(--sd-radius);
 }
 .sampleGate > button {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: static;
 }
 .signature {
   border: 1px solid var(--sd-line);
@@ -680,7 +686,9 @@
 }
 .homeScene {
   width: 100%;
-  height: 460px;
+  height: clamp(280px, 36vw, 460px);
+  --blue: #6b4dff;
+  --cyan: #b9aeff;
   position: relative;
   margin-top: 16px;
   background: radial-gradient(
@@ -729,14 +737,14 @@
     display: contents;
   }
   .heroCopy .actions {
-    order: 2;
+    order: 1;
   }
   .heroVisual {
-    order: 1;
+    order: 2;
     aspect-ratio: 4/5;
   }
   .heroGrid > .visual {
-    order: 1;
+    order: 2;
   }
   .heroGrid > .heroCopy > p,
   .heroGrid > .heroCopy > h1 {
@@ -856,5 +864,550 @@
   }
   .desktopPermissions {
     display: none;
+  }
+}
+
+/* W-F3b: output images fill their frames without cropping screen text */
+.visual:not(.deviceVisual) {
+  aspect-ratio: auto;
+  background: transparent;
+  border: 0;
+}
+.visual:not(.deviceVisual) img {
+  display: block;
+  height: auto;
+}
+.deviceVisual {
+  aspect-ratio: 16/10;
+  background: transparent;
+  border: 0;
+}
+.devices {
+  background: transparent;
+}
+.deviceVisual[data-mobile-only="true"] .devices img {
+  position: static;
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  margin: auto;
+  filter: none;
+}
+.homeCards .visual {
+  aspect-ratio: 4/3;
+  display: grid;
+  align-items: center;
+  background: var(--sd-panel);
+}
+.homeCards .visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.galleryDetail summary {
+  font-size: 14px;
+}
+.homeScene + .floorControls {
+  margin-top: 12px;
+}
+.floorControls + .note {
+  margin-top: 12px !important;
+}
+.checks:has(label > span) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.checks label {
+  position: relative;
+  cursor: pointer;
+}
+.checks label:has(> span) > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.checks label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--sd-line);
+  border-radius: 999px;
+}
+.checks label > span::before {
+  content: "+";
+  color: var(--sd-em);
+}
+.checks label:has(input:checked) > span {
+  background: #6b4dff26;
+  border-color: var(--sd-action);
+  color: var(--sd-text);
+}
+.checks label:has(input:checked) > span::before {
+  content: "\2713";
+}
+.checks label:has(input:focus-visible) > span {
+  outline: 3px solid var(--sd-em);
+  outline-offset: 3px;
+}
+.checks label:has(input:disabled) {
+  cursor: default;
+}
+.plannerExtras {
+  border-block: 1px solid var(--sd-line);
+  padding-block: 16px;
+}
+.plannerExtras summary {
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--sd-em);
+}
+.plannerExtras[open] {
+  display: grid;
+}
+.plannerExtras[open] > :not(summary) {
+  margin-top: 16px;
+}
+.sitePreview {
+  width: min(100%, 360px);
+  margin: auto;
+  overflow: hidden;
+  border: 6px solid #26242b;
+  border-radius: 24px;
+  color: #25232b;
+  background: #f7f5f2;
+}
+.previewLinks > span:nth-child(n + 4) {
+  display: none;
+}
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+}
+.previewHeader strong {
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+.previewHeader span {
+  font-size: 13px;
+}
+.previewNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 0 16px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #25232b20;
+}
+.previewHero {
+  position: relative;
+}
+.previewHero > img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+.previewHero > div {
+  padding: 24px 20px;
+  background: #e5ded4;
+  display: grid;
+  gap: 12px;
+}
+.previewHero strong {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 650;
+}
+.previewHero span {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+.previewBody {
+  padding: 24px 20px;
+  display: grid;
+  gap: 12px;
+}
+.previewBody small {
+  font-size: 13px;
+}
+.page .previewBody h3 {
+  font-size: 20px;
+}
+.page .previewBody p {
+  font-size: 14px;
+  color: #514d59;
+}
+.previewLinks {
+  display: grid;
+  gap: 0;
+  font-size: 14px;
+}
+.previewLinks > span {
+  padding: 12px 0;
+  border-bottom: 1px solid #25232b20;
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 900px) {
+  .heroGrid > .deviceVisual {
+    aspect-ratio: 16/10;
+  }
+}
+
+/* W-F3b2: actual sample screen, consistent output frames and accessible chips */
+.homeHero {
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  align-items: center;
+  text-align: left;
+  gap: 40px;
+  min-height: min(760px, 85vh);
+}
+.homeHeroCopy {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.homeHero h1 {
+  font-size: clamp(34px, 3.8vw, 58px);
+}
+.homeHero .actions {
+  justify-content: flex-start;
+}
+.homeScreen {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+.homeScreen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.homeScreen figcaption {
+  color: var(--sd-muted);
+  font-size: 14px;
+  margin-top: 12px;
+}
+.visual:not(.deviceVisual) {
+  aspect-ratio: 4/3;
+  background: var(--sd-panel);
+}
+.visual:not(.deviceVisual) img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.visual.heroVisual:not(.deviceVisual) {
+  aspect-ratio: 16/10;
+}
+.homeGallery .deviceVisual,
+#deliverables .deviceVisual {
+  aspect-ratio: 16/10;
+}
+.devices img:first-child {
+  object-fit: contain;
+}
+.devices img:last-child {
+  width: 22%;
+  height: 68%;
+  right: 8px;
+  bottom: 8px;
+}
+.previewHeader span,
+.previewNav,
+.previewHero span,
+.previewBody small {
+  font-size: 13px;
+}
+.controls fieldset,
+.result fieldset {
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.result fieldset {
+  border: 1px solid var(--sd-line);
+  padding: 20px;
+  border-radius: 16px;
+}
+.result legend {
+  padding-inline: 8px;
+  color: var(--sd-em);
+  font-size: 14px;
+}
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.checkChip,
+.permissionChip {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+}
+.checkChip input,
+.permissionChip input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.checkChip > span,
+.permissionChip > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--sd-line);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--sd-muted);
+}
+.checkChip > span::before {
+  content: "+";
+  color: var(--sd-em);
+}
+.checkChip:has(input:checked) > span,
+.permissionChip:has(input:checked) > span {
+  background: #6b4dff26;
+  border-color: var(--sd-action);
+  color: var(--sd-text);
+}
+.checkChip:has(input:checked) > span::before {
+  content: "✓";
+}
+.checkChip:has(input:focus-visible) > span,
+.permissionChip:has(input:focus-visible) > span {
+  outline: 3px solid var(--sd-em);
+  outline-offset: 3px;
+}
+.permissionChip > span {
+  padding: 7px 12px;
+  min-width: 64px;
+  justify-content: center;
+}
+.shopScreen {
+  background: #f4f0e9;
+  color: #302b29;
+  overflow: hidden;
+  min-height: 510px;
+}
+.shopScreen[data-mood="모던 블랙"] {
+  background: #28252b;
+  color: #f4f0e9;
+}
+.shopScreen[data-mood="파스텔"] {
+  background: #f5e9ee;
+}
+.shopNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px;
+}
+.shopNav strong {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  overflow-wrap: anywhere;
+}
+.shopNav span {
+  font-size: 13px;
+}
+.shopPhoto img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+.shopEditorial {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+}
+.shopEditorial small {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+}
+.shopEditorial strong {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.shopEditorial p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+.shopMenu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-top: 14px;
+  border-top: 1px solid #a5948740;
+  font-size: 14px;
+}
+.compare {
+  min-height: 0;
+}
+.compare > div {
+  min-height: 0;
+}
+.sampleGate > img {
+  border-radius: 12px;
+}
+@media (max-width: 900px) {
+  .homeHero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 24px;
+    padding-block: 32px;
+  }
+  .homeHeroCopy {
+    gap: 18px;
+  }
+  .homeHero .lead {
+    font-size: 17px;
+  }
+  .homeHero h1 {
+    font-size: var(--sd-h1);
+  }
+  .visual.heroVisual:not(.deviceVisual) {
+    aspect-ratio: 4/5;
+  }
+  .homeScreen figcaption {
+    font-size: 13px;
+  }
+  .shopNav {
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+}
+
+.homeCards .visual {
+  aspect-ratio: 16/10;
+}
+
+/* W-F3b3: large interactive building at the center of the hero */
+.outputPreview {
+  min-height: 350px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f5f2fa;
+  color: #302a3d;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.outputPreview > small {
+  font-size: 13px;
+  color: #665b77;
+}
+.outputPreview strong {
+  font-size: 22px;
+  line-height: 1.4;
+}
+.outputPreview p {
+  margin: 0;
+  color: #665b77;
+  font-size: 14px;
+}
+.outputPreview table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+.outputPreview th,
+.outputPreview td {
+  padding: 12px 6px;
+  border-bottom: 1px solid #d8d0e4;
+}
+.outputPreview ol {
+  padding-left: 24px;
+  margin: 0;
+  display: grid;
+  gap: 18px;
+}
+.outputPreview dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  margin: 0;
+}
+.outputPreview dd {
+  margin: 0;
+}
+.outputIssue {
+  padding: 18px;
+  border-left: 3px solid #6b4dff;
+  background: #eae3f7;
+}
+.outputBadge {
+  align-self: flex-start;
+  border-radius: 20px;
+  background: #e8e0fa;
+  color: #5535b4;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+.outputPreview[data-kind="guide"] {
+  background: #ebe5f5;
+}
+.outputPreview[data-kind="detail"] ol {
+  border-left: 2px solid #b9aeff;
+  list-style: none;
+}
+.outputPreview[data-kind="mobile"] {
+  background: #e5dfef;
+  align-items: center;
+}
+.outputPhone {
+  width: min(100%, 235px);
+  padding: 22px;
+  border: 2px solid #c9bfda;
+  border-radius: 24px;
+  background: #fff;
+  display: grid;
+  gap: 18px;
+}
+.homeHero {
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+  gap: 24px;
+}
+.homeBuilding {
+  width: 100%;
+  min-width: 0;
+}
+.homeBuilding .homeScene {
+  height: clamp(420px, 43vw, 620px);
+  margin-top: 0;
+  background: radial-gradient(ellipse at 50% 60%, #6b4dff1a, transparent 72%);
+}
+.homeBuilding .note {
+  font-size: 14px;
+  line-height: 1.7;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .homeHero {
+    grid-template-columns: 1fr;
+  }
+  .homeBuilding .homeScene {
+    height: clamp(320px, 80vw, 500px);
   }
 }

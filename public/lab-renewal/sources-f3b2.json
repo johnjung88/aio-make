@@ -1,0 +1,14 @@
+{
+  "method": "Local HTML example screens; existing photos; no new AI images",
+  "script": "scripts/build-lab-f3b2-media.mjs",
+  "home": {
+    "source": "local sample yeobakgyeol / pc-home capture",
+    "kind": "Existing local sample site execution capture; not a customer project or production validation"
+  },
+  "photos": [
+    "public/renewal/shop-products.webp",
+    "public/lab-renewal/shop-0-0.webp",
+    "public/lab-samples/forme-editorial.png"
+  ],
+  "nest": "nest-preview.webp cropped to remove empty top and bottom bands"
+}

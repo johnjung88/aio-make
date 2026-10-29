@@ -22,7 +22,7 @@ export function LazySample({ service }: { service: string }) {
       <Image
         src={
           service === "website"
-            ? "/lab-renewal/nest-preview.webp"
+            ? "/lab-renewal/nest-close.webp"
             : service === "shopping-mall"
               ? "/lab-samples/forme-editorial.png"
               : "/lab/sample-automation.webp"

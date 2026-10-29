@@ -45,7 +45,7 @@ export function HomeScene() {
     };
   }, []);
   return (
-    <div style={{ width: "100%" }}>
+    <div className={styles.homeBuilding}>
       <div className={styles.homeScene} ref={ref}>
         {reduced || failed ? (
           <FloorPlan
@@ -74,6 +74,7 @@ export function HomeScene() {
               if (s === "failed") setFailed(true);
             }}
             brandLighting
+            viewPadding={0.98}
           />
         )}
       </div>
@@ -94,13 +95,13 @@ export function HomeScene() {
       </div>
       <p className={styles.note} aria-live="polite">
         {floor < 0
-          ? "NEST · 공간을 둘러보세요"
+          ? "NEST · 가상 건축 공간"
           : `${floor + 1}층 · ${FLOOR_INFO[floor].spaces[room].name} · ${FLOOR_INFO[floor].spaces[room].detail}`}
         {reduced
           ? " · 감소 모션에서는 평면으로 탐색합니다"
           : failed
             ? " · 평면 대체 화면"
-            : ""}
+            : " · 드래그로 회전하고 층을 선택해 둘러보세요"}
       </p>
     </div>
   );
