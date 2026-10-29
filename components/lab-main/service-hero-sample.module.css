@@ -1,7 +1,7 @@
 .sample {
   min-width: 0;
   width: 100%;
-  align-self: center;
+  align-self: start;
   position: relative;
 }
 .sample::before {
@@ -74,11 +74,18 @@
 }
 .spaceImage img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
+  left: -56.86%;
+  top: -15.15%;
+  width: 156.86%;
+  max-width: none;
+  height: 210.35%;
+  pointer-events: none;
+}
+.spaceImage[data-scene="1"] img {
+  left: -71.43%;
+  top: -14.08%;
+  width: 171.43%;
+  height: 187.79%;
 }
 .imageFallback {
   position: absolute;
@@ -247,7 +254,7 @@
 .node {
   border: 1px solid var(--lab-line);
   background: var(--lab-bg);
-  padding: var(--space-element) var(--space-inline);
+  padding: var(--space-inline);
   min-width: 0;
   border-radius: 8px;
 }
@@ -256,7 +263,7 @@
   color: var(--lab-muted);
   font-size: var(--text-eyebrow);
   letter-spacing: 0.05em;
-  margin-bottom: var(--space-element);
+  margin-bottom: var(--space-inline);
 }
 .node > b {
   font-size: var(--text-small);
@@ -264,7 +271,7 @@
 }
 .node > p {
   color: var(--lab-muted);
-  font-size: var(--text-eyebrow);
+  font-size: var(--text-small);
   margin-top: var(--space-inline);
 }
 .node[data-resolved="true"] {
@@ -296,8 +303,9 @@
   margin-bottom: var(--space-element);
 }
 .counter {
-  font-size: var(--text-h2);
-  line-height: 1;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  white-space: nowrap;
   color: var(--lab-text);
 }
 .counter small {
@@ -341,6 +349,16 @@
   padding-block: var(--space-block);
   color: var(--lab-muted);
   font-size: var(--text-small);
+}
+.taskStage {
+  display: block;
+  color: var(--lab-text);
+  font-weight: 550;
+}
+.flowResult {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-inline);
 }
 @media (max-width: 767px) {
   .caption {

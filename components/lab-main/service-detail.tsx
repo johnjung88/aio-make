@@ -77,8 +77,13 @@ export function LabServiceDetail({ id }: { id: string }) {
                 : "입력부터 결과까지 직접 확인하세요"}
           </h2>
           <p>
-            가상 브랜드 기능 시연 · 실제 주문·결제·외부 발송은 이루어지지
-            않습니다
+            {id === "website"
+              ? "가상 시안 · 실제 문의 전송 없음"
+              : id === "shopping-mall"
+                ? "가상 상품 · 실제 주문·결제 없음"
+                : id === "automation"
+                  ? "가상 흐름 · 실제 외부 발송·저장 없음"
+                  : "가상 관리 화면 · 실제 외부 발송·저장 없음"}
           </p>
           {id === "program" && (
             <p>

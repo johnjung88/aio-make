@@ -238,6 +238,14 @@
     grid-column: 1 / -1;
     grid-row: 2;
     overflow-x: auto;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--lab-bg) 12px,
+      var(--lab-bg) calc(100% - 16px),
+      transparent
+    );
+    scroll-padding-inline: var(--space-element);
     justify-content: flex-start;
     padding-block: var(--space-inline);
     gap: 24px;

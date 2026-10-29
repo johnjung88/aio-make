@@ -22,19 +22,22 @@ const initialTasks = [
   {
     id: "01",
     title: "화면 구성 확인",
-    detail: "기획 · 화면 목록과 탐색 순서",
+    stage: "기획",
+    detail: "화면 목록과 탐색 순서",
     done: false,
   },
   {
     id: "02",
     title: "모바일 검수",
-    detail: "검수 · 작은 화면의 선택 흐름",
+    stage: "검수",
+    detail: "작은 화면의 선택 흐름",
     done: false,
   },
   {
     id: "03",
     title: "운영 자료 정리",
-    detail: "인계 · 사용 방법과 확인 항목",
+    stage: "인계",
+    detail: "사용 방법과 확인 항목",
     done: true,
   },
 ];
@@ -63,14 +66,11 @@ function WebsitePreview() {
         <b>여백의 기록</b>
         <span>SPACE & STAY</span>
       </div>
-      <div className={styles.spaceImage}>
+      <div className={styles.spaceImage} data-scene={selected}>
         <span className={styles.imageFallback}>공간과 머무름의 기록</span>
         {/* Existing concept artwork is kept as an image, never as the interactive UI. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={space.image}
-          alt={`${space.name} 가상 브랜드 웹사이트 시안`}
-        />
+        <img src={space.image} alt={`${space.name} 가상 시안의 공간 사진`} />
         <span className={styles.imageIndex}>0{selected + 1} / 02</span>
       </div>
       <div className={styles.spaceFooter}>
@@ -86,7 +86,8 @@ function WebsitePreview() {
               aria-pressed={selected === i}
               onClick={() => setSelected(i)}
             >
-              {s.name} ↗
+              <span aria-hidden="true">{selected === i ? "●" : "○"}</span>{" "}
+              {s.name}
             </button>
           ))}
         </div>
@@ -232,13 +233,18 @@ function AutomationPreview() {
           흐름 실행 ↗
         </button>
       </div>
-      <p className={styles.result} role="status">
-        {result === null
-          ? "입력을 고르고 흐름을 실행하세요"
-          : result
-            ? "보류 · 연락처를 확인한 뒤 다시 실행하세요"
-            : "정상 · 필수 항목 확인 후 결과를 정리했습니다"}
-      </p>
+      <div className={`${styles.result} ${styles.flowResult}`} role="status">
+        <strong>
+          {result === null ? "실행 대기" : result ? "보류" : "정상"}
+        </strong>
+        <span>
+          {result === null
+            ? "입력을 고르고 흐름을 실행하세요"
+            : result
+              ? "연락처를 확인한 뒤 다시 실행하세요"
+              : "필수 항목 확인 후 결과를 정리했습니다"}
+        </span>
+      </div>
     </Window>
   );
 }
@@ -258,9 +264,8 @@ function ProgramPreview() {
             <p className={styles.micro}>PROJECT / SAMPLE</p>
             <strong>오늘의 작업 보드</strong>
           </div>
-          <span className={styles.counter}>
-            {done}
-            <small> / {tasks.length} 완료</small>
+          <span className={styles.counter} role="status">
+            완료 {done} / {tasks.length}
           </span>
         </div>
         <div className={styles.choices} aria-label="작업 상태 필터">
@@ -282,7 +287,10 @@ function ProgramPreview() {
                 <span className={styles.taskId}>{t.id}</span>
                 <div>
                   <b>{t.title}</b>
-                  <p>{t.detail}</p>
+                  <p>
+                    <span className={styles.taskStage}>{t.stage}</span>
+                    {t.detail}
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -305,9 +313,7 @@ function ProgramPreview() {
           )}
         </div>
         <div className={styles.boardBottom}>
-          <p role="status">
-            진행 {tasks.length - done} · 완료 {done}
-          </p>
+          <p>진행 중인 작업 {tasks.length - done}건</p>
           <button
             className={styles.textButton}
             type="button"
@@ -323,6 +329,13 @@ function ProgramPreview() {
     </Window>
   );
 }
+
+const sampleNotices: Record<string, string> = {
+  website: "가상 시안 · 실제 문의 전송 없음",
+  "shopping-mall": "가상 상품 · 실제 주문·결제 없음",
+  automation: "가상 흐름 · 실제 외부 발송·저장 없음",
+  program: "가상 데이터 · 실제 저장 없음",
+};
 
 export function ServiceHeroSample({ service }: { service: string }) {
   return (
@@ -340,9 +353,7 @@ export function ServiceHeroSample({ service }: { service: string }) {
       ) : (
         <ProgramPreview />
       )}
-      <p className={styles.footnote}>
-        기능 시연용 예시 · 실제 주문·저장·외부 발송 없음
-      </p>
+      <p className={styles.footnote}>{sampleNotices[service]}</p>
       <noscript>
         <p className={styles.footnote}>
           현재는 초기 화면입니다 선택 체험은 JavaScript를 켜면 사용할 수
