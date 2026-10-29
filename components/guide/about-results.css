@@ -1,0 +1,46 @@
+/* About-only result layout: shared main-home components remain unchanged. */
+.rw-about .rw-about-results {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  aspect-ratio: 4/3;
+}
+.rw-site.rw-about .rw-about-results img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.rw-about .rw-about-results > img:first-child {
+  grid-column: 1/-1;
+  object-position: top;
+  object-fit: contain;
+  background: #151412;
+}
+.rw-about .rw-about-results > img:nth-child(3) {
+  object-fit: contain;
+  background: #f8f8f8;
+}
+.rw-about .rw-about-results figcaption {
+  grid-column: 1/-1;
+  color: var(--cs-fg-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.rw-site.rw-about .rw-card-media {
+  aspect-ratio: 16/10;
+}
+.rw-site.rw-about .rw-division .rw-card-media img {
+  object-fit: contain;
+}
+.rw-site.rw-about .rw-division:nth-child(2) .rw-card-media img {
+  object-fit: cover;
+}
+.rw-site.rw-about .rw-division:last-child .rw-card-media {
+  background: #f8f8f8;
+}

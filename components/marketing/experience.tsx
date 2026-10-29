@@ -208,7 +208,12 @@ export function MarketingFinder({
             href={marketingContact(
               id,
               "home-finder",
-              { integrated: "channels", sns: "preview", "ai-influencer": "persona", seo: "checklist" }[id],
+              {
+                integrated: "channels",
+                sns: "preview",
+                "ai-influencer": "persona",
+                seo: "checklist",
+              }[id],
               `업종: ${industry}\n상황: ${situation}\n방식: ${method}`,
             )}
           >
@@ -490,13 +495,6 @@ function SnsPreview() {
           ))}
         </div>
         <p>이렇게 바꾼 결과물이 한 달에 원본 16개만큼 쌓입니다</p>
-        <div className="mk-originals">
-          {Array.from({ length: 16 }, (_, i) => (
-            <span key={i}>
-              {i < 12 ? "이미지" : "컨텐츠"} {i < 12 ? i + 1 : i - 11}
-            </span>
-          ))}
-        </div>
         <SignatureContact
           id="sns"
           plan="preview"

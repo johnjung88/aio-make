@@ -39,10 +39,14 @@ export function MarketingHome() {
         <div className="mk-channel-ribbon" id="channel-preview">
           <MarketingPicture
             name="home-ribbon"
+            stage={stage}
             alt="같은 브랜드의 인스타그램 피드, 블로그 글, 검색 답변이 나란히 이어지는 채널 화면"
           />
         </div>
         <div className="mk-container">
+          <p className="mk-caption">
+            접점을 고르면 해당 채널 화면을 강조합니다
+          </p>
           <ol className="mk-journey">
             {["01 노출", "02 유입", "03 문의"].map((label, index) => (
               <li key={label}>
@@ -66,7 +70,7 @@ export function MarketingHome() {
               ][stage]
             }
           </p>
-          <p className="mk-caption">가상 브랜드 카페 리프 · 제작 방향 예시</p>
+          <p className="mk-caption">가상 브랜드 · 제작 방향 예시</p>
         </div>
       </section>
       <MarketingFinder onRecommend={setRecommended} />
@@ -95,7 +99,7 @@ export function MarketingHome() {
         />
         <MarketingPicture
           name="home-touchpoints"
-          alt="신메뉴 원본 사진에서 인스타그램, 블로그, 검색 화면으로 이어지는 흐름도"
+          alt="수업 공간 원본 사진에서 인스타그램, 블로그, 쇼츠 화면으로 이어지는 흐름도"
         />
         <p className="mk-caption">
           가상 브랜드의 원본 한 장을 세 채널로 바꾼 제작 방향 예시

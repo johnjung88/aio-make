@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MarketingArtwork } from "./artwork";
 import Link from "next/link";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import {
@@ -55,61 +55,14 @@ export function MarketingPicture({
   name,
   alt,
   hero = false,
+  stage = 0,
 }: {
   name: string;
   alt: string;
   hero?: boolean;
+  stage?: number;
 }) {
-  if (name === "sns-hero") {
-    return (
-      <>
-        <div className="mk-sns-desktop">
-          <MarketingPicture name="sns-hero-desktop" alt={alt} hero={hero} />
-        </div>
-        <div className="mk-sns-mobile" aria-label="채널별 게시 화면 구성 예시">
-          {[
-            ["INSTAGRAM", "오늘의 귀리 라떼", "우유 대신 귀리로 만듭니다", 0],
-            ["SHORTS", "오늘의 식탁", "메뉴의 재료와 사용 장면을 소개합니다", 3],
-          ].map(([channel, title, text, photo]) => (
-            <figure className="mk-sns-phone" key={channel}>
-              <div className="mk-sns-phone-bar">{channel} · 화면 구성 예시</div>
-              <Image src={`/marketing-renewal/material-${photo}.webp`} alt={`${title} 게시 소재 예시`} width={600} height={600} sizes="(max-width:767px) 80vw, 1px" />
-              <figcaption><strong>{title}</strong><p>{text}</p></figcaption>
-            </figure>
-          ))}
-        </div>
-      </>
-    );
-  }
-  return (
-    <picture
-      className={`mk-picture${hero ? " mk-picture-hero" : ""}${name === "home-touchpoints" ? " mk-picture-flow" : ""}`}
-    >
-      {(hero || name === "home-touchpoints") && (
-        <source
-          media="(max-width: 767px)"
-          srcSet={`/marketing-renewal/${name === "sns-hero-desktop" ? "sns-hero" : name}-mobile.webp?v=rw2r`}
-        />
-      )}
-      <Image
-        src={`/marketing-renewal/${name === "sns-hero-desktop" ? "sns-hero" : name}.webp?v=rw2r`}
-        alt={alt}
-        quality={90}
-        width={hero ? 1600 : 1200}
-        height={hero ? 1000 : 900}
-        priority={hero || name === "home-ribbon"}
-        sizes={
-          name === "home-ribbon"
-            ? "(max-width:767px) 850px, 100vw"
-            : name === "home-touchpoints"
-              ? "100vw"
-              : hero
-                ? "(max-width:767px) 100vw, 58vw"
-                : "(max-width:767px) 85vw, 33vw"
-        }
-      />
-    </picture>
-  );
+  return <MarketingArtwork name={name} alt={alt} hero={hero} stage={stage} />;
 }
 export function MarketingCards({ current }: { current?: MarketingId }) {
   return (
