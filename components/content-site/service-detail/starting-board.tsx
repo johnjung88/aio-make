@@ -227,10 +227,10 @@ function StartingVisual({
         <div className="cr-comic-step">
           <span>02 · 완성 페이지</span>
           <Image
-            src={asset("webtoon-05")}
+            src="/service-detail-v14/webtoon-07.webp"
             width={280}
             height={400}
-            alt={homeCardMedia.webtoon.caseLabel + " 완성 페이지 05"}
+            alt={homeCardMedia.webtoon.caseLabel + " 완성 페이지 07"}
           />
         </div>
         <figcaption>

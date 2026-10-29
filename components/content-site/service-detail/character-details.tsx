@@ -272,8 +272,8 @@ export function AiInfluencerDetail() {
         primaryLabel="AI 모델 제작 사례 보기"
       >
         <div className="sd-ai-banner">
-          <DetailImage className="sd-ai-banner-face" src={`${media}sns-cplus-opening.webp`} alt="87언니 AI 가상인물을 활용한 제품영상의 첫 장면" eager zoom={false} />
-          <DetailImage className="sd-ai-banner-full" src={`${media}sns-cplus-ending.webp`} alt="같은 가상인물이 제품을 소개하는 영상의 마지막 장면" eager zoom={false} />
+          <DetailImage className="sd-ai-banner-face" src="/content-fb3/ai-cplus-12.webp" alt="87언니 AI 가상인물의 C Plus 제품 활용 장면" eager zoom={false} />
+          <DetailImage className="sd-ai-banner-full" src="/content-fb3/ai-cleanser-16.webp" alt="같은 가상인물이 클렌저를 활용하는 다른 장면" eager zoom={false} />
           <span className="sd-ai-banner-caption">87 UNNIE<br /><small>AIO VIRTUAL MODEL</small></span>
         </div>
       </DetailHero>
@@ -309,7 +309,7 @@ export function AiInfluencerDetail() {
           <DetailImage src={`${media}ai-face.webp`} alt="부드러운 정면광과 니트 의상의 87언니 채택 기준 얼굴" caption="채택 기준 얼굴 · 인상·헤어·피부 표현" />
           <DetailImage src={`${media}ai-full.webp`} alt="87언니의 비례와 의상 스타일을 확인하는 채택 기준 전신" caption="채택 기준 전신 · 비례·의상·스타일" />
         </div>
-        <div className="sd-ai-review-criteria"><h3>각도와 환경을 바꿔 확인합니다</h3><p>{"정면·측면·표정·전신과 장소·조명을 바꾼 자료를 비교했습니다\n장면마다 얼굴·손·피부 톤·의상을 확인합니다"}</p><p className="sd-character-fineprint">{"이 사례의 20장은 내부 구축·검수 자료입니다\n상품의 ‘이미지 총 20장’은 고객에게 전달할 수량입니다"}</p></div>
+        <div className="sd-ai-review-criteria"><h3>각도와 환경을 바꿔 확인합니다</h3><p>{"정면·측면·표정·전신과 장소·조명을 바꾼 자료를 비교했습니다\n장면마다 얼굴·손·피부 톤·의상을 확인합니다"}</p><p className="sd-character-fineprint">{"상품의 ‘이미지 총 20장’은 고객에게 전달할 수량입니다\n원하는 장면과 활용처에 맞춰 제작합니다"}</p></div>
       </DetailSection>
 
       <DetailSection
@@ -329,7 +329,7 @@ export function AiInfluencerDetail() {
       <DetailSection
         eyebrow="FROM IDENTITY TO CONTENT"
         title={<>같은 인물의 기준을,<br />브랜드 컨텐츠에 연결합니다</>}
-        lead={"BWL 제품 소개와 사용 장면에 AI 인물을 활용한 제안 시안입니다\n얼굴과 손, 제품의 형태·라벨·표기를 함께 확인합니다"}
+        lead={"DR’s Secret 제품 소개와 사용 장면에 AI 인물을 활용한 제안 시안입니다\n얼굴과 손, 제품의 형태·라벨·표기를 함께 확인합니다"}
       >
         <div className="sd-ai-product-films">
           <article><DetailVideo src={`${media}bwl-cplus-ad.mp4`} poster={`${media}poster-bwl-cplus-ad.webp`} label="DR’s Secret · C Plus 세럼 · 20초 · 9:16 · AI 인물 제품영상 제안용 시안" portrait /><h3>C Plus 세럼</h3><p>인물·제품 소개 · 20초 · 제안용 시안</p><CaseCta caseId="CASE-BWL-CPLUS-AD" caseTitle="DR’s Secret C Plus 제품영상 제안 시안" entryPoint="ai-product-cplus">이런 제품영상 상담</CaseCta></article>
