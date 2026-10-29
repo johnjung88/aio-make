@@ -8,9 +8,9 @@
   --mk-w: 232px;
   --mk-gap: 12px;
   --mk-ink: var(--wj-ink);
-  --mk-muted: #5f5f69;
-  --mk-line: #e4e2ec;
-  --mk-soft: #f0edfa;
+  --mk-muted: var(--form-muted);
+  --mk-line: var(--form-line);
+  --mk-soft: var(--form-soft);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--mk-gap);
@@ -50,7 +50,7 @@
   background: var(--wj-line);
 }
 .wj .wj-mk-seg[aria-pressed="true"] .wj-mk-track {
-  background: #cfc8ec;
+  background: var(--form-lilac);
 }
 
 /* ---- 진행 채움(막대와 행 공용) ---- */
@@ -200,7 +200,7 @@
 }
 @keyframes wj-mk-blink {
   50% {
-    background-color: #e4def7;
+    background-color: var(--form-lilac);
   }
 }
 
@@ -223,7 +223,7 @@
   box-sizing: border-box;
   padding: 3.4cqw;
   border-radius: 12cqw;
-  background: #15151c;
+  background: var(--ink);
   box-shadow: 0 2.4cqw 7cqw rgb(13 13 18 / 0.22);
 }
 .wj .wj-mk-screen {
@@ -236,7 +236,7 @@
   padding-top: 8.4cqw;
   overflow: hidden;
   border-radius: 8.8cqw;
-  background: #fff;
+  background: var(--renewal-white);
   color: var(--mk-ink);
 }
 .wj .wj-mk-screen::after {
@@ -259,7 +259,7 @@
   width: 24cqw;
   height: 3.6cqw;
   border-radius: 99cqw;
-  background: #000;
+  background: var(--ink);
   transform: translateX(-50%);
 }
 
@@ -292,7 +292,7 @@
 }
 .wj .wj-mk-tab[aria-pressed="true"] span {
   background: var(--wj-accent);
-  color: #fff;
+  color: var(--renewal-white);
 }
 
 .wj .wj-mk-scene {
@@ -374,7 +374,7 @@
   height: 13cqw;
   border-radius: 50%;
   background: var(--wj-accent);
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 6cqw;
   font-weight: 700;
 }
@@ -387,7 +387,7 @@
   padding: 2.6cqw 3.4cqw;
   border: 1px solid var(--mk-line);
   border-radius: 99cqw;
-  background: #fafafc;
+  background: var(--form-paper);
 }
 .wj .wj-mk-search svg {
   flex: none;
@@ -433,7 +433,7 @@
   padding: 0.6cqw 2.4cqw;
   border-radius: 99cqw;
   background: var(--wj-accent);
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 3.8cqw;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -488,14 +488,14 @@
   place-items: center;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #f4f3f7;
+  background: var(--form-paper);
   color: var(--mk-muted);
   font-size: 3.8cqw;
   font-weight: 600;
 }
 .wj .wj-mk-days li[data-on="true"] {
   background: var(--wj-accent);
-  color: #fff;
+  color: var(--renewal-white);
 }
 .wj .wj-mk-plan {
   display: grid;
@@ -606,7 +606,7 @@
   padding: 0.6cqw 1.8cqw;
   border-radius: 99cqw;
   background: rgb(13 13 18 / 0.72);
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 3.8cqw;
   font-weight: 650;
   line-height: 1.3;
@@ -697,7 +697,7 @@
   height: 2.6cqw;
   overflow: hidden;
   border-radius: 99cqw;
-  background: #ece9f6;
+  background: var(--form-soft);
 }
 .wj .wj-mk-bar-fill {
   display: block;
@@ -750,7 +750,7 @@
   gap: 2.4cqw;
   padding: 1.8cqw 3cqw;
   border-radius: 99cqw;
-  background: #f7f6fa;
+  background: var(--form-paper);
   font-size: 4.2cqw;
   font-weight: 600;
   counter-increment: mk;
@@ -796,7 +796,7 @@
   height: 6cqw;
   border-radius: 50%;
   background: rgb(13 13 18 / 0.78);
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 3.6cqw;
 }
 .wj .wj-mk-ab-name {
@@ -819,7 +819,7 @@
   padding: 0.8cqw 2.2cqw;
   border-radius: 99cqw;
   background: var(--wj-accent);
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 3.6cqw;
   font-weight: 700;
   line-height: 1.3;
@@ -864,7 +864,7 @@
   padding: 0;
   border: 1px solid var(--wj-line);
   border-radius: 12px;
-  background: #fff;
+  background: var(--renewal-white);
   cursor: pointer;
   transition:
     border-color 0.2s ease,

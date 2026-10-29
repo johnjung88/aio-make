@@ -76,6 +76,11 @@ export function ShowcaseVideo({ kind }: { kind: keyof typeof videos }) {
           </button>
         )}
       </div>
+      <noscript>
+        <p className="t-body">
+          <a href={video.src}>{video.action}</a>
+        </p>
+      </noscript>
       {error && (
         <p role="alert" className="showcase-video-error t-body">
           컨텐츠를 재생하지 못했습니다 <a href={video.src}>컨텐츠 파일 열기</a>

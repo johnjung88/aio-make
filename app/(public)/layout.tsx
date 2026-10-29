@@ -13,6 +13,7 @@ import "@/components/guide/fixes.css";
 import "@/components/guide/ux.css";
 import "@/components/work-portfolio.css";
 import "@/components/guide/type.css";
+import "@/components/shared-renewal.css";
 export default function PublicLayout({
   children,
 }: {

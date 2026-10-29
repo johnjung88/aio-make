@@ -76,8 +76,8 @@ html:has(.guide-public) {
   z-index: 30;
   background: rgba(244, 243, 239, 0.94);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #dad8d1;
-  color: #0d0d12;
+  border-bottom: 1px solid var(--form-line);
+  color: var(--ink);
   line-height: 1.4;
 }
 .guide-header-inner {
@@ -111,7 +111,7 @@ html:has(.guide-public) {
   display: block;
   width: 6px;
   height: 6px;
-  background: #6b4dff;
+  background: var(--violet);
   border-radius: 0;
 }
 .guide-main-nav {
@@ -122,17 +122,17 @@ html:has(.guide-public) {
   font-weight: 500;
 }
 .guide-main-nav .is-current {
-  color: #6b4dff;
+  color: var(--violet);
 }
 .guide-header-cta {
-  background: #6b4dff;
-  color: #fff;
+  background: var(--violet);
+  color: var(--renewal-white);
   padding: 10px 18px;
   font-weight: 600;
 }
 .guide-header-cta:hover {
-  background: #5b3cec;
-  color: #fff;
+  background: var(--violet-deep);
+  color: var(--renewal-white);
 }
 .guide-about-menu {
   position: relative;
@@ -151,8 +151,8 @@ html:has(.guide-public) {
   position: absolute;
   top: 100%;
   left: -16px;
-  background: #fff;
-  border: 1px solid #dad8d1;
+  background: var(--renewal-white);
+  border: 1px solid var(--form-line);
   min-width: 160px;
   display: flex;
   flex-direction: column;
@@ -163,8 +163,8 @@ html:has(.guide-public) {
   padding: 10px 18px;
 }
 .guide-about-menu a:hover {
-  background: #f4f3ef;
-  color: #6b4dff;
+  background: var(--paper);
+  color: var(--violet);
 }
 .guide-mobile-toggle {
   display: none;
@@ -265,8 +265,8 @@ html:has(.guide-public) {
   white-space: nowrap;
 }
 .guide-footer {
-  background: #0d0d12;
-  color: #b5b5bd;
+  background: var(--ink);
+  color: var(--renewal-muted);
   font-family: var(--ff-text);
   line-height: 1.4;
 }
@@ -286,7 +286,7 @@ html:has(.guide-public) {
   align-items: baseline;
 }
 .guide-footer .guide-brand {
-  color: #fff;
+  color: var(--renewal-white);
   font-size: 22px;
 }
 .guide-footer nav {
@@ -298,7 +298,7 @@ html:has(.guide-public) {
 .guide-business-info {
   font-size: var(--type-small-size);
   line-height: 1.9;
-  border-top: 1px solid #2a2a32;
+  border-top: 1px solid var(--renewal-line);
   padding-top: 24px;
   display: flex;
   flex-direction: column;
@@ -306,7 +306,7 @@ html:has(.guide-public) {
 }
 .guide-copyright {
   margin-top: 12px;
-  color: #888891;
+  color: var(--renewal-muted);
 }
 .guide-cloud {
   pointer-events: none;

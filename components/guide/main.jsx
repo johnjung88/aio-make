@@ -25,6 +25,8 @@ import { InquiryBridge } from "./inquiry-bridge";
 import { WorkflowJourney } from "@/components/home/workflow-journey";
 import { NewTabHint } from "@/components/new-tab-hint";
 import { newTabProps } from "@/lib/new-tab";
+import { MainLight } from "@/components/home/main-light";
+import "@/components/home/main-renewal.css";
 
 // Keep each service name on one line; wrapping happens only between items.
 const divisionServiceItems = (text) => {
@@ -74,8 +76,8 @@ class Component extends GuideLogic {
         const on = this.state.service === label;
         return {
           label,
-          bg: on ? "#0D0D12" : "#fff",
-          fg: on ? "#fff" : "#0D0D12",
+          bg: on ? "var(--ink)" : "var(--renewal-white)",
+          fg: on ? "var(--renewal-white)" : "var(--ink)",
           pick: () => this.setState({ service: label }),
         };
       }),
@@ -104,6 +106,7 @@ class Component extends GuideLogic {
               />
             </div>
             <div className="main-hero-shade"></div>
+            <MainLight />
             <div className="l-container main-hero-inner">
               <div className="eyebrow main-hero-eyebrow">
                 {"All-In-One Agency"}
@@ -315,8 +318,8 @@ class Component extends GuideLogic {
                 <React.Fragment>
                   <div
                     style={{
-                      background: "#fff",
-                      color: "#0D0D12",
+                      background: "var(--renewal-white)",
+                      color: "var(--ink)",
                       padding: "40px",
                       display: "flex",
                       flexDirection: "column",
@@ -327,7 +330,7 @@ class Component extends GuideLogic {
                     <strong className="t-lead">
                       {"문의가 접수되었습니다"}
                     </strong>
-                    <span style={{ color: "#3A3A42" }}>
+                    <span style={{ color: "var(--form-muted)" }}>
                       {"담당자가 확인 후 연락드리겠습니다"}
                     </span>
                   </div>
@@ -337,9 +340,9 @@ class Component extends GuideLogic {
                 <React.Fragment>
                   <InquiryBridge
                     style={{
-                      background: "#fff",
-                      color: "#0D0D12",
-                      padding: "clamp(24px,3vw,40px)",
+                      background: "var(--renewal-white)",
+                      color: "var(--ink)",
+                      padding: "var(--section-y-sm)",
                       display: "flex",
                       flexDirection: "column",
                       gap: "20px",
@@ -364,7 +367,7 @@ class Component extends GuideLogic {
                         required={true}
                         style={{
                           border: "none",
-                          borderBottom: "1.5px solid #0D0D12",
+                          borderBottom: "1.5px solid var(--ink)",
                           padding: "10px 0",
                           outline: "none",
                           background: "transparent",
@@ -386,7 +389,7 @@ class Component extends GuideLogic {
                         placeholder="이메일 또는 전화번호"
                         style={{
                           border: "none",
-                          borderBottom: "1.5px solid #0D0D12",
+                          borderBottom: "1.5px solid var(--ink)",
                           padding: "10px 0",
                           outline: "none",
                           background: "transparent",
@@ -416,10 +419,11 @@ class Component extends GuideLogic {
                             <button
                               className="t-chip"
                               onClick={s.pick}
+                              aria-pressed={this.state.service === s.label}
                               style={{
                                 cursor: "pointer",
                                 padding: "10px 16px",
-                                border: "1.5px solid #0D0D12",
+                                border: "1.5px solid var(--ink)",
                                 background: s.bg,
                                 color: s.fg,
                               }}
@@ -437,7 +441,7 @@ class Component extends GuideLogic {
                         display: "flex",
                         gap: "10px",
                         alignItems: "center",
-                        color: "#3A3A42",
+                        color: "var(--form-muted)",
                         cursor: "pointer",
                       }}
                     >
@@ -447,7 +451,7 @@ class Component extends GuideLogic {
                         style={{
                           width: "18px",
                           height: "18px",
-                          accentColor: "#6B4DFF",
+                          accentColor: "var(--violet)",
                         }}
                         type="checkbox"
                         name="consent"
@@ -459,8 +463,8 @@ class Component extends GuideLogic {
                       style={{
                         cursor: "pointer",
                         border: "none",
-                        background: "#0D0D12",
-                        color: "#fff",
+                        background: "var(--ink)",
+                        color: "var(--renewal-white)",
                         padding: "18px",
                       }}
                       type="submit"
