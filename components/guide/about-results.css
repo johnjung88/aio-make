@@ -1,0 +1,111 @@
+/* About-only result layout: shared main-home components remain unchanged. */
+.rw-about .rw-about-results {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px;
+  aspect-ratio: 4/3;
+}
+.rw-site.rw-about .rw-about-results img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.rw-about .rw-about-results > img:first-child {
+  grid-column: 1/-1;
+  object-position: top;
+  object-fit: cover;
+  background: #f3eee6;
+}
+.rw-about .rw-about-results > img:nth-child(3) {
+  object-fit: cover;
+  background: #f8f8f8;
+}
+.rw-about .rw-about-results figcaption {
+  grid-column: 1/-1;
+  color: var(--cs-fg-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.rw-site.rw-about .rw-card-media {
+  aspect-ratio: 16/10;
+}
+.rw-site.rw-about .rw-division .rw-card-media img {
+  object-fit: contain;
+}
+.rw-site.rw-about .rw-division:nth-child(2) .rw-card-media img {
+  object-fit: cover;
+}
+.rw-site.rw-about .rw-division:last-child .rw-card-media {
+  background: #f8f8f8;
+}
+.rw-about .rw-marketing-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  height: 100%;
+  gap: 3px;
+}
+.rw-about .rw-marketing-strip > div {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+.rw-about .rw-marketing-strip span {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 4px 8px;
+  background: #080808cf;
+  color: white;
+  font-size: 13px;
+  border-radius: 4px;
+}
+.rw-site.rw-about .rw-division .rw-card-media img {
+  object-fit: cover;
+  object-position: top;
+  height: 100%;
+  width: 100%;
+}
+.rw-about .rw-about-process-scenes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rw-about .rw-about-process-scenes img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+.rw-about .rw-about-process-scenes h3 {
+  margin-bottom: 12px;
+}
+.rw-about .rw-process .cs-container {
+  max-width: var(--cs-container, 1280px);
+}
+.rw-about .rw-process-disclaimer {
+  margin-top: 24px;
+  color: var(--cs-fg-2);
+}
+@media (max-width: 1023px) {
+  .rw-about .rw-about-process-scenes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .rw-about .rw-about-process-scenes {
+    grid-template-columns: 1fr;
+  }
+}

@@ -208,7 +208,12 @@ export function MarketingFinder({
             href={marketingContact(
               id,
               "home-finder",
-              { integrated: "channels", sns: "preview", "ai-influencer": "persona", seo: "checklist" }[id],
+              {
+                integrated: "channels",
+                sns: "preview",
+                "ai-influencer": "persona",
+                seo: "checklist",
+              }[id],
               `업종: ${industry}\n상황: ${situation}\n방식: ${method}`,
             )}
           >
@@ -454,7 +459,11 @@ function SnsPreview() {
             <article className={`mk-phone mk-phone-${i}`} key={channel}>
               <header>{channel}</header>
               <Image
-                src={`/marketing-renewal/preview-${index}-${i}.webp`}
+                src={
+                  index === 0
+                    ? `/marketing-renewal/f3a2-${["sns-pour", "sns-beans", "sns-takeaway"][i]}.webp`
+                    : `/marketing-renewal/${index === 1 ? ["preview-1-0", "f3a2-skin-texture", "f3a2-skin-routine"][i] : index === 2 ? ["preview-2-0", "f3a2-channel-prep", "f3a2-channel-motion"][i] : ["preview-3-0", "f3a2-food-prep", "f3a2-food-serve"][i]}.webp`
+                }
                 width={400}
                 height={500}
                 alt={material}
@@ -490,13 +499,6 @@ function SnsPreview() {
           ))}
         </div>
         <p>이렇게 바꾼 결과물이 한 달에 원본 16개만큼 쌓입니다</p>
-        <div className="mk-originals">
-          {Array.from({ length: 16 }, (_, i) => (
-            <span key={i}>
-              {i < 12 ? "이미지" : "컨텐츠"} {i < 12 ? i + 1 : i - 11}
-            </span>
-          ))}
-        </div>
         <SignatureContact
           id="sns"
           plan="preview"
