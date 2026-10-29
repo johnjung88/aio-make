@@ -306,30 +306,122 @@ test("copy avoids banned phrasing and keeps the AI influencer facts", async () =
   assert.ok(!sources.includes("AI 생성 여부 확인 중"));
 });
 
-test("RW1 main keeps server-selected journey and removes empty brand sections", async () => {
- const main=await read('components/guide/main.jsx');
- assert.ok(main.includes('<WorkflowJourney data={this.props.journey} />'));
- assert.ok(main.includes('<DivisionCards />'));
- assert.ok(main.includes('<ContactCta />'));
- assert.doesNotMatch(main, /<ShowcaseVideo|className="main-standard"|<InquiryBridge/);
- assert.ok((await read('components/home/renewal-sections.tsx')).includes(REQUIRED));
+test("main page uses the journey, the six-service wording and no #process section", async () => {
+  const main = await read("components/guide/main.jsx");
+  assert.ok(main.includes(REQUIRED));
+  assert.ok(!main.includes("브랜드 홍보 및 SNS 광고 영상"));
+  assert.ok(main.includes("브랜드 홍보 영상, SNS 광고 영상"));
+  assert.doesNotMatch(main, /import\s*\{\s*HomeReferences\s*\}/);
+  assert.ok(main.includes("<WorkflowJourney data={this.props.journey} />"));
+  const page = await read("app/(public)/page.tsx");
+  assert.ok(page.includes("journey={homeJourneyData(entries)}"));
+  for (const gone of [
+    'id="process"',
+    "main-method",
+    "method-intro",
+    "AI로 효율을 높이고",
+    "전문가가 품질을 지킵니다",
+  ])
+    assert.ok(!main.includes(gone), gone);
+  assert.ok(main.includes("OUR STANDARD"));
+  assert.ok(!main.includes('href="#process"'));
+  assert.doesNotMatch(main, /<HomeHero|<HomeServices/);
 });
 
-test("RW1 hero preserves copy, case anchor and on-demand brand video", async () => {
-const main=await read('components/guide/main.jsx');
- const hero=main.slice(main.indexOf('<section className="main-hero"'),main.indexOf('id="divisions"'));
- for(const text of ['분야별 ','전문가들','와 함께 일합니다','필요한 일만','제작 사례 보기','href="#work"','<BrandVideoButton />']) assert.ok(hero.includes(text),text);
- const video=await read('components/home/renewal-sections.tsx');
- assert.ok(video.includes('showModal'));assert.ok(video.includes('onCancel={close}'));assert.ok(video.includes('querySelector("video")?.pause'));
+// R6 WP-M: 메인 `/` 왼쪽 정렬 · 분야 카드 4줄 · 공통 섹션 간격 · 닫는 문구
+test("main hero is centered with the agreed copy and two buttons", async () => {
+  const main = await read("components/guide/main.jsx");
+  const css = await read("components/guide/ux.css");
+  const hero = main.slice(
+    main.indexOf('<section className="main-hero">'),
+    main.indexOf('<ShowcaseVideo kind="brand" />'),
+  );
+  for (const text of [
+    "분야별 ",
+    "전문가들",
+    "와 함께 일합니다",
+    "컨텐츠·마케팅·개발, ",
+    "필요한 일만",
+    " 골라 맡기고 결과를 함께 확인하세요",
+    "견적 문의",
+    "제작 예시 살펴보기",
+  ])
+    assert.ok(hero.includes(text), text);
+  assert.equal(hero.match(/<GuideLink/g).length, 2);
+  assert.ok(!/textAlign|alignItems/.test(hero), "no inline alignment");
+  const block = css.slice(css.indexOf(".guide-main .main-hero-inner {"));
+  const inner = block.slice(0, block.indexOf("}"));
+  assert.match(inner, /align-items: center;/);
+  assert.match(inner, /text-align: center;/);
+  assert.doesNotMatch(inner, /flex-start|text-align: left/);
+  // R8 M1: eyebrow, lead (max-width) and the button row are centered as well.
+  const rule = (selector) => {
+    const start = css.indexOf(selector);
+    assert.ok(start >= 0, selector);
+    return css.slice(start, css.indexOf("}", start));
+  };
+  assert.match(rule(".guide-main .main-hero-eyebrow {"), /justify-content: center;/);
+  assert.match(rule(".guide-main .main-hero-lead {"), /margin: 0 auto;/);
+  assert.match(rule(".guide-main .main-hero-actions {"), /justify-content: center;/);
 });
 
-test("RW1 main and about share linked result cards with consistent field order", async () => {
-const cards=await read('components/home/renewal-sections.tsx');
- for(const file of ['components/guide/main.jsx','components/guide/about.jsx']) assert.ok((await read(file)).includes('<DivisionCards'));
- const hrefs=['/lab','/marketing','/content'].map(href=>cards.indexOf('href: "'+href+'"'));
- assert.ok(hrefs.every(i=>i>=0));assert.deepEqual([...hrefs].sort((a,b)=>a-b),hrefs);
- for(const field of ['item.image','item.name','item.line','item.services','item.href']) assert.ok(cards.includes(field),field);
- assert.doesNotMatch(cards,/card-lab.jpg|card-marketing.jpg|card-video.jpg/);
+test("division cards are 01 개발 · 02 마케팅 · 03 컨텐츠 with four lines each", async () => {
+  const main = await read("components/guide/main.jsx");
+  const css = await read("components/guide/ux.css");
+  const section = main.slice(
+    main.indexOf('id="divisions"'),
+    main.indexOf("<WorkflowJourney"),
+  );
+  // Same order and numbers as the workflow (개발 → 마케팅 → 컨텐츠).
+  const order = ["/lab", "/marketing", "/content"].map((href) =>
+    section.indexOf(`href="${href}"`),
+  );
+  assert.ok(order.every((index) => index > 0));
+  assert.deepEqual([...order].sort((a, b) => a - b), order);
+  const cards = section.split('className="main-division"').slice(1);
+  assert.equal(cards.length, 3);
+  const expected = [
+    ["01", "개발", "개발 상담하기 →"],
+    ["02", "마케팅", "마케팅 상담하기 →"],
+    ["03", "컨텐츠", "컨텐츠 상담하기 →"],
+  ];
+  cards.forEach((card, index) => {
+    const [num, name, cta] = expected[index];
+    assert.ok(card.includes(`{"${num}"}`), num);
+    assert.ok(card.includes(`{"${name}"}`), name);
+    assert.ok(card.includes(`{"${cta}"}`), cta);
+    // number+name / one line / services / link: four text rows
+    for (const cls of [
+      "main-division-name",
+      "main-division-line",
+      "home-division-services",
+      "main-division-cta",
+    ])
+      assert.equal(card.split(cls).length - 1, 1, `${num} ${cls}`);
+  });
+  assert.deepEqual(
+    journeySteps.map((step) => step.railLabel),
+    expected.map(([, name]) => name),
+  );
+  // English names, status chips and the old numbering are gone.
+  for (const gone of [
+    "Studio",
+    '"Marketing"',
+    '"Lab"',
+    "바로 의뢰 가능",
+    "문의 가능",
+    "01 · CONTENT",
+    "02 · MARKETING",
+    "03 · DEV",
+  ])
+    assert.ok(!main.includes(gone), gone);
+  // R8 M2: the h2 is centered by class (no inline alignment).
+  assert.ok(!/textAlign/.test(section));
+  assert.match(css, /\.main-divisions-title \{[^}]*text-align: center;/);
+  assert.match(
+    css,
+    /\.main-division-body \{[^}]*grid-template-rows: auto auto 1fr auto;/,
+  );
 });
 
 test("main sections use one section spacing token and no inline layout", async () => {
@@ -376,32 +468,89 @@ test("main sections use one section spacing token and no inline layout", async (
   assert.match(wj, /--wj-step-gap: 96px;/);
 });
 
-test("RW1 standard copy moves into the single contact CTA", async () => {
- const main=await read('components/guide/main.jsx');const sections=await read('components/home/renewal-sections.tsx');
- assert.doesNotMatch(main,/main-standard|OUR STANDARD/);
- assert.ok(sections.includes('만드는 일의 끝은 고객이 쓰기 시작하는 순간입니다'));
- assert.ok(sections.includes('/contact?source='));
+test("OUR STANDARD is a centered closing line without a caption", async () => {
+  const main = await read("components/guide/main.jsx");
+  const section = main.slice(
+    main.indexOf('<section className="main-standard">'),
+    main.indexOf('<div className="l-container main-faq">'),
+  );
+  assert.ok(section.includes("만드는 일의 끝은,"));
+  assert.ok(section.includes("고객이 쓰기 시작하는 순간"));
+  assert.ok(section.includes("입니다"));
+  assert.ok(!section.includes("기획 · 제작 · 검수 · 인계"));
+  assert.ok(!section.includes("main-standard-caption"));
+  assert.ok(!section.includes("AIO MAKE의 작업 기준"));
+  assert.ok(!/style=|textAlign|alignItems/.test(section));
+  const css = await read("components/guide/ux.css");
+  const inner = css.slice(css.indexOf(".guide-main .main-standard-inner {"));
+  const rule = inner.slice(0, inner.indexOf("}"));
+  assert.match(rule, /align-items: center;/);
+  assert.match(rule, /text-align: center;/);
+  assert.doesNotMatch(rule, /flex-start|text-align: left/);
 });
 
-test("RW1 journey shows matching PC and mobile designs with honest status", async () => {
-const journey=await read('components/home/workflow-journey.tsx');
- assert.ok(journey.includes('project?.after.src'));assert.ok(journey.includes('project?.afterMobile?.src'));
- assert.doesNotMatch(journey,/JourneyDev|before-home|BEFORE|wj-rail/);
- assert.ok(journey.includes('실제 주문과 결제는 받지 않는 레퍼런스입니다'));
- assert.equal((journey.match(/<SectionHead/g)||[]).length,2);
+test("R8 main journey: centered heads, removed subtitle, closing row, notices and dev caption", async () => {
+  const tsx = await read("components/home/workflow-journey.tsx");
+  const css = await read("components/home/workflow-journey.css");
+  // M3/M4: intro is centered and holds eyebrow + title only.
+  const intro = tsx.slice(tsx.indexOf('<header className="wj-intro">'), tsx.indexOf("</header>"));
+  assert.ok(intro.includes("journeyIntro.title"));
+  assert.ok(!intro.includes("journeyIntro.lead"));
+  assert.ok(!intro.includes("wj-lead"));
+  assert.match(css, /\.wj \.wj-intro \{[^}]*text-align: center;/);
+  // M7/M9/M16: every step head (eyebrow, title, lead) is centered in the right column.
+  const head = css.slice(css.indexOf(".wj .wj-step > .wj-eyebrow,"));
+  assert.match(
+    head.slice(0, head.indexOf("}")),
+    /\.wj \.wj-step > \.wj-eyebrow,\s*\.wj \.wj-step > \.wj-step-title,\s*\.wj \.wj-step > \.wj-lead \{\s*text-align: center;/,
+  );
+  assert.match(css, /\.wj \.wj-step > \.wj-lead \{\s*margin-inline: auto;/);
+  // The mobile step marker row is centered too.
+  assert.match(css, /\.wj \.wj-step > \.wj-eyebrow \{[^}]*justify-content: center;/);
+  // M11: closing consultation row is gone.
+  for (const gone of ["wj-closing", "journeyClosing", "wj-button"]) {
+    assert.ok(!tsx.includes(gone), `workflow-journey.tsx: ${gone}`);
+    assert.ok(!css.includes(gone), `workflow-journey.css: ${gone}`);
+  }
+  assert.ok(!tsx.includes("어디서부터 시작할지"));
+  // M12: trademark notice is not rendered in the marketing and content steps.
+  for (const file of ["journey-marketing", "journey-content"]) {
+    const src = await read(`components/home/${file}.tsx`);
+    const styles = await read(`components/home/${file}.css`);
+    assert.ok(!src.includes("PLATFORM_TRADEMARK_NOTICE"), `${file}.tsx`);
+    assert.ok(!/wj-mk-notice|wjc-notice/.test(src + styles), `${file}`);
+    assert.ok(!src.includes("각 회사의 상표입니다"), `${file}.tsx`);
+  }
+  // M13: the dev compare has no caption.
+  const compare = await read("components/home/journey-dev-compare.tsx");
+  const data = await read("lib/home-journey-data.ts");
+  assert.ok(!compare.includes("model.caption"));
+  assert.ok(!data.includes("기존 공식몰 첫 화면 · 2026-10-10 캡처"));
+  assert.ok(!data.includes("2026-10-10 캡처"));
+  assert.equal("caption" in (review.data.devProject.before ?? {}), false);
 });
 
-test("RW1 removes the rail and uses content section spacing on both widths", async () => {
-const journey=await read('components/home/workflow-journey.tsx');const css=await read('components/home/main-about-renewal.css');
- assert.doesNotMatch(journey,/wj-rail|IntersectionObserver|wj-layout/);
- assert.match(css,/--cs-section-y:\s*120px/);assert.match(css,/--cs-section-y:\s*72px/);
- assert.match(journey, /<ServiceShowcase\s+selections=\{data.contentSelections\}/);
-});
-
-test("RW1 about shares all six content service names and the content process", async () => {
-const about=await read('components/guide/about.jsx');const cards=await read('components/home/renewal-sections.tsx');
- assert.ok(cards.includes(REQUIRED));assert.ok(about.includes('<DivisionCards'));assert.match(about,/<ProcessSteps/);
- assert.doesNotMatch(about,/EXPERT|BRAND · ALL-IN-ONE|사업자 정보/);
+test("R8 rail is enlarged: 280px, heading-size label, 16px number, tall rows", async () => {
+  const css = await read("components/home/workflow-journey.css");
+  const tsx = await read("components/home/workflow-journey.tsx");
+  assert.match(css, /--wj-rail-w: 250px;/);
+  assert.match(css, /@media \(min-width: 1280px\) \{\s*\.wj \{\s*--wj-rail-w: 280px;/);
+  assert.match(css, /--wj-rail-label-size: clamp\(22px, 1\.8vw, 26px\);/);
+  assert.match(css, /--wj-rail-num-size: 16px;/);
+  assert.match(css, /--wj-rail-pad-y: 22px;/);
+  assert.match(
+    css,
+    /\.wj \.wj-rail-link \{[^}]*padding: var\(--wj-rail-pad-y\) 0 var\(--wj-rail-pad-y\) var\(--wj-s5\);/,
+  );
+  assert.match(
+    css,
+    /\.wj-rail-label \{\s*font-size: var\(--wj-rail-label-size\);\s*font-weight: var\(--type-h3-weight\);/,
+  );
+  assert.match(css, /\.wj-rail-link \.wj-num \{\s*font-size: var\(--wj-rail-num-size\);/);
+  assert.match(css, /\.wj \.wj-rail-list \{\s*display: grid;\s*gap: var\(--wj-s4\);/);
+  // Layout and fill still use the same variable and the three-step fill.
+  assert.match(css, /grid-template-columns: var\(--wj-rail-w\) minmax\(0, 1fr\);/);
+  assert.ok(tsx.includes('className="wj-rail-fill"'));
 });
 
 test("no link points at the removed main #process section", async () => {
