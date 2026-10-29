@@ -2,7 +2,7 @@
   --renewal-bg: #05070a;
   --renewal-panel: #101722;
   --renewal-text: #f5f7fa;
-  --renewal-muted: #bac5d2;
+  --renewal-muted: #c2c0cc;
   --renewal-line: #303b4b;
   --renewal-white: #fff;
   --violet-deep: #4930bd;
@@ -71,6 +71,24 @@
   color: var(--renewal-muted);
 }
 @media (max-width: 767px) {
+  /* Home quick links stay in normal flow on small screens, clear of all content. */
+  .floating-contact[data-home="true"] {
+    position: static;
+    transform: none;
+    width: fit-content;
+    margin: var(--space-block) auto;
+    background: var(--renewal-panel);
+    border-color: var(--renewal-line);
+    box-shadow: none;
+  }
+  .floating-contact[data-home="true"] button {
+    background: var(--renewal-panel);
+    color: var(--renewal-text);
+  }
+  .floating-contact[data-home="true"] a {
+    background: var(--violet);
+    color: var(--renewal-white);
+  }
   .guide-header .guide-main-nav.is-open {
     background: var(--renewal-panel);
     color: var(--renewal-text);
@@ -88,8 +106,39 @@
     position: static;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    background: var(--renewal-panel);
+    color: var(--renewal-text);
   }
   .guide-header .guide-mobile-toggle {
     display: none;
   }
+}
+
+/* Preserve legacy surfaces outside the home renewal while centralizing their colors. */
+:root {
+  --legacy-color-26: #000;
+  --legacy-color-27: #dad8d1;
+  --legacy-color-28: #2e2e38;
+  --legacy-color-29: #9a9aa3;
+  --legacy-color-30: #73737d;
+  --legacy-color-31: #6e6e78;
+  --legacy-color-32: #34343e;
+  --legacy-color-33: #0002;
+  --legacy-color-34: #676175;
+  --legacy-color-35: #1c1c22;
+  --legacy-color-36: #0004;
+  --legacy-color-37: #b2a3ff;
+  --legacy-color-38: #575763;
+  --legacy-color-39: #a5a5b3;
+  --legacy-color-40: #c5bedf;
+  --legacy-color-41: #ffd6dc;
+  --legacy-color-42: #361b27;
+  --legacy-color-43: #c7748a;
+  --legacy-color-44: #ff9cae;
+  --legacy-color-45: #202029;
+  --legacy-color-46: #b5b5c2;
+  --legacy-color-47: #ffffff60;
+  --legacy-color-48: #0d0d12ed;
+  --legacy-color-49: #ccc8da;
 }

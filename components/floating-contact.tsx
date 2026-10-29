@@ -71,6 +71,7 @@ export function FloatingContact() {
     <>
       <nav
         className="floating-contact"
+        data-home={path === "/" ? "true" : undefined}
         aria-label="빠른 상담"
         hidden={keyboard || (suppressNearInline && inlineVisible)}
       >

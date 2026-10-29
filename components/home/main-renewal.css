@@ -66,6 +66,7 @@
     filter 250ms ease;
 }
 .main-light path:nth-of-type(1) {
+  /* Logo face colors are decorative light only, never action or text colors. */
   filter: drop-shadow(0 0 5px var(--brand-cyan));
 }
 .main-light path:nth-of-type(2) {
@@ -95,6 +96,7 @@
   gap: 20px;
 }
 .guide-main .main-division {
+  /* Division light decorates card edges; links retain the violet action palette. */
   --division-light: var(--brand-cyan);
   border: 1px solid var(--renewal-line);
   border-top-color: var(--division-light);
@@ -168,7 +170,30 @@
   object-fit: contain;
 }
 .guide-main .wj .wj-cmp-stage {
-  background: var(--paper);
+  background: var(--renewal-panel);
+}
+.guide-main .main-hero-eyebrow {
+  color: var(--lavender);
+  text-shadow: 0 2px 8px var(--renewal-bg);
+}
+.guide-main .wj .wj-step > .wj-lead {
+  color: var(--renewal-muted);
+}
+.guide-main .wj .wj-mk-name {
+  font-size: var(--type-body-size);
+  font-weight: var(--type-h3-weight);
+}
+.guide-main .wj .wj-mk-example {
+  color: var(--renewal-muted);
+  font-size: var(--type-small-size);
+  text-align: center;
+}
+.guide-main .wj .wjpc-head {
+  padding-bottom: var(--wj-s4);
+  border-bottom: 1px solid var(--renewal-line);
+}
+.guide-main .wj .wjpc-layout {
+  align-items: start;
 }
 .guide-main .wj .wj-mk {
   --mk-w: 310px;
@@ -334,6 +359,19 @@
   }
 }
 @media (min-width: 768px) {
+  .guide-main .wj .wj-mk-steps {
+    align-self: stretch;
+    grid-template-rows: repeat(4, 1fr);
+  }
+  .guide-main .wj .wj-mk-item {
+    display: grid;
+  }
+  .guide-main .wj .wj-mk-step {
+    align-content: center;
+  }
+  .guide-main .wj .wj-mk-step:not([aria-current="step"]) .wj-mk-task {
+    display: block;
+  }
   .guide-main .wj .wj-mk {
     grid-template-columns: minmax(0, 1fr) var(--mk-w);
     align-items: start;
@@ -358,6 +396,12 @@
   }
 }
 @media (scripting: none) {
+  .guide-main .wj :is(.wj-mk-progress, .wj-mk-steps) {
+    display: none;
+  }
+  .guide-main .wj .wj-mk-static {
+    grid-column: 1 / -1;
+  }
   .guide-main .main-faq-a[hidden] {
     display: block;
   }

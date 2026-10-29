@@ -638,6 +638,7 @@ export function JourneyMarketing() {
           </span>
           <b>{marketingStages[stage].task}</b>
         </p>
+        <p className="wj-mk-example">{marketingCopy.example}</p>
         <div
           className="wj-mk-phone"
           role="group"

@@ -13,11 +13,11 @@
   font-display: swap;
 }
 .guide-public {
-  background: #f4f3ef;
-  color: #0d0d12;
+  background: var(--paper);
+  color: var(--ink);
 }
 body:has(.guide-public) {
-  background: #f4f3ef;
+  background: var(--paper);
 }
 html:has(.guide-public) {
   scroll-behavior: auto;
@@ -38,7 +38,7 @@ html:has(.guide-public) {
   display: block;
 }
 .guide-page a:hover {
-  color: #a99bff;
+  color: var(--lavender);
 }
 .guide-page p,
 .guide-page blockquote {
@@ -51,24 +51,24 @@ html:has(.guide-public) {
 .guide-page a:focus-visible,
 .guide-page input:focus-visible,
 .guide-page textarea:focus-visible {
-  outline: 3px solid #a99bff !important;
+  outline: 3px solid var(--lavender) !important;
   outline-offset: 4px;
 }
 .guide-main,
 .guide-about {
-  background: #f4f3ef;
-  color: #0d0d12;
+  background: var(--paper);
+  color: var(--ink);
 }
 .guide-studio-home,
 .guide-studio-contact {
-  background: #000;
-  color: #fff;
+  background: var(--legacy-color-26);
+  color: var(--renewal-white);
 }
 .guide-marketing-home,
 .guide-marketing-services,
 .guide-marketing-contact {
-  background: #fff;
-  color: #0d0d12;
+  background: var(--renewal-white);
+  color: var(--ink);
 }
 .guide-header {
   position: sticky;
@@ -174,16 +174,16 @@ html:has(.guide-public) {
   color: inherit;
 }
 .guide-subnav {
-  background: #fff;
-  color: #0d0d12;
-  border-bottom: 1px solid #dad8d1;
+  background: var(--renewal-white);
+  color: var(--ink);
+  border-bottom: 1px solid var(--legacy-color-27);
   font-family: var(--ff-text);
   line-height: 20px;
 }
 .guide-subnav.is-dark {
-  background: #0d0d12;
-  color: #fff;
-  border-color: #2e2e38;
+  background: var(--ink);
+  color: var(--renewal-white);
+  border-color: var(--legacy-color-28);
 }
 .guide-subnav > div {
   max-width: 1440px;
@@ -206,7 +206,7 @@ html:has(.guide-public) {
   white-space: nowrap;
 }
 .guide-subbrand svg {
-  color: #6b4dff;
+  color: var(--violet);
   flex-shrink: 0;
 }
 .is-dark .guide-subbrand svg {
@@ -240,13 +240,13 @@ html:has(.guide-public) {
   position: absolute;
   inset: auto 0 0;
   height: 2px;
-  background: #6b4dff;
+  background: var(--violet);
 }
 .is-dark .guide-sublinks > a {
-  color: #9a9aa3;
+  color: var(--legacy-color-29);
 }
 .is-dark .guide-sublinks > a[aria-current="page"] {
-  color: #fff;
+  color: var(--renewal-white);
 }
 .is-dark .guide-sublinks > a[aria-current="page"]::after {
   background: var(--lavender);
@@ -255,8 +255,8 @@ html:has(.guide-public) {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #6b4dff;
-  color: #fff;
+  background: var(--violet);
+  color: var(--renewal-white);
   padding: 8px 16px;
   min-height: 36px;
   font-size: var(--type-small-size);
@@ -335,7 +335,7 @@ html:has(.guide-public) {
 }
 .guide-form-error {
   padding: 16px;
-  border: 1px solid #a99bff;
+  border: 1px solid var(--lavender);
   line-height: 1.7;
 }
 .guide-form-error a {
@@ -357,14 +357,14 @@ html:has(.guide-public) {
 }
 .guide-inquiry input::placeholder,
 .guide-inquiry textarea::placeholder {
-  color: #73737d;
+  color: var(--legacy-color-30);
   opacity: 1;
-  -webkit-text-fill-color: #73737d;
+  -webkit-text-fill-color: var(--legacy-color-30);
 }
 .guide-inquiry input:autofill {
-  -webkit-text-fill-color: #0d0d12;
-  box-shadow: 0 0 0 1000px #fff inset;
-  caret-color: #0d0d12;
+  -webkit-text-fill-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--renewal-white) inset;
+  caret-color: var(--ink);
 }
 .guide-inquiry button[type="submit"] {
   transition: opacity 0.2s;
@@ -392,8 +392,8 @@ html:has(.guide-public) {
     left: 0;
     right: 0;
     padding: 20px;
-    background: #f4f3ef;
-    border-bottom: 1px solid #dad8d1;
+    background: var(--paper);
+    border-bottom: 1px solid var(--legacy-color-27);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -477,7 +477,7 @@ html:has(.guide-public) {
 }
 .guide-kicker {
   display: block;
-  color: var(--ge-accent, #6b4dff);
+  color: var(--ge-accent, var(--violet));
   font-family: var(--ff-display);
   font-size: var(--type-caption-size);
   letter-spacing: 0.14em;
@@ -556,8 +556,8 @@ html:has(.guide-public) {
 .guide-editorial-cta {
   padding: clamp(64px, 8vw, 104px)
     max(calc((100vw - 1328px) / 2), clamp(20px, 4vw, 56px));
-  background: #6b4dff;
-  color: #fff;
+  background: var(--violet);
+  color: var(--renewal-white);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -576,8 +576,8 @@ html:has(.guide-public) {
   margin-top: 14px;
 }
 .guide-editorial-cta a {
-  background: #0d0d12;
-  color: #fff;
+  background: var(--ink);
+  color: var(--renewal-white);
   padding: 18px 28px;
   font-weight: 700;
 }
@@ -656,9 +656,9 @@ html:has(.guide-public) {
   font-weight: 600;
 }
 .guide-article-actions a:last-child {
-  background: #6b4dff;
-  color: #fff;
-  border-color: #6b4dff;
+  background: var(--violet);
+  color: var(--renewal-white);
+  border-color: var(--violet);
 }
 @media (max-width: 600px) {
   .guide-post-row {
@@ -673,8 +673,8 @@ html:has(.guide-public) {
   }
 }
 .guide-utility {
-  background: #f4f3ef;
-  color: #0d0d12;
+  background: var(--paper);
+  color: var(--ink);
   padding-bottom: clamp(64px, 8vw, 104px);
 }
 .guide-utility .page-intro {
@@ -691,33 +691,33 @@ html:has(.guide-public) {
 .guide-utility .contact-notes,
 .guide-utility .form-hint,
 .guide-utility .prose {
-  color: #6e6e78;
+  color: var(--legacy-color-31);
 }
 .guide-utility .prose h2,
 .guide-utility .contact-notes h3,
 .guide-utility .field-title {
-  color: #0d0d12;
+  color: var(--ink);
 }
 .guide-utility .contact-form {
-  background: #fff;
-  color: #0d0d12;
-  border: 1px solid #dad8d1;
+  background: var(--renewal-white);
+  color: var(--ink);
+  border: 1px solid var(--legacy-color-27);
 }
 .guide-utility .contact-form input,
 .guide-utility .contact-form textarea,
 .guide-utility .contact-form select {
-  background: #fff;
-  color: #0d0d12;
-  border: 1px solid #dad8d1;
+  background: var(--renewal-white);
+  color: var(--ink);
+  border: 1px solid var(--legacy-color-27);
   border-radius: 0;
 }
 .guide-utility .button {
-  background: #6b4dff;
-  color: #fff;
+  background: var(--violet);
+  color: var(--renewal-white);
   border-radius: 0;
 }
 .guide-utility .eyebrow {
-  color: #6b4dff;
+  color: var(--violet);
   font-family: var(--ff-display);
 }
 .guide-utility .prose {
