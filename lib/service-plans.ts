@@ -480,3 +480,8 @@ export const servicePlans: Record<string, ServicePlan> = {
     ],
   },
 };
+
+servicePlans["ai-influencer"].faq.push([
+  "팔로워 증가와 매출을 보장하나요?",
+  "가상 인물을 실제 사용 후기의 주인공이나 실존 고객으로 표현하지 않습니다. 운영 보고는 실제 게시 내역과 확인할 수 있는 반응·문의 흐름을 기준으로 하며, 검색 순위나 매출 수치를 보장하지 않습니다.",
+]);

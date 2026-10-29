@@ -1,3 +1,6 @@
+import { JsonLd } from "@/components/ui";
+import { breadcrumbSchema, organizationSchema } from "@/lib/seo";
+import { siteUrl } from "@/lib/metadata";
 import { LabMain } from "@/components/lab-main/lab-main";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -8,5 +11,25 @@ export const metadata = pageMetadata(
 );
 
 export default function LabPage() {
-  return <LabMain />;
+  return (
+    <>
+      <LabMain />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "개발",
+          url: siteUrl + "/lab",
+          provider: { "@id": organizationSchema["@id"] },
+          serviceType: "웹사이트·쇼핑몰·업무 자동화·프로그램 개발",
+        }}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "AIO MAKE", path: "/" },
+          { name: "개발", path: "/lab" },
+        ])}
+      />
+    </>
+  );
 }

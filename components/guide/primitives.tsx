@@ -172,7 +172,7 @@ const assetSlots: Record<string, string> = {
   "lead-video": "/creative-v11/video.webp",
   "lead-mkt": "/creative-v11/marketing.webp",
   "lead-dev": "/creative-v11/development.webp",
-  "aio-home-hero": "/images/guide/hero/hero-bg.jpg",
+  "aio-home-hero": "/images/guide/hero/hero-bg-seo2.webp",
   "main-studio-big": "/renewal/animation-sample.webp",
   "main-studio-s1": "/renewal/influencer-sample.webp",
   "main-studio-s2": "/renewal/brand-film-v03.webp",
@@ -226,7 +226,7 @@ export function guideAsset(value: string): string {
   )
     return "/renewal/marketing-content-v03.webp";
   if (value.includes("hero") || value.includes("team"))
-    return "/images/guide/hero/hero-bg.jpg";
+    return "/images/guide/hero/hero-bg-seo2.webp";
   if (
     value.includes("143288") ||
     value.includes("161116") ||
@@ -272,7 +272,7 @@ export function GuideImage({
         fill
         sizes={
           id === "aio-home-hero" || id === "main-hero-bg"
-            ? "(max-width: 768px) 1200px, 100vw"
+            ? "100vw"
             : "(max-width: 768px) 100vw, 70vw"
         }
         priority={id.includes("hero")}

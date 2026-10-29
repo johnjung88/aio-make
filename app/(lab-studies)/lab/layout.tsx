@@ -1,3 +1,5 @@
+import { JsonLd } from "@/components/ui";
+import { organizationSchema } from "@/lib/seo";
 import { Suspense } from "react";
 import { Analytics } from "@/components/analytics";
 import {
@@ -15,6 +17,7 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
         <a className={styles.skip} href="#main-content">
           본문으로 바로가기
         </a>
+        <JsonLd data={organizationSchema} />
         <LabHeader />
         <div id="main-content">{children}</div>
         <LabFooter />

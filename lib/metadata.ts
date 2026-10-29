@@ -5,13 +5,17 @@ export const siteUrl = (
 export const siteName = "AIO MAKE";
 export const siteDescription =
   "AIO MAKE는 컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 연결하는 에이전시입니다";
-export const indexable = process.env.VERCEL_ENV !== "preview" && process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW !== "1";
+export const indexable =
+  process.env.VERCEL_ENV !== "preview" &&
+  process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW !== "1";
 export function socialImage(path: string) {
   const division = path.split("/")[1];
   const key = ["marketing", "lab", "content"].includes(division)
-    ? division === "content" ? "video" : division
+    ? division === "content"
+      ? "video"
+      : division
     : "main";
-  return siteUrl + `/social/${key}-v19.png`;
+  return siteUrl + `/social/${key}-seo2.jpg`;
 }
 export function pageMetadata(
   title: string,
@@ -38,7 +42,7 @@ export function pageMetadata(
           url: image,
           width: 1200,
           height: 630,
-          type: "image/png",
+          type: "image/jpeg",
           alt: shareTitle,
         },
       ],

@@ -69,7 +69,11 @@ export function MarketingDetail({
           </div>
         </div>
         <ServiceExperience service={service.id} steps={plan.example.steps} />
-        <aside className="service-price" aria-label="가격과 제공 기준">
+        <aside
+          id="pricing"
+          className="service-price"
+          aria-label="가격과 제공 기준"
+        >
           <span>가격과 제공 기준</span>
           <strong>{plan.price}</strong>
           <p className="t-body">{plan.term}</p>
@@ -185,14 +189,19 @@ export function MarketingDetail({
         </ol>
         {monthly && <p className="service-handoff t-body">{plan.handoff}</p>}
       </section>
-      <section className="service-faq review-container">
+      <section className="service-faq review-container" id="faq">
+        <p>
+          <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link> ·{" "}
+          <a href="#pricing">가격과 범위</a> ·{" "}
+          <Link href="/terms">이용 안내</Link>
+        </p>
         <div className="service-section-heading">
           <span className="review-eyebrow">자주 묻는 질문</span>
           <h2 className="t-h2">의뢰 전에 확인하세요</h2>
         </div>
         <div>
-          {plan.faq.map(([question, answer]) => (
-            <details key={question}>
+          {plan.faq.map(([question, answer], index) => (
+            <details key={question} id={`faq-${index + 1}`}>
               <summary>
                 {question}
                 <span aria-hidden="true">+</span>

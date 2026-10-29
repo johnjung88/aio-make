@@ -27,11 +27,11 @@ export default async function Contact({
       </div>
       <div className="container contact-layout">
         <aside className="contact-notes">
-          <h3>
+          <h2>
             정리되지 않은 아이디어도
             <br />
             괜찮습니다
-          </h3>
+          </h2>
           <ul>
             <li>요청 내용과 현재 상황을 먼저 확인합니다</li>
             <li>진행 범위, 결과물, 견적과 납기를 합의합니다</li>
