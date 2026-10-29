@@ -1,15 +1,10 @@
 import { marketingOffers } from "@/lib/marketing-offers";
-import { publicEntries } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
 import { breadcrumbSchema } from "@/lib/seo";
 import { MarketingDetail } from "@/components/marketing/detail";
-import { WorkCard } from "@/components/work-portfolio";
-import { mergeGuideEntries } from "@/lib/guide-content";
-import { displayWorkCatalog, workMatchesService } from "@/lib/work-catalog";
-import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
@@ -32,35 +27,9 @@ export default async function ServicePage({
     s = d && serviceById(d.id, p.service);
   // /content/services/*는 컨텐츠 사이트 라우트 그룹이 처리한다. 이 분기는 도달하지 않는다.
   if (!d || !s || d.id === "video") notFound();
-  const matching = displayWorkCatalog(
-    mergeGuideEntries(
-      await publicEntries("reference", d.id),
-      "reference",
-      d.id,
-    ),
-  ).filter((work) => workMatchesService(work, s.id, s.division));
-  const works = matching.slice(0, 2);
-  const references = works.length > 0 && (
-    <section className="work-service-strip work-page">
-      <div className="work-service-strip-inner">
-        <div>
-          <span className="work-eyebrow">RELATED WORK</span>
-          <h2>관련 작업</h2>
-          <Link href={`/${d.path}/work?service=${s.id}`}>
-            이 서비스 작업 더 보기 ↗
-          </Link>
-        </div>
-        <div className="work-grid">
-          {works.map((work) => (
-            <WorkCard key={work.id} work={work} heading="h3" />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
   return (
     <>
-      <MarketingDetail service={s} references={references} />
+      <MarketingDetail service={s} />
 
       <JsonLd
         data={{

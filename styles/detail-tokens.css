@@ -1,0 +1,21 @@
+﻿/* Shared detail-page values copied from content-site/theme.css (W-RW2).
+   Additive tokens only: other divisions opt in without changing content studio. */
+:root {
+  --sd-container: 1440px;
+  --sd-gutter: clamp(20px, 4vw, 56px);
+  --sd-section: clamp(64px, 7vw, 96px);
+  --sd-section-sm: clamp(40px, 4.5vw, 64px);
+  --sd-display: clamp(34px, 5vw, 72px);
+  --sd-h2: clamp(28px, 3.2vw, 44px);
+  --sd-h3: clamp(20px, 1.6vw, 24px);
+  --sd-lead: clamp(17px, 1.35vw, 20px);
+  --sd-body: 16px;
+  --sd-small: 14px;
+  --sd-caption: 13px;
+  --sd-eyebrow: 12px;
+  --sd-price: clamp(24px, 2.6vw, 36px);
+  --sd-radius: 14px;
+  --sd-gap: 24px;
+  --sd-action: #6b4dff;
+  --sd-emphasis: #a895ff;
+}

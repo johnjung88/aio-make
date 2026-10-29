@@ -14,12 +14,16 @@ export function isContentHref(href: string): boolean {
 export function isLabHref(href: string): boolean {
   return /^\/lab(?:[/?#]|$)/.test(href);
 }
+export function isMarketingHref(href: string): boolean {
+  return /^\/marketing(?:[/?#]|$)/.test(href);
+}
 export function contentLinkProps(
   href: string,
   currentPath = "/",
 ): Partial<typeof newTabProps> {
   return (isContentHref(href) && !isContentHref(currentPath)) ||
-    (isLabHref(href) && !isLabHref(currentPath))
+    (isLabHref(href) && !isLabHref(currentPath)) ||
+    (isMarketingHref(href) && !isMarketingHref(currentPath))
     ? newTabProps
     : {};
 }

@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { contentLinkProps } from "@/lib/new-tab";
 import { NewTabHint } from "./new-tab-hint";
+import { MarketingHeader, MarketingFooter } from "./marketing/shell";
 export function Brand() {
   return (
     <span className="brand guide-brand">
@@ -25,6 +26,7 @@ export function Header() {
     [open, setOpen] = useState(false),
     [about, setAbout] = useState(false);
   const menu = useRef<HTMLButtonElement>(null);
+  if (path === "/marketing" || path.startsWith("/marketing/")) return <MarketingHeader brand={<Brand />} />;
   return (
     <header
       className="guide-header"
@@ -137,6 +139,7 @@ export function Header() {
 }
 export function Footer() {
   const path = usePathname();
+  if (path === "/marketing" || path.startsWith("/marketing/")) return <MarketingFooter brand={<Brand />} />;
   return (
     <footer className="guide-footer">
       <div className="guide-footer-inner">

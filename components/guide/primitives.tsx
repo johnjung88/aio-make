@@ -351,6 +351,7 @@ export function GuideNav({
     };
   }, []);
   const studio = division === "video" || division === "content";
+  if (division === "marketing") return null;
   const dark = true,
     brand = studio ? "컨텐츠" : division === "lab" ? "개발" : "마케팅";
   const first =

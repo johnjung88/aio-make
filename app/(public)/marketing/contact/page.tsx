@@ -15,11 +15,43 @@ export async function generateMetadata() {
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<{
+    service?: string;
+    plan?: string;
+    entry?: string;
+    message?: string;
+  }>;
 }) {
   const d = divisionByPath("marketing");
   if (!d) notFound();
-  const id = (await searchParams).service,
+  const query = await searchParams;
+  const id = query.service,
     service = id && serviceById(d.id, id);
-  return <MarketingContact service={service ? service.id : undefined} />;
+  const plans: Record<string, string> = {
+    channels: "월간 채널 배치",
+    preview: "한 소재, 세 채널 미리보기",
+    persona: "인물 설정과 한 달 편성",
+    checklist: "검색·답변 구조 점검",
+  };
+  const plan = query.plan && plans[query.plan] ? plans[query.plan] : "";
+  const entry = [
+    "hero",
+    "signature",
+    "pricing",
+    "faq",
+    "inquiry",
+    "home-finder",
+  ].includes(query.entry ?? "")
+    ? query.entry
+    : "";
+  return (
+    <MarketingContact
+      service={service ? service.id : undefined}
+      initialMessage={
+        typeof query.message === "string" ? query.message.slice(0, 400) : ""
+      }
+      selectedPlan={plan}
+      entry={entry}
+    />
+  );
 }
