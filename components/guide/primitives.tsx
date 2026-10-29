@@ -8,6 +8,8 @@ import Image from "next/image";
 import { CodeXml, Video, Square } from "lucide-react";
 import suppliedSlots from "./supplied-slots.json";
 import { isSafeImageUrl } from "@/lib/domain";
+import { contentLinkProps } from "@/lib/new-tab";
+import { NewTabHint } from "@/components/new-tab-hint";
 import { services } from "@/lib/content";
 import {
   developmentOffer,
@@ -154,9 +156,13 @@ export function GuideLink({
   href?: string;
   context?: string;
 }) {
+  const path = usePathname();
+  const destination = guideHref(href, context);
+  const newTab = contentLinkProps(destination, path);
   return (
-    <Link href={guideHref(href, context)} {...props}>
+    <Link href={destination} {...props} {...newTab}>
       {children}
+      {newTab.target && !props.target && <NewTabHint />}
     </Link>
   );
 }

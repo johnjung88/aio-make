@@ -1,0 +1,47 @@
+.hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px auto 20px;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: #123478;
+  border: 1px solid #5bd7ef;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.8;
+  text-align: center;
+}
+.hint svg {
+  flex-shrink: 0;
+  animation: invite 1.2s ease-in-out 3;
+}
+.mobile {
+  display: none;
+}
+@keyframes invite {
+  50% {
+    transform: translateX(5px) rotate(-7deg);
+  }
+}
+@media (max-width: 767px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: inline;
+  }
+  .hint {
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hint svg {
+    display: none;
+    animation: none;
+  }
+}

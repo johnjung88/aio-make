@@ -9,13 +9,7 @@ import {
   contentServicePath,
 } from "@/lib/content-site/types";
 
-const BUSINESS_INFO = [
-  "사업자명: 에이아이오 (AIO) | 사업자번호: 682-01-02748",
-  "통신판매업신고: 제 2026-경기김포-3656 호",
-  "주소: 경기도 김포시 대곶면 흥신로67",
-] as const;
-/* 표시·mailto 모두 소문자(SHARED-4). 메인 푸터의 대문자 표기와는 다르다(주소는 대소문자 구분 없음). */
-const EMAIL = "aiomake2023@gmail.com";
+import { BUSINESS_INFO, BUSINESS_EMAIL as EMAIL } from "@/lib/business-info";
 
 export function ContentSiteFooter() {
   const f = CS_COPY.footer;

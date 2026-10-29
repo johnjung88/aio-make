@@ -16,6 +16,7 @@ type Props = {
   onFloor: (floor: number) => void;
   onRoom: (room: number) => void;
   onStatus?: (status: "loading" | "ready" | "failed") => void;
+  onInteract?: () => void;
   brandLighting?: boolean;
   assemblyPhase?: number;
 };
@@ -458,8 +459,10 @@ export default function BuildingScene(props: Props) {
         down = { x: event.clientX, y: event.clientY };
       };
       const pointerUp = (event: PointerEvent) => {
-        if (Math.hypot(event.clientX - down.x, event.clientY - down.y) > 7)
+        if (Math.hypot(event.clientX - down.x, event.clientY - down.y) > 7) {
+          current.current.onInteract?.();
           return;
+        }
         const rect = renderer.domElement.getBoundingClientRect();
         pointer.set(
           ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -482,6 +485,7 @@ export default function BuildingScene(props: Props) {
           while (object && object.userData.floor === undefined)
             object = object.parent;
           if (object) {
+            current.current.onInteract?.();
             current.current.onFloor(object.userData.floor as number);
             if (typeof roomIndex === "number")
               current.current.onRoom(roomIndex);

@@ -3,7 +3,7 @@ import { displayCopy } from "@/lib/display-copy";
 // catalog, so client components (home-references.tsx) can render server-
 // selected works without bundling the catalog module or its customer data.
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/lab-entry-link";
 import { services } from "@/lib/content";
 import type { WorkItem } from "@/lib/work-catalog";
 
