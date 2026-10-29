@@ -1,3 +1,9 @@
+.headerScope:global(.cs-site) {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  min-height: 0;
+}
 .frame {
   --lab-bg: #080808;
   --lab-panel: #101722;
@@ -114,6 +120,7 @@
 }
 .nav a {
   white-space: nowrap;
+  flex-shrink: 0;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -408,7 +415,8 @@
   .nav {
     justify-content: flex-start;
     gap: 24px;
-    scroll-padding-inline: 3px;
+    padding-inline: 12px;
+    scroll-padding-inline: 12px;
   }
   .footer {
     padding-bottom: 64px;

@@ -73,7 +73,7 @@ function Consult({
 }) {
   return (
     <Link
-      className={styles.button}
+      className={`${styles.button} ${styles.consultButton}`}
       href={contactSelection(service, "signature", plan, message)}
     >
       이 내용으로 상담하기 ↗
@@ -111,6 +111,16 @@ export function PagePlanner() {
     [name, setName] = useState(""),
     [flags, setFlags] = useState([false, false, false]);
   const total = pages.length + count + extra.length;
+  const preview =
+    industry === "병원·클리닉"
+      ? { name: "seoriongyeol", brand: "서리온결" }
+      : industry === "학원·교육"
+        ? { name: "tiumpath", brand: "틔움패스" }
+        : industry === "매장·음식점"
+          ? { name: "mogrevit", brand: "모그레빗" }
+          : industry === "제조·B2B"
+            ? { name: "tilsak", brand: "틸삭" }
+            : { name: "munseodam", brand: "문서담" };
   const list = [
     ...pages,
     ...(count ? [`서비스 상세 ×${count}`] : []),
@@ -127,7 +137,7 @@ export function PagePlanner() {
   const message = `업종: ${industry}\n페이지 ${total}개: ${list.join(", ")}\n대시보드: ${flags[0] ? "필요" : "불필요"}\n이미지 자료: ${flags[1] ? "없음" : "있음"}\n회원·결제·예약: ${flags[2] ? "필요" : "불필요"}`;
   return (
     <div className={styles.signature}>
-      <div className={styles.signatureGrid}>
+      <div className={`${styles.signatureGrid} ${styles.plannerGrid}`}>
         <div className={styles.controls}>
           <Choices
             label="업종"
@@ -267,7 +277,7 @@ export function PagePlanner() {
             aria-label="선택한 페이지를 반영한 모바일 웹사이트 예시"
           >
             <div className={styles.previewHeader}>
-              <strong>YOUR BRAND</strong>
+              <strong>{preview.brand}</strong>
               <span>{industry}</span>
             </div>
             <div className={styles.previewNav}>
@@ -277,50 +287,23 @@ export function PagePlanner() {
             </div>
             <div className={styles.previewHero}>
               <Image
-                src="/lab-renewal/shop-0-2.webp"
-                width={1600}
-                height={600}
+                src={`/lab-references/${preview.name}-mobile.webp`}
+                width={480}
+                height={844}
                 sizes="360px"
-                alt="가상 웹사이트의 생활 소품 사진"
+                alt={`${preview.brand} 가상 브랜드 모바일 화면 전체 예시`}
               />
-              <div>
-                <span>WELCOME</span>
-                <strong>
-                  우리의 이야기가
-                  <br />
-                  시작되는 곳
-                </strong>
-              </div>
-            </div>
-            <div className={styles.previewBody}>
-              <small>{industry} · 페이지 구성 예시</small>
-              <h3>
-                {pages.includes("서비스")
-                  ? "필요한 서비스를 한눈에"
-                  : "브랜드를 만나는 첫 화면"}
-              </h3>
-              <p>방문자에게 필요한 정보부터 차근차근 안내합니다</p>
-              <div className={styles.previewLinks}>
-                {list
-                  .filter((s) => s !== "홈")
-                  .map((s) => (
-                    <span key={s}>
-                      {s}
-                      <b aria-hidden="true">↗</b>
-                    </span>
-                  ))}
-              </div>
             </div>
           </div>
           <p className={styles.note}>
             고른 항목 1개를 1페이지로 계산한 안내입니다
+            <br />
+            가상 브랜드 화면 예시 · 서리온결은 AI 생성 인물 포함
           </p>
-          <Consult
-            service="website"
-            plan={`pages-${total}`}
-            message={message}
-          />
         </div>
+      </div>
+      <div className={styles.signatureConsult}>
+        <Consult service="website" plan={`pages-${total}`} message={message} />
       </div>
     </div>
   );
@@ -380,6 +363,10 @@ function ShopPreview({
     </div>
   );
 }
+export function ShopHero() {
+  return <ShopPreview full brand="모그레빗" mood="모던 블랙" category="의류" />;
+}
+
 export function ShopComparison() {
   const [plan, setPlan] = useState("단순 복사"),
     [brand, setBrand] = useState("모그레빗"),
@@ -522,12 +509,14 @@ export function ShopComparison() {
               <p>상품 등록 · PG · 배송 · 오픈 설정</p>
             </div>
           </div>
-          <Consult
-            service="shopping-mall"
-            plan={full ? "full" : "copy"}
-            message={`상품: ${plan}\n브랜드: ${brand}\n분위기: ${mood}\n상품군: ${category}`}
-          />
         </div>
+      </div>
+      <div className={styles.signatureConsult}>
+        <Consult
+          service="shopping-mall"
+          plan={full ? "full" : "copy"}
+          message={`상품: ${plan}\n브랜드: ${brand}\n분위기: ${mood}\n상품군: ${category}`}
+        />
       </div>
     </div>
   );
@@ -688,12 +677,14 @@ export function CsvRunner() {
           <div className={styles.flow}>
             <span>{input}</span>→<span>{process}</span>→<span>{output}</span>
           </div>
-          <Consult
-            service="automation"
-            plan="flow"
-            message={`입력: ${input}\n처리: ${process}\n결과: ${output}\n자주 생기는 문제: ${["주문번호 형식 다름", "빈 값", "중복"].filter((_, i) => problems[i]).join(", ") || "없음"}`}
-          />
         </div>
+      </div>
+      <div className={styles.signatureConsult}>
+        <Consult
+          service="automation"
+          plan="flow"
+          message={`입력: ${input}\n처리: ${process}\n결과: ${output}\n자주 생기는 문제: ${["주문번호 형식 다름", "빈 값", "중복"].filter((_, i) => problems[i]).join(", ") || "없음"}`}
+        />
       </div>
     </div>
   );
@@ -952,12 +943,14 @@ export function RolePreview() {
             </>
           )}
           {perm[7] && <p>외부 알림 · 별도 협의</p>}
-          <Consult
-            service="program"
-            plan="roles"
-            message={`역할: ${roleNames.join(", ")}\n기능: ${enabled.join(", ")}\n환경: ${env}\n${roleNames.map((r, i) => `${r}: ${featureNames.filter((_, j) => permissions[i][j]).join(", ")}`).join("\n")}`}
-          />
         </div>
+      </div>
+      <div className={styles.signatureConsult}>
+        <Consult
+          service="program"
+          plan="roles"
+          message={`역할: ${roleNames.join(", ")}\n기능: ${enabled.join(", ")}\n환경: ${env}\n${roleNames.map((r, i) => `${r}: ${featureNames.filter((_, j) => permissions[i][j]).join(", ")}`).join("\n")}`}
+        />
       </div>
     </div>
   );

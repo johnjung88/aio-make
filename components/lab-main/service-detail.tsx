@@ -10,10 +10,11 @@ import content from "@/lib/lab-renewal-content.json";
 import { labServices, labServicePath } from "@/lib/lab-services";
 import { contactSelection } from "@/lib/lab-renewal-engine";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
-import { RenewalSignature } from "./renewal-signature";
+import { RenewalSignature, ShopHero } from "./renewal-signature";
 import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
 import { OutputPreview } from "./output-preview";
+import { AutomationCardVisual } from "./automation-card-visual";
 import styles from "./renewal.module.css";
 type Id = keyof typeof content;
 export function SectionHead({
@@ -173,6 +174,10 @@ export function LabServiceDetail({ id }: { id: string }) {
           </div>
           {id === "website" ? (
             <DeviceVisual name="space" hero />
+          ) : id === "shopping-mall" ? (
+            <div className={styles.shopHero}>
+              <ShopHero />
+            </div>
           ) : (
             <div className={`${styles.visual} ${styles.heroVisual}`}>
               <picture>
@@ -202,7 +207,6 @@ export function LabServiceDetail({ id }: { id: string }) {
           ))}
         </ol>
         <div className={styles.stripBottom}>
-          <p>{prices[key].map((p) => `${p[0]} ${p[1]}`).join(" · ")}</p>
           <a href="#pricing">구성과 가격 보기 ↓</a>
         </div>
       </aside>
@@ -222,7 +226,10 @@ export function LabServiceDetail({ id }: { id: string }) {
         {heading("S3")}
         <div className={styles.cards}>
           {outputs[key].map(([variant, title, body]) => (
-            <article className={styles.card} key={variant}>
+            <article
+              className={`${styles.card} ${styles.deliverableCard}`}
+              key={variant}
+            >
               {id === "website" ? (
                 <DeviceVisual name={variant} />
               ) : id === "automation" || id === "program" ? (
@@ -363,24 +370,28 @@ export function LabServiceDetail({ id }: { id: string }) {
           eyebrow="OTHER SERVICES"
           title="다른 개발 서비스"
         />
-        <div className={styles.cards}>
+        <div className={`${styles.cards} ${styles.relatedCards}`}>
           {labServices
             .filter((s) => s.id !== id)
             .map((s) => (
               <article key={s.id} className={styles.card}>
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
-                    <Image
-                      src={
-                        s.id === "website"
-                          ? "/lab/clinic-pc.webp"
-                          : `/lab-renewal/card-${s.id}.webp`
-                      }
-                      alt={`${s.name} 결과물 예시`}
-                      width={1200}
-                      height={900}
-                      loading="lazy"
-                    />
+                    {s.id === "automation" ? (
+                      <AutomationCardVisual />
+                    ) : (
+                      <Image
+                        src={
+                          s.id === "website"
+                            ? "/lab/clinic-pc.webp"
+                            : `/lab-renewal/card-${s.id}.webp`
+                        }
+                        alt={`${s.name} 결과물 예시`}
+                        width={1200}
+                        height={900}
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                   <h3>{s.name}</h3>
                   <p>{s.description}</p>

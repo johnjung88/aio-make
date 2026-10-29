@@ -14,6 +14,7 @@ import {
 import { SectionHead } from "./service-detail";
 import { DeviceVisual } from "./renewal-visual";
 import { HomeScene } from "./renewal-scene";
+import { AutomationCardVisual } from "./automation-card-visual";
 import styles from "./renewal.module.css";
 const gallery = [
   [
@@ -108,29 +109,26 @@ export function LabMain() {
               <article className={styles.card} key={s.id}>
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
-                    <Image
-                      src={
-                        s.id === "website"
-                          ? "/lab-renewal/card-website.webp"
-                          : `/lab-renewal/card-${s.id}.webp`
-                      }
-                      width={1200}
-                      height={750}
-                      sizes="(max-width: 600px) 90vw, 30vw"
-                      alt={`${s.name} 작동 화면 전체 예시`}
-                      loading="lazy"
-                    />
+                    {s.id === "automation" ? (
+                      <AutomationCardVisual />
+                    ) : (
+                      <Image
+                        src={
+                          s.id === "website"
+                            ? "/lab-renewal/card-website.webp"
+                            : `/lab-renewal/card-${s.id}.webp`
+                        }
+                        width={1200}
+                        height={750}
+                        sizes="(max-width: 600px) 90vw, 30vw"
+                        alt={`${s.name} 작동 화면 전체 예시`}
+                        loading="lazy"
+                      />
+                    )}
                   </div>
-                  <p className={styles.eyebrow}>
-                    0{i + 1} {s.name}
-                  </p>
+                  <p className={styles.eyebrow}>0{i + 1}</p>
                   <h3>{s.name}</h3>
                   <p>{s.description}</p>
-                  {s.id === "website" && (
-                    <p className={styles.note}>
-                      활판재 · 가상 브랜드 샘플 사이트 실행 화면
-                    </p>
-                  )}
                   <span className={styles.cardLink}>
                     {s.name} 자세히 보기 →
                   </span>
@@ -138,10 +136,11 @@ export function LabMain() {
               </article>
             ))}
         </div>
-        <p className={styles.note}>
-          관리 화면과 권한이 필요하다면{" "}
-          <Link href={labServicePath("program")}>프로그램 개발 보기 →</Link>
-        </p>
+        <div className={styles.signatureConsult}>
+          <Link className={styles.secondary} href={labServicePath("program")}>
+            프로그램 개발 살펴보기 →
+          </Link>
+        </div>
       </section>
       <section className={styles.section} id="gallery">
         <SectionHead
@@ -176,6 +175,11 @@ export function LabMain() {
           ))}
         </div>
       </section>
+      <div className={styles.centerAction}>
+        <Link className={styles.secondary} href="/lab/references">
+          12개 업종별 웹사이트 샘플 보기 →
+        </Link>
+      </div>
       <section className={styles.section} id="process">
         <SectionHead
           id="process-title"

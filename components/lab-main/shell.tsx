@@ -15,61 +15,106 @@ import styles from "./shell.module.css";
 
 export function LabHeader() {
   const path = usePathname();
-  const [navEnd, setNavEnd] = useState(false);
   const nav = useRef<HTMLElement>(null);
   useEffect(() => {
-    const current = nav.current?.querySelector('[aria-current="page"]');
-    if (current instanceof HTMLElement) {
-      const parent = nav.current!;
-      parent.scrollLeft =
-        current.offsetLeft -
-        parent.offsetLeft -
-        (parent.clientWidth - current.clientWidth) / 2;
-    }
+    const parent = nav.current;
+    if (!parent) return;
+    let disposed = false;
+    const revealCurrent = () => {
+      if (disposed) return;
+      const current = parent.querySelector('[aria-current="page"]');
+      if (!(current instanceof HTMLElement)) return;
+      const bounds = parent.getBoundingClientRect();
+      const item = current.getBoundingClientRect();
+      const inset = parent.clientWidth < 600 ? 28 : 12;
+      if (current === parent.querySelector("a")) parent.scrollLeft = 0;
+      else if (item.left < bounds.left + inset)
+        parent.scrollLeft += item.left - bounds.left - inset;
+      else if (item.right > bounds.right - inset)
+        parent.scrollLeft += item.right - bounds.right + inset;
+    };
+    revealCurrent();
+    void document.fonts.ready.then(revealCurrent);
+    const observer = new ResizeObserver(revealCurrent);
+    observer.observe(parent);
+    return () => {
+      disposed = true;
+      observer.disconnect();
+    };
   }, [path]);
   const service = labServices.find((s) => path === labServicePath(s.id));
   return (
-    <header className={styles.header}>
-      <div className={styles.headerInner} data-nav-end={navEnd}>
-        <Link
-          href="/lab"
-          className={styles.lockup}
-          aria-label="AIO MAKE 개발 홈"
-        >
-          <span className={styles.brand}>
-            <Brand />
-          </span>
-          <span>DEVELOPMENT LAB</span>
-        </Link>
-        <nav
-          ref={nav}
-          className={styles.nav}
-          aria-label="개발 전체 메뉴"
-          onScroll={() => {
-            const n = nav.current;
-            if (n) setNavEnd(n.scrollLeft + n.clientWidth >= n.scrollWidth - 3);
-          }}
-        >
-          <Link href="/lab" aria-current={path === "/lab" ? "page" : undefined}>
-            홈
+    <div className={`cs-site ${styles.headerScope}`}>
+      <header className="cs-header cs-header-v15">
+        <div className="cs-container cs-header-inner cs-header-v15-inner">
+          <Link
+            href="/lab"
+            className="cs-lockup cs-header-v15-lockup"
+            aria-label="AIO MAKE 개발 홈"
+          >
+            <span className="cs-brand">
+              <Brand />
+            </span>
+            <span className="cs-lockup-divider" aria-hidden="true" />
+            <span className="cs-lockup-label cs-t-lockup">DEVELOPMENT LAB</span>
           </Link>
-          {labServices.map((s) => (
-            <Link
-              key={s.id}
-              href={labServicePath(s.id)}
-              aria-current={service?.id === s.id ? "page" : undefined}
-            >
-              {s.name}
-            </Link>
-          ))}
-        </nav>
-        <div className={styles.actions}>
-          <Link className={styles.cta} href={labContactPath(service?.id)}>
-            상담 신청 <ArrowUpRight size={16} />
+          <nav
+            ref={nav}
+            className="cs-header-v15-nav"
+            aria-label="개발 전체 메뉴"
+          >
+            <ul>
+              <li>
+                <Link
+                  className="cs-nav-link"
+                  href="/lab"
+                  aria-current={path === "/lab" ? "page" : undefined}
+                >
+                  홈
+                </Link>
+              </li>
+              {labServices.map((s) => (
+                <li key={s.id}>
+                  <Link
+                    className="cs-nav-link"
+                    href={labServicePath(s.id)}
+                    aria-current={service?.id === s.id ? "page" : undefined}
+                  >
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  className="cs-nav-link"
+                  href="/lab/insights"
+                  aria-current={
+                    path.startsWith("/lab/insights") ? "page" : undefined
+                  }
+                >
+                  인사이트
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="cs-nav-link"
+                  href="/lab/references"
+                  aria-current={path === "/lab/references" ? "page" : undefined}
+                >
+                  레퍼런스
+                </Link>
+              </li>
+            </ul>
+          </nav>
+          <Link
+            className="cs-header-v15-cta"
+            href={labContactPath(service?.id)}
+          >
+            상담 신청 <span aria-hidden="true">↗</span>
           </Link>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }
 
@@ -101,6 +146,8 @@ export function LabFooter() {
               {s.name}
             </Link>
           ))}
+          <Link href="/lab/insights">인사이트</Link>
+          <Link href="/lab/references">레퍼런스</Link>
         </nav>
         <nav aria-label="상담과 다른 분야">
           <h2>CONTACT</h2>

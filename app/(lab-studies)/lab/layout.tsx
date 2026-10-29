@@ -1,4 +1,7 @@
 import "@/components/shared-detail-tokens.css";
+import "@/components/content-site/theme.css";
+import "@/components/content-site/content-renewal.css";
+import "@/components/content-site/shell/header-v15.css";
 import { JsonLd } from "@/components/ui";
 import { organizationSchema } from "@/lib/seo";
 import { Suspense } from "react";

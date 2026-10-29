@@ -18,11 +18,11 @@ const config: NextConfig = {
   },
   poweredByHeader: false,
   async redirects() {
-    // Retire old lab pages while allowing the lab's own static image assets.
+    // Retire old lab pages while keeping current services and resource routes.
     return [
       {
         source:
-          "/lab/:path((?!services/(?:website|shopping-mall|automation|program)(?:/|$)|.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
+          "/lab/:path((?!services/(?:website|shopping-mall|automation|program)(?:/|$)|insights(?:/|$)|references(?:/|$)|.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
         destination: "/lab",
         permanent: true,
       },

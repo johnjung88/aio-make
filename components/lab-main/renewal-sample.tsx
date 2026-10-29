@@ -18,7 +18,7 @@ export function LazySample({ service }: { service: string }) {
       <Experience service={service} sample={sample} />
     </div>
   ) : (
-    <div className={styles.sampleGate}>
+    <div className={styles.sampleGate} data-sample={service}>
       <Image
         src={
           service === "website"
