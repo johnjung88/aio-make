@@ -73,7 +73,11 @@ export function WorkCard({
         <span>{work.brand}</span>
         <strong>{work.title}</strong>
       </Heading>
-      <p className="t-body">{work.description}</p>
+      <p className="t-body">
+        {work.division === "marketing"
+          ? work.description.replace("소스·CMS", "소스와 CMS")
+          : work.description}
+      </p>
     </Link>
   );
 }

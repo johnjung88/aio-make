@@ -58,6 +58,9 @@ export function MarketingDetail({
             ))}
           </h1>
           <p className="t-body">{plan.intro}</p>
+          <p className="mk-hero-price">
+            {plan.price} · {plan.term}
+          </p>
           <div className="service-actions">
             <Link className="service-primary" href={contact}>
               이 서비스 문의하기 ↗

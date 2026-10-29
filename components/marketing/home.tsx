@@ -90,7 +90,7 @@ export function MarketingHome() {
                     {service.id === "seo" ? "프로젝트" : "월 운영"}
                   </span>
                   <h3 className="t-h3">{service.name}</h3>
-                  <p>{service.description}</p>
+                  <p>{service.description.replace("소스·CMS", "소스와 CMS")}</p>
                   <strong className="mk-price">{plan.price}</strong>
                   <small>{plan.term}</small>
                   <span className="mk-text-link">범위와 진행 방법 보기 ↗</span>
@@ -100,8 +100,10 @@ export function MarketingHome() {
           })}
         </div>
         <p className="mk-note">
-          월 운영 상품의 기본 소개·문의 사이트 구축 또는 리뉴얼 1회 혜택은 세부
-          범위와 운영 실비를 견적에서 구분합니다
+          월 운영 상품에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회가
+          포함됩니다
+          <br />
+          세부 범위와 운영 실비는 견적에서 구분합니다
         </p>
       </section>
       <section className="mk-reuse mk-container mk-section">
@@ -144,7 +146,7 @@ export function MarketingHome() {
           ))}
         </div>
         <span className="mk-reuse-note">
-          제작 방향 예시 · 고객 운영 실적이 아닙니다
+          제작 방향 예시 · 실제 운영 데이터가 아닙니다
         </span>
       </section>
       <section className="mk-container mk-section">

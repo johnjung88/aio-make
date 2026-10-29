@@ -52,7 +52,12 @@ export function GuideEntryCard({
         <p className="t-body">{entry.summary}</p>
         {type === "insight" && (
           <time dateTime={entry.created_at}>
-            {new Date(entry.created_at).toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Seoul" })}
+            {new Date(entry.created_at).toLocaleDateString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              timeZone: "Asia/Seoul",
+            })}
           </time>
         )}
       </div>
@@ -133,12 +138,20 @@ export function GuideEditorialCTA({ path }: { path: string }) {
   return (
     <section className="guide-editorial-cta">
       <div>
-        <h2 className="t-h2">필요한 작업이 있다면</h2>
+        <h2 className="t-h2">
+          {path === "marketing"
+            ? "현재 상황부터 알려주세요"
+            : "필요한 작업이 있다면"}
+        </h2>
         <p className="t-body">
-          만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다
+          {path === "marketing"
+            ? "현재 채널과 고민을 알려주시면 운영 범위와 일정을 함께 정리합니다"
+            : "만들고 싶은 것을 알려주시면 범위와 일정을 정리해드립니다"}
         </p>
       </div>
-      <Link href={`/${path}/contact`}>프로젝트 문의 →</Link>
+      <Link href={`/${path}/contact`}>
+        {path === "marketing" ? "운영 문의하기 →" : "프로젝트 문의 →"}
+      </Link>
     </section>
   );
 }
@@ -287,7 +300,7 @@ export async function EntryDetail({
           <Link
             href={`/${division}/contact${entry.service ? "?service=" + entry.service : ""}`}
           >
-            프로젝트 문의 →
+            {division === "marketing" ? "운영 문의하기 →" : "프로젝트 문의 →"}
           </Link>
         </div>
       </article>

@@ -21,13 +21,15 @@ import {
   marketingExamples,
 } from "./primitives";
 import { InquiryBridge } from "./inquiry-bridge";
+import { divisionServices } from "@/lib/content";
+import { servicePlans } from "@/lib/service-plans";
 
-const MAP = {
-  integrated: "통합 마케팅 (월 200만 원부터 · VAT 별도)",
-  sns: "SNS 대행 운영 (월 100만 원 · VAT 별도)",
-  ai: "AI 인플루언서 마케팅 (월 100만 원 · VAT 별도)",
-  seo: "SEO·AEO·GEO",
-};
+const MAP = Object.fromEntries(
+  divisionServices("marketing").map((service) => [
+    service.id === "ai-influencer" ? "ai" : service.id,
+    `${service.name} (${servicePlans[service.id].price}${service.id === "seo" ? " · 맞춤 견적" : " · VAT 별도"})`,
+  ]),
+);
 const G = [
   ["service", "원하는 서비스 *", [...Object.values(MAP), "아직 모르겠어요"]],
   [
@@ -185,10 +187,13 @@ class Component extends GuideLogic {
                   {"시장, 경쟁사, 운영 방향 분석 자료"}
                 </strong>
                 {"를 정리해 드립니다"}
-                <br />
-                {
-                  "통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회를 제공합니다 범위와 운영 실비는 견적에서 확인합니다"
-                }
+              </p>
+              <p className="t-body mk-contact-note">
+                통합·SNS·AI 인플루언서 월 운영 계약에는 기본 소개·문의 사이트
+                구축 또는 리뉴얼 1회를 제공합니다
+              </p>
+              <p className="t-body mk-contact-note">
+                범위와 운영 실비는 견적에서 확인합니다
               </p>
               <div
                 style={{
