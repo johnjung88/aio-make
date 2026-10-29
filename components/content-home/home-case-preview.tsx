@@ -31,7 +31,7 @@ export function HomeCasePreview({ id, onClose }: { id: ContentServiceId | null; 
   return <dialog ref={ref} className="ch-case-dialog" onClose={onClose} aria-labelledby="home-case-title">
     <div className="ch-case-bar"><h2 className="cs-t-h3" id="home-case-title">{media?.caseLabel ?? "제작 작품"}</h2><button className="cs-btn cs-btn--ghost" type="button" onClick={onClose} aria-label="작품 보기 닫기">닫기 ×</button></div>
     {media && id ? <div className="ch-case-body">
-      {media.video ? <><video key={media.video} src={media.video} poster={media.poster} controls playsInline muted preload="metadata" aria-label={media.alt} onError={() => setFailed(media.video!)} />{failed === media.video ? <div role="status"><p>영상을 불러오지 못했어요 작품 설명과 제작 분야를 확인할 수 있습니다</p><button type="button" className="cs-btn" onClick={() => { setFailed(null); ref.current?.querySelector("video")?.load(); }}>다시 시도</button></div> : null}</> : <div className="ch-case-images"><HomeArtwork id={id} /></div>}
+      {media.video ? <><video key={media.video} src={media.video} poster={media.poster} controls playsInline muted preload="metadata" aria-label={media.alt} onError={() => setFailed(media.video!)} />{failed === media.video ? <div role="status"><p>영상을 불러오지 못했어요{"\n"}작품 설명과 제작 분야를 확인할 수 있습니다</p><button type="button" className="cs-btn" onClick={() => { setFailed(null); ref.current?.querySelector("video")?.load(); }}>다시 시도</button></div> : null}</> : <div className="ch-case-images"><HomeArtwork id={id} /></div>}
       <p className="cs-t-small">{media.caseNote}</p>
       {service ? <Link className="cs-link" href={service.href}>{service.label} 서비스 보기 →</Link> : null}
     </div> : null}

@@ -1,4 +1,5 @@
 "use client";
+import { BUSINESS_INFO, BUSINESS_EMAIL } from "@/lib/business-info";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
@@ -164,12 +165,10 @@ export function Footer() {
           </nav>
         </div>
         <div className="guide-business-info">
-          <span>사업자명: 에이아이오 (AIO) | 사업자번호: 682-01-02748</span>
-          <span>통신판매업신고: 제 2026-경기김포-3656 호</span>
-          <span>주소: 경기도 김포시 대곶면 흥신로67</span>
-          <a href="mailto:AIOMAKE2023@GMAIL.COM">
-            이메일: AIOMAKE2023@GMAIL.COM
-          </a>
+          {BUSINESS_INFO.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+          <a href={`mailto:${BUSINESS_EMAIL}`}>이메일: {BUSINESS_EMAIL}</a>
           <span className="guide-copyright">
             © 2026 AIO MAKE · All rights reserved
           </span>

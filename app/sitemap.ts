@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/privacy",
     "/terms",
     "/content/references",
+    "/guides/project-checklist",
   ];
   for (const d of divisions) {
     if (d.id === "development") {

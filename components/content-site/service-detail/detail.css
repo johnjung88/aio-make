@@ -17,3 +17,5 @@
 .sd :is(.sd-lead,.sd-hero-description,.sd-faq-list details p,.sd-prepare-grid p){white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;text-wrap:pretty}
 .sd :is(h1,h2,h3,h4){word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance}
 .sd .sd-unit-note{margin-top:24px;max-width:52em}
+
+.sd-price-grid .sd-plan-title{font:inherit;font-weight:600;margin:0 0 12px}

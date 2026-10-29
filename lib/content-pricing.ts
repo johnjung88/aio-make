@@ -215,7 +215,7 @@ function group(
 
 /** 웹툰 서비스 페이지의 모션코믹 주석(서비스 명세 1-5 문장). */
 const WEBTOON_NOTE =
-  "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다 웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요";
+  "모션코믹 단독 상품은 완성된 웹툰을 영상으로 편집하는 구성입니다\n웹툰 신규 제작이 필요하면 함께 제작 세트를 선택하세요";
 
 export function pricingPlans(id: ContentServiceId): ServicePricing {
   switch (id) {

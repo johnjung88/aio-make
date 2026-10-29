@@ -356,8 +356,9 @@ export function ServiceHeroSample({ service }: { service: string }) {
       <p className={styles.footnote}>{sampleNotices[service]}</p>
       <noscript>
         <p className={styles.footnote}>
-          현재는 초기 화면입니다 선택 체험은 JavaScript를 켜면 사용할 수
-          있습니다
+          {
+            "현재는 초기 화면입니다\n선택 체험은 JavaScript를 켜면 사용할 수 있습니다"
+          }
         </p>
       </noscript>
     </div>

@@ -279,6 +279,10 @@ export async function EntryDetail({
           {entry.body
             .split(/\n\s*\n/)
             .filter(Boolean)
+            .filter(
+              (text, index) =>
+                index !== 0 || text.trim() !== entry.summary.trim(),
+            )
             .map((text, i) => (
               <p className="t-body" key={i}>
                 {text}

@@ -1,11 +1,17 @@
 import { siteDescription, siteName, siteUrl } from "./metadata.ts";
+import {
+  BUSINESS_LEGAL_NAME,
+  BUSINESS_TAX_ID,
+  BUSINESS_EMAIL,
+  BUSINESS_ADDRESS,
+} from "./business-info.ts";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": siteUrl + "/#organization",
   name: siteName,
-  legalName: "에이아이오 (AIO)",
+  legalName: BUSINESS_LEGAL_NAME,
   alternateName: ["에이아이오 메이크", "AIO-MAKE"],
   url: siteUrl + "/",
   logo: {
@@ -15,14 +21,11 @@ export const organizationSchema = {
     height: 512,
   },
   description: siteDescription,
-  email: "AIOMAKE2023@GMAIL.COM",
-  taxID: "682-01-02748",
+  email: BUSINESS_EMAIL,
+  taxID: BUSINESS_TAX_ID,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "대곶면 흥신로67",
-    addressLocality: "김포시",
-    addressRegion: "경기도",
-    addressCountry: "KR",
+    ...BUSINESS_ADDRESS,
   },
 };
 

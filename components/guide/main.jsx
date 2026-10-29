@@ -101,8 +101,8 @@ class Component extends GuideLogic {
             <div className="main-hero-bg">
               <GuideImage
                 id="main-hero-bg"
-                placeholder="히어로 배경 이미지 (2560×1440 이상, 어두운 톤)"
-                src="public/hero/hero-bg.jpg"
+                alt=""
+                src="/images/guide/hero/hero-bg-seo2.webp"
               />
             </div>
             <div className="main-hero-shade"></div>

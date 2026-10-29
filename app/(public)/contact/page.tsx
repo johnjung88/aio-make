@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { serviceById } from "@/lib/content";
 export const metadata = pageMetadata(
   "프로젝트 문의",
-  "목표와 필요한 작업을 알려주세요 범위를 확인한 뒤 견적과 일정을 안내합니다",
+  "목표와 필요한 작업을 알려주세요\n범위를 확인한 뒤 견적과 일정을 안내합니다",
   "/contact",
 );
 export default async function Contact({
@@ -27,11 +27,11 @@ export default async function Contact({
       </div>
       <div className="container contact-layout">
         <aside className="contact-notes">
-          <h3>
+          <h2>
             정리되지 않은 아이디어도
             <br />
             괜찮습니다
-          </h3>
+          </h2>
           <ul>
             <li>요청 내용과 현재 상황을 먼저 확인합니다</li>
             <li>진행 범위, 결과물, 견적과 납기를 합의합니다</li>

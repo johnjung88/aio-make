@@ -30,29 +30,29 @@ class Component extends GuideLogic {
           no: "01",
           title: "상담",
           en: "CONSULT",
-          ai: "문의 내용 정리 · 견적 초안",
-          pro: "범위 · 일정 · 비용 확정",
+          description: "필요한 결과물과 사용처를 확인합니다",
+          confirm: "작업 범위·일정·비용을 함께 정합니다",
         },
         {
           no: "02",
           title: "기획",
           en: "PLAN",
-          ai: "레퍼런스 조사 · 구조 초안",
-          pro: "방향 결정 · 기획안 확정",
+          description: "자료와 참고 방향을 살펴봅니다",
+          confirm: "전달할 메시지와 화면 구성을 정합니다",
         },
         {
           no: "03",
           title: "제작",
           en: "MAKE",
-          ai: "시안 생성 · 반복 작업",
-          pro: "디테일 완성 · 품질 검수",
+          description: "합의한 기획을 바탕으로 제작합니다",
+          confirm: "문구·화면·기능을 확인하고 다듬습니다",
         },
         {
           no: "04",
           title: "운영",
           en: "CARE",
-          ai: "성과 데이터 · 리포트 정리",
-          pro: "수정 대응 · 개선 제안",
+          description: "결과물과 사용 방법을 정리합니다",
+          confirm: "추가 수정과 운영 지원 범위는 견적에서 확인합니다",
         },
       ],
       roles: [
@@ -565,9 +565,10 @@ class Component extends GuideLogic {
                     textWrap: "balance",
                   }}
                 >
-                  {"모든 단계에 "}
-                  <span style={{ color: "#6B4DFF" }}>{"AI와 전문가"}</span>
-                  {"가 함께합니다"}
+                  {"범위를 정하고, "}
+                  <span style={{ color: "#6B4DFF" }}>
+                    {"완성까지 확인합니다"}
+                  </span>
                 </h2>
                 <p
                   className="t-lead"
@@ -578,7 +579,7 @@ class Component extends GuideLogic {
                   }}
                 >
                   {
-                    "AI는 시간이 드는 일을 줄이고, 결정과 마무리는 전문가가 맡습니다"
+                    "목적과 자료를 확인하고, 기획·제작·검수를 거쳐 결과물을 전달합니다"
                   }
                 </p>
               </div>
@@ -639,58 +640,18 @@ class Component extends GuideLogic {
                       <div
                         style={{
                           marginTop: "auto",
-                          display: "flex",
-                          flexDirection: "column",
+                          padding: "18px 28px",
+                          borderTop: "1px solid #DAD8D1",
+                          display: "grid",
+                          gap: "6px",
                         }}
                       >
-                        <div
-                          style={{
-                            background: "#0D0D12",
-                            color: "#fff",
-                            padding: "18px 28px",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "6px",
-                          }}
-                        >
-                          <span
-                            className="eyebrow"
-                            style={{
-                              color: "#A99BFF",
-                            }}
-                          >
-                            {"AI"}
-                          </span>
-                          <span
-                            className="t-small"
-                            style={{
-                              color: "#E6E6EA",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {s.ai}
-                          </span>
-                        </div>
-                        <div
-                          style={{
-                            background: "#6B4DFF",
-                            color: "#fff",
-                            padding: "18px 28px 24px",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "6px",
-                          }}
-                        >
-                          <span className="eyebrow">{"EXPERT"}</span>
-                          <span
-                            className="t-small"
-                            style={{
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {s.pro}
-                          </span>
-                        </div>
+                        <p className="t-small" style={{ margin: 0 }}>
+                          {s.description}
+                        </p>
+                        <p className="t-small" style={{ margin: 0 }}>
+                          {s.confirm}
+                        </p>
                       </div>
                     </div>
                   </React.Fragment>

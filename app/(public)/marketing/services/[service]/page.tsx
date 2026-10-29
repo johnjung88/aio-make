@@ -1,3 +1,4 @@
+import { marketingOffers } from "@/lib/marketing-offers";
 import { publicEntries } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
@@ -70,6 +71,7 @@ export default async function ServicePage({
           description: s.description,
           provider: { "@id": siteUrl + "/#organization" },
           serviceType: s.name,
+          offers: marketingOffers(s.id),
           areaServed: { "@type": "Country", name: "대한민국" },
           url: siteUrl + "/" + d.path + "/services/" + s.id,
         }}

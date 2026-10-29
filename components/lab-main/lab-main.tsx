@@ -858,7 +858,7 @@ export function LabMain() {
                   setCopyStatus("선택 내용을 복사했습니다");
                 } catch {
                   setCopyStatus(
-                    "복사하지 못했습니다 위 내용을 직접 선택해 복사해주세요",
+                    "복사하지 못했습니다\n위 내용을 직접 선택해 복사해주세요",
                   );
                 }
               }}
