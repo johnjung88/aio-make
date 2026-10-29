@@ -20,6 +20,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (d.id === "development") {
       paths.push(
         "/lab",
+        "/lab/insights",
+        "/lab/references",
+        "/lab/insights/website-pages",
+        "/lab/insights/shopping-mall-scope",
+        "/lab/insights/automation-inputs",
         ...divisionServices("development").map((s) => "/lab/services/" + s.id),
       );
       continue;
