@@ -260,3 +260,39 @@
     height: 320px;
   }
 }
+
+/* Keep all embedded lab sample selections consistent without changing shared samples. */
+.choiceSamples label:has(> input[type="checkbox"]) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #6b4dff60;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.choiceSamples label:has(> input[type="checkbox"])::before {
+  content: "+";
+  color: #9c87ff;
+  flex-shrink: 0;
+}
+.choiceSamples label:has(> input[type="checkbox"]:checked) {
+  background: #6b4dff22;
+  border-color: #6b4dff;
+}
+.choiceSamples label:has(> input[type="checkbox"]:checked)::before {
+  content: "✓";
+}
+.choiceSamples label > input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.choiceSamples label:has(> input[type="checkbox"]:focus-visible) {
+  outline: 3px solid #b9aeff;
+  outline-offset: 3px;
+}

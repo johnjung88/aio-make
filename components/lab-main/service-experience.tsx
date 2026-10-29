@@ -53,7 +53,7 @@ export function ServiceExperience({
     };
   }, []);
   return (
-    <div ref={host} className={sampleStyles.shell}>
+    <div ref={host} className={`${sampleStyles.shell} ${styles.choiceSamples}`}>
       {sample === "website" ? (
         <Architecture active={active} onConsult={setSummary} />
       ) : sample === "shopping-mall" ? (

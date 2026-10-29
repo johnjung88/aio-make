@@ -74,7 +74,7 @@ const outputs: Record<Id, [string, string, string][]> = {
   "shopping-mall": [
     ["logo", "기본 로고", "몰 머리와 파비콘에 맞춘 형태"],
     ["banner", "메인 배너", "PC와 모바일 크기"],
-    ["check", "적용 확인", "화면과 이동 경로 점검표"],
+    ["check", "상품 상세", "상품 사진과 옵션이 이어지는 화면"],
   ],
   automation: [
     ["result", "결과 파일", "일치와 확인 필요를 나눈 시트"],

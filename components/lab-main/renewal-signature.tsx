@@ -336,36 +336,47 @@ function ShopPreview({
   mood: string;
   category: string;
 }) {
+  const image = full
+    ? `/lab-renewal/shop-${["내추럴", "모던 블랙", "파스텔"].indexOf(mood)}-${["의류", "식품", "생활용품"].indexOf(category)}.webp`
+    : "/lab-renewal/shop-0-2.webp";
   return (
-    <div className={styles.mock} data-mood={full ? mood : ""}>
-      <div className={styles.mockHeader}>
-        <strong>{full ? brand || "모그레빗" : "LOGO"}</strong>
-        <small>COLLECTION</small>
+    <div className={styles.shopScreen} data-mood={full ? mood : ""}>
+      <div className={styles.shopNav}>
+        <strong>{full ? brand || "모그레빗" : "LIVING EDIT"}</strong>
+        <span>COLLECTION / STORY</span>
       </div>
-      <div className={styles.mockBanner}>
-        {full && (
-          <Image
-            src={`/lab-renewal/shop-${["내추럴", "모던 블랙", "파스텔"].indexOf(mood)}-${["의류", "식품", "생활용품"].indexOf(category)}.webp`}
-            width={1600}
-            height={600}
-            sizes="(max-width: 900px) 90vw, 45vw"
-            alt={`${mood} ${category} 배너 사진`}
-          />
-        )}
+      <div className={styles.shopPhoto}>
+        <Image
+          src={image}
+          width={1600}
+          height={600}
+          sizes="(max-width: 900px) 90vw, 45vw"
+          alt={
+            full
+              ? `${mood} ${category} 컬렉션 사진`
+              : "기본 템플릿의 생활 소품 컬렉션 사진"
+          }
+        />
+      </div>
+      <div className={styles.shopEditorial}>
+        <small>
+          {full ? "YOUR BRAND COLLECTION" : "THE EVERYDAY COLLECTION"}
+        </small>
         <strong>
           {full
-            ? `${brand || "모그레빗"}\n${category} 컬렉션`
-            : "TEMPLATE\n원래 디자인"}
+            ? `${brand || "모그레빗"}의 ${category} 컬렉션`
+            : "취향이 머무는 일상"}
         </strong>
+        <p>
+          {full
+            ? "브랜드에 맞춘 로고와 배너를 적용한 화면"
+            : "완성된 템플릿의 사진과 구성을 그대로 옮기는 화면"}
+        </p>
+        <div className={styles.shopMenu}>
+          <span>컬렉션 살펴보기 ↗</span>
+          <span>브랜드 이야기 ↗</span>
+        </div>
       </div>
-      <div className={styles.mockTiles}>
-        {["NEW", "BEST", "STORY"].map((s) => (
-          <div key={s}>{s}</div>
-        ))}
-      </div>
-      <p>
-        {full ? "브랜드 로고·배너 제작과 적용" : "원래 디자인 그대로 옮깁니다"}
-      </p>
     </div>
   );
 }
@@ -570,12 +581,12 @@ export function CsvRunner() {
                       setPhase(0);
                     }}
                   />
-                  {s}
+                  <span>{s}</span>
                 </label>
               ))}
             </div>
           </fieldset>
-          <label>
+          <label className={styles.checkChip}>
             <input
               type="checkbox"
               checked={normalize}
@@ -584,8 +595,8 @@ export function CsvRunner() {
                 setResult(null);
                 setPhase(0);
               }}
-            />{" "}
-            규칙 바꾸기 · 주문번호 앞 # 자동 제거
+            />
+            <span>규칙 바꾸기 · 주문번호 앞 # 자동 제거</span>
           </label>
           <button
             className={styles.button}
@@ -739,8 +750,10 @@ export function RolePreview() {
                       )
                     }
                   />
-                  {s}
-                  {i === 7 ? " · 별도 협의" : ""}
+                  <span>
+                    {s}
+                    {i === 7 ? " · 별도 협의" : ""}
+                  </span>
                 </label>
               ))}
             </div>
@@ -767,20 +780,25 @@ export function RolePreview() {
                     </th>
                     {roleNames.map((r, j) => (
                       <td key={r}>
-                        <input
-                          type="checkbox"
-                          aria-label={r + " " + name}
-                          checked={permissions[j][i]}
-                          onChange={() =>
-                            setPermissions(
-                              permissions.map((p, n) =>
-                                n === j
-                                  ? p.map((v, k) => (k === i ? !v : v))
-                                  : p,
-                              ),
-                            )
-                          }
-                        />
+                        <label className={styles.permissionChip}>
+                          <input
+                            type="checkbox"
+                            aria-label={r + " " + name}
+                            checked={permissions[j][i]}
+                            onChange={() =>
+                              setPermissions(
+                                permissions.map((p, n) =>
+                                  n === j
+                                    ? p.map((v, k) => (k === i ? !v : v))
+                                    : p,
+                                ),
+                              )
+                            }
+                          />
+                          <span aria-hidden="true">
+                            {permissions[j][i] ? "허용" : "제한"}
+                          </span>
+                        </label>
                       </td>
                     ))}
                   </tr>

@@ -71,29 +71,28 @@ export function LabMain() {
   return (
     <main className={styles.page}>
       <section className={`${styles.hero} ${styles.homeHero}`}>
-        <p className={styles.eyebrow}>AIO MAKE DEVELOPMENT LAB</p>
-        <h1>
-          생각한 기능이
-          <br />
-          <em>작동하는 화면으로</em>
-        </h1>
-        <p className={styles.lead}>
-          웹사이트부터 쇼핑몰과 업무 자동화까지
-          <br />
-          사업에 필요한 화면과 흐름을 만듭니다
-        </p>
-        <div className={styles.actions}>
-          <a className={styles.button} href="#services">
-            서비스 살펴보기 ↓
-          </a>
-          <Link className={styles.secondary} href={labContactPath()}>
-            제작 상담 ↗
-          </Link>
+        <div className={styles.homeHeroCopy}>
+          <p className={styles.eyebrow}>AIO MAKE DEVELOPMENT LAB</p>
+          <h1>
+            생각한 기능이
+            <br />
+            <em>작동하는 화면으로</em>
+          </h1>
+          <p className={styles.lead}>
+            웹사이트부터 쇼핑몰과 업무 자동화까지
+            <br />
+            사업에 필요한 화면과 흐름을 만듭니다
+          </p>
+          <div className={styles.actions}>
+            <a className={styles.button} href="#services">
+              서비스 살펴보기 ↓
+            </a>
+            <Link className={styles.secondary} href={labContactPath()}>
+              제작 상담 ↗
+            </Link>
+          </div>
         </div>
         <HomeScene />
-        <p className={styles.note}>
-          가상 브랜드 기능 시연 · 층을 누르면 공간 설명이 바뀝니다
-        </p>
       </section>
       <section className={styles.section} id="services">
         <SectionHead
@@ -112,11 +111,11 @@ export function LabMain() {
                     <Image
                       src={
                         s.id === "website"
-                          ? "/lab/clinic-pc.webp"
+                          ? "/lab-renewal/card-website.webp"
                           : `/lab-renewal/card-${s.id}.webp`
                       }
                       width={1200}
-                      height={s.id === "website" ? 1000 : 900}
+                      height={750}
                       sizes="(max-width: 600px) 90vw, 30vw"
                       alt={`${s.name} 작동 화면 전체 예시`}
                       loading="lazy"
@@ -129,7 +128,7 @@ export function LabMain() {
                   <p>{s.description}</p>
                   {s.id === "website" && (
                     <p className={styles.note}>
-                      가상 브랜드 화면 · AI 생성 인물 포함
+                      활판재 · 가상 브랜드 샘플 사이트 실행 화면
                     </p>
                   )}
                   <span className={styles.cardLink}>
@@ -154,7 +153,7 @@ export function LabMain() {
         <div className={styles.homeGallery}>
           {gallery.map(([name, title, body, features]) => (
             <article className={styles.card} key={name}>
-              <DeviceVisual name={name} mobileOnly={name === "clinic"} />
+              <DeviceVisual name={name} />
               <h3>{title}</h3>
               <p>
                 {body}
