@@ -155,6 +155,7 @@ class Component extends GuideLogic {
               <GuideLink
                 className="main-division"
                 href="/lab"
+                {...newTabProps}
                 context="main"
               >
                 <div className="main-division-media">
@@ -178,6 +179,7 @@ class Component extends GuideLogic {
                   </span>
                   <span className="main-division-cta">{"개발 상담하기 →"}</span>
                 </div>
+                <NewTabHint />
               </GuideLink>
               <GuideLink
                 className="main-division"

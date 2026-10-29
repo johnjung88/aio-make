@@ -1872,3 +1872,36 @@
     right: 0;
   }
 }
+
+/* W-L4: consistent sample headings and service navigation */
+.spaceHeading {
+  text-align: center;
+}
+.spaceHeading h2,
+.spaceHeading p {
+  margin-inline: auto;
+}
+.stage [data-lab-interaction-hint] {
+  margin: 12px auto 20px;
+}
+.serviceDetailLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-element);
+  grid-column: 1 / -1;
+  font-size: var(--text-small);
+}
+.serviceDetailLinks a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.finalCta {
+  text-align: center;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-element);
+}

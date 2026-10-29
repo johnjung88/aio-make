@@ -20,6 +20,8 @@ import { SampleDialog } from "@/components/lab-samples/dialog";
 import sampleStyles from "@/components/lab-samples/samples.module.css";
 import styles from "./lab-main.module.css";
 import { Prism } from "./prism";
+import { InteractionHint } from "@/components/lab-samples/interaction-hint";
+import { labServicePath, labServices } from "@/lib/lab-services";
 const BuildingScene = dynamic(
   () => import("@/components/lab-samples/building-scene"),
   {
@@ -144,6 +146,7 @@ const process = [
   ],
 ];
 export function LabMain() {
+  const [interacted, setInteracted] = useState(false);
   const [selected, setSelected] = useState<Service>("website");
   const [visited, setVisited] = useState<Service[]>(["website"]);
   const [phase, setPhase] = useState(0);
@@ -168,7 +171,6 @@ export function LabMain() {
   const [changed, setChanged] = useState("서비스");
   const current = services.find((s) => s.id === selected)!;
   const info = FLOOR_INFO[Math.max(0, floor)];
-  const contactHref = `/content/contact?${new URLSearchParams({ service: selected, industry: current.industry, source: "lab" })}`;
   useEffect(() => {
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(motion.matches);
@@ -227,39 +229,12 @@ export function LabMain() {
       <a className={styles.skip} href="#experience">
         체험으로 바로가기
       </a>
-      <header className={styles.header}>
-        <Link href="/" aria-label="AIO 메인" className={styles.brand}>
-          <Image
-            className={styles.brandMark}
-            src="/brand/aio-logo.png"
-            width={64}
-            height={64}
-            alt=""
-            priority
-          />
-          <Image
-            src="/brand/aio-agency-logo-final/aio-agency-site-lockup-dark.svg"
-            width={160}
-            height={68}
-            alt="AIO"
-            priority
-          />
-        </Link>
-        <nav aria-label="랩 탐색">
-          <a href="#services">서비스</a>
-          <a href="#gallery">샘플 갤러리</a>
-          <a href="#process">제작 과정</a>
-          <Link href={contactHref}>
-            제작 상담 <ArrowUpRight size={16} />
-          </Link>
-        </nav>
-      </header>
       <noscript>
         <section className={styles.noScript}>
           <p>JavaScript가 꺼져 있어 체험 대신 제작 상담으로 안내합니다</p>
           <a
             className={styles.cta}
-            href="/content/contact?service=website&industry=architecture&source=lab"
+            href="/contact?service=website&industry=architecture&source=lab"
           >
             웹사이트 제작 상담하기
           </a>
@@ -272,7 +247,7 @@ export function LabMain() {
           </div>
           <div className={styles.intro}>
             <p className={styles.eyebrow}>
-              A PRISM TO PRODUCT / AIO DEVELOPMENT
+              01 / A PRISM TO PRODUCT / AIO DEVELOPMENT
             </p>
             <h1 id="lab-title">
               생각한 기능이
@@ -312,6 +287,16 @@ export function LabMain() {
               </label>
             ))}
           </fieldset>
+          <div
+            className={styles.serviceDetailLinks}
+            aria-label="서비스 상세 안내"
+          >
+            {labServices.map((s) => (
+              <Link key={s.id} href={labServicePath(s.id)}>
+                {s.name} 자세히 보기 ↗
+              </Link>
+            ))}
+          </div>
           <div className={styles.codePanel}>
             <div className={styles.panelTitle}>
               <Code2 size={18} />
@@ -367,6 +352,7 @@ export function LabMain() {
                     aria-label="설정 층 선택"
                     value={floor}
                     onChange={(e) => {
+                      setInteracted(true);
                       setFloor(Number(e.target.value));
                       setRoom(0);
                       setPhase(1);
@@ -384,6 +370,7 @@ export function LabMain() {
                     type="checkbox"
                     checked={exploded}
                     onChange={(e) => {
+                      setInteracted(true);
                       setExploded(e.target.checked);
                       setPhase(1);
                       setChanged("층 분리");
@@ -396,6 +383,7 @@ export function LabMain() {
                     type="checkbox"
                     checked={plan}
                     onChange={(e) => {
+                      setInteracted(true);
                       setPlan(e.target.checked);
                       setPhase(1);
                       setChanged("평면");
@@ -479,7 +467,10 @@ export function LabMain() {
                     <FloorPlan
                       floor={Math.max(0, floor)}
                       room={room}
-                      onRoom={setRoom}
+                      onRoom={(value) => {
+                        setInteracted(true);
+                        setRoom(value);
+                      }}
                     />
                     <p>
                       {reduced
@@ -499,11 +490,22 @@ export function LabMain() {
                     active={active && selected === "website"}
                     brandLighting
                     assemblyPhase={phase}
-                    onFloor={setFloor}
-                    onRoom={setRoom}
+                    onInteract={() => setInteracted(true)}
+                    onFloor={(value) => {
+                      setFloor(value);
+                      setRoom(0);
+                    }}
+                    onRoom={(value) => {
+                      setInteracted(true);
+                      setRoom(value);
+                    }}
                   />
                 )}
               </div>
+              <InteractionHint
+                interacted={interacted}
+                plan={plan || reduced || sceneStatus === "failed"}
+              />
               <div className={styles.floorButtons}>
                 {["전체", "1F", "2F", "3F"].map((s, i) => (
                   <button
@@ -511,6 +513,7 @@ export function LabMain() {
                     type="button"
                     aria-pressed={floor === i - 1}
                     onClick={() => {
+                      setInteracted(true);
                       setFloor(i - 1);
                       setRoom(0);
                       setPhase(2);
@@ -562,6 +565,15 @@ export function LabMain() {
                 hidden={selected !== "shopping-mall"}
                 className={`${sampleStyles.shell} ${styles.sample}`}
               >
+                <div className={styles.spaceHeading}>
+                  <p>CONCEPT COMMERCE / 가상 패션</p>
+                  <h2>
+                    스타일을 고르고
+                    <br />
+                    선택을 확인하세요
+                  </h2>
+                  <span>착용 컷과 옵션을 고르면 주문 요약이 바뀌어요</span>
+                </div>
                 <FashionSample onConsult={consult} />
               </div>
             )}
@@ -570,6 +582,15 @@ export function LabMain() {
                 hidden={selected !== "automation"}
                 className={`${sampleStyles.shell} ${styles.sample}`}
               >
+                <div className={styles.spaceHeading}>
+                  <p>CONCEPT WORKSPACE / 가상 업무</p>
+                  <h2>
+                    데이터를 입력하고
+                    <br />
+                    처리 결과를 살펴보세요
+                  </h2>
+                  <span>샘플을 실행하면 조건에 따른 결과가 나뉘어요</span>
+                </div>
                 <LeadsSample
                   active={active && selected === "automation"}
                   onConsult={consult}
@@ -597,10 +618,9 @@ export function LabMain() {
           <div className={styles.serviceCards}>
             {services.map((s, i) => (
               <a
-                href="#experience"
+                href={labServicePath(s.id)}
                 key={s.id}
                 data-card-service={s.id}
-                onClick={() => choose(s.id)}
               >
                 <div className={`${styles.serviceArt} ${styles[`art${i}`]}`}>
                   <Image
@@ -803,50 +823,16 @@ export function LabMain() {
             ))}
           </div>
         </section>
-        <section className={styles.section} aria-labelledby="stack-title">
-          <div className={styles.sectionHeading}>
-            <div>
-              <p className={styles.eyebrow}>06 / FROM SCREEN TO OPERATIONS</p>
-              <h2 id="stack-title">화면부터 운영까지</h2>
-            </div>
-            <p>
-              기능의 목적에 맞춰 기술을 고릅니다
-              <br />
-              실제 운영 연동 범위는 상담에서 정합니다
-            </p>
-          </div>
-          <div className={styles.stack}>
-            {[
-              ["Next.js", "화면과 입력", "페이지와 선택값을 연결하는 기반"],
-              ["GSAP", "전환과 흐름", "장면과 요소의 움직임을 구성하는 도구"],
-              [
-                "Three.js",
-                "공간과 탐색",
-                "층과 공간을 직접 선택하는 입체 화면",
-              ],
-            ].map(([name, title, description]) => (
-              <article key={name}>
-                <Code2 size={32} />
-                <h3>{name}</h3>
-                <strong>{title}</strong>
-                <p>{description}</p>
-              </article>
-            ))}
-            <div className={styles.finalCta}>
-              <p>지금, 당신의 아이디어를</p>
-              <h3>작동하는 화면으로</h3>
-              <button type="button" onClick={makeSummary}>
-                선택한 구성으로 상담하기 <ArrowUpRight />
-              </button>
-            </div>
+        <section className={styles.section} aria-label="제작 상담">
+          <div className={styles.finalCta}>
+            <p>지금, 당신의 아이디어를</p>
+            <h3>작동하는 화면으로</h3>
+            <button type="button" onClick={makeSummary}>
+              선택한 구성으로 상담하기 <ArrowUpRight />
+            </button>
           </div>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <Link href="/">AIO / A PRISM TO PRODUCT</Link>
-        <p>웹사이트 · 쇼핑몰 · 자동화</p>
-        <Link href={contactHref}>제작 상담 ↗</Link>
-      </footer>
       <div className={`${sampleStyles.shell} ${styles.dialogHost}`}>
         <SampleDialog
           open={Boolean(summary)}
@@ -881,7 +867,7 @@ export function LabMain() {
             </button>
             <p role="status">{copyStatus}</p>
             <Link
-              href={`/content/contact?${new URLSearchParams({ service: selected, industry: summaryIndustry ?? current.industry, source: "lab", message: summary })}`}
+              href={`/contact?${new URLSearchParams({ service: selected, industry: summaryIndustry ?? current.industry, source: "lab", message: summary })}`}
               className={styles.cta}
             >
               기존 문의로 이동 <ArrowUpRight size={18} />

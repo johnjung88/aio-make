@@ -5,6 +5,7 @@ import {
   NEW_TAB_HINT,
   contentLinkProps,
   isContentHref,
+  isLabHref,
   newTabProps,
 } from "../lib/new-tab.ts";
 
@@ -42,9 +43,28 @@ test("content hrefs open in a new tab from the main site only", () => {
     contentLinkProps("/content/services/ad", "/content/services/webtoon"),
     {},
   );
-  // Marketing and lab links are unchanged.
+  // Lab links open from other areas, while internal lab navigation stays put.
   assert.deepEqual(contentLinkProps("/marketing", "/"), {});
-  assert.deepEqual(contentLinkProps("/lab", "/"), {});
+  for (const href of [
+    "/lab",
+    "/lab/",
+    "/lab?x=1",
+    "/lab#experience",
+    "/lab/services/website",
+  ]) {
+    assert.ok(isLabHref(href));
+    assert.deepEqual(contentLinkProps(href, "/"), newTabProps);
+    assert.deepEqual(contentLinkProps(href, "/lab/services/automation"), {});
+  }
+  for (const href of [
+    "/labs",
+    "/laboratory",
+    "https://example.com/lab",
+    "#lab",
+  ]) {
+    assert.ok(!isLabHref(href));
+    assert.deepEqual(contentLinkProps(href, "/"), {});
+  }
 });
 
 test("header and footer 컨텐츠 links carry target=_blank, rel noopener and the hint", async () => {
@@ -65,7 +85,7 @@ test("header and footer 컨텐츠 links carry target=_blank, rel noopener and th
   }
 });
 
-test("main page content links open in a new tab; marketing and lab cards do not", async () => {
+test("main page content and lab links open in a new tab; marketing stays in place", async () => {
   const main = await read("components/guide/main.jsx");
   const card = (href) => {
     const start = main.indexOf(`href="${href}"`);
@@ -74,7 +94,9 @@ test("main page content links open in a new tab; marketing and lab cards do not"
   };
   assert.match(card("/content"), /\{\.\.\.newTabProps\}/);
   assert.match(card("/content"), /<NewTabHint \/>/);
-  for (const href of ["/marketing", "/lab"]) {
+  assert.match(card("/lab"), /\{\.\.\.newTabProps\}/);
+  assert.match(card("/lab"), /<NewTabHint \/>/);
+  for (const href of ["/marketing"]) {
     assert.doesNotMatch(card(href), /newTabProps|NewTabHint|_blank/, href);
   }
 

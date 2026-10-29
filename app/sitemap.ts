@@ -17,7 +17,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   for (const d of divisions) {
     if (d.id === "development") {
-      paths.push("/lab");
+      paths.push(
+        "/lab",
+        ...divisionServices("development").map((s) => "/lab/services/" + s.id),
+      );
       continue;
     }
     paths.push(

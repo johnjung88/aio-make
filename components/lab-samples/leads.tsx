@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import {
   ArrowDownToLine,
   ArrowRight,
@@ -47,14 +46,14 @@ const STEPS = [
     tool: "CUSTOMER MASTER",
   },
   {
-    label: "Jev 선별",
+    label: "조건별 선별",
     detail: "조건과 판단 이유를 남깁니다",
-    tool: "JEV / SAMPLE RULES",
+    tool: "SAMPLE RULES",
   },
   {
     label: "컨택 초안",
     detail: "정해진 가이드로 준비합니다",
-    tool: "HERMES · ASIDE",
+    tool: "CONTACT DRAFT",
   },
   {
     label: "잠재고객 관리",
@@ -899,33 +898,20 @@ export function LeadsSample({
         <span>BUILT AROUND YOUR WORKFLOW</span>
         <div>
           {[
-            "Hermes",
-            "Aside",
-            "Claude",
-            "Codex",
-            "Grok Bot",
-            "Jev",
-            "카카오톡",
+            "입력 자료",
+            "고객 원장",
+            "선별 조건",
+            "연락 초안",
+            "후속 일정",
           ].map((name) => (
             <span key={name} className={styles.toolBrand}>
-              {["Hermes", "Aside", "Claude", "Codex", "카카오톡"].includes(
-                name,
-              ) && (
-                <Image
-                  src={`/lab-samples/${name === "카카오톡" ? "kakaotalk" : name.toLowerCase()}.${name === "Hermes" || name === "Aside" ? "png" : "svg"}`}
-                  alt=""
-                  unoptimized
-                  width="21"
-                  height="21"
-                />
-              )}
               {name}
             </span>
           ))}
         </div>
         <p>
-          화면은 샘플 규칙으로 동작합니다 · 실제 도구 연결과 역할은 프로젝트에
-          맞춰 정합니다
+          화면은 샘플 규칙으로 동작합니다 · 실제 도구 연결과 처리 범위는
+          상담에서 함께 정합니다
         </p>
       </div>
       <button
@@ -933,7 +919,7 @@ export function LeadsSample({
         className={styles.leadConsult}
         onClick={() =>
           onConsult(
-            `관심 서비스: 영업 리드 자동화\n흐름: RAW → 고객원장 중복대조 → Jev 선별·이유 → 가이드 기반 컨택 → 잠재고객 관리\n샘플 입력: ${inputs.length}건 / 중복 ${counts.duplicates}건 / 선별 ${counts.qualified}건 / 보류 ${counts.held}건\n조건: 최소 예산 ${rules.minBudget}만원, 기준 ${rules.minScore}점, 서비스 ${rules.service}\n필요 결과: 고객원장, 판단 이유, 컨택 초안, 후속 일정`,
+            `관심 서비스: 영업 리드 자동화\n흐름: RAW → 고객원장 중복대조 → 조건별 선별·이유 → 가이드 기반 컨택 → 잠재고객 관리\n샘플 입력: ${inputs.length}건 / 중복 ${counts.duplicates}건 / 선별 ${counts.qualified}건 / 보류 ${counts.held}건\n조건: 최소 예산 ${rules.minBudget}만원, 기준 ${rules.minScore}점, 서비스 ${rules.service}\n필요 결과: 고객원장, 판단 이유, 컨택 초안, 후속 일정`,
           )
         }
       >
@@ -1013,8 +999,7 @@ export function LeadsSample({
             <span>선별 지연·재시도 상황 시연</span>
           </label>
           <p>
-            조건은 다음 실행부터 적용됩니다 · 실제 Jev 모델 호출이 아닌 샘플
-            규칙입니다
+            조건은 다음 실행부터 적용됩니다 · 이 화면은 샘플 규칙으로 동작합니다
           </p>
           <button
             type="button"

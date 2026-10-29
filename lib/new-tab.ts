@@ -1,8 +1,5 @@
-// Main-site links into the content category (/content, /content/services/*)
-// open the content site in a new tab (user request 2026-10-14). Links inside
-// the content area keep same-tab navigation, and marketing/lab links are
-// unchanged. Every new-tab link carries the same screen-reader hint
-// (components/new-tab-hint.tsx).
+// Main-site links into content and lab open a new tab with NewTabHint
+// Each area keeps its own internal navigation in the same tab
 export const NEW_TAB_HINT = "새 탭에서 열림";
 
 export const newTabProps = {
@@ -14,11 +11,15 @@ export function isContentHref(href: string): boolean {
   return /^\/content(?:[/?#]|$)/.test(href);
 }
 
-// currentPath: the page the link is rendered on. Inside /content the link
-// stays in the same tab.
+export function isLabHref(href: string): boolean {
+  return /^\/lab(?:[/?#]|$)/.test(href);
+}
 export function contentLinkProps(
   href: string,
   currentPath = "/",
 ): Partial<typeof newTabProps> {
-  return isContentHref(href) && !isContentHref(currentPath) ? newTabProps : {};
+  return (isContentHref(href) && !isContentHref(currentPath)) ||
+    (isLabHref(href) && !isLabHref(currentPath))
+    ? newTabProps
+    : {};
 }

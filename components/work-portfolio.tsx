@@ -1,6 +1,6 @@
 import { displayCopy } from "@/lib/display-copy";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/lab-entry-link";
 import {
   divisions,
   divisionServices,

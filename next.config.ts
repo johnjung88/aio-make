@@ -21,7 +21,8 @@ const config: NextConfig = {
     // Retire old lab pages while allowing the lab's own static image assets.
     return [
       {
-        source: "/lab/:path((?!.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
+        source:
+          "/lab/:path((?!services/(?:website|shopping-mall|automation|program)(?:/|$)|.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
         destination: "/lab",
         permanent: true,
       },

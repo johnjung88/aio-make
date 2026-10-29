@@ -12,6 +12,7 @@ import {
   Sun,
 } from "lucide-react";
 import styles from "./samples.module.css";
+import { InteractionHint } from "./interaction-hint";
 
 const BuildingScene = dynamic(() => import("./building-scene"), {
   ssr: false,
@@ -200,6 +201,10 @@ export function ArchitectureSample({
   const [night, setNight] = useState(false);
   const [plan, setPlan] = useState(false);
   const [resetToken, setReset] = useState(0);
+  const [interacted, setInteracted] = useState(false);
+  const [sceneStatus, setSceneStatus] = useState<
+    "loading" | "ready" | "failed"
+  >("loading");
   const current = FLOOR_INFO[Math.max(0, floor)];
   const selectFloor = (i: number) => {
     setFloor(i);
@@ -261,13 +266,23 @@ export function ArchitectureSample({
       <div
         className={`${styles.archStage} ${night ? styles.night : ""}`}
         data-reveal
+        onClickCapture={(event) => {
+          if (
+            event.target instanceof Element &&
+            event.target.closest("button, input, [role=button]")
+          )
+            setInteracted(true);
+        }}
       >
         <div className={styles.archScene}>
           {plan ? (
             <FloorPlan
               floor={Math.max(0, floor)}
               room={room}
-              onRoom={setRoom}
+              onRoom={(value) => {
+                setInteracted(true);
+                setRoom(value);
+              }}
             />
           ) : (
             <BuildingScene
@@ -280,13 +295,10 @@ export function ArchitectureSample({
               active={active}
               onFloor={selectFloor}
               onRoom={setRoom}
+              onInteract={() => setInteracted(true)}
+              onStatus={setSceneStatus}
             />
           )}
-          <span className={styles.sceneInstruction}>
-            {plan
-              ? "공간을 눌러 설명을 확인하세요"
-              : "드래그로 시점을 바꾸고 건물을 눌러보세요"}
-          </span>
         </div>
         <div className={styles.archTools}>
           <button
@@ -434,6 +446,10 @@ export function ArchitectureSample({
           </label>
         </div>
       </div>
+      <InteractionHint
+        interacted={interacted}
+        plan={plan || sceneStatus === "failed"}
+      />
       <section className={styles.archStory} id="architecture-story">
         <div data-reveal>
           <span className={styles.eyebrow}>THE PROJECT, EXPLAINED</span>

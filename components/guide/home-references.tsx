@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link from "@/components/lab-entry-link";
 import { WorkCard } from "@/components/work-card";
 import type { DivisionId } from "@/lib/content";
 import type { WorkItem } from "@/lib/work-catalog";
