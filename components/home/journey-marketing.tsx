@@ -99,8 +99,11 @@ function Num({ value, animate }: { value: string; animate: boolean }) {
   const match = NUMBER.exec(value);
   const [text, setText] = useState(() =>
     animate && match
-      ? formatCount(0, (match[1].split(".")[1] ?? "").length, match[1].includes(",")) +
-        match[2]
+      ? formatCount(
+          0,
+          (match[1].split(".")[1] ?? "").length,
+          match[1].includes(","),
+        ) + match[2]
       : value,
   );
   useEffect(() => {
@@ -240,6 +243,17 @@ function SearchScene({ animate }: { animate: boolean }) {
           </li>
         ))}
       </ul>
+      <section className="wj-mk-plan-preview">
+        <p className="wj-mk-sub">{calendarScene.title}</p>
+        <ul>
+          {calendarScene.rows.map((row) => (
+            <li key={row.day}>
+              <b>{row.day}</b>
+              <span>{row.title}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
@@ -478,7 +492,8 @@ function Fill({
   state: "idle" | "done" | "active";
   sceneIndex: number;
 }) {
-  if (state !== "active") return <i className="wj-mk-fill" data-state={state} />;
+  if (state !== "active")
+    return <i className="wj-mk-fill" data-state={state} />;
   const { from, to } = stageProgress(sceneIndex);
   const duration = marketingScenes[sceneIndex].duration / 1000;
   return (
@@ -612,6 +627,18 @@ export function JourneyMarketing() {
       </div>
 
       <div className="wj-mk-stage" onTouchStart={() => setHeld(true)}>
+        <p
+          className="wj-mk-output"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span>
+            {marketingStages[stage].num} {marketingStages[stage].title}
+          </span>
+          <b>{marketingStages[stage].task}</b>
+        </p>
+        <p className="wj-mk-example">{marketingCopy.example}</p>
         <div
           className="wj-mk-phone"
           role="group"
@@ -687,11 +714,14 @@ export function JourneyMarketing() {
               </span>
               <span className="wj-mk-task">{item.task}</span>
               <span className="wj-mk-desc">
-                {item.descLines?.length ? item.descLines.map((line, lineIndex, lines) => (
-                  <span className="wj-mk-desc-line" key={line}>
-                    {line}{lineIndex < lines.length - 1 ? " " : ""}
-                  </span>
-                )) : item.desc}
+                {item.descLines?.length
+                  ? item.descLines.map((line, lineIndex, lines) => (
+                      <span className="wj-mk-desc-line" key={line}>
+                        {line}
+                        {lineIndex < lines.length - 1 ? " " : ""}
+                      </span>
+                    ))
+                  : item.desc}
               </span>
               <span className="wj-mk-rowfill" aria-hidden="true">
                 <Fill state={stageState(index)} sceneIndex={sceneIndex} />
@@ -700,6 +730,19 @@ export function JourneyMarketing() {
           </li>
         ))}
       </ol>
+      <noscript>
+        <ol className="wj-mk-static">
+          {marketingStages.map((item) => (
+            <li key={item.id}>
+              <b>
+                {item.num} {item.title}
+              </b>
+              <p>{item.task}</p>
+              <p>{item.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </noscript>
     </div>
   );
 }

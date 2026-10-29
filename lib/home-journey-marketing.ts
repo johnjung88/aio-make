@@ -101,6 +101,7 @@ export const marketingBrand = {
 };
 
 export const marketingCopy = {
+  example: "화면 구성 예시",
   label: "마케팅 운영 흐름",
   sectionAria: "마케팅 4단계 시뮬레이션",
   stepsAria: "마케팅 단계",

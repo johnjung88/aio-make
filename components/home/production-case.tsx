@@ -102,7 +102,7 @@ export function ProductionCase() {
       </div>
 
       <Link className="wjpc-link t-small" href="/content" {...newTabProps}>
-        콘텐츠 제작 사례와 가격 보기 <span aria-hidden="true">↗</span>
+        컨텐츠 제작 사례와 가격 보기 <span aria-hidden="true">↗</span>
         <NewTabHint />
       </Link>
     </section>

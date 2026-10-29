@@ -28,9 +28,9 @@ html:has(.guide-public) {
   position: static;
 }
 .service-navigation {
-  background: #0d0d12;
-  border-bottom: 1px solid #34343e;
-  box-shadow: 0 8px 20px #0002;
+  background: var(--ink);
+  border-bottom: 1px solid var(--legacy-color-32);
+  box-shadow: 0 8px 20px var(--legacy-color-33);
 }
 .service-navigation-rail {
   max-width: var(--container);
@@ -58,22 +58,22 @@ html:has(.guide-public) {
   place-items: center;
   width: 48px;
   height: 48px;
-  border: 1px solid #676175;
+  border: 1px solid var(--legacy-color-34);
   border-radius: 50%;
-  background: #1c1c22;
-  color: #f4f3ef;
-  box-shadow: 0 6px 24px #0004;
+  background: var(--legacy-color-35);
+  color: var(--paper);
+  box-shadow: 0 6px 24px var(--legacy-color-36);
   cursor: pointer;
 }
 .back-to-top[hidden] {
   display: none;
 }
 .back-to-top:hover {
-  background: #6b4dff;
+  background: var(--violet);
 }
 .back-to-top:focus-visible,
 .showcase-video-play:focus-visible {
-  outline: 3px solid #b2a3ff;
+  outline: 3px solid var(--legacy-color-37);
   outline-offset: 5px;
 }
 .service-detail .service-hero-copy {
@@ -129,57 +129,57 @@ html:has(.guide-public) {
   margin-top: 16px;
 }
 .marketing-contact-dark {
-  background: #0d0d12;
-  color: #f4f3ef;
+  background: var(--ink);
+  color: var(--paper);
   color-scheme: dark;
 }
 .marketing-contact-dark :is(input, textarea) {
-  border-color: #575763 !important;
-  caret-color: #b2a3ff;
+  border-color: var(--legacy-color-38) !important;
+  caret-color: var(--legacy-color-37);
 }
 .marketing-contact-dark :is(input, textarea)::placeholder {
-  color: #a5a5b3;
+  color: var(--legacy-color-39);
   opacity: 1;
 }
 .marketing-contact-dark :is(input, textarea, button):focus-visible {
-  outline: 2px solid #b2a3ff !important;
+  outline: 2px solid var(--legacy-color-37) !important;
   outline-offset: 4px;
 }
 .marketing-contact-dark [aria-pressed="true"] {
-  border-color: #b2a3ff !important;
-  box-shadow: 0 0 0 1px #b2a3ff;
+  border-color: var(--legacy-color-37) !important;
+  box-shadow: 0 0 0 1px var(--legacy-color-37);
 }
 .marketing-contact-dark .guide-form-note,
 .marketing-contact-dark .guide-form-note a {
-  color: #c5bedf;
+  color: var(--legacy-color-40);
 }
 .marketing-contact-dark .guide-form-error {
-  color: #ffd6dc;
-  background: #361b27;
-  border-color: #c7748a;
+  color: var(--legacy-color-41);
+  background: var(--legacy-color-42);
+  border-color: var(--legacy-color-43);
 }
 .marketing-contact-dark .guide-form-error a {
-  color: #fff;
+  color: var(--renewal-white);
 }
 .marketing-contact-dark [aria-invalid="true"] {
-  border-color: #ff9cae !important;
+  border-color: var(--legacy-color-44) !important;
 }
 .marketing-contact-dark input:-webkit-autofill {
-  -webkit-text-fill-color: #f4f3ef;
-  box-shadow: inset 0 0 0 1000px #202029;
+  -webkit-text-fill-color: var(--paper);
+  box-shadow: inset 0 0 0 1000px var(--legacy-color-45);
 }
 .showcase-video {
   width: 100%;
   max-width: 1440px;
   margin: auto;
   padding: clamp(56px, 6vw, 96px) clamp(20px, 4vw, 56px);
-  color: #f4f3ef;
+  color: var(--paper);
 }
 .showcase-video-heading {
   margin-bottom: 32px;
 }
 .showcase-video-heading > span {
-  color: #b2a3ff;
+  color: var(--legacy-color-37);
   font-size: var(--type-caption-size);
   letter-spacing: 0.16em;
   font-weight: 600;
@@ -191,7 +191,7 @@ html:has(.guide-public) {
   letter-spacing: var(--type-h2-tracking);
 }
 .showcase-video-heading p {
-  color: #b5b5c2;
+  color: var(--legacy-color-46);
   line-height: 1.7;
   margin: 0;
 }
@@ -199,9 +199,9 @@ html:has(.guide-public) {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid #34343e;
+  border: 1px solid var(--legacy-color-32);
   border-radius: 12px;
-  background: #0d0d12;
+  background: var(--ink);
 }
 .showcase-video-frame video {
   display: block;
@@ -218,10 +218,10 @@ html:has(.guide-public) {
   align-items: center;
   gap: 14px;
   padding: 12px 22px 12px 12px;
-  border: 1px solid #ffffff60;
+  border: 1px solid var(--legacy-color-47);
   border-radius: 50px;
-  background: #0d0d12ed;
-  color: #fff;
+  background: var(--legacy-color-48);
+  color: var(--renewal-white);
   text-align: left;
   white-space: nowrap;
   font-size: 16px;
@@ -233,16 +233,16 @@ html:has(.guide-public) {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #6b4dff;
+  background: var(--violet);
 }
 .showcase-video-play small {
   display: block;
   margin-top: 4px;
   font-size: var(--type-caption-size);
-  color: #ccc8da;
+  color: var(--legacy-color-49);
 }
 .showcase-video-error {
-  color: #ffcad3;
+  color: var(--lavender);
 }
 .showcase-video-error a {
   text-decoration: underline;
@@ -285,7 +285,7 @@ html:has(.guide-public) {
 
 .showcase-video-brand {
   max-width: none;
-  background: #0d0d12;
+  background: var(--ink);
 }
 .showcase-video-brand > * {
   max-width: 1328px;
@@ -315,12 +315,12 @@ html:has(.guide-public) {
  * Colors come from tokens, section spacing from --section-y. Type values come
  * from the role classes (.t-*), so only layout and color are set here. */
 .guide-main {
-  --main-text-2: #3a3a42;
-  --main-text-3: #6e6e78;
-  --main-line: #dad8d1;
-  --main-on-dark-2: #d6d6dc;
-  --main-on-dark-3: #c9c9d1;
-  --main-card-bg: #141418;
+  --main-text-2: var(--form-muted);
+  --main-text-3: var(--form-muted);
+  --main-line: var(--form-line);
+  --main-on-dark-2: var(--renewal-text);
+  --main-on-dark-3: var(--renewal-muted);
+  --main-card-bg: var(--renewal-panel);
 }
 .guide-main .main-shell {
   min-height: 100vh;
@@ -339,7 +339,7 @@ html:has(.guide-public) {
   position: relative;
   min-height: min(780px, calc(100svh - 70px));
   background: var(--ink);
-  color: #fff;
+  color: var(--renewal-white);
   display: flex;
   overflow: hidden;
 }
@@ -403,13 +403,13 @@ html:has(.guide-public) {
 .guide-main .main-btn--solid,
 .guide-main .main-btn--solid:hover {
   background: var(--violet);
-  color: #fff;
+  color: var(--renewal-white);
   padding: 18px 28px;
 }
 .guide-main .main-btn--line,
 .guide-main .main-btn--line:hover {
-  border: 1.5px solid #fff;
-  color: #fff;
+  border: 1.5px solid var(--renewal-white);
+  color: var(--renewal-white);
   padding: 16.5px 26px;
 }
 
@@ -435,7 +435,7 @@ html:has(.guide-public) {
   display: flex;
   flex-direction: column;
   background: var(--ink);
-  color: #fff;
+  color: var(--renewal-white);
 }
 .guide-main .main-division-media {
   aspect-ratio: 16 / 10;
@@ -475,7 +475,7 @@ html:has(.guide-public) {
 
 /* OUR STANDARD: closing line, centered */
 .guide-main .main-standard {
-  background: #fff;
+  background: var(--renewal-white);
   border-bottom: 1px solid var(--main-line);
 }
 .guide-main .main-standard-inner {
@@ -544,7 +544,7 @@ html:has(.guide-public) {
 /* Contact */
 .guide-main .main-contact {
   background: var(--violet);
-  color: #fff;
+  color: var(--renewal-white);
 }
 .guide-main .main-contact-inner {
   padding-block: var(--section-y);

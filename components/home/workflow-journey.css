@@ -3,12 +3,12 @@
  * layout, color and motion. Width/gutter/section spacing reuse W2 tokens. */
 
 .wj {
-  --wj-bg: #ffffff;
-  --wj-tint: #f0edfa;
+  --wj-bg: var(--renewal-white);
+  --wj-tint: var(--form-soft);
   --wj-ink: var(--ink);
-  --wj-text-2: #3a3a42;
-  --wj-text-3: #5f5f69;
-  --wj-line: #dad8d1;
+  --wj-text-2: var(--form-muted);
+  --wj-text-3: var(--form-muted);
+  --wj-line: var(--form-line);
   --wj-accent: var(--violet);
   --wj-step-gap: 64px;
   --wj-lead-gap: 32px;

@@ -29,7 +29,7 @@ export function FloatingContact() {
   useEffect(() => {
     if (!suppressNearInline || typeof IntersectionObserver === "undefined") return;
     const targets = Array.from(document.querySelectorAll(path === "/"
-      ? ".wjpc, #contact"
+      ? "#work, .wjpc, #contact"
       : "[data-inline-contact], #contact, .ch-cta"));
     const visible = new Set<Element>();
     targets.forEach(target => {
@@ -71,6 +71,7 @@ export function FloatingContact() {
     <>
       <nav
         className="floating-contact"
+        data-home={path === "/" ? "true" : undefined}
         aria-label="빠른 상담"
         hidden={keyboard || (suppressNearInline && inlineVisible)}
       >
