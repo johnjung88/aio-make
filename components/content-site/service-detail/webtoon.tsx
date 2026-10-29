@@ -199,7 +199,7 @@ export function WebtoonDetail() {
         <div>
           <div className="wt-decision"><span>이야기의 중심</span><strong>구단의 성장과 사람의 변화</strong></div>
           <div className="wt-decision"><span>1화에서 보여줄 내용</span><strong>축구에 대한 관심이 구단 운영에 대한 관심으로 이어지는 과정</strong></div>
-          <p className="wt-note">의뢰할 때도 알릴 내용과 읽을 사람부터 정리합니다 그 목적에 필요한 이야기와 분량을 제안합니다</p>
+          <p className="wt-note">의뢰할 때도 알릴 내용과 읽을 사람부터 정리합니다<br />그 목적에 필요한 이야기와 분량을 제안합니다</p>
         </div>
       </div>
     </DetailSection>
@@ -282,7 +282,7 @@ export function WebtoonDetail() {
         <article><span>02</span><h3>인물과 상황 기획</h3><p>내용을 전달할 캐릭터와 이야기가 벌어질 장면을 정합니다</p></article>
         <article><span>03</span><h3>원고와 컷 구성</h3><p>사용처와 분량에 맞춰 대사와 장면 순서를 구체화합니다</p></article>
       </div>
-      <div className="wt-brand-example"><DetailImage src={`${A}yofree-outing-01.webp`} alt="요프리 제품의 사용 상황을 이야기로 풀어낸 별도 브랜드 웹툰 시안" caption="YoFree 브랜드 웹툰 · 고객 제안용 제작 시안" zoom /><div><span className="wt-tag">브랜드 웹툰 제작 시안</span><h3>YoFree<br />제품의 사용 상황을 이야기로</h3><p>제품과 사용 장면을 웹툰으로 풀어낸 별도 제작 예시입니다 고객 제안용 시안으로, 채택·납품·게시를 의미하지 않습니다</p><CaseCta caseId="CASE-YOFREE-OUTING" caseTitle="YoFree 브랜드 웹툰 시안" entryPoint="brand-example">브랜드 웹툰으로 상담</CaseCta></div></div>
+      <div className="wt-brand-example"><DetailImage src={`${A}yofree-outing-01.webp`} alt="요프리 제품의 사용 상황을 이야기로 풀어낸 별도 브랜드 웹툰 시안" caption="YoFree 브랜드 웹툰 · 고객 제안용 제작 시안" zoom /><div><span className="wt-tag">브랜드 웹툰 제작 시안</span><h3>YoFree<br />제품의 사용 상황을 이야기로</h3><p>제품과 사용 장면을 웹툰으로 풀어낸 별도 제작 예시입니다<br />고객 제안용 시안으로, 채택·납품·게시를 의미하지 않습니다</p><CaseCta caseId="CASE-YOFREE-OUTING" caseTitle="YoFree 브랜드 웹툰 시안" entryPoint="brand-example">브랜드 웹툰으로 상담</CaseCta></div></div>
     </DetailSection>
     <WebtoonDetailReader selection={viewer} onClose={() => setViewer(null)} />
   </div>;

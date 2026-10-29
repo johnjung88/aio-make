@@ -41,7 +41,7 @@ export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
     images: ["/content-renewal-20261019/webtoon-05.webp", "/content-renewal-20261019/webtoon-21.webp"],
     layout: "comic",
     caseLabel: "《1억의 구단주》 · 웹툰 제작",
-    caseNote: "자체 기획 IP의 실제 완성 페이지입니다 원고와 장면 구성을 정리해 인물의 행동과 대사를 컷으로 옮겼습니다",
+    caseNote: "자체 기획 IP의 실제 완성 페이지입니다\n원고와 장면 구성을 정리해 인물의 행동과 대사를 컷으로 옮겼습니다",
   },
   animation: {
     slotId: "home-card-animation",
@@ -52,7 +52,7 @@ export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
     images: ["/content-renewal-20261019/yofree-character-02.webp", "/content-renewal-20261019/yofree-character-03.webp", "/content-renewal-20261019/yofree-character-06.webp"],
     layout: "poses",
     caseLabel: "요프리 · 캐릭터 활용",
-    caseNote: "제품을 캐릭터로 만들고 표정과 포즈를 정리한 실제 제작물입니다 캐릭터와 모션을 설계하는 작업 방식을 보여줍니다",
+    caseNote: "제품을 캐릭터로 만들고 표정과 포즈를 정리한 실제 제작물입니다\n캐릭터와 모션을 설계하는 작업 방식을 보여줍니다",
   },
   "ai-influencer": {
     slotId: "home-card-ai-influencer",
@@ -63,7 +63,7 @@ export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
     images: ["/content-renewal-20261019/ai-face.webp", "/content-renewal-20261019/ai-full.webp"],
     layout: "persona",
     caseLabel: "87언니 · AI 가상인물",
-    caseNote: "자체 기획 AI 가상인물의 얼굴과 전신 기준 이미지입니다 인물의 외형과 스타일을 먼저 정리하고 이미지 제작에 활용합니다",
+    caseNote: "자체 기획 AI 가상인물의 얼굴과 전신 기준 이미지입니다\n인물의 외형과 스타일을 먼저 정리하고 이미지 제작에 활용합니다",
   },
   "motion-graphics": {
     slotId: "home-card-motion-graphics",
@@ -90,11 +90,16 @@ export const homeCardMedia: Record<ContentServiceId, HomeMediaSlot> = {
     tag: "세로 광고 영상",
     alt: "C Plus 제품을 소개하는 세로 광고 영상",
     caseLabel: "C Plus · SNS 광고 영상",
-    caseNote: "제품을 짧은 세로 화면에 담은 실제 제작 영상입니다 도입 장면부터 제품 소개까지 화면의 흐름을 확인할 수 있습니다",
+    caseNote: "제품을 짧은 세로 화면에 담은 실제 제작 영상입니다\n도입 장면부터 제품 소개까지 화면의 흐름을 확인할 수 있습니다",
   },
 };
 
 /* 캐러셀 자동 넘김 값(레퍼런스 dist/app.js updateCarousel 관측값). CSS와 테스트가 같은 수치를 쓴다 */
+export const homeStartingMotionFrames = [2, 10, 25].map((time) => ({
+  time,
+  src: `/service-detail-v14/bwl-motion-frame-${String(time).padStart(2, "0")}.webp`,
+}));
+
 export const homeCarouselMotion = {
   /** 이미지 카드가 머무는 시간 */
   dwellMs: 3500,
@@ -184,8 +189,8 @@ export const contentHomeProcess: ContentHomeStep[] = [
 
 export const contentHomeCta = {
   eyebrow: "CONTACT",
-  title: "만들고 싶은 콘텐츠를\n이야기해 주세요",
-  lead: "용도와 채널, 필요한 분량을 알려주세요 제작 범위와 견적을 안내합니다",
+  title: "만들고 싶은 컨텐츠를\n이야기해 주세요",
+  lead: "용도와 채널, 필요한 분량을 알려주세요\n제작 범위와 견적을 안내합니다",
   button: "상담 신청",
   href: "/content/contact",
 };

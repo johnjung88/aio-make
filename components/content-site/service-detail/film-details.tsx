@@ -160,7 +160,7 @@ function MotionLibrary() {
       <div className="fd-work-grid">
         {visibleWorks.map((work) => <FilmCard key={work.id} work={work} />)}
       </div>
-      <p className="fd-footnote">같은 프로젝트의 표현안은 각각의 제작 방식으로 소개합니다 별도 고객 수나 납품 실적으로 합산하지 않습니다</p>
+      <p className="fd-footnote">같은 프로젝트의 표현안은 각각의 제작 방식으로 소개합니다<br />별도 고객 수나 납품 실적으로 합산하지 않습니다</p>
     </>
   );
 }
@@ -199,7 +199,7 @@ export function MotionGraphicsDetail() {
         "사용할 채널과 길이에 맞춰 화면 구성·리듬 협의",
       ]} />
 
-      <DetailSection id="case" eyebrow="FEATURED CASE · DR’S SECRET" title={"여러 자료를,\n하나의 브랜드 흐름으로"} lead="제품 사진과 제형 영상, 로고와 공식 문구에서 출발했습니다 브랜드 씰의 모양을 화면의 공통 규칙으로 정하고 30초 모션으로 연결했습니다">
+      <DetailSection id="case" eyebrow="FEATURED CASE · DR’S SECRET" title={"여러 자료를,\n하나의 브랜드 흐름으로"} lead="제품 사진과 제형 영상, 로고와 공식 문구에서 출발했습니다\n브랜드 씰의 모양을 화면의 공통 규칙으로 정하고 30초 모션으로 연결했습니다">
         <div className="fd-case-summary">
           <div><span>제작 범위</span><p>기획·화면 구성·타이포·도형 모션·기존 사진과 영상 편집</p></div>
           <div><span>실제 결과</span><p>30초 · 1920×1080 · 16:9 · 60fps</p></div>
@@ -207,16 +207,16 @@ export function MotionGraphicsDetail() {
         </div>
         <div className="fd-process-intro">
           <div className="fd-process-number" aria-hidden="true">01—03</div>
-          <div><h3>자료를 고르고,<br />화면의 규칙을 정합니다</h3><p>이 사례는 기존 제품 자료를 활용했습니다 무엇을 새로 구성하고 어떤 자료를 편집했는지 구분해 볼 수 있습니다</p></div>
+          <div><h3>자료를 고르고,<br />화면의 규칙을 정합니다</h3><p>이 사례는 기존 제품 자료를 활용했습니다<br />무엇을 새로 구성하고 어떤 자료를 편집했는지 구분해 볼 수 있습니다</p></div>
         </div>
         <div className="fd-process-cards">
           <article><span className="fd-step">01 · 입력자료</span><h3>브랜드가 가진 자료</h3><ul><li>로고와 브랜드 씰</li><li>제품·제형의 실제 사진과 영상</li><li>공식 브랜드 문구</li></ul><p>사진과 영상의 제품, 원래 문구를 확인하고 사용할 소재를 골랐습니다</p></article>
-          <article><span className="fd-step">02 · 기획 선택</span><h3>씰의 모양을 모티프로</h3><p className="fd-quote">선 → 영상 창 → 씰</p><p>브랜드 씰의 길고 둥근 형태를 화면의 창으로 확장했습니다 제품별 번호 대신 한 브랜드의 인상을 이어가는 구성을 선택했습니다</p></article>
-          <article><span className="fd-step">03 · 화면과 움직임</span><h3>문구와 제품을 보여주는 순서</h3><p>창의 크기와 위치, 타이포 등장, 여러 제품 창의 리듬을 정했습니다 마지막에는 영상 창이 다시 브랜드 씰로 닫힙니다</p></article>
+          <article><span className="fd-step">02 · 기획 선택</span><h3>씰의 모양을 모티프로</h3><p className="fd-quote">선 → 영상 창 → 씰</p><p>브랜드 씰의 길고 둥근 형태를 화면의 창으로 확장했습니다<br />제품별 번호 대신 한 브랜드의 인상을 이어가는 구성을 선택했습니다</p></article>
+          <article><span className="fd-step">03 · 화면과 움직임</span><h3>문구와 제품을 보여주는 순서</h3><p>창의 크기와 위치, 타이포 등장, 여러 제품 창의 리듬을 정했습니다<br />마지막에는 영상 창이 다시 브랜드 씰로 닫힙니다</p></article>
         </div>
       </DetailSection>
 
-      <DetailSection eyebrow="STILL TO MOTION" title={"같은 모티프가\n한 편을 이어갑니다"} lead="같은 최종 영상에서 추출한 화면입니다 정지 화면의 배치가 본편에서는 어떻게 열리고, 이동하고, 마무리되는지 비교해 보세요">
+      <DetailSection eyebrow="STILL TO MOTION" title={"같은 모티프가\n한 편을 이어갑니다"} lead="같은 최종 영상에서 추출한 화면입니다\n정지 화면의 배치가 본편에서는 어떻게 열리고, 이동하고, 마무리되는지 비교해 보세요">
         <div className="fd-frame-grid">
           <DetailImage src={`${media}bwl-motion-frame-02.webp`} alt="DR’s Secret 모션 2초, 브랜드 형태 안에 제형 영상이 열린 화면" caption="02초 · 브랜드 형태 안에 제형 영상 열기" />
           <DetailImage src={`${media}bwl-motion-frame-10.webp`} alt="같은 모션 10초, 크게 확장한 둥근 영상 창 속 손과 제형" caption="10초 · 손과 제형에 집중하는 큰 영상 창" />
@@ -224,7 +224,7 @@ export function MotionGraphicsDetail() {
         </div>
         <div className="fd-result-film">
           <DetailVideo src={`${media}bwl-brand-motion.mp4`} poster={`${media}poster-bwl-brand-motion.webp`} label="DR’s Secret 브랜드 모션그래픽 본편 · 사용자 확정 v1 · 30초" />
-          <div className="fd-result-copy"><h3>실제 30초 본편</h3><p>제품·타이포·도형과 실사 자료를 한 화면의 리듬으로 편집했습니다 이 작품의 자료 선택과 표현을 참고해 원하는 모션의 범위를 상담할 수 있습니다</p><CaseCta caseId="CASE-BWL-BRAND-MOTION" caseTitle="DR’s Secret 브랜드 모션그래픽" entryPoint="service-featured-case">이런 모션 제작 문의</CaseCta></div>
+          <div className="fd-result-copy"><h3>실제 30초 본편</h3><p>제품·타이포·도형과 실사 자료를 한 화면의 리듬으로 편집했습니다<br />이 작품의 자료 선택과 표현을 참고해 원하는 모션의 범위를 상담할 수 있습니다</p><CaseCta caseId="CASE-BWL-BRAND-MOTION" caseTitle="DR’s Secret 브랜드 모션그래픽" entryPoint="service-featured-case">이런 모션 제작 문의</CaseCta></div>
         </div>
       </DetailSection>
 
@@ -275,7 +275,7 @@ export function BrandFilmDetail() {
         "회사 소개·제품 브랜드·웹페이지 등 사용할 목적 협의",
       ]} />
 
-      <DetailSection id="case" eyebrow="FEATURED CASE · DR’S SECRET" title={"한 사람의 하루에\n브랜드의 메시지를 담다"} lead="87언니 AI 가상인물이 아침과 저녁, 주말의 장면에서 제품을 소개하는 브랜드 광고 시안입니다 같은 인물과 제품 활용 장면을 한 편의 이야기로 묶었습니다">
+      <DetailSection id="case" eyebrow="FEATURED CASE · DR’S SECRET" title={"한 사람의 하루에\n브랜드의 메시지를 담다"} lead="87언니 AI 가상인물이 아침과 저녁, 주말의 장면에서 제품을 소개하는 브랜드 광고 시안입니다\n같은 인물과 제품 활용 장면을 한 편의 이야기로 묶었습니다">
         <div className="fd-case-summary">
           <div><span>기획 방향</span><p>한 사람의 여러 일상과<br />브랜드의 제품 소개 연결</p></div>
           <div><span>실제 제작 범위</span><p>기획·AI 인물/장면 제작·기존 제품영상 장면 재편집·자막</p></div>
@@ -284,19 +284,19 @@ export function BrandFilmDetail() {
         <div className="fd-brand-message">
           <p className="fd-kicker">THE MESSAGE · 실제 기획 원고 v02</p>
           <blockquote>내 피부에 맞춘 루틴,<br />닥터 시크릿</blockquote>
-          <p>기획에서 정한 마지막 문구입니다 서로 다른 시간의 인물 장면과 제품을 이 메시지로 모았습니다</p>
+          <p>기획에서 정한 마지막 문구입니다<br />서로 다른 시간의 인물 장면과 제품을 이 메시지로 모았습니다</p>
         </div>
       </DetailSection>
 
-      <DetailSection eyebrow="MESSAGE TO FILM" title={"원고의 문구가\n장면의 역할이 됩니다"} lead="같은 브랜드 시안의 실제 기획 원고와 본편 화면을 연결했습니다 아침의 도입, 세 제품의 사용 장면, 인물과 브랜드로 마무리하는 구조입니다">
+      <DetailSection eyebrow="MESSAGE TO FILM" title={"원고의 문구가\n장면의 역할이 됩니다"} lead="같은 브랜드 시안의 실제 기획 원고와 본편 화면을 연결했습니다\n아침의 도입, 세 제품의 사용 장면, 인물과 브랜드로 마무리하는 구조입니다">
         <div className="fd-brand-story">
-          <article><DetailImage src={`${media}bwl-brand-frame-02.webp`} alt="브랜드 광고 2초, 아침 창가의 87언니와 도입 문구" caption="같은 본편의 02초 화면" /><div><span className="fd-step">01 · 도입</span><h3>일상에서 이야기를 시작</h3><blockquote>뭘 써야 하나,<br />고민하지 마세요</blockquote><p>아침 창가와 저녁 욕실의 인물을 도입에 배치했습니다 기획 원고의 질문과 다음 문구가 이어집니다</p></div></article>
+          <article><DetailImage src={`${media}bwl-brand-frame-02.webp`} alt="브랜드 광고 2초, 아침 창가의 87언니와 도입 문구" caption="같은 본편의 02초 화면" /><div><span className="fd-step">01 · 도입</span><h3>일상에서 이야기를 시작</h3><blockquote>뭘 써야 하나,<br />고민하지 마세요</blockquote><p>아침 창가와 저녁 욕실의 인물을 도입에 배치했습니다<br />기획 원고의 질문과 다음 문구가 이어집니다</p></div></article>
           <article><DetailImage src={`${media}bwl-brand-frame-10.webp`} alt="같은 브랜드 광고 10초, 클렌저와 C Plus, 아쿠아의 세로 패널" caption="같은 본편의 10초 화면" /><div><span className="fd-step">02 · 핵심</span><h3>제품과 사용 장면을 연결</h3><blockquote>내 피부에 맞춘<br />제품과 사용법</blockquote><p>클렌저 1·C Plus 세럼 7S·아쿠아 부스트 세럼 10의 기존 제품영상 장면을 세로 패널로 재편집했습니다</p></div></article>
-          <article><DetailImage src={`${media}bwl-brand-frame-25.webp`} alt="같은 브랜드 광고 25초, 같은 인물이 세 제품을 보여주는 마무리 패널" caption="같은 본편의 25초 화면" /><div><span className="fd-step">03 · 마무리</span><h3>같은 인물과 브랜드로 모으기</h3><blockquote>내 피부에 맞춘 루틴,<br />닥터 시크릿</blockquote><p>인물이 제품을 든 장면과 로고를 마지막 화면에 연결했습니다 여러 제품이 하나의 브랜드 소개로 마무리됩니다</p></div></article>
+          <article><DetailImage src={`${media}bwl-brand-frame-25.webp`} alt="같은 브랜드 광고 25초, 같은 인물이 세 제품을 보여주는 마무리 패널" caption="같은 본편의 25초 화면" /><div><span className="fd-step">03 · 마무리</span><h3>같은 인물과 브랜드로 모으기</h3><blockquote>내 피부에 맞춘 루틴,<br />닥터 시크릿</blockquote><p>인물이 제품을 든 장면과 로고를 마지막 화면에 연결했습니다<br />여러 제품이 하나의 브랜드 소개로 마무리됩니다</p></div></article>
         </div>
         <div className="fd-result-film">
           <DetailVideo src={`${media}bwl-brand-ad.mp4`} poster={`${media}poster-bwl-brand-ad.webp`} label="DR’s Secret 브랜드 광고 30초 본편 · 제안용 드래프트 시안" />
-          <div className="fd-result-copy"><h3>한 편으로 보는 브랜드 소개</h3><p>가상인물과 제품 장면을 활용한 제안용 드래프트입니다 실제 시설·임직원 촬영을 담은 회사 소개 영상과는 제작 범위가 다릅니다</p><CaseCta caseId="CASE-BWL-BRAND-AD" caseTitle="DR’s Secret 브랜드 광고" entryPoint="service-featured-case">이런 브랜드 영상 제작 문의</CaseCta></div>
+          <div className="fd-result-copy"><h3>한 편으로 보는 브랜드 소개</h3><p>가상인물과 제품 장면을 활용한 제안용 드래프트입니다<br />실제 시설·임직원 촬영을 담은 회사 소개 영상과는 제작 범위가 다릅니다</p><CaseCta caseId="CASE-BWL-BRAND-AD" caseTitle="DR’s Secret 브랜드 광고" entryPoint="service-featured-case">이런 브랜드 영상 제작 문의</CaseCta></div>
         </div>
       </DetailSection>
 
@@ -344,7 +344,7 @@ export function AdDetail() {
           <span className="fd-social-stamp">ONE PRODUCT<br />ONE STORY</span>
         </div>
         <div className="fd-social-hero-controls"><div className="fd-social-moments" role="group" aria-label="배너의 같은 C Plus 광고 구간 선택">{adScenes.map((item, index) => <button key={item.time} type="button" aria-pressed={heroScene === index} onClick={() => { seekScene(heroStage.current, item.time); setHeroScene(index); }}>{item.time}초 · {item.name}</button>)}</div><div className="fd-social-hero-actions"><button type="button" className="fd-preview-open" aria-expanded={showGuide} aria-controls="fd-ad-composition-guide" onClick={() => setShowGuide((value) => !value)}>화면 구성 가이드 {showGuide ? "닫기 −" : "보기 ＋"}</button><button type="button" className="fd-preview-open" aria-haspopup="dialog" onClick={(event) => setPreview({ src: `${media}bwl-cplus-ad.mp4`, poster: `${media}${activeHeroScene?.image ?? "poster-bwl-cplus-ad.webp"}`, title: "C Plus · 87언니 제품영상", label: "AI 가상인물 활용 제안용 시안 · 20초 · 9:16 · 무음", caseId: "CASE-BWL-CPLUS-AD", portrait: true, startAt: activeHeroScene?.time, trigger: event.currentTarget })}>큰 영상 보기 ↗</button></div></div>
-        {showGuide ? <div className="fd-composition-guide" id="fd-ad-composition-guide"><h3>화면 구성을 확인하는 가이드</h3><p>같은 광고의 실제 세 장면에서 제목·인물·제품·자막을 어디에 배치했는지 살펴봅니다 영상 위를 가리지 않는 확인용 안내이며, 게시할 채널의 표시 영역은 별도로 확인합니다</p><ol><li><b>1초 · 상황 소개</b><span>상단 제목과 날짜 → 중앙 인물 → 하단 문구와 제품</span></li><li><b>9초 · 손과 제품</b><span>스포이트와 손의 근접 화면 → 손동작 위쪽의 설명 자막</span></li><li><b>18초 · 제품명과 마무리</b><span>상단 제품명 → 인물과 병 → 하단 마무리 문구</span></li></ol></div> : null}
+        {showGuide ? <div className="fd-composition-guide" id="fd-ad-composition-guide"><h3>화면 구성을 확인하는 가이드</h3><p>같은 광고의 실제 세 장면에서 제목·인물·제품·자막을 어디에 배치했는지 살펴봅니다<br />영상 위를 가리지 않는 확인용 안내이며, 게시할 채널의 표시 영역은 별도로 확인합니다</p><ol><li><b>1초 · 상황 소개</b><span>상단 제목과 날짜 → 중앙 인물 → 하단 문구와 제품</span></li><li><b>9초 · 손과 제품</b><span>스포이트와 손의 근접 화면 → 손동작 위쪽의 설명 자막</span></li><li><b>18초 · 제품명과 마무리</b><span>상단 제품명 → 인물과 병 → 하단 마무리 문구</span></li></ol></div> : null}
       </DetailHero>
 
       <ServiceOverview service="ad" items={[
@@ -353,17 +353,17 @@ export function AdDetail() {
         "기획부터 첫 장면·제품 설명·마지막 안내까지 구성",
       ]} />
 
-      <DetailSection id="case" eyebrow="FEATURED CASE · C PLUS" title={"같은 제품의 첫 장면부터\n마지막 안내까지"} lead="출근 전 화장대에서 C Plus 세럼을 소개하는 87언니 AI 가상인물의 제품영상 시안입니다 상황·의상·제품을 유지하고 장면의 거리와 역할을 바꿨습니다">
+      <DetailSection id="case" eyebrow="FEATURED CASE · C PLUS" title={"같은 제품의 첫 장면부터\n마지막 안내까지"} lead="출근 전 화장대에서 C Plus 세럼을 소개하는 87언니 AI 가상인물의 제품영상 시안입니다\n상황·의상·제품을 유지하고 장면의 거리와 역할을 바꿨습니다">
         <div className="fd-case-summary">
           <div><span>기획의 기준</span><p>제품 하나 · 같은 인물<br />같은 화장대와 아침의 빛</p></div>
           <div><span>실제 구성</span><p>도입·제품 소개·손과 사용 장면·인물과 제품 마무리</p></div>
           <div><span>사례의 실제 분량</span><p>20초 · 9:16 · 제안용 시안<br />드래프트 기반 1080×1920 출력</p></div>
         </div>
         <div className="fd-ad-principles"><article><span>첫 장면</span><h3>상황을 보여주기</h3><p>출근 전 화장대라는 익숙한 장면에서 이야기를 시작합니다</p></article><article><span>핵심 설명</span><h3>제품이 잘 보이게</h3><p>인물의 얼굴에서 제품, 스포이트와 손의 근접 장면으로 보는 거리를 바꿉니다</p></article><article><span>마지막 안내</span><h3>이름을 남기기</h3><p>제품을 든 같은 인물과 제품명으로 마무리합니다</p></article></div>
-        <p className="fd-footnote">영상은 AI 가상인물을 활용한 제안용 시안입니다 실제 체험 후기나 고객의 게시·성과 사례로 표시하지 않습니다 실제 20초 분량은 아래 30·60초 판매 구성과 별개입니다</p>
+        <p className="fd-footnote">영상은 AI 가상인물을 활용한 제안용 시안입니다<br />실제 체험 후기나 고객의 게시·성과 사례로 표시하지 않습니다<br />실제 20초 분량은 아래 30·60초 판매 구성과 별개입니다</p>
       </DetailSection>
 
-      <DetailSection eyebrow="ONE AD, THREE MOMENTS" title={"같은 광고 안에서\n장면을 살펴보세요"} lead="아래 이미지는 모두 같은 C Plus 광고의 실제 1초·9초·18초 화면입니다 선택한 장면부터 본편을 확인할 수 있습니다">
+      <DetailSection eyebrow="ONE AD, THREE MOMENTS" title={"같은 광고 안에서\n장면을 살펴보세요"} lead="아래 이미지는 모두 같은 C Plus 광고의 실제 1초·9초·18초 화면입니다\n선택한 장면부터 본편을 확인할 수 있습니다">
         <div className="fd-ad-sequence">
           <div className="fd-scene-options" role="group" aria-label="같은 C Plus 광고의 구간 선택">
             {adScenes.map((item, index) => <button type="button" key={item.time} aria-pressed={scene === index} onClick={() => { seekScene(selectedStage.current, item.time); setScene(index); }}><Image src={`${media}${item.image}`} width={1080} height={1920} alt={`같은 C Plus 광고 ${item.time}초, ${item.name}`} loading="lazy" unoptimized /><span><small>{String(index + 1).padStart(2, "0")} · {item.time}초 · {item.name}</small><strong>{item.title}</strong><span>{item.description}</span><i>이 장면부터 보기 ↗</i></span></button>)}
@@ -375,11 +375,11 @@ export function AdDetail() {
 
       <DetailSection eyebrow="MORE AD FORMATS" title={"제품에 맞춰\n다른 표현도 선택할 수 있습니다"} lead="AI 인물, 제품과 타이포, 캐릭터와 이야기 각각의 실제 광고·모션 시안을 비교해 원하는 방식을 골라보세요">
         <div className="fd-work-grid fd-work-grid--portrait">{adWorks.map((work) => <FilmCard key={work.id} work={work} />)}</div>
-        <p className="fd-footnote">다른 제품과 프로젝트는 별도 사례로 소개했습니다 요프리의 여러 표현안은 같은 프로젝트의 변형입니다</p>
+        <p className="fd-footnote">다른 제품과 프로젝트는 별도 사례로 소개했습니다<br />요프리의 여러 표현안은 같은 프로젝트의 변형입니다</p>
       </DetailSection>
 
       <DetailSection eyebrow="MADE FOR YOUR CHANNEL" title={"제작할 광고와\n사용할 채널을 함께 정합니다"}>
-        <div className="fd-delivery-band"><div><span className="fd-kicker">기본 제작 기준</span><h3>제품 1개 · 콘셉트 1개<br />9:16 · 1080p</h3><p>기본 자막과 BGM을 포함한 판매 구성입니다 이 페이지의 무음 드래프트 사례와 실제 제공 기준을 구분해 안내합니다</p></div><div><h3>사용할 채널과 다음 행동</h3><p>제품을 알리고 싶은 대상, 사용할 채널, 마지막에 안내할 행동을 정합니다 다른 화면비·대량·정기 제작은 필요한 범위로 상담합니다</p><p className="fd-footnote">광고 집행·계정 운영·매체비는 영상 제작과 별도입니다 조회·클릭·매출 성과를 보장하는 구성은 아닙니다</p></div></div>
+        <div className="fd-delivery-band"><div><span className="fd-kicker">기본 제작 기준</span><h3>제품 1개 · 콘셉트 1개<br />9:16 · 1080p</h3><p>기본 자막과 BGM을 포함한 판매 구성입니다<br />이 페이지의 무음 드래프트 사례와 실제 제공 기준을 구분해 안내합니다</p></div><div><h3>사용할 채널과 다음 행동</h3><p>제품을 알리고 싶은 대상, 사용할 채널, 마지막에 안내할 행동을 정합니다<br />다른 화면비·대량·정기 제작은 필요한 범위로 상담합니다</p><p className="fd-footnote">광고 집행·계정 운영·매체비는 영상 제작과 별도입니다<br />조회·클릭·매출 성과를 보장하는 구성은 아닙니다</p></div></div>
       </DetailSection>
       <FilmPreview selection={preview} onClose={() => setPreview(null)} />
     </div>

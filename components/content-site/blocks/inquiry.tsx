@@ -147,7 +147,7 @@ export function CsInquiry({
                     사용 목적 <abbr title="필수">*</abbr>
                   </legend>
                   <p className="cs-t-small">
-                    만든 콘텐츠를 어디에 쓰실지 골라 주세요
+                    만든 컨텐츠를 어디에 쓰실지 골라 주세요
                   </p>
                   <div>
                     {purposeOptions.map(([value, label]) => (

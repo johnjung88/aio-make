@@ -1,5 +1,5 @@
 /* /content 컨텐츠 사이트 홈(서버). 헤더·푸터는 app/(content-site)/content/layout.tsx의 컨텐츠 셸이 그린다.
- * 구성(R6): 16:9 영상 슬롯 히어로(화면에 보이지 않는 h1) → 서비스 6종 자동 넘김 3D 캐러셀 → 제작 과정 4행 표 → 상담 띠.
+ * 구성(W-H3): 작품 필름 히어로 → 서비스 6종 3D 캐러셀 → 제작 과정 → 6서비스 → 상담 띠.
  * 글자는 .cs-t-* 역할 클래스만, 색·간격·모양은 컨텐츠 사이트 토큰(--cs-*)만 쓴다. */
 import { publicEntries } from "@/lib/db";
 import { homeJourneyData } from "@/lib/home-journey-data";
@@ -7,10 +7,9 @@ import Link from "next/link";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
 import {
   contentHomeCta as cta,
-  contentHomeHero as hero,
   contentHomeProcessHead as processHead,
 } from "@/lib/content-home";
-import { HeroMedia } from "./hero-media";
+import { FilmStage } from "./film-stage";
 import { ProcessSteps } from "./process-steps";
 import { ServiceShowcase } from "./service-showcase";
 import { ServiceCards } from "./service-cards";
@@ -25,19 +24,8 @@ export async function ContentHome() {
         data-cs-section="hero"
         aria-labelledby="ch-hero-title"
       >
-        <h1 id="ch-hero-title" className="cs-sr-only">
-          {hero.title}
-        </h1>
         <div className="cs-container">
-          <div className="ch-hero-reel" data-slot={hero.reelSlot}>
-            {hero.video ? (
-              <HeroMedia />
-            ) : (
-              <p className="ch-hero-placeholder cs-t-caption" aria-hidden="true">
-                {hero.placeholder}
-              </p>
-            )}
-          </div>
+          <FilmStage />
         </div>
       </section>
 

@@ -72,7 +72,7 @@ export const brandFilm: ServiceLandingData = {
   faq: [
   [
     "길이와 가격은 어떻게 되나요?",
-    `30초는 한 가지 메시지에 집중하는 구성이고 60초는 고객의 문제와 제품, 일하는 방식까지 담는 구성입니다 가격은 30초 ${formatWon(contentPricing["brand-film"].plans[0].amount)} 60초 ${formatWon(contentPricing["brand-film"].plans[1].amount)}입니다`
+    `30초는 한 가지 메시지에 집중하는 구성이고 60초는 고객의 문제와 제품, 일하는 방식까지 담는 구성입니다\n가격은 30초 ${formatWon(contentPricing["brand-film"].plans[0].amount)} 60초 ${formatWon(contentPricing["brand-film"].plans[1].amount)}입니다`
   ],
   [
     "무엇을 준비하면 되나요?",
@@ -88,7 +88,7 @@ export const brandFilm: ServiceLandingData = {
   ],
   [
     "음악은 어떻게 정하나요?",
-    "영상의 박자에 맞는 곡을 고르고 사용 허락이 확인된 곡만 넣습니다 포함 범위는 견적 상담에서 안내합니다"
+    "영상의 박자에 맞는 곡을 고르고 사용 허락이 확인된 곡만 넣습니다\n포함 범위는 견적 상담에서 안내합니다"
   ]
 ,
     ...COMMON_FAQ,

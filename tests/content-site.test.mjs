@@ -74,6 +74,7 @@ const DETAIL_CLIENT_MODULES = [
   "service-detail/record-detail.tsx",
   "service-detail/service-tools.tsx",
   "service-detail/shared.tsx",
+  "service-detail/starting-board.tsx",
   "service-detail/webtoon-reader.tsx",
   "service-detail/webtoon.tsx",
 ];
@@ -179,7 +180,9 @@ function strings(value, path = []) {
 function checkCopy({ path, key, value }, { latin = true } = {}) {
   const where = `${path}: ${value}`;
   assert.doesNotMatch(value, CUSTOMER, `customer name · ${where}`);
-  if (APPROVED_R8.includes(value.replaceAll("\n", "\\n")) || /signature\.(cutBoard|grammar)/.test(path)) return;
+  // W-H3R2 changes sentence wrapping, while the approved words stay identical.
+  const approvedCopy = APPROVED_R8.replaceAll("\\n", " ").replace(/\s+/g, " ");
+  if (approvedCopy.includes(value.replace(/\s+/g, " ")) || /signature\.(cutBoard|grammar)/.test(path)) return;
   assert.doesNotMatch(value, BANNED, `banned word · ${where}`);
   assert.doesNotMatch(value, CUSTOMER, `customer name · ${where}`);
   assert.doesNotMatch(value, /\d만원|\d{1,3}(,\d{3})+원|\d원/, `amount format · ${where}`);
@@ -1017,7 +1020,7 @@ test("8-4. the content header exposes all six service links and references witho
   const css = code("components/content-site/shell/header-v15.css");
   assert.match(header, /CONTENT_SERVICES\.map\(\(service\)/);
   assert.match(header, /href=\{contentServicePath\(service\.id\)\}/);
-  assert.match(header, /aria-label="콘텐츠 전체 메뉴"/);
+  assert.match(header, /aria-label="컨텐츠 전체 메뉴"/);
   assert.match(header, /href="\/content\/references"/);
   assert.match(header, /href="\/content\/insights"/);
   assert.match(header, /href="\/content\/contact"/);

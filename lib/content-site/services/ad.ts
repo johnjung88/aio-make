@@ -76,7 +76,7 @@ export const ad: ServiceLandingData = {
   faq: [
   [
     "기본 가격에 무엇이 포함되나요?",
-    `제품이나 서비스 1개와 콘셉트 1개를 기준으로 기본 자막과 배경음악을 넣은 9:16 세로 영상(1080p)을 만듭니다 가격은 30초 ${formatWon(contentPricing.ad.plans[0].amount)} 60초 ${formatWon(contentPricing.ad.plans[1].amount)}입니다`
+    `제품이나 서비스 1개와 콘셉트 1개를 기준으로 기본 자막과 배경음악을 넣은 9:16 세로 영상(1080p)을 만듭니다\n가격은 30초 ${formatWon(contentPricing.ad.plans[0].amount)} 60초 ${formatWon(contentPricing.ad.plans[1].amount)}입니다`
   ],
   [
     "첫 장면은 어떻게 정하나요?",

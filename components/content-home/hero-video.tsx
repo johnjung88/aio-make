@@ -78,7 +78,7 @@ export function HeroVideoLayer({ video }: { video: HeroVideo }) {
         poster={video.poster}
         onLoadedMetadata={() => setShown(true)}
         onVolumeChange={event => setActualMuted(event.currentTarget.muted)}
-        aria-label="AIO MAKE 콘텐츠 제작 영상 · 59초"
+        aria-label="AIO MAKE 컨텐츠 제작 영상 · 59초"
         onPlay={() => setWantPlay(true)}
         onPlaying={() => {
           setShown(true);

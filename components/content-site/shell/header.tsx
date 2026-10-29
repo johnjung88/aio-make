@@ -26,12 +26,12 @@ export function ContentSiteHeader() {
 
   return <header className="cs-header cs-header-v15">
     <div className="cs-container cs-header-inner cs-header-v15-inner">
-      <Link href="/content" className="cs-lockup cs-header-v15-lockup" aria-label="AIO MAKE 콘텐츠 홈">
+      <Link href="/content" className="cs-lockup cs-header-v15-lockup" aria-label="AIO MAKE 컨텐츠 홈">
         <span className="cs-brand"><Brand /></span>
         <span className="cs-lockup-divider" aria-hidden="true" />
         <span className="cs-lockup-label cs-t-lockup">CONTENT STUDIO</span>
       </Link>
-      <nav ref={nav} className="cs-header-v15-nav" aria-label="콘텐츠 전체 메뉴">
+      <nav ref={nav} className="cs-header-v15-nav" aria-label="컨텐츠 전체 메뉴">
         <ul>
           <li><Link href="/content" className="cs-nav-link" aria-current={path === "/content" ? "page" : undefined}>홈</Link></li>
           {CONTENT_SERVICES.map((service) => <li key={service.id}>

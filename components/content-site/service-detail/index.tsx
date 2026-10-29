@@ -14,6 +14,7 @@ import { AdditionalCases, type PublicServiceCase } from "./additional-cases";
 import { RecordDetail } from "./record-detail";
 import { ServiceExperience } from "./experience";
 import { ServiceTools } from "./service-tools";
+import { StartingBoard } from "./starting-board";
 import "./detail.css";
 
 const detail = { webtoon: WebtoonDetail, animation: AnimationDetail, "ai-influencer": AiInfluencerDetail, "motion-graphics": MotionGraphicsDetail, "brand-film": BrandFilmDetail, ad: AdDetail };
@@ -39,7 +40,7 @@ function Pricing({ id }: { id: ContentServiceId }) {
       </article>)}</div>
     </div>)}</div>
     <ul className="sd-price-notes">{[PRICING_COMMON.vat, ...notes, PRICING_COMMON.revisions, PRICING_COMMON.bulk].map((note) => <li key={note}>{note}</li>)}</ul>
-    {id === "webtoon" ? <p className="sd-lead sd-unit-note">{`1P 기준: ${WEBTOON_PAGE_STANDARD.label} (세로형 ${WEBTOON_PAGE_STANDARD.ratio})\n웹툰 상품은 12P·24P, 영상 상품은 30초·60초입니다 대표 사례는 25P와 40초 영상으로 제작했습니다`}</p> : null}
+    {id === "webtoon" ? <p className="sd-lead sd-unit-note">{`1P 기준: ${WEBTOON_PAGE_STANDARD.label} (세로형 ${WEBTOON_PAGE_STANDARD.ratio})\n웹툰 상품은 12P·24P, 영상 상품은 30초·60초입니다\n대표 사례는 25P와 40초 영상으로 제작했습니다`}</p> : null}
     <div className="sd-scope"><div><h3>함께 확인하는 범위</h3><ul>{DETAIL_SCOPE[id].included.map((line) => <li key={line}>{line}</li>)}</ul></div>
       <div><h3>의뢰에 맞춰 정하는 항목</h3><ul>{DETAIL_SCOPE[id].confirm.map((line) => <li key={line}>{line}</li>)}<li>납기·추가 규격·편집 원본·사용 조건은 의뢰 범위를 확인해 안내합니다</li></ul></div></div>
   </DetailSection>;
@@ -54,11 +55,9 @@ export function ServiceDetail({ id, cases }: { id: ContentServiceId; cases: Serv
   return <div className={`sd sd-service-${id}`}><ServiceExperience>
     {useAuthoredJourney ? <Detail /> : <RecordDetail service={id} record={primary ? publicCase(primary) : null} />}
     <ServiceTools service={id} />
+    <StartingBoard service={id} />
     <AdditionalCases cases={publicCases} service={id} />
     <Pricing id={id} />
-    <DetailSection id="prepare" eyebrow="BEFORE WE START" title="이 정도만 알려주세요" lead="준비된 내용부터 알려주세요 자료와 분량은 상담하면서 정해도 됩니다">
-      <div className="sd-prepare-grid">{copy.prepare.map(([title, body]) => <div key={title}><b>{title}</b><p>{body}</p></div>)}</div>
-    </DetailSection>
     <DetailSection id="faq" eyebrow="FAQ" title="의뢰 전에 궁금한 점">
       <div className="sd-faq-list">{copy.faq.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}</div>
     </DetailSection>

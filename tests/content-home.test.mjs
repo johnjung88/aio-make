@@ -530,42 +530,26 @@ test("8-4. 실제 제작물 슬롯: 공개 파일·비공개 계보·실제 MP4�
   assert.equal(contentHomeHero.reelSlot, "home-hero-reel");
   assert.ok(hasSource(showcase, "homeCardMedia[selection.tab.id]"));
   assert.ok(hasSource(showcase, "data-slot={media.slot ?? undefined}"));
-  assert.ok(hasSource(home, "data-slot={hero.reelSlot}"));
+  assert.ok(hasSource(read(join(componentDir, "film-stage.tsx")), "data-slot={contentHomeHero.reelSlot}"));
   assert.equal(homeCardMedia.animation.tag, "캐릭터·모션 활용", "related competence is not a customer animation delivery claim");
   assert.deepEqual(ORDER.filter(id => homeCardMedia[id].video), ["motion-graphics", "brand-film", "ad"]);
 });
 
-test("8-5. 히어로: 16:9 영상 슬롯과 보이지 않는 h1만 남는다", () => {
-  // 연출 이미지·패럴랙스·드리프트·formats 서비스 링크 줄·hero-stage 삭제
-  for (const gone of ["hero-stage.tsx", "service-detail.tsx", "process-tabs.tsx"])
-    assert.equal(existsSync(join(componentDir, gone)), false, `${gone} deleted`);
-  for (const text of [home, code(read(join(componentDir, "hero-media.tsx")))]) {
-    assert.doesNotMatch(text, /HeroStage|HeroTitle|ch-hero-(parallax|drift|feature|comic|formats|copy|editorial|lead|actions)|연출 예시|CONTENT_SITE_ASSETS|hero\.webp|hero\.image|contentHomeServices/);
-  }
-  assert.doesNotMatch(css, /ch-hero-(parallax|drift|feature|comic|formats|copy|editorial|lead|actions|works|showreel)|cs-ch-(drift|parallax|comic-pan)/);
-  assert.doesNotMatch(css, /animation-timeline/);
-  // 데이터: 카피 필드 없이 슬롯 정보만
-  assert.deepEqual(Object.keys(contentHomeHero).sort(), ["placeholder", "reelSlot", "title", "video", "videoPause", "videoPlay"]);
-  assert.equal(contentHomeHero.placeholder, "AIO MAKE CONTENT STUDIO");
-  assert.match(contentHomeHero.title, /^AIO MAKE .+$/);
-  // 구조: sr-only h1 하나, 슬롯은 항상 렌더(영상이 있으면 HeroMedia, 없으면 placeholder 한 줄)
-  assert.equal((home.match(/<h1\b/g) || []).length, 1);
-  assert.ok(hasSource(home, '<h1 id="ch-hero-title" className="cs-sr-only">'));
-  assert.ok(hasSource(home, '<div className="ch-hero-reel" data-slot={hero.reelSlot}>'));
-  assert.ok(hasSource(home, "{hero.video ? (\n              <HeroMedia />\n            ) : (\n              <p className=\"ch-hero-placeholder cs-t-caption\" aria-hidden=\"true\">"));
-  assert.ok(hasSource(home, "{hero.placeholder}"));
-  // CSS: 같은 16:9 비율의 어두운 면, 왼쪽 아래 아주 작은 문구, 영상은 이 틀 안에서만 재생
-  const reel = declsOf(css, ".cs-site .cs-home .ch-hero-reel");
-  assert.match(reel, /aspect-ratio:\s*16 \/ 9;/);
-  assert.match(reel, /background:\s*var\(--cs-surface\);/);
-  assert.match(reel, /overflow:\s*hidden;/);
-  assert.match(reel, /width:\s*min\(100%, calc\(\(100svh - var\(--cs-header-h\) - var\(--cs-s7\)\) \* 16 \/ 9\)\);/);
-  const placeholder = declsOf(css, ".cs-site .cs-home .ch-hero-placeholder");
-  assert.match(placeholder, /position:\s*absolute;/);
-  assert.match(placeholder, /left:\s*var\(--cs-s5\);/);
-  assert.match(placeholder, /bottom:\s*var\(--cs-s5\);/);
-  assert.doesNotMatch(placeholder, /text-align|font-/);
-  assert.ok(hasSource(home, 'className="ch-hero-placeholder cs-t-caption"'), "caption role, no custom type");
+test("8-5. W-H3 필름 히어로: 유한 작품 선택과 원본 소개 영상 보존", () => {
+  const film = code(read(join(componentDir, "film-stage.tsx")));
+  assert.ok(hasSource(home, '<FilmStage />'));
+  assert.equal((film.match(/<h1\b/g) || []).length, 1);
+  assert.match(film, /기획한 이야기가/);
+  assert.match(film, /움직이는 장면으로/);
+  assert.match(film, /aria-pressed=\{index === selected\}/);
+  assert.match(film, /ArrowRight/);
+  assert.match(film, /ArrowLeft/);
+  assert.match(film, /onTouchEnd/);
+  assert.match(film, /<HomeCasePreview/);
+  assert.match(film, /contentHomeHero\.video\.src/);
+  assert.match(film, /preload="none"/);
+  assert.doesNotMatch(film, /setInterval|setTimeout|autoPlay/);
+  assert.equal(contentHomeHero.reelSlot, "home-hero-reel");
 });
 
 test("8-6. 실제 작품 dialog와 서비스 링크를 구분하고 옆 카드는 선택 이동", () => {

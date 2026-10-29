@@ -211,7 +211,7 @@ test("WP0-2. 모바일 헤더: CONTENT STUDIO 라벨 유지 · 전체 서비스 
   assert.match(header, /className="cs-lockup-label cs-t-lockup"/);
   for (const label of ["홈", "인사이트", "레퍼런스", "상담 신청"])
     assert.ok(header.includes(label), label);
-  assert.match(header, /<nav[^>]*aria-label="콘텐츠 전체 메뉴"/);
+  assert.match(header, /<nav[^>]*aria-label="컨텐츠 전체 메뉴"/);
   assert.match(header, /CONTENT_SERVICES\.map/);
   assert.match(header, /href=\{contentServicePath\(service\.id\)\}/);
   assert.match(header, /aria-current=\{path\.startsWith/);
