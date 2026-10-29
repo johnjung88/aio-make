@@ -19,6 +19,10 @@
 
   --blue: #2f6bff;
   --cyan: #06b6d4;
+  --action: #6b4dff;
+  --action-hover: #5b3de8;
+  --action-active: #5034d1;
+  --action-light: #b6a8ff;
   --lime: #a8ff3e;
   --pink: #ec008c;
   --rose: #ff3b7c;
@@ -87,7 +91,7 @@
 .page input:focus-visible,
 .page textarea:focus-visible,
 .page summary:focus-visible {
-  outline: 3px solid var(--cyan);
+  outline: 3px solid var(--action);
   outline-offset: 5px;
 }
 .header,
@@ -186,8 +190,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-element);
-  background: var(--cyan);
-  color: var(--bg);
+  background: var(--action);
+  color: var(--text);
   border: 0;
   border-radius: 40px;
   padding: 14px 25px;
@@ -233,16 +237,16 @@
   display: none;
 }
 .selector input:checked + span {
-  border-color: var(--accent-end);
+  border-color: var(--action);
   background: linear-gradient(
     120deg,
-    color-mix(in srgb, var(--accent) 40%, var(--bg)),
+    color-mix(in srgb, var(--action) 40%, var(--bg)),
     var(--panel)
   );
-  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 25%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--action) 25%, transparent);
 }
 .selector input:focus-visible + span {
-  outline: 3px solid var(--cyan);
+  outline: 3px solid var(--action);
   outline-offset: 4px;
 }
 .codePanel {
@@ -281,8 +285,8 @@
   font-size: var(--text-small) !important;
 }
 .steps button[aria-pressed="true"] {
-  color: var(--cyan);
-  border-bottom: 2px solid var(--cyan);
+  color: var(--action);
+  border-bottom: 2px solid var(--action);
 }
 .codePanel pre {
   font-size: var(--text-small);
@@ -320,7 +324,7 @@
 }
 .config input,
 .featurePanel input {
-  accent-color: var(--blue);
+  accent-color: var(--action);
 }
 .hint,
 .status {
@@ -430,8 +434,8 @@
 .floorButtons button[aria-pressed="true"],
 .roomButtons button[aria-pressed="true"],
 .industryButtons button[aria-pressed="true"] {
-  background: var(--blue);
-  border-color: var(--blue);
+  background: var(--action);
+  border-color: var(--action);
   color: var(--text);
 }
 .spaceInfo {
@@ -454,7 +458,7 @@
 }
 .spaceInfo button {
   margin-left: auto;
-  color: var(--cyan);
+  color: var(--action);
   border: 1px solid var(--line);
   background: transparent;
   border-radius: 50%;
@@ -747,7 +751,7 @@
 }
 .process summary > span {
   font-size: var(--text-eyebrow);
-  background: var(--blue);
+  background: var(--action);
   padding: 3px 9px;
   border-radius: 20px;
 }
@@ -761,7 +765,7 @@
   color: var(--muted);
 }
 .process summary > b {
-  color: var(--cyan);
+  color: var(--action);
 }
 .process details > div {
   padding: 12px;
@@ -797,8 +801,8 @@
 }
 .finalCta {
   padding: var(--space-element);
-  background: linear-gradient(120deg, var(--cyan), var(--mint));
-  color: var(--bg);
+  background: linear-gradient(120deg, var(--action), #5132cd);
+  color: var(--text);
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
@@ -867,8 +871,8 @@
   left: 20px;
   z-index: 100;
   padding: 12px;
-  color: var(--bg) !important;
-  background: var(--cyan);
+  color: var(--text) !important;
+  background: var(--action);
 }
 .skip:focus {
   top: 12px;
@@ -1384,7 +1388,7 @@
 .roomButtons button[aria-pressed="true"],
 .industryButtons button[aria-pressed="true"],
 .process summary > span {
-  background: color-mix(in srgb, var(--blue) 85%, var(--bg));
+  background: color-mix(in srgb, var(--action) 85%, var(--bg));
 }
 .scene :global([class*="floorPlan"]) {
   padding: 16px;
@@ -1904,4 +1908,50 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-element);
+}
+
+/* QA1: interactive color is violet; scene lighting keeps its own palette. */
+.cta:hover,
+.finalCta button:hover {
+  background: var(--action-hover);
+  color: var(--text);
+}
+.cta:active,
+.finalCta button:active {
+  background: var(--action-active);
+}
+.finalCta button {
+  background: var(--action);
+  color: var(--text);
+}
+.eyebrow,
+.intro h1 span,
+.process summary > b {
+  color: var(--action-light);
+}
+.selector input:checked + span {
+  border-color: var(--action);
+}
+.steps button[aria-pressed="true"] {
+  color: var(--action-light);
+}
+.floorButtons button[aria-pressed="true"],
+.roomButtons button[aria-pressed="true"],
+.industryButtons button[aria-pressed="true"] {
+  background: var(--action);
+  color: var(--text);
+  border-color: var(--action);
+}
+.scene :global(button:not([aria-pressed="false"])) {
+  background: var(--action);
+  color: var(--text);
+  border-color: var(--action);
+}
+.scene :global(button:not([aria-pressed="false"]):hover) {
+  background: var(--action-hover);
+}
+.scene :global(button:focus-visible),
+.scene :global(a:focus-visible) {
+  outline: 3px solid var(--action);
+  outline-offset: 3px;
 }
