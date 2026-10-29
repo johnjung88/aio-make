@@ -192,3 +192,14 @@
     font-size: 14px;
   }
 }
+/* W-F3e: one section interval between the hero and the service heading. */
+.rw-site.rw-about.cs-site {
+  --cs-section-y: clamp(64px, 7vw, 96px);
+}
+.rw-site.rw-about .rw-about-hero {
+  padding-bottom: 0;
+}
+.rw-about .rw-about-process-scenes li:nth-child(1) img,
+.rw-about .rw-about-process-scenes li:nth-child(2) img {
+  object-position: top;
+}

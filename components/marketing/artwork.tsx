@@ -121,6 +121,8 @@ const documents = {
       ["제품 소개", "인스타그램", "확인된 제품 정보"],
       ["사용 안내", "쇼츠", "순서와 사용 장면"],
       ["고객 질문", "인스타그램", "질문에 맞춘 설명"],
+      ["제품 구성", "쇼츠", "구성과 이용 안내"],
+      ["다음 이야기", "인스타그램", "이어갈 주제 안내"],
     ],
     foot: "AI 가상인물 · 월간 게시 구성 예시",
   },
@@ -133,7 +135,7 @@ function Document({ kind }: { kind: keyof typeof documents }) {
       <span className="mk-output-kicker">{doc.eyebrow}</span>
       <strong className="mk-output-title">{doc.title}</strong>
       <div className="mk-output-rows">
-        {doc.rows.slice(0, 4).map((row, i) => (
+        {doc.rows.map((row, i) => (
           <div
             key={row[0]}
             className={i === 0 ? "mk-output-row-head" : ""}
@@ -272,8 +274,8 @@ export function MarketingArtwork({
   } else if (name === "integrated-hero") {
     content = (
       <Publication
-        file="material-0"
-        title="이달의 메뉴 이야기"
+        file="f3a2-source-studio"
+        title="수업 공간에서 시작하는 브랜드 이야기"
         channel="BRAND CONTENT · 월간 운영 예시"
         priority={hero}
       />
@@ -351,6 +353,17 @@ export function MarketingArtwork({
     content = <Document kind="persona" />;
   } else if (name === "seo-result-3") {
     content = <Document kind="handoff" />;
+  } else if (name === "seo-hero") {
+    content = (
+      <div className="mk-seo-hero-result">
+        <Photo
+          file="preview-0-1"
+          alt="가상 카페의 메뉴 안내 사진"
+          priority={hero}
+        />
+        <SearchScene variant="answer" />
+      </div>
+    );
   } else if (name.startsWith("seo-")) {
     content = (
       <SearchScene

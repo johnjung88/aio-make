@@ -2252,3 +2252,161 @@
     font-size: 18px;
   }
 }
+/* W-F3e: detail-only layout; home surfaces keep their existing presentation. */
+.mk-detail .mk-interaction {
+  align-items: start;
+  overflow: visible;
+}
+.mk-detail .mk-interaction > .mk-controls {
+  position: sticky;
+  top: 96px;
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  border-bottom: 1px solid var(--mk-line);
+  border-radius: var(--mk-radius) 0 0 var(--mk-radius);
+  background: var(--mk-panel);
+}
+.mk-detail .mk-interaction > .mk-result {
+  border-radius: 0 var(--mk-radius) var(--mk-radius) 0;
+}
+.mk-detail .mk-phones {
+  align-items: stretch;
+}
+.mk-detail .mk-phone {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+.mk-detail .mk-phone > div {
+  flex: 1;
+}
+.mk-detail .mk-calendar {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.mk-detail .mk-calendar .mk-week-topic {
+  margin: 8px 0 12px;
+  color: var(--mk-em);
+}
+.mk-calendar-post {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  background: var(--mk-bg);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.mk-calendar-post img {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.mk-calendar-post span {
+  min-width: 0;
+}
+.mk-calendar-post small {
+  display: block;
+  color: var(--mk-muted);
+  font-size: 13px;
+}
+.mk-detail .mk-originals button {
+  overflow: hidden;
+  padding: 4px;
+}
+.mk-detail .mk-originals img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5/3;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.mk-detail .mk-originals button span {
+  display: block;
+  margin-top: 4px;
+}
+.mk-detail .mk-scope li,
+.mk-detail .mk-note {
+  font-size: 15px;
+}
+.mk-detail .mk-deliverables figure {
+  display: flex;
+  flex-direction: column;
+}
+.mk-detail .mk-deliverables figcaption {
+  flex: 1;
+}
+.mk-detail .mk-deliverables .mk-artwork {
+  height: 480px;
+  flex-shrink: 0;
+}
+.mk-detail .mk-deliverables .mk-output-document {
+  justify-content: flex-start;
+  gap: 20px;
+  padding-block: 28px;
+}
+.mk-detail .mk-deliverables .mk-output-foot {
+  margin-top: auto;
+}
+.mk-detail .mk-deliverables .mk-search-secondary {
+  display: none;
+}
+.mk-seo-hero-result {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  min-height: 440px;
+}
+.mk-seo-hero-result > img {
+  min-height: 0;
+  object-position: center;
+}
+@media (max-width: 767px) {
+  .mk-detail .mk-interaction > .mk-controls {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-radius: var(--mk-radius) var(--mk-radius) 0 0;
+  }
+  .mk-detail .mk-interaction > .mk-result {
+    border-radius: 0 0 var(--mk-radius) var(--mk-radius);
+  }
+  .mk-detail .mk-calendar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+  .mk-seo-hero-result {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mk-detail .mk-seo-hero-result > img {
+    height: 180px;
+    aspect-ratio: auto;
+  }
+}
+.mk-detail .mk-week-material {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5/3;
+  object-fit: cover;
+  margin-top: 12px;
+  border-radius: 8px;
+}
+.mk-detail .mk-phone > img {
+  height: clamp(180px, 20vw, 280px);
+  aspect-ratio: auto;
+}
+.mk-detail .mk-deliverables .mk-output-document-handoff .mk-output-rows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
