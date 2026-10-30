@@ -79,7 +79,7 @@ export function MarketingCards({ current }: { current?: MarketingId }) {
             href={`/marketing/services/${id}`}
           >
             <MarketingPicture
-              name={`${id}-card`}
+              name={current ? `${id}-card-${current}` : `${id}-card`}
               alt={`${marketingNames[id]} 결과물 방향 예시`}
             />
             <div className="mk-card-body">

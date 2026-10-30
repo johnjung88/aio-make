@@ -218,3 +218,16 @@
     transparent 65%
   );
 }
+
+/* F7: give short scope labels less width and enlarge the hero stage. */
+.rw-about #rw-scope-result tbody th {
+  width: 33.3333%;
+}
+@media (min-width: 1024px) {
+  .rw-site.rw-about .rw-about-hero-inner {
+    grid-template-columns: minmax(0, 3.8fr) minmax(0, 6.2fr);
+  }
+  .rw-site.rw-about .rw-about-results > img:first-child {
+    aspect-ratio: 4/3;
+  }
+}

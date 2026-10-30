@@ -232,8 +232,8 @@ export function MarketingDetail({
           }
         />
         <MarketingFaq faq={marketingFaq(id)} />
-        <p className="mk-note">
-          <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link> ·{" "}
+        <p className="mk-resource-links">
+          <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link>
           <Link href="/terms">이용 안내</Link>
         </p>
       </section>

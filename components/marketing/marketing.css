@@ -2190,7 +2190,7 @@
   font-size: 14px;
 }
 .mk-compare-table tbody th {
-  width: 65%;
+  width: 41.6667%;
   font-size: 20px;
   font-weight: 650;
 }
@@ -2890,4 +2890,57 @@
   .mk-interaction-ai-influencer .mk-month {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* F7: close the comparison gap and strengthen supporting decisions. */
+.mk-compare-table {
+  table-layout: fixed;
+}
+#finder .mk-choices button,
+#finder :is(.mk-live-note, .mk-caption) {
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+#finder .mk-choices button[aria-pressed="true"] {
+  color: var(--mk-light);
+}
+#finder .mk-result {
+  border: 1px solid var(--mk-line);
+}
+.marketing-renewal #finder .mk-result > h3 {
+  font-size: clamp(26px, 2.5vw, 36px);
+}
+.mk-detail .mk-fit :is(li, a) {
+  color: var(--mk-text);
+}
+.mk-detail .mk-scope {
+  gap: 20px;
+  align-items: stretch;
+}
+.mk-detail .mk-scope > div {
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-radius);
+  background: var(--mk-panel);
+  padding: 24px;
+}
+.mk-detail .mk-scope li {
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+.mk-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px !important;
+}
+.mk-resource-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--mk-muted);
 }

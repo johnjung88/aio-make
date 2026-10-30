@@ -199,7 +199,53 @@ export function MarketingArtwork({
   stage?: number;
 }) {
   let content: React.ReactNode;
-  if (name === "home-ribbon") {
+  if (name.includes("-card-")) {
+    const [service, current] = name.split("-card-");
+    const cuts: Record<string, Record<string, string>> = {
+      integrated: {
+        sns: "feed-1",
+        "ai-influencer": "persona-role-0",
+        seo: "f3a2-process-review",
+      },
+      sns: {
+        integrated: "f3a2-process-brief",
+        "ai-influencer": "persona-role-2",
+        seo: "preview-0-2",
+      },
+      "ai-influencer": {
+        integrated: "f3a2-food-prep",
+        sns: "feed-5",
+        seo: "f3a2-process-make",
+      },
+      seo: {
+        integrated: "f3a2-food-serve",
+        sns: "feed-4",
+        "ai-influencer": "persona-1",
+      },
+    };
+    content = (
+      <Publication
+        file={cuts[current][service]}
+        title={alt}
+        channel={
+          {
+            integrated: "BRAND CONTENT",
+            sns: "SNS CONTENT",
+            "ai-influencer": "AI 가상인물",
+            seo: "SEARCH & ANSWER",
+          }[service] ?? "CONTENT"
+        }
+      />
+    );
+  } else if (name === "integrated-card") {
+    content = (
+      <Publication
+        file="f3a2-process-make"
+        title="브랜드 게시 소재 제작 예시"
+        channel="BRAND CONTENT"
+      />
+    );
+  } else if (name === "home-ribbon") {
     content = (
       <div className="mk-output-ribbon" data-active={stage}>
         <Publication
@@ -357,8 +403,8 @@ export function MarketingArtwork({
     content = (
       <div className="mk-seo-hero-result">
         <Photo
-          file="feed-0"
-          alt="가상 카페의 라떼 메뉴 사진 예시"
+          file="f3a2-process-brief"
+          alt="검색 정보 정리를 위한 자료 검토 장면 예시"
           priority={hero}
         />
         <SearchScene variant="answer" />
