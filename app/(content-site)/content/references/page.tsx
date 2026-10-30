@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { ContentReferenceLibrary } from "@/components/content-site/references/reference-library";
 import { allServiceCases } from "@/lib/service-cases.server";
 import { pageMetadata } from "@/lib/metadata";
@@ -16,5 +17,5 @@ export default async function ContentReferences() {
   const cases = unique.map(({ caseId, title, brand, summary, scope, publicLabel, productionStatus, services, assets }) => ({
     caseId, title, brand, summary, scope, publicLabel, productionStatus, services, assets,
   }));
-  return <ContentReferenceLibrary cases={cases} />;
+  return <><PageBreadcrumb path="/content/references" />{<ContentReferenceLibrary cases={cases} />}</>;
 }

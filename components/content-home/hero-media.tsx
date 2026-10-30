@@ -12,6 +12,7 @@ export function HeroMedia() {
       <Image
         src={video.poster}
         alt=""
+        aria-hidden="true"
         fill
         priority
         sizes="(min-width:1440px) 1328px, 100vw"

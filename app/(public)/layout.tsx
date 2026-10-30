@@ -1,3 +1,4 @@
+import { KakaoContact } from "@/components/kakao-contact";
 import { PageNavigation } from "@/components/page-navigation";
 import { FloatingContact } from "@/components/floating-contact";
 import { Suspense } from "react";
@@ -26,9 +27,11 @@ export default function PublicLayout({
         본문 바로가기
       </a>
       <Header />
+      <KakaoContact placement="header" />
       <main id="main-content" className="guide-public">
         {children}
       </main>
+      <KakaoContact placement="footer" />
       <Footer />
       <FloatingContact />
       <PageNavigation />

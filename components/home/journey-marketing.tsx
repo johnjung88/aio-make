@@ -31,6 +31,7 @@ import {
   marketingBrand,
   marketingCopy,
   marketingImages,
+  marketingImageAlt,
   marketingScenes,
   marketingStages,
   operateScenes,
@@ -163,7 +164,7 @@ function Thumb({ index, sizes }: { index: number; sizes: string }) {
     <Image
       className="wj-mk-img"
       src={marketingImages[index % marketingImages.length]}
-      alt=""
+      alt={marketingImageAlt(index)}
       fill
       sizes={sizes}
       loading="lazy"

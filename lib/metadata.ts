@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import { seoDescriptions } from "./seo-descriptions.ts";
 export const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com"
 ).replace(/\/$/, "");
 export const siteName = "AIO MAKE";
-export const siteDescription =
-  "AIO MAKE는 컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 연결하는 에이전시입니다";
+export const siteDescription = seoDescriptions["/"];
 export const indexable =
   process.env.VERCEL_ENV !== "preview" &&
   process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW !== "1";
@@ -17,11 +17,18 @@ export function socialImage(path: string) {
     : "main";
   return siteUrl + `/social/${key}-seo2.jpg`;
 }
+export function seoDescription(path: string, fallback: string) {
+  return (seoDescriptions[path] ?? fallback)
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/[.。]+$/, "");
+}
 export function pageMetadata(
   title: string,
   description: string,
   path: string,
 ): Metadata {
+  description = seoDescription(path, description);
   const shareTitle = title.includes(siteName)
     ? title
     : `${title} | ${siteName}`;

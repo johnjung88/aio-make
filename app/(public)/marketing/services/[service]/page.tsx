@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata, siteUrl } from "@/lib/metadata";
 import { JsonLd } from "@/components/ui";
-import { breadcrumbSchema } from "@/lib/seo";
+import { marketingFaq } from "@/lib/marketing-faq";
+import { seoDescriptions } from "@/lib/seo-descriptions";
+import { faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { MarketingDetail } from "@/components/marketing/detail";
 export async function generateMetadata({
   params,
@@ -14,7 +16,7 @@ export async function generateMetadata({
     d = divisionByPath("marketing"),
     s = d && serviceById(d.id, p.service);
   return d && s && d.id !== "video"
-    ? pageMetadata(s.name, s.description, "/" + d.path + "/services/" + s.id)
+    ? pageMetadata(s.id === "seo" ? "SEO · AEO · GEO 구축" : s.id === "integrated" ? "통합 마케팅 대행" : s.name, s.description, "/" + d.path + "/services/" + s.id)
     : {};
 }
 export default async function ServicePage({
@@ -30,6 +32,7 @@ export default async function ServicePage({
   return (
     <>
       <MarketingDetail service={s} />
+      <JsonLd data={faqSchema(marketingFaq(s.id))} />
 
       <JsonLd
         data={{
@@ -37,7 +40,8 @@ export default async function ServicePage({
           "@type": "Service",
           "@id": siteUrl + "/" + d.path + "/services/" + s.id + "#service",
           name: s.name,
-          description: s.description,
+          description:
+            seoDescriptions["/marketing/services/" + s.id] ?? s.description,
           provider: { "@id": siteUrl + "/#organization" },
           serviceType: s.name,
           offers: marketingOffers(s.id),

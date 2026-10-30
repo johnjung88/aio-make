@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { ContactForm } from "@/components/contact-form";
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
@@ -21,7 +22,7 @@ export default async function Contact({
   const query = await searchParams;
   const requested = query.service;
   const service = requested ? serviceById("development", requested) : undefined;
-  return (
+  return <><PageBreadcrumb path="/contact" />{(
     <div className="guide-page guide-utility rw-contact-page">
       <div className="container page-intro">
         <Eyebrow>LET’S MAKE YOUR NEXT</Eyebrow>
@@ -65,5 +66,5 @@ export default async function Contact({
         />
       </div>
     </div>
-  );
+  )}</>;
 }

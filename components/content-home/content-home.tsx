@@ -2,6 +2,7 @@
  * 구성(W-H3): 작품 필름 히어로 → 서비스 6종 3D 캐러셀 → 제작 과정 → 6서비스 → 상담 띠.
  * 글자는 .cs-t-* 역할 클래스만, 색·간격·모양은 컨텐츠 사이트 토큰(--cs-*)만 쓴다. */
 import { publicEntries } from "@/lib/db";
+import { DivisionFaq } from "@/components/division-faq";
 import { homeJourneyData } from "@/lib/home-journey-data";
 import Link from "next/link";
 import { CsSectionHead } from "@/components/content-site/ui/section-head";
@@ -50,6 +51,8 @@ export async function ContentHome() {
       </section>
 
       <ServiceCards />
+
+      <DivisionFaq division="content" />
 
       <section
         className="ch-cta"

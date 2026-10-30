@@ -10,7 +10,7 @@ import { GuideNav } from "./guide/primitives";
 import { ReferenceFilters } from "./guide/reference-filters";
 import { JsonLd } from "./ui";
 import { breadcrumbSchema } from "@/lib/seo";
-import { siteName, siteUrl, socialImage } from "@/lib/metadata";
+import { siteName, siteUrl, socialImage, seoDescription } from "@/lib/metadata";
 
 export function GuideEntryCard({
   entry,
@@ -217,16 +217,14 @@ export async function EntryDetail({
               "@id": siteUrl + pagePath + "#article",
               mainEntityOfPage: siteUrl + pagePath,
               headline: entry.title,
-              description: entry.summary,
+              description: seoDescription(pagePath, entry.summary),
               image:
                 entry.cover_url && isSafeImageUrl(entry.cover_url)
                   ? new URL(entry.cover_url, siteUrl).href
                   : socialImage(pagePath),
               inLanguage: "ko-KR",
               dateModified: entry.updated_at,
-              ...(!entry.id.startsWith("guide-")
-                ? { datePublished: entry.created_at }
-                : {}),
+              datePublished: entry.created_at,
               author: {
                 "@type": "Organization",
                 "@id": siteUrl + "/#organization",

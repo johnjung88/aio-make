@@ -1,3 +1,4 @@
+import { KakaoContact } from "@/components/kakao-contact";
 /* 컨텐츠 사이트(AIO MAKE CONTENT STUDIO) 레이아웃. /content, 서비스, 문의, 인사이트와 사례 상세를 이 그룹이 처리한다.
  * /content/work 목록은 404 그대로, 사례 상세는 /content/projects/<slug>.
  * 메인 Header·Footer·FloatingContact·PageNavigation과 guide CSS 7종은 쓰지 않는다. robots는 루트 규칙을 따른다. */
@@ -27,9 +28,11 @@ export default function ContentSiteLayout({
           {CS_COPY.skip}
         </a>
         <ContentSiteHeader />
+        <KakaoContact placement="header" />
         <main id="main-content" className="cs-main">
           {children}
         </main>
+        <KakaoContact placement="footer" />
         <ContentSiteFooter />
         <ContentMobileBar />
         <CsReveal />

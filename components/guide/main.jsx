@@ -4,6 +4,7 @@
  * No DC interpreter, eval, HTML injection, editor runtime or stock video ships. */
 /* eslint-disable @next/next/no-img-element, @typescript-eslint/no-unused-vars */
 import React from "react";
+import { homeFaq } from "@/lib/home-faq";
 import { ShowcaseVideo } from "./showcase-video";
 import {
   GuideLogic,
@@ -42,28 +43,7 @@ const divisionServiceItems = (text) => {
 class Component extends GuideLogic {
   state = { service: "", sent: false, open: 0 };
   renderVals() {
-    const faqData = [
-      [
-        "AIO MAKE는 어떤 회사인가요?",
-        "컨텐츠·마케팅·개발 분야의 전문가들이 AI를 적극 활용해 일하는 올인원 에이전시입니다",
-      ],
-      [
-        "어떤 일을 맡길 수 있나요?",
-        "컨텐츠(웹툰, 애니메이션, AI 인플루언서, 모션그래픽, 브랜드 홍보 영상, SNS 광고 영상), 마케팅(통합 마케팅, SNS 대행 운영, SEO·AEO·GEO), 개발(업무 자동화, 프로그램, 웹사이트, 쇼핑몰)을 맡길 수 있습니다",
-      ],
-      [
-        "견적은 어떻게 받나요?",
-        "문의를 남기시면 담당자가 연락드려 요청 범위에 맞는 견적과 일정을 안내합니다",
-      ],
-      [
-        "AI를 쓰면 품질은 괜찮나요?",
-        "AI는 전문가가 효율을 높이는 도구로 쓰고, 모든 결과물은 분야별 전문가가 직접 검수한 뒤 납품합니다",
-      ],
-      [
-        "납품 후에도 관리해 주나요?",
-        "네, 수정 요청과 유지보수를 지원하며 범위는 견적 단계에서 함께 정합니다",
-      ],
-    ];
+    const faqData = homeFaq;
     return {
       faqs: faqData.map(([q, a], i) => ({
         q,
@@ -98,10 +78,11 @@ class Component extends GuideLogic {
         <GuideEffects />
         <div className="main-shell">
           <section className="main-hero">
-            <div className="main-hero-bg">
+            <div className="main-hero-bg" aria-hidden="true">
               <GuideImage
                 id="main-hero-bg"
                 alt=""
+                aria-hidden="true"
                 src="/images/guide/hero/hero-bg-seo2.webp"
               />
             </div>

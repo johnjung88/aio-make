@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import Link from "next/link";
 import { publicEntries } from "@/lib/db";
 import { mergeGuideEntries } from "@/lib/guide-content";
@@ -15,7 +16,7 @@ export default async function Page() {
     "insight",
     "marketing",
   );
-  return (
+  return <><PageBreadcrumb path="/marketing/insights" />{(
     <>
       <section className="mk-container mk-section">
         <div className="mk-page-title">
@@ -40,5 +41,5 @@ export default async function Page() {
       </section>
       <MarketingInquiry />
     </>
-  );
+  )}</>;
 }

@@ -1,16 +1,14 @@
 import MainGuide from "@/components/guide/main";
 import { JsonLd } from "@/components/ui";
 import { pageMetadata, siteDescription } from "@/lib/metadata";
+import { homeFaq } from "@/lib/home-faq";
+import { faqSchema } from "@/lib/seo";
 import { websiteSchema } from "@/lib/seo";
 import { publicEntries } from "@/lib/db";
 import { homeJourneyData } from "@/lib/home-journey-data";
 export const dynamic = "force-dynamic";
 export const metadata = {
-  ...pageMetadata(
-    "AIO MAKE | 올인원 에이전시",
-    siteDescription,
-    "/",
-  ),
+  ...pageMetadata("AIO MAKE | 올인원 에이전시", siteDescription, "/"),
   title: { absolute: "AIO MAKE | 올인원 에이전시" },
 };
 export default async function HomePage() {
@@ -19,6 +17,7 @@ export default async function HomePage() {
     <>
       <MainGuide entries={entries} journey={homeJourneyData(entries)} />
       <JsonLd data={websiteSchema} />
+      <JsonLd data={faqSchema(homeFaq)} />
     </>
   );
 }

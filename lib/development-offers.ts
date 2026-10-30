@@ -1,6 +1,8 @@
+import { siteUrl } from "./metadata.ts";
 // Source: development BUSINESS_STRUCTURE_v12, DECISIONS_v10 and product v08.
 // Prices are approved; delivery, revisions, support and VAT are agreed per quote.
 const website = {
+  amounts: [100000, 200000, 300000, 30000],
   title: "홈페이지 10만 원부터",
   summary:
     "1~9페이지 10만 원 · 10~20페이지 20만 원 · 21페이지 이상 30만 원부터 별도 문의 · 대시보드 +3만 원",
@@ -13,6 +15,7 @@ const website = {
   ],
 };
 const shop = {
+  amounts: [150000, 300000],
   title: "카페24 복사 15만 원 · 풀 세팅 30만 원",
   summary: "단순 복사 150,000원 · 풀 세팅 300,000원 · 상품등록·오픈설정 제외",
   lines: [
@@ -36,4 +39,34 @@ export function developmentOffer(service: string) {
     : service === "shop" || service === "shopping-mall"
       ? shop
       : quoted;
+}
+
+export function developmentSchemaOffers(id: string) {
+  const offer =
+    id === "website" ? website : id === "shopping-mall" ? shop : undefined;
+  if (!offer) return undefined;
+  const names =
+    id === "website"
+      ? [
+          "1~9페이지",
+          "10~20페이지",
+          "21페이지 이상 · 별도 문의",
+          "대시보드 추가 · 기능 범위 사전 합의",
+        ]
+      : ["단순 복사", "풀 세팅 · 상품등록·오픈설정 제외"];
+  return offer.amounts.map((amount, i) => ({
+    "@type": "Offer",
+    name: names[i],
+    url: siteUrl + "/lab/services/" + id + "#pricing",
+    priceCurrency: "KRW",
+    ...(id === "website" && i === 2
+      ? {
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            minPrice: amount,
+            priceCurrency: "KRW",
+          },
+        }
+      : { price: amount }),
+  }));
 }

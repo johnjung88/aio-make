@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 /* /content/contact 컨텐츠 문의. ?service=<6종 id>면 그 서비스를 미리 선택한다. */
 import { ContentContact } from "@/components/content-site/contact/contact-page";
 import { divisionById } from "@/lib/content";
@@ -21,5 +22,5 @@ export default async function ContentContactPage({
 }) {
   const raw = (await searchParams).service;
   const id = Array.isArray(raw) ? raw[0] : raw;
-  return <ContentContact service={isContentServiceId(id) ? id : undefined} />;
+  return <><PageBreadcrumb path="/content/contact" />{<ContentContact service={isContentServiceId(id) ? id : undefined} />}</>;
 }

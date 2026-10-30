@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import TeamGuide from "@/components/guide/team";
 import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata(
@@ -6,5 +7,5 @@ export const metadata = pageMetadata(
   "/about/team",
 );
 export default function TeamPage() {
-  return <TeamGuide />;
+  return <><PageBreadcrumb path="/about/team" />{<TeamGuide />}</>;
 }

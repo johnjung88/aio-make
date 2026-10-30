@@ -1,12 +1,16 @@
 /* 컨텐츠 서비스 페이지 JSON-LD(Service+offers · FAQPage · BreadcrumbList)를 한 곳에서 만든다.
  * Organization은 컨텐츠 레이아웃이 따로 넣는다. FAQ 문자열은 화면 FAQ(CsFaq)와 같은 배열에서 온다. */
+import { seoDescriptions } from "../seo-descriptions.ts";
 import { siteUrl } from "../metadata.ts";
 import { breadcrumbSchema } from "../seo.ts";
 import { planOptions } from "../content-pricing.ts";
 import { contentLandings } from "./index.ts";
 import { contentServicePath, type ContentServiceId } from "./types.ts";
 
-export function serviceJsonLd(id: ContentServiceId, faqItems?: readonly (readonly [string, string])[]) {
+export function serviceJsonLd(
+  id: ContentServiceId,
+  faqItems?: readonly (readonly [string, string])[],
+) {
   const data = contentLandings[id];
   const path = contentServicePath(id);
   const url = siteUrl + path;
@@ -16,7 +20,7 @@ export function serviceJsonLd(id: ContentServiceId, faqItems?: readonly (readonl
     "@id": url + "#service",
     name: data.label,
     serviceType: data.label,
-    description: data.seo.description,
+    description: seoDescriptions[path] ?? data.seo.description,
     provider: { "@id": siteUrl + "/#organization" },
     areaServed: { "@type": "Country", name: "대한민국" },
     url,
