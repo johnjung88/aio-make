@@ -2410,6 +2410,7 @@
 .mk-controls > .mk-reset {
   align-self: end;
   justify-self: start;
+  padding-inline: 0;
 }
 .mk-controls > .mk-result-jump {
   display: none;

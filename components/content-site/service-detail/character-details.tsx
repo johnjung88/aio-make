@@ -193,7 +193,7 @@ export function AnimationDetail() {
                 <button type="button" key={item.short} aria-pressed={poseIndex === index} onClick={() => selectPose(index)} aria-label={`${item.short} 캐릭터 동작 선택`}>
                   {/* The full asset is available immediately above through the image viewer. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={index === 3 ? "/content-f5/yofree-jump.webp" : `${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt="" loading="lazy" />
+                  <img className={index === 3 ? "sd-character-jump-tile" : undefined} src={index === 3 ? "/content-f5/yofree-jump.webp" : `${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt="" loading="lazy" />
                   <span>{item.short}</span>
                 </button>
               ))}

@@ -267,10 +267,10 @@ function StartingVisual({
   if (service === "ai-influencer")
     return (
       <figure className="cr-visual cr-persona">
-        {["cleanser-02", "cleanser-12"].map((name, i) => (
+        {["ai-cleanser-04", "ai-cleanser-20"].map((name, i) => (
           <div key={name}>
             <Image
-              src={`/content-fb3/${name}.webp`}
+              src={`/content-f5/${name}.webp`}
               width={400}
               height={520}
               alt={
