@@ -1,50 +1,53 @@
 // Server-only, single-case exception authorized for the company main page.
 // This does not publish the private work catalog or change its review gate.
-// AFTER is the matching PC/mobile HOME design v03, not the v06 product-detail
-// mobile screenshot that used to be paired with the home PC capture.
+// 10/30 user direction: the development step shows our own portfolio sample
+// 여백결 (fictional brand) instead of the customer store. BEFORE is the brand
+// guide home mockup, AFTER is the built site's first screen at the same size.
 import "server-only";
 import type { DevProject } from "./home-journey.ts";
 
+const base = "/company-main-20261019-v11/development/";
+
 export const companyMainDevProject: DevProject = {
-  title: "DR’s Secret 쇼핑몰",
+  title: "여백결 건축 스튜디오",
   detail: {
-    title: "DR’s Secret 쇼핑몰 디자인 시안",
-    status: "PC·모바일 디자인 시안 v03",
+    title: "여백결 건축 스튜디오 웹사이트",
+    status: "디자인 시안 → 완성 사이트",
     description:
-      "브랜드 소개와 제품 탐색을 연결한 쇼핑몰 디자인 시안입니다\n실제 주문과 결제는 받지 않는 레퍼런스입니다",
+      "포트폴리오용 가상 브랜드로 만든 건축·인테리어 스튜디오 웹사이트입니다\n시안에서 정한 장면을 실제 화면으로 옮겼습니다",
     purpose:
-      "스킨케어 브랜드의 분위기를 유지하면서 제품과 사용 순서를 살펴볼 수 있도록 구성했습니다",
+      "빛과 재료의 결이 먼저 보이도록 큰 공간 사진과 짧은 문장으로 첫 화면을 구성했습니다",
     scope:
-      "브랜드 소개, 제품 탐색과 상세 화면, PC·모바일 반응형 디자인을 제작했습니다\n비교 화면은 같은 홈 디자인 시안 v03의 PC·모바일 캡처입니다",
+      "브랜드 가이드, 홈 시안, 빛·재료·자리 비교 인터랙션, PC·모바일 반응형 개발까지 진행했습니다\n비교 화면은 홈 시안과 완성 사이트의 같은 첫 화면입니다",
   },
   after: {
     kind: "image",
-    src: "/company-main-20261019-v11/development/after-home-pc-v03.png",
+    src: `${base}yeobakgyeol-live-pc.webp`,
     width: 1440,
-    height: 1000,
-    alt: "DR’s Secret 쇼핑몰 홈 디자인 시안 v03 PC 화면",
+    height: 900,
+    alt: "여백결 완성 사이트 첫 화면 PC",
   },
   afterMobile: {
     kind: "image",
-    src: "/company-main-20261019-v11/development/after-home-mobile-v03.png",
+    src: `${base}yeobakgyeol-live-mobile.webp`,
     width: 390,
-    height: 1000,
-    alt: "DR’s Secret 쇼핑몰 홈 디자인 시안 v03 모바일 화면",
+    height: 844,
+    alt: "여백결 완성 사이트 첫 화면 모바일",
   },
   before: {
     pc: {
       kind: "image",
-      src: "/company-main-20261019-v11/development/before-home-pc.webp",
+      src: `${base}yeobakgyeol-mockup-pc.webp`,
       width: 1440,
       height: 900,
-      alt: "기존 DR’s Secret 공식몰 홈 PC 화면 · 2026-10-10 수집 캡처",
+      alt: "여백결 홈 디자인 시안 PC",
     },
     mobile: {
       kind: "image",
-      src: "/company-main-20261019-v11/development/before-home-mobile.webp",
+      src: `${base}yeobakgyeol-mockup-mobile.webp`,
       width: 390,
       height: 844,
-      alt: "기존 DR’s Secret 공식몰 홈 모바일 화면 · 2026-10-10 수집 캡처",
+      alt: "여백결 홈 디자인 시안 모바일",
     },
   },
 };
