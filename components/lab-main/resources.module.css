@@ -86,11 +86,26 @@
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  align-content: center;
+  align-items: center;
   column-gap: 40px;
 }
+.insightCopy {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+.insightCopy > * {
+  margin: 0;
+}
+.insightCopy > a {
+  justify-self: start;
+}
+@media (min-width: 901px) {
+  .page:global(.cs-site) .insights {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 .featuredInsight .insightMedia {
-  grid-row: 1 / 5;
   margin: 0;
 }
 @media (max-width: 900px) {

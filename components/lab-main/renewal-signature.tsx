@@ -553,7 +553,7 @@ export function CsvRunner() {
   const [problems, setProblems] = useState([true, true, true]),
     [normalize, setNormalize] = useState(false),
     [result, setResult] = useState<ReturnType<typeof reconcileOrders> | null>(
-      defaultOrderResult,
+      null,
     ),
     [tab, setTab] = useState("일치"),
     [input, setInput] = useState("CSV"),
@@ -646,7 +646,7 @@ export function CsvRunner() {
               onClick={() => {
                 setProblems([true, true, true]);
                 setNormalize(false);
-                setResult(defaultOrderResult());
+                setResult(null);
                 setTab("일치");
                 setInput("CSV");
                 setProcess("대조");
@@ -667,8 +667,13 @@ export function CsvRunner() {
           <p aria-live="polite">
             {result
               ? `대조 완료 · 일치 ${result.filter((r) => r.match).length} · 확인 필요 ${result.filter((r) => !r.match).length}`
-              : "기본 시료 미리보기 · 바꾼 설정은 대조 실행으로 확인하세요"}
+              : "기본 시료 대조 결과 · 일치 9 · 확인 필요 3"}
           </p>
+          {!result && (
+            <p className={styles.status}>
+              설정을 바꾼 뒤 대조 실행을 누르면 새 결과를 확인할 수 있습니다
+            </p>
+          )}
           {
             <Choices
               label="대조 결과 분류"

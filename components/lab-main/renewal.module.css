@@ -2167,9 +2167,12 @@
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr);
   gap: 16px;
+  align-items: baseline;
   font-size: 14px;
 }
-.priceRows strong {
+.priceCard .priceRows strong {
+  font-size: 14px;
+  line-height: inherit;
   color: var(--sd-text);
 }
 .page[data-service="website"] .plannerSummary {
@@ -2178,6 +2181,22 @@
 }
 .page[data-service="website"] .controls {
   gap: 16px;
+}
+@media (min-width: 901px) {
+  .page[data-service="website"] .plannerGrid {
+    align-items: center;
+  }
+  .page[data-service="website"] .plannerGrid > .controls,
+  .page[data-service="website"] .plannerGrid > .result {
+    align-self: center;
+    position: static;
+  }
+}
+.relatedCards .visual:has(.resultBoard[data-compact="true"]) {
+  aspect-ratio: 16 / 10;
+}
+.relatedCards .resultBoard[data-compact="true"] {
+  height: 100%;
 }
 .faq summary::after {
   font-size: 20px;
