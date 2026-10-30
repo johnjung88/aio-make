@@ -844,9 +844,9 @@ test("v11 development step holds one approved portfolio sample pair (여백결 �
   assert.deepEqual([project.afterMobile.width, project.afterMobile.height], [390, 844]);
   assert.deepEqual([project.before.mobile.width, project.before.mobile.height], [390, 844]);
   const approved = {
-    "yeobakgyeol-mockup-pc.webp": [141716, "a3611dbe03dc1a11484c1099cf42c347d53efdcd600471e7ea2319b51c3f01b0"],
+    "yeobakgyeol-mockup-pc.webp": [171408, "54b1a1769fe9a341c054d000abca2a44c5a273388b8efae73e63d0b20ec24e44"],
     "yeobakgyeol-mockup-mobile.webp": [142044, "0c722b74efe1f3744b4b68eb79aa4482d5cde65090b92315844d8210676624e8"],
-    "yeobakgyeol-live-pc.webp": [124024, "595bfd48811f9a807369a4e18a622cdd004461de726cb6f583d0c4fe1b460dc6"],
+    "yeobakgyeol-live-pc.webp": [301728, "42ad15ca3c36c29d969eb11525793b045693a033aef85d6ff9219e5bfa3e6210"],
     "yeobakgyeol-live-mobile.webp": [84226, "8f816cd3caed4fa48cada9ae182fe78c851ac3b49cb427469fabeb4aa5953460"],
   };
   const base = "/company-main-20261019-v11/development/";
@@ -855,7 +855,7 @@ test("v11 development step holds one approved portfolio sample pair (여백결 �
   assert.equal(provenance.sameHomePair, true);
   assert.equal(provenance.version, "v2");
   assert.equal(provenance.pairId, "yeobakgyeol-home-v2");
-  assert.deepEqual(provenance.afterSourceIds, ["https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30", "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"]);
+  assert.deepEqual(provenance.afterSourceIds, ["https://aio-sample-yeobakgyeol.vercel.app 1440x900@2x first screen 2026-10-30", "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"]);
   for (const [name, [bytes, sha256]] of Object.entries(approved)) {
     const file = await readFile(new URL(`public${base}${name}`, root));
     assert.equal(file.byteLength, bytes, name);

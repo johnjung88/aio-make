@@ -24,7 +24,8 @@ export type CompareModel = {
   mobile: { before: JourneyMedia; after: JourneyMedia } | null;
 };
 
-const PC_SIZES = "(min-width: 1024px) 880px, 94vw";
+// The PC stage is about 1,060px wide at 1440, so ask for that, not 880px (PC1 17:5x: soft at 1.2x)
+const PC_SIZES = "(min-width: 1440px) 1100px, (min-width: 1024px) 76vw, 94vw";
 const MOBILE_SIZES = "(min-width: 768px) 320px, 70vw";
 const TAP_SLOP = 6;
 

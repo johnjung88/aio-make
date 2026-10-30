@@ -47,7 +47,8 @@ export function ContentMobileBar() {
 
   if (!serviceId) return null;
   const service = CONTENT_SERVICES.find((s) => s.id === serviceId);
-  const price = startingPrice(serviceId);
+  // 사용자 10/30: 웹툰 외 5개 서비스는 하단 바에 시작가를 띄우지 않는다(가격은 #pricing 절에)
+  const price = serviceId === "webtoon" ? startingPrice(serviceId) : null;
   const hidden = inlineVisible || keyboard;
   return (
     <aside
