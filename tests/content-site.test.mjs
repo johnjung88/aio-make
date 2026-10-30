@@ -531,7 +531,27 @@ test("6-4. approved case IDs stay explicit and the original 85 media hashes rema
   assert.equal(new Set(sourceLinks.map((asset) => asset.sourceId)).size, 85);
   const approved = new Set(manifest.assets.map((asset) => asset.path));
   assert.equal(approved.size, 85);
-  assert.deepEqual(walkFiles("public/service-detail-v14").map((path) => `/${path.replaceAll("\\", "/").replace(/^public\//, "")}`).sort(), [...approved].sort());
+  // W-ADFIX authorizes three new cleanser frames while retaining all 85 frozen originals
+  const adfixFrames = [
+    {
+      "path": "/service-detail-v14/ad-cleanser-scene-01.webp",
+      "sha256": "8babc2ad512c33af8264fafd4825593e1543229fd9022066153834f9fa6dfb2c"
+    },
+    {
+      "path": "/service-detail-v14/ad-cleanser-scene-09.webp",
+      "sha256": "aae51271f858a9866555876c243dd76f90e8265c346c104ffa408cd75376595b"
+    },
+    {
+      "path": "/service-detail-v14/ad-cleanser-scene-18.webp",
+      "sha256": "4f1ec72ba0015c6d9bbb5534c5fcbd188687d80edcbea44ad912549f12464812"
+    }
+  ];
+  for (const { path, sha256 } of adfixFrames) {
+    const bytes = readFileSync(join("public", path));
+    assert.ok(bytes.length <= 400 * 1024, path);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), sha256, path);
+  }
+  assert.deepEqual(walkFiles("public/service-detail-v14").map((path) => `/${path.replaceAll("\\", "/").replace(/^public\//, "")}`).sort(), [...approved, ...adfixFrames.map(({ path }) => path)].sort());
   for (const asset of manifest.assets) {
     assert.match(asset.path, /^\/service-detail-v14\/[a-z0-9-]+\.(?:webp|mp4)$/);
     const actual = readFileSync(join("public", asset.path));
