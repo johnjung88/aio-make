@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { marketingHomeFaq } from "@/lib/marketing-home-faq";
 import Link from "next/link";
 import { MarketingFinder } from "./experience";
 import {
@@ -154,26 +155,7 @@ export function MarketingHome() {
           eyebrow="FAQ"
           title={"운영 전에\n궁금한 점"}
         />
-        <MarketingFaq
-          faq={[
-            [
-              "어떤 서비스부터 시작하면 좋을까요?",
-              "컨텐츠와 채널을 함께 맡기려면 통합 마케팅, 꾸준한 게시가 필요하면 SNS 운영을 살펴보세요\n브랜드 인물이 필요하면 AI 인플루언서, 사이트 구조를 개선하려면 SEO·AEO·GEO를 선택할 수 있습니다",
-            ],
-            [
-              "기존 자료와 채널로 시작할 수 있나요?",
-              "현재 자료와 채널을 먼저 확인합니다\n이용 권리와 수정 가능한 범위를 확인한 뒤 부족한 자료와 추가 제작을 견적에서 정합니다",
-            ],
-            [
-              "운영 결과는 어떻게 확인하나요?",
-              "제작 컨텐츠와 채널별 게시 내역, 확인 가능한 반응과 다음 운영 계획을 함께 정리합니다",
-            ],
-            [
-              "광고비와 추가 촬영도 포함되나요?",
-              "광고 매체비와 촬영, 추가 채널과 제작은 기본 제공 범위와 구분해 견적에서 확인합니다",
-            ],
-          ]}
-        />
+        <MarketingFaq faq={marketingHomeFaq} />
       </section>
       <MarketingInquiry />
     </div>
