@@ -507,12 +507,22 @@ function SnsPreview({ onReset }: ResetProps) {
                   {i === 1 ? "고객 질문에 답합니다" : "제작 방향 예시"}
                 </small>
                 <h4>
-                  {i === 1 ? `${title}, ${question} 직접 알려드려요` : title}
+                  {
+                    [
+                      `${title} 한눈에 보기`,
+                      `${title}, ${question}`,
+                      `${title}, 짧게 만나요`,
+                    ][i]
+                  }
                 </h4>
                 <p>
-                  {question}
-                  <br />
-                  {detail}
+                  {
+                    [
+                      detail,
+                      `${detail}\n궁금한 점을 자세히 풀어드립니다`,
+                      `질문 · ${question}\n장면 · ${detail}`,
+                    ][i]
+                  }
                 </p>
                 <p className="mk-channel-purpose">
                   {
@@ -645,6 +655,12 @@ const pageItems = [
   "사이트맵·색인 허용",
 ];
 const industryQuestions: Record<string, string[]> = {
+  카페: [
+    "어떤 음료인가요?",
+    "어떤 재료를 쓰나요?",
+    "메뉴는 어디서 확인하나요?",
+    "매장은 어디에 있나요?",
+  ],
   "세무·법률": [
     "비용은 얼마인가요?",
     "누가 받을 수 있나요?",
@@ -677,7 +693,7 @@ const industryQuestions: Record<string, string[]> = {
   ],
 };
 function SeoPreview({ onReset }: ResetProps) {
-  const [industry, setIndustry] = useState("세무·법률");
+  const [industry, setIndustry] = useState("카페");
   const [name, setName] = useState("");
   const [region, setRegion] = useState("");
   const [question, setQuestion] = useState(industryQuestions[industry][0]);
@@ -685,6 +701,7 @@ function SeoPreview({ onReset }: ResetProps) {
   const service =
     name ||
     {
+      카페: "귀리 라떼",
       "세무·법률": "법인 기장 대행",
       병원: "진료 안내",
       "B2B 제조": "산업 부품",
@@ -772,7 +789,9 @@ function SeoPreview({ onReset }: ResetProps) {
                 </h3>
                 <p>
                   {i === 1 && has(0)
-                    ? `${service}의 대상과 제공 범위, 상담에 필요한 자료를 확인하세요`
+                    ? industry === "카페"
+                      ? `${service}의 재료와 메뉴 안내를 확인하세요`
+                      : `${service}의 대상과 제공 범위, 상담에 필요한 자료를 확인하세요`
                     : "회사소개 · 서비스 · 문의 · 찾아오시는 길"}
                 </p>
               </div>
@@ -780,15 +799,22 @@ function SeoPreview({ onReset }: ResetProps) {
                 <strong>질문에 대한 답변 예시</strong>
                 <p>
                   {i === 1 && has(1)
-                    ? `${question}\n${service}의 조건과 절차를 서비스 페이지에서 안내합니다`
+                    ? industry === "카페"
+                      ? `${question}\n${service}의 재료와 매장 정보를 메뉴 페이지에서 안내합니다`
+                      : `${question}\n${service}의 조건과 절차를 서비스 페이지에서 안내합니다`
                     : "이 사이트에서 확인할 수 있는 정보가 적습니다"}
                 </p>
                 {i === 1 && has(2) && (
-                  <p>비용은 제공 범위와 준비 자료를 확인한 뒤 정합니다</p>
+                  <p>
+                    {industry === "카페"
+                      ? "메뉴 가격과 선택 가능한 구성은 메뉴 안내에서 확인하세요"
+                      : "비용은 제공 범위와 준비 자료를 확인한 뒤 정합니다"}
+                  </p>
                 )}
                 {i === 1 && has(1) && (
                   <small>
-                    참고한 곳: {service} 서비스 페이지
+                    참고한 곳: {service}{" "}
+                    {industry === "카페" ? "메뉴" : "서비스"} 페이지
                     {has(2) ? " · 가격 문단" : ""}
                   </small>
                 )}
