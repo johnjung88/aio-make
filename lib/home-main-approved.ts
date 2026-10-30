@@ -23,8 +23,8 @@ export const companyMainDevProject: DevProject = {
   after: {
     kind: "image",
     src: `${base}yeobakgyeol-live-pc.webp`,
-    width: 1440,
-    height: 900,
+    width: 2880,
+    height: 1800,
     alt: "여백결 완성 사이트 첫 화면 PC",
   },
   afterMobile: {
@@ -38,8 +38,8 @@ export const companyMainDevProject: DevProject = {
     pc: {
       kind: "image",
       src: `${base}yeobakgyeol-mockup-pc.webp`,
-      width: 1440,
-      height: 900,
+      width: 1504,
+      height: 940,
       alt: "여백결 홈 디자인 시안 PC",
     },
     mobile: {

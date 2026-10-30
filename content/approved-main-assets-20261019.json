@@ -129,14 +129,14 @@
     "sameHomePair": true,
     "version": "v2",
     "afterSourceIds": [
-      "https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30",
+      "https://aio-sample-yeobakgyeol.vercel.app 1440x900@2x first screen 2026-10-30",
       "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"
     ],
     "assets": [
       {
         "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-mockup-pc.webp",
-        "sha256": "a3611dbe03dc1a11484c1099cf42c347d53efdcd600471e7ea2319b51c3f01b0",
-        "bytes": 141716,
+        "sha256": "54b1a1769fe9a341c054d000abca2a44c5a273388b8efae73e63d0b20ec24e44",
+        "bytes": 171408,
         "sourceId": "aio-sample-yeobakgyeol/docs/mockups/01_home_pc-v2.jpg"
       },
       {
@@ -147,9 +147,9 @@
       },
       {
         "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-live-pc.webp",
-        "sha256": "595bfd48811f9a807369a4e18a622cdd004461de726cb6f583d0c4fe1b460dc6",
-        "bytes": 124024,
-        "sourceId": "https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30"
+        "sha256": "42ad15ca3c36c29d969eb11525793b045693a033aef85d6ff9219e5bfa3e6210",
+        "bytes": 301728,
+        "sourceId": "https://aio-sample-yeobakgyeol.vercel.app 1440x900@2x first screen 2026-10-30"
       },
       {
         "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-live-mobile.webp",

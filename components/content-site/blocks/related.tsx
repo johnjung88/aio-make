@@ -29,7 +29,8 @@ export function CsRelated({ current }: { current: ContentServiceId }) {
         />
         <ul className="cs-related-list">
           {CONTENT_SERVICES.filter((s) => s.id !== current).map((s) => {
-            const price = startingPrice(s.id, true);
+            // 사용자 10/30: 관련 서비스 카드의 시작가는 웹툰만 남긴다
+            const price = s.id === "webtoon" ? startingPrice(s.id, true) : null;
             const line = lineOf(s.id);
             return (
               <li key={s.id}>
