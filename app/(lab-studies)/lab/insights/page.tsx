@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { labInsights } from "@/lib/lab-resources";
 import { pageMetadata } from "@/lib/metadata";
 import styles from "@/components/lab-main/resources.module.css";
@@ -21,6 +22,25 @@ export default function LabInsightsPage() {
         <div className={`cs-insight-list ${styles.insights}`}>
           {labInsights.map((entry) => (
             <article className="cs-insight-card" key={entry.slug}>
+              <Link
+                href={`/lab/insights/${entry.slug}`}
+                className={`${styles.media} ${styles.insightMedia}`}
+                aria-label={`${entry.title} 읽기`}
+              >
+                <Image
+                  src={
+                    entry.service === "website"
+                      ? "/lab-references/munseodam.webp"
+                      : entry.service === "shopping-mall"
+                        ? "/lab-renewal/shopping-mall-banner.webp"
+                        : "/lab-renewal/automation-hero.webp"
+                  }
+                  width={1440}
+                  height={900}
+                  sizes="(max-width: 900px) 90vw, 30vw"
+                  alt={`${entry.category} 제작 방향 예시`}
+                />
+              </Link>
               <span className="cs-t-eyebrow">{entry.category}</span>
               <h2 className="cs-t-h3">{entry.title}</h2>
               <p className="cs-t-body">{entry.summary}</p>
