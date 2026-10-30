@@ -829,6 +829,7 @@ export function RolePreview() {
                 : "사용 장소와 네트워크부터 함께 확인합니다"}
           </p>
           <Reset
+            text
             onClick={() => {
               setRole("요청자");
               setPermissions(defaultPermissions());
@@ -863,7 +864,7 @@ export function RolePreview() {
               </label>
               <button
                 className={styles.button}
-                aria-disabled={!newTitle.trim()}
+                disabled={!newTitle.trim()}
                 onClick={() => {
                   if (!newTitle.trim()) return;
                   setRequests([

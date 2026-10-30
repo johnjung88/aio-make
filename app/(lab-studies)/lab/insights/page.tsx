@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/metadata";
 import styles from "@/components/lab-main/resources.module.css";
 export const metadata = pageMetadata(
   "개발 인사이트",
-  "웹사이트·쇼핑몰·자동화 의뢰 전에 준비할 내용을 확인하세요",
+  "웹사이트·쇼핑몰·자동화·프로그램 개발 의뢰 전에 준비할 내용을 확인하세요",
   "/lab/insights",
 );
 export default function LabInsightsPage() {
@@ -21,7 +21,7 @@ export default function LabInsightsPage() {
               <p className="cs-t-eyebrow">INSIGHTS</p>
               <h1 className="cs-t-display">제작 전에 읽어보세요</h1>
               <p className="cs-t-lead">
-                웹사이트·쇼핑몰·자동화를 준비하는 데 필요한 이야기
+                웹사이트·쇼핑몰·자동화·프로그램 개발을 준비하는 데 필요한 이야기
               </p>
             </header>
             <nav className={styles.topics} aria-label="개발 주제">

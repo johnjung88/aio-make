@@ -144,9 +144,9 @@
   margin: 0 0 32px;
 }
 .topics a {
-  border: 1px solid #ffffff26;
-  border-radius: 999px;
   padding: 10px 18px;
   color: #b9aeff;
   font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }

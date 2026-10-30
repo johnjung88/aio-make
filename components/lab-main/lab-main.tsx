@@ -115,7 +115,7 @@ export function LabMain() {
                       <Image
                         src={
                           s.id === "website"
-                            ? "/lab-renewal/card-website.webp"
+                            ? "/lab/stay-pc.webp"
                             : `/lab-renewal/card-${s.id}.webp`
                         }
                         width={1200}

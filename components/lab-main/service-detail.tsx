@@ -15,7 +15,6 @@ import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
 import { OutputPreview } from "./output-preview";
 import { ResultBoard } from "./result-board";
-import { AutomationCardVisual } from "./automation-card-visual";
 import styles from "./renewal.module.css";
 type Id = keyof typeof content;
 export function SectionHead({
@@ -391,8 +390,8 @@ export function LabServiceDetail({ id }: { id: string }) {
               <article key={s.id} className={styles.card}>
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
-                    {s.id === "automation" ? (
-                      <AutomationCardVisual />
+                    {s.id === "automation" || s.id === "program" ? (
+                      <ResultBoard service={s.id} compact />
                     ) : (
                       <Image
                         src={

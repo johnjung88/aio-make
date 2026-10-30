@@ -2014,18 +2014,21 @@
   border-radius: 12px;
 }
 .resultBoard[data-compact="true"] .boardBody {
-  padding: 14px;
+  padding: 10px;
 }
+.resultBoard[data-compact="true"] .boardLabel,
 .resultBoard[data-compact="true"] .boardBody > strong {
-  margin: 6px 0 14px;
-  font-size: 20px;
+  display: none;
 }
 .resultBoard[data-compact="true"] .boardBar {
   padding: 10px 14px;
 }
 .resultBoard[data-compact="true"] .boardRow {
-  padding: 10px 8px;
-  margin-bottom: 6px;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+}
+.visual:has(.resultBoard[data-compact="true"]) {
+  min-height: 180px;
 }
 .resultBoard[data-compact="true"] .boardFoot {
   display: none;
@@ -2120,12 +2123,17 @@
   opacity: 1;
   min-height: 48px;
 }
+.page[data-service="program"] .requestForm > button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
 .page[data-service="website"] .heroVisual {
   border-radius: 20px;
   overflow: hidden;
 }
 .page[data-service="website"] .heroVisual .devices img:first-child {
   object-fit: cover;
+  object-position: right bottom;
 }
 .sampleGate[data-sample="website"] > img {
   max-height: 400px;
