@@ -2259,7 +2259,36 @@
   width: 100%;
 }
 .page[data-service="shopping-mall"] .shopHero .shopPhoto img {
-  filter: brightness(1.2);
+  height: auto;
+  aspect-ratio: 8 / 3;
+  object-fit: contain;
+}
+
+/* Keep the home FLOW output in the same frame as its sibling cards */
+.homeCards .visual:has(.resultBoard[data-compact="true"]) {
+  aspect-ratio: 16 / 10;
+}
+.homeCards .resultBoard[data-compact="true"] {
+  height: 100%;
+}
+.dataRow .requestStatus {
+  width: fit-content;
+  padding: 4px 10px;
+  border: 1px solid #ffffff40;
+  border-radius: 999px;
+  color: var(--sd-muted);
+  background: #ffffff0a;
+  font-size: 14px;
+}
+.dataRow .requestStatus[data-status="진행 중"] {
+  color: #d6cfff;
+  border-color: #b9aeff;
+  background: #6b4dff33;
+}
+.dataRow .requestStatus[data-status="처리 완료"] {
+  color: #302a3d;
+  border-color: #eeeaf4;
+  background: #eeeaf4;
 }
 @media (max-width: 767px) {
   .customPrice {
