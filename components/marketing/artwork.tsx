@@ -357,12 +357,20 @@ export function MarketingArtwork({
     content = (
       <div className="mk-seo-hero-result">
         <Photo
-          file="preview-0-1"
-          alt="가상 카페의 메뉴 안내 사진"
+          file="f3a2-process-brief"
+          alt="가상 브랜드의 메뉴와 소개 자료를 정리하는 장면"
           priority={hero}
         />
         <SearchScene variant="answer" />
       </div>
+    );
+  } else if (name === "seo-card") {
+    content = (
+      <Publication
+        file="f3a2-process-plan"
+        title="고객의 질문을 페이지로"
+        channel="SEARCH & ANSWER"
+      />
     );
   } else if (name.startsWith("seo-")) {
     content = (

@@ -243,14 +243,6 @@ const calendarMaterials = [
   ["f3a2-channel-motion", "동작 안내"],
   ["preview-2-1", "이용 안내"],
 ];
-const channelShortNames: Record<string, string> = {
-  인스타그램: "IG",
-  "네이버 블로그": "블로그",
-  쇼츠: "쇼츠",
-  스레드: "스레드",
-  "지도 정보": "지도",
-  "검색 노출용 글": "검색",
-};
 type ResetProps = { onReset: () => void };
 function ResetButton({ onReset }: ResetProps) {
   return (
@@ -361,38 +353,21 @@ function ChannelPlanner({ onReset }: ResetProps) {
                 alt={`${week + 1}주 ${calendarMaterials[week][1]} 게시 소재 예시`}
               />
               <p className="mk-week-topic">{calendarMaterials[week][1]}</p>
-              <ul
-                className="mk-calendar-channels"
-                aria-label={`${week + 1}주 채널별 게시 건수`}
-              >
-                {selected.map((c) => {
-                  const count =
-                    Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0);
-                  return (
-                    <li key={c}>
-                      <span>
-                        <span className="mk-channel-name">{c}</span>
-                        <abbr className="mk-channel-short" title={c}>
-                          {channelShortNames[c]}
-                        </abbr>
-                        <small>
-                          {count > 0 ? (
-                            <>
-                              {count}
-                              <span className="mk-count-unit">건</span>
-                            </>
-                          ) : (
-                            "없음"
-                          )}
-                        </small>
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
+              <p className="mk-week-total">
+                {selected.length}채널 합산{" "}
+                {selected.reduce(
+                  (n, c) =>
+                    n +
+                    Math.floor(counts[c] / 4) +
+                    (week < counts[c] % 4 ? 1 : 0),
+                  0,
+                )}
+                건
+              </p>
             </div>
           ))}
         </div>
+        <p className="mk-channel-summary">{selected.join(" · ")}</p>
         <details className="mk-source-details">
           <summary>03 원본을 눌러 채널별 재구성 보기</summary>
           <div className="mk-originals">
@@ -402,15 +377,6 @@ function ChannelPlanner({ onReset }: ResetProps) {
                 aria-pressed={tile === i}
                 onClick={() => setTile(i)}
               >
-                {i < 5 && (
-                  <Image
-                    src={`/marketing-renewal/${i === 4 ? "preview-2-2" : calendarMaterials[i][0]}.webp`}
-                    width={160}
-                    height={96}
-                    alt=""
-                    aria-hidden="true"
-                  />
-                )}
                 <span>원본 {i + 1}</span>
               </button>
             ))}
@@ -484,24 +450,26 @@ function SnsPreview({ onReset }: ResetProps) {
             setQuestion("뭐가 달라요?");
           }}
         />
-        <label>
-          02 이름
-          <input
-            maxLength={16}
-            value={name}
-            placeholder={defaultNames[index]}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          알리고 싶은 한 가지
-          <input
-            maxLength={30}
-            value={point}
-            placeholder={defaultPoints[index]}
-            onChange={(e) => setPoint(e.target.value)}
-          />
-        </label>
+        <div className="mk-sns-fields">
+          <label>
+            02 이름
+            <input
+              maxLength={16}
+              value={name}
+              placeholder={defaultNames[index]}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <label>
+            알리고 싶은 한 가지
+            <input
+              maxLength={30}
+              value={point}
+              placeholder={defaultPoints[index]}
+              onChange={(e) => setPoint(e.target.value)}
+            />
+          </label>
+        </div>
         <Choices
           label="03 고객 질문"
           items={[how, "뭐가 달라요?", "언제 좋아요?"]}
@@ -546,20 +514,15 @@ function SnsPreview({ onReset }: ResetProps) {
                   <br />
                   {detail}
                 </p>
-                {i === 1 && (
-                  <p>
-                    자료에서 확인한 사실로 소개하고
-                    <br />
-                    궁금한 내용을 차근차근 안내합니다
-                  </p>
-                )}
-                {i === 2 && (
-                  <ol>
-                    <li>소재 소개</li>
-                    <li>{detail}</li>
-                    <li>매장·구매 안내</li>
-                  </ol>
-                )}
+                <p className="mk-channel-purpose">
+                  {
+                    [
+                      "사진과 짧은 소개로 메뉴를 알립니다",
+                      "확인한 자료로 궁금한 내용을 안내합니다",
+                      "소재 소개에서 매장·구매 안내로 이어갑니다",
+                    ][i]
+                  }
+                </p>
               </div>
             </article>
           ))}
@@ -619,7 +582,7 @@ function PersonaPlanner({ onReset }: ResetProps) {
         </p>
         <div className="mk-persona">
           <Image
-            src={`/marketing-renewal/persona-role-${index}.webp`}
+            src="/marketing-renewal/persona-role-0.webp"
             width={400}
             height={500}
             alt={`AIO 가상 인물 · ${role} 장면`}
@@ -710,7 +673,6 @@ function SeoPreview({ onReset }: ResetProps) {
   const [region, setRegion] = useState("");
   const [question, setQuestion] = useState(industryQuestions[industry][0]);
   const [enabled, setEnabled] = useState(pageItems);
-  const [view, setView] = useState("정리 후");
   const service =
     name ||
     {
@@ -788,13 +750,7 @@ function SeoPreview({ onReset }: ResetProps) {
           표시 방식 예시예요 · 실제 검색 결과와 AI 답변이 아니며 순위나 인용을
           보장하지 않습니다
         </p>
-        <Choices
-          label="비교 화면"
-          items={["정리 전", "정리 후"]}
-          value={view}
-          onChange={setView}
-        />
-        <div className="mk-search-comparison" data-view={view}>
+        <div className="mk-search-comparison">
           {["정리 전", "정리 후"].map((v, i) => (
             <article key={v} data-compare={v}>
               <p className="mk-eyebrow">{v}</p>
@@ -836,7 +792,7 @@ function SeoPreview({ onReset }: ResetProps) {
           {has(3) ? "FAQ 구조화 데이터 포함" : "FAQ 구조화 데이터 미포함"} ·{" "}
           {has(4) ? "사이트맵·색인 허용 점검" : "색인 설정 점검 제외"}
         </p>
-        <ul>
+        <ul className="mk-applied-items" aria-label="적용 항목">
           {enabled.map((item) => (
             <li key={item}>{item}</li>
           ))}

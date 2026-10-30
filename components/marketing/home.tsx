@@ -38,15 +38,6 @@ export function MarketingHome() {
             </a>
             <Link href="/marketing/contact">상담하기 ↗</Link>
           </div>
-        </div>
-        <div className="mk-channel-ribbon" id="channel-preview">
-          <MarketingPicture
-            name="home-ribbon"
-            stage={stage}
-            alt="같은 브랜드의 인스타그램 피드, 블로그 글, 검색 답변이 나란히 이어지는 채널 화면"
-          />
-        </div>
-        <div className="mk-container">
           <ol className="mk-journey">
             {["01 노출", "02 유입", "03 문의"].map((label, index) => (
               <li key={label}>
@@ -70,6 +61,13 @@ export function MarketingHome() {
               ][stage]
             }
           </p>
+        </div>
+        <div className="mk-channel-ribbon" id="channel-preview">
+          <MarketingPicture
+            name="home-ribbon"
+            stage={stage}
+            alt="같은 브랜드의 인스타그램 피드, 블로그 글, 검색 답변이 나란히 이어지는 채널 화면"
+          />
         </div>
       </section>
       <MarketingFinder onRecommend={setRecommended} />

@@ -132,6 +132,7 @@
 }
 .rw-about .rw-scope-choices {
   display: flex;
+  justify-content: center;
   gap: 12px;
   margin-bottom: 32px;
 }
@@ -171,7 +172,7 @@
   background: var(--cs-bg-2);
 }
 .rw-about #rw-scope-result tbody th {
-  width: 40%;
+  width: 41.6667%;
   font-weight: 550;
 }
 .rw-about #rw-scope-result td {
@@ -202,4 +203,18 @@
 .rw-about .rw-about-process-scenes li:nth-child(1) img,
 .rw-about .rw-about-process-scenes li:nth-child(2) img {
   object-position: top;
+}
+.rw-about #rw-scope-result > h3 {
+  text-align: center;
+}
+.rw-about .rw-process-disclaimer {
+  font-size: 14px;
+  text-align: center;
+}
+.rw-about .rw-contact {
+  background: radial-gradient(
+    ellipse at center bottom,
+    #6b4dff20,
+    transparent 65%
+  );
 }
