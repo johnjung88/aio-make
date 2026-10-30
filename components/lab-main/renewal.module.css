@@ -1480,10 +1480,10 @@
   width: min(100%, 280px);
 }
 .plannerGrid {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
 }
 .plannerGrid .sitePreview {
-  width: min(100%, 360px);
+  width: min(100%, 280px);
 }
 .page[data-service="shopping-mall"] .signatureGrid,
 .page[data-service="program"] .signatureGrid {
@@ -1497,26 +1497,30 @@
 .page[data-service="program"] .result {
   position: static;
 }
-.page[data-service="website"] .controls,
 .page[data-service="shopping-mall"] .controls {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
 .page[data-service="website"] .result {
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   align-content: start;
   justify-items: center;
   text-align: center;
-  padding-top: 32px;
-  border-top: 1px solid var(--sd-line);
+  position: sticky;
+  top: 100px;
 }
 .plannerSummary {
   display: grid;
-  gap: 24px;
-  align-self: center;
-  justify-items: center;
+  gap: 16px;
+  align-self: start;
+  justify-items: start;
   min-width: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--sd-line);
+}
+.plannerSummary .sitemap {
+  width: 100%;
 }
 .page[data-service="automation"] .signatureGrid {
   grid-template-columns: minmax(0, 1fr);
@@ -1528,6 +1532,20 @@
 .page[data-service="automation"] .controls {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
+}
+.automationGroup {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  align-content: start;
+}
+.pendingResults {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 1px dashed var(--sd-line);
+  border-radius: 12px;
+  color: var(--sd-muted);
 }
 .page[data-service="automation"] .result {
   padding-top: 32px;
@@ -1578,6 +1596,31 @@
   border-radius: var(--sd-radius);
   background: var(--sd-panel);
 }
+.sampleGate[data-sample="automation"] {
+  max-width: none;
+}
+.leadPreview > .eyebrow {
+  margin-bottom: 16px;
+}
+.leadPreview > .note {
+  margin-inline: 0;
+  text-align: left;
+}
+.leadRecord {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--sd-line);
+  border-radius: 12px;
+  background: var(--sd-bg);
+}
+.leadRecord small {
+  color: var(--sd-em);
+}
+.leadRecord span {
+  font-size: 13px;
+  color: var(--sd-muted);
+}
 .leadPreview ol {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1603,8 +1646,8 @@
   color: #302b29;
 }
 .knitPhoto {
-  background: #e9e8e4 url("/lab-samples/forme-editorial.png") left bottom / 200%
-    200% no-repeat;
+  background: #e9e8e4 url("/lab-renewal/knit-detail-f5.webp") center / cover
+    no-repeat;
 }
 .productPreview > div:last-child {
   display: grid;
@@ -1632,17 +1675,15 @@
   .leadPreview li p {
     grid-column: 2;
   }
-}
-.page[data-service="website"] .result .sitemap {
-  justify-content: center;
-  border-left: 0;
-  border-block: 1px solid var(--sd-line);
+  .leadRecord {
+    grid-column: 1 / -1;
+  }
 }
 .page[data-service="website"] .result > :not(.sitePreview) {
   grid-column: 1;
 }
 .page[data-service="website"] .result > .sitePreview {
-  grid-column: 2;
+  grid-column: 1;
   grid-row: 1;
 }
 .page[data-service="website"] .result > .note {
@@ -1739,9 +1780,12 @@
   font-size: 13px;
   color: #665b77;
 }
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .plannerGrid {
     grid-template-columns: 1fr;
+  }
+  .page[data-service="website"] .result {
+    position: static;
   }
 }
 .shopPhoto img {

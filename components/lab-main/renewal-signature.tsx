@@ -244,13 +244,7 @@ export function PagePlanner() {
               ))}
             </div>
           </details>
-          <a className={styles.mobileResult} href="#planner-result">
-            결과 보기 ↓
-          </a>
-          <Reset onClick={reset} />
-        </div>
-        <div className={styles.result} id="planner-result">
-          <div className={styles.plannerSummary}>
+          <div className={styles.plannerSummary} id="planner-result">
             <p className={styles.status}>
               공개 가격 구간 안내예요
               <br />
@@ -274,6 +268,9 @@ export function PagePlanner() {
               ))}
             </div>
           </div>
+          <Reset onClick={reset} />
+        </div>
+        <div className={styles.result}>
           <div
             className={styles.sitePreview}
             aria-label="선택한 페이지를 반영한 모바일 웹사이트 예시"
@@ -557,89 +554,93 @@ export function CsvRunner() {
     <div className={styles.signature}>
       <div className={styles.signatureGrid}>
         <div className={styles.controls}>
-          <fieldset>
-            <legend>문제 섞기</legend>
-            <div className={styles.checks}>
-              {[
-                "주문번호 형식 다름 (#1023 / 1023)",
-                "빈 값 (수량 누락)",
-                "같은 주문 두 번",
-              ].map((s, i) => (
-                <label key={s}>
-                  <input
-                    type="checkbox"
-                    checked={problems[i]}
-                    onChange={() => {
-                      setProblems(problems.map((v, j) => (i === j ? !v : v)));
-                      setResult(null);
-                      setPhase(0);
-                    }}
-                  />
-                  <span>{s}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <label className={styles.checkChip}>
-            <input
-              type="checkbox"
-              checked={normalize}
-              onChange={(e) => {
-                setNormalize(e.target.checked);
-                setResult(null);
-                setPhase(0);
-              }}
-            />
-            <span>규칙 바꾸기 · 주문번호 앞 # 자동 제거</span>
-          </label>
-          <button
-            className={styles.button}
-            onClick={run}
-            disabled={phase > 0 && phase < 4}
-          >
-            대조 실행
-          </button>
-          <div className={styles.mock}>
-            <strong>판매처 A 주문.csv / 판매처 B 주문.csv</strong>
-            <p>각 12줄의 가상 주문 자료</p>
-            <div className={styles.mockRow}>
-              1023 / #1023<span>수량 3</span>
-            </div>
-            <div className={styles.mockRow}>
-              1025 / 1025<span>수량 누락</span>
+          <div className={styles.automationGroup}>
+            <fieldset>
+              <legend>문제 섞기</legend>
+              <div className={styles.checks}>
+                {[
+                  "주문번호 형식 다름 (#1023 / 1023)",
+                  "빈 값 (수량 누락)",
+                  "같은 주문 두 번",
+                ].map((s, i) => (
+                  <label key={s}>
+                    <input
+                      type="checkbox"
+                      checked={problems[i]}
+                      onChange={() => {
+                        setProblems(problems.map((v, j) => (i === j ? !v : v)));
+                        setResult(null);
+                        setPhase(0);
+                      }}
+                    />
+                    <span>{s}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label className={styles.checkChip}>
+              <input
+                type="checkbox"
+                checked={normalize}
+                onChange={(e) => {
+                  setNormalize(e.target.checked);
+                  setResult(null);
+                  setPhase(0);
+                }}
+              />
+              <span>규칙 바꾸기 · 주문번호 앞 # 자동 제거</span>
+            </label>
+            <button
+              className={styles.button}
+              onClick={run}
+              disabled={phase > 0 && phase < 4}
+            >
+              대조 실행
+            </button>
+            <div className={styles.mock}>
+              <strong>판매처 A 주문.csv / 판매처 B 주문.csv</strong>
+              <p>각 12줄의 가상 주문 자료</p>
+              <div className={styles.mockRow}>
+                1023 / #1023<span>수량 3</span>
+              </div>
+              <div className={styles.mockRow}>
+                1025 / 1025<span>수량 누락</span>
+              </div>
             </div>
           </div>
-          <Choices
-            label="내 업무로 바꿔 보기 · 입력"
-            values={["엑셀", "CSV", "연결 서비스", "폼 문의"]}
-            value={input}
-            onChange={setInput}
-          />
-          <Choices
-            label="처리"
-            values={["정리", "대조", "조건 판단"]}
-            value={process}
-            onChange={setProcess}
-          />
-          <Choices
-            label="결과"
-            values={["파일", "기록", "알림"]}
-            value={output}
-            onChange={setOutput}
-          />
-          <p>실제 자료는 상담에서 개인정보를 가린 형태로 확인합니다</p>
-          <Reset
-            onClick={() => {
-              setProblems([true, true, true]);
-              setNormalize(false);
-              setResult(null);
-              setPhase(0);
-              setTab("일치");
-              setInput("CSV");
-              setProcess("대조");
-              setOutput("파일");
-            }}
-          />
+          <div className={styles.automationGroup}>
+            <Choices
+              label="내 업무로 바꿔 보기 · 입력"
+              values={["엑셀", "CSV", "연결 서비스", "폼 문의"]}
+              value={input}
+              onChange={setInput}
+            />
+            <Choices
+              label="처리"
+              values={["정리", "대조", "조건 판단"]}
+              value={process}
+              onChange={setProcess}
+            />
+            <Choices
+              label="결과"
+              values={["파일", "기록", "알림"]}
+              value={output}
+              onChange={setOutput}
+            />
+            <p>실제 자료는 상담에서 개인정보를 가린 형태로 확인합니다</p>
+            <Reset
+              onClick={() => {
+                setProblems([true, true, true]);
+                setNormalize(false);
+                setResult(null);
+                setPhase(0);
+                setTab("일치");
+                setInput("CSV");
+                setProcess("대조");
+                setOutput("파일");
+              }}
+            />
+          </div>
         </div>
         <div className={styles.result}>
           <p className={styles.status}>
@@ -666,6 +667,18 @@ export function CsvRunner() {
             onChange={setTab}
           />
           <div className={styles.dataRows}>
+            {!result && (
+              <div className={styles.pendingResults}>
+                <strong>대조 결과가 이곳에 표시됩니다</strong>
+                <div className={styles.dataRow}>
+                  <b>주문번호 · 수량</b>
+                  <span>일치 여부 · 확인 이유</span>
+                </div>
+                <p>
+                  실행 후 같은 주문과 확인이 필요한 주문을 나눠 볼 수 있습니다
+                </p>
+              </div>
+            )}
             {result
               ?.filter((r) => r.match === (tab === "일치"))
               .map((r, i) => (
