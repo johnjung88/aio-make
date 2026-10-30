@@ -210,12 +210,12 @@ export function MarketingArtwork({
       sns: {
         integrated: "f3a2-process-brief",
         "ai-influencer": "persona-role-2",
-        seo: "preview-0-2",
+        seo: "f3a2-process-plan",
       },
       "ai-influencer": {
         integrated: "f3a2-food-prep",
         sns: "feed-5",
-        seo: "f3a2-process-make",
+        seo: "f3a2-process-brief",
       },
       seo: {
         integrated: "f3a2-food-serve",
