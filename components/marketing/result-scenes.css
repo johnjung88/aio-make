@@ -214,7 +214,7 @@
 .mk-output-ribbon > .mk-search-scene {
   min-height: 380px;
 }
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .mk-detail-integrated
     .mk-deliverables
     .mk-campaign-scene
@@ -229,6 +229,8 @@
     > span:last-child {
     display: none;
   }
+}
+@media (max-width: 767px) {
   .mk-output-ribbon > .mk-search-scene {
     display: none;
   }

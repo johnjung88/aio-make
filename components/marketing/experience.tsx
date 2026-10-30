@@ -519,8 +519,8 @@ function SnsPreview({ onReset }: ResetProps) {
                   {
                     [
                       detail,
-                      `${detail}\n궁금한 점을 자세히 풀어드립니다`,
-                      `질문 · ${question}\n장면 · ${detail}`,
+                      `자주 묻는 질문을 글 한 편으로 정리해요\n궁금한 점을 자세히 풀어드립니다`,
+                      `첫 장면 · ${title}\n마지막 장면 · ${question}`,
                     ][i]
                   }
                 </p>
