@@ -33,7 +33,8 @@ export type PlatformCardSpec = {
   sourceNote: string;
 };
 
-const webtoonPages: CardImage[] = [1, 5, 21].map((page) => {
+// 05는 바로 위 완성 페이지 구간(production-case)에 쓰여 폰 화면에서는 뺀다
+const webtoonPages: CardImage[] = [1, 21].map((page) => {
   const n = String(page).padStart(2, "0");
   return {
     src: `/content-renewal-20261019/webtoon-${n}.webp`,

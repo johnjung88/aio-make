@@ -114,7 +114,7 @@ test("v11 public cards use exactly the approved actual media and retain their so
     if (media.kind === "strip") return media.pages.map((page) => page.src);
     return [media.src, ...(media.kind === "video" ? [media.poster] : [])];
   });
-  assert.deepEqual(sources[0], [1, 5, 21].map(page => `/content-renewal-20261019/webtoon-${String(page).padStart(2, "0")}.webp`));
+  assert.deepEqual(sources[0], [1, 21].map(page => `/content-renewal-20261019/webtoon-${String(page).padStart(2, "0")}.webp`));
   assert.deepEqual(sources.slice(1), [
     ["/content-renewal-20261019/yofree-character-02.webp"],
     ["/content-renewal-20261019/ai-full.webp"],
