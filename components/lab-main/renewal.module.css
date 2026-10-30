@@ -2028,7 +2028,8 @@
   margin-bottom: 4px;
 }
 .visual:has(.resultBoard[data-compact="true"]) {
-  min-height: 180px;
+  min-height: 0;
+  aspect-ratio: auto;
 }
 .resultBoard[data-compact="true"] .boardFoot {
   display: none;
@@ -2126,6 +2127,118 @@
 .page[data-service="program"] .requestForm > button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* W-F7lab: balanced controls and readable supporting details */
+.shopOptions {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
+}
+.shopControlFoot {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--sd-line);
+}
+.shopControlFoot > .note {
+  flex-basis: 100%;
+  margin-top: 0 !important;
+  text-align: left;
+  margin-inline: 0;
+}
+.shopSelection {
+  font-size: 14px;
+  color: var(--sd-muted);
+}
+.shopControlFoot .resultTitle {
+  margin: 0;
+}
+.page[data-service="automation"] .signature .note,
+.page[data-service="automation"] .signature .status {
+  font-size: 14px;
+  color: var(--sd-muted);
+}
+.priceRows li {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  font-size: 14px;
+}
+.priceCard .priceRows strong {
+  font-size: 14px;
+  line-height: inherit;
+  color: var(--sd-text);
+}
+.page[data-service="website"] .plannerSummary {
+  padding-top: 0;
+  border-top: 0;
+}
+.page[data-service="website"] .controls {
+  gap: 16px;
+}
+@media (min-width: 901px) {
+  .page[data-service="website"] .plannerGrid {
+    align-items: center;
+  }
+  .page[data-service="website"] .plannerGrid > .controls,
+  .page[data-service="website"] .plannerGrid > .result {
+    align-self: center;
+    position: static;
+  }
+}
+.relatedCards .visual:has(.resultBoard[data-compact="true"]) {
+  aspect-ratio: 16 / 10;
+}
+.relatedCards .resultBoard[data-compact="true"] {
+  height: 100%;
+}
+.faq summary::after {
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 1.5;
+}
+.resultBoard[data-compact="true"] .boardRow {
+  padding-block: 6px;
+}
+.resultBoard[data-compact="true"] {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  height: auto;
+}
+.resultBoard[data-compact="true"] .boardBody {
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto repeat(3, minmax(32px, 1fr));
+  gap: 6px;
+}
+.resultBoard[data-compact="true"] .boardRow {
+  margin-bottom: 0;
+}
+.sampleGate[data-sample="website"] {
+  position: relative;
+  max-width: 640px;
+  gap: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--sd-panel);
+  padding-bottom: 120px;
+}
+.sampleGate[data-sample="website"] > button {
+  position: absolute;
+  bottom: 56px;
+}
+.sampleGate[data-sample="website"] > .note {
+  position: absolute;
+  bottom: 16px;
+  margin: 0;
+  text-align: center;
 }
 .page[data-service="website"] .heroVisual {
   border-radius: 20px;

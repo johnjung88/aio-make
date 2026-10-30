@@ -25,24 +25,18 @@ export default function LabInsightsPage() {
               </p>
             </header>
             <nav className={styles.topics} aria-label="개발 주제">
-              {["웹사이트", "쇼핑몰", "업무 자동화", "프로그램 개발"].map(
-                (name, i) => (
-                  <Link
-                    key={name}
-                    href={
-                      i === 3
-                        ? "/lab/services/program"
-                        : `/lab/insights/${labInsights[i].slug}`
-                    }
-                  >
-                    {name} →
-                  </Link>
-                ),
-              )}
+              {labInsights.map((entry) => (
+                <Link key={entry.slug} href={`/lab/insights/${entry.slug}`}>
+                  {entry.category} →
+                </Link>
+              ))}
             </nav>
             <div className={`cs-insight-list ${styles.insights}`}>
-              {labInsights.map((entry) => (
-                <article className="cs-insight-card" key={entry.slug}>
+              {labInsights.map((entry, index) => (
+                <article
+                  className={`cs-insight-card ${index === 0 ? styles.featuredInsight : ""}`}
+                  key={entry.slug}
+                >
                   <Link
                     href={`/lab/insights/${entry.slug}`}
                     className={`${styles.media} ${styles.insightMedia}`}
@@ -54,23 +48,31 @@ export default function LabInsightsPage() {
                           ? "/lab-references/munseodam.webp"
                           : entry.service === "shopping-mall"
                             ? "/lab-renewal/shopping-mall-banner.webp"
-                            : "/lab-renewal/automation-hero.webp"
+                            : entry.service === "automation"
+                              ? "/lab-renewal/automation-hero.webp"
+                              : "/lab-renewal/program-hero.webp"
                       }
                       width={1440}
                       height={900}
-                      sizes="(max-width: 900px) 90vw, 30vw"
+                      sizes={
+                        index === 0
+                          ? "(max-width: 900px) 90vw, 55vw"
+                          : "(max-width: 900px) 90vw, 30vw"
+                      }
                       alt={`${entry.category} 제작 방향 예시`}
                     />
                   </Link>
-                  <span className="cs-t-eyebrow">{entry.category}</span>
-                  <h2 className="cs-t-h3">{entry.title}</h2>
-                  <p className="cs-t-body">{entry.summary}</p>
-                  <Link
-                    className="cs-link"
-                    href={`/lab/insights/${entry.slug}`}
-                  >
-                    글 읽기 ↗
-                  </Link>
+                  <div className={styles.insightCopy}>
+                    <span className="cs-t-eyebrow">{entry.category}</span>
+                    <h2 className="cs-t-h3">{entry.title}</h2>
+                    <p className="cs-t-body">{entry.summary}</p>
+                    <Link
+                      className="cs-link"
+                      href={`/lab/insights/${entry.slug}`}
+                    >
+                      글 읽기 ↗
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>

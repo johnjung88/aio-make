@@ -69,9 +69,7 @@ export function LabReferenceLibrary() {
                 </small>
                 <h3 className="cs-t-h3">{sample.name}</h3>
                 <p className="cs-t-body">{sample.summary}</p>
-                <small>
-                  포트폴리오용 가상 브랜드{sample.note ? ` · ${sample.note}` : ""}
-                </small>
+                {sample.note && <small>{sample.note}</small>}
                 <a
                   className={styles.visit}
                   href={sample.url}

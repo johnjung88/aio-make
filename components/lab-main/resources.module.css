@@ -50,7 +50,7 @@
   color: #f7f5f2;
 }
 .page .insights:global(.cs-insight-list) {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
 }
 @media (max-width: 900px) {
@@ -68,11 +68,67 @@
   display: block;
 }
 .media {
+  position: relative;
   display: grid;
   aspect-ratio: 16/10;
   border-radius: 14px;
   overflow: hidden;
   background: #141414;
+}
+.card .media::after {
+  content: "";
+  position: absolute;
+  inset: 76% 0 0;
+  background: linear-gradient(transparent, #080808);
+  pointer-events: none;
+}
+.page .insights .featuredInsight {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 40px;
+}
+.insightCopy {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+.insightCopy > * {
+  margin: 0;
+}
+.insightCopy > a {
+  justify-self: start;
+}
+@media (min-width: 901px) {
+  .page:global(.cs-site) .insights {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.featuredInsight .insightMedia {
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .page .insights .featuredInsight {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .featuredInsight .insightMedia {
+    grid-row: auto;
+    margin-bottom: 8px;
+  }
+}
+@media (max-width: 600px) {
+  .filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 4px 0 12px;
+    margin-bottom: 20px;
+    scrollbar-color: #b9aeff transparent;
+  }
+  .filters button {
+    flex: 0 0 auto;
+  }
 }
 .media img {
   width: 100%;
@@ -84,6 +140,7 @@
   min-width: 0;
 }
 .insightMedia {
+  width: 100%;
   margin-bottom: 24px;
 }
 .card h3 {

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   contactSelection,
   pageBand,
@@ -278,7 +278,7 @@ export function PagePlanner() {
               ))}
             </div>
           </div>
-          <Reset onClick={reset} />
+          <Reset text onClick={reset} />
         </div>
         <div className={styles.result}>
           <div
@@ -391,65 +391,73 @@ export function ShopComparison() {
     <div className={styles.signature}>
       <div className={styles.signatureGrid}>
         <div className={styles.controls}>
-          <Choices
-            label="상품"
-            values={["단순 복사", "풀 세팅"]}
-            value={plan}
-            onChange={setPlan}
-          />
-          {full && (
-            <>
-              <label>
-                브랜드 이름
-                <input
-                  className={styles.input}
-                  maxLength={12}
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
+          <div className={styles.shopOptions}>
+            <Choices
+              label="상품"
+              values={["단순 복사", "풀 세팅"]}
+              value={plan}
+              onChange={setPlan}
+            />
+            {full && (
+              <>
+                <label>
+                  브랜드 이름
+                  <input
+                    className={styles.input}
+                    maxLength={12}
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                  />
+                </label>
+                <Choices
+                  label="분위기"
+                  values={["내추럴", "모던 블랙", "파스텔"]}
+                  value={mood}
+                  onChange={setMood}
                 />
-              </label>
-              <Choices
-                label="분위기"
-                values={["내추럴", "모던 블랙", "파스텔"]}
-                value={mood}
-                onChange={setMood}
-              />
-              <Choices
-                label="대표 상품군"
-                values={["의류", "식품", "생활용품"]}
-                value={category}
-                onChange={setCategory}
-              />
-            </>
-          )}
-          <Choices
-            label="보기"
-            values={["PC", "모바일"]}
-            value={view}
-            onChange={setView}
-          />
-          <p className={styles.resultTitle} aria-live="polite">
-            {plan} · 총 {full ? "30" : "15"}만 원
-          </p>
-          <p>두 상품의 가격은 합산하지 않습니다</p>
-          <Reset
-            text
-            onClick={() => {
-              setPlan("단순 복사");
-              setBrand("모그레빗");
-              setMood("내추럴");
-              setCategory("의류");
-              setView("PC");
-              setSplit(50);
-            }}
-          />
+                <Choices
+                  label="대표 상품군"
+                  values={["의류", "식품", "생활용품"]}
+                  value={category}
+                  onChange={setCategory}
+                />
+              </>
+            )}
+          </div>
+          <div className={styles.shopOptions}>
+            <Choices
+              label="보기"
+              values={["PC", "모바일"]}
+              value={view}
+              onChange={setView}
+            />
+            <p className={styles.shopSelection} aria-live="polite">
+              현재 선택 · {plan} · {view}
+            </p>
+          </div>
+          <div className={styles.shopControlFoot}>
+            <p className={styles.resultTitle} aria-live="polite">
+              {plan} · 총 {full ? "30" : "15"}만 원
+            </p>
+            <p>두 상품의 가격은 합산하지 않습니다</p>
+            <Reset
+              text
+              onClick={() => {
+                setPlan("단순 복사");
+                setBrand("모그레빗");
+                setMood("내추럴");
+                setCategory("의류");
+                setView("PC");
+                setSplit(50);
+              }}
+            />
+            <p className={styles.note}>
+              가상 템플릿 예시 · 실제 적용은 고른 템플릿의 이용권과 지원 범위를
+              확인한 뒤 진행합니다
+            </p>
+          </div>
         </div>
         <div className={styles.result}>
-          <p className={styles.status}>
-            가상 템플릿 예시예요
-            <br />
-            실제 적용은 고른 템플릿의 이용권과 지원 범위를 확인한 뒤 진행합니다
-          </p>
           {!full && (
             <div
               style={{
@@ -534,6 +542,13 @@ export function ShopComparison() {
     </div>
   );
 }
+const defaultOrderResult = () =>
+  reconcileOrders({
+    format: true,
+    empty: true,
+    duplicate: true,
+    normalize: false,
+  });
 export function CsvRunner() {
   const [problems, setProblems] = useState([true, true, true]),
     [normalize, setNormalize] = useState(false),
@@ -544,6 +559,7 @@ export function CsvRunner() {
     [input, setInput] = useState("CSV"),
     [process, setProcess] = useState("대조"),
     [output, setOutput] = useState("파일");
+  const previewResult = result ?? defaultOrderResult();
   const run = () => {
     setResult(
       reconcileOrders({
@@ -651,31 +667,24 @@ export function CsvRunner() {
           <p aria-live="polite">
             {result
               ? `대조 완료 · 일치 ${result.filter((r) => r.match).length} · 확인 필요 ${result.filter((r) => !r.match).length}`
-              : "문제를 고르고 대조를 실행해 보세요"}
+              : "기본 시료 대조 결과 · 일치 9 · 확인 필요 3"}
           </p>
-          {result && (
+          {!result && (
+            <p className={styles.status}>
+              설정을 바꾼 뒤 대조 실행을 누르면 새 결과를 확인할 수 있습니다
+            </p>
+          )}
+          {
             <Choices
               label="대조 결과 분류"
               values={["일치", "확인 필요"]}
               value={tab}
               onChange={setTab}
             />
-          )}
+          }
           <div className={styles.dataRows}>
-            {!result && (
-              <div className={styles.pendingResults}>
-                <strong>대조 결과가 이곳에 표시됩니다</strong>
-                <div className={styles.dataRow}>
-                  <b>주문번호 · 수량</b>
-                  <span>일치 여부 · 확인 이유</span>
-                </div>
-                <p>
-                  실행 후 같은 주문과 확인이 필요한 주문을 나눠 볼 수 있습니다
-                </p>
-              </div>
-            )}
-            {result
-              ?.filter((r) => r.match === (tab === "일치"))
+            {previewResult
+              .filter((r) => r.match === (tab === "일치"))
               .map((r, i) => (
                 <div className={styles.dataRow} key={i}>
                   <b>
@@ -708,6 +717,7 @@ const sampleRequests = () =>
     status: ["접수", "진행 중", "처리 완료"][Math.floor(i / 2) % 3],
   }));
 export function RolePreview() {
+  const requestInput = useRef<HTMLInputElement>(null);
   const [role, setRole] = useState("요청자"),
     [permissions, setPermissions] = useState(defaultPermissions),
     [env, setEnv] = useState("웹"),
@@ -856,6 +866,7 @@ export function RolePreview() {
                 새 요청
                 <input
                   className={styles.input}
+                  ref={requestInput}
                   value={newTitle}
                   maxLength={30}
                   placeholder="요청 제목"
@@ -864,9 +875,11 @@ export function RolePreview() {
               </label>
               <button
                 className={styles.button}
-                disabled={!newTitle.trim()}
                 onClick={() => {
-                  if (!newTitle.trim()) return;
+                  if (!newTitle.trim()) {
+                    requestInput.current?.focus();
+                    return;
+                  }
                   setRequests([
                     ...requests,
                     {

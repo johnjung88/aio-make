@@ -273,7 +273,10 @@ export function LabServiceDetail({ id }: { id: string }) {
               {prices[key].length === 1 ? (
                 <ul className={styles.priceRows}>
                   {body.split("\n").map((row) => (
-                    <li key={row}>{row}</li>
+                    <li key={row}>
+                      <strong>{row.slice(0, row.indexOf(" "))}</strong>
+                      <span>{row.slice(row.indexOf(" ") + 1)}</span>
+                    </li>
                   ))}
                 </ul>
               ) : (

@@ -20,6 +20,12 @@ export function LabHeader() {
     const parent = nav.current;
     if (!parent) return;
     let disposed = false;
+    const updateScrollHint = () => {
+      parent.dataset.scrollEnd = String(
+        parent.scrollLeft + parent.clientWidth >= parent.scrollWidth - 2,
+      );
+      parent.dataset.scrollStart = String(parent.scrollLeft <= 2);
+    };
     const revealCurrent = () => {
       if (disposed) return;
       const current = parent.querySelector('[aria-current="page"]');
@@ -32,14 +38,17 @@ export function LabHeader() {
         parent.scrollLeft += item.left - bounds.left - inset;
       else if (item.right > bounds.right - inset)
         parent.scrollLeft += item.right - bounds.right + inset;
+      updateScrollHint();
     };
     revealCurrent();
     void document.fonts.ready.then(revealCurrent);
     const observer = new ResizeObserver(revealCurrent);
     observer.observe(parent);
+    parent.addEventListener("scroll", updateScrollHint, { passive: true });
     return () => {
       disposed = true;
       observer.disconnect();
+      parent.removeEventListener("scroll", updateScrollHint);
     };
   }, [path]);
   const service = labServices.find((s) => path === labServicePath(s.id));

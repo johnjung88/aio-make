@@ -40,7 +40,7 @@ export function ResultBoard({
             <span key={x}>{x}</span>
           ))}
         </div>
-        {(compact ? rows.slice(0, 2) : rows).map((row) => (
+        {rows.map((row) => (
           <div className={styles.boardRow} key={row[0]}>
             {row.map((x) => (
               <span key={x}>{x}</span>
