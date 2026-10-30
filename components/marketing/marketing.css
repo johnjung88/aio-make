@@ -233,7 +233,7 @@
   display: flex;
   gap: clamp(10px, 1.1vw, 20px);
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--mk-soft) transparent;
@@ -1647,6 +1647,8 @@
 }
 .mk-lockup > span:last-child:not(.brand) {
   font-size: 14px;
+  font-weight: 700;
+  color: var(--mk-text);
 }
 /* W-F3a: result surfaces occupy the frame without a second dark mockup canvas. */
 .mk-artwork {
@@ -1784,7 +1786,9 @@
   background: var(--mk-bg);
 }
 .mk-output-flow > .mk-publication {
-  border-right: 2px solid var(--mk-action);
+  border: 2px solid var(--mk-action);
+  border-radius: var(--mk-radius);
+  overflow: hidden;
 }
 .mk-output-channels {
   display: grid;
@@ -2115,7 +2119,7 @@
   grid-row: 1;
 }
 .mk-home-hero > .mk-container:last-child {
-  grid-column: 2;
+  grid-column: 1;
 }
 .mk-home-hero .mk-actions {
   justify-content: flex-start;
@@ -2157,7 +2161,7 @@
 
 .marketing-renewal #faq .mk-faq-list {
   width: 100%;
-  max-width: 960px;
+  max-width: 760px;
   margin-inline: auto;
 }
 
@@ -2593,8 +2597,8 @@
   margin-block: 16px;
 }
 .mk-detail .mk-interaction-integrated .mk-week-material {
-  height: 72px;
-  aspect-ratio: auto;
+  height: auto;
+  aspect-ratio: 4/3;
   margin-top: 8px;
 }
 .mk-detail .mk-interaction-integrated .mk-calendar .mk-week-topic {
@@ -2625,7 +2629,7 @@
 }
 .mk-interaction-ai-influencer .mk-result {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px 32px;
   align-items: start;
 }
@@ -2634,10 +2638,11 @@
   margin: 0;
 }
 .mk-interaction-ai-influencer .mk-persona {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
   gap: 20px;
 }
 .mk-interaction-ai-influencer .mk-month {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 0;
   gap: 16px;
 }
@@ -2698,7 +2703,8 @@
     grid-column: 1;
     grid-row: 2;
     width: 100%;
-    height: 40px;
+    height: auto;
+    aspect-ratio: 4/3;
     margin: 0;
   }
   .mk-detail .mk-interaction-integrated .mk-week-topic {
@@ -2730,5 +2736,158 @@
   }
   .mk-interaction-ai-influencer .mk-month {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* F6: readable, balanced results across the five review widths. */
+.mk-home-hero .mk-journey {
+  margin-top: 32px;
+}
+.mk-home-hero .mk-journey li {
+  padding-inline: 0;
+}
+.mk-home-hero .mk-journey button {
+  text-align: left;
+}
+.marketing-renewal .mk-home-hero p.mk-caption {
+  color: var(--mk-text);
+  text-align: left;
+}
+.mk-service-card :is(.mk-publication-label, .mk-scene-bar) {
+  background: #eee9f7;
+  color: #51445e;
+  min-height: 52px;
+  padding: 12px 16px;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.mk-service-card .mk-scene-bar {
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.mk-service-card .mk-scene-bar > span {
+  white-space: nowrap;
+}
+.mk-service-card .mk-scene-bar > span:last-child {
+  display: none;
+}
+.mk-detail .mk-pricing {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 32px;
+  padding: 32px;
+}
+.mk-detail .mk-fit :is(li, a) {
+  font-size: 14px;
+}
+.mk-detail .mk-fit a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.mk-detail #deliverables > .mk-caption {
+  text-align: center;
+  margin-top: 0;
+  font-size: 14px;
+}
+.marketing-renewal .mk-result > .mk-caption,
+.marketing-renewal .mk-live-note {
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+.mk-sns-fields {
+  display: grid;
+  gap: 16px;
+}
+.mk-interaction-sns .mk-phones {
+  align-items: stretch;
+}
+.mk-interaction-sns .mk-phone {
+  align-self: stretch;
+}
+.mk-interaction-sns .mk-phone h4 {
+  min-height: 3em;
+}
+.mk-interaction-sns .mk-channel-purpose {
+  margin-top: 16px;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar > div {
+  display: block;
+}
+.mk-detail .mk-interaction-integrated .mk-week-total,
+.mk-detail .mk-interaction-integrated .mk-channel-summary {
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+.mk-detail .mk-interaction-integrated .mk-week-total {
+  margin-top: 8px;
+}
+.mk-interaction-ai-influencer .mk-persona > img {
+  max-height: 400px;
+  width: 100%;
+  object-position: center 25%;
+}
+.mk-interaction-ai-influencer .mk-persona > div {
+  min-width: 0;
+}
+.mk-interaction-ai-influencer .mk-persona p.mk-persona-quote {
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.6;
+}
+.mk-persona-guide {
+  margin: 24px 0 0;
+}
+.mk-persona-guide > div {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+  padding-block: 16px;
+  border-top: 1px solid var(--mk-line);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.mk-persona-guide dt {
+  color: var(--mk-muted);
+}
+.mk-persona-guide dd {
+  margin: 0;
+}
+.mk-interaction-ai-influencer .mk-month :is(small, details > div) {
+  font-size: 14px;
+}
+.mk-interaction-seo .mk-applied-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+  margin-block: 20px;
+}
+.mk-interaction-seo .mk-applied-items li {
+  padding: 8px 12px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  font-size: 14px;
+}
+@media (max-width: 1023px) and (min-width: 768px) {
+  .mk-interaction-sns > .mk-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .mk-header nav {
+    justify-content: flex-start;
+  }
+  .marketing-renewal .mk-home-hero p.mk-caption {
+    text-align: center;
+  }
+  .mk-detail .mk-pricing {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px;
+  }
+  .mk-interaction-ai-influencer .mk-persona {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mk-interaction-ai-influencer .mk-month {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
