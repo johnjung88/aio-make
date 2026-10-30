@@ -826,7 +826,7 @@ test("v11 development step holds one approved portfolio sample pair (여백결 �
   const project = review.data.devProject;
   assert.equal(project.title, "여백결 건축 스튜디오");
   assert.ok(project.before && project.afterMobile);
-  assert.equal(project.before.pc.width, 1440);
+  assert.deepEqual([project.before.pc.width, project.before.pc.height], [1504, 940]);
   // The detail object carries only what the dialog shows.
   assert.deepEqual(Object.keys(project.detail).sort(), [
     "description",
@@ -840,7 +840,7 @@ test("v11 development step holds one approved portfolio sample pair (여백결 �
   assert.match(project.detail.description, /포트폴리오용 가상 브랜드/);
   assert.match(project.detail.scope, /홈 시안과 완성 사이트의 같은 첫 화면/);
   // Every picture matches its frame ratio (16:10 PC, 390:844 mobile) so nothing is letterboxed
-  assert.deepEqual([project.after.width, project.after.height], [1440, 900]);
+  assert.deepEqual([project.after.width, project.after.height], [2880, 1800]);
   assert.deepEqual([project.afterMobile.width, project.afterMobile.height], [390, 844]);
   assert.deepEqual([project.before.mobile.width, project.before.mobile.height], [390, 844]);
   const approved = {
