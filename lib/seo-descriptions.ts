@@ -1,6 +1,6 @@
 // Public metadata copy, separate from short on-screen card summaries. W-SEO3 audit 3-5.
 export const seoDescriptions: Record<string, string> = {
-  "/": "컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 한곳에서 맡기는 올인원 에이전시입니다 분야별 전문가가 AI를 활용해 작업하고 결과물을 직접 검수한 뒤 납품합니다",
+  "/": "컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 한곳에서 맡기는 올인원 에이전시 · 분야별 전문가가 AI를 활용해 작업하고 결과물을 직접 검수한 뒤 납품합니다",
   "/about":
     "컨텐츠·마케팅·개발 분야별 전문가가 AI와 함께 일하는 방식을 소개합니다 맡길 수 있는 작업과 견적을 받는 순서를 한 번에 확인하세요",
   "/about/team":
