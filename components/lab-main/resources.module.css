@@ -51,7 +51,7 @@
 }
 .page .insights:global(.cs-insight-list) {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
+  gap: 24px;
 }
 @media (max-width: 900px) {
   .page .insights:global(.cs-insight-list) {
@@ -75,13 +75,6 @@
   overflow: hidden;
   background: #141414;
 }
-.card .media::after {
-  content: "";
-  position: absolute;
-  inset: 76% 0 0;
-  background: linear-gradient(transparent, #080808);
-  pointer-events: none;
-}
 .page .insights .featuredInsight {
   grid-column: 1 / -1;
   display: grid;
@@ -92,7 +85,7 @@
 .insightCopy {
   display: grid;
   align-content: center;
-  gap: 16px;
+  gap: 12px;
 }
 .insightCopy > * {
   margin: 0;

@@ -161,6 +161,15 @@
   color: var(--mk-soft);
   margin-top: 16px;
 }
+.mk-home > .mk-section > .mk-caption {
+  text-align: center;
+}
+.marketing-renewal .mk-note > a {
+  color: var(--mk-em);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
 .marketing-renewal .mk-note {
   font-size: 14px;
   text-align: center;
@@ -2804,7 +2813,7 @@
   align-self: stretch;
 }
 .mk-interaction-sns .mk-phone h4 {
-  min-height: 3em;
+  margin-bottom: 8px;
 }
 .mk-interaction-sns .mk-channel-purpose {
   margin-top: 16px;

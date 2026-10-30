@@ -376,7 +376,7 @@ function ShopPreview({
   );
 }
 export function ShopHero() {
-  return <ShopPreview full brand="모그레빗" mood="모던 블랙" category="의류" />;
+  return <ShopPreview full brand="모그레빗" mood="내추럴" category="의류" />;
 }
 
 export function ShopComparison() {
@@ -555,7 +555,7 @@ export function CsvRunner() {
     [result, setResult] = useState<ReturnType<typeof reconcileOrders> | null>(
       null,
     ),
-    [tab, setTab] = useState("일치"),
+    [tab, setTab] = useState("확인 필요"),
     [input, setInput] = useState("CSV"),
     [process, setProcess] = useState("대조"),
     [output, setOutput] = useState("파일");
@@ -643,11 +643,12 @@ export function CsvRunner() {
             />
             <p>실제 자료는 상담에서 개인정보를 가린 형태로 확인합니다</p>
             <Reset
+              text
               onClick={() => {
                 setProblems([true, true, true]);
                 setNormalize(false);
                 setResult(null);
-                setTab("일치");
+                setTab("확인 필요");
                 setInput("CSV");
                 setProcess("대조");
                 setOutput("파일");
@@ -921,7 +922,9 @@ export function RolePreview() {
                       </select>
                     </label>
                   ) : (
-                    <p>상태 · {r.status}</p>
+                    <p className={styles.requestStatus} data-status={r.status}>
+                      상태 · {r.status}
+                    </p>
                   )}
                   {perm[4] && (
                     <label>
