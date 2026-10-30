@@ -188,7 +188,7 @@ export function MotionGraphicsDetail() {
             label="DR’s Secret 브랜드 모션 · 30초 · 16:9 · 사용자 확정"
             startAt={activeScene?.time}
           />
-          <div className="fd-hero-scenes" role="group" aria-label="모션 본편의 실제 장면 선택">{motionScenes.map((item, index) => <button key={item.time} type="button" aria-pressed={heroScene === index} onClick={() => { seekScene(heroStage.current, item.time); setHeroScene(index); }}><Image src={`${media}${item.image}`} alt="" width={1280} height={720} unoptimized /><span><small>{String(item.time).padStart(2, "0")}초</small><strong>{item.title}</strong></span></button>)}</div>
+          <div className="fd-hero-scenes" role="group" aria-label="모션 본편의 실제 장면 선택">{motionScenes.map((item, index) => <button key={item.time} type="button" aria-pressed={heroScene === index} onClick={() => { seekScene(heroStage.current, item.time); setHeroScene(index); }}><Image src={`${media}${item.image}`} alt={`DR’s Secret 모션 영상 ${item.time}초 ${item.title}`} width={1280} height={720} unoptimized /><span><small>{String(item.time).padStart(2, "0")}초</small><strong>{item.title}</strong></span></button>)}</div>
           <div className="fd-hero-reading" aria-live="polite"><p>{activeScene?.description ?? "장면을 고른 뒤 재생 버튼을 누르면 같은 본편의 해당 구간부터 볼 수 있습니다"}</p><button className="fd-preview-open" type="button" aria-haspopup="dialog" onClick={(event) => setPreview({ src: `${media}bwl-brand-motion.mp4`, poster: `${media}${activeScene?.image ?? "poster-bwl-brand-motion.webp"}`, title: "DR’s Secret 브랜드 모션", label: "30초 · 16:9 · 사용자 확정 · 고객 전달·게시와 별도", caseId: "CASE-BWL-BRAND-MOTION", startAt: activeScene?.time, trigger: event.currentTarget })}>큰 영상 보기 ↗</button></div>
         </div>
       </DetailHero>

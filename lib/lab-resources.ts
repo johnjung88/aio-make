@@ -120,6 +120,8 @@ export const labReferences = [
 export const labInsights = [
   {
     slug: "website-pages",
+    datePublished: "2026-10-30",
+    dateModified: "2026-10-30",
     category: "웹사이트",
     title: "웹사이트를 만들기 전, 페이지부터 정리하기",
     summary:
@@ -142,6 +144,8 @@ export const labInsights = [
   },
   {
     slug: "shopping-mall-scope",
+    datePublished: "2026-10-30",
+    dateModified: "2026-10-30",
     category: "쇼핑몰",
     title: "쇼핑몰 디자인과 오픈 준비를 나눠 확인하기",
     summary:
@@ -164,6 +168,8 @@ export const labInsights = [
   },
   {
     slug: "automation-inputs",
+    datePublished: "2026-10-30",
+    dateModified: "2026-10-30",
     category: "자동화",
     title: "자동화 상담에 필요한 입력·처리·결과 정리",
     summary:

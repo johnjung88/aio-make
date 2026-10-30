@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 import styles from "../privacy/privacy.module.css";
@@ -7,7 +8,7 @@ export const metadata = pageMetadata(
   "/terms",
 );
 export default function Terms() {
-  return (
+  return <><PageBreadcrumb path="/terms" />{(
     <div className={`guide-page guide-utility ${styles.policyPage}`}>
       <div className="container page-intro">
         <Eyebrow>TERMS</Eyebrow>
@@ -47,5 +48,5 @@ export default function Terms() {
         </p>
       </article>
     </div>
-  );
+  )}</>;
 }

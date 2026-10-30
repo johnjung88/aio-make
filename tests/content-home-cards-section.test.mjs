@@ -19,9 +19,9 @@ test("v10 home: approved v07 copy, six directory links and actual image sources"
   }
   assert.match(contentHomeProcess[3].text, /최종 검수 후.*합의한 형식/);
 });
-test("v10 home: approved section order and six-card layout directly before CONTACT", () => {
+test("v10 home: approved section order with FAQ before CONTACT", () => {
   const home = read("components/content-home/content-home.tsx");
-  assert.match(home, /<ServiceCards\s*\/>\s*<section\s+className="ch-cta"/);
+  assert.match(home, /<ServiceCards\s*\/>\s*<DivisionFaq division="content"\s*\/>\s*<section\s+className="ch-cta"/);
   const sectionOrder = ['data-cs-section="hero"', '<ServiceShowcase', 'data-cs-section="process"', '<ServiceCards', 'data-cs-section="cta"'];
   for (let index = 1; index < sectionOrder.length; index++)
     assert.ok(home.indexOf(sectionOrder[index - 1]) < home.indexOf(sectionOrder[index]), sectionOrder[index]);

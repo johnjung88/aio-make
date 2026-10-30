@@ -1,49 +1,8 @@
-import { divisions, services } from "@/lib/content";
-import { siteUrl, siteDescription } from "@/lib/metadata";
-import { organizationSchema } from "@/lib/seo";
+// Public discovery guide; prices remain governed by service detail pages.
+const body =
+  "# AIO MAKE\n\n> AIO MAKE는 컨텐츠 제작, 마케팅 운영, 웹사이트와 쇼핑몰 개발을 한곳에서 맡기는 올인원 에이전시입니다 분야별 전문가가 AI를 활용해 작업하고 결과물을 직접 검수한 뒤 납품합니다\n\n브랜드: AIO MAKE / 법적 상호: 에이아이오 (AIO)\n사업부: 컨텐츠(영상·웹툰 제작), 마케팅(월 운영), 개발(웹사이트·쇼핑몰·자동화·프로그램)\n문의: aiomake2023@gmail.com 또는 https://aio-make.com/contact\n언어: 한국어\n가격 원칙: 공개 가격의 정본은 각 서비스 상세 페이지입니다\n- 컨텐츠 가격은 부가세 별도입니다\n- 마케팅은 월 운영 단위이며 단위와 최소 기간은 각 페이지에서 확인합니다\n- 개발의 VAT와 외부 비용은 개별 견적에서 확인합니다\n사례 원칙: 제작 예시, 시안, 실제 작업 상태를 구분해 표시하며 시안은 고객 채택이나 운영 성과를 뜻하지 않습니다\n\n## 회사와 문의\n- [회사 소개](https://aio-make.com/about): 컨텐츠·마케팅·개발 분야별 전문가가 AI와 함께 일하는 방식\n- [일하는 방식](https://aio-make.com/about/team): 기획, 제작, 검수 역할 소개\n- [프로젝트 문의](https://aio-make.com/contact): 필요한 작업을 남기면 범위, 비용, 일정을 안내\n- [의뢰 준비 체크리스트](https://aio-make.com/guides/project-checklist): 목적, 결과물, 자료, 범위, 검토 담당자를 정리하는 무료 준비표\n- [이용 안내](https://aio-make.com/terms)\n- [개인정보처리방침](https://aio-make.com/privacy)\n\n## 컨텐츠 (영상·웹툰 제작)\n- [컨텐츠 사업부 홈](https://aio-make.com/content): 웹툰·애니메이션·AI 인플루언서·모션그래픽·브랜드 홍보 영상·SNS 광고 영상\n- [브랜드 웹툰 제작](https://aio-make.com/content/services/webtoon): 12P·24P, 모션코믹 선택, 웹툰 12P 10만 원부터\n- [애니메이션 제작](https://aio-make.com/content/services/animation): 30초·60초 브랜드 애니메이션, 30초 30만 원부터\n- [AI 인플루언서 제작](https://aio-make.com/content/services/ai-influencer): 브랜드 전용 AI 가상인물 세팅과 이미지·숏폼 영상, 캐릭터 1명 세팅 기준 10만 원부터\n- [모션그래픽 제작](https://aio-make.com/content/services/motion-graphics): 로고와 제품 이미지 기반, 단순형 30초 10만 원부터\n- [브랜드 홍보 영상 제작](https://aio-make.com/content/services/brand-film): 30초·60초 홍보 영상, 30초 25만 원부터\n- [SNS 광고 영상 제작](https://aio-make.com/content/services/ad): 릴스·쇼츠용 9:16 광고 영상, 30초 25만 원부터\n- [컨텐츠 제작 레퍼런스](https://aio-make.com/content/references): 제작 사례와 결과물\n- [컨텐츠 인사이트](https://aio-make.com/content/insights): 의뢰 전 준비, 상담, 기획부터 검수·인계까지\n- [컨텐츠 문의](https://aio-make.com/content/contact)\n\n## 마케팅 (월 운영)\n- [마케팅 사업부 홈](https://aio-make.com/marketing): 컨텐츠, 채널, 검색과 문의를 하나의 흐름으로 연결\n- [통합 마케팅](https://aio-make.com/marketing/services/integrated): 분석·전략·브랜드 컨텐츠·채널 운영, 월 200만 원부터 VAT 별도\n- [SNS 대행 운영](https://aio-make.com/marketing/services/sns): 브랜드 자료로 이미지·컨텐츠를 만들고 채널 운영, 월 100만 원 VAT 별도\n- [AI 인플루언서 운영](https://aio-make.com/marketing/services/ai-influencer): 브랜드 전용 캐릭터와 반복 컨텐츠, 월 100만 원 VAT 별도\n- [SEO · AEO · GEO](https://aio-make.com/marketing/services/seo): 사이트 구조와 고객 질문을 정리해 소스·CMS에 적용, 맞춤 견적\n- [마케팅 제작 방향](https://aio-make.com/marketing/work): 서비스별 결과물과 운영 방향 예시\n- [마케팅 인사이트](https://aio-make.com/marketing/insights)\n- [마케팅 문의](https://aio-make.com/marketing/contact)\n\n## 개발 (AIO 랩)\n- [개발 사업부 홈](https://aio-make.com/lab): 웹사이트·쇼핑몰·자동화를 가상 브랜드 샘플로 직접 체험\n- [웹사이트 제작](https://aio-make.com/lab/services/website): 반응형 웹사이트, 1~9페이지 10만 원부터, 페이지 수로 가격 구간 결정\n- [쇼핑몰 제작](https://aio-make.com/lab/services/shopping-mall): 카페24 스킨 구조 기반, 단순 복사 15만 원 · 풀 세팅 30만 원, 상품 등록·오픈 설정 제외\n- [업무 자동화](https://aio-make.com/lab/services/automation): 입력·처리·결과 확인 흐름을 건별로 설계, 개별 견적\n- [프로그램 개발](https://aio-make.com/lab/services/program): 관리 화면·권한·데이터 연동 등 맞춤 프로그램, 개별 견적\n- [개발 레퍼런스](https://aio-make.com/lab/references): 업종별 웹사이트 샘플 12개\n- [개발 인사이트](https://aio-make.com/lab/insights): 페이지 정리, 쇼핑몰 작업 범위, 자동화 입력 정리\n\n## 자주 묻는 질문 요약\n- 견적: 요청 내용과 자료를 바탕으로 제작 범위, 비용, 일정을 안내합니다\n- 준비물: 기획서가 없어도 만들고 싶은 것과 참고 자료로 범위를 함께 정리합니다\n- 보장 범위: 검색 순위, AI 답변 노출, 팔로워·매출 증가는 보장하지 않습니다\n\n갱신 기준: 서비스 URL·공개 가격·연락처 변경 시 이 파일과 서비스 정본을 함께 확인합니다\n이 문서는 탐색 안내이며 검색 순위나 AI 인용을 보장하지 않습니다";
 export function GET() {
-  const lines = [
-    "# AIO MAKE",
-    "",
-    "> " + siteDescription,
-    "",
-    "브랜드: AIO MAKE / 법적 상호: 에이아이오 (AIO).",
-    "연락처: " + organizationSchema.email,
-    "공개 가격의 정본은 각 서비스 상세 페이지입니다\n컨텐츠 가격은 부가세 별도이며, 마케팅 월 운영의 단위·최소 기간은 각 페이지에서 확인합니다\n개발의 VAT와 외부 비용은 개별 견적에서 확인합니다",
-    "사례의 제작 예시·시안·실제 작업 상태를 구분합니다\n시안은 고객 채택이나 운영 성과를 뜻하지 않습니다",
-    "",
-    "## 회사와 문의",
-    "- [회사 소개](" + siteUrl + "/about)",
-    "- [문의](" + siteUrl + "/contact)",
-    "- [이용 안내](" + siteUrl + "/terms)",
-    "- [의뢰 준비 체크리스트](" + siteUrl + "/guides/project-checklist)",
-    "- [공개 작업](" + siteUrl + "/work)",
-    "",
-    ...divisions.flatMap((d) => [
-      "## " + d.label,
-      "- [사업부 홈](" + siteUrl + "/" + d.path + ")",
-      ...services
-        .filter((s) => s.division === d.id)
-        .map(
-          (s) =>
-            "- [" +
-            s.name +
-            "](" +
-            siteUrl +
-            "/" +
-            d.path +
-            "/services/" +
-            s.id +
-            "): 범위·준비물·가격 또는 견적 기준",
-        ),
-      "",
-    ]),
-    "갱신 기준: 서비스 URL·공개 가격·연락처 변경 시 이 파일과 서비스 정본을 함께 확인합니다\n이 문서는 탐색 안내이며 검색 순위나 AI 인용을 보장하지 않습니다",
-  ];
-  return new Response(lines.join("\n"), {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    },
+  return new Response(body + "\n", {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }

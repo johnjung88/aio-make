@@ -193,7 +193,7 @@ export function AnimationDetail() {
                 <button type="button" key={item.short} aria-pressed={poseIndex === index} onClick={() => selectPose(index)} aria-label={`${item.short} 캐릭터 동작 선택`}>
                   {/* The full asset is available immediately above through the image viewer. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt="" loading="lazy" />
+                  <img src={`${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt={`요프리 캐릭터 표정과 포즈 시안 ${index + 1}`} loading="lazy" />
                   <span>{item.short}</span>
                 </button>
               ))}
@@ -218,7 +218,7 @@ export function AnimationDetail() {
             {scenes.map((item, index) => (
               <button type="button" key={item.title} aria-pressed={sceneIndex === index} onClick={() => selectScene(index)}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${media}${item.image}`} alt="" loading="lazy" />
+                <img src={`${media}${item.image}`} alt={item.title} loading="lazy" />
                 <span><small>0{index + 1} · {item.timeLabel}</small><strong>{item.title}</strong><span>{item.detail}</span><i>이 구간 선택 ↗</i></span>
               </button>
             ))}

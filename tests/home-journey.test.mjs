@@ -310,7 +310,9 @@ test("main page uses the journey, the six-service wording and no #process sectio
   const main = await read("components/guide/main.jsx");
   assert.ok(main.includes(REQUIRED));
   assert.ok(!main.includes("브랜드 홍보 및 SNS 광고 영상"));
-  assert.ok(main.includes("브랜드 홍보 영상, SNS 광고 영상"));
+  const faq = await read("lib/home-faq.ts");
+  assert.ok(faq.includes("브랜드 홍보 영상, SNS 광고 영상"));
+  assert.ok(main.includes("const faqData = homeFaq"));
   assert.doesNotMatch(main, /import\s*\{\s*HomeReferences\s*\}/);
   assert.ok(main.includes("<WorkflowJourney data={this.props.journey} />"));
   const page = await read("app/(public)/page.tsx");

@@ -1,3 +1,6 @@
+import { JsonLd } from "@/components/ui";
+import { breadcrumbSchema } from "@/lib/seo";
+import { siteUrl, socialImage, seoDescription } from "@/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { labInsights } from "@/lib/lab-resources";
@@ -23,6 +26,30 @@ export default async function LabInsightPage({ params }: Props) {
   return (
     <main className={`cs-site ${styles.page}`}>
       <article className="cs-container cs-article">
+        <JsonLd
+          data={breadcrumbSchema([
+            { name: "AIO MAKE", path: "/" },
+            { name: "개발", path: "/lab" },
+            { name: "인사이트", path: "/lab/insights" },
+            { name: entry.title, path: "/lab/insights/" + slug },
+          ])}
+        />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: entry.title,
+            description: seoDescription("/lab/insights/" + slug, entry.summary),
+            url: siteUrl + "/lab/insights/" + slug,
+            mainEntityOfPage: siteUrl + "/lab/insights/" + slug,
+            image: socialImage("/lab"),
+            inLanguage: "ko-KR",
+            datePublished: entry.datePublished,
+            dateModified: entry.dateModified,
+            author: { "@id": siteUrl + "/#organization" },
+            publisher: { "@id": siteUrl + "/#organization" },
+          }}
+        />
         <header className="cs-article-header">
           <p className="cs-t-eyebrow">{entry.category}</p>
           <h1 className="cs-t-display">{entry.title}</h1>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { marketingFaq } from "@/lib/marketing-faq";
 import { type Service } from "@/lib/content";
 import { servicePlans } from "@/lib/service-plans";
 import {
@@ -231,19 +232,7 @@ export function MarketingDetail({
               : "운영 전에\n많이 묻는 질문"
           }
         />
-        <MarketingFaq
-          faq={
-            id === "integrated"
-              ? [
-                  ...plan.faq,
-                  [
-                    "사이트도 만들어 주나요?",
-                    "월 운영 상품에는 기본 소개·문의 사이트 구축 또는 리뉴얼 1회가 포함됩니다\n페이지 수와 수정·유지 범위는 견적에서 정합니다",
-                  ],
-                ]
-              : plan.faq
-          }
-        />
+        <MarketingFaq faq={marketingFaq(id)} />
         <p className="mk-note">
           <Link href="/guides/project-checklist">의뢰 준비표 내려받기</Link> ·{" "}
           <Link href="/terms">이용 안내</Link>

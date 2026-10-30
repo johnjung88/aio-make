@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { notFound } from "next/navigation";
 import { divisionByPath, serviceById } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
@@ -44,7 +45,7 @@ export default async function ContactPage({
   ].includes(query.entry ?? "")
     ? query.entry
     : "";
-  return (
+  return <><PageBreadcrumb path="/marketing/contact" />{(
     <MarketingContact
       service={service ? service.id : undefined}
       initialMessage={
@@ -53,5 +54,5 @@ export default async function ContactPage({
       selectedPlan={plan}
       entry={entry}
     />
-  );
+  )}</>;
 }

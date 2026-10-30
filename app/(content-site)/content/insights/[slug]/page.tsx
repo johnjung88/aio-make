@@ -1,5 +1,5 @@
 import { JsonLd } from "@/components/ui";
-import { siteUrl } from "@/lib/metadata";
+import { siteUrl, socialImage, seoDescription } from "@/lib/metadata";
 import { breadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -28,9 +28,8 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       ...meta.openGraph,
       type: "article" as const,
-      ...(!entry.id.startsWith("guide-")
-        ? { publishedTime: entry.created_at, modifiedTime: entry.updated_at }
-        : {}),
+      publishedTime: entry.created_at,
+      modifiedTime: entry.updated_at,
     },
   };
 }
@@ -44,16 +43,13 @@ export default async function Insight({ params }: Props) {
           "@context": "https://schema.org",
           "@type": "Article",
           headline: entry.title,
-          description: entry.summary,
+          description: seoDescription(`/content/insights/${entry.slug}`, entry.summary),
+          image: socialImage("/content"),
           mainEntityOfPage: siteUrl + `/content/insights/${entry.slug}`,
           author: { "@id": siteUrl + "/#organization" },
           publisher: { "@id": siteUrl + "/#organization" },
-          ...(!entry.id.startsWith("guide-")
-            ? {
-                datePublished: entry.created_at,
-                dateModified: entry.updated_at,
-              }
-            : {}),
+          datePublished: entry.created_at,
+          dateModified: entry.updated_at,
         }}
       />
       <JsonLd

@@ -47,6 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guideEntries("reference"),
     ...guideEntries("insight"),
   ]) {
+    if (e.type === "reference" && e.kind === "example") continue;
     const d = divisions.find((d) => d.id === e.division);
     if (
       d &&
@@ -65,6 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   paths.push(...publicWorkCatalog([]).map((work) => work.canonicalPath));
   return [...new Set(paths)].map((path) => ({
     url: siteUrl + path,
+    lastModified: "2026-10-30",
     changeFrequency: "monthly",
   }));
 }

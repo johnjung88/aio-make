@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import Link from "next/link";
 import { labInsights } from "@/lib/lab-resources";
 import { pageMetadata } from "@/lib/metadata";
@@ -8,7 +9,7 @@ export const metadata = pageMetadata(
   "/lab/insights",
 );
 export default function LabInsightsPage() {
-  return (
+  return <><PageBreadcrumb path="/lab/insights" />{(
     <main className={`cs-site ${styles.page}`}>
       <section className="cs-container cs-article">
         <header className="cs-article-header">
@@ -32,5 +33,5 @@ export default function LabInsightsPage() {
         </div>
       </section>
     </main>
-  );
+  )}</>;
 }

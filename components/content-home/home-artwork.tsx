@@ -15,10 +15,10 @@ export function HomeArtwork({ id, alt = true, placement = "showcase" }: { id: Co
   } : source;
   if (media.images?.length) {
     return <div className={`ch-content-art ch-content-art--${media.layout}`}>
-      {media.images.map((src, index) => <Image key={src} src={src} alt={alt && index === 0 ? media.alt : ""} fill={false} width={640} height={960} sizes="(min-width:768px) 260px, 280px" />)}
+      {media.images.map((src, index) => <Image key={src} src={src} alt={alt ? `${media.alt} · ${index + 1}` : ""} aria-hidden={alt ? undefined : true} fill={false} width={640} height={960} sizes="(min-width:768px) 260px, 280px" />)}
     </div>;
   }
-  return <Image src={media.poster} alt={alt ? media.alt : ""} fill sizes="(min-width:1024px) 33vw, 100vw" />;
+  return <Image src={media.poster} alt={alt ? media.alt : ""} aria-hidden={alt ? undefined : true} fill sizes="(min-width:1024px) 33vw, 100vw" />;
 }
 
 // Each home section shows another approved cut of the same work.

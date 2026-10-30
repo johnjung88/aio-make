@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 import styles from "./privacy.module.css";
@@ -81,7 +82,7 @@ function PrivacyTable({
 }
 
 export default function Privacy() {
-  return (
+  return <><PageBreadcrumb path="/privacy" />{(
     <div className={`guide-page guide-utility ${styles.policyPage}`}>
       <div className="container page-intro">
         <Eyebrow>PRIVACY</Eyebrow>
@@ -239,5 +240,5 @@ export default function Privacy() {
         </ul>
       </article>
     </div>
-  );
+  )}</>;
 }

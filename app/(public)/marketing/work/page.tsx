@@ -1,3 +1,4 @@
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import Link from "next/link";
 import { publicEntries } from "@/lib/db";
 import { pageMetadata } from "@/lib/metadata";
@@ -21,7 +22,7 @@ export default async function MarketingWork() {
   const entries = (await publicEntries("reference", "marketing")).filter(
     (e) => e.kind !== "example",
   );
-  return (
+  return <><PageBreadcrumb path="/marketing/work" />{(
     <>
       <section className="mk-container mk-section">
         <div className="mk-page-title">
@@ -78,5 +79,5 @@ export default async function MarketingWork() {
       </section>
       <MarketingInquiry />
     </>
-  );
+  )}</>;
 }

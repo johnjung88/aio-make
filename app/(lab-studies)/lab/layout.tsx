@@ -1,3 +1,4 @@
+import { KakaoContact } from "@/components/kakao-contact";
 import "@/components/shared-detail-tokens.css";
 import "@/components/content-site/theme.css";
 import "@/components/content-site/content-renewal.css";
@@ -19,7 +20,9 @@ export default function LabLayout({ children }: { children: React.ReactNode }) {
         </a>
         <JsonLd data={organizationSchema} />
         <LabHeader />
+        <KakaoContact placement="header" />
         <div id="main-content">{children}</div>
+        <KakaoContact placement="footer" />
         <LabFooter />
       </div>
       <Suspense fallback={null}>

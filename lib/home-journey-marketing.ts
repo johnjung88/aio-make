@@ -4,6 +4,8 @@
 // 성과를 단정하는 문구와 별도의 가상 표기는 넣지 않는다(사용자 결정). 상표 고지 한 줄만 화면 아래에 둔다.
 import type { PlatformLogoId } from "../components/platform-frame/logos.ts";
 
+export const marketingImageAlt = (index: number) => `마케팅 컨텐츠 제작 방향 예시 ${index + 1}`;
+
 export type MarketingStageId = "plan" | "operate" | "data" | "improve";
 export type MarketingSceneId =
   | "search"

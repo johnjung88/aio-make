@@ -60,7 +60,7 @@ export function FloatingContact() {
     "/contact" +
     (parts[1] === "services" ? "?service=" + encodeURIComponent(parts[2]) : "");
   function openFaq() {
-    const section = document.querySelector(".service-faq, #faq");
+    const section = document.querySelector(".service-faq, #faq, .main-faq");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
       return;
@@ -81,7 +81,7 @@ export function FloatingContact() {
           문의하기 <span aria-hidden="true">↗</span>
         </Link>
       </nav>
-      <dialog
+      {path !== "/" && <dialog
         className="faq-dialog"
         ref={dialog}
         onClick={(e) => {
@@ -105,7 +105,7 @@ export function FloatingContact() {
         >
           문의 남기기 ↗
         </Link>
-      </dialog>
+      </dialog>}
     </>
   );
 }

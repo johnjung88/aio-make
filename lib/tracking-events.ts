@@ -1,5 +1,6 @@
 import { cleanUtm, type Attribution } from "./attribution.ts";
 type Events = {
+  kakao_chat_click: "page" | "division";
   aio_page_view: "page_path" | "page_title" | "page_type" | "service_slug";
   aio_cta_click: "cta_location" | "service_slug";
   aio_service_view: "service_slug";
@@ -22,6 +23,7 @@ type Events = {
     | "first_utm_content";
 };
 const fields: { [E in keyof Events]: readonly Events[E][] } = {
+  kakao_chat_click: ["page", "division"],
   aio_page_view: ["page_path", "page_title", "page_type", "service_slug"],
   aio_cta_click: ["cta_location", "service_slug"],
   aio_service_view: ["service_slug"],
@@ -61,6 +63,14 @@ export function track<E extends keyof Events>(
       if (typeof value === "string") payload[key] = value;
     }
     (window.dataLayer ??= []).push(payload);
+    if (event === "kakao_chat_click") {
+      const gtag = (window as Window & { gtag?: (...args: unknown[]) => void })
+        .gtag;
+      if (typeof gtag === "function") {
+        const { event: eventName, ...parameters } = payload;
+        gtag("event", eventName, parameters);
+      }
+    }
   } catch {
     /* Tracking must not interrupt the form or navigation. */
   }

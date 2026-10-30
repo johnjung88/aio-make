@@ -1,6 +1,9 @@
 import { JsonLd } from "@/components/ui";
 import { siteUrl } from "@/lib/metadata";
-import { breadcrumbSchema } from "@/lib/seo";
+import labContent from "@/lib/lab-renewal-content.json";
+import { developmentSchemaOffers } from "@/lib/development-offers";
+import { seoDescriptions } from "@/lib/seo-descriptions";
+import { faqSchema, breadcrumbSchema } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { LabServiceDetail } from "@/components/lab-main/service-detail";
 import { labServices, labServicePath } from "@/lib/lab-services";
@@ -29,12 +32,19 @@ export default async function LabServicePage({ params }: Props) {
     <>
       <LabServiceDetail id={id} />
       <JsonLd
+        data={faqSchema(
+          labContent[id as keyof typeof labContent].faq as [string, string][],
+        )}
+      />
+      <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Service",
           "@id": siteUrl + labServicePath(id) + "#service",
           name: service.name,
-          description: service.description,
+          description:
+            seoDescriptions[labServicePath(id)] ?? service.description,
+          offers: developmentSchemaOffers(id),
           url: siteUrl + labServicePath(id),
           provider: { "@id": siteUrl + "/#organization" },
           serviceType: service.name,
