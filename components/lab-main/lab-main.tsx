@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { DivisionFaq } from "@/components/division-faq";
+import { LabHomeFaq } from "./lab-home-faq";
 import {
   ClipboardList,
   PanelsTopLeft,
@@ -207,7 +207,7 @@ export function LabMain() {
           ))}
         </div>
       </section>
-      <DivisionFaq division="lab" />
+      <LabHomeFaq />
       <section
         className={`${styles.section} ${styles.inquiry}`}
         id="lab-inquiry"

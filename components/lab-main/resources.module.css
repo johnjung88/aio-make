@@ -136,3 +136,17 @@
     gap: 40px;
   }
 }
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 0 32px;
+}
+.topics a {
+  border: 1px solid #ffffff26;
+  border-radius: 999px;
+  padding: 10px 18px;
+  color: #b9aeff;
+  font-size: 14px;
+}

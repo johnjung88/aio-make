@@ -465,3 +465,19 @@
     font-size: 22px;
   }
 }
+/* W-F6lab: footer uses the same left alignment at every width */
+.footer .lockup > span:last-child {
+  font-size: 12px;
+  max-width: none;
+}
+@media (max-width: 767px) {
+  .footerGrid,
+  .footerBottom,
+  .footerBottom > div:last-child {
+    text-align: left;
+  }
+  .footerGrid > div .lockup,
+  .footer nav {
+    align-items: flex-start;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   contactSelection,
   pageBand,
@@ -80,9 +80,19 @@ function Consult({
     </Link>
   );
 }
-function Reset({ onClick }: { onClick: () => void }) {
+function Reset({
+  onClick,
+  text = false,
+}: {
+  onClick: () => void;
+  text?: boolean;
+}) {
   return (
-    <button type="button" className={styles.smallButton} onClick={onClick}>
+    <button
+      type="button"
+      className={text ? styles.resetLink : styles.smallButton}
+      onClick={onClick}
+    >
       처음으로
     </button>
   );
@@ -423,6 +433,7 @@ export function ShopComparison() {
           </p>
           <p>두 상품의 가격은 합산하지 않습니다</p>
           <Reset
+            text
             onClick={() => {
               setPlan("단순 복사");
               setBrand("모그레빗");
@@ -530,15 +541,9 @@ export function CsvRunner() {
       null,
     ),
     [tab, setTab] = useState("일치"),
-    [phase, setPhase] = useState(0),
     [input, setInput] = useState("CSV"),
     [process, setProcess] = useState("대조"),
     [output, setOutput] = useState("파일");
-  useEffect(() => {
-    if (phase < 1 || phase >= 4) return;
-    const timer = setTimeout(() => setPhase((p) => p + 1), 220);
-    return () => clearTimeout(timer);
-  }, [phase]);
   const run = () => {
     setResult(
       reconcileOrders({
@@ -548,7 +553,6 @@ export function CsvRunner() {
         normalize,
       }),
     );
-    setPhase(matchMedia("(prefers-reduced-motion: reduce)").matches ? 4 : 1);
   };
   return (
     <div className={styles.signature}>
@@ -570,7 +574,6 @@ export function CsvRunner() {
                       onChange={() => {
                         setProblems(problems.map((v, j) => (i === j ? !v : v)));
                         setResult(null);
-                        setPhase(0);
                       }}
                     />
                     <span>{s}</span>
@@ -585,16 +588,11 @@ export function CsvRunner() {
                 onChange={(e) => {
                   setNormalize(e.target.checked);
                   setResult(null);
-                  setPhase(0);
                 }}
               />
               <span>규칙 바꾸기 · 주문번호 앞 # 자동 제거</span>
             </label>
-            <button
-              className={styles.button}
-              onClick={run}
-              disabled={phase > 0 && phase < 4}
-            >
+            <button className={styles.button} onClick={run}>
               대조 실행
             </button>
             <div className={styles.mock}>
@@ -633,7 +631,6 @@ export function CsvRunner() {
                 setProblems([true, true, true]);
                 setNormalize(false);
                 setResult(null);
-                setPhase(0);
                 setTab("일치");
                 setInput("CSV");
                 setProcess("대조");
@@ -648,24 +645,22 @@ export function CsvRunner() {
             <br />
             실제 연결과 실행 환경은 상담에서 정합니다
           </p>
-          <div className={styles.flow}>
-            {["받기", "맞추기", "비교하기", "확인하기"].map((s, i) => (
-              <span key={s} data-complete={phase > i}>
-                {s}
-              </span>
-            ))}
-          </div>
+          <p className={styles.status}>
+            처리 순서 · 받기 → 형식 맞추기 → 대조 → 확인
+          </p>
           <p aria-live="polite">
             {result
               ? `대조 완료 · 일치 ${result.filter((r) => r.match).length} · 확인 필요 ${result.filter((r) => !r.match).length}`
               : "문제를 고르고 대조를 실행해 보세요"}
           </p>
-          <Choices
-            label="결과 보기"
-            values={["일치", "확인 필요"]}
-            value={tab}
-            onChange={setTab}
-          />
+          {result && (
+            <Choices
+              label="대조 결과 분류"
+              values={["일치", "확인 필요"]}
+              value={tab}
+              onChange={setTab}
+            />
+          )}
           <div className={styles.dataRows}>
             {!result && (
               <div className={styles.pendingResults}>
@@ -707,11 +702,16 @@ export function CsvRunner() {
     </div>
   );
 }
+const sampleRequests = () =>
+  initialRequests().map((row, i) => ({
+    ...row,
+    status: ["접수", "진행 중", "처리 완료"][Math.floor(i / 2) % 3],
+  }));
 export function RolePreview() {
   const [role, setRole] = useState("요청자"),
     [permissions, setPermissions] = useState(defaultPermissions),
     [env, setEnv] = useState("웹"),
-    [requests, setRequests] = useState(initialRequests),
+    [requests, setRequests] = useState(sampleRequests),
     [history, setHistory] = useState<string[]>([]),
     [showHistory, setShowHistory] = useState(false),
     [newTitle, setNewTitle] = useState("");
@@ -833,7 +833,7 @@ export function RolePreview() {
               setRole("요청자");
               setPermissions(defaultPermissions());
               setEnv("웹");
-              setRequests(initialRequests());
+              setRequests(sampleRequests());
               setHistory([]);
               setShowHistory(false);
               setNewTitle("");
@@ -863,8 +863,9 @@ export function RolePreview() {
               </label>
               <button
                 className={styles.button}
-                disabled={!newTitle.trim()}
+                aria-disabled={!newTitle.trim()}
                 onClick={() => {
+                  if (!newTitle.trim()) return;
                   setRequests([
                     ...requests,
                     {

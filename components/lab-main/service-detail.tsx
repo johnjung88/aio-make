@@ -14,6 +14,7 @@ import { RenewalSignature, ShopHero } from "./renewal-signature";
 import { DeviceVisual } from "./renewal-visual";
 import { LazySample } from "./renewal-sample";
 import { OutputPreview } from "./output-preview";
+import { ResultBoard } from "./result-board";
 import { AutomationCardVisual } from "./automation-card-visual";
 import styles from "./renewal.module.css";
 type Id = keyof typeof content;
@@ -180,19 +181,7 @@ export function LabServiceDetail({ id }: { id: string }) {
             </div>
           ) : (
             <div className={`${styles.visual} ${styles.heroVisual}`}>
-              <picture>
-                <source
-                  media="(max-width:900px)"
-                  srcSet={`/lab-renewal/${id}-hero-mobile.webp`}
-                />
-                <Image
-                  src={`/lab-renewal/${id}-hero.webp`}
-                  alt={`${service.name} 제작 방향 예시 전체 화면`}
-                  width={1600}
-                  height={1000}
-                  fetchPriority="high"
-                />
-              </picture>
+              <ResultBoard service={id} />
             </div>
           )}
         </div>
@@ -276,10 +265,21 @@ export function LabServiceDetail({ id }: { id: string }) {
         {heading("S4")}
         <div className={styles.prices}>
           {prices[key].map(([label, price, body], i) => (
-            <article className={styles.priceCard} key={label}>
+            <article
+              className={`${styles.priceCard} ${prices[key].length === 1 ? styles.customPrice : ""}`}
+              key={label}
+            >
               <h3>{label}</h3>
               <strong>{price}</strong>
-              <p style={{ whiteSpace: "pre-line" }}>{body}</p>
+              {prices[key].length === 1 ? (
+                <ul className={styles.priceRows}>
+                  {body.split("\n").map((row) => (
+                    <li key={row}>{row}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p style={{ whiteSpace: "pre-line" }}>{body}</p>
+              )}
               <Link
                 className={
                   prices[key].length > 1 && i !== 1
