@@ -2743,6 +2743,12 @@
 .mk-home-hero .mk-journey {
   margin-top: 32px;
 }
+.mk-home-hero .mk-journey li {
+  padding-inline: 0;
+}
+.mk-home-hero .mk-journey button {
+  text-align: left;
+}
 .marketing-renewal .mk-home-hero p.mk-caption {
   color: var(--mk-text);
   text-align: left;
@@ -2818,6 +2824,31 @@
   max-height: 400px;
   width: 100%;
   object-position: center 25%;
+}
+.mk-interaction-ai-influencer .mk-persona > div {
+  min-width: 0;
+}
+.mk-interaction-ai-influencer .mk-persona p.mk-persona-quote {
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.6;
+}
+.mk-persona-guide {
+  margin: 24px 0 0;
+}
+.mk-persona-guide > div {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+  padding-block: 16px;
+  border-top: 1px solid var(--mk-line);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.mk-persona-guide dt {
+  color: var(--mk-muted);
+}
+.mk-persona-guide dd {
+  margin: 0;
 }
 .mk-interaction-ai-influencer .mk-month :is(small, details > div) {
   font-size: 14px;

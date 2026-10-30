@@ -590,18 +590,27 @@ function PersonaPlanner({ onReset }: ResetProps) {
           <div>
             <p className="mk-eyebrow">PERSONA CARD</p>
             <h3>{role}</h3>
-            <p>
+            <p className="mk-persona-quote">
               {tone === "친근하게"
                 ? "오늘은 제가 쓰는 순서대로 보여드릴게요"
                 : tone === "차분하게"
                   ? "먼저 제품 정보와 사용 순서를 살펴보겠습니다"
                   : "지금부터 하나씩 함께 살펴봐요"}
             </p>
-            <p>
-              같은 얼굴·헤어 유지
-              <br />
-              실제 후기처럼 말하지 않기
-            </p>
+            <dl className="mk-persona-guide">
+              <div>
+                <dt>인물 기준 시트</dt>
+                <dd>같은 얼굴·헤어 유지</dd>
+              </div>
+              <div>
+                <dt>말투</dt>
+                <dd>{tone}</dd>
+              </div>
+              <div>
+                <dt>금지 문구</dt>
+                <dd>실제 후기처럼 말하지 않기</dd>
+              </div>
+            </dl>
           </div>
         </div>
         <div className="mk-month">

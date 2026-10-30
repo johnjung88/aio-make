@@ -357,8 +357,8 @@ export function MarketingArtwork({
     content = (
       <div className="mk-seo-hero-result">
         <Photo
-          file="f3a2-process-brief"
-          alt="가상 브랜드의 메뉴와 소개 자료를 정리하는 장면"
+          file="feed-0"
+          alt="가상 카페의 라떼 메뉴 사진 예시"
           priority={hero}
         />
         <SearchScene variant="answer" />
