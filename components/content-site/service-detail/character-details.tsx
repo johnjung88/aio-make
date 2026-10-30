@@ -107,7 +107,7 @@ export function AnimationDetail() {
         <div className="sd-character-banner">
           <span className="sd-character-banner-orbit" aria-hidden="true" />
           <span className="sd-character-banner-word" aria-hidden="true">HELLO!</span>
-          <DetailImage src={`${characterMedia}yofree-character-04.webp`} alt="가볍게 점프하는 요프리 브랜드 캐릭터의 전신" eager zoom={false} />
+          <DetailImage src={`${characterMedia}yofree-character-04.webp`} alt="투명한 캡과 노란 몸체의 점프하는 요프리 브랜드 캐릭터" eager zoom={false} />
           <span className="sd-character-banner-caption">ONE CHARACTER<br />MANY STORIES</span>
         </div>
       </DetailHero>
@@ -171,7 +171,7 @@ export function AnimationDetail() {
               <video
                 ref={poseVideo}
                 src={`${characterMedia}yofree-pose-${poseNumber}.mp4`}
-                poster={`${characterMedia}yofree-character-${poseNumber}.webp`}
+                poster={poseIndex === 3 ? "/content-f5/yofree-jump.webp" : `${characterMedia}yofree-character-${poseNumber}.webp`}
                 aria-label={`${pose.name} · 4초 캐릭터 동작 제작 시안`}
                 aria-describedby="character-motion-note"
                 controls playsInline muted loop preload="none"
@@ -182,7 +182,7 @@ export function AnimationDetail() {
                   });
                 }}
               >영상을 재생할 수 없습니다</video>
-              <DetailImage className="sd-character-original-zoom" src={`${characterMedia}yofree-character-${poseNumber}.webp`} alt={`${pose.name} 원본 캐릭터 이미지`} caption="원본 이미지" />
+              <DetailImage className="sd-character-original-zoom" src={poseIndex === 3 ? "/content-f5/yofree-jump.webp" : `${characterMedia}yofree-character-${poseNumber}.webp`} alt={`${pose.name} 캐릭터 ${poseIndex === 3 ? "동작 프레임" : "원본 이미지"}`} caption={poseIndex === 3 ? "동작 프레임" : "원본 이미지"} />
             </div>
             <div className="sd-character-pose-caption" aria-live="polite"><span>0{poseIndex + 1} / 06</span><strong>{pose.name}</strong></div>
             <p className="sd-character-motion-note" id="character-motion-note" aria-live="polite">{motionError ? "동작 영상을 불러오지 못했습니다\n원본 이미지를 확대해 볼 수 있습니다" : reduceMotion || motion === "paused" ? "4초 · 동작 제작 시안 · 재생 버튼으로 확인하세요" : "4초 · 동작 제작 시안 · 표정을 선택하면 재생합니다"}</p>
@@ -193,7 +193,7 @@ export function AnimationDetail() {
                 <button type="button" key={item.short} aria-pressed={poseIndex === index} onClick={() => selectPose(index)} aria-label={`${item.short} 캐릭터 동작 선택`}>
                   {/* The full asset is available immediately above through the image viewer. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt="" loading="lazy" />
+                  <img className={index === 3 ? "sd-character-jump-tile" : undefined} src={index === 3 ? "/content-f5/yofree-jump.webp" : `${characterMedia}yofree-character-${String(index + 1).padStart(2, "0")}.webp`} alt="" loading="lazy" />
                   <span>{item.short}</span>
                 </button>
               ))}
@@ -251,7 +251,7 @@ export function AnimationDetail() {
 }
 
 const aiStages = [
-  { label: "01 · 기준 얼굴", short: "기준을 정하다", asset: "ai-face.webp", alt: "87언니의 채택 기준 얼굴", title: "유지할 인상을 먼저 정합니다", copy: "얼굴·헤어·의상·피부 표현의 기준을 정합니다\n전신도 따로 확인해 다음 장면과 비교합니다", checks: ["얼굴의 인상", "헤어와 의상", "피부 표현과 조명"] },
+  { label: "01 · 기준 전신", short: "기준을 정하다", asset: "ai-full.webp", alt: "87언니의 채택 기준 전신과 니트 의상", title: "유지할 인상을 먼저 정합니다", copy: "앞에서 확인한 얼굴과 함께 전신의 비례·의상을 기준으로 남깁니다\n다음 장면의 인상과 스타일을 비교합니다", checks: ["전신의 비례", "헤어와 의상", "피부 표현과 조명"] },
   { label: "02 · 보완 전 장면 시험", short: "달라진 부분을 찾다", asset: "ai-t2.webp", alt: "얼굴 인상과 의상 변화, 잘못 생성된 제품 글자를 확인한 보완 전 장면 시험", title: "달라진 인상과 표기를 찾았습니다", copy: "어두운 조명에서 얼굴 인상과 의상이 기준과 달라졌습니다\n잘못 생성된 제품 글자도 확인해 얼굴·의상·조명과 제품 표기를 보완 항목으로 정했습니다", checks: ["달라진 얼굴 인상", "의상과 조명 변화", "잘못 생성된 제품 글자"] },
   { label: "03 · 보완 후 채택", short: "다시 맞추고 채택하다", asset: "ai-t3.webp", alt: "얼굴과 의상, 조명 조건을 보완한 뒤 채택한 87언니 세면대 장면", title: "조건을 보완하고 비교해 채택했습니다", copy: "밝은 조명과 니트 의상, 얼굴 유지 조건을 보완했습니다\n기준 얼굴과 다시 비교한 뒤 세면대 장면을 채택했습니다\n후속 장면도 얼굴·손·제품을 확인합니다", checks: ["밝은 조명", "기준에 맞춘 니트 의상", "기준 얼굴과 재비교"] },
 ] as const;
@@ -302,12 +302,12 @@ export function AiInfluencerDetail() {
 
       <DetailSection
         eyebrow="A PERSON, WITH A REFERENCE"
-        title="얼굴과 전신, 다음 장면을 위한 기준"
-        lead={"얼굴의 인상과 전신의 비례·스타일을 따로 확인합니다\n채택한 이미지를 기준으로 다음 이미지와 영상을 검토합니다"}
+        title="얼굴과 손, 다음 장면에서 확인할 기준"
+        lead={"기준 얼굴의 인상·헤어·피부 표현과 영상 속 손·제품을 확인합니다\n전신과 장면별 이미지는 아래 보완 과정에서 비교합니다"}
       >
         <div className="sd-ai-baseline">
           <DetailImage src={`${media}ai-face.webp`} alt="부드러운 정면광과 니트 의상의 87언니 채택 기준 얼굴" caption="채택 기준 얼굴 · 인상·헤어·피부 표현" />
-          <DetailImage src={`${media}ai-full.webp`} alt="87언니의 비례와 의상 스타일을 확인하는 채택 기준 전신" caption="채택 기준 전신 · 비례·의상·스타일" />
+          <DetailImage src="/content-f5/ai-cleanser-07.webp" alt="클렌저 영상의 손과 제품 형태를 확인하는 별도 근접 컷" caption="영상 확인 컷 · 손·제품 형태와 표기" />
         </div>
         <div className="sd-ai-review-criteria"><h3>각도와 환경을 바꿔 확인합니다</h3><p>{"정면·측면·표정·전신과 장소·조명을 바꾼 자료를 비교했습니다\n장면마다 얼굴·손·피부 톤·의상을 확인합니다"}</p><p className="sd-character-fineprint">{"상품의 ‘이미지 총 20장’은 고객에게 전달할 수량입니다\n원하는 장면과 활용처에 맞춰 제작합니다"}</p></div>
       </DetailSection>
@@ -318,7 +318,7 @@ export function AiInfluencerDetail() {
         lead={"기준 얼굴과 장면 시험을 비교한 실제 과정입니다\n단계별 보완 내용을 살펴보고, 이미지를 눌러 확대해 보세요"}
       >
         <div className="sd-ai-stage-options" role="group" aria-label="AI 모델 기준과 보완 과정 선택">
-          {aiStages.map((item, index) => <button type="button" key={item.asset} aria-pressed={stageIndex === index} onClick={() => setStageIndex(index)}><small>0{index + 1}</small><strong>{item.short}</strong><span>{index === 0 ? "채택 기준 얼굴" : index === 1 ? "보완 전" : "보완 후 채택"}</span></button>)}
+          {aiStages.map((item, index) => <button type="button" key={item.asset} aria-pressed={stageIndex === index} onClick={() => setStageIndex(index)}><small>0{index + 1}</small><strong>{item.short}</strong><span>{index === 0 ? "채택 기준 전신" : index === 1 ? "보완 전" : "보완 후 채택"}</span></button>)}
         </div>
         <div className="sd-ai-comparison">
           {aiStages.map((item, index) => <div className="sd-ai-comparison-item" key={item.asset} data-selected={stageIndex === index}><DetailImage src={`${media}${item.asset}`} alt={item.alt} caption={item.label} /></div>)}

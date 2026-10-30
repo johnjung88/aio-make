@@ -46,9 +46,6 @@ export function MarketingHome() {
           />
         </div>
         <div className="mk-container">
-          <p className="mk-caption">
-            접점을 고르면 해당 채널 화면을 강조합니다
-          </p>
           <ol className="mk-journey">
             {["01 노출", "02 유입", "03 문의"].map((label, index) => (
               <li key={label}>
@@ -72,7 +69,6 @@ export function MarketingHome() {
               ][stage]
             }
           </p>
-          <p className="mk-caption">가상 브랜드 · 제작 방향 예시</p>
         </div>
       </section>
       <MarketingFinder onRecommend={setRecommended} />

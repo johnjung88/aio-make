@@ -1,6 +1,13 @@
 import type { ContentServiceId } from "./types";
 import { WEBTOON_PAGE_STANDARD } from "../content-pricing.ts";
 
+// Approved public scene cuts for the preparation board, separate from pose controls.
+export const ANIMATION_STARTING_SCENES = [
+  "/service-detail-v14/yofree-scene-hook.webp",
+  "/service-detail-v14/yofree-scene-cta.webp",
+  "/service-detail-v14/poster-yofree-premium.webp",
+] as const;
+
 export const DETAIL_SCOPE: Record<
   ContentServiceId,
   { included: string[]; confirm: string[] }

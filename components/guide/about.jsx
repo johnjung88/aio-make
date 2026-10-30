@@ -225,7 +225,7 @@ export default function About() {
                         "/lab/space-pc.webp",
                         "/service-detail-v14/webtoon-03.webp",
                         "/marketing-renewal/f3a2-skin-texture.webp",
-                        "/service-detail-v14/bwl-motion-frame-10.webp",
+                        "/lab-references/munseodam.webp",
                       ][i]
                     }
                     alt={
@@ -233,11 +233,12 @@ export default function About() {
                         "가상 건축 브랜드 웹사이트 디자인 샘플",
                         "자체 기획 웹툰의 장면 구성 원고",
                         "스킨케어 제품의 게시 소재 제작 예시",
-                        "비더화이트랩 브랜드 모션 제작 장면",
+                        "문서담 가상 브랜드 웹사이트의 완성 화면 예시",
                       ][i]
                     }
                     width={720}
                     height={540}
+                    loading="eager"
                     sizes="(min-width:1024px) 25vw, (min-width:768px) 50vw, 100vw"
                   />
                   <h3 className="cs-t-h3">
@@ -249,7 +250,7 @@ export default function About() {
             </ol>
             <p className="cs-t-caption rw-process-disclaimer">
               분야별 제작 결과 예시 · 가상 브랜드 웹사이트, 자체 기획 웹툰, 게시
-              소재, 브랜드 모션
+              소재, 완성 웹사이트
             </p>
           </div>
         </section>

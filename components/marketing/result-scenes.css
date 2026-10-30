@@ -16,7 +16,7 @@
   padding: 16px 20px;
   background: #eee9f7;
   border-bottom: 1px solid #d8cfeb;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
 }
 .mk-scene-bar > span:first-child {
@@ -43,7 +43,7 @@
   gap: 20px;
   padding: 16px 0;
   border-bottom: 1px solid #ddd6e4;
-  font-size: 13px;
+  font-size: 14px;
 }
 .mk-scene-tabs > :first-child {
   color: #6947ba;
@@ -53,7 +53,7 @@
   padding-top: 18px;
 }
 .mk-search-hit > span {
-  font-size: 13px;
+  font-size: 14px;
   color: #6b6371;
 }
 .mk-search-hit > strong {
@@ -88,7 +88,7 @@
 .mk-scene-tag {
   display: block;
   color: #72509f;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   margin-bottom: 14px;
 }
@@ -103,7 +103,7 @@
   padding: 16px;
   border-radius: 8px;
   background: #eee9f7;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 .mk-answer-source b {
@@ -127,7 +127,7 @@
   padding: 8px 12px;
   border-radius: 6px;
   border: 1px solid #cfc5df;
-  font-size: 13px;
+  font-size: 14px;
 }
 .mk-campaign-feature {
   position: relative;
@@ -227,7 +227,7 @@
   }
   .mk-service-card .mk-campaign-list > div {
     gap: 8px;
-    font-size: 13px;
+    font-size: 14px;
     padding-block: 8px;
   }
   .mk-service-card .mk-search-query {

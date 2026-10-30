@@ -4,6 +4,7 @@ import Image from "next/image";
 import { homeCardMedia } from "@/lib/content-home";
 import { useState } from "react";
 import {
+  ANIMATION_STARTING_SCENES,
   DETAIL_COPY,
   DETAIL_SCOPE,
 } from "@/lib/content-site/service-detail-content";
@@ -201,7 +202,6 @@ export function StartingBoard({ service }: { service: ContentServiceId }) {
   );
 }
 
-const asset = (name: string) => "/content-renewal-20261019/" + name + ".webp";
 function StartingVisual({
   service,
   selected,
@@ -242,30 +242,35 @@ function StartingVisual({
     return (
       <figure className="cr-visual cr-poses">
         <div>
-          {(homeCardMedia.animation.images ?? []).map((pose, i) => (
-            <div key={pose} data-active={selected === i}>
+          {ANIMATION_STARTING_SCENES.map((scene, i) => (
+            <div key={scene} data-active={selected === i}>
               <Image
-                src={pose}
+                src={scene}
                 width={240}
                 height={240}
-                alt={homeCardMedia.animation.caseLabel + " 포즈 " + (i + 1)}
+                alt={
+                  homeCardMedia.animation.caseLabel +
+                  " 영상 구성 장면 " +
+                  (i + 1)
+                }
               />
-              <span>POSE 0{i + 1}</span>
+              <span>SCENE 0{i + 1}</span>
             </div>
           ))}
         </div>
         <figcaption>
-          같은 캐릭터의 표정과 행동 · {homeCardMedia.animation.caseLabel}
+          영상의 도입·마지막 안내와 다른 표현 시안 ·{" "}
+          {homeCardMedia.animation.caseLabel}
         </figcaption>
       </figure>
     );
   if (service === "ai-influencer")
     return (
       <figure className="cr-visual cr-persona">
-        {["cleanser-02", "cleanser-12"].map((name, i) => (
+        {["ai-cleanser-04", "ai-cleanser-20"].map((name, i) => (
           <div key={name}>
             <Image
-              src={`/content-fb3/${name}.webp`}
+              src={`/content-f5/${name}.webp`}
               width={400}
               height={520}
               alt={
@@ -274,14 +279,13 @@ function StartingVisual({
               }
             />
             <span>
-              {i === 0
-                ? "같은 인물 · 제품 소개"
-                : "같은 인물 · 제품 사용"}
+              {i === 0 ? "같은 인물 · 제품 소개" : "같은 인물 · 제품 사용"}
             </span>
           </div>
         ))}
         <figcaption>
-          {homeCardMedia["ai-influencer"].caseLabel} · 클렌저 제품영상의 다른 활용 장면
+          {homeCardMedia["ai-influencer"].caseLabel} · 클렌저 제품영상의 다른
+          활용 장면
         </figcaption>
       </figure>
     );
@@ -357,14 +361,14 @@ function StartingVisual({
     <figure className="cr-visual cr-formats">
       <div>
         {[
-          ["릴스", "9:16", "sns-cplus-opening"],
-          ["피드", "4:5", "sns-cplus-middle"],
-          ["유튜브", "16:9", "sns-cplus-ending"],
+          ["릴스", "9:16", "cplus-04"],
+          ["피드", "4:5", "cplus-12"],
+          ["유튜브", "16:9", "cplus-16"],
         ].map(([channel, ratio, image], i) => (
           <div key={channel} data-format={i}>
             <div className="cr-format-image">
               <Image
-                src={asset(image)}
+                src={`/content-f5/${image}.webp`}
                 width={480}
                 height={854}
                 alt={
