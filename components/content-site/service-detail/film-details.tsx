@@ -317,8 +317,13 @@ const adScenes = [
   { time: 18, image: "sns-cplus-ending.webp", name: "마무리", title: "제품을 다시 기억하게", description: "같은 인물이 제품을 들고 마지막 문구와 제품명을 함께 보여줍니다", script: "제품명과 마무리 문구" },
 ];
 
+const cleanserScenes = [
+  { time: 1, image: "ad-cleanser-scene-01.webp", name: "주말 아침 준비", title: "세안 전 상황을 먼저", description: "욕실에서 머리를 묶는 인물과 클렌저로 주말 아침의 세안 준비를 보여줍니다" },
+  { time: 9, image: "ad-cleanser-scene-09.webp", name: "거품 만들기", title: "손과 거품에 가까이", description: "클렌저로 거품을 만드는 손을 가까이 담아 세안 과정을 이어갑니다" },
+  { time: 18, image: "ad-cleanser-scene-18.webp", name: "제품과 마무리", title: "클렌저 이름을 남기기", description: "세안을 마친 인물이 클렌저를 들고 제품명과 주말 아침의 마무리 문구를 보여줍니다" },
+];
+
 const adWorks: FilmWork[] = [
-  { id: "bwl-cleanser-ad", caseId: "CASE-BWL-CLEANSER-AD", title: "DR’s Secret · 클렌저 1", category: "product", categoryLabel: "AI 인물·사용 장면", description: "같은 AI 인물을 다른 제품의 사용 장면에 연결한 별도 제품영상입니다", format: "20초 · 9:16", status: "제안용 시안", portrait: true },
   { id: "yofree-kinetic", caseId: "CASE-YOFREE-CHARACTER", title: "YoFree · 하루 한 병", category: "character", categoryLabel: "제품·타이포·캐릭터", description: "타이포와 캐릭터, 제품을 차례로 배치해 전할 문구를 설명합니다", format: "30초 · 9:16", status: "키네틱 모션그래픽 제작 시안", portrait: true },
   { id: "yofree-premium", caseId: "CASE-YOFREE-CHARACTER", title: "YoFree · 부모님께 드리는 하루", category: "product", categoryLabel: "제품·선물·프리미엄", description: "선물하는 상황과 한지·먹의 분위기로 제품을 소개하는 표현안입니다", format: "30초 · 9:16", status: "요프리 30초 프로젝트의 표현 시안", portrait: true },
   { id: "yofree-motioncomic", caseId: "CASE-YOFREE-CHARACTER", title: "YoFree · 요프리가 왔어요", category: "comic", categoryLabel: "웹툰·캐릭터·이야기", description: "웹툰과 캐릭터의 이야기를 제품 소개에 활용하는 모션코믹입니다", format: "30초 · 9:16", status: "요프리 30초 프로젝트의 표현 시안", portrait: true },
@@ -352,24 +357,24 @@ export function AdDetail() {
         "기획부터 첫 장면·제품 설명·마지막 안내까지 구성",
       ]} />
 
-      <DetailSection id="case" eyebrow="FEATURED CASE · C PLUS" title={"같은 제품의 첫 장면부터\n마지막 안내까지"} lead={"출근 전 화장대에서 C Plus 세럼을 소개하는 87언니 AI 가상인물의 제품영상 시안입니다\n상황·의상·제품을 유지하고 장면의 거리와 역할을 바꿨습니다"}>
+      <DetailSection id="case" eyebrow="FEATURED CASE · CLEANSER 1" title={"같은 제품의 첫 장면부터\n마지막 안내까지"} lead={"주말 아침 욕실에서 클렌저 1을 소개하는 87언니 AI 가상인물의 제품영상 시안입니다\n상황·의상·제품을 유지하고 장면의 거리와 역할을 바꿨습니다"}>
         <div className="fd-case-summary">
-          <div><span>기획의 기준</span><p>제품 하나 · 같은 인물<br />같은 화장대와 아침의 빛</p></div>
+          <div><span>기획의 기준</span><p>제품 하나 · 같은 인물<br />같은 욕실과 주말 아침</p></div>
           <div><span>실제 구성</span><p>도입·제품 소개·손과 사용 장면·인물과 제품 마무리</p></div>
           <div><span>사례의 실제 분량</span><p>20초 · 9:16 · 제안용 시안<br />1080×1920 세로형 출력</p></div>
         </div>
-        <div className="fd-ad-principles"><article><span>첫 장면</span><h3>상황을 보여주기</h3><p>출근 전 화장대라는 익숙한 장면에서 이야기를 시작합니다</p></article><article><span>핵심 설명</span><h3>제품이 잘 보이게</h3><p>인물의 얼굴에서 제품, 스포이트와 손의 근접 장면으로 보는 거리를 바꿉니다</p></article><article><span>마지막 안내</span><h3>이름을 남기기</h3><p>제품을 든 같은 인물과 제품명으로 마무리합니다</p></article></div>
+        <div className="fd-ad-principles"><article><span>첫 장면</span><h3>상황을 보여주기</h3><p>주말 아침 세안을 준비하는 장면에서 이야기를 시작합니다</p></article><article><span>핵심 설명</span><h3>제품이 잘 보이게</h3><p>인물의 얼굴에서 제품, 거품을 만드는 손과 세안 장면으로 보는 거리를 바꿉니다</p></article><article><span>마지막 안내</span><h3>이름을 남기기</h3><p>제품을 든 같은 인물과 제품명으로 마무리합니다</p></article></div>
         <p className="fd-footnote">영상은 AI 가상인물을 활용한 제안용 시안입니다<br />실제 체험 후기나 고객의 게시·성과 사례로 표시하지 않습니다<br />실제 20초 분량은 아래 30·60초 판매 구성과 별개입니다</p>
       </DetailSection>
 
-      <DetailSection eyebrow="ONE AD, THREE MOMENTS" title={"같은 광고 안에서\n장면을 살펴보세요"} lead={"아래 이미지는 모두 같은 C Plus 광고의 실제 1초·9초·18초 화면입니다\n선택한 장면부터 본편을 확인할 수 있습니다"}>
+      <DetailSection eyebrow="ONE AD, THREE MOMENTS" title={"같은 광고 안에서\n장면을 살펴보세요"} lead={"아래 이미지는 클렌저 광고의 실제 1초·9초·18초 화면입니다\n선택한 장면부터 본편을 확인할 수 있습니다"}>
         <div className="fd-ad-sequence">
-          <div className="fd-scene-options" role="group" aria-label="같은 C Plus 광고의 구간 선택">
-            {adScenes.map((item, index) => <button type="button" key={item.time} aria-pressed={scene === index} onClick={() => { seekScene(selectedStage.current, item.time); setScene(index); }}><Image src={`${media}${item.image}`} width={1080} height={1920} alt={`같은 C Plus 광고 ${item.time}초, ${item.name}`} loading="lazy" unoptimized /><span><small>{String(index + 1).padStart(2, "0")} · {item.time}초 · {item.name}</small><strong>{item.title}</strong><span>{item.description}</span><i>이 장면부터 보기 ↗</i></span></button>)}
+          <div className="fd-scene-options" role="group" aria-label="클렌저 광고의 구간 선택">
+            {cleanserScenes.map((item, index) => <button type="button" key={item.time} aria-pressed={scene === index} onClick={() => { seekScene(selectedStage.current, item.time); setScene(index); }}><Image src={`${media}${item.image}`} width={1080} height={1920} alt={`클렌저 광고 ${item.time}초, ${item.name}`} loading="lazy" unoptimized /><span><small>{String(index + 1).padStart(2, "0")} · {item.time}초 · {item.name}</small><strong>{item.title}</strong><span>{item.description}</span><i>이 장면부터 보기 ↗</i></span></button>)}
           </div>
-          <div className="fd-selected-ad" ref={selectedStage}><DetailVideo key={adScenes[scene].time} src={`${media}bwl-cplus-ad.mp4`} poster={`${media}${adScenes[scene].image}`} label={`C Plus 광고 · ${adScenes[scene].time}초 ${adScenes[scene].name}부터 · 실제 20초 제안용 시안`} startAt={adScenes[scene].time} portrait /><p aria-live="polite">선택한 구간 · {adScenes[scene].time}초 / {adScenes[scene].name}</p></div>
+          <div className="fd-selected-ad" ref={selectedStage}><DetailVideo key={cleanserScenes[scene].time} src={`${media}bwl-cleanser-ad.mp4`} poster={`${media}${cleanserScenes[scene].image}`} label={`클렌저 1 광고 · ${cleanserScenes[scene].time}초 ${cleanserScenes[scene].name}부터 · 실제 20초 제안용 시안`} startAt={cleanserScenes[scene].time} portrait /><p aria-live="polite">선택한 구간 · {cleanserScenes[scene].time}초 / {cleanserScenes[scene].name}</p><button type="button" className="fd-preview-open" aria-haspopup="dialog" onClick={(event) => setPreview({ src: `${media}bwl-cleanser-ad.mp4`, poster: `${media}${cleanserScenes[scene].image}`, title: "DR’s Secret 클렌저 1 광고", label: "클렌저 1 · AI 가상인물 활용 제안용 시안 · 20초 · 9:16 · 무음", caseId: "CASE-BWL-CLEANSER-AD", portrait: true, startAt: cleanserScenes[scene].time, trigger: event.currentTarget })}>클렌저 광고 큰 영상 보기 ↗</button></div>
         </div>
-        <div className="fd-inline-contact"><p>우리 제품은 어떤 장면으로 시작할까요?<br />관심 사례와 원하는 채널을 함께 전달할 수 있습니다</p><CaseCta caseId="CASE-BWL-CPLUS-AD" caseTitle="DR’s Secret C Plus 세럼 광고" entryPoint="service-featured-case">이런 SNS 광고 제작 문의</CaseCta></div>
+        <div className="fd-inline-contact"><p>우리 제품은 어떤 장면으로 시작할까요?<br />관심 사례와 원하는 채널을 함께 전달할 수 있습니다</p><CaseCta caseId="CASE-BWL-CLEANSER-AD" caseTitle="DR’s Secret 클렌저 1 광고" entryPoint="service-featured-case">이런 SNS 광고 제작 문의</CaseCta></div>
       </DetailSection>
 
       <DetailSection eyebrow="MORE AD FORMATS" title={"제품에 맞춰\n다른 표현도 선택할 수 있습니다"} lead="AI 인물, 제품과 타이포, 캐릭터와 이야기 각각의 실제 광고·모션 시안을 비교해 원하는 방식을 골라보세요">
