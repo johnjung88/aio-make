@@ -250,27 +250,29 @@ export function PagePlanner() {
           <Reset onClick={reset} />
         </div>
         <div className={styles.result} id="planner-result">
-          <p className={styles.status}>
-            공개 가격 구간 안내예요
-            <br />
-            페이지 산정과 기능 범위, VAT는 견적에서 확인합니다
-          </p>
-          <p className={styles.resultTitle} aria-live="polite">
-            {total}페이지 · {pageBand(total)}
-          </p>
-          {flags[0] && <p>대시보드 +3만 원 · 기능 범위 사전 합의</p>}
-          {flags[1] && (
-            <p>
-              AI 이미지 제작·적용 포함
+          <div className={styles.plannerSummary}>
+            <p className={styles.status}>
+              공개 가격 구간 안내예요
               <br />
-              실제 제품·실적·인증 자료는 직접 준비
+              페이지 산정과 기능 범위, VAT는 견적에서 확인합니다
             </p>
-          )}
-          {flags[2] && <p>추가 기능은 별도 견적</p>}
-          <div className={styles.sitemap} aria-label="선택한 사이트 지도">
-            {list.map((s, i) => (
-              <span key={i}>↳ {s}</span>
-            ))}
+            <p className={styles.resultTitle} aria-live="polite">
+              {total}페이지 · {pageBand(total)}
+            </p>
+            {flags[0] && <p>대시보드 +3만 원 · 기능 범위 사전 합의</p>}
+            {flags[1] && (
+              <p>
+                AI 이미지 제작·적용 포함
+                <br />
+                실제 제품·실적·인증 자료는 직접 준비
+              </p>
+            )}
+            {flags[2] && <p>추가 기능은 별도 견적</p>}
+            <div className={styles.sitemap} aria-label="선택한 사이트 지도">
+              {list.map((s, i) => (
+                <span key={i}>↳ {s}</span>
+              ))}
+            </div>
           </div>
           <div
             className={styles.sitePreview}
@@ -298,7 +300,8 @@ export function PagePlanner() {
           <p className={styles.note}>
             고른 항목 1개를 1페이지로 계산한 안내입니다
             <br />
-            가상 브랜드 화면 예시 · 서리온결은 AI 생성 인물 포함
+            {preview.brand} 가상 브랜드 화면 예시
+            {preview.name === "seoriongyeol" ? " · AI 생성 인물 포함" : ""}
           </p>
         </div>
       </div>
@@ -343,7 +346,9 @@ function ShopPreview({
       </div>
       <div className={styles.shopEditorial}>
         <small>
-          {full ? "YOUR BRAND COLLECTION" : "THE EVERYDAY COLLECTION"}
+          {full
+            ? `${brand || "모그레빗"} COLLECTION`
+            : "THE EVERYDAY COLLECTION"}
         </small>
         <strong>
           {full
@@ -832,7 +837,7 @@ export function RolePreview() {
             역할 3 · 기능 {enabled.length} · {env}
           </p>
           {perm[0] && (
-            <div>
+            <div className={styles.requestForm}>
               <label>
                 새 요청
                 <input
@@ -844,7 +849,7 @@ export function RolePreview() {
                 />
               </label>
               <button
-                className={styles.smallButton}
+                className={styles.button}
                 disabled={!newTitle.trim()}
                 onClick={() => {
                   setRequests([

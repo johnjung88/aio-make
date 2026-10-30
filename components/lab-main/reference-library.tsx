@@ -40,62 +40,50 @@ export function LabReferenceLibrary() {
         <p className={styles.count} role="status">
           {category} · {samples.length}개 샘플
         </p>
-        <div className={styles.groups}>
-          {categories
-            .filter(
-              (value) =>
-                value !== "전체" && (category === "전체" || value === category),
-            )
-            .map((group) => (
-              <section
-                className={styles.group}
-                key={group}
-                aria-label={`${group} 샘플`}
-              >
-                <h2 className="cs-t-h3">{group}</h2>
-                <div className={styles.grid}>
-                  {samples
-                    .filter((sample) => sample.category === group)
-                    .map((sample) => (
-                      <article className={styles.card} key={sample.id}>
-                        <a
-                          href={sample.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${sample.name} 샘플 새 탭에서 보기`}
-                        >
-                          <div className={styles.media}>
-                            <Image
-                              src={`/lab-references/${sample.id}.webp`}
-                              alt={`${sample.name} ${sample.industry} 웹사이트 화면`}
-                              width={1200}
-                              height={800}
-                              sizes="(max-width: 600px) 90vw, (max-width: 1023px) 45vw, 30vw"
-                            />
-                          </div>
-                        </a>
-                        <small>{sample.industry}</small>
-                        <h3 className="cs-t-h3">{sample.name}</h3>
-                        <p className="cs-t-body">{sample.summary}</p>
-                        <small>
-                          포트폴리오용 가상 브랜드
-                          {sample.note ? ` · ${sample.note}` : ""}
-                        </small>
-                        <a
-                          className={styles.visit}
-                          href={sample.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          운영 샘플 보기 ↗
-                          <span className="cs-sr-only"> 새 탭</span>
-                        </a>
-                      </article>
-                    ))}
-                </div>
-              </section>
+        <section
+          className={styles.group}
+          aria-label={category === "전체" ? "전체 샘플" : `${category} 샘플`}
+        >
+          {category !== "전체" && <h2 className="cs-t-h3">{category}</h2>}
+          <div className={styles.grid}>
+            {samples.map((sample) => (
+              <article className={styles.card} key={sample.id}>
+                <a
+                  href={sample.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${sample.name} 샘플 새 탭에서 보기`}
+                >
+                  <div className={styles.media}>
+                    <Image
+                      src={`/lab-references/${sample.id}.webp`}
+                      alt={`${sample.name} ${sample.industry} 웹사이트 첫 화면`}
+                      width={1440}
+                      height={900}
+                      sizes="(max-width: 600px) 90vw, 46vw"
+                    />
+                  </div>
+                </a>
+                <small>
+                  {sample.category} · {sample.industry}
+                </small>
+                <h3 className="cs-t-h3">{sample.name}</h3>
+                <p className="cs-t-body">{sample.summary}</p>
+                <small>
+                  포트폴리오용 가상 브랜드{sample.note ? ` · ${sample.note}` : ""}
+                </small>
+                <a
+                  className={styles.visit}
+                  href={sample.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  운영 샘플 보기 ↗<span className="cs-sr-only"> 새 탭</span>
+                </a>
+              </article>
             ))}
-        </div>
+          </div>
+        </section>
         <p className={styles.count} style={{ marginTop: 48 }}>
           샘플의 문의·주문·예약은 시연용이며 실제로 접수되지 않습니다
         </p>

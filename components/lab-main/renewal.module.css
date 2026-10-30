@@ -1503,18 +1503,150 @@
   align-items: start;
 }
 .page[data-service="website"] .result {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
   align-items: start;
   align-content: start;
+  justify-items: center;
+  text-align: center;
   padding-top: 32px;
   border-top: 1px solid var(--sd-line);
+}
+.plannerSummary {
+  display: grid;
+  gap: 24px;
+  align-self: center;
+  justify-items: center;
+  min-width: 0;
+}
+.page[data-service="automation"] .signatureGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.page[data-service="automation"] .controls,
+.page[data-service="automation"] .result {
+  position: static;
+}
+.page[data-service="automation"] .controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+.page[data-service="automation"] .result {
+  padding-top: 32px;
+  border-top: 1px solid var(--sd-line);
+}
+.page[data-service="automation"] .lead {
+  text-wrap: balance;
+}
+.galleryMedia {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: var(--sd-radius);
+}
+.galleryMedia img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.page[data-service="shopping-mall"] .result .scope {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+.page[data-service="shopping-mall"] .result .scope > div {
+  padding: 24px;
+  border: 1px solid var(--sd-line);
+  border-radius: var(--sd-radius);
+}
+.requestForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+}
+.requestForm label {
+  display: grid;
+  gap: 8px;
+}
+.requestForm button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.leadPreview {
+  width: 100%;
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid var(--sd-line);
+  border-radius: var(--sd-radius);
+  background: var(--sd-panel);
+}
+.leadPreview ol {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+.leadPreview li {
+  border-top: 2px solid var(--sd-em);
+  padding-top: 16px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.leadPreview li > span {
+  color: var(--sd-em);
+}
+.visual.productPreview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f5f2ec;
+  color: #302b29;
+}
+.knitPhoto {
+  background: #e9e8e4 url("/lab-samples/forme-editorial.png") left bottom / 200%
+    200% no-repeat;
+}
+.productPreview > div:last-child {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.productPreview strong {
+  font-size: 16px;
+  line-height: 1.4;
+}
+@media (max-width: 767px) {
+  .page[data-service="automation"] .controls,
+  .page[data-service="shopping-mall"] .result .scope {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .leadPreview ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .leadPreview li {
+    grid-template-columns: auto 1fr;
+  }
+  .leadPreview li p {
+    grid-column: 2;
+  }
+}
+.page[data-service="website"] .result .sitemap {
+  justify-content: center;
+  border-left: 0;
+  border-block: 1px solid var(--sd-line);
 }
 .page[data-service="website"] .result > :not(.sitePreview) {
   grid-column: 1;
 }
 .page[data-service="website"] .result > .sitePreview {
-  grid-column: 1;
-  grid-row: auto;
+  grid-column: 2;
+  grid-row: 1;
+}
+.page[data-service="website"] .result > .note {
+  grid-column: 1 / -1;
 }
 .shopHero {
   width: 100%;
