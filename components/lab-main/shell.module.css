@@ -469,6 +469,25 @@
 .footer .lockup > span:last-child {
   font-size: 12px;
   max-width: none;
+  color: #f7f5f2;
+  font-weight: 700;
+}
+@media (max-width: 767px) {
+  .headerScope :global(.cs-header-v15-nav) {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 20px,
+      #000 calc(100% - 28px),
+      transparent
+    );
+  }
+  .headerScope :global(.cs-header-v15-nav[data-scroll-start="true"]) {
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  .headerScope :global(.cs-header-v15-nav[data-scroll-end="true"]) {
+    mask-image: linear-gradient(to right, transparent, #000 20px);
+  }
 }
 @media (max-width: 767px) {
   .footerGrid,

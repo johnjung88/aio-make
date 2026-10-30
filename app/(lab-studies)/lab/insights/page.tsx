@@ -41,8 +41,11 @@ export default function LabInsightsPage() {
               )}
             </nav>
             <div className={`cs-insight-list ${styles.insights}`}>
-              {labInsights.map((entry) => (
-                <article className="cs-insight-card" key={entry.slug}>
+              {labInsights.map((entry, index) => (
+                <article
+                  className={`cs-insight-card ${index === 0 ? styles.featuredInsight : ""}`}
+                  key={entry.slug}
+                >
                   <Link
                     href={`/lab/insights/${entry.slug}`}
                     className={`${styles.media} ${styles.insightMedia}`}
