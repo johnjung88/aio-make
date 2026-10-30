@@ -1639,6 +1639,16 @@
 .leadPreview li > span {
   color: var(--sd-em);
 }
+@media (min-width: 768px) {
+  .leadPreview ol {
+    grid-template-rows: repeat(4, auto);
+  }
+  .leadPreview li {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+}
 .visual.productPreview {
   display: grid;
   grid-template-columns: 1fr 1fr;
