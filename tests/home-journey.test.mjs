@@ -855,7 +855,7 @@ test("v11 development step holds one approved portfolio sample pair (여백결 �
   assert.equal(provenance.sameHomePair, true);
   assert.equal(provenance.version, "v2");
   assert.equal(provenance.pairId, "yeobakgyeol-home-v2");
-  assert.equal(provenance.afterSourceIds.length, 2);
+  assert.deepEqual(provenance.afterSourceIds, ["https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30", "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"]);
   for (const [name, [bytes, sha256]] of Object.entries(approved)) {
     const file = await readFile(new URL(`public${base}${name}`, root));
     assert.equal(file.byteLength, bytes, name);

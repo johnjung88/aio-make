@@ -302,7 +302,7 @@
 
 @media (min-width: 768px) {
   :is(.sd-motion, .sd-brand, .sd-ad) :is(.fd-kicker, .fd-step, .fd-case-summary span, .fd-stage-caption, .fd-stage-index, .fd-filters button, .fd-result-count, .fd-footnote, .fd-film-mark, .fd-decision-grid article > span, .fd-social-side span, .fd-social-stamp, .fd-ad-principles article > span, .fd-scene-options small, .fd-scene-options i, .fd-selected-ad > p) { font-size: 16px; }
-  .sd :is(.sd-motion, .sd-brand, .sd-ad) :is(.sd-hero-next, .sd-starting-price, .sd-overview li > span, .sd-dialog-top p) { font-size: 16px; }
+  .sd :is(.sd-motion, .sd-brand, .sd-ad) :is(.sd-hero-next, .sd-overview li > span, .sd-dialog-top p) { font-size: 16px; }
   .sd :is(.sd-motion, .sd-brand, .sd-ad) .sd-overview li p { font-size: 18px; }
   :is(.sd-motion, .sd-brand, .sd-ad) .sd-hero-description,
   .sd-ad .fd-scene-options button > span > span { font-size: 18px; }

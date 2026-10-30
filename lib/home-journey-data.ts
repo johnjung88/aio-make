@@ -25,7 +25,8 @@ import {
   type HomeJourneyData,
 } from "./home-journey.ts";
 
-// R7: one development case only (DR's Secret). Other review works stay in the
+// R7: review builds may pick one catalog case here; the public main shows the
+// 여백결 sample from home-main-approved.ts (10/30). Other review works stay in the
 // catalog and on /work, but never enter the main page development step.
 export const devProjectConfig: DevProjectConfig | null =
   process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
