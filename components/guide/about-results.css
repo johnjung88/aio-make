@@ -29,7 +29,7 @@
 .rw-about .rw-about-results figcaption {
   grid-column: 1/-1;
   color: var(--cs-fg-2);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 .rw-site.rw-about .rw-card-media {
@@ -62,7 +62,7 @@
   padding: 4px 8px;
   background: #080808cf;
   color: white;
-  font-size: 13px;
+  font-size: 14px;
   border-radius: 4px;
 }
 .rw-site.rw-about .rw-division .rw-card-media img {

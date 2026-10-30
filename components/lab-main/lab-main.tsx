@@ -13,7 +13,6 @@ import {
   labContactPath,
 } from "@/lib/lab-services";
 import { SectionHead } from "./service-detail";
-import { DeviceVisual } from "./renewal-visual";
 import { HomeScene } from "./renewal-scene";
 import { AutomationCardVisual } from "./automation-card-visual";
 import styles from "./renewal.module.css";
@@ -153,7 +152,15 @@ export function LabMain() {
         <div className={styles.homeGallery}>
           {gallery.map(([name, title, body, features]) => (
             <article className={styles.card} key={name}>
-              <DeviceVisual name={name} />
+              <div className={styles.galleryMedia}>
+                <Image
+                  src={`/lab-references/${({ clinic: "seoriongyeol", space: "yeobakgyeol", stay: "hwalpanjae", food: "mogrevit" } as Record<string, string>)[name]}.webp`}
+                  width={1440}
+                  height={900}
+                  alt={`${title} 가상 브랜드 웹사이트 첫 화면`}
+                  sizes="(max-width: 900px) 90vw, 46vw"
+                />
+              </div>
               <h3>{title}</h3>
               <p>
                 {body}

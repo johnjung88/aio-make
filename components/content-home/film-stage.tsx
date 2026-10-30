@@ -196,7 +196,8 @@ export function FilmStage() {
             >
               <Image
                 src={homeCardMedia[key].poster}
-                alt={homeCardMedia[key].alt}
+                alt=""
+                aria-hidden="true"
                 width={120}
                 height={76}
               />

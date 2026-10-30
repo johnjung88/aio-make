@@ -234,6 +234,20 @@ export function LabServiceDetail({ id }: { id: string }) {
                 <DeviceVisual name={variant} />
               ) : id === "automation" || id === "program" ? (
                 <OutputPreview variant={variant} />
+              ) : variant === "check" ? (
+                <div className={`${styles.visual} ${styles.productPreview}`}>
+                  <div
+                    className={styles.knitPhoto}
+                    role="img"
+                    aria-label="아이보리 니트 상품 단독 사진"
+                  />
+                  <div>
+                    <small>모그레빗 · PRODUCT DETAIL</small>
+                    <strong>아이보리 크루넥 니트</strong>
+                    <span>색상 · Ivory</span>
+                    <span>크기 · S / M / L</span>
+                  </div>
+                </div>
               ) : (
                 <div className={styles.visual}>
                   <Image

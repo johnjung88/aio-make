@@ -57,7 +57,15 @@ export function MarketingDetail({
         <div className="mk-detail-copy">
           <p className="mk-eyebrow">{copy.eyebrow}</p>
           <h1>{copy.title}</h1>
-          <p className="mk-lead">{copy.intro}</p>
+          <p className="mk-lead">
+            {copy.intro}
+            {id === "seo" && (
+              <>
+                <br />
+                SEO 검색 구조 · AEO 질문과 답변 · GEO 참고할 사실 정보
+              </>
+            )}
+          </p>
           <p className="mk-hero-price">
             <strong>{copy.price}</strong>
             <span>{copy.term}</span>
@@ -87,17 +95,8 @@ export function MarketingDetail({
           ))}
         </ol>
         <div>
-          <span>
-            {copy.price} · {copy.term}
-          </span>
           <a href="#pricing">구성과 가격 보기 ↓</a>
         </div>
-        {id === "seo" && (
-          <p>
-            SEO 검색이 읽는 구조 · AEO 질문에 바로 답하는 문단 · GEO AI가 참고할
-            사실 정보
-          </p>
-        )}
       </section>
       <section className="mk-section mk-container" id="signature">
         <MarketingHead

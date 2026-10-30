@@ -92,7 +92,7 @@
 }
 .mk-eyebrow,
 .marketing-renewal .cs-t-eyebrow {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   letter-spacing: 0.14em;
   line-height: 1.5;
@@ -156,7 +156,7 @@
 }
 .mk-caption,
 .marketing-renewal p.mk-caption {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--mk-soft);
   margin-top: 16px;
@@ -219,7 +219,7 @@
   margin-left: 3px;
 }
 .mk-lockup > span:last-child:not(.brand) {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   color: var(--mk-muted);
   border-left: 1px solid var(--mk-line);
@@ -286,7 +286,7 @@
   display: flex;
   justify-content: space-between;
   gap: 32px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-soft);
 }
 .mk-footer-bottom > div {
@@ -473,7 +473,7 @@
   line-height: 1.75;
 }
 .mk-card-body small {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-soft);
 }
 .mk-card-body .mk-price {
@@ -537,7 +537,7 @@
   }
   .mk-sns-phone-bar {
     padding: 14px;
-    font-size: 13px;
+    font-size: 14px;
     border-bottom: 1px solid #d3cdd6;
   }
   .mk-sns-phone img {
@@ -638,7 +638,7 @@
   font-size: 16px;
 }
 .mk-check {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-muted);
   background: var(--mk-panel-soft);
   padding: 6px 12px;
@@ -697,7 +697,7 @@
 /* Tools: controls and results stay readable at every width. */
 .mk-interaction {
   display: grid;
-  grid-template-columns: minmax(260px, 4fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 1fr);
   border: 1px solid var(--mk-line);
   border-radius: var(--mk-radius);
   overflow: hidden;
@@ -705,9 +705,10 @@
 }
 .mk-controls {
   padding: 32px;
-  border-right: 1px solid var(--mk-line);
-  display: flex;
-  flex-direction: column;
+  border-bottom: 1px solid var(--mk-line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 24px;
   min-width: 0;
 }
@@ -874,7 +875,7 @@
   font-size: 18px;
 }
 .mk-calendar p {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   margin-top: 16px;
 }
@@ -896,7 +897,7 @@
   padding: 8px;
 }
 .mk-originals > span {
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 4px;
   background: var(--mk-bg);
   text-align: center;
@@ -920,7 +921,7 @@
   align-self: flex-start;
 }
 .mk-phone header {
-  font-size: 13px;
+  font-size: 14px;
   padding: 12px;
 }
 .mk-phone > img {
@@ -942,12 +943,12 @@
   font-size: 14px;
 }
 .mk-phone small {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-soft);
 }
 .mk-phone ol {
   padding-left: 18px;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 16px;
 }
 .mk-phone-2 > img {
@@ -993,7 +994,7 @@
 }
 .mk-month small {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-em);
   margin-top: 6px;
 }
@@ -1032,7 +1033,7 @@
   margin-top: 12px;
 }
 .mk-search-comparison small {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--mk-soft);
 }
 .mk-answer-card strong {
@@ -1175,7 +1176,7 @@
     font-size: clamp(34px, 4.6vw, 58px);
   }
   .mk-interaction {
-    grid-template-columns: minmax(250px, 4fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 1fr);
   }
   .mk-controls,
   .mk-result {
@@ -1215,7 +1216,7 @@
   .mk-lockup > span:last-child:not(.brand) {
     border: 0;
     padding: 0;
-    font-size: 13px;
+    font-size: 14px;
   }
   .mk-header nav {
     justify-content: flex-start;
@@ -1414,6 +1415,7 @@
     grid-template-columns: 1fr;
   }
   .mk-controls {
+    grid-template-columns: minmax(0, 1fr);
     border-right: 0;
     border-bottom: 1px solid var(--mk-line);
     padding: 24px 20px;
@@ -1468,7 +1470,7 @@
     gap: 6px;
   }
   .mk-originals > span {
-    font-size: 13px;
+    font-size: 14px;
   }
   .mk-persona {
     grid-template-columns: 1fr;
@@ -1499,7 +1501,7 @@
     text-align: center;
   }
   .mk-result .mk-choices legend {
-    font-size: 13px;
+    font-size: 14px;
   }
   .mk-work-grid,
   .mk-insights {
@@ -1644,7 +1646,7 @@
   aspect-ratio: 21/9;
 }
 .mk-lockup > span:last-child:not(.brand) {
-  font-size: 13px;
+  font-size: 14px;
 }
 /* W-F3a: result surfaces occupy the frame without a second dark mockup canvas. */
 .mk-artwork {
@@ -1678,7 +1680,7 @@
 }
 .mk-publication-label {
   padding: 14px 20px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   letter-spacing: 0.06em;
   color: #51445e;
@@ -1694,7 +1696,7 @@
   line-height: 1.4;
 }
 .mk-publication-copy span {
-  font-size: 13px;
+  font-size: 14px;
   color: #655d6e;
 }
 .mk-output-document {
@@ -1707,7 +1709,7 @@
   justify-content: center;
 }
 .mk-output-kicker {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.12em;
   font-weight: 650;
   color: #685193;
@@ -1734,7 +1736,7 @@
   color: #685193;
 }
 .mk-output-foot {
-  font-size: 13px;
+  font-size: 14px;
   color: #655d6e;
 }
 .mk-output-ribbon {
@@ -1798,7 +1800,7 @@
 }
 .mk-output-three .mk-publication-label {
   padding-inline: 10px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .mk-output-three .mk-publication-copy {
   padding: 12px 10px;
@@ -1886,7 +1888,7 @@
   display: none;
 }
 .mk-service-card .mk-publication-label {
-  font-size: 13px;
+  font-size: 14px;
   padding: 12px;
 }
 .mk-service-card .mk-output-document {
@@ -2090,7 +2092,7 @@
     aspect-ratio: 1/2;
   }
   .mk-lockup > span:last-child:not(.brand) {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 /* W-F3c: one focal result, readable scope rows and a full-width FAQ. */
@@ -2252,24 +2254,18 @@
     font-size: 18px;
   }
 }
-/* W-F3e: detail-only layout; home surfaces keep their existing presentation. */
+/* Keep inputs above full-width results, without a sticky empty column. */
 .mk-detail .mk-interaction {
   align-items: start;
   overflow: visible;
 }
 .mk-detail .mk-interaction > .mk-controls {
-  position: sticky;
-  top: 96px;
-  max-height: calc(100dvh - 120px);
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-width: thin;
   border-bottom: 1px solid var(--mk-line);
-  border-radius: var(--mk-radius) 0 0 var(--mk-radius);
+  border-radius: var(--mk-radius) var(--mk-radius) 0 0;
   background: var(--mk-panel);
 }
 .mk-detail .mk-interaction > .mk-result {
-  border-radius: 0 var(--mk-radius) var(--mk-radius) 0;
+  border-radius: 0 0 var(--mk-radius) var(--mk-radius);
 }
 .mk-detail .mk-phones {
   align-items: stretch;
@@ -2283,7 +2279,7 @@
   flex: 1;
 }
 .mk-detail .mk-calendar {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
 .mk-detail .mk-calendar .mk-week-topic {
@@ -2315,7 +2311,7 @@
 .mk-calendar-post small {
   display: block;
   color: var(--mk-muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 .mk-detail .mk-originals button {
   overflow: hidden;
@@ -2380,7 +2376,7 @@
   }
   .mk-detail .mk-calendar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     overflow: visible;
   }
   .mk-seo-hero-result {
@@ -2409,4 +2405,330 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.mk-controls > .mk-reset {
+  align-self: end;
+  justify-self: start;
+  padding-inline: 0;
+}
+.mk-controls > .mk-result-jump {
+  display: none;
+}
+.mk-controls > .mk-live-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+.mk-interaction-integrated > .mk-controls {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.mk-switches > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mk-switches button {
+  text-align: left;
+  min-height: 44px;
+}
+.mk-calendar-channels {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  gap: 6px;
+  margin-top: 12px;
+}
+.mk-calendar-channels li {
+  padding: 4px 7px;
+  border: 1px solid var(--mk-line);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.mk-calendar-channels small {
+  margin-left: 6px;
+  color: var(--mk-muted);
+}
+.mk-detail .mk-originals {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.mk-detail .mk-originals img {
+  max-height: 72px;
+}
+.mk-fit > div {
+  justify-content: center;
+}
+.mk-detail .mk-scope :is(dt, dd),
+.mk-hero-price span,
+.mk-publication-copy span {
+  font-size: 14px;
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .mk-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .mk-interaction-integrated > .mk-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mk-detail .mk-phones {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+    padding-bottom: 0;
+  }
+  .mk-detail .mk-phone {
+    align-self: start;
+  }
+  .mk-detail .mk-phone > div {
+    flex: none;
+  }
+  .mk-detail .mk-calendar {
+    gap: 16px 12px;
+  }
+  .mk-detail .mk-calendar strong {
+    font-size: 16px;
+  }
+  .mk-detail .mk-calendar-channels li {
+    width: 100%;
+    font-size: 14px;
+  }
+  .mk-detail .mk-originals {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .mk-detail .mk-originals button {
+    font-size: 14px;
+  }
+  .mk-detail .mk-originals button span {
+    white-space: nowrap;
+  }
+}
+
+/* F5ct2: compact planning surfaces with complete, readable results. */
+.mk-interaction-integrated .mk-allocation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+}
+.mk-interaction-integrated .mk-allocation > label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: 6px;
+}
+.mk-interaction-integrated .mk-allocation > button {
+  justify-self: start;
+}
+.mk-interaction-integrated .mk-allocation input {
+  min-height: 44px;
+  padding: 8px;
+}
+.mk-interaction-integrated .mk-choices > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mk-interaction-integrated .mk-choices button {
+  padding-inline: 10px;
+}
+.mk-interaction-integrated .mk-controls-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  grid-column: 1 / -1;
+}
+.mk-interaction-integrated .mk-controls-footer p {
+  font-size: 14px;
+  margin: 0;
+}
+.mk-interaction-integrated .mk-controls-footer .mk-reset {
+  flex-shrink: 0;
+  margin: 0;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar-channels {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mk-detail .mk-interaction-integrated .mk-calendar-channels li {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.mk-interaction-integrated .mk-result > .mk-primary {
+  margin-top: 8px;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar > div {
+  padding-top: 8px;
+}
+.marketing-renewal .mk-home-hero p.mk-caption {
+  font-size: 14px;
+}
+.mk-interaction-integrated > .mk-controls > .mk-choices {
+  grid-column: 1;
+  grid-row: 1;
+}
+.mk-interaction-integrated > .mk-controls > .mk-allocation {
+  grid-column: 2;
+  grid-row: 1 / 4;
+}
+.mk-interaction-integrated > .mk-controls > .mk-live-note {
+  grid-column: 1;
+}
+.mk-interaction-integrated > .mk-controls {
+  gap: 12px 32px;
+  padding-block: 24px;
+}
+.mk-interaction-integrated .mk-allocation > div {
+  margin-bottom: 4px;
+}
+.mk-interaction-integrated .mk-result {
+  padding-block: 14px;
+}
+.marketing-renewal .mk-interaction-integrated .mk-result > :is(p, h3) {
+  margin-block: 6px;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar {
+  gap: 16px;
+  margin-block: 16px;
+}
+.mk-detail .mk-interaction-integrated .mk-week-material {
+  height: 72px;
+  aspect-ratio: auto;
+  margin-top: 8px;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar .mk-week-topic {
+  margin-block: 6px;
+  font-size: 14px;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar-channels {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+}
+.mk-detail .mk-interaction-integrated .mk-calendar-channels li {
+  padding: 0;
+  border: 0;
+}
+.mk-interaction-integrated .mk-source-details {
+  margin-block: 12px;
+}
+.mk-calendar-channels .mk-channel-short {
+  display: none;
+  text-decoration: none;
+}
+.mk-source-details summary {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--mk-em);
+  padding-block: 10px;
+}
+.mk-interaction-ai-influencer .mk-result {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px 32px;
+  align-items: start;
+}
+.mk-interaction-ai-influencer .mk-result > .mk-caption {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.mk-interaction-ai-influencer .mk-persona {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 20px;
+}
+.mk-interaction-ai-influencer .mk-month {
+  margin: 0;
+  gap: 16px;
+}
+.mk-interaction-ai-influencer .mk-month details > div {
+  font-size: 14px;
+  padding-block: 8px;
+}
+.mk-interaction-ai-influencer .mk-primary {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+@media (max-width: 767px) {
+  .mk-interaction-integrated
+    > .mk-controls
+    > :is(.mk-choices, .mk-allocation, .mk-live-note) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .mk-interaction-integrated > .mk-controls {
+    gap: 16px;
+    padding-block: 16px;
+  }
+  .mk-interaction-integrated .mk-choices > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .mk-interaction-integrated .mk-choices button {
+    padding-inline: 6px;
+  }
+  .mk-interaction-integrated .mk-result {
+    padding-block: 16px;
+  }
+  .mk-interaction-integrated .mk-allocation > label,
+  .mk-interaction-integrated .mk-controls-footer p {
+    line-height: 1.5;
+  }
+  .mk-interaction-integrated .mk-result {
+    padding-block: 12px;
+  }
+  .marketing-renewal .mk-interaction-integrated .mk-result > :is(p, h3) {
+    margin-block: 4px;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-block: 12px;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px 12px;
+    padding: 0;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar strong {
+    grid-column: 1;
+    line-height: 1.4;
+  }
+  .mk-detail .mk-interaction-integrated .mk-week-material {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+  }
+  .mk-detail .mk-interaction-integrated .mk-week-topic {
+    grid-column: 1;
+    grid-row: 3;
+    margin-block: 4px;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar-channels {
+    grid-column: 1;
+    grid-row: 4;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .mk-calendar-channels :is(.mk-channel-name, .mk-count-unit) {
+    display: none;
+  }
+  .mk-calendar-channels .mk-channel-short {
+    display: inline;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar-channels li {
+    white-space: nowrap;
+  }
+  .mk-detail .mk-interaction-integrated .mk-calendar-channels li {
+    font-size: 14px;
+    width: auto;
+  }
+  .mk-interaction-ai-influencer .mk-result {
+    grid-template-columns: 1fr;
+  }
+  .mk-interaction-ai-influencer .mk-month {
+    grid-template-columns: 1fr 1fr;
+  }
 }
