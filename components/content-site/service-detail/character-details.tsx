@@ -107,7 +107,7 @@ export function AnimationDetail() {
         <div className="sd-character-banner">
           <span className="sd-character-banner-orbit" aria-hidden="true" />
           <span className="sd-character-banner-word" aria-hidden="true">HELLO!</span>
-          <DetailImage src={`${characterMedia}yofree-character-04.webp`} alt="가볍게 점프하는 요프리 브랜드 캐릭터의 전신" eager zoom={false} />
+          <DetailImage src="/content-f5/yofree-jump.webp" alt="점프 동작 영상 중 두 팔을 펼친 요프리 브랜드 캐릭터" eager zoom={false} />
           <span className="sd-character-banner-caption">ONE CHARACTER<br />MANY STORIES</span>
         </div>
       </DetailHero>

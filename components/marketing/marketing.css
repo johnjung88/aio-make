@@ -697,7 +697,7 @@
 /* Tools: controls and results stay readable at every width. */
 .mk-interaction {
   display: grid;
-  grid-template-columns: minmax(260px, 4fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 1fr);
   border: 1px solid var(--mk-line);
   border-radius: var(--mk-radius);
   overflow: hidden;
@@ -705,9 +705,10 @@
 }
 .mk-controls {
   padding: 32px;
-  border-right: 1px solid var(--mk-line);
-  display: flex;
-  flex-direction: column;
+  border-bottom: 1px solid var(--mk-line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 24px;
   min-width: 0;
 }
@@ -1175,7 +1176,7 @@
     font-size: clamp(34px, 4.6vw, 58px);
   }
   .mk-interaction {
-    grid-template-columns: minmax(250px, 4fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 1fr);
   }
   .mk-controls,
   .mk-result {
@@ -1414,6 +1415,7 @@
     grid-template-columns: 1fr;
   }
   .mk-controls {
+    grid-template-columns: minmax(0, 1fr);
     border-right: 0;
     border-bottom: 1px solid var(--mk-line);
     padding: 24px 20px;
@@ -2252,24 +2254,18 @@
     font-size: 18px;
   }
 }
-/* W-F3e: detail-only layout; home surfaces keep their existing presentation. */
+/* Keep inputs above full-width results, without a sticky empty column. */
 .mk-detail .mk-interaction {
   align-items: start;
   overflow: visible;
 }
 .mk-detail .mk-interaction > .mk-controls {
-  position: sticky;
-  top: 96px;
-  max-height: calc(100dvh - 120px);
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-width: thin;
   border-bottom: 1px solid var(--mk-line);
-  border-radius: var(--mk-radius) 0 0 var(--mk-radius);
+  border-radius: var(--mk-radius) var(--mk-radius) 0 0;
   background: var(--mk-panel);
 }
 .mk-detail .mk-interaction > .mk-result {
-  border-radius: 0 var(--mk-radius) var(--mk-radius) 0;
+  border-radius: 0 0 var(--mk-radius) var(--mk-radius);
 }
 .mk-detail .mk-phones {
   align-items: stretch;
@@ -2283,7 +2279,7 @@
   flex: 1;
 }
 .mk-detail .mk-calendar {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
 .mk-detail .mk-calendar .mk-week-topic {
@@ -2380,7 +2376,7 @@
   }
   .mk-detail .mk-calendar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     overflow: visible;
   }
   .mk-seo-hero-result {
@@ -2409,4 +2405,104 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.mk-controls > .mk-reset {
+  align-self: end;
+  justify-self: start;
+}
+.mk-controls > .mk-result-jump {
+  display: none;
+}
+.mk-controls > .mk-live-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 14px;
+  color: var(--mk-muted);
+}
+.mk-interaction-integrated > .mk-controls {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.mk-switches > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mk-switches button {
+  text-align: left;
+  min-height: 44px;
+}
+.mk-calendar-channels {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  gap: 6px;
+  margin-top: 12px;
+}
+.mk-calendar-channels li {
+  padding: 4px 7px;
+  border: 1px solid var(--mk-line);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.mk-calendar-channels small {
+  margin-left: 6px;
+  color: var(--mk-muted);
+}
+.mk-detail .mk-originals {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.mk-detail .mk-originals img {
+  max-height: 72px;
+}
+.mk-fit > div {
+  justify-content: center;
+}
+.mk-detail .mk-scope :is(dt, dd),
+.mk-hero-price span,
+.mk-publication-copy span {
+  font-size: 14px;
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .mk-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .mk-interaction-integrated > .mk-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mk-detail .mk-phones {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+    padding-bottom: 0;
+  }
+  .mk-detail .mk-phone {
+    align-self: start;
+  }
+  .mk-detail .mk-phone > div {
+    flex: none;
+  }
+  .mk-detail .mk-calendar {
+    gap: 16px 12px;
+  }
+  .mk-detail .mk-calendar strong {
+    font-size: 16px;
+  }
+  .mk-detail .mk-calendar-channels li {
+    width: 100%;
+    font-size: 13px;
+  }
+  .mk-detail .mk-originals {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .mk-detail .mk-originals button {
+    font-size: 13px;
+  }
+  .mk-detail .mk-originals button span {
+    white-space: nowrap;
+  }
 }

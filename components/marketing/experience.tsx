@@ -131,9 +131,9 @@ export function MarketingFinder({
           >
             처음으로
           </button>
-          <a className="mk-result-jump" href="#finder-result">
-            결과 보기 ↓
-          </a>
+          <p className="mk-live-note">
+            선택한 내용이 아래 결과에 바로 반영됩니다
+          </p>
         </div>
         <div className="mk-result" id="finder-result">
           <p className="mk-caption">
@@ -241,7 +241,7 @@ const calendarMaterials = [
   ["f3a2-channel-class", "수업 장면"],
   ["f3a2-channel-prep", "수업 준비"],
   ["f3a2-channel-motion", "동작 안내"],
-  ["preview-2-0", "공간 소개"],
+  ["preview-2-1", "이용 안내"],
 ];
 type ResetProps = { onReset: () => void };
 function ResetButton({ onReset }: ResetProps) {
@@ -257,6 +257,7 @@ function ChannelPlanner({ onReset }: ResetProps) {
     Object.fromEntries(channelNames.map((c) => [c, 20])),
   );
   const [tile, setTile] = useState(0);
+  const [showAllOriginals, setShowAllOriginals] = useState(false);
   const sum = selected.reduce((n, c) => n + counts[c], 0);
   const valid = selected.length === 5;
   const message = `선택 채널: ${selected.map((c) => `${c} ${counts[c]}건`).join(", ")}`;
@@ -318,9 +319,9 @@ function ChannelPlanner({ onReset }: ResetProps) {
             고르게 나누기
           </button>
         </fieldset>
-        <a className="mk-result-jump" href="#signature-result">
-          결과 보기 ↓
-        </a>
+        <p className="mk-live-note">
+          선택한 내용이 아래 결과에 바로 반영됩니다
+        </p>
         <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
@@ -354,37 +355,55 @@ function ChannelPlanner({ onReset }: ResetProps) {
                 alt={`${week + 1}주 ${calendarMaterials[week][1]} 게시 소재 예시`}
               />
               <p className="mk-week-topic">{calendarMaterials[week][1]}</p>
-              {selected.map((c) => {
-                const count =
-                  Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0);
-                return (
-                  <div className="mk-calendar-post" key={c}>
-                    <span>
-                      {c}
-                      <small>
-                        {count > 0
-                          ? `${count}건 · ${calendarMaterials[week][1]}`
-                          : "게시 없음"}
-                      </small>
-                    </span>
-                  </div>
-                );
-              })}
+              <ul
+                className="mk-calendar-channels"
+                aria-label={`${week + 1}주 채널별 게시 건수`}
+              >
+                {selected.map((c) => {
+                  const count =
+                    Math.floor(counts[c] / 4) + (week < counts[c] % 4 ? 1 : 0);
+                  return (
+                    <li key={c}>
+                      <span>
+                        {c}
+                        <small>{count > 0 ? `${count}건` : "게시 없음"}</small>
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           ))}
         </div>
         <p>03 원본을 눌러 채널별 재구성 보기</p>
         <div className="mk-originals">
-          {Array.from({ length: 20 }, (_, i) => (
+          {Array.from({ length: showAllOriginals ? 20 : 5 }, (_, i) => (
             <button
               key={i}
               aria-pressed={tile === i}
               onClick={() => setTile(i)}
             >
+              {i < 5 && (
+                <Image
+                  src={`/marketing-renewal/${i === 4 ? "preview-2-2" : calendarMaterials[i][0]}.webp`}
+                  width={160}
+                  height={96}
+                  alt=""
+                  aria-hidden="true"
+                />
+              )}
               <span>원본 {i + 1}</span>
             </button>
           ))}
         </div>
+        <button
+          type="button"
+          className="mk-reset"
+          aria-expanded={showAllOriginals}
+          onClick={() => setShowAllOriginals(!showAllOriginals)}
+        >
+          {showAllOriginals ? "접기" : "원본 20개 모두 보기"}
+        </button>
         <p aria-live="polite">
           원본 {tile + 1} →{" "}
           {selected
@@ -469,9 +488,9 @@ function SnsPreview({ onReset }: ResetProps) {
           value={question}
           onChange={setQuestion}
         />
-        <a className="mk-result-jump" href="#signature-result">
-          결과 보기 ↓
-        </a>
+        <p className="mk-live-note">
+          선택한 내용이 아래 결과에 바로 반영됩니다
+        </p>
         <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
@@ -566,9 +585,9 @@ function PersonaPlanner({ onReset }: ResetProps) {
           value={tone}
           onChange={setTone}
         />
-        <a className="mk-result-jump" href="#signature-result">
-          결과 보기 ↓
-        </a>
+        <p className="mk-live-note">
+          선택한 내용이 아래 결과에 바로 반영됩니다
+        </p>
         <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">
@@ -720,26 +739,28 @@ function SeoPreview({ onReset }: ResetProps) {
         />
         <fieldset className="mk-switches">
           <legend>04 페이지에 넣을 항목</legend>
-          {pageItems.map((item) => (
-            <label key={item}>
-              <input
-                type="checkbox"
-                checked={enabled.includes(item)}
-                onChange={() =>
+          <div>
+            {pageItems.map((item) => (
+              <button
+                type="button"
+                key={item}
+                aria-pressed={enabled.includes(item)}
+                onClick={() =>
                   setEnabled(
                     enabled.includes(item)
                       ? enabled.filter((v) => v !== item)
                       : [...enabled, item],
                   )
                 }
-              />
-              {item}
-            </label>
-          ))}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </fieldset>
-        <a className="mk-result-jump" href="#signature-result">
-          결과 보기 ↓
-        </a>
+        <p className="mk-live-note">
+          선택한 내용이 아래 결과에 바로 반영됩니다
+        </p>
         <ResetButton onReset={onReset} />
       </div>
       <div className="mk-result" id="signature-result">

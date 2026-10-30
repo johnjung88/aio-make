@@ -197,6 +197,7 @@ export function FilmStage() {
               <Image
                 src={homeCardMedia[key].poster}
                 alt=""
+                aria-hidden="true"
                 width={120}
                 height={76}
               />
@@ -229,8 +230,9 @@ export function FilmStage() {
       </div>
       <noscript>
         <p>
-          작품 선택에는 자바스크립트가 필요합니다<br />아래에서 모든 제작 분야를
-          확인할 수 있습니다
+          작품 선택에는 자바스크립트가 필요합니다
+          <br />
+          아래에서 모든 제작 분야를 확인할 수 있습니다
         </p>
         <a href={contentHomeHero.video?.src}>스튜디오 소개 영상 보기</a>
       </noscript>
