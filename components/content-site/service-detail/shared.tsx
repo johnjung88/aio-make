@@ -2,7 +2,6 @@
 /* eslint-disable @next/next/no-img-element -- The verified WebP derivatives are displayed without another transform, including full-resolution document dialogs. */
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
-import { startingPrice } from "@/lib/content-pricing";
 import type { ContentServiceId } from "@/lib/content-site/types";
 
 function Lines({ children }: { children: ReactNode }) {
@@ -104,11 +103,9 @@ export function CaseCta({ caseId, caseTitle, children, plan, material, entryPoin
   return <a className="sd-text-link sd-case-cta" href="#inquiry" data-case={caseId} data-case-title={caseTitle} data-plan={plan} data-material={material} data-entry={entryPoint}>{children}<span aria-hidden="true">↗</span></a>;
 }
 
-export function ServiceOverview({ service, items }: { service: ContentServiceId; items: string[] }) {
-  const price = service === "webtoon" ? null : startingPrice(service);
-  return <section className="sd-overview" id="service-overview" aria-label="제작 범위와 시작 가격">
+export function ServiceOverview({ items }: { service: ContentServiceId; items: string[] }) {
+  return <section className="sd-overview" id="service-overview" aria-label="제작 범위">
     <div className="sd-container"><ul>{items.map((item, i) => <li key={item}><span aria-hidden="true">0{i + 1}</span><p>{item}</p></li>)}</ul>
-      {price ? <p className="sd-starting-price">{price.line}<a href="#pricing">구성과 가격 보기 ↓</a></p> : null}
     </div>
   </section>;
 }

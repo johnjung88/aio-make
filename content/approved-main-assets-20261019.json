@@ -124,38 +124,38 @@
     }
   ],
   "development": {
-    "pairId": "bwl-store-home-v03",
-    "status": "PC·모바일 디자인 시안 v03",
+    "pairId": "yeobakgyeol-home-v2",
+    "status": "디자인 시안 → 완성 사이트",
     "sameHomePair": true,
-    "version": "v03",
+    "version": "v2",
     "afterSourceIds": [
-      "bwl-store-home-v03/index-1440-viewport.png",
-      "bwl-store-home-v03/index-390-viewport.png"
+      "https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30",
+      "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"
     ],
     "assets": [
       {
-        "publicPath": "/company-main-20261019-v11/development/after-home-mobile-v03.png",
-        "sha256": "606e73b29afa5bef09a2e047581d7020fe90691465ca2e771ea4b0d396f2ee87",
-        "bytes": 135750,
-        "sourceId": "bwl-store-home-v03/after-home-mobile-v03.png"
+        "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-mockup-pc.webp",
+        "sha256": "a3611dbe03dc1a11484c1099cf42c347d53efdcd600471e7ea2319b51c3f01b0",
+        "bytes": 141716,
+        "sourceId": "aio-sample-yeobakgyeol/docs/mockups/01_home_pc-v2.jpg"
       },
       {
-        "publicPath": "/company-main-20261019-v11/development/after-home-pc-v03.png",
-        "sha256": "a942f900539e773b4cce95ac55696db8e5c02fce28872370884b23d93f6b5c26",
-        "bytes": 347014,
-        "sourceId": "bwl-store-home-v03/after-home-pc-v03.png"
+        "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-mockup-mobile.webp",
+        "sha256": "0c722b74efe1f3744b4b68eb79aa4482d5cde65090b92315844d8210676624e8",
+        "bytes": 142044,
+        "sourceId": "aio-sample-yeobakgyeol/docs/mockups/02_home_mobile-v2.jpg"
       },
       {
-        "publicPath": "/company-main-20261019-v11/development/before-home-mobile.webp",
-        "sha256": "22c2832e87cbf9cfdbbd0afa2703ab9cfc39bf82ac95db47b6ba153d9daa4281",
-        "bytes": 25600,
-        "sourceId": "bwl-store-home-v03/before-home-mobile.webp"
+        "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-live-pc.webp",
+        "sha256": "595bfd48811f9a807369a4e18a622cdd004461de726cb6f583d0c4fe1b460dc6",
+        "bytes": 124024,
+        "sourceId": "https://aio-sample-yeobakgyeol.vercel.app 1440x900 first screen 2026-10-30"
       },
       {
-        "publicPath": "/company-main-20261019-v11/development/before-home-pc.webp",
-        "sha256": "be4b1c1288a5127a407a3bc0cb154468a98d8a0abf3b1c23db43782493965c34",
-        "bytes": 50306,
-        "sourceId": "bwl-store-home-v03/before-home-pc.webp"
+        "publicPath": "/company-main-20261019-v11/development/yeobakgyeol-live-mobile.webp",
+        "sha256": "8f816cd3caed4fa48cada9ae182fe78c851ac3b49cb427469fabeb4aa5953460",
+        "bytes": 84226,
+        "sourceId": "https://aio-sample-yeobakgyeol.vercel.app 390x844@2x first screen 2026-10-30"
       }
     ]
   }

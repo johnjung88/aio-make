@@ -822,9 +822,9 @@ test("R7 step leads put each sentence on its own line", () => {
   }
 });
 
-test("v11 development step holds one approved DR’s Secret v03 home pair and no other customer", async () => {
+test("v11 development step holds one approved portfolio sample pair (여백결 시안 → 완성) and no customer", async () => {
   const project = review.data.devProject;
-  assert.equal(project.title, "DR’s Secret 쇼핑몰");
+  assert.equal(project.title, "여백결 건축 스튜디오");
   assert.ok(project.before && project.afterMobile);
   assert.equal(project.before.pc.width, 1440);
   // The detail object carries only what the dialog shows.
@@ -836,26 +836,26 @@ test("v11 development step holds one approved DR’s Secret v03 home pair and no
     "title",
   ]);
   assert.ok(!("work" in project) && !("config" in project));
-  assert.equal(project.detail.status, "PC·모바일 디자인 시안 v03");
-  assert.match(project.detail.description, /실제 주문과 결제는 받지 않는 레퍼런스/);
-  assert.match(project.detail.scope, /같은 홈 디자인 시안 v03/);
-  assert.deepEqual([project.after.width, project.after.height], [1440, 1000]);
-  assert.deepEqual([project.afterMobile.width, project.afterMobile.height], [390, 1000]);
-  assert.equal(project.after.src, "/company-main-20261019-v11/development/after-home-pc-v03.png");
-  assert.equal(project.afterMobile.src, "/company-main-20261019-v11/development/after-home-mobile-v03.png");
+  assert.equal(project.detail.status, "디자인 시안 → 완성 사이트");
+  assert.match(project.detail.description, /포트폴리오용 가상 브랜드/);
+  assert.match(project.detail.scope, /홈 시안과 완성 사이트의 같은 첫 화면/);
+  // Every picture matches its frame ratio (16:10 PC, 390:844 mobile) so nothing is letterboxed
+  assert.deepEqual([project.after.width, project.after.height], [1440, 900]);
+  assert.deepEqual([project.afterMobile.width, project.afterMobile.height], [390, 844]);
+  assert.deepEqual([project.before.mobile.width, project.before.mobile.height], [390, 844]);
   const approved = {
-    "before-home-pc.webp": [50306, "be4b1c1288a5127a407a3bc0cb154468a98d8a0abf3b1c23db43782493965c34"],
-    "before-home-mobile.webp": [25600, "22c2832e87cbf9cfdbbd0afa2703ab9cfc39bf82ac95db47b6ba153d9daa4281"],
-    "after-home-pc-v03.png": [347014, "a942f900539e773b4cce95ac55696db8e5c02fce28872370884b23d93f6b5c26"],
-    "after-home-mobile-v03.png": [135750, "606e73b29afa5bef09a2e047581d7020fe90691465ca2e771ea4b0d396f2ee87"],
+    "yeobakgyeol-mockup-pc.webp": [141716, "a3611dbe03dc1a11484c1099cf42c347d53efdcd600471e7ea2319b51c3f01b0"],
+    "yeobakgyeol-mockup-mobile.webp": [142044, "0c722b74efe1f3744b4b68eb79aa4482d5cde65090b92315844d8210676624e8"],
+    "yeobakgyeol-live-pc.webp": [124024, "595bfd48811f9a807369a4e18a622cdd004461de726cb6f583d0c4fe1b460dc6"],
+    "yeobakgyeol-live-mobile.webp": [84226, "8f816cd3caed4fa48cada9ae182fe78c851ac3b49cb427469fabeb4aa5953460"],
   };
   const base = "/company-main-20261019-v11/development/";
   assert.deepEqual([project.before.pc.src, project.before.mobile.src, project.after.src, project.afterMobile.src], Object.keys(approved).map(name => base + name));
   const provenance = JSON.parse(await read("content/approved-main-assets-20261019.json")).development;
   assert.equal(provenance.sameHomePair, true);
-  assert.equal(provenance.version, "v03");
-  assert.equal(provenance.pairId, "bwl-store-home-v03");
-  assert.deepEqual(provenance.afterSourceIds, ["bwl-store-home-v03/index-1440-viewport.png", "bwl-store-home-v03/index-390-viewport.png"]);
+  assert.equal(provenance.version, "v2");
+  assert.equal(provenance.pairId, "yeobakgyeol-home-v2");
+  assert.equal(provenance.afterSourceIds.length, 2);
   for (const [name, [bytes, sha256]] of Object.entries(approved)) {
     const file = await readFile(new URL(`public${base}${name}`, root));
     assert.equal(file.byteLength, bytes, name);
