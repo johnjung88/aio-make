@@ -152,6 +152,12 @@
 .mk-campaign-feature .mk-scene-tag {
   color: #e6daff;
 }
+.mk-detail-integrated .mk-deliverables .mk-campaign-feature .mk-scene-tag {
+  display: table;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #211a2ce6;
+}
 .mk-campaign-feature strong {
   font-size: clamp(25px, 3.5cqi, 38px);
   line-height: 1.25;
@@ -209,6 +215,20 @@
   min-height: 380px;
 }
 @media (max-width: 767px) {
+  .mk-detail-integrated
+    .mk-deliverables
+    .mk-campaign-scene
+    .mk-scene-bar
+    > span:first-child {
+    white-space: nowrap;
+  }
+  .mk-detail-integrated
+    .mk-deliverables
+    .mk-campaign-scene
+    .mk-scene-bar
+    > span:last-child {
+    display: none;
+  }
   .mk-output-ribbon > .mk-search-scene {
     display: none;
   }

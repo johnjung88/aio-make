@@ -208,7 +208,7 @@ export function MarketingArtwork({
         seo: "f3a2-process-review",
       },
       sns: {
-        integrated: "f3a2-process-brief",
+        integrated: "f3a2-process-make",
         "ai-influencer": "persona-role-2",
         seo: "f3a2-process-plan",
       },
