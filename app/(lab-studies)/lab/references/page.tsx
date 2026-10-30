@@ -1,3 +1,4 @@
+import { LabResourceInquiry } from "@/components/lab-main/resource-inquiry";
 import { PageBreadcrumb } from "@/components/page-breadcrumb";
 import { LabReferenceLibrary } from "@/components/lab-main/reference-library";
 import { pageMetadata } from "@/lib/metadata";
@@ -7,5 +8,15 @@ export const metadata = pageMetadata(
   "/lab/references",
 );
 export default function LabReferencesPage() {
-  return <><PageBreadcrumb path="/lab/references" />{<LabReferenceLibrary />}</>;
+  return (
+    <>
+      <PageBreadcrumb path="/lab/references" />
+      {
+        <>
+          <LabReferenceLibrary />
+          <LabResourceInquiry />
+        </>
+      }
+    </>
+  );
 }

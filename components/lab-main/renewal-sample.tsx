@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { ServiceHeroSample } from "./service-hero-sample";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import styles from "./renewal.module.css";
@@ -68,12 +69,13 @@ export function LazySample({ service }: { service: string }) {
                   <small>{status}</small>
                   <b>{customer}</b>
                   <span>담당 · 가상 민서</span>
-                  <span>기록 보기 ↗</span>
                 </div>
               </li>
             ))}
           </ol>
         </div>
+      ) : service === "shopping-mall" ? (
+        <ServiceHeroSample service="shopping-mall" />
       ) : (
         <Image
           src={
@@ -92,7 +94,7 @@ export function LazySample({ service }: { service: string }) {
       <button className={styles.button} onClick={() => setOpen(true)}>
         샘플 열기 ↗
       </button>
-      <p className={styles.note}>
+      <p className={styles.note} hidden={service === "shopping-mall"}>
         {service === "website"
           ? "가상 시안 · 실제 문의 전송 없음"
           : service === "shopping-mall"
