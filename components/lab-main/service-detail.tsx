@@ -394,7 +394,11 @@ export function LabServiceDetail({ id }: { id: string }) {
                 <Link href={labServicePath(s.id)}>
                   <div className={styles.visual}>
                     {s.id === "automation" || s.id === "program" ? (
-                      <ResultBoard service={s.id} compact />
+                      <ResultBoard
+                        service={s.id}
+                        compact
+                        plain={id === "website"}
+                      />
                     ) : (
                       <Image
                         src={

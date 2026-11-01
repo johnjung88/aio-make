@@ -266,7 +266,7 @@ export function PagePlanner() {
             {flags[0] && <p>대시보드 +3만 원 · 기능 범위 사전 합의</p>}
             {flags[1] && (
               <p>
-                AI 이미지 제작·적용 포함
+                이미지 준비 범위는 상담에서 확인
                 <br />
                 실제 제품·실적·인증 자료는 직접 준비
               </p>
@@ -296,18 +296,18 @@ export function PagePlanner() {
             </div>
             <div className={styles.previewHero}>
               <Image
-                src={`/lab-references/${preview.name}-mobile.webp`}
+                src={`/lab-website/${preview.name}-mobile.webp`}
                 width={480}
                 height={844}
                 sizes="360px"
-                alt={`${preview.brand} 가상 브랜드 모바일 화면 전체 예시`}
+                alt={`${preview.brand} 모바일 웹사이트 첫 화면`}
               />
             </div>
           </div>
           <p className={styles.note}>
             고른 항목 1개를 1페이지로 계산한 안내입니다
             <br />
-            {preview.brand} 가상 브랜드 화면 예시
+            {preview.brand} 모바일 화면
             {preview.name === "seoriongyeol" ? " · AI 생성 인물 포함" : ""}
           </p>
         </div>
