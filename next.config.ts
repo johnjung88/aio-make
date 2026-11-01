@@ -17,6 +17,8 @@ const config: NextConfig = {
       process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ? "1" : "0",
   },
   poweredByHeader: false,
+  // 모든 요청에 메타데이터를 head로 보낸다(스트리밍하면 일반 브라우저·Googlebot에서 body로 빠짐)
+  htmlLimitedBots: /.*/,
   async redirects() {
     // Retire old lab pages while keeping current services and resource routes.
     return [

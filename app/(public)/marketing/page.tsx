@@ -3,7 +3,7 @@ import { divisionByPath } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { MarketingHome } from "@/components/marketing/home";
 import { JsonLd } from "@/components/ui";
-import { faqSchema } from "@/lib/seo";
+import { breadcrumbSchema, faqSchema } from "@/lib/seo";
 import { marketingHomeFaq } from "@/lib/marketing-home-faq";
 export async function generateMetadata() {
   const d = divisionByPath("marketing");
@@ -16,6 +16,12 @@ export default async function MarketingPage() {
     <>
       <MarketingHome />
       <JsonLd data={faqSchema(marketingHomeFaq)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "AIO MAKE", path: "/" },
+          { name: d.label, path: "/" + d.path },
+        ])}
+      />
     </>
   );
 }

@@ -48,6 +48,7 @@ export default async function LabServicePage({ params }: Props) {
           url: siteUrl + labServicePath(id),
           provider: { "@id": siteUrl + "/#organization" },
           serviceType: service.name,
+          areaServed: { "@type": "Country", name: "대한민국" },
         }}
       />
       <JsonLd

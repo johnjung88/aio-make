@@ -2,6 +2,8 @@
 import { ContentHome } from "@/components/content-home/content-home";
 import { divisionById } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/ui";
+import { breadcrumbSchema } from "@/lib/seo";
 
 const video = divisionById("video")!;
 
@@ -10,5 +12,15 @@ export function generateMetadata() {
 }
 
 export default function ContentHomePage() {
-  return <ContentHome />;
+  return (
+    <>
+      <ContentHome />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "AIO MAKE", path: "/" },
+          { name: video.label, path: "/" + video.path },
+        ])}
+      />
+    </>
+  );
 }

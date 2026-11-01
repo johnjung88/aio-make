@@ -42,10 +42,13 @@ export default async function Insight({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
+          "@id": siteUrl + `/content/insights/${entry.slug}#article`,
           headline: entry.title,
           description: seoDescription(`/content/insights/${entry.slug}`, entry.summary),
           image: socialImage("/content"),
+          url: siteUrl + `/content/insights/${entry.slug}`,
           mainEntityOfPage: siteUrl + `/content/insights/${entry.slug}`,
+          inLanguage: "ko-KR",
           author: { "@id": siteUrl + "/#organization" },
           publisher: { "@id": siteUrl + "/#organization" },
           datePublished: entry.created_at,

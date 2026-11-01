@@ -27,7 +27,14 @@ export async function sendMetaLead(
   const pixel = process.env.META_PIXEL_ID;
   const token = process.env.META_CAPI_TOKEN;
   const fbp = cookie(request, "_fbp");
-  if (!pixel || !token || receipt.duplicate || !fbp) return;
+  if (
+    !pixel ||
+    !token ||
+    receipt.duplicate ||
+    !fbp ||
+    process.env.VERCEL_ENV === "preview"
+  )
+    return;
   try {
     const now = Date.now();
     const source = new URL(request.url);
@@ -42,7 +49,10 @@ export async function sendMetaLead(
       (fbclid && /^[A-Za-z0-9_.~%|=:-]{1,1000}$/.test(fbclid)
         ? `fb.1.${now}.${fbclid}`
         : "");
-    const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim();
+    const ip = request.headers
+      .get(process.env.VERCEL ? "x-vercel-forwarded-for" : "x-forwarded-for")
+      ?.split(",")[0]
+      .trim();
     const userAgent = request.headers.get("user-agent");
     const response = await fetch(
       `https://graph.facebook.com/${META_GRAPH_API_VERSION}/${encodeURIComponent(pixel)}/events`,

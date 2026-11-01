@@ -4,6 +4,7 @@ import { divisions, divisionServices } from "@/lib/content";
 import { publicEntries } from "@/lib/db";
 import { guideEntries } from "@/lib/guide-content";
 import { publicWorkCatalog } from "@/lib/work-catalog";
+import { labInsights } from "@/lib/lab-resources";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const paths = [
@@ -22,9 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         "/lab",
         "/lab/insights",
         "/lab/references",
-        "/lab/insights/website-pages",
-        "/lab/insights/shopping-mall-scope",
-        "/lab/insights/automation-inputs",
+        ...labInsights.map((entry) => "/lab/insights/" + entry.slug),
         ...divisionServices("development").map((s) => "/lab/services/" + s.id),
       );
       continue;
@@ -66,7 +65,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   paths.push(...publicWorkCatalog([]).map((work) => work.canonicalPath));
   return [...new Set(paths)].map((path) => ({
     url: siteUrl + path,
-    lastModified: "2026-10-30",
     changeFrequency: "monthly",
   }));
 }
