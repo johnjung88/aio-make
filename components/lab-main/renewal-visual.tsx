@@ -17,8 +17,8 @@ export function DeviceVisual({
       <div className={styles.devices}>
         {!mobileOnly && (
           <Image
-            src={`/lab/${name}-pc.webp`}
-            alt="가상 브랜드 PC 전체 화면"
+            src={`/lab-website/${name}-pc.webp`}
+            alt="웹사이트 PC 전체 화면"
             width={1600}
             height={1000}
             priority={hero}
@@ -26,8 +26,8 @@ export function DeviceVisual({
           />
         )}
         <Image
-          src={`/lab/${name}-mobile.webp`}
-          alt="가상 브랜드 모바일 전체 화면"
+          src={`/lab-website/${name}-mobile.webp`}
+          alt="웹사이트 모바일 전체 화면"
           width={480}
           height={900}
           sizes="(max-width: 900px) 25vw, 15vw"

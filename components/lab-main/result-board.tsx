@@ -3,9 +3,11 @@ import styles from "./renewal.module.css";
 export function ResultBoard({
   service,
   compact = false,
+  plain = false,
 }: {
   service: string;
   compact?: boolean;
+  plain?: boolean;
 }) {
   const automation = service === "automation";
   const rows = automation
@@ -15,15 +17,15 @@ export function ResultBoard({
         ["중복 주문", "원장과 비교", "분리 완료"],
       ]
     : [
-        ["비품 교체", "가상 민서", "접수"],
-        ["시설 점검", "가상 하람", "진행 중"],
-        ["자료 확인", "가상 다온", "처리 완료"],
+        ["비품 교체", plain ? "민서" : "가상 민서", "접수"],
+        ["시설 점검", plain ? "하람" : "가상 하람", "진행 중"],
+        ["자료 확인", plain ? "다온" : "가상 다온", "처리 완료"],
       ];
   return (
     <div className={styles.resultBoard} data-compact={compact}>
       <div className={styles.boardBar}>
         <b>{automation ? "FLOW" : "ORBIT"}</b>
-        <span>가상 업무 화면</span>
+        <span>{plain ? "업무 화면" : "가상 업무 화면"}</span>
       </div>
       <div className={styles.boardBody}>
         <p className={styles.boardLabel}>

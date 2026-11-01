@@ -133,7 +133,7 @@ export function ServiceOverview({
                   {service.id === "shopping-mall"
                     ? "상품 등록·PG·배송 등 오픈 설정은 포함되지 않습니다"
                     : service.id === "website"
-                      ? "이미지 자료가 없으면 AI 이미지 제작·적용 포함 대시보드 추가 +3만 원은 기능 범위를 먼저 합의합니다"
+                      ? "대시보드 추가 +3만 원은 기능 범위를 먼저 합의합니다"
                       : service.audience}
                 </p>
                 <span className="overview-card-link">

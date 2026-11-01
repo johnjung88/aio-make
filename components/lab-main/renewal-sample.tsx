@@ -80,7 +80,7 @@ export function LazySample({ service }: { service: string }) {
         <Image
           src={
             service === "website"
-              ? "/lab-renewal/nest-close.webp"
+              ? "/lab-website/nest-close.webp"
               : service === "shopping-mall"
                 ? "/lab-samples/forme-editorial.png"
                 : "/lab/sample-automation.webp"
@@ -96,7 +96,7 @@ export function LazySample({ service }: { service: string }) {
       </button>
       <p className={styles.note} hidden={service === "shopping-mall"}>
         {service === "website"
-          ? "가상 시안 · 실제 문의 전송 없음"
+          ? "체험 화면 · 실제 문의 전송 없음"
           : service === "shopping-mall"
             ? "가상 상품 · 실제 주문·결제 없음"
             : "가상 데이터 · 실제 외부 발송·저장 없음"}

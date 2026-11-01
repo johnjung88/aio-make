@@ -368,7 +368,7 @@ export function ArchitectureSample({
               </strong>
               <span>
                 {floor === -1
-                  ? "연면적 · 가상 설계"
+                  ? "연면적 · 설계안"
                   : `${current.spaces[room].name} 면적`}
               </span>
             </div>
@@ -464,7 +464,7 @@ export function ArchitectureSample({
             공간 선택과 도면, 재료와 동선이 함께 움직입니다
           </p>
           <span className={styles.conceptNote}>
-            AIO 기능 시연을 위한 가상 건축 프로젝트
+            AIO 기능 시연용 건축 프로젝트
           </span>
         </div>
         <div className={styles.archStoryDetails}>
