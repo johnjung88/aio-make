@@ -18,7 +18,7 @@ import { trackLead } from "../lib/tracking-events.ts";
 
 const id = "11111111-1111-4111-8111-111111111111";
 const receipt = { inquiryId: id, duplicate: false };
-test("GTM does not add noscript, request headers or a metadata-streaming override to the root", () => {
+test("GTM does not add noscript or request headers to the root", () => {
   assert.equal(existsSync("components/gtm-noscript.tsx"), false);
   const layout = readFileSync("app/layout.tsx", "utf8");
   assert.match(layout, /export default function RootLayout\(/);
@@ -26,8 +26,19 @@ test("GTM does not add noscript, request headers or a metadata-streaming overrid
   assert.ok(
     !readFileSync("middleware.ts", "utf8").includes("x-aio-tracking-path"),
   );
-  assert.ok(
-    !readFileSync("next.config.ts", "utf8").includes("htmlLimitedBots"),
+});
+test("metadata is sent in head for every user agent", () => {
+  // 11/01 P-1101-14: 스트리밍이면 일반 브라우저·Googlebot에서 title·description이 body로 빠졌다
+  assert.match(readFileSync("next.config.ts", "utf8"), /htmlLimitedBots: \/\.\*\//);
+});
+test("preview deployments do not save inquiries or send Meta leads", () => {
+  assert.match(
+    readFileSync("app/api/contact/route.ts", "utf8"),
+    /process\.env\.VERCEL_ENV === "preview" \|\|/,
+  );
+  assert.match(
+    readFileSync("lib/meta-conversions.ts", "utf8"),
+    /process\.env\.VERCEL_ENV === "preview"/,
   );
 });
 function globalValue(t, key, value) {

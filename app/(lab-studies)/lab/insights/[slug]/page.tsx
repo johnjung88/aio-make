@@ -15,9 +15,21 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const entry = labInsights.find((entry) => entry.slug === slug);
-  return entry
-    ? pageMetadata(entry.title, entry.summary, `/lab/insights/${slug}`)
-    : {};
+  if (!entry) return {};
+  const meta = pageMetadata(
+    entry.title,
+    entry.summary,
+    `/lab/insights/${slug}`,
+  );
+  return {
+    ...meta,
+    openGraph: {
+      ...meta.openGraph,
+      type: "article" as const,
+      publishedTime: entry.datePublished,
+      modifiedTime: entry.dateModified,
+    },
+  };
 }
 export default async function LabInsightPage({ params }: Props) {
   const { slug } = await params;
@@ -38,6 +50,7 @@ export default async function LabInsightPage({ params }: Props) {
           data={{
             "@context": "https://schema.org",
             "@type": "Article",
+            "@id": siteUrl + "/lab/insights/" + slug + "#article",
             headline: entry.title,
             description: seoDescription("/lab/insights/" + slug, entry.summary),
             url: siteUrl + "/lab/insights/" + slug,

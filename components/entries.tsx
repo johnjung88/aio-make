@@ -225,12 +225,7 @@ export async function EntryDetail({
               inLanguage: "ko-KR",
               dateModified: entry.updated_at,
               datePublished: entry.created_at,
-              author: {
-                "@type": "Organization",
-                "@id": siteUrl + "/#organization",
-                name: siteName,
-                url: siteUrl + "/about",
-              },
+              author: { "@id": siteUrl + "/#organization" },
               publisher: { "@id": siteUrl + "/#organization" },
             }}
           />

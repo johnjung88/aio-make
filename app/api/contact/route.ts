@@ -29,6 +29,7 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     if (
+      process.env.VERCEL_ENV === "preview" ||
       !inquiryStoreReady() ||
       (!localMode() && process.env.CONTACT_PUBLIC_ENABLED !== "true")
     )

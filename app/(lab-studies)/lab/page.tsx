@@ -18,6 +18,7 @@ export default function LabPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Service",
+          "@id": siteUrl + "/lab#service",
           name: "개발",
           url: siteUrl + "/lab",
           provider: { "@id": organizationSchema["@id"] },
