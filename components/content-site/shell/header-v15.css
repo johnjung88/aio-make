@@ -1,0 +1,53 @@
+.cs-site:has(.cs-header-v15) { --cs-header-h: 76px; }
+.cs-site .cs-header-v15 { --cs-accent: #b9aeff; height: var(--cs-header-h); background: #080808f5; color: #f7f5f2; }
+.cs-site .cs-header-v15 .cs-header-v15-inner { width: min(1504px, calc(100% - 64px)); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "brand nav action"; gap: 20px; padding-block: 0; align-content: stretch; }
+.cs-site .cs-header-v15 .cs-header-v15-lockup { grid-area: brand; gap: 10px; flex-direction: row; align-items: center; }
+.cs-site .cs-header-v15 .cs-brand .brand { font-size: 23px; }
+.cs-site .cs-header-v15 .cs-lockup-label { font-size: 10px; letter-spacing: 0.11em; }
+.cs-site .cs-header-v15 .cs-lockup-divider { display: block; height: 16px; }
+.cs-site .cs-header-v15 .cs-header-v15-nav { grid-area: nav; min-width: 0; width: 100%; margin: 0; }
+.cs-site .cs-header-v15-nav > ul { display: flex; align-items: center; justify-content: flex-end; gap: clamp(10px, 1.1vw, 18px); margin: 0; padding: 0; list-style: none; }
+.cs-site .cs-header-v15-nav li { flex: none; }
+.cs-site .cs-header-v15-nav .cs-nav-link { display: inline-flex; min-height: 44px; font-size: 12px; font-weight: 550; letter-spacing: -0.025em; line-height: 1.4; white-space: nowrap; color: #c0bbc9; }
+.cs-site .cs-header-v15-nav .cs-nav-link:hover,
+.cs-site .cs-header-v15-nav .cs-nav-link[aria-current="page"] { color: #f7f5f2; }
+.cs-site .cs-header-v15 .cs-header-v15-cta { grid-area: action; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 42px; padding: 9px 17px; background: #f7f5f2; color: #17131d; border: 1px solid #f7f5f2; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.5; white-space: nowrap; }
+.cs-site .cs-header-v15 .cs-header-v15-cta:hover { background: #dcd3ff; border-color: #dcd3ff; }
+.cs-site .cs-header-v15 :focus-visible { outline-color: #b9aeff; outline-offset: 4px; }
+
+@media (max-width: 1279px) {
+  .cs-site:has(.cs-header-v15) { --cs-header-h: 112px; }
+  .cs-site .cs-header-v15 .cs-header-v15-inner { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 60px 51px; grid-template-areas: "brand action" "nav nav"; gap: 0 18px; }
+  .cs-site .cs-header-v15-nav > ul { justify-content: space-between; gap: 10px; }
+  .cs-site .cs-header-v15-nav .cs-nav-link { min-height: 47px; font-size: 13px; }
+  .cs-site .cs-header-v15 .cs-header-v15-cta { min-height: 38px; padding: 8px 16px; }
+}
+
+@media (max-width: 767px) {
+  .cs-site:has(.cs-header-v15) { --cs-header-h: 116px; }
+  .cs-site .cs-header-v15 .cs-header-v15-inner { width: calc(100% - 40px); grid-template-rows: 64px 51px; gap: 0 16px; }
+  .cs-site .cs-header-v15 .cs-header-v15-lockup { flex-direction: column; align-items: flex-start; gap: 1px; justify-content: center; }
+  .cs-site .cs-header-v15 .cs-brand .brand { font-size: 22px; }
+  .cs-site .cs-header-v15 .cs-lockup-divider { display: none; }
+  .cs-site .cs-header-v15 .cs-lockup-label { font-size: 9px; }
+  .cs-site .cs-header-v15 .cs-header-v15-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; scrollbar-color: #5c526b transparent; padding-bottom: 3px; }
+  .cs-site .cs-header-v15-nav > ul { width: max-content; min-width: 100%; gap: 23px; justify-content: flex-start; padding-inline: 3px; }
+  .cs-site .cs-header-v15-nav .cs-nav-link { min-height: 44px; font-size: 13px; }
+  .cs-site .cs-header-v15 .cs-header-v15-nav::-webkit-scrollbar { height: 3px; }
+  .cs-site .cs-header-v15 .cs-header-v15-nav::-webkit-scrollbar-thumb { background: #5c526b; border-radius: 4px; }
+  .cs-site .cs-header-v15 .cs-header-v15-cta { min-height: 38px; padding: 8px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-site .cs-header-v15-nav { scroll-behavior: auto; }
+}
+
+/* v15 readability: all navigation stays visible with legible text. */
+.cs-site .cs-header-v15-nav .cs-nav-link,
+.cs-site .cs-header-v15 .cs-lockup-label,
+.cs-site .cs-header-v15 .cs-header-v15-cta { font-size: 14px; }
+@media (min-width: 1280px) and (max-width: 1399px) {
+  .cs-site .cs-header-v15 .cs-header-v15-lockup { gap: 8px; }
+  .cs-site .cs-header-v15 .cs-lockup-label { display: none; }
+  .cs-site .cs-header-v15 .cs-lockup-divider { display: none; }
+}

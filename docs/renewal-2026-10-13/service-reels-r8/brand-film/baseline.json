@@ -1,0 +1,12 @@
+[
+  {
+    "path": "public\\content-examples\\brand-film\\service-reel-r8.mp4",
+    "sha256": "2c3740fb9c64e7d89ef397b26d7e6b3c8c31ccdb2d25472073992c911e0fc627",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\brand-film\\service-reel-r8.mp4"
+  },
+  {
+    "path": "public\\content-examples\\brand-film\\service-reel-r8-poster.webp",
+    "sha256": "8891b219130aff0f2de28d59d410dfdd3515a2d91c9aab43fb9339ce6bbc7a5b",
+    "backup": ".qa\\r8-w2\\w2c-baseline\\brand-film\\service-reel-r8-poster.webp"
+  }
+]

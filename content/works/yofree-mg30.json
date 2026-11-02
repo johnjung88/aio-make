@@ -1,0 +1,51 @@
+{
+  "id": "AIO-WORK-YOFREE-AD-02",
+  "slug": "yofree-mg30",
+  "brand": "YoFree",
+  "title": "30초 광고 모션그래픽 3편",
+  "division": "video",
+  "primaryService": "motion-graphics",
+  "productionStatus": "제작 후보",
+  "description": "세 시나리오의 가로·세로 영상 후보 4개입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "ad"
+    }
+  ],
+  "purpose": "같은 제품을 타이포그래피, 제품 이미지, 모션 코믹으로 각각 소개했습니다",
+  "scope": "세 시나리오의 가로·세로 모션그래픽 출력 4개입니다 제품 효능 표현은 확인 대기 상태입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg30/hero.mp4",
+      "poster": "/reference-review/yofree-mg30/hero-poster.webp",
+      "alt": "YoFree 30초 광고 모션그래픽 3편",
+      "presentation": "wide"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg30/gallery-01.mp4",
+      "poster": "/reference-review/yofree-mg30/gallery-01-poster.webp",
+      "alt": "YoFree 30초 광고 모션그래픽 3편",
+      "presentation": "portrait"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg30/gallery-02.mp4",
+      "poster": "/reference-review/yofree-mg30/gallery-02-poster.webp",
+      "alt": "YoFree 30초 광고 모션그래픽 3편",
+      "presentation": "portrait"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg30/gallery-03.mp4",
+      "poster": "/reference-review/yofree-mg30/gallery-03-poster.webp",
+      "alt": "YoFree 30초 광고 모션그래픽 3편",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 22
+}

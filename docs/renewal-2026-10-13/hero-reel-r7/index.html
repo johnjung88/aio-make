@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AIO MAKE CONTENT STUDIO hero reel R7 (timeline)</title>
+<!--
+  히어로 영상 R7 타임라인 페이지. window.render(t)는 시간 t(초)만 받아 모든 요소의 위치와 투명도를 정하는 순수 함수다.
+  Python Playwright가 t = n/30 으로 호출해 프레임을 캡처한다(build.py). 소재는 저장소 public/ 안의 자체 소재만 쓴다.
+  폰트: Pretendard Variable(SIL OFL 1.1), Unbounded(SIL OFL 1.1). 다른 글꼴은 쓰지 않는다.
+  경로 기준: 이 파일 = docs/renewal-2026-10-13/hero-reel-r7/index.html -> 저장소 루트는 ../../../
+  .qa/hero-reel-r7/src 는 ffmpeg로 뽑은 영상 프레임(git 제외, build.py가 생성)
+-->
+<style>
+@font-face{font-family:"PretendardR7";src:url("../../../public/fonts/PretendardVariable.woff2") format("woff2");font-weight:45 930;font-display:block}
+@font-face{font-family:"UnboundedR7";src:url("../../../public/fonts/Unbounded-latin.woff2") format("woff2");font-weight:200 900;font-display:block}
+:root{--ink:#07060d;--purple:#a78bfa;--purple2:#7c3aed;--txt:#fff;--sub:rgba(237,233,254,.88)}
+html,body{margin:0;padding:0;background:#000;overflow:hidden}
+body{width:1920px;height:1080px}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;background:radial-gradient(1200px 700px at 50% 38%,#16102b 0%,#0a0814 55%,#06050b 100%);font-family:"PretendardR7",sans-serif;color:var(--txt)}
+.abs{position:absolute}
+.sc{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;opacity:0;display:none}
+.amb{position:absolute;left:-200px;top:-200px;width:2320px;height:1480px;background-size:cover;background-position:center;filter:blur(46px) brightness(.36) saturate(1.6)}
+.glow{position:absolute;left:0;top:0;width:1920px;height:1080px;background:radial-gradient(900px 560px at 50% 40%,rgba(124,58,237,.20),rgba(124,58,237,0) 70%)}
+.ph{position:absolute;box-sizing:border-box;background:#100e19;border:1.5px solid rgba(255,255,255,.18);box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 140px rgba(124,58,237,.22)}
+.scr{position:absolute;overflow:hidden;background:#000}
+.notch{position:absolute;left:50%;top:8px;width:78px;height:20px;margin-left:-39px;border-radius:12px;background:#05040a;z-index:5}
+.bar{position:absolute;left:50%;bottom:7px;width:96px;height:4px;margin-left:-48px;border-radius:3px;background:rgba(255,255,255,.55);z-index:5}
+.fill{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block}
+/* 자막 */
+.cap{position:absolute;left:154px;bottom:86px;width:1612px;opacity:1}
+.big{width:max-content;font-weight:800;font-size:128px;line-height:1.1;letter-spacing:-0.025em;white-space:nowrap;text-shadow:0 4px 40px rgba(0,0,0,.55);opacity:0}
+.small{width:max-content;margin-top:12px;font-weight:600;font-size:72px;line-height:1.2;letter-spacing:-0.02em;white-space:nowrap;color:var(--sub);text-shadow:0 3px 30px rgba(0,0,0,.6);opacity:0}
+#scrim{position:absolute;left:0;top:560px;width:1920px;height:520px;background:linear-gradient(to bottom,rgba(6,5,12,0),rgba(6,5,12,.62) 42%,rgba(6,5,12,.9) 100%);opacity:0;z-index:30}
+/* HUD */
+#hud{position:absolute;left:154px;top:44px;width:1612px;height:30px;opacity:0;z-index:31}
+.hseg{position:absolute;top:10px;height:4px;width:96px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.hseg i{position:absolute;left:0;top:0;height:100%;width:0;background:var(--purple)}
+#hudn{position:absolute;left:660px;top:0;font-family:"UnboundedR7",sans-serif;font-weight:500;font-size:20px;letter-spacing:.12em;color:rgba(255,255,255,.7);line-height:24px}
+.tag{position:absolute;right:154px;top:28px;padding:10px 22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);background:rgba(10,8,20,.55);font-weight:700;font-size:28px;letter-spacing:-0.01em;color:#fff;opacity:0;z-index:32;white-space:nowrap}
+/* 여는 격자 */
+#grid{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:12}
+.tile{position:absolute;width:500px;height:281px;border-radius:14px;overflow:hidden;background:#161226;box-shadow:0 14px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14)}
+.tile span{position:absolute;left:14px;top:10px;font-family:"UnboundedR7",sans-serif;font-weight:600;font-size:18px;letter-spacing:.1em;color:rgba(255,255,255,.85);z-index:2;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+/* 서비스별 */
+.card{position:absolute;overflow:hidden;background:#161226;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.pcol{position:absolute;width:504px;top:110px;height:630px}
+.pw{position:absolute;left:154px;white-space:nowrap}
+#end{position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:41;opacity:0;display:none}
+.bokeh{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(216,200,255,.9) 0%,rgba(167,139,250,.35) 45%,rgba(167,139,250,0) 70%)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 여는 격자 -->
+  <div id="grid"></div>
+
+  <!-- 1 웹툰 -->
+  <div class="sc" id="s1" style="z-index:13">
+    <div class="amb" style="background-image:url('../../../public/webtoon-v11/cut-01.webp')"></div>
+    <div class="glow"></div>
+    <div class="ph" id="ph1"><div class="scr" id="ph1s">
+      <div id="strip" class="abs" style="left:0;top:0;width:272px"></div>
+      <img id="wtv" class="fill" style="opacity:0" alt="">
+      <div class="notch" id="ph1n"></div>
+    </div></div>
+  </div>
+
+  <!-- 2 애니메이션 -->
+  <div class="sc" id="s2" style="z-index:14">
+    <img id="an1" class="abs" src="../../../public/creative-v06/video-animation.webp" style="left:0;top:-60px;width:1920px;height:1201px" alt="">
+    <img id="an2" class="abs" src="../../../public/renewal/animation-sample.webp" style="left:0;top:-100px;width:1920px;height:1280px;opacity:0" alt="">
+    <div id="anc" class="card" style="left:1290px;top:100px;width:380px;height:570px;border-radius:26px;opacity:0;border:1.5px solid rgba(255,255,255,.25)"><img src="../../../public/content-site/animation.webp" alt=""></div>
+    <div id="anp" class="abs" style="left:0;top:0;width:1920px;height:1080px"></div>
+    <div class="abs" style="left:0;top:0;width:1920px;height:1080px;background:radial-gradient(1300px 800px at 50% 45%,rgba(0,0,0,0) 55%,rgba(5,4,12,.55) 100%)"></div>
+  </div>
+
+  <!-- 3 AI 인플루언서 -->
+  <div class="sc" id="s3" style="z-index:15">
+    <div id="s3amb"></div>
+    <div class="glow"></div>
+    <div id="s3cards"></div>
+  </div>
+
+  <!-- 4 모션그래픽 -->
+  <div class="sc" id="s4" style="z-index:16">
+    <img id="mg1" class="abs" src="../../../public/content-site/hero.webp" style="left:-192px;top:-48px;width:2304px;height:1297px" alt="">
+    <img id="mg2" class="abs" src="../../../public/content-site/hero.webp" style="left:-300px;top:-200px;width:2880px;height:1620px;opacity:.28;mix-blend-mode:screen;filter:blur(3px)" alt="">
+    <svg id="mgsvg" class="abs" style="left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080">
+      <g fill="none" stroke-linecap="round">
+        <circle id="mgc1" pathLength="1" cx="960" cy="410" r="318" stroke="#c4b5fd" stroke-width="2.5"/>
+        <circle id="mgc2" pathLength="1" cx="960" cy="410" r="262" stroke="#fff" stroke-width="1.5" opacity=".6"/>
+        <rect id="mgr1" pathLength="1" x="-200" y="-200" width="400" height="400" stroke="#a78bfa" stroke-width="2" transform="translate(960 410)"/>
+        <line id="mgl1" pathLength="1" x1="632" y1="410" x2="150" y2="410" stroke="#c4b5fd" stroke-width="2"/>
+        <line id="mgl2" pathLength="1" x1="1288" y1="410" x2="1770" y2="410" stroke="#c4b5fd" stroke-width="2"/>
+        <line id="mgl3" pathLength="1" x1="960" y1="18" x2="960" y2="-60" stroke="#fff" stroke-width="1.5" opacity=".0"/>
+      </g>
+      <circle id="mgd1" cx="150" cy="410" r="9" fill="#e9d5ff"/>
+      <circle id="mgd2" cx="1770" cy="410" r="9" fill="#e9d5ff"/>
+      <circle id="mgd3" cx="1200" cy="130" r="14" fill="none" stroke="#fff" stroke-width="2.5"/>
+      <circle id="mgd4" cx="742" cy="690" r="22" fill="#a78bfa" opacity=".85"/>
+    </svg>
+    <div id="mgc" class="card" style="left:760px;top:112px;width:400px;height:600px;border-radius:24px;opacity:0;border:1.5px solid rgba(255,255,255,.28)"><img src="../../../public/content-examples/motion-graphics/motion-product.webp" alt=""></div>
+  </div>
+
+  <!-- 5 브랜드 홍보 영상 -->
+  <div class="sc" id="s5" style="z-index:17">
+    <img id="bfv" class="fill" alt="">
+    <div class="abs" style="left:0;top:0;width:1920px;height:56px;background:#000"></div>
+    <div class="abs" style="left:0;top:1024px;width:1920px;height:56px;background:#000"></div>
+  </div>
+
+  <!-- 6 SNS 광고 -->
+  <div class="sc" id="s6" style="z-index:18">
+    <div class="amb" style="background-image:url('../../../public/creative-v06/video-sns-ad.webp')"></div>
+    <div class="glow"></div>
+    <div id="s6p"></div>
+  </div>
+
+  <!-- 7 진행 방식 -->
+  <div class="sc" id="s7" style="z-index:19;background:radial-gradient(1100px 650px at 50% 35%,#171030,#07060d 70%)"></div>
+
+  <div id="scrim"></div>
+  <div id="hud"></div>
+  <div class="tag" id="tagAI">AI 가상인물</div>
+  <div class="tag" id="tagEx">연출 예시</div>
+  <div id="caps"></div>
+  <div id="end"></div>
+</div>
+
+<script>
+"use strict";
+/* ---------- 승인본 자막 (BRIEF_R7 3-4 A안, 한 글자도 바꾸지 않는다) ---------- */
+const CAP = {
+  open: ["브랜드에 필요한 컨텐츠를", "한 팀이 기획하고 만듭니다"],
+  wt:   ["웹툰", "제품 이야기를 12컷·24컷으로 그립니다"],
+  an:   ["애니메이션", "브랜드 캐릭터가 움직이는 30초·60초 영상"],
+  ai:   ["AI 인플루언서", "브랜드 전용 AI 가상인물을 만듭니다"],
+  mg:   ["모션그래픽", "제품과 메시지를 짧고 분명하게"],
+  bf:   ["브랜드 홍보 영상", "회사와 브랜드를 소개하는 영상"],
+  sns:  ["SNS 광고 영상", "세로형 9:16 숏폼 광고"],
+  pr:   [["기획", "기획안을 먼저 확인합니다"], ["제작", "AI 초안을 담당자가 다듬습니다"], ["납품", "채널 화면비에 맞춰 드립니다"]],
+  end:  ["AIO MAKE CONTENT STUDIO", "웹툰부터 SNS 광고 영상까지"]
+};
+window.CAPTION_TEXTS = CAP;
+
+const P = "../../../public/";
+const Q = "../../../.qa/hero-reel-r7/src/";
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eO = x => 1 - Math.pow(1 - x, 3);
+const eI = x => x * x * x;
+const lerp = (a, b, x) => a + (b - a) * x;
+const pad3 = n => String(n).padStart(3, "0");
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function mk(parent, cls, style, html) { const d = document.createElement("div"); if (cls) d.className = cls; if (style) d.style.cssText = style; if (html) d.innerHTML = html; parent.appendChild(d); return d; }
+function mkImg(parent, src, style, cls) { const i = document.createElement("img"); i.src = src; i.alt = ""; if (cls) i.className = cls; if (style) i.style.cssText = style; parent.appendChild(i); return i; }
+function show(el, op) { if (op <= 0.001) { el.style.opacity = 0; el.style.display = "none"; } else { el.style.display = "block"; el.style.opacity = op; } }
+
+/* ---------- 구간 ---------- */
+const T = { wt: [4, 9], an: [9, 14], ai: [14, 19], mg: [19, 24], bf: [24, 29], sns: [29, 34], pr: [34, 41], end: [41, 45] };
+const scOp = (t, a, b) => Math.min(eO(seg(t, a - .2, a + .2)), 1 - seg(t, b + .2, b + .2001));
+
+/* ---------- 자막 ---------- */
+const capEls = {};
+function makeCap(key, big, small, bigSize, smallSize, extra) {
+  const c = mk($("caps"), "cap", "z-index:40;display:none" + (extra || ""));
+  const b = mk(c, "big", bigSize ? `font-size:${bigSize}px` : "", big);
+  const s = mk(c, "small", smallSize ? `font-size:${smallSize}px` : "", small);
+  capEls[key] = { c, b, s };
+}
+function capUpdate(key, t, a, b) {
+  const e = capEls[key]; if (!e) return;
+  const out = 1 - seg(t, b - .4, b - .1);
+  const pb = eO(seg(t, a + .3, a + .7)) * out, ps = eO(seg(t, a + .45, a + .85)) * out;
+  const vis = pb > 0.001 || ps > 0.001;
+  e.c.style.display = vis ? "block" : "none";
+  e.b.style.opacity = pb; e.b.style.transform = `translateY(${(1 - eO(seg(t, a + .3, a + .7))) * 30}px)`;
+  e.s.style.opacity = ps; e.s.style.transform = `translateY(${(1 - eO(seg(t, a + .45, a + .85))) * 30}px)`;
+}
+makeCap("open", ...CAP.open);
+makeCap("wt", ...CAP.wt); makeCap("an", ...CAP.an); makeCap("ai", ...CAP.ai);
+makeCap("mg", ...CAP.mg); makeCap("bf", ...CAP.bf); makeCap("sns", ...CAP.sns);
+
+/* ---------- 폰 ---------- */
+function setPhone(ph, scr, cx, cy, w, h, r, bz) {
+  ph.style.left = (cx - w / 2) + "px"; ph.style.top = (cy - h / 2) + "px"; ph.style.width = w + "px"; ph.style.height = h + "px"; ph.style.borderRadius = r + "px";
+  scr.style.left = bz + "px"; scr.style.top = bz + "px"; scr.style.width = (w - 2 * bz) + "px"; scr.style.height = (h - 2 * bz) + "px"; scr.style.borderRadius = Math.max(2, r - bz) + "px";
+}
+const PY0 = 110, PH = 630, PCY = PY0 + PH / 2; // 425
+
+/* ---------- 여는 격자 ---------- */
+const GRIDSRC = [
+  [P + "webtoon-v11/cut-01.webp", "50% 22%"], [P + "creative-v06/video-animation.webp", "50% 50%"],
+  [P + "content-site/ai-influencer/ssal-full.webp", "50% 14%"], [P + "content-examples/motion-graphics/motion-product.webp", "50% 16%"],
+  [Q + "bf/bf_075.jpg", "50% 50%"], [P + "creative-v06/video-sns-ad.webp", "60% 50%"]
+];
+const GX0 = 182, GY0 = 96, GW = 500, GH = 281, GG = 28;
+const tiles = GRIDSRC.map((s, i) => {
+  const col = i % 3, row = (i / 3) | 0;
+  const d = mk($("grid"), "tile", `left:${GX0 + col * (GW + GG)}px;top:${GY0 + row * (GH + GG)}px`, `<span>0${i + 1}</span>`);
+  const im = mkImg(d, s[0], `width:100%;height:100%;object-fit:cover;object-position:${s[1]};display:block`);
+  return d;
+});
+const GCX = GX0 + GW / 2, GCY = GY0 + GH / 2;
+
+/* ---------- 웹툰 ---------- */
+const strip = $("strip");
+["01", "02", "03", "04"].forEach(n => mkImg(strip, P + `webtoon-v11/cut-${n}.webp`, "width:272px;height:408px;display:block;object-fit:cover"));
+
+/* ---------- 애니메이션 입자 ---------- */
+const bok = [];
+(function () {
+  const r = rng(20261015);
+  for (let i = 0; i < 34; i++) {
+    const near = i % 3 === 0, sz = near ? 30 + r() * 44 : 10 + r() * 20;
+    const d = mk($("anp"), "bokeh", `width:${sz}px;height:${sz}px;filter:blur(${near ? 3 : 0.6}px)`);
+    bok.push({ d, x0: r() * 1920, y0: r() * 1180, sp: near ? 34 + r() * 22 : 12 + r() * 10, amp: 14 + r() * 34, f: .4 + r() * .7, ph: r() * 6.28, base: near ? .55 : .8 });
+  }
+})();
+
+/* ---------- AI 카드 ---------- */
+const AIIMG = ["unnie87-street", "ssal-full", "grace-full", "yeopjip-style"].map(n => P + `content-site/ai-influencer/${n}.webp`);
+const CW = 354, CG = 40, CX0 = 192;
+const aiAmb = AIIMG.map(s => mk($("s3amb"), "amb", `background-image:url('${s}');opacity:0`));
+const aiCards = AIIMG.map((s, i) => {
+  const c = mk($("s3cards"), "card", `left:${CX0 + i * (CW + CG)}px;top:${PY0}px;width:${CW}px;height:${PH}px;border-radius:28px;border:2px solid rgba(167,139,250,0)`);
+  mkImg(c, s, `object-position:50% ${i === 3 ? 20 : 12}%`);
+  return c;
+});
+
+/* ---------- SNS 폰 2개 ---------- */
+function mkFeed(cx, order) {
+  const ph = mk($("s6p"), "ph"), scr = mk(ph, "scr");
+  const st = mk(scr, "", "position:absolute;left:0;top:0;width:272px");
+  order.forEach(k => mkImg(st, k === "a" ? P + "content-examples/ad/ad-product.webp" : P + "creative-v06/video-sns-ad.webp", `width:272px;height:612px;display:block;object-fit:cover;object-position:${k === "a" ? "50% 22%" : "62% 50%"}`));
+  mk(scr, "notch"); mk(scr, "bar");
+  return { ph, scr, st, cx };
+}
+const feedA = mkFeed(760, ["a", "s"]), feedB = mkFeed(1160, ["s", "a"]);
+
+/* ---------- 진행 방식 ---------- */
+const COLX = [154, 154 + 554, 154 + 1108];
+const pr = $("s7");
+const prLine = mk(pr, "", "left:154px;top:732px;width:1612px;height:4px;border-radius:2px;background:rgba(255,255,255,.16);position:absolute");
+const prFill = mk(prLine, "", "position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#c4b5fd);border-radius:2px");
+const prDots = [0, 1, 2].map(i => mk(pr, "", `position:absolute;left:${COLX[i] - 7}px;top:725px;width:18px;height:18px;border-radius:50%;background:#a78bfa;box-shadow:0 0 24px rgba(167,139,250,.8)`));
+const prCols = [0, 1, 2].map(i => mk(pr, "pcol", `left:${COLX[i]}px`));
+const prCap = [0, 1, 2].map(i => {
+  const w = mk(pr, "", `position:absolute;left:${COLX[i]}px;top:760px;width:504px`);
+  const b = mk(w, "big", "font-size:104px;opacity:1;line-height:1.1", CAP.pr[i][0]);
+  const s = mk(w, "small", "font-size:36px;opacity:1;margin-top:10px", CAP.pr[i][1]);
+  return { w, b, s };
+});
+// col1 기획: 콘티 3컷 + 대본 줄
+const contiCards = ["05", "06", "07"].map((n, i) => {
+  const c = mk(prCols[0], "card", `left:${i * 176}px;top:46px;width:152px;height:228px;border-radius:10px;border:1px solid rgba(255,255,255,.2)`);
+  mkImg(c, P + `webtoon-v11/cut-${n}.webp`); return c;
+});
+const contiLines = [100, 86, 94, 58, 78].map((w, i) => mk(prCols[0], "", `position:absolute;left:0;top:${318 + i * 40}px;width:${w * 5.04}px;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(196,181,253,.75),rgba(196,181,253,.25));transform-origin:0 50%`));
+// col2 제작: AI 초안 -> 다듬기
+const mkBase = mk(prCols[1], "card", "left:72px;top:40px;width:360px;height:540px;border-radius:14px");
+const mkImgBase = mkImg(mkBase, P + "webtoon-v11/cut-06.webp", "filter:blur(14px) saturate(.15) brightness(.8)");
+const mkTop = mk(prCols[1], "card", "left:72px;top:40px;width:360px;height:540px;border-radius:14px;background:none;box-shadow:none");
+mkImg(mkTop, P + "webtoon-v11/cut-06.webp");
+const mkScan = mk(prCols[1], "", "position:absolute;left:52px;top:40px;width:400px;height:3px;background:#c4b5fd;box-shadow:0 0 22px 4px rgba(167,139,250,.9);border-radius:2px");
+// col3 납품: 9:16 / 4:5 / 16:9 에 같은 장면
+const DL = [
+  { l: 30, t: 20, w: 170, h: 302, pos: "27% 50%", r: 14 },
+  { l: 224, t: 8, w: 250, h: 312, pos: "30% 50%", r: 14 },
+  { l: 32, t: 346, w: 440, h: 248, pos: "35% 50%", r: 12 }
+];
+const dFrames = DL.map(d => {
+  const f = mk(prCols[2], "", `position:absolute;left:${d.l}px;top:${d.t}px;width:${d.w}px;height:${d.h}px;border-radius:${d.r}px;border:2px solid #a78bfa;box-sizing:border-box;overflow:hidden;background:rgba(124,58,237,.08)`);
+  const im = mkImg(f, P + "creative-v06/video-animation.webp", `width:100%;height:100%;object-fit:cover;object-position:${d.pos};opacity:0`);
+  return { f, im };
+});
+
+/* ---------- 끝 락업 ---------- */
+const endBig = mk($("end"), "", "position:absolute;left:0;top:408px;width:1920px;text-align:center;font-family:'UnboundedR7',sans-serif;font-weight:800;font-size:84px;letter-spacing:.01em;white-space:nowrap;line-height:1.1", CAP.end[0]);
+const endLine = mk($("end"), "", "position:absolute;left:810px;top:372px;width:300px;height:4px;border-radius:2px;background:linear-gradient(90deg,#7c3aed,#c4b5fd);transform-origin:50% 50%");
+const endSmall = mk($("end"), "small", "position:absolute;left:0;top:546px;width:1920px;text-align:center;margin:0;opacity:1", CAP.end[1]);
+
+/* ---------- HUD ---------- */
+const hud = $("hud");
+const hsegs = [0, 1, 2, 3, 4, 5].map(i => { const s = mk(hud, "hseg", `left:${i * 108}px`); s.appendChild(document.createElement("i")); return s; });
+const hudN = mk(hud, "", ""); hudN.id = "hudn";
+const SVC = [T.wt, T.an, T.ai, T.mg, T.bf, T.sns];
+
+/* ======================== render(t) ======================== */
+function render(t) {
+  /* 격자 */
+  const gz = eIO(seg(t, 3.2, 4.0));
+  let gridOp, dimTiles = false;
+  if (t < 4.1) gridOp = 1 - seg(t, 3.6, 4.1);
+  else if (t >= 43.6) { gridOp = seg(t, 43.6, 44.5); dimTiles = true; }
+  else gridOp = 0;
+  const grid = $("grid");
+  show(grid, gridOp);
+  if (gridOp > 0) {
+    tiles.forEach((d, i) => {
+      let k = dimTiles ? 0 : eO(seg(t, .3 + .25 * i, .8 + .25 * i));
+      if (t >= 4.1) k = 0;
+      d.style.opacity = lerp(.14, 1, k);
+      d.style.transform = `scale(${lerp(.96, 1, k)})`;
+    });
+    const m = dimTiles ? 0 : gz;
+    grid.style.transformOrigin = `${GCX}px ${GCY}px`;
+    grid.style.transform = `translate(${(960 - GCX) * m}px,${(540 - GCY) * m}px) scale(${lerp(1, 3.84, m)})`;
+  }
+  capUpdate("open", t, 0, 3.6);
+
+  /* 장면 컨테이너 */
+  show($("s1"), t >= 3.8 && t < 9.2 ? scOp(t, ...T.wt) : 0);
+  show($("s2"), t >= 8.8 && t < 14.2 ? scOp(t, ...T.an) : 0);
+  show($("s3"), t >= 13.8 && t < 19.2 ? scOp(t, ...T.ai) : 0);
+  show($("s4"), t >= 18.8 && t < 24.2 ? scOp(t, ...T.mg) : 0);
+  show($("s5"), t >= 23.8 && t < 29.2 ? scOp(t, ...T.bf) : 0);
+  show($("s6"), t >= 28.8 && t < 34.2 ? scOp(t, ...T.sns) : 0);
+  show($("s7"), t >= 33.8 && t < 41.3 ? Math.min(eO(seg(t, 33.8, 34.2)), 1 - seg(t, 40.6, 41.2)) : 0);
+
+  /* HUD + scrim + 태그 */
+  const hv = Math.min(seg(t, 3.9, 4.3), 1 - seg(t, 33.7, 34.1));
+  show(hud, hv);
+  const sv = Math.min(seg(t, 3.9, 4.3), 1 - seg(t, 33.8, 34.2));
+  show($("scrim"), sv);
+  if (hv > 0) {
+    SVC.forEach((r, i) => { hsegs[i].firstChild.style.width = (seg(t, r[0], r[1]) * 100) + "%"; });
+    const idx = clamp(Math.floor((t - 4) / 5), 0, 5);
+    hudN.textContent = String(idx + 1).padStart(2, "0") + " / 06";
+  }
+  show($("tagAI"), t >= 14 && t < 19.3 ? Math.min(seg(t, 14.3, 14.8), 1 - seg(t, 18.6, 19.0)) : 0);
+  show($("tagEx"), t >= 29 && t < 34.3 ? Math.min(seg(t, 29.3, 29.8), 1 - seg(t, 33.6, 34.0)) : 0);
+
+  /* 1 웹툰 */
+  if (t >= 3.8 && t < 9.2) {
+    const ph = $("ph1"), scr = $("ph1s");
+    const ap = eO(seg(t, 4.0, 4.6)), m = eIO(seg(t, 6.5, 7.2));
+    const w = lerp(290, 1120, m), r = lerp(44, 14, m), bz = lerp(9, 3, m);
+    setPhone(ph, scr, 960, PCY + (1 - ap) * 24, w, PH, r, bz);
+    ph.style.transform = `scale(${lerp(.94, 1, ap)})`; ph.style.opacity = ap;
+    const sw = w - 2 * bz, sh = PH - 2 * bz;
+    strip.style.left = ((sw - 272) / 2) + "px";
+    const sc = eIO(seg(t, 4.5, 6.4)) * (1632 - sh);
+    strip.style.transform = `translateY(${-sc}px)`;
+    strip.style.opacity = 1 - seg(t, 6.55, 6.95);
+    const wv = $("wtv"); wv.style.opacity = seg(t, 6.7, 7.1);
+    const n = clamp(Math.floor((t - 7.0) * 30 + 1e-6), 0, 59); setSrc(wv, Q + `wt/wt_${pad3(n + 1)}.jpg`);
+    $("ph1n").style.opacity = 1 - seg(t, 6.5, 6.8);
+  }
+  capUpdate("wt", t, ...T.wt);
+
+  /* 2 애니메이션 */
+  if (t >= 8.8 && t < 14.2) {
+    const a1 = $("an1"), a2 = $("an2");
+    const u1 = seg(t, 9.0, 11.8), u2 = seg(t, 11.3, 14.1);
+    a1.style.transform = `translate(${lerp(30, -50, u1)}px,${lerp(10, -20, u1)}px) scale(${lerp(1.02, 1.13, u1)})`;
+    a2.style.transform = `translate(${lerp(-40, 30, u2)}px,${lerp(0, -16, u2)}px) scale(${lerp(1.0, 1.1, u2)})`;
+    a2.style.opacity = eIO(seg(t, 11.3, 11.7));
+    const cp = eO(seg(t, 11.6, 12.4));
+    const anc = $("anc");
+    anc.style.opacity = cp * (1 - seg(t, 13.9, 14.2));
+    anc.style.transform = `translate(${lerp(70, 0, cp) + lerp(24, -44, u2)}px,${Math.sin((t - 11.6) * 1.7) * 9}px) rotate(-3deg) scale(${lerp(.9, 1, cp)})`;
+    bok.forEach(b => {
+      const y = ((b.y0 - b.sp * t) % 1180 + 1180) % 1180 - 50;
+      const x = b.x0 + Math.sin(t * b.f + b.ph) * b.amp;
+      b.d.style.transform = `translate(${x}px,${y}px)`;
+      b.d.style.opacity = b.base * (.6 + .4 * Math.sin(t * b.f * 1.7 + b.ph));
+    });
+  }
+  capUpdate("an", t, ...T.an);
+
+  /* 3 AI */
+  if (t >= 13.8 && t < 19.2) {
+    const u = clamp((t - 14.4) / 1.0, 0, 3);
+    const fl = Math.min(3, Math.floor(u));
+    const f = u >= 3 ? 3 : fl + eIO(clamp((u - fl - .35) / .65));
+    aiCards.forEach((c, i) => {
+      const p = eO(seg(t, 14.1 + i * .12, 14.8 + i * .12));
+      const em = clamp(1 - Math.abs(f - i));
+      c.style.opacity = p;
+      c.style.transform = `translateY(${(1 - p) * 90}px) scale(${lerp(.93, 1.05, em)})`;
+      c.style.filter = `brightness(${lerp(.5, 1, em)})`;
+      c.style.borderColor = `rgba(196,181,253,${em * .9})`;
+      c.style.zIndex = Math.round(em * 10);
+      aiAmb[i].style.opacity = em;
+    });
+  }
+  capUpdate("ai", t, ...T.ai);
+
+  /* 4 모션그래픽 */
+  if (t >= 18.8 && t < 24.2) {
+    const u = seg(t, 19.0, 24.0);
+    $("mg1").style.transform = `translateX(${lerp(110, -110, eIO(u))}px) scale(${lerp(1.0, 1.06, u)})`;
+    $("mg2").style.transform = `translateX(${lerp(-150, 150, eIO(u))}px)`;
+    const cp = eO(seg(t, 19.3, 20.2));
+    const c = $("mgc");
+    c.style.opacity = cp * (1 - seg(t, 23.8, 24.2));
+    c.style.transform = `translateY(${Math.sin((t - 19.3) * 1.5) * 8}px) scale(${lerp(.85, 1, cp)})`;
+    c.style.filter = `blur(${(1 - cp) * 10}px)`;
+    const dash = (id, a, b, e0, e1) => { const el = $(id); const d = eO(seg(t, a, b)), s = eIO(seg(t, e0, e1)); const L = Math.max(0, d - s); el.style.strokeDasharray = `${L} 3`; el.style.strokeDashoffset = `${-s}`; el.style.display = L > 0.002 ? "" : "none"; };
+    dash("mgc1", 20.0, 21.5, 22.6, 23.5); dash("mgc2", 20.3, 21.8, 22.5, 23.4);
+    dash("mgr1", 20.5, 22.0, 22.7, 23.6); dash("mgl1", 20.6, 21.6, 22.6, 23.4); dash("mgl2", 20.6, 21.6, 22.6, 23.4);
+    $("mgr1").setAttribute("transform", `translate(960 410) rotate(${(t - 20.5) * 14})`);
+    const dot = (id, a, b) => { const k = eO(seg(t, a, a + .5)) * (1 - seg(t, b, b + .5)); $(id).style.opacity = k; };
+    dot("mgd1", 21.3, 22.4); dot("mgd2", 21.3, 22.4); dot("mgd3", 21.0, 22.8); dot("mgd4", 21.6, 23.0);
+    $("mgd3").setAttribute("cx", 1200 + Math.sin(t * 1.3) * 18); $("mgd4").setAttribute("cy", 690 + Math.cos(t * 1.1) * 12);
+  }
+  capUpdate("mg", t, ...T.mg);
+
+  /* 5 브랜드 홍보 영상 */
+  if (t >= 23.8 && t < 29.2) {
+    const n = clamp(Math.floor((t - 24.0) * 30 + 1e-6), 0, 149); setSrc($("bfv"), Q + `bf/bf_${pad3(n + 1)}.jpg`);
+  }
+  capUpdate("bf", t, ...T.bf);
+
+  /* 6 SNS */
+  if (t >= 28.8 && t < 34.2) {
+    [[feedA, 29.0, 30.4], [feedB, 29.2, 31.2]].forEach(([fd, a, sc0]) => {
+      const p = eO(seg(t, a, a + .6));
+      setPhone(fd.ph, fd.scr, fd.cx, PCY + (1 - p) * 40, 290, PH, 44, 9);
+      fd.ph.style.opacity = p; fd.ph.style.transform = `scale(${lerp(.94, 1, p)})`;
+      fd.st.style.transform = `translateY(${-eIO(seg(t, sc0, sc0 + .8)) * 612}px)`;
+    });
+  }
+  capUpdate("sns", t, ...T.sns);
+
+  /* 7 진행 방식 */
+  if (t >= 33.8 && t < 41.3) {
+    const A = [34.4, 36.5, 38.6];
+    prFill.style.width = (seg(t, 34.3, 40.6) * 100) + "%";
+    [0, 1, 2].forEach(i => {
+      const k = eO(seg(t, A[i], A[i] + .5));
+      const o = lerp(.2, 1, k);
+      prCols[i].style.opacity = o; prCap[i].w.style.opacity = lerp(.25, 1, k);
+      prDots[i].style.opacity = lerp(.35, 1, k); prDots[i].style.transform = `scale(${lerp(.7, 1, k)})`;
+    });
+    // 기획
+    contiCards.forEach((c, i) => { const p = eO(seg(t, 34.7 + i * .25, 35.3 + i * .25)); c.style.transform = `translateY(${(1 - p) * 26}px) rotate(${(i - 1) * -1.5 * p}deg)`; c.style.opacity = p; });
+    contiLines.forEach((l, i) => { l.style.transform = `scaleX(${eO(seg(t, 35.1 + i * .22, 35.6 + i * .22))})`; });
+    // 제작
+    const r = eIO(seg(t, 37.0, 38.8));
+    mkTop.style.clipPath = `inset(0 0 ${(1 - r) * 100}% 0)`;
+    mkScan.style.top = (40 + r * 540) + "px"; mkScan.style.opacity = r > 0 && r < 1 ? 1 : 0;
+    mkImgBase.style.filter = `blur(${lerp(14, 6, r)}px) saturate(${lerp(.15, .5, r)}) brightness(.8)`;
+    // 납품
+    dFrames.forEach((d, i) => {
+      const p = eO(seg(t, 38.7 + i * .15, 39.3 + i * .15)), q = eO(seg(t, 39.3 + i * .15, 40.1 + i * .15));
+      d.f.style.opacity = p; d.f.style.transform = `scale(${lerp(.9, 1, p)})`;
+      d.im.style.opacity = q; d.im.style.transform = `scale(${lerp(1.3, 1, q)})`;
+    });
+    // 자막(전체 장면 단위: 시작 0.3초 뒤 등장은 열 활성 시점으로 대체)
+  }
+
+  /* 8 마무리 락업 */
+  const eo = Math.min(eO(seg(t, 41.0, 41.8)), 1 - seg(t, 43.5, 44.2));
+  show($("end"), t >= 40.9 && t < 44.3 ? eo : 0);
+  if (eo > 0) {
+    endLine.style.transform = `scaleX(${eO(seg(t, 41.1, 42.0))})`;
+    endBig.style.transform = `translateY(${(1 - eO(seg(t, 41.1, 41.8))) * 24}px)`;
+    endSmall.style.transform = `translateY(${(1 - eO(seg(t, 41.3, 42.0))) * 24}px)`;
+    endSmall.style.opacity = eO(seg(t, 41.3, 42.0));
+  }
+}
+
+/* 영상 프레임 src 교체(현재값과 같으면 건드리지 않는다) */
+const pending = new Set();
+function setSrc(img, src) { if (img.dataset.s !== src) { img.dataset.s = src; img.src = src; pending.add(img); } }
+window.render = render;
+window.renderAsync = async function (t) {
+  render(t);
+  const list = [...pending]; pending.clear();
+  await Promise.all(list.map(i => i.decode().catch(() => { })));
+  return true;
+};
+
+/* 준비: 폰트 + 모든 정지 이미지 + 영상 프레임 일부 */
+window.ready = (async function () {
+  await document.fonts.load("800 100px PretendardR7", "가나다"); await document.fonts.load("600 72px PretendardR7", "가나다");
+  await document.fonts.load("800 84px UnboundedR7", "AIO MAKE"); await document.fonts.ready;
+  const imgs = [...document.images].filter(i => i.getAttribute('src'));
+  await Promise.all(imgs.map(i => i.complete && i.naturalWidth ? Promise.resolve() : new Promise(r => { i.onload = i.onerror = r; })));
+  await Promise.all(imgs.map(i => i.decode ? i.decode().catch(() => { }) : 0));
+  // 락업을 폭 1500px 안에 맞춘다
+  endBig.style.display = "block";
+  const wEl = document.createElement("span"); wEl.style.cssText = endBig.style.cssText + ";position:absolute;left:-9999px;width:auto"; wEl.textContent = CAP.end[0]; $("stage").appendChild(wEl);
+  const w = wEl.getBoundingClientRect().width; wEl.remove();
+  if (w > 1500) endBig.style.fontSize = (84 * 1500 / w) + "px";
+  // 자막 폭 측정(안전 영역 1612px) 결과를 외부에서 읽을 수 있게
+  const st = {};
+  Object.entries(capEls).forEach(([k, e]) => { e.c.style.display = "block"; e.b.style.opacity = 1; e.s.style.opacity = 1; st[k] = [e.b.getBoundingClientRect().width, e.s.getBoundingClientRect().width]; e.c.style.display = "none"; });
+  prCap.forEach((c, i) => { st["pr" + i] = [c.b.getBoundingClientRect().width, c.s.getBoundingClientRect().width]; });
+  st.endBig = wEl ? w : 0;
+  window.CAPTION_WIDTHS = st;
+  render(0);
+  return true;
+})();
+</script>
+</body>
+</html>

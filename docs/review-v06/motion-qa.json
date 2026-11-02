@@ -1,0 +1,37 @@
+[
+  {
+    "active": 2,
+    "check": "auto-advance",
+    "running": "true"
+  },
+  {
+    "active": 2,
+    "check": "pause",
+    "running": "false"
+  },
+  {
+    "active": 2,
+    "check": "pause-held",
+    "running": "false"
+  },
+  {
+    "active": 3,
+    "check": "manual-fourth",
+    "running": "false"
+  },
+  {
+    "active": 3,
+    "check": "resume",
+    "running": "true"
+  },
+  {
+    "check": "offscreen",
+    "running": "true",
+    "top": -479
+  },
+  {
+    "bottom": -2374.640625,
+    "check": "fully-offscreen",
+    "running": "false"
+  }
+]

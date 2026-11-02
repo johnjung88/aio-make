@@ -1,0 +1,110 @@
+/* /content/contact (P2R WP-D). 공통 선택 카드(.cs-chooser*)·폼 스타일은 theme.css 그대로 쓰고 배치만 더한다.
+ * 글자 속성 선언 0(역할 클래스가 정한다), 색은 --cs-* 토큰만, 모든 선택자는 .cs-site .cs-contact 안. */
+
+.cs-site .cs-contact .cs-contact-head {
+  row-gap: var(--cs-s6);
+  align-items: end;
+}
+.cs-site .cs-contact .cs-contact-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cs-s5);
+}
+.cs-site .cs-contact .cs-contact-lead {
+  max-width: 34em;
+  color: var(--cs-fg-2);
+}
+.cs-site .cs-contact .cs-contact-basis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-s3);
+  padding: var(--cs-s5);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-surface);
+}
+.cs-site .cs-contact .cs-contact-basis .cs-t-label {
+  color: var(--cs-fg);
+}
+.cs-site .cs-contact .cs-contact-basis-list {
+  display: grid;
+  gap: var(--cs-s2);
+}
+.cs-site .cs-contact .cs-contact-basis-list > li {
+  position: relative;
+  padding-left: var(--cs-s5);
+  color: var(--cs-fg-2);
+}
+.cs-site .cs-contact .cs-contact-basis-list > li::before {
+  content: "";
+  position: absolute;
+  top: 0.7em;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cs-r-pill);
+  background: var(--cs-accent);
+}
+
+/* 서비스 선택 카드 */
+.cs-site .cs-contact .cs-contact-chooser {
+  margin-top: var(--cs-s8);
+}
+.cs-site .cs-contact .cs-contact-chooser legend {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 0;
+}
+.cs-site .cs-contact .cs-contact-chooser legend abbr {
+  margin-left: var(--cs-s1);
+  color: var(--cs-accent-text);
+  text-decoration: none;
+}
+.cs-site .cs-contact .cs-contact-hint {
+  margin-top: var(--cs-s2);
+  color: var(--cs-fg-2);
+}
+.cs-site .cs-contact .cs-contact-error {
+  margin-top: var(--cs-s3);
+  padding: var(--cs-s2) var(--cs-s4);
+  border-left: 2px solid var(--cs-accent);
+  border-radius: var(--cs-r-sm);
+  background: color-mix(in srgb, var(--cs-accent) 12%, transparent);
+  color: var(--cs-fg);
+}
+.cs-site .cs-contact .cs-contact-chooser .cs-chooser-list {
+  margin-top: var(--cs-s5);
+}
+.cs-site .cs-contact .cs-contact-chooser[data-missing] .cs-chooser-option {
+  border-color: color-mix(in srgb, var(--cs-accent) 60%, transparent);
+}
+/* 포커스는 카드 전체에 한 번만 그린다 */
+.cs-site .cs-contact .cs-chooser-option:has(input:focus-visible) {
+  outline: 3px solid var(--cs-focus);
+  outline-offset: 3px;
+}
+.cs-site .cs-contact .cs-chooser-option input:focus-visible {
+  outline: none;
+}
+@media (min-width: 1024px) {
+  .cs-site .cs-contact .cs-contact-chooser .cs-chooser-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--cs-s3);
+  }
+}
+@media (hover: hover) {
+  .cs-site .cs-contact .cs-chooser-option:hover {
+    border-color: var(--cs-fg-3);
+  }
+  .cs-site .cs-contact .cs-chooser-option:has(input:checked):hover {
+    border-color: var(--cs-accent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cs-site .cs-contact .cs-chooser-option {
+    transition:
+      background-color var(--cs-dur-1) var(--cs-ease),
+      border-color var(--cs-dur-1) var(--cs-ease);
+  }
+}

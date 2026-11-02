@@ -1,0 +1,123 @@
+/* ad 서비스 고유 스타일(R5 WP-S2 소유).
+ * 선택자는 모두 .cs-svc-ad로 시작한다. 장식 색은 맨 위 변수 블록에만 둔다. 글자 속성은 역할 클래스(cs-t-*)만 쓴다.
+ * 움직임(animation-*·transition)은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * 레일: 레퍼런스 aio-service-pages-v01 .collage-rail(3열, 기울기, ease-in-out 왕복, 가운데 열 내림)을 열 단위 위상차로 옮겼다.
+ * R6: 속도는 9초 왕복(R5의 2배). 가운데 영상 카드와 그 진행 막대·재생 토글·그림자는 삭제했고 레일이 미디어 칸 전체를 쓴다. */
+.cs-svc-ad {
+  --svc-tilt: -11deg;
+  --svc-gap: 18px;
+  --svc-offset: 90px;
+  --svc-travel: 140px;
+  --svc-stage-w: 124%;
+  --svc-reel-h: clamp(560px, 46vw, 700px);
+  --svc-mask: #000;
+  --svc-card-shadow: 0 6px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------------------------------------------------------------- 히어로: 기울어진 3열 레일(미디어 칸 전체 폭) */
+.cs-svc-ad .cs-svc-ad-reel {
+  position: relative;
+  min-width: 0;
+  min-height: var(--svc-reel-h);
+  padding-block: 40px;
+  overflow: clip;
+  isolation: isolate;
+}
+.cs-svc-ad .cs-svc-ad-rail {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 12%, var(--svc-mask) 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, var(--svc-mask) 12%, var(--svc-mask) 88%, transparent 100%);
+}
+.cs-svc-ad .cs-svc-ad-rail-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--svc-gap);
+  width: var(--svc-stage-w);
+  transform: translate(-50%, -50%) rotate(var(--svc-tilt));
+}
+.cs-svc-ad .cs-svc-ad-rail-column { display: grid; align-content: start; gap: var(--svc-gap); min-width: 0; will-change: transform; }
+.cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { margin-top: var(--svc-offset); }
+.cs-svc-ad .cs-svc-ad-rail-card {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--cs-surface);
+  box-shadow: var(--svc-card-shadow);
+}
+.cs-svc-ad .cs-svc-ad-rail-card img,
+.cs-svc-ad .cs-svc-ad-rail-card video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--svc-focus, center); }
+.cs-svc-ad .cs-svc-ad-rail-card--type { display: flex; align-items: flex-end; padding: 18px; background: var(--cs-accent); color: var(--cs-on-accent); }
+.cs-svc-ad .cs-svc-ad-rail-card--type .cs-t-h3 { color: var(--cs-on-accent); }
+.cs-svc-ad .cs-svc-ad-rail-card--type::after { content: ""; position: absolute; top: 18px; right: 18px; width: 32%; aspect-ratio: 1; border: 2px solid currentColor; border-radius: 50%; }
+
+.cs-svc-ad .cs-svc-ad-reel-tag { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 3; display: flex; min-width: 0; }
+/* 태그는 한 줄: 길면 말줄임(1440·390 모두 '예시'가 아래로 떨어지지 않게) */
+.cs-svc-ad .cs-svc-ad-reel-tag .cs-tag { display: block; max-width: 100%; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+@media (max-width: 1023px) {
+  .cs-svc-ad { --svc-stage-w: 136%; }
+}
+@media (max-width: 767px) {
+  .cs-svc-ad {
+    --svc-gap: 10px;
+    --svc-offset: 50px;
+    --svc-travel: 90px;
+    --svc-stage-w: 150%;
+    --svc-reel-h: 480px;
+  }
+  .cs-svc-ad .cs-svc-ad-rail-card { border-radius: 12px; }
+  .cs-svc-ad .cs-svc-ad-rail-card--type { padding: 12px; }
+}
+
+/* ---------------------------------------------------------------- 사례 카드 여러 안 보기(R7): 포스터 띠 최대 4칸, 누르면 위 영상이 바뀐다 */
+.cs-svc-ad .cs-svc-ad-variants { display: grid; gap: var(--cs-s2); width: 100%; min-width: 0; }
+.cs-svc-ad .cs-svc-ad-variants-count { color: var(--cs-fg-3); }
+.cs-svc-ad .cs-svc-ad-variants-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.cs-svc-ad .cs-svc-ad-variants-thumb {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 44px;
+  aspect-ratio: 9 / 16;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 8px;
+  background: var(--cs-surface);
+  color: var(--cs-fg);
+  cursor: pointer;
+}
+.cs-svc-ad .cs-svc-ad-variants-thumb img { object-fit: cover; }
+.cs-svc-ad .cs-svc-ad-variants-thumb span { position: absolute; left: 6px; bottom: 6px; min-width: 20px; padding-inline: 4px; border-radius: 4px; background: var(--cs-bg-2); color: var(--cs-fg); text-align: center; }
+.cs-svc-ad .cs-svc-ad-variants-thumb[aria-pressed="true"] { border-color: var(--cs-accent); outline: 2px solid var(--cs-accent); outline-offset: -2px; }
+.cs-svc-ad .cs-svc-ad-variants-thumb:focus-visible { outline: 3px solid var(--cs-focus); outline-offset: 3px; }
+
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  /* 9초 왕복. 1·3열은 위로, 2열은 아래로, 3열은 반 주기 앞서 시작한다 */
+  .cs-svc-ad .cs-svc-ad-rail-column {
+    animation-name: cs-svc-ad-rail-up;
+    animation-duration: 9s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="1"] { animation-name: cs-svc-ad-rail-down; animation-delay: -2.25s; }
+  .cs-svc-ad .cs-svc-ad-rail-column[data-column="2"] { animation-delay: -4.5s; }
+  /* 화면 밖·숨김 탭·움직임 끔(data-play="paused"), 키보드 초점이 안에 있을 때 멈춘다 */
+  .cs-svc-ad .cs-svc-ad-reel[data-play="paused"] .cs-svc-ad-rail-column,
+  .cs-svc-ad .cs-svc-ad-reel:focus-within .cs-svc-ad-rail-column { animation-play-state: paused; }
+  @keyframes cs-svc-ad-rail-up { from { transform: translateY(0); } to { transform: translateY(calc(var(--svc-travel) * -1)); } }
+  @keyframes cs-svc-ad-rail-down { from { transform: translateY(calc(var(--svc-travel) * -1)); } to { transform: translateY(0); } }
+}
+
+/* R8 */
+.cs-svc-ad-hero-frame {position:relative;width:100%;isolation:isolate;} .cs-svc-ad-hero-frame > .cs-reel {position:relative;z-index:1;} .cs-svc-ad-hero-rails {position:absolute;inset:0;opacity:.2;z-index:0;pointer-events:none;} @media(max-width:767px){.cs-svc-ad-hero-rails{display:none;}}

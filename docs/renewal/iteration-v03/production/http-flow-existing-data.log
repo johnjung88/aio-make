@@ -1,0 +1,24 @@
+PASS Unauthenticated admin APIs return 401
+PASS Admin page redirects without session
+PASS Legacy 301 destinations preserve UTM
+PASS Login validates credentials and creates HttpOnly strict cookie
+PASS Inquiry consent/source checks, transaction and duplicate protection
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+66 !== 1
+
+    at file:///I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tests/http-flow.mjs:137:8
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 66,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.1

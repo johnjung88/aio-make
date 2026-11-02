@@ -1,0 +1,38 @@
+{
+  "at": "2026-09-30T21:18:28.826Z",
+  "environment": "Local Next + loopback adapter + actual PGlite, not live Supabase",
+  "results": [
+    {
+      "name": "Search finds an inquiry beyond first 50 rows",
+      "status": "PASS"
+    },
+    {
+      "name": "Second page loads independently",
+      "status": "PASS"
+    },
+    {
+      "name": "Global search and status filter combine correctly",
+      "status": "PASS"
+    },
+    {
+      "name": "Percent search is literal, not a wildcard",
+      "status": "PASS"
+    },
+    {
+      "name": "Video and foreign storage URLs cannot be saved as cover images",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid legacy cover does not crash public entry rendering",
+      "status": "PASS"
+    },
+    {
+      "name": "Punctuation alone is rejected as a phone number",
+      "status": "PASS"
+    },
+    {
+      "name": "Non-image upload is rejected before Storage",
+      "status": "PASS"
+    }
+  ]
+}

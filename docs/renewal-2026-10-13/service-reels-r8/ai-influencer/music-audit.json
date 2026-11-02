@@ -1,0 +1,69 @@
+{
+  "file": ".qa\\r8-music\\r8-m03-patron-saint.mp3",
+  "sha256": "b82e8b44ce3dbd44c05d70d87130cef0eb323ee3a0d29ea3f92ad45f2c72fd9d",
+  "title": "Patron Saint of Heists",
+  "composer": "Bryan Teoh",
+  "selectedBpm": 85.0,
+  "nearestPeakBpm": 85.0,
+  "broadSearchPeaks": [
+    {
+      "bpm": 170.0,
+      "score": 268.1219
+    },
+    {
+      "bpm": 85.0,
+      "score": 264.8206
+    },
+    {
+      "bpm": 113.32,
+      "score": 215.1088
+    },
+    {
+      "bpm": 160.26,
+      "score": 29.5705
+    },
+    {
+      "bpm": 97.06,
+      "score": 20.192
+    },
+    {
+      "bpm": 136.0,
+      "score": 19.2405
+    },
+    {
+      "bpm": 75.58,
+      "score": 18.0002
+    },
+    {
+      "bpm": 118.12,
+      "score": 10.722
+    }
+  ],
+  "analyzedSeconds": 90.0,
+  "cutGridSeconds": 1.411764705882353,
+  "halfBar": true,
+  "musicStartSeconds": 0.015,
+  "method": "fresh 90 s mono 22050 Hz; positive STFT spectral flux; 70-180 BPM autocorrelation with 8 beat multiples",
+  "fade": "80 ms in, 3 s out",
+  "normalization": "two-pass loudnorm I=-16 TP=-1.5 LRA=11; AAC target 128k/48kHz",
+  "approvedLicenseIndexMatch": true,
+  "licenseEvidence": [
+    {
+      "path": "docs\\renewal-2026-10-13\\license-evidence-r8\\INDEX.sha256.txt",
+      "sha256": "67f417d21d50df82ca4f8f5210bfd3ebb90c32214f72f095393fb5a32343ba13"
+    },
+    {
+      "path": "docs\\renewal-2026-10-13\\license-evidence-r8\\TRACK_EVIDENCE_freepd_extracts.md",
+      "sha256": "875a12f8a6dcd5a5b3f254d761597c12735e9eac09ee11b3727c6e97453dee79"
+    },
+    {
+      "path": "docs\\renewal-2026-10-13\\license-evidence-r8\\freepd_wayback_scoring_20251124.html",
+      "sha256": "535638e973a46f57449ca77cb67d9e3809d155d92e3d2e701e0972e37b536115"
+    },
+    {
+      "path": "docs\\renewal-2026-10-13\\license-evidence-r8\\cc0_legalcode.html",
+      "sha256": "b43732f4c1463b087cf10d4daf8d8766514b2bf8f21bc5ef50905f95be227726"
+    }
+  ],
+  "listening": "NOT_RUN by worker; specified recommendation and supplied approval followed"
+}

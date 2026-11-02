@@ -1,0 +1,115 @@
+/* R5 공용 서비스 모션(WP-S1 소유). 글자 속성은 역할 토큰만, 루프는 롱핸드 animation-*만 쓴다(움직임 토글의 play-state 유지).
+ * 정지 계약: useInViewPlay·useMotionProgress가 둔 [data-play="paused"] 안의 모든 루프는 멈춘다(화면 밖·숨김 탭·움직임 끔).
+ * ai-influencer·brand-film·ad의 서비스 전용 규칙은 각 폴더의 css가 소유한다(R4 .cs-creator-*·.cs-film-*·.cs-ad-*는 통합 때 삭제). */
+.cs-site[data-cs-theme] [data-play="paused"],
+.cs-site[data-cs-theme] [data-play="paused"] *,
+.cs-site[data-cs-theme] [data-play="paused"] *::before,
+.cs-site[data-cs-theme] [data-play="paused"] *::after { animation-play-state: paused; }
+
+/* 이미지 구도(object-position) — example-media focus → data-fx·data-fy, 10 단위 */
+.cs-site img[data-fx] { object-position: var(--cs-fx, 50%) var(--cs-fy, 50%); }
+.cs-site img[data-fx="0"] { --cs-fx: 0%; }
+.cs-site img[data-fx="10"] { --cs-fx: 10%; }
+.cs-site img[data-fx="20"] { --cs-fx: 20%; }
+.cs-site img[data-fx="30"] { --cs-fx: 30%; }
+.cs-site img[data-fx="40"] { --cs-fx: 40%; }
+.cs-site img[data-fx="60"] { --cs-fx: 60%; }
+.cs-site img[data-fx="70"] { --cs-fx: 70%; }
+.cs-site img[data-fx="80"] { --cs-fx: 80%; }
+.cs-site img[data-fx="90"] { --cs-fx: 90%; }
+.cs-site img[data-fx="100"] { --cs-fx: 100%; }
+.cs-site img[data-fy="0"] { --cs-fy: 0%; }
+.cs-site img[data-fy="10"] { --cs-fy: 10%; }
+.cs-site img[data-fy="20"] { --cs-fy: 20%; }
+.cs-site img[data-fy="30"] { --cs-fy: 30%; }
+.cs-site img[data-fy="40"] { --cs-fy: 40%; }
+.cs-site img[data-fy="60"] { --cs-fy: 60%; }
+.cs-site img[data-fy="70"] { --cs-fy: 70%; }
+.cs-site img[data-fy="80"] { --cs-fy: 80%; }
+.cs-site img[data-fy="90"] { --cs-fy: 90%; }
+.cs-site img[data-fy="100"] { --cs-fy: 100%; }
+
+/* 캔버스·제목 */
+.cs-site .cs-motion-canvas { --cs-motion-progress:.5; --cs-motion-shift:0px; min-width:0; }
+.cs-site .cs-motion-title-line { display:block; }
+.cs-site .cs-service-editorial-heading .cs-motion-canvas .cs-t-display { margin-top:18px; }
+.cs-site .cs-service-editorial-media > .cs-motion-canvas { width:100%; }
+.cs-site .cs-motion-canvas[data-motion-variant="brand-film"] { transform-origin:center top; }
+
+/* 연출 예시 한 칸(ExampleFigure): 느린 켄번스, 보이는 동안만 */
+.cs-site .cs-example-figure { position:relative; margin:0; }
+.cs-site .cs-example-frame { position:relative; overflow:hidden; border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); aspect-ratio:2/3; }
+.cs-site .cs-example-figure[data-aspect="16x9"] .cs-example-frame { aspect-ratio:16/9; }
+.cs-site .cs-example-figure[data-aspect="9x16"] .cs-example-frame { aspect-ratio:9/16; }
+.cs-site .cs-example-figure[data-aspect="4x5"] .cs-example-frame { aspect-ratio:4/5; }
+.cs-site .cs-example-figure[data-aspect="1x1"] .cs-example-frame { aspect-ratio:1/1; }
+.cs-site .cs-example-figure[data-aspect="3x2"] .cs-example-frame { aspect-ratio:3/2; }
+.cs-site .cs-example-image,.cs-site .cs-example-video { display:block; width:100%; height:100%; object-fit:cover; }
+.cs-site .cs-example-figure > .cs-tag { z-index:3; }
+
+/* 장면 전환(SceneSequence): 데스크톱은 고정 구간 스크롤, 깊이(translateZ·scale) + 크로스컷 와이프 */
+.cs-site .cs-scene-chapter { position:relative; margin:48px 0 64px; }
+.cs-site .cs-scene-chapter[data-motion-ready="true"] { min-height:270vh; }
+.cs-site .cs-scene-sticky { position:sticky; top:calc(var(--cs-header-h) + 28px); display:grid; grid-template-columns:1.3fr .7fr; gap:64px; align-items:center; padding-block:16px; }
+.cs-site .cs-scene-screen { position:relative; aspect-ratio:16/9; min-width:0; overflow:hidden; border:1px solid var(--cs-line); border-radius:12px; background:var(--cs-surface); perspective:1100px; touch-action:pan-y; isolation:isolate; }
+.cs-site .cs-scene-screen[data-portrait="true"] { width:min(100%,330px); aspect-ratio:9/16; justify-self:start; }
+.cs-site .cs-scene-frame { position:absolute; inset:0; margin:0; opacity:0; pointer-events:none; transform-style:preserve-3d; clip-path:inset(0 0 0 100%); transform:translateZ(180px) scale(1.12); }
+.cs-site .cs-scene-frame[data-side="before"] { clip-path:inset(0 100% 0 0); transform:translateZ(-320px) scale(.82) rotateY(12deg); }
+.cs-site .cs-scene-frame[data-active="true"] { opacity:1; z-index:1; clip-path:inset(0 0 0 0); transform:none; }
+.cs-site .cs-scene-image { width:100%; height:100%; object-fit:cover; }
+.cs-site .cs-scene-screen[data-portrait="true"] .cs-scene-image { object-fit:contain; }
+/* 광고 연출 예시는 2:3 원본을 9:16 화면에 세로로 잘라 쓴다(실제 9:16 발췌는 비율이 같아 차이 없음) */
+.cs-site .cs-scene-chapter--ad .cs-scene-screen[data-portrait="true"] .cs-scene-image { object-fit:cover; }
+.cs-site .cs-scene-wipe { position:absolute; inset:0 auto 0 0; z-index:2; width:18%; background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.22),rgba(255,255,255,0)); opacity:0; pointer-events:none; }
+.cs-site .cs-scene-counter { position:absolute; top:14px; right:14px; z-index:3; background:var(--cs-bg); color:var(--cs-fg); padding:8px 12px; border:1px solid var(--cs-line); border-radius:999px; }
+.cs-site .cs-scene-screen > .cs-tag { z-index:3; }
+.cs-site .cs-scene-controls > .cs-t-eyebrow { color:var(--cs-fg-3); margin-bottom:18px; }
+.cs-site .cs-scene-controls > .cs-t-small { color:var(--cs-fg-2); margin-top:12px; }
+.cs-site .cs-scene-tabs { margin-top:32px; border-top:1px solid var(--cs-line); }
+.cs-site .cs-scene-tabs button { display:grid; width:100%; min-height:64px; gap:10px; text-align:left; padding:18px 0; position:relative; border-bottom:1px solid var(--cs-line); color:var(--cs-fg-3); background:none; }
+.cs-site .cs-scene-tabs button > .cs-t-caption { display:flex; justify-content:space-between; gap:8px; }
+.cs-site .cs-scene-tabs button[aria-selected="true"] { color:var(--cs-fg); }
+.cs-site .cs-scene-tabs button i { position:absolute; bottom:-1px; left:0; height:2px; background:var(--cs-fg); width:100%; transform-origin:left; transform:scaleX(0); }
+.cs-site .cs-scene-tabs button[aria-selected="true"] i { transform:scaleX(1); }
+.cs-site .cs-scene-arrows { display:flex; gap:12px; margin-top:24px; }
+.cs-site .cs-scene-arrows .cs-btn { min-width:48px; min-height:48px; }
+.cs-site .cs-scene-hint { margin-top:20px; color:var(--cs-fg-3); }
+.cs-site .cs-scene-chapter--motion .cs-scene-frame { clip-path:inset(100% 0 0 0); transform:translateY(16%) translateZ(-120px) scale(.9); }
+.cs-site .cs-scene-chapter--motion .cs-scene-frame[data-side="before"] { clip-path:inset(0 0 100% 0); transform:translateY(-12%) translateZ(120px) scale(1.08); }
+.cs-site .cs-scene-chapter--motion .cs-scene-frame[data-active="true"] { clip-path:inset(0 0 0 0); transform:none; }
+.cs-site .cs-scene-chapter--ad .cs-scene-frame { clip-path:inset(0 0 0 0); transform:translateX(14%) scale(.94); }
+.cs-site .cs-scene-chapter--ad .cs-scene-frame[data-side="before"] { transform:translateX(-14%) scale(.94); }
+.cs-site .cs-scene-chapter--ad .cs-scene-frame[data-active="true"] { transform:none; }
+
+
+@media (prefers-reduced-motion:no-preference) {
+  /* 제목 줄 진입(지연은 nth-child) */
+  .cs-site .cs-motion-canvas[data-motion-ready="true"][data-entered="true"] .cs-motion-title-line { animation-name:cs-title-arrive; animation-duration:850ms; animation-timing-function:cubic-bezier(.16,1,.3,1); animation-fill-mode:both; }
+  .cs-site .cs-motion-title-line:nth-child(2) { animation-delay:110ms; }
+  .cs-site .cs-motion-title-line:nth-child(3) { animation-delay:220ms; }
+  .cs-site .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] { transform:scale(calc(.88 + var(--cs-frame-progress,1) * .12)); border-radius:calc(28px - var(--cs-frame-progress,1) * 28px); overflow:clip; }
+  /* 연출 예시 켄번스 */
+  .cs-site .cs-example-figure[data-kind="image"] .cs-example-image { animation-name:cs-ken-burns; animation-duration:14s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; }
+  /* 장면 전환 */
+  .cs-site .cs-scene-frame { transition:transform 1000ms cubic-bezier(.22,1,.36,1),clip-path 850ms cubic-bezier(.65,0,.35,1),opacity 600ms ease; }
+  .cs-site .cs-scene-frame[data-active="true"] .cs-scene-image { animation-name:cs-scene-drift; animation-duration:7s; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; }
+  .cs-site .cs-scene-wipe { animation-name:cs-scene-wipe; animation-duration:850ms; animation-timing-function:cubic-bezier(.65,0,.35,1); }
+  .cs-site .cs-scene-tabs button i { transition:transform 650ms cubic-bezier(.22,1,.36,1); }
+  @keyframes cs-title-arrive { from { opacity:0; transform:translateY(32px) rotateX(16deg); } to { opacity:1; transform:none; } }
+  @keyframes cs-ken-burns { from { transform:scale(1.02) translate(0,0); } to { transform:scale(1.12) translate(-2%,-1.5%); } }
+  @keyframes cs-scene-drift { from { transform:scale(1); } to { transform:scale(1.08) translate(-1.5%,-1%); } }
+  @keyframes cs-scene-wipe { from { opacity:1; transform:translateX(-100%); } to { opacity:0; transform:translateX(620%); } }
+}
+@media(max-width:767px) {
+  .cs-site .cs-scene-chapter[data-motion-ready="true"] { min-height:0; }
+  .cs-site .cs-scene-chapter { margin:28px 0 48px; }
+  .cs-site .cs-scene-sticky { position:relative; top:auto; grid-template-columns:1fr; gap:28px; }
+  .cs-site .cs-scene-screen[data-portrait="true"] { width:min(72%,270px); }
+  .cs-site .cs-scene-tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .cs-site .cs-scene-tabs button { padding:14px 0; }
+  .cs-site .cs-scene-tabs button > .cs-t-caption { gap:5px; flex-wrap:wrap; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .cs-site .cs-scene-chapter[data-motion-ready="true"] { min-height:0; }
+  .cs-site .cs-scene-sticky { position:relative; top:auto; }
+}

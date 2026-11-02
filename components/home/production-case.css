@@ -1,0 +1,151 @@
+/* Company main: one source/result relationship inside the content step.
+ * Keep the company first hero, development, marketing and existing carousel.
+ * Typography uses the company role tokens; image is never cropped. */
+.wj .wjpc {
+  min-width: 0;
+  margin-bottom: var(--wj-s6);
+  padding: var(--wj-s4);
+  border: 1px solid var(--wj-line);
+  border-radius: var(--radius);
+  background: var(--wj-bg);
+}
+.wj .wjpc-head {
+  margin-bottom: var(--wj-s4);
+  text-align: center;
+}
+.wj .wjpc-kicker {
+  margin-bottom: var(--wj-s1);
+  color: var(--wj-accent);
+}
+.wj .wjpc-title,
+.wj .wjpc-step-title {
+  color: var(--wj-ink);
+  word-break: keep-all;
+  text-wrap: balance;
+}
+.wj .wjpc-intro {
+  margin-top: var(--wj-s1);
+  color: var(--wj-text-2);
+  word-break: keep-all;
+}
+.wj .wjpc-layout {
+  display: grid;
+  min-width: 0;
+  gap: var(--wj-s4);
+}
+.wj .wjpc-copy {
+  min-width: 0;
+}
+.wj .wjpc-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--wj-line);
+  border-radius: var(--radius);
+}
+.wj .wjpc-option {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  min-width: 0;
+  min-height: 60px;
+  padding: var(--wj-s1) 2px;
+  border: 1px solid transparent;
+  border-radius: max(2px, calc(var(--radius) - 4px));
+  background: transparent;
+  color: var(--wj-text-2);
+  word-break: keep-all;
+  cursor: pointer;
+}
+.wj .wjpc-num {
+  color: var(--wj-text-3);
+}
+.wj .wjpc-option[aria-pressed="true"] {
+  border-color: var(--wj-accent);
+  background: var(--wj-tint);
+  color: var(--wj-ink);
+}
+.wj .wjpc-option[aria-pressed="true"] .wjpc-num {
+  color: var(--wj-accent);
+}
+.wj .wjpc-option:focus-visible,
+.wj .wjpc-link:focus-visible {
+  outline: 2px solid var(--wj-accent);
+  outline-offset: 3px;
+}
+.wj .wjpc-description {
+  padding-top: var(--wj-s4);
+}
+.wj .wjpc-body {
+  margin-top: var(--wj-s2);
+  color: var(--wj-text-2);
+  word-break: keep-all;
+}
+.wj .wjpc-sequence {
+  margin-top: var(--wj-s4);
+  padding-block: var(--wj-s2);
+  border-top: 1px solid var(--wj-line);
+  border-bottom: 1px solid var(--wj-line);
+  color: var(--wj-ink);
+  word-break: keep-all;
+}
+.wj .wjpc-source {
+  margin-top: var(--wj-s2);
+  color: var(--wj-text-3);
+  word-break: keep-all;
+}
+.wj .wjpc-result {
+  display: grid;
+  justify-items: center;
+  gap: var(--wj-s2);
+  min-width: 0;
+}
+.wj .wjpc-result img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  object-fit: contain;
+}
+.wj .wjpc-caption {
+  color: var(--wj-text-3);
+  text-align: center;
+  word-break: keep-all;
+}
+.wj .wjpc-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wj-s1);
+  width: fit-content;
+  min-height: 44px;
+  max-width: 100%;
+  margin: var(--wj-s4) auto 0;
+  color: var(--wj-ink);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  word-break: keep-all;
+}
+.wj .wjpc-link:hover {
+  color: var(--wj-accent);
+}
+@media (min-width: 768px) {
+  .wj .wjpc {
+    padding: var(--wj-s5);
+  }
+  .wj .wjpc-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: var(--wj-s5);
+  }
+}
+@media (max-width: 479.98px) {
+  .wj .wjpc {
+    padding: var(--wj-s3);
+  }
+  .wj .wjpc-option {
+    min-height: 70px;
+  }
+}

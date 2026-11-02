@@ -1,0 +1,162 @@
+{
+  "sources": [
+    {
+      "id": "otherwt1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\웹툰\\03_완성\\제작본_v01\\버전1_외출편\\04_요프리를고르다.png",
+      "sha256": "4f7aec2fd985ded1d4a616dd2781651e88fb3c5aa6229d45b9e08c9aed5ee126",
+      "originalUnchanged": true
+    },
+    {
+      "id": "otherwt2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_BWL\\02_컨텐츠 자료\\웹툰\\03_아쿠아부스트세럼10\\읽는순서\\02_오늘의보습루틴.png",
+      "sha256": "027d90918a86b272f87f09d84e09deb69c0606e933730496b1c202e7610e486c",
+      "originalUnchanged": true
+    },
+    {
+      "id": "otherwt3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\웹툰\\03_완성\\제작본_v01\\버전2_밤편\\04_선물에담은메모.png",
+      "sha256": "9ef312a3109642bd997640ae248a53faf370bb880ad8b741ae2e2668096c1564",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt1",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-01.webp",
+      "sha256": "26986c62bdb84c9676890fc1e6543c2db1ef3a3eafdec221fb49d24d9131c1d5",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt10",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-10.webp",
+      "sha256": "1cd77aec96080f43693234118883bc55f07a8f440c7b748ab3ee4207534f6d0a",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt11",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-11.webp",
+      "sha256": "623654f8771d3ee0a86a6fc714fb70030b71d36d4257008fcb27c44e31f50789",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt12",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-12.webp",
+      "sha256": "9a35190c23ecfdf84db464aaf01eb0d9c360e6ac6ade5d99c21c1f9543b851cb",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt2",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-02.webp",
+      "sha256": "10f508185e067046f7f8a148baf541838d02922100ddc1769624badfa48df607",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt3",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-03.webp",
+      "sha256": "b6753a80d995bcd9971f9ab61f25946ac5c36f330579ce85db3487e36cb12009",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt4",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-04.webp",
+      "sha256": "92db50fc4eafa9d151ed91dc194c6dde9d1b8c8a9c0e22e9f33d4e7feaff2577",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt5",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-05.webp",
+      "sha256": "7602cf76b71eafd7d805a9c32c760023262274428c13311b8a3e509c6a2711f5",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt6",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-06.webp",
+      "sha256": "96f268a0012bb32ec098be610c25c6f6ecf34b74ef3d9d1effa351c85c285783",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt7",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-07.webp",
+      "sha256": "8fc38c947e7419da50f09024d705fc15aee87ca30cbf0b4cdeffdcddc8952a3d",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt8",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-08.webp",
+      "sha256": "3fac49208243329525b7701b2bb531802bee462f7c801917a290005f67e7a732",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wt9",
+      "source": "I:\\AIO_OS\\06_GITHUB\\worktrees\\aio-make\\codex\\WRK-20261013-AIO-CONTENT-RENEWAL\\public\\webtoon-v11\\cut-09.webp",
+      "sha256": "af362a356680a82f94750e49bcc1bb61af89affd474962901b7966467f19ae98",
+      "originalUnchanged": true
+    },
+    {
+      "id": "wtmotion",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\요프리\\01_웹툰_모션그래픽\\out\\v04\\yofree_webtoon_v04.mp4",
+      "sha256": "10c81c6166df82e180ca813af382f4e7dc996e89961e495551cefe6e7a952341",
+      "originalUnchanged": true,
+      "start": 18,
+      "end": 24,
+      "frames": 180
+    }
+  ],
+  "cuts": [
+    {
+      "time": 0.0,
+      "ideal": 0.0,
+      "error": 0.0
+    },
+    {
+      "time": 1.6666666666666667,
+      "ideal": 1.6551724137931034,
+      "error": 0.011494252873563315
+    },
+    {
+      "time": 6.633333333333334,
+      "ideal": 6.620689655172414,
+      "error": 0.012643678160920047
+    },
+    {
+      "time": 8.266666666666667,
+      "ideal": 8.275862068965518,
+      "error": 0.009195402298850297
+    },
+    {
+      "time": 9.933333333333334,
+      "ideal": 9.931034482758621,
+      "error": 0.0022988505747125743
+    },
+    {
+      "time": 11.6,
+      "ideal": 11.586206896551724,
+      "error": 0.013793103448275446
+    },
+    {
+      "time": 13.233333333333333,
+      "ideal": 13.241379310344827,
+      "error": 0.008045977011494898
+    },
+    {
+      "time": 16.566666666666666,
+      "ideal": 16.551724137931036,
+      "error": 0.014942528735630844
+    },
+    {
+      "time": 18.2,
+      "ideal": 18.20689655172414,
+      "error": 0.006896551724139499
+    },
+    {
+      "time": 23.166666666666668,
+      "ideal": 23.17241379310345,
+      "error": 0.0057471264367805475
+    },
+    {
+      "time": 28.133333333333333,
+      "ideal": 28.137931034482758,
+      "error": 0.0045977011494251485
+    }
+  ],
+  "originalAudio": "discarded: JPEG extraction and H.264 picture encode -an; chosen music only",
+  "exclusion": "webtoon uses only approved product/gift pages and motioncomic [18,24); AI uses uncaptioned drafts only"
+}

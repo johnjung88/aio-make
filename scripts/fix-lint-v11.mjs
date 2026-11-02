@@ -1,0 +1,3 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const edit=async(p,f)=>writeFile(p,f(await readFile(p,'utf8')));
+await edit('components/local-admin.tsx',s=>s.replace('<a href="/api/admin/local-data?format=csv">','<a download href="/api/admin/local-data?format=csv">').replace('<a href="/api/admin/local-data?format=backup">','<a download href="/api/admin/local-data?format=backup">').replace('<a href="/api/admin/google/connect?mode=read">문의 가져오기 연결</a>','<button onClick={()=>{location.href="/api/admin/google/connect?mode=read"}}>문의 가져오기 연결</button>').replace('<a href="/api/admin/google/connect?mode=send">사이트 발송 연결</a>','<button onClick={()=>{location.href="/api/admin/google/connect?mode=send"}}>사이트 발송 연결</button>'));

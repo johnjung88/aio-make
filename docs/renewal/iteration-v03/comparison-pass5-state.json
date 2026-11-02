@@ -1,0 +1,36 @@
+{
+  "viewport": [
+    1400,
+    900
+  ],
+  "sourceAndAppScroll": [
+    0,
+    0
+  ],
+  "marketing": {
+    "stage": "01",
+    "sourceHeadline": {
+      "top": 245,
+      "width": 600.671875,
+      "height": 159.140625
+    },
+    "implementationHeadline": {
+      "top": 245,
+      "width": 600.671875,
+      "height": 159.140625
+    }
+  },
+  "studio": {
+    "sourceHeadlineHeight": 225.453125,
+    "implementationHeadlineHeight": 225.453125,
+    "headerBorderDifference": 1
+  },
+  "screens": [
+    "main",
+    "about",
+    "studio",
+    "lab",
+    "contact",
+    "marketing"
+  ]
+}

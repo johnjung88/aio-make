@@ -1,0 +1,164 @@
+/* brand-film 서비스 고유 스타일(R5 WP-S2 소유).
+ * 선택자는 모두 .cs-svc-brand-film로 시작한다. 장식 색은 맨 위 변수 블록에만 둔다. 글자 속성은 역할 클래스(cs-t-*)만 쓴다.
+ * 움직임(transition·animation-*)은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * 진행선(--svc-progress)·재생 헤드(--svc-playhead)는 film-timeline.tsx가 영상 currentTime으로 매 프레임 기록한다(CSS 애니메이션 아님). */
+.cs-svc-brand-film {
+  --svc-control-bg: rgba(14, 13, 18, 0.62);
+  --svc-control-line: rgba(255, 255, 255, 0.42);
+  --svc-seg: color-mix(in srgb, var(--cs-surface) 86%, var(--cs-fg));
+  --svc-seg-current: color-mix(in srgb, var(--cs-accent) 26%, var(--cs-surface));
+  --svc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------- 메인 영상 화면(공개판 연출 예시) */
+.cs-svc-brand-film .cs-svc-brand-film-screen { position: relative; margin: 0; }
+.cs-svc-brand-film .cs-svc-brand-film-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--cs-line);
+  border-radius: 12px;
+  background: var(--cs-surface);
+}
+.cs-svc-brand-film .cs-svc-brand-film-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* 재생 위치를 따라가는 아래쪽 진행선 */
+.cs-svc-brand-film .cs-svc-brand-film-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--cs-accent);
+  transform: scaleX(var(--svc-progress, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+/* 재생/정지 44×44: 두 막대(재생 중) ↔ 삼각형(멈춤) */
+.cs-svc-brand-film .cs-svc-brand-film-toggle {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--svc-control-line);
+  border-radius: var(--cs-r-pill);
+  background: var(--svc-control-bg);
+  color: var(--cs-fg);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.cs-svc-brand-film .cs-svc-brand-film-toggle-icon { position: relative; display: block; width: 12px; height: 14px; }
+.cs-svc-brand-film .cs-svc-brand-film-toggle-icon::before,
+.cs-svc-brand-film .cs-svc-brand-film-toggle-icon::after { content: ""; position: absolute; top: 0; width: 4px; height: 14px; border-radius: 1px; background: currentColor; }
+.cs-svc-brand-film .cs-svc-brand-film-toggle-icon::before { left: 0; }
+.cs-svc-brand-film .cs-svc-brand-film-toggle-icon::after { right: 0; }
+.cs-svc-brand-film .cs-svc-brand-film-toggle[data-state="paused"] .cs-svc-brand-film-toggle-icon::before {
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: transparent;
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent currentColor;
+}
+.cs-svc-brand-film .cs-svc-brand-film-toggle[data-state="paused"] .cs-svc-brand-film-toggle-icon::after { display: none; }
+
+/* ---------------------------------------------------------------- 길이별 구성 타임라인 */
+.cs-svc-brand-film .cs-svc-brand-film-timeline { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--cs-line); }
+.cs-svc-brand-film .cs-svc-brand-film-timeline-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; }
+.cs-svc-brand-film .cs-svc-brand-film-timeline[data-loop="true"] .cs-svc-brand-film-timeline-head { grid-template-columns: minmax(0, 1fr); }
+.cs-svc-brand-film .cs-svc-brand-film-preview { margin: 0; }
+.cs-svc-brand-film .cs-svc-brand-film-preview figcaption { margin-top: 10px; color: var(--cs-fg-3); }
+.cs-svc-brand-film .cs-svc-brand-film-length-tabs { display: flex; gap: 12px; margin-bottom: 24px; }
+.cs-svc-brand-film .cs-svc-brand-film-length-tabs button[aria-pressed="true"] { background: var(--cs-fg); color: var(--cs-bg); }
+.cs-svc-brand-film .cs-svc-brand-film-timeline-copy p { margin-top: 14px; color: var(--cs-fg-2); }
+.cs-svc-brand-film .cs-svc-brand-film-ruler { position: relative; margin: 40px 0 16px; padding-top: 14px; }
+/* 지나온 구간 */
+.cs-svc-brand-film .cs-svc-brand-film-ruler::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cs-accent);
+  transform: scaleX(var(--svc-playhead, 0));
+  transform-origin: left;
+}
+.cs-svc-brand-film .cs-svc-brand-film-track { display: flex; height: 96px; margin: 0; padding: 0; list-style: none; }
+.cs-svc-brand-film .cs-svc-brand-film-track li {
+  flex: 0 1 0;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-top: 2px solid var(--cs-fg-3);
+  background: var(--svc-seg);
+  color: var(--cs-fg-2);
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+}
+.cs-svc-brand-film .cs-svc-brand-film-track li[data-on="true"] { flex-grow: 1; margin-inline: 3px; padding: 16px 8px; opacity: 1; visibility: visible; }
+.cs-svc-brand-film .cs-svc-brand-film-track li[data-current="true"] { background: var(--svc-seg-current); border-top-color: var(--cs-accent); color: var(--cs-fg); }
+.cs-svc-brand-film .cs-svc-brand-film-track li span { white-space: nowrap; }
+/* 재생 헤드 */
+.cs-svc-brand-film .cs-svc-brand-film-playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--svc-playhead, 0) * 100%);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--cs-fg);
+  pointer-events: none;
+}
+.cs-svc-brand-film .cs-svc-brand-film-playhead::before { content: ""; position: absolute; top: -5px; left: -5px; width: 12px; height: 12px; border-radius: 50%; background: var(--cs-fg); }
+.cs-svc-brand-film .cs-svc-brand-film-timeline-note { color: var(--cs-fg-3); }
+
+@media (max-width: 767px) {
+  .cs-svc-brand-film .cs-svc-brand-film-timeline-head { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cs-svc-brand-film .cs-svc-brand-film-track { height: 84px; }
+  .cs-svc-brand-film .cs-svc-brand-film-track li[data-on="true"] { margin-inline: 2px; padding: 10px 4px; }
+  .cs-svc-brand-film .cs-svc-brand-film-track li span { white-space: normal; word-break: keep-all; }
+}
+
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  /* The film frame starts at .88 scale; keep its controls at least 44px on screen. */
+  .cs-svc-brand-film .cs-motion-canvas[data-motion-variant="brand-film"][data-motion-ready="true"] .cs-reel-controls .cs-btn { min-height:51px; min-width:51px; }
+  /* 30초 ↔ 60초: 너비를 다시 나누고(flex-grow) 켜진 칸이 순서대로 다시 들어온다 */
+  .cs-svc-brand-film .cs-svc-brand-film-track li {
+    transition-property: flex-grow, margin, padding, opacity, background-color, border-color, visibility;
+    transition-duration: 760ms, 760ms, 760ms, 500ms, 300ms, 300ms, 760ms;
+    transition-timing-function: var(--svc-ease);
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version="0"] li[data-on="true"],
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version="1"] li[data-on="true"] {
+    animation-duration: 720ms;
+    animation-timing-function: var(--svc-ease);
+    animation-fill-mode: both;
+    animation-delay: 120ms;
+  }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version="0"] li[data-on="true"] { animation-name: cs-svc-brand-film-seg-a; }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version="1"] li[data-on="true"] { animation-name: cs-svc-brand-film-seg-b; }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version] li[data-on="true"][data-order="1"] { animation-delay: 200ms; }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version] li[data-on="true"][data-order="2"] { animation-delay: 280ms; }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version] li[data-on="true"][data-order="3"] { animation-delay: 360ms; }
+  .cs-svc-brand-film .cs-svc-brand-film-track[data-version] li[data-on="true"][data-order="4"] { animation-delay: 440ms; }
+  .cs-svc-brand-film .cs-svc-brand-film-toggle { transition: border-color var(--cs-dur-1) var(--cs-ease); }
+  @keyframes cs-svc-brand-film-seg-a { from { opacity: 0; transform: translateY(16px) scaleX(.55); } to { opacity: 1; transform: none; } }
+  @keyframes cs-svc-brand-film-seg-b { from { opacity: 0; transform: translateY(16px) scaleX(.55); } to { opacity: 1; transform: none; } }
+}
+@media (hover: hover) {
+  .cs-svc-brand-film .cs-svc-brand-film-toggle:hover { border-color: var(--cs-fg); }
+}
+
+.cs-svc-brand-film-story-list {list-style:none;padding:0;margin-top:24px;display:grid;gap:24px;} .cs-svc-brand-film-story-list li {display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;border-top:1px solid var(--cs-line);padding-top:24px;} .cs-svc-brand-film-story-list img{width:96px;height:auto;aspect-ratio:16/9;object-fit:contain;} .cs-svc-brand-film-story-list h4{margin:8px 0;} @media(max-width:767px){.cs-svc-brand-film-story-list li{grid-template-columns:56px minmax(0,1fr);gap:16px;}.cs-svc-brand-film-story-list img{width:56px;}}

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&display=swap">
+<style>
+body{margin:0;background:#fff;color:#0D0D12;font-family:'Pretendard Variable',Pretendard,sans-serif;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:hover{color:#6B4DFF}
+p,blockquote{text-wrap:pretty}
+</style>
+<script src="./fit-lines.js"></script>
+</helmet>
+<div style="background:#fff;min-height:100vh;display:flex;flex-direction:column">
+<dc-import name="AioHeader" active="marketing" hint-size="100%,72px"></dc-import>
+<dc-import name="MarketingNav" active="home" hint-size="100%,56px"></dc-import>
+
+<section style="background:#fff">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,56px) clamp(56px,6vw,88px);display:flex;flex-direction:column;gap:clamp(36px,4.4vw,60px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:28px clamp(40px,5vw,80px);align-items:end">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <span style="font-family:Unbounded,sans-serif;font-size:12px;letter-spacing:.18em;color:#6B4DFF">AIO MAKE MARKETING</span>
+        <div data-fit="balance" style="width:fit-content;max-width:100%"><h1 style="margin:0;font-size:clamp(40px,5.2vw,80px);line-height:1.12;letter-spacing:-.045em;font-weight:800"><span data-fit-line="">고객이 먼저 찾아오는</span><span data-fit-line="">마케팅 구조를 만듭니다</span></h1></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p style="margin:0;font-size:clamp(18px,1.6vw,21px);line-height:1.65;color:#3A3A42;max-width:34ch">검색 결과, AI 답변, SNS 피드. 고객이 브랜드를 처음 만나는 곳을 설계하고 매달 운영합니다</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><a href="Marketing 문의.dc.html" style="background:#6B4DFF;color:#fff;padding:18px 28px;font-weight:600">운영 문의</a><a href="Marketing 운영 사례.dc.html" style="background:#fff;border:1.5px solid #0D0D12;padding:16.5px 26px;font-weight:600">운영 사례 보기</a></div>
+      </div>
+    </div>
+    <div style="background:#0D0D12;color:#fff;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:clamp(20px,2.4vw,30px) clamp(20px,2.6vw,40px);border-bottom:1px solid #2A2A32">
+        <div style="display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.16em;color:#A99BFF">INTEGRATED</span><strong style="font-size:clamp(22px,2vw,28px);font-weight:800;letter-spacing:-.03em">통합 마케팅</strong><span style="font-size:15px;color:#C9C9D1">월 200만 원 · 부가세 별도</span></div>
+        <a href="Marketing 서비스 상세.dc.html?s=integrated" style="font-size:15px;font-weight:600;display:flex;gap:8px;align-items:center;color:#fff" style-hover="color:#A99BFF">자세히 보기 <span style="color:#A99BFF">→</span></a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat({{ stCols }},minmax(0,1fr));border-bottom:1px solid #2A2A32">
+        <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+          <button onClick="{{ s.go }}" style="all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:clamp(18px,2vw,26px) clamp(20px,2.6vw,40px);display:flex;flex-direction:column;gap:10px;border-right:{{ s.br }};border-bottom:{{ s.bb }};opacity:{{ s.op }};transition:opacity .5s,background .3s" style-hover="background:#16161C">
+            <span style="position:absolute;left:0;right:0;top:-1px;height:3px;background:{{ s.bar }};transition:background .5s"></span>
+            <span style="display:flex;gap:10px;align-items:baseline"><span style="font-family:Unbounded,sans-serif;font-size:12px;letter-spacing:.08em;color:{{ s.nc }};transition:color .5s">{{ s.no }}</span><strong style="font-size:clamp(17px,1.4vw,20px);font-weight:700">{{ s.name }}</strong></span>
+            <span style="font-size:14px;color:#C9C9D1;line-height:1.5">{{ s.sub }}</span>
+            <span style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#fff"><span style="width:10px;height:10px;background:{{ s.sw }};display:block;flex:none"></span>{{ s.tag }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap">
+        <div style="flex:1 1 340px;min-width:0;box-sizing:border-box;padding:clamp(22px,2.4vw,32px) clamp(20px,2.6vw,40px);border-right:1px solid #2A2A32;display:flex;flex-direction:column">
+          <sc-if value="{{ d0 }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:20px"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em;color:#A99BFF">STEP 01 · 상담·분석 자료</span><strong style="font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;font-weight:700">시장, 경쟁사, 운영 방향을 자료로 정리해 드립니다</strong></div><div style="display:flex;flex-direction:column"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">시장 분석</span><span style="font-size:12.5px;color:#9A9AA3">업종·검색 수요·고객 질문</span></span><span style="font-size:13px;color:#C9C9D1;background:#1C1C24;padding:4px 9px;white-space:nowrap">시장 분석 자료</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">경쟁사 분석</span><span style="font-size:12.5px;color:#9A9AA3">경쟁 브랜드의 채널과 콘텐츠</span></span><span style="font-size:13px;color:#C9C9D1;background:#1C1C24;padding:4px 9px;white-space:nowrap">경쟁사 분석 자료</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32;border-bottom:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">운영 방향</span><span style="font-size:12.5px;color:#9A9AA3">채널 역할과 콘텐츠 방향</span></span><span style="font-size:13px;color:#C9C9D1;background:#1C1C24;padding:4px 9px;white-space:nowrap">운영 방향 제안</span></div></div><span style="font-size:13.5px;line-height:1.6;color:#C9C9D1">상담을 받으신 고객께 분석 자료를 제공합니다</span></div></sc-if>
+          <sc-if value="{{ d1 }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:20px"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em;color:#A99BFF">STEP 02 · 콘텐츠 제작·게시</span><strong style="font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;font-weight:700">영상 위주 원본 20개를 5개 채널 100개 게시물로 만듭니다</strong></div><div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 0;border-top:1px solid #2A2A32;border-bottom:1px solid #2A2A32"><span style="font-size:14px;color:#C9C9D1">원본 콘텐츠 → 채널별 변형·게시</span><span style="font-family:Unbounded,sans-serif;font-size:32px;font-weight:600;letter-spacing:-.03em">20<span style="font-family:'Pretendard Variable',sans-serif;font-size:16px;color:#A99BFF;margin:0 10px 0 4px">개</span>→ 100<span style="font-family:'Pretendard Variable',sans-serif;font-size:16px;color:#A99BFF;margin-left:4px">개</span></span></div><div style="display:flex;flex-wrap:wrap;gap:8px"><span style="font-size:13.5px;padding:6px 11px;border:1px solid #3A3A46">유튜브 숏츠</span><span style="font-size:13.5px;padding:6px 11px;border:1px solid #3A3A46">인스타그램</span><span style="font-size:13.5px;padding:6px 11px;border:1px solid #3A3A46">페이스북</span><span style="font-size:13.5px;padding:6px 11px;border:1px solid #3A3A46">네이버 클립</span><span style="font-size:13.5px;padding:6px 11px;border:1px solid #3A3A46">네이버 블로그</span></div><span style="font-size:13.5px;line-height:1.6;color:#C9C9D1">스레드 운영은 별도 협의이며 추가 금액이 있습니다</span></div></sc-if>
+          <sc-if value="{{ d2 }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:20px"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em;color:#A99BFF">STEP 03 · 구글·네이버 스토어 관리</span><strong style="font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;font-weight:700">구글맵과 네이버 플레이스의 정보와 리뷰를 관리합니다</strong></div><div style="display:flex;flex-direction:column"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">구글맵</span><span style="font-size:12.5px;color:#9A9AA3">업체 정보·리뷰</span></span><span style="font-size:13px;font-weight:600;background:#6B4DFF;padding:4px 9px;white-space:nowrap">월 1회 분석·개선</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32;border-bottom:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">네이버 플레이스</span><span style="font-size:12.5px;color:#9A9AA3">업체 정보·리뷰</span></span><span style="font-size:13px;font-weight:600;background:#6B4DFF;padding:4px 9px;white-space:nowrap">월 1회 분석·개선</span></div></div><span style="font-size:13.5px;line-height:1.6;color:#C9C9D1">매달 상태를 분석하고 고칠 항목을 바로 개선합니다</span></div></sc-if>
+          <sc-if value="{{ d3 }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:20px"><div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em;color:#A99BFF">STEP 04 · SEO·AEO·GEO</span><strong style="font-size:clamp(20px,1.7vw,24px);line-height:1.4;letter-spacing:-.02em;font-weight:700">검색과 AI 답변에서 브랜드가 보이도록 개선합니다</strong></div><div style="display:flex;flex-direction:column"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">검색 결과 (SEO)</span><span style="font-size:12.5px;color:#9A9AA3">네이버·구글 검색 노출</span></span><span style="font-size:13px;font-weight:600;background:#6B4DFF;padding:4px 9px;white-space:nowrap">월 1회 분석·개선</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">답변 영역 (AEO)</span><span style="font-size:12.5px;color:#9A9AA3">검색 결과 상단 답변 노출</span></span><span style="font-size:13px;font-weight:600;background:#6B4DFF;padding:4px 9px;white-space:nowrap">월 1회 분석·개선</span></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #2A2A32;border-bottom:1px solid #2A2A32"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">생성형 AI 답변 (GEO)</span><span style="font-size:12.5px;color:#9A9AA3">AI 답변 속 브랜드 언급</span></span><span style="font-size:13px;font-weight:600;background:#6B4DFF;padding:4px 9px;white-space:nowrap">월 1회 분석·개선</span></div></div><span style="font-size:13.5px;line-height:1.6;color:#C9C9D1">분석 결과는 다음 달 콘텐츠와 페이지 개선에 반영합니다</span></div></sc-if>
+        </div>
+        <div style="flex:1.6 1 440px;min-width:0;box-sizing:border-box;padding:clamp(22px,2.4vw,32px) clamp(20px,2.6vw,40px) clamp(18px,2vw,26px);display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px 16px;flex-wrap:wrap;font-size:13px;color:#C9C9D1">
+            <div style="display:flex;gap:18px;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:10px;background:#6B4DFF;display:block"></span>유입</span><span style="display:flex;align-items:center;gap:8px"><span style="width:18px;height:3px;background:#fff;display:block"></span>매출</span></div>
+            <sc-if value="{{ locked }}" hint-placeholder-val="{{ false }}"><button onClick="{{ resumeAuto }}" style="all:unset;cursor:pointer;font-size:13px;font-weight:600;color:#fff;padding:6px 12px;border:1px solid #6B4DFF" style-hover="background:#6B4DFF">▶ 자동 재생</button></sc-if>
+          </div>
+          <div style="position:relative;flex:1;min-height:clamp(240px,22vw,340px)">{{ heroChart }}</div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:#9A9AA3"><span>착수</span><span>예시 흐름 · 실제 성과는 업종과 운영 기간에 따라 다릅니다</span><span>운영</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid #DAD8D1">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:40px">
+    <h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Benefits</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px">
+      <div style="background:#F4F3EF;padding:clamp(28px,3.4vw,48px);display:flex;flex-direction:column;gap:24px;min-height:300px;box-sizing:border-box"><span style="font-size:15px;font-weight:600">상담 고객</span><strong style="font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1.25">분석 자료 제공</strong><span style="font-size:17px;line-height:1.8;color:#3A3A42;margin-top:auto">시장, 경쟁사, 운영 방향을 자료로 정리해 드립니다</span></div>
+      <div style="background:#0D0D12;color:#fff;padding:clamp(28px,3.4vw,48px);display:flex;flex-direction:column;gap:24px;min-height:300px;box-sizing:border-box"><span style="font-size:15px;font-weight:600;color:#A99BFF">계약 고객</span><strong style="font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1.25">사이트 구축 및 리뉴얼 제공</strong><span style="font-size:17px;line-height:1.8;color:#D6D6DC;margin-top:auto">사이트 구축이 필요하면 구축, 리뉴얼이 필요하면 리뉴얼을 제공합니다</span></div>
+    </div>
+  </div>
+</section>
+
+<section ref="{{ hsOuter }}" style="position:relative;background:#0D0D12;color:#fff">
+  <div ref="{{ hsSticky }}" style="position:sticky;top:72px;height:calc(100vh - 72px);min-height:560px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,3.4vw,40px);padding:32px 0;box-sizing:border-box">
+    <div style="max-width:1440px;width:100%;box-sizing:border-box;margin:0 auto;padding:0 clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:14px"><h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Results</h2><span style="font-size:17px;color:#C9C9D1">업종별로 무엇을 운영했고 무엇이 달라졌는지</span></div>
+      <div style="display:flex;align-items:center;gap:20px"><span style="display:block;width:160px;height:2px;background:#2A2A32"><span ref="{{ hsBar }}" style="display:block;height:100%;width:0;background:#A99BFF"></span></span><a href="Marketing 운영 사례.dc.html" style="font-family:Unbounded,sans-serif;font-size:13px;letter-spacing:.1em;border-bottom:1px solid #fff;padding-bottom:4px">ALL CASES →</a></div>
+    </div>
+    <div ref="{{ hsTrack }}" style="display:flex;gap:16px;padding:0 clamp(20px,4vw,56px);will-change:transform">
+      <sc-for list="{{ cases }}" as="c" hint-placeholder-count="6">
+        <a href="Marketing 사례 상세.dc.html" style="flex:none;width:min(80vw,440px);background:#16161C;display:flex;flex-direction:column" style-hover="background:#1C1C24">
+          <div style="height:clamp(260px,32vh,300px);position:relative;overflow:hidden;background:#1C1C22">
+            <img src="{{ c.img }}" alt="{{ c.client }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,18,0) 30%,rgba(13,13,18,.62) 100%)"></div>
+            <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;flex-direction:column;align-items:flex-start;color:#0D0D12">
+              <sc-if value="{{ c.isFeed }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;display:flex;flex-direction:column;width:min(100%,236px);box-shadow:0 10px 28px rgba(0,0,0,.28)">
+                  <div style="display:flex;align-items:center;gap:6px;padding:7px 9px"><span style="width:14px;height:14px;border-radius:50%;background:#6B4DFF;display:block"></span><strong style="font-size:10.5px">{{ c.handle }}</strong><span style="margin-left:auto;font-size:10px;color:#6E6E78">▶ {{ c.reel }}</span></div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px"><sc-for list="{{ c.tiles }}" as="t" hint-placeholder-count="3"><img src="{{ t }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1;object-fit:cover;display:block"></sc-for></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ c.isSearch }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.28);padding:12px;display:flex;flex-direction:column;gap:8px;width:min(100%,310px);box-sizing:border-box">
+                  <div style="border:1.5px solid #0D0D12;padding:6px 10px;font-size:12px;display:flex;justify-content:space-between"><span>{{ c.query }}</span><span style="color:#6B4DFF">⌕</span></div>
+                  <div style="background:#F4F3EF;border-left:3px solid #6B4DFF;padding:8px 10px;display:flex;flex-direction:column;gap:2px"><span style="font-size:10px;color:#6B4DFF;font-weight:700">1위</span><strong style="font-size:12.5px">{{ c.resultTitle }}</strong><span style="font-size:10.5px;color:#6E6E78">{{ c.url }}</span></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ c.isAi }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#0D0D12;color:#fff;box-shadow:0 10px 28px rgba(0,0,0,.3);padding:12px 14px;display:flex;flex-direction:column;gap:8px;width:min(100%,330px);box-sizing:border-box;font-size:12.5px;line-height:1.55">
+                  <span style="font-family:Unbounded,sans-serif;font-size:9.5px;letter-spacing:.14em;color:#A99BFF">AI ANSWER</span>
+                  <span style="align-self:flex-end;background:#2A2A32;padding:6px 10px">{{ c.q }}</span>
+                  <span style="color:#D6D6DC">{{ c.a1 }}<strong style="color:#fff;border-bottom:2px solid #6B4DFF">{{ c.client }}</strong>{{ c.a2 }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ c.isChart }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.28);padding:12px;display:flex;flex-direction:column;gap:8px;width:min(100%,250px);box-sizing:border-box">
+                  <div style="display:flex;justify-content:space-between;font-size:11px"><strong>{{ c.chartTitle }}</strong><span style="color:#6E6E78">8개월</span></div>
+                  <div style="height:64px;display:flex;align-items:flex-end;gap:4px;border-bottom:1px solid #DAD8D1"><sc-for list="{{ c.bars }}" as="b" hint-placeholder-count="8"><span style="flex:1;height:{{ b.h }};background:{{ b.c }};display:block"></span></sc-for></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ c.isBlog }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.28);display:flex;flex-direction:column;width:min(100%,310px)">
+                  <div style="padding:8px 12px;border-bottom:1px solid #DAD8D1;font-size:11px;display:flex;justify-content:space-between"><strong>{{ c.client }} 블로그</strong><span style="color:#6E6E78">인기 글</span></div>
+                  <sc-for list="{{ c.posts }}" as="p" hint-placeholder-count="2"><div style="display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid #EEECE6;font-size:11.5px"><span style="width:16px;height:16px;background:#6B4DFF;color:#fff;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;flex:none">{{ p.n }}</span><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.t }}</span></div></sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ c.isShorts }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:8px;align-items:flex-end">
+                  <sc-for list="{{ c.shorts }}" as="s" hint-placeholder-count="3"><div style="width:66px;aspect-ratio:9/16;position:relative;overflow:hidden;border:2px solid #fff;box-shadow:0 10px 28px rgba(0,0,0,.3)"><img src="{{ s.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;left:5px;bottom:5px;font-size:9.5px;color:#fff;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.6)">▶ {{ s.v }}</span></div></sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="padding:24px;display:flex;flex-direction:column;gap:16px;flex:1">
+            <div style="display:flex;gap:6px;flex-wrap:wrap"><span style="font-size:12px;padding:4px 9px;border:1px solid #3A3A42;color:#C9C9D1">{{ c.ind }}</span><span style="font-size:12px;padding:4px 9px;border:1px solid #3A3A42;color:#C9C9D1">{{ c.svc }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13.5px;color:#9A9AA3">{{ c.client }}</span><strong style="font-size:19px;letter-spacing:-.02em;line-height:1.45">{{ c.title }}</strong></div>
+            <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid #2A2A32;padding-top:16px">
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:Unbounded,sans-serif;font-size:clamp(24px,2.4vw,32px);font-weight:600;color:#A99BFF;letter-spacing:-.03em">{{ c.m1v }}</span><span style="font-size:13px;color:#9A9AA3">{{ c.m1l }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:Unbounded,sans-serif;font-size:clamp(24px,2.4vw,32px);font-weight:600;color:#A99BFF;letter-spacing:-.03em">{{ c.m2v }}</span><span style="font-size:13px;color:#9A9AA3">{{ c.m2l }}</span></div>
+            </div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:48px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px 48px;align-items:end">
+      <h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Services</h2>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:#3A3A42">필요한 범위에 맞춰 하나로 시작합니다. 모든 서비스는 월 단위로 운영하고 금액은 부가세 별도입니다</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;align-items:stretch">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="position:relative;display:flex;flex-direction:column;gap:24px;padding:clamp(24px,2.4vw,32px);border:1.5px solid {{ s.bd }};background:{{ s.bg }};box-sizing:border-box" style-hover="background:#FAFAF7">
+          <span style="position:absolute;left:-1.5px;right:-1.5px;top:-1.5px;height:4px;background:{{ s.bar }}"></span>
+          <div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:Unbounded,sans-serif;font-size:12px;letter-spacing:.1em;color:#6B4DFF">{{ s.no }} · {{ s.en }}</span><strong style="font-size:clamp(24px,2vw,30px);letter-spacing:-.035em;line-height:1.25">{{ s.name }}</strong><span style="font-size:15.5px;line-height:1.65;color:#3A3A42">{{ s.desc }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid #DAD8D1;padding-top:20px"><strong style="font-size:clamp(26px,2.4vw,34px);letter-spacing:-.04em;font-weight:800">{{ s.price }}</strong><span style="font-size:13px;color:#6E6E78">부가세 별도</span></div>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
+            <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4"><li style="display:flex;gap:10px;padding:11px 0;border-top:1px solid #EEECE6;font-size:15px;line-height:1.5"><span style="color:#6B4DFF">✓</span>{{ it }}</li></sc-for>
+          </ul>
+          <span style="font-size:13.5px;line-height:1.6;color:#6E6E78">{{ s.note }}</span>
+          <span style="font-family:Unbounded,sans-serif;font-size:12px;letter-spacing:.1em;margin-top:auto">VIEW SERVICE →</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="background:#F4F3EF">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;gap:48px clamp(40px,6vw,96px);align-items:flex-start">
+    <div style="flex:1 1 360px;position:sticky;top:160px;display:flex;flex-direction:column;gap:24px">
+      <h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Process</h2>
+      <p style="margin:0;font-size:clamp(18px,1.6vw,21px);line-height:1.65;color:#3A3A42;max-width:30ch">데이터 수집과 초안은 <strong style="color:#6B4DFF">AI</strong>가 빠르게 만들고, 방향과 발행 판단은 마케터가 직접 합니다</p>
+      <div style="display:flex;gap:6px"><sc-for list="{{ steps }}" as="p" hint-placeholder-count="4"><span style="display:block;width:40px;height:3px;background:{{ p.dot }};transition:background .4s"></span></sc-for></div>
+    </div>
+    <ol style="flex:1.4 1 480px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ steps }}" as="p" hint-placeholder-count="4">
+        <li ref="{{ p.ref }}" style="background:#fff;border:1.5px solid {{ p.bd }};opacity:{{ p.op }};transition:opacity .45s ease,border-color .45s ease;display:flex;flex-direction:column">
+          <div style="padding:clamp(24px,3vw,36px);display:flex;gap:24px;align-items:baseline"><span style="font-family:Unbounded,sans-serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:{{ p.nc }};line-height:1;transition:color .45s">{{ p.no }}</span><div style="display:flex;flex-direction:column;gap:8px"><strong style="font-size:clamp(22px,2.2vw,28px);letter-spacing:-.02em">{{ p.title }}</strong><span style="font-size:16px;line-height:1.7;color:#3A3A42">{{ p.desc }}</span></div></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))">
+            <div style="border-top:1px solid #DAD8D1;padding:16px clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:4px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em;color:#6B4DFF">AI</span><span style="font-size:15px;color:#3A3A42">{{ p.ai }}</span></div>
+            <div style="background:#6B4DFF;color:#fff;padding:16px clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:4px"><span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.14em">MARKETER</span><span style="font-size:15px">{{ p.pro }}</span></div>
+          </div>
+        </li>
+      </sc-for>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:40px">
+    <h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Reviews</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+        <figure style="margin:0;background:#F4F3EF;padding:32px;display:flex;flex-direction:column;gap:24px">
+          <span style="font-family:Unbounded,sans-serif;font-size:44px;line-height:.6;color:#6B4DFF">“</span>
+          <blockquote style="margin:0;font-size:17.5px;line-height:1.75;color:#0D0D12">{{ r.text }}</blockquote>
+          <figcaption style="margin-top:auto;display:flex;justify-content:space-between;gap:12px;font-size:14px;border-top:1px solid #DAD8D1;padding-top:18px"><span><strong>{{ r.author }}</strong><span style="color:#6E6E78"> · {{ r.service }}</span></span><span style="color:#6E6E78;font-family:Unbounded,sans-serif;font-size:12px">{{ r.date }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="border-top:1px solid #DAD8D1">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-bottom:1px solid #DAD8D1;padding-bottom:20px">
+      <h2 style="margin:0;font-family:Unbounded,sans-serif;font-size:clamp(36px,5vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1">Insights</h2>
+      <a href="Marketing 인사이트.dc.html" style="font-family:Unbounded,sans-serif;font-size:13px;letter-spacing:.1em;border-bottom:1px solid #0D0D12;padding-bottom:4px">ALL INSIGHTS →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:40px 48px">
+      <a href="Marketing 칼럼 상세.dc.html" style="display:flex;flex-direction:column;gap:16px">
+        <div style="aspect-ratio:16/10;background:linear-gradient(90deg,rgba(13,13,18,.92) 0%,rgba(13,13,18,.55) 100%),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&amp;q=75&amp;auto=format&amp;fit=crop') center/cover #0D0D12;color:#fff;padding:clamp(24px,3vw,40px);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+          <span style="font-family:Unbounded,sans-serif;font-size:11px;letter-spacing:.16em;color:#A99BFF">GUIDE · AEO / GEO</span>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.6"><span style="align-self:flex-end;background:#2A2A32;padding:8px 12px">우리 동네 세무사 추천해줘</span><span style="color:#D6D6DC;max-width:38ch">상담 후기가 많고 절세 사례를 꾸준히 공개하는 <strong style="color:#fff;border-bottom:2px solid #6B4DFF">정담세무회계</strong>가 자주 언급됩니다</span></div>
+        </div>
+        <span style="font-size:13px;color:#6B4DFF;font-family:Unbounded,sans-serif;letter-spacing:.08em">SEO·AEO·GEO · 2026.12.28</span>
+        <strong style="font-size:clamp(24px,2.4vw,32px);line-height:1.35;letter-spacing:-.03em">AI 답변에 우리 브랜드가 나오게 하려면</strong>
+      </a>
+      <div style="display:flex;flex-direction:column;border-top:1.5px solid #0D0D12">
+        <sc-for list="{{ posts }}" as="p" hint-placeholder-count="4">
+          <a href="Marketing 칼럼 상세.dc.html" style="display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid #DAD8D1">
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><span style="font-size:12.5px;color:#6E6E78;font-family:Unbounded,sans-serif;letter-spacing:.06em">{{ p.cat }} · {{ p.date }}</span><strong style="font-size:18px;line-height:1.45;letter-spacing:-.02em">{{ p.title }}</strong></div>
+            <div style="aspect-ratio:4/3;position:relative;overflow:hidden;background:#F4F3EF"><img src="{{ p.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#6B4DFF;color:#fff">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:14px"><div data-fit="balance" style="width:fit-content;max-width:100%"><h2 style="margin:0;font-size:clamp(30px,4.2vw,60px);letter-spacing:-.04em;font-weight:800;line-height:1.14"><span data-fit-line="">상담만 받아도 분석 자료를</span><span data-fit-line="">먼저 받아보실 수 있습니다</span></h2></div><span style="font-size:17px">업종과 운영 중인 채널을 알려주시면 시장, 경쟁사, 운영 방향을 정리해 드립니다</span></div>
+    <a href="Marketing 문의.dc.html" style="background:#fff;color:#0D0D12;padding:18px 28px;font-weight:600">상담 신청 →</a>
+  </div>
+</section>
+
+<dc-import name="AioFooter" hint-size="100%,300px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const V = '#6B4DFF', VL = '#A99BFF', INK = '#0D0D12', P = '#F4F3EF', L = '#DAD8D1', G = '#2A2A32';
+const U = (id, w = 900) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&auto=format&fit=crop`;
+const CASES = [
+  { type: 'feed', img: U('1504754524776-8f4f37790ca0'), client: '모닝테이블 성수', ind: '요식', svc: 'SNS 대행 운영', title: '릴스로 주말 웨이팅이 생기는 카페가 됐습니다', m1v: '+179%', m1l: '팔로워 증가', m2v: '3.1배', m2l: '프로필 방문', handle: 'morningtable', reel: '8.6만', tiles: [U('1484723091739-30a097e8f929', 240), U('1509042239860-f550ce710b93', 240), U('1495474472287-4d71bcdd2085', 240)] },
+  { type: 'search', img: U('1570172619644-dfd03ed5d881'), client: '리엔피부과', ind: '병원·의원', svc: 'SEO·AEO·GEO', title: '‘강남 여드름 흉터’ 검색 첫 화면에 올랐습니다', m1v: '+142%', m1l: '검색 유입', m2v: '+38%', m2l: '상담 예약', mockBg: P, query: '강남 여드름 흉터 치료', resultTitle: '리엔피부과 · 흉터 단계별 치료 안내', url: 'rien-derma.co.kr', result2: '여드름 흉터 레이저, 몇 번 받아야 하나요?' },
+  { type: 'ai', img: U('1522202176988-66273c2fd55f'), client: '스텝업수학학원', ind: '교육·학원', svc: 'SEO·AEO·GEO', title: 'AI 답변에서 지역 수학학원으로 추천됩니다', m1v: '9회', m1l: '월 AI 답변 언급', m2v: '+27%', m2l: '상담 신청', mockBg: '#16161C', q: '분당 중등 수학학원 어디가 좋아?', a1: '소수정예 내신 관리로 후기가 많은 ', a2: '이 자주 추천됩니다. 학년별 레벨 테스트를…' },
+  { type: 'chart', img: U('1522335789203-aabd1fc54bc9'), client: '메이린 코스메틱', ind: '쇼핑몰', svc: '통합 마케팅', title: '쇼츠와 블로그로 상세페이지 유입을 두 배 가까이 늘렸습니다', m1v: '+96%', m1l: '상세페이지 유입', m2v: '+18%', m2l: '구매 전환율', chartTitle: '상세페이지 유입', bars: ['22%', '26%', '24%', '34%', '46%', '58%', '72%', '90%'] },
+  { type: 'shorts', img: U('1566073771259-6a8506099945'), client: '하루스테이 제주', ind: '숙박·여행', svc: 'SNS 대행 운영', title: '객실 쇼츠 누적 조회수 38만을 넘겼습니다', m1v: '38만', m1l: '쇼츠 누적 조회', m2v: '+41%', m2l: '예약 문의', shorts: [{ img: U('1582719478250-c89cae4dc85b', 240), v: '12만' }, { img: U('1559339352-11d035aa65de', 240), v: '15만' }, { img: U('1566073771259-6a8506099945', 240), v: '11만' }] },
+  { type: 'blog', img: U('1554224155-6726b3ff858f'), client: '정담세무회계', ind: '전문직(법률·세무)', svc: '통합 마케팅', title: '질문형 블로그 글로 월 상담 문의가 두 배 가까이 늘었습니다', m1v: '+105%', m1l: '블로그 방문', m2v: '1.9배', m2l: '월 상담 문의', posts: ['종합소득세 신고, 프리랜서가 놓치는 경비', '부부 공동명의 양도세 계산 예시'] }
+];
+const DUR = 5000;
+const STEPS = [
+  { title: '상담·분석', desc: '사업과 운영 중인 채널을 확인하고 시장, 경쟁사, 운영 방향을 자료로 정리합니다', ai: '시장·경쟁사 데이터 수집', pro: '업종과 고객층에 맞는 운영 방향 결정' },
+  { title: '계약·구축', desc: '계약하신 고객께 사이트 구축 또는 리뉴얼을 제공합니다', ai: '현재 사이트 점검과 구조 초안', pro: '구축·리뉴얼 범위와 방향 확정' },
+  { title: '제작·게시', desc: '채널 형식에 맞춰 콘텐츠를 만들고 게시합니다', ai: '원고·이미지·자막 초안 생성', pro: '브랜드 톤 검수 후 채널별 게시' },
+  { title: '분석·개선', desc: '스토어와 검색·AI 답변을 월 1회 분석하고 개선합니다', ai: '노출·리뷰·검색 데이터 정리', pro: '유지·수정·시험할 항목 결정' }
+];
+const ease = t => 1 - Math.pow(1 - t, 3);
+const BANDS = [{ s: 0.2, a: 62, c: '#6B4DFF', k: 1, t: '+ 콘텐츠 유입' }, { s: 0.45, a: 72, c: '#8C74FF', k: 2, t: '+ 지도·플레이스 유입' }, { s: 0.7, a: 80, c: '#A99BFF', k: 3, t: '+ 검색·AI 답변 유입' }];
+const sm = t => t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t);
+const bandV = (b, x) => b.a * sm((x - b.s) / 0.2) * (1 + 0.05 * Math.sin(x * 31 + b.k * 2));
+const baseV = x => 34 + 3 * Math.sin(x * 23);
+const cum = (k, x) => baseV(x) + BANDS.slice(0, k).reduce((a, b) => a + bandV(b, x), 0);
+const totV = x => cum(3, x);
+const revV = x => 22 + 0.82 * (totV(Math.max(0, x - 0.06)) - 34) + 2 * Math.sin(x * 17);
+const Y = v => 292 - v;
+const STAGES = [
+  { name: '상담·분석 자료', sub: '시장·경쟁사·운영 방향 정리', tag: '기존 유입 진단', sw: '#4A4A56' },
+  { name: '콘텐츠 제작·게시', sub: '원본 20개 → 5개 채널 100개 게시', tag: '+ 콘텐츠 유입', sw: '#6B4DFF' },
+  { name: '구글·네이버 스토어', sub: '구글맵·네이버 플레이스 월 1회 개선', tag: '+ 지도·플레이스 유입', sw: '#8C74FF' },
+  { name: 'SEO·AEO·GEO', sub: '검색·AI 답변 월 1회 분석·개선', tag: '+ 검색·AI 답변 유입', sw: '#A99BFF' }
+];
+class HeroChart extends React.Component {
+  state = { c: 1, o: 1 };
+  componentDidMount() {
+    this.props.onStage && this.props.onStage(3); this.st = 3;
+    if (document.hidden || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      this.onVis = () => { if (!document.hidden && !this.raf) { document.removeEventListener('visibilitychange', this.onVis); this.start(); } };
+      document.addEventListener('visibilitychange', this.onVis);
+      return;
+    }
+    this.start();
+  }
+  start() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const G = 10500, CY = 13500, ENDS = [0.19, 0.44, 0.69, 1];
+    let tb = performance.now();
+    this.setState({ c: 0, o: 0 });
+    const f = now => {
+      const L = this.props.lock;
+      let c, o, st;
+      if (L != null) {
+        const cur = this.state.c, tg = ENDS[L];
+        c = Math.abs(tg - cur) < 0.002 ? tg : cur + (tg - cur) * 0.1; o = Math.min(1, this.state.o + 0.08); st = L; tb = null;
+      } else {
+        if (tb == null) tb = now - this.state.c * G;
+        const e = (now - tb) % CY; c = Math.min(1, e / G);
+        o = e > CY - 450 ? Math.max(0, (CY - e) / 450) : Math.min(1, Math.max(this.state.o, e / 300));
+        st = c < 0.2 ? 0 : c < 0.45 ? 1 : c < 0.7 ? 2 : 3;
+      }
+      this.setState({ c, o });
+      if (st !== this.st) { this.st = st; this.props.onStage && this.props.onStage(st); }
+      this.raf = requestAnimationFrame(f);
+    };
+    this.raf = requestAnimationFrame(f);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); this.onVis && document.removeEventListener('visibilitychange', this.onVis); }
+  render() {
+    const h = React.createElement, { c, o } = this.state, N = 80, xs = [];
+    for (let i = 0; i <= N; i++) xs.push(i / N * c);
+    const P = (x, v) => (x * 1000).toFixed(1) + ' ' + Y(v).toFixed(1);
+    const area = (lo, hi) => { if (c <= 0) return ''; let d = ''; xs.forEach((x, i) => { d += (i ? 'L' : 'M') + P(x, hi(x)); }); for (let i = xs.length - 1; i >= 0; i--) d += 'L' + P(xs[i], lo(xs[i])); return d + 'Z'; };
+    const line = fn => c <= 0 ? '' : xs.map((x, i) => (i ? 'L' : 'M') + P(x, fn(x))).join('');
+    const layers = [{ lo: () => 0, hi: baseV, c: '#3A3A46' }, ...BANDS.map((b, k) => ({ lo: x => cum(k, x), hi: x => cum(k + 1, x), c: b.c }))];
+    const ns = { vectorEffect: 'non-scaling-stroke' };
+    const svg = h('svg', { viewBox: '0 0 1000 300', preserveAspectRatio: 'none', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' } },
+      [60, 120, 180, 240].map(y => h('line', { key: y, x1: 0, x2: 1000, y1: y, y2: y, stroke: '#22222A', strokeWidth: 1, ...ns })),
+      layers.map((l, i) => h('path', { key: 'a' + i, d: area(l.lo, l.hi), fill: l.c })),
+      h('path', { key: 't', d: line(totV), fill: 'none', stroke: '#C9BEFF', strokeWidth: 2, ...ns }),
+      h('path', { key: 'r', d: line(revV), fill: 'none', stroke: '#fff', strokeWidth: 3, strokeLinejoin: 'round', ...ns }),
+      h('line', { key: 'cur', x1: c * 1000, x2: c * 1000, y1: 0, y2: 300, stroke: '#fff', strokeOpacity: 0.25, strokeDasharray: '4 6', strokeWidth: 1, ...ns }));
+    const dot = (k, v, bg, sz) => h('span', { key: k, style: { position: 'absolute', left: c * 100 + '%', top: Y(v) / 3 + '%', width: sz, height: sz, marginLeft: -sz / 2, marginTop: -sz / 2, borderRadius: '50%', background: bg, boxShadow: '0 0 0 6px rgba(169,155,255,.2)' } });
+    const tags = BANDS.map((b, k) => { const x = b.s + 0.1, show = c > b.s + 0.06, mid = (cum(k, x) + cum(k + 1, x)) / 2; return h('span', { key: 'g' + k, style: { position: 'absolute', left: x * 100 + '%', top: Y(mid) / 3 + '%', transform: 'translate(-50%,-50%) translateY(' + (show ? 0 : 8) + 'px)', opacity: show ? 1 : 0, transition: 'opacity .5s, transform .5s', background: '#0D0D12', color: '#fff', fontSize: 12.5, fontWeight: 600, padding: '5px 9px', whiteSpace: 'nowrap', border: '1px solid ' + b.c } }, b.t); });
+    return h('div', { style: { position: 'absolute', inset: 0, opacity: o } }, svg, c > 0 && dot('d1', totV(c), '#C9BEFF', 10), c > 0 && dot('d2', revV(c), '#fff', 12), tags);
+  }
+}
+class Component extends DCLogic {
+  state = { ch: 0, active: 0 };
+  barEls = []; hsOuter = React.createRef(); hsTrack = React.createRef(); hsBar = React.createRef(); hsSticky = React.createRef();
+  stepEls = []; timers = [];
+  componentDidMount() {
+    this.onScroll = () => this.updateHS();
+    this.onResize = () => { const n = window.innerWidth < 900; if (n !== this.state.narrow || window.innerWidth !== this.state.vw) this.setState({ narrow: n, vw: window.innerWidth }); this.measure(); this.updateHS(); };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onResize);
+    this.timers.push(setTimeout(this.onResize, 80), setTimeout(this.onResize, 800));
+    this.stepIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const i = this.stepEls.indexOf(e.target); if (i >= 0 && i !== this.state.active) this.setState({ active: i }); } }), { rootMargin: '-45% 0px -45% 0px' });
+    this.timers.push(setTimeout(() => { this.stepEls.forEach(el => el && this.stepIO.observe(el)); }, 100));
+  }
+  componentWillUnmount() {
+    this.timers.forEach(clearTimeout); cancelAnimationFrame(this.heroRaf);
+    window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onResize);
+    this.stepIO && this.stepIO.disconnect();
+  }
+  measure() {
+    const o = this.hsOuter.current, t = this.hsTrack.current, s = this.hsSticky.current; if (!o || !t || !s) return;
+    s.style.cssText += ';position:sticky;height:auto;min-height:0';
+    t.style.overflowX = ''; t.style.transform = '';
+    const avail = window.innerHeight - 72;
+    this.pinned = s.scrollHeight <= avail;
+    if (!this.pinned) {
+      s.style.position = 'static'; o.style.height = 'auto';
+      t.style.overflowX = 'auto'; t.style.scrollSnapType = 'x mandatory';
+      if (this.hsBar.current) this.hsBar.current.style.width = '0';
+      return;
+    }
+    t.style.scrollSnapType = '';
+    this.dist = Math.max(0, t.scrollWidth - t.clientWidth);
+    this.vh = avail;
+    s.style.height = avail + 'px';
+    o.style.height = (avail + this.dist) + 'px';
+  }
+  updateHS() {
+    const o = this.hsOuter.current, t = this.hsTrack.current; if (!o || !t || !this.pinned) return;
+    const vh = this.vh || Math.max(560, window.innerHeight - 72), total = o.offsetHeight - vh;
+    const p = total > 0 ? Math.min(1, Math.max(0, (72 - o.getBoundingClientRect().top) / total)) : 0;
+    t.style.transform = `translate3d(${-p * (this.dist || 0)}px,0,0)`;
+    if (this.hsBar.current) this.hsBar.current.style.width = (p * 100) + '%';
+  }
+  renderVals() {
+    const v = this.baseVals(), ch = this.state.ch, nw = !!this.state.narrow;
+    const w = this.state.vw || 1440, cols = w < 560 ? 1 : w < 900 ? 2 : 4;
+    v.stCols = cols;
+    v.stages = STAGES.map((s, i) => ({ ...s, no: '0' + (i + 1), br: (i + 1) % cols === 0 ? 'none' : '1px solid #2A2A32', bb: i < STAGES.length - cols ? '1px solid #2A2A32' : 'none', op: i === ch ? 1 : i < ch ? 0.85 : 0.42, bar: i === ch ? '#A99BFF' : i < ch ? '#6B4DFF' : 'transparent', nc: i === ch ? '#A99BFF' : '#9A9AA3', go: () => this.setState({ lock: i, ch: i }) }));
+    [0, 1, 2, 3].forEach(i => { v['d' + i] = ch === i; });
+    v.locked = this.state.lock != null;
+    v.resumeAuto = () => this.setState({ lock: null });
+    if (!this.onStage) this.onStage = st => { if (st !== this.state.ch && this.state.lock == null) this.setState({ ch: st }); };
+    v.heroChart = React.createElement(HeroChart, { lock: this.state.lock ?? null, onStage: this.onStage });
+    return v;
+  }
+  baseVals() {
+    const ch = this.state.ch, a = this.state.active;
+    const nw = !!this.state.narrow;
+    return {
+      hsOuter: this.hsOuter, hsTrack: this.hsTrack, hsBar: this.hsBar, hsSticky: this.hsSticky,
+      cases: CASES.map(c => ({ ...c, isFeed: c.type === 'feed', isSearch: c.type === 'search', isAi: c.type === 'ai', isChart: c.type === 'chart', isBlog: c.type === 'blog', isShorts: c.type === 'shorts',
+        bars: (c.bars || []).map((hh, i, arr) => ({ h: hh, c: i === arr.length - 1 ? V : INK })), posts: (c.posts || []).map((t, i) => ({ n: i + 1, t })) })),
+      services: [
+        { no: '01', en: 'INTEGRATED', name: '통합 마케팅', price: '월 200만 원', desc: '콘텐츠 제작·게시부터 구글·네이버 스토어, 검색·AI 답변 관리까지 한 번에 맡깁니다', items: ['월 원본 콘텐츠 20개 제작 (영상 위주)', '5개 채널 변형·게시, 월 100개: 유튜브 숏츠, 인스타그램, 페이스북, 네이버 클립, 네이버 블로그', '구글·네이버 스토어 월 1회 분석·개선', 'SEO·AEO·GEO 월 1회 분석·개선'], note: '스레드 운영은 별도 협의 (추가 금액)', bd: INK, bg: '#fff', bar: V, href: 'Marketing 서비스 상세.dc.html?s=integrated' },
+        { no: '02', en: 'SNS', name: 'SNS 대행 운영', price: '월 100만 원', desc: '이미지와 영상 콘텐츠를 제작하고 원본 소스를 채널마다 바꿔 게시합니다', items: ['월 12회 이미지 콘텐츠 제작·게시', '월 4회 영상 콘텐츠 제작·게시', '원본 소스 멀티 유즈', '기본 채널: 유튜브 숏츠, 인스타그램, 네이버 블로그'], note: '', bd: L, bg: '#fff', bar: L, href: 'Marketing 서비스 상세.dc.html?s=sns' },
+        { no: '03', en: 'AI INFLUENCER', name: 'AI 인플루언서 마케팅', price: '월 100만 원', desc: '브랜드 전용 가상 인물로 콘텐츠를 만들어 게시합니다', items: ['캐릭터 구축 서비스 제공 (구축비 없음)', '월 8회 콘텐츠 제작·게시', '콘텐츠 1회 30초 기준'], note: '', bd: L, bg: '#fff', bar: L, href: 'Marketing 서비스 상세.dc.html?s=ai' },
+        { no: '04', en: 'SEO · AEO · GEO', name: 'SEO·AEO·GEO', price: '별도 견적', desc: '기존 사이트를 진단하고 실제 코드·CMS에 적용해 검색과 AI 답변에서 잘 보이게 합니다', items: ['현재 상태 진단', '질문·페이지 설계', '메타·sitemap·구조화 데이터', '스테이징·운영 검수'], note: '사이트와 수정 범위에 따라 견적을 안내합니다', bd: L, bg: '#fff', bar: L, href: 'Marketing 서비스 상세.dc.html?s=seo' }
+      ],
+      steps: STEPS.map((s, i) => ({ ...s, no: String(i + 1).padStart(2, '0'), ref: el => { this.stepEls[i] = el; },
+        op: i === a ? 1 : 0.4, bd: i === a ? V : L, nc: i === a ? V : '#A8A69E', dot: i <= a ? V : L })),
+      reviews: [
+        { text: '블로그 글을 어떤 질문에서 출발해 쓰는지 미리 공유해 주셔서 방향을 같이 잡는 느낌이었어요. 석 달째부터 네이버에서 "종합소득세 경비" 관련 문의가 들어오기 시작했습니다', author: '정*연', service: '세무회계 · 통합 마케팅', date: '2026.06' },
+        { text: '멈춰 있던 인스타그램이 매달 이미지 12개와 영상 4개로 채워졌습니다. 촬영할 것만 알려주면 나머지는 알아서 편집해 올려주니 운영 부담이 확 줄었어요', author: '한*미', service: '뷰티 · SNS 대행 운영', date: '2026.07' },
+        { text: '영상 하나를 쇼츠, 릴스, 클립에 맞게 각각 다시 편집해 주셔서 채널 톤이 정돈됐어요. 구글맵과 네이버 플레이스 리뷰 답변 방향도 같이 잡아줬습니다', author: '윤*석', service: '숙박 · 통합 마케팅', date: '2026.08' }
+      ],
+      posts: [
+        { cat: 'SEO', date: '2026.12.21', title: '네이버 블로그와 구글 검색, 무엇부터 해야 할까', img: U('1432888498266-38ffec3eaf0a', 300) },
+        { cat: 'SNS', date: '2026.12.14', title: '방치된 SNS 계정을 다시 살리는 순서', img: U('1611162617213-7d7a39e9b1d7', 300) },
+        { cat: 'SNS', date: '2026.12.07', title: '인스타그램 운영, 한 달에 몇 개를 올려야 할까', img: U('1611162616305-c69b3fa7fbe0', 300) },
+        { cat: 'SEO', date: '2026.11.28', title: '병원 마케팅에서 먼저 점검할 검색 설정', img: U('1519494026892-80bbd2d6fd0d', 300) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

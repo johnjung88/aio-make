@@ -1,0 +1,435 @@
+{
+  "checks": [
+    {
+      "t": 0.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "SNS 광고 영상",
+        "세로형 9:16 숏폼 광고",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 0.9167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "SNS 광고 영상",
+        "세로형 9:16 숏폼 광고",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 1.8,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "SNS 광고 영상",
+        "세로형 9:16 숏폼 광고",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 1.8667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "첫 장면에서",
+        "제품을 보여줍니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 2.7667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "첫 장면에서",
+        "제품을 보여줍니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 3.6667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "첫 장면에서",
+        "제품을 보여줍니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 3.7333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 4.6167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 5.5,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 5.5667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 6.4667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 7.3667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "한 줄로",
+        "메시지를 남깁니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 7.4333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 9.2333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 11.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 11.1,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 13.8333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 16.5667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 16.6333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 17.5333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 18.4333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "이야기로",
+        "웃음을 만듭니다",
+        "AI 가상인물"
+      ]
+    },
+    {
+      "t": 18.5,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 19.3833,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 20.2667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 20.3333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 21.2333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 22.1333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 22.2,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 23.0833,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 23.9667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "제품별",
+        "현장 영상도 만듭니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 24.0333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 24.9167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 25.8,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 25.8667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 26.7667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 27.6667,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 1,
+      "text": [
+        "광고는",
+        "마지막까지 한 흐름입니다",
+        "연출 예시"
+      ]
+    },
+    {
+      "t": 27.7333,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지"
+      ]
+    },
+    {
+      "t": 28.6167,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지"
+      ]
+    },
+    {
+      "t": 29.5,
+      "overflow": [],
+      "forbidden": [],
+      "maxImages": 0,
+      "text": [
+        "AIO MAKE",
+        "CONTENT STUDIO",
+        "웹툰부터 SNS 광고 영상까지"
+      ]
+    }
+  ],
+  "browserErrors": [],
+  "ownedBrowserClosed": true
+}

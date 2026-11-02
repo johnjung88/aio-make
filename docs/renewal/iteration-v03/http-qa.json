@@ -1,0 +1,42 @@
+{
+  "environment": "Windows Next dev + loopback REST test adapter + actual PGlite PostgreSQL. Not live Supabase.",
+  "at": "2026-10-01T06:51:03.922Z",
+  "results": [
+    {
+      "test": "Unauthenticated admin APIs return 401",
+      "status": "PASS"
+    },
+    {
+      "test": "Admin page redirects without session",
+      "status": "PASS"
+    },
+    {
+      "test": "Legacy 301 destinations preserve UTM",
+      "status": "PASS"
+    },
+    {
+      "test": "Login validates credentials and creates HttpOnly strict cookie",
+      "status": "PASS"
+    },
+    {
+      "test": "Inquiry consent/source checks, transaction and duplicate protection",
+      "status": "PASS"
+    },
+    {
+      "test": "Admin joins inquiry, changes status, persists and reads audit/notes",
+      "status": "PASS"
+    },
+    {
+      "test": "Rights gate, actual save, public page and unpublish",
+      "status": "PASS"
+    },
+    {
+      "test": "GA disconnected state never fabricates zero metrics",
+      "status": "PASS"
+    },
+    {
+      "test": "Logout expires server cookie",
+      "status": "PASS"
+    }
+  ]
+}

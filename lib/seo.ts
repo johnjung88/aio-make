@@ -1,69 +1,66 @@
-import type { Metadata } from "next";
+import { siteDescription, siteName, siteUrl } from "./metadata.ts";
+import {
+  BUSINESS_LEGAL_NAME,
+  BUSINESS_TAX_ID,
+  BUSINESS_EMAIL,
+  BUSINESS_ADDRESS,
+} from "./business-info.ts";
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aio-make.com").replace(/\/+$/, "");
+export const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": siteUrl + "/#organization",
+  name: siteName,
+  legalName: BUSINESS_LEGAL_NAME,
+  alternateName: ["에이아이오 메이크", "AIO-MAKE"],
+  url: siteUrl + "/",
+  logo: {
+    "@type": "ImageObject",
+    url: siteUrl + "/brand/logo-512.png",
+    width: 512,
+    height: 512,
+  },
+  description: siteDescription,
+  email: BUSINESS_EMAIL,
+  taxID: BUSINESS_TAX_ID,
+  address: {
+    "@type": "PostalAddress",
+    ...BUSINESS_ADDRESS,
+  },
+};
 
-export const SUPPORTED_LOCALES = ["ko"] as const;
-export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": siteUrl + "/#website",
+  name: siteName,
+  alternateName: ["에이아이오 메이크", "AIO-MAKE"],
+  url: siteUrl + "/",
+  inLanguage: "ko-KR",
+  publisher: { "@id": siteUrl + "/#organization" },
+};
 
-export function isSupportedLocale(locale: string): locale is SupportedLocale {
-  return (SUPPORTED_LOCALES as readonly string[]).includes(locale);
-}
-
-export function toCanonicalPath(path = ""): string {
-  if (!path || path === "/") return "";
-  return path.startsWith("/") ? path : `/${path}`;
-}
-
-export function localeUrl(locale: string, path = ""): string {
-  return `${SITE_URL}/${locale}${toCanonicalPath(path)}`;
-}
-
-export function localizedAlternates(locale: string, path = ""): NonNullable<Metadata["alternates"]> {
-  const canonical = localeUrl(locale, path);
+export function breadcrumbSchema(items: { name: string; path: string }[]) {
   return {
-    canonical,
-    languages: {
-      ko: localeUrl("ko", path),
-      "x-default": localeUrl("ko", path),
-    },
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: siteUrl + item.path,
+    })),
   };
 }
 
-const DEFAULT_OG_IMAGE = `${SITE_URL}/brand/aio-agency-logo-final/aio-agency-board-1800.png`;
-
-export function localizedPageMetadata({
-  locale,
-  path = "",
-  title,
-  description,
-  ogImage,
-}: {
-  locale: string;
-  path?: string;
-  title: string;
-  description: string;
-  ogImage?: string;
-}): Metadata {
-  const canonical = localeUrl(locale, path);
-  const image = ogImage ?? DEFAULT_OG_IMAGE;
+export function faqSchema(items: readonly (readonly [string, string])[]) {
   return {
-    title,
-    description,
-    alternates: localizedAlternates(locale, path),
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      type: "website",
-      locale: "ko_KR",
-      siteName: "AIO에이전시",
-      images: [{ url: image, width: 1800, height: 945, alt: "AIO에이전시" }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
   };
 }

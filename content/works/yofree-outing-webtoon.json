@@ -1,0 +1,58 @@
+{
+  "id": "AIO-WORK-YOFREE-WEBTOON-01",
+  "slug": "yofree-outing-webtoon",
+  "brand": "YoFree",
+  "title": "엄마가 자꾸 멈추는 이유",
+  "division": "video",
+  "primaryService": "webtoon",
+  "productionStatus": "제작 후보",
+  "description": "요프리 외출편 웹툰 5페이지의 내부 검토본입니다.",
+  "relatedServices": [],
+  "purpose": "가족의 외출에서 시작하는 일상 이야기를 브랜드 웹툰으로 구성했습니다",
+  "scope": "장면과 대사를 5페이지의 읽는 흐름으로 정리했습니다 제품 관련 표현은 고객 검토 전 시안입니다",
+  "media": [
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/yofree-outing-webtoon/gallery-01.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "YoFree 엄마가 자꾸 멈추는 이유 1페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/yofree-outing-webtoon/gallery-02.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "YoFree 엄마가 자꾸 멈추는 이유 2페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/yofree-outing-webtoon/gallery-03.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "YoFree 엄마가 자꾸 멈추는 이유 3페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/yofree-outing-webtoon/gallery-04.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "YoFree 엄마가 자꾸 멈추는 이유 4페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/yofree-outing-webtoon/gallery-05.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "YoFree 엄마가 자꾸 멈추는 이유 5페이지",
+      "presentation": "webtoon"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 1
+}

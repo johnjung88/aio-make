@@ -1,0 +1,80 @@
+/* motion-graphics 서비스 고유 스타일(WP-B, R6 개정).
+ * 선택자는 모두 .cs-svc-motion-graphics로 시작한다. 장식용 색은 맨 위 한 블록(--svc-*)에만 둔다.
+ * 글자 속성은 var(--cs-t-…)만, @media 안 글자 속성 0, !important 0, 텍스트 색은 var(--cs-*)만.
+ * 애니메이션은 @media (prefers-reduced-motion: no-preference) 안에서만, 롱핸드로만 선언한다
+ * (animation 축약형은 theme.css 움직임 토글의 animation-play-state를 덮기 때문).
+ * R6: MOTION STUDY(구성 버튼 · 도형 · 글자 · 키프레임)와 단순형/맞춤형 2칸, 스타일 프레임 규칙을 모두 삭제했다.
+ * 남은 것은 히어로 예시 장식, 검토판 사례 격자의 세로 소재 규칙, 캐릭터 사례 검토판 영상 격자뿐이다. */
+.cs-svc-motion-graphics {
+  --svc-lime: #e9edb2;
+}
+
+/* ---------------------------------------------------------------- 히어로 예시: 이미지 위를 지나는 도형 두 개 */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::before,
+.cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::before { left: 8%; top: 12%; width: 22%; border: 2px solid var(--svc-lime); border-right-color: transparent; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::after { right: 10%; bottom: 14%; width: 9%; background: var(--svc-lime); }
+
+/* ---------------------------------------------------------------- 사례(검토 빌드만): 세로 소재는 카드 안 16:9에 맞춰 담는다 */
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 {
+  aspect-ratio: 16 / 9;
+}
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 > video,
+.cs-svc-motion-graphics.cs-landing .cs-works-grid[data-layout="wide"] .cs-ratio-9x16 > img {
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------------- 캐릭터 제작 사례: 검토판 실물(공개판에는 렌더되지 않음) */
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-review {
+  display: grid;
+  gap: 8px;
+  margin-top: var(--cs-section-y-sm);
+  padding-top: 24px;
+  border-top: 1px solid var(--cs-line);
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-review .cs-t-caption,
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-review .cs-t-small { color: var(--cs-fg-2); }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-media {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-media > li { min-width: 0; }
+.cs-svc-motion-graphics .cs-svc-motion-graphics-case-media > li[data-ratio="16x9"] { grid-column: 1 / -1; }
+
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::before {
+    animation-name: cs-svc-motion-graphics-spin;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .cs-svc-motion-graphics .cs-svc-motion-graphics-hero-example .cs-example-frame::after {
+    animation-name: cs-svc-motion-graphics-drift;
+    animation-duration: 6s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  @keyframes cs-svc-motion-graphics-drift {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(-28px, 34px) rotate(50deg); }
+  }
+  @keyframes cs-svc-motion-graphics-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+@media(min-width:1024px){.cs-svc-motion-graphics-planning .cs-figure-row{grid-template-columns:2fr 1fr 1fr;}}

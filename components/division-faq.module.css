@@ -1,0 +1,27 @@
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(64px, 7vw, 96px) 24px;
+  color: var(--cs-text, #f7f5f2);
+  background: var(--cs-bg, #080808);
+}
+.section h2 {
+  font-size: clamp(24px, 3vw, 36px);
+  margin: 0 0 28px;
+}
+.section details {
+  border-top: 1px solid #494254;
+  padding: 20px 0;
+}
+.section summary {
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.section p {
+  max-width: 80ch;
+  color: #ddd6ed;
+  line-height: 1.8;
+  margin: 14px 0 0;
+  white-space: pre-line;
+}

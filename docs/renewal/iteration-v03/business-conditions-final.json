@@ -1,0 +1,25 @@
+{
+  "environment": "production build, loopback, no operational database",
+  "results": [
+    {
+      "path": "/lab/services/website",
+      "status": 200,
+      "approvedConditions": "PASS"
+    },
+    {
+      "path": "/lab/services/shopping-mall",
+      "status": 200,
+      "approvedConditions": "PASS"
+    },
+    {
+      "path": "/lab/contact?service=website",
+      "status": 200,
+      "approvedConditions": "PASS"
+    },
+    {
+      "path": "/marketing/services/integrated",
+      "status": 200,
+      "approvedConditions": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+
+> aio-make@1.0.0 lint
+> eslint app components lib tests
+
+
+I:\AIO_OS\06_GITHUB\worktrees\aio-make\codex\WRK-20261013-AIO-CONTENT-RENEWAL\tests\local-admin.test.mjs
+  110:38  warning  'options' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)
+

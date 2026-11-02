@@ -1,0 +1,27 @@
+/* Shared detail vocabulary; values match content-site/theme.css and plan 45 section 0.3 */
+.sd-site {
+  --sd-bg: #07080c;
+  --sd-panel: #11131b;
+  --sd-line: #ffffff1a;
+  --sd-text: #f7f5f2;
+  --sd-muted: #b9b5c7;
+  --sd-action: #6b4dff;
+  --sd-em: #a895ff;
+  --sd-glow: #202044;
+  --sd-paper: #f2f0ec;
+  --sd-ink: #252433;
+  --sd-radius: 14px;
+  --sd-gutter: clamp(20px, 4vw, 56px);
+  --sd-section: clamp(64px, 7vw, 96px);
+  --sd-h1: clamp(34px, 5vw, 72px);
+  --sd-h2: clamp(28px, 3.2vw, 44px);
+  --sd-h3: clamp(20px, 1.6vw, 24px);
+  --sd-lead: clamp(17px, 1.35vw, 20px);
+  --sd-price: clamp(24px, 2.6vw, 36px);
+  --sd-hero-title: clamp(34px, 4.2vw, 60px);
+  --sd-shadow: #0008;
+  --sd-paper-line: #25243322;
+  --sd-paper-tag: #e3def5;
+  --sd-paper-tile: #e1ddd6;
+  --sd-paper-pastel: #f0e7ef;
+}

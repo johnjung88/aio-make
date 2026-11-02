@@ -1,0 +1,43 @@
+{
+  "url": "http://127.0.0.1:3100/",
+  "links": [
+    {
+      "href": "/video/work/example-animation",
+      "text": "제작 방향 예시애니메이션"
+    },
+    {
+      "href": "/video/work/example-ai-influencer",
+      "text": "제작 방향 예시AI 인플루언서 제작"
+    },
+    {
+      "href": "/video/work/example-brand-film",
+      "text": "제작 방향 예시브랜드 홍보 영상"
+    },
+    {
+      "href": "/marketing/work/example-sns",
+      "text": "제작 방향 예시SNS 대행 운영"
+    },
+    {
+      "href": "/marketing/work/example-integrated",
+      "text": "제작 방향 예시통합 마케팅"
+    },
+    {
+      "href": "/marketing/work/example-ai-influencer",
+      "text": "제작 방향 예시AI 인플루언서 운영"
+    },
+    {
+      "href": "/lab/work/example-website",
+      "text": "제작 방향 예시웹사이트 제작"
+    },
+    {
+      "href": "/lab/work/example-shopping-mall",
+      "text": "제작 방향 예시쇼핑몰 제작"
+    },
+    {
+      "href": "/lab/work/example-automation",
+      "text": "제작 방향 예시업무 자동화"
+    }
+  ],
+  "client": 1905,
+  "scroll": 1905
+}

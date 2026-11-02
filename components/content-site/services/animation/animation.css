@@ -1,0 +1,46 @@
+/* animation 서비스 고유 스타일(R6, WP-A 소유). 선택자는 모두 .cs-svc-animation로 시작한다.
+ * 장식(숨 쉬는 링·점)은 없다. 이미지의 느린 켄번스는 공통 service-motion.css가 맡는다. */
+
+/* 히어로 대표 슬롯: 세로 이미지의 아래쪽은 첫 화면 접힘선에 걸리므로 태그를 위쪽에 둔다. 데스크톱은 이미지 높이를 첫 화면 안으로 제한(왼쪽 기준) */
+.cs-svc-animation .cs-svc-animation-hero-example > .cs-tag { top: 12px; bottom: auto; }
+@media (min-width:768px) {
+  .cs-svc-animation .cs-svc-animation-hero-example { max-width: min(100%, max(300px, calc((100svh - 240px) * 2 / 3))); }
+  /* 대표 슬롯에 16:9 영상이 오면 세로 제한을 풀고 열 전체를 쓴다 */
+  .cs-svc-animation .cs-svc-animation-hero-example[data-aspect="16x9"] { max-width: none; }
+  /* 2열 히어로: 대표 이미지를 미디어 열의 오른쪽 끝(컨테이너 오른쪽 선)에 맞춘다 */
+  .cs-svc-animation .cs-example-figure.cs-svc-animation-hero-example { margin-inline-start: auto; }
+}
+
+/* 영상 레퍼런스 그리드: 모바일 1열, 768부터 2열. 칸은 항상 16:9 */
+.cs-svc-animation .cs-svc-animation-refs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--cs-s5);
+}
+.cs-svc-animation .cs-svc-animation-refs > li {
+  min-width: 0;
+}
+.cs-svc-animation .cs-svc-animation-ref.cs-example-figure[data-aspect] .cs-example-frame {
+  aspect-ratio: 16 / 9;
+}
+@media (min-width:768px) {
+  .cs-svc-animation .cs-svc-animation-refs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--cs-s6);
+  }
+}
+
+/* 슬롯이 0개일 때만: 16:9 빈 면 + 한 줄 */
+.cs-svc-animation .cs-svc-animation-empty {
+  display: grid;
+  place-items: center start;
+  aspect-ratio: 16 / 9;
+  padding: var(--cs-s5);
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-md);
+  background: var(--cs-bg-2);
+  color: var(--cs-fg-2);
+}
+
+/* R8 */
+.cs-svc-animation-scene-timeline {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px;list-style:none;padding:0;} .cs-svc-animation-scene-timeline li {min-width:0;display:grid;gap:12px;} .cs-svc-animation-lengths {margin-top:24px;display:grid;gap:12px;} @media(min-width:768px){.cs-svc-animation-scene-timeline{grid-template-columns:repeat(6,minmax(0,1fr));}}

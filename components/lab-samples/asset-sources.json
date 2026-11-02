@@ -1,0 +1,29 @@
+{
+  "scope": "Local review samples only; fictional brands, prices, building and leads",
+  "generatedPhotography": {
+    "file": "/lab-samples/forme-editorial.png",
+    "tool": "Built-in imagegen",
+    "calls": 1,
+    "promptSummary": "Premium minimalist 2 by 2 fashion contact sheet: top left charcoal double-breasted wool coat product, top right adult East Asian model wearing the same coat; bottom left ivory cashmere crewneck product, bottom right the same model wearing the knit; warm gray studio, consistent lighting, no text or logos",
+    "original": "C:/AIO-PC2/20-web-assets/aio-make/02_실동작샘플/01_FORME_상품착용_원본.png",
+    "fileEditing": "No bitmap edits; CSS background positioning displays the four panels",
+    "billing": "Included generation tool used; no external purchase/API call; separate unit price not exposed and not asserted to be zero"
+  },
+  "building": {
+    "source": "Original procedural Three.js scene in building-scene.tsx",
+    "status": "Concept, not a built client project",
+    "benchmarks": ["https://360.daako.pl/demo_02_silo/"],
+    "newDesign": ["Floor cutaways", "Construction stages", "Floor separation", "Day/evening"]
+  },
+  "logos": [
+    {"file":"hermes.png","source":"https://web-assets.nousresearch.com/marketing/c3591e32f6d91f9cc9c370c003d45235b1d56611/assets/hermes-agent/icon.png","owner":"Nous Research / Hermes Agent","verification":"Official site favicon"},
+    {"file":"aside.png","source":"https://aside.com/icon.png?icon.0lfc1q-r_ms2e.png","owner":"Aside","verification":"Official site icon"},
+    {"file":"claude.svg","source":"https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/claude.svg","owner":"Anthropic","verification":"Simple Icons brand vector"},
+    {"file":"codex.svg","source":"https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/openai.svg","owner":"OpenAI","verification":"OpenAI mark used beside Codex label, not claimed to be a distinct Codex product logo"},
+    {"file":"kakaotalk.svg","source":"https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/kakaotalk.svg","owner":"Kakao","verification":"Simple Icons brand vector"}
+  ],
+  "logoUsage": "Identifies possible tools; no partnership, endorsement or live integration claimed. Jev and Grok Bot use text labels because exact product/logo is unresolved",
+  "fashionBenchmarks": ["https://toteme.com/ko-kr/collections/new-in","https://www.cos.com/en-us/women/new-arrivals"],
+  "automationBenchmarks": ["https://university.clay.com/claybooks/write-personalized-emails-based-on-website-data","https://attio.com/platform/workflows"],
+  "reuseBoundary": "Retain interaction intent and business outputs; no third-party code, photography, private data or complete design copied"
+}

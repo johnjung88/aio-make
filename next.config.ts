@@ -1,20 +1,38 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
-
-const nextConfig: NextConfig = {
+if (
+  process.env.VERCEL &&
+  process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1"
+) {
+  throw new Error(
+    "Customer reference review is local only. Confirm publication rights before release.",
+  );
+}
+const config: NextConfig = {
+  // Unset means off. Next inlines only NEXT_PUBLIC_ values that exist, so an
+  // unset flag would leave `process.env…` in client code and keep review-only
+  // literals in the bundle. Always inline "1" or "0" so every `=== "1"` gate
+  // folds at build time.
+  env: {
+    NEXT_PUBLIC_AIO_REFERENCE_REVIEW:
+      process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ? "1" : "0",
+  },
+  poweredByHeader: false,
+  // 모든 요청에 메타데이터를 head로 보낸다(스트리밍하면 일반 브라우저·Googlebot에서 body로 빠짐)
+  htmlLimitedBots: /.*/,
   async redirects() {
+    // Retire old lab pages while keeping current services and resource routes.
     return [
-      { source: "/en", destination: "/ko", permanent: true },
-      { source: "/en/:path*", destination: "/ko/:path*", permanent: true },
-      { source: "/:locale/services/video-content", destination: "/:locale/services/video", permanent: true },
-      { source: "/:locale/services/video-content/:path*", destination: "/:locale/services/video/:path*", permanent: true },
+      {
+        source:
+          "/lab/:path((?!services/(?:website|shopping-mall|automation|program)(?:/|$)|insights(?:/|$)|references(?:/|$)|.*\\.(?:webp|png|jpe?g|svg|avif)$).+)",
+        destination: "/lab",
+        permanent: true,
+      },
     ];
   },
-  // 빌드 안정성 — 새 기능 작업 중 ESLint/TS 에러로 빌드 막히지 않게 임시 허용
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
+  serverExternalPackages: ["@electric-sql/pglite"],
+  devIndicators: false,
+  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
   images: {
     remotePatterns: [
       {
@@ -24,6 +42,27 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      ...["/admin/:path*", "/api/:path*"].map((source) => ({
+        source,
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      })),
+      {
+        source: "/:path*",
+        headers: [
+          ...(process.env.NEXT_PUBLIC_AIO_REFERENCE_REVIEW === "1" ||
+          process.env.VERCEL_ENV === "preview"
+            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+            : []),
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "DENY" },
+        ],
+      },
+    ];
+  },
 };
-
-export default withNextIntl(nextConfig);
+export default config;

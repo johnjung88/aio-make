@@ -1,0 +1,32 @@
+[
+  {
+    "path": "public\\content-examples\\webtoon\\service-reel-r8.mp4",
+    "sha256": "0b11df6725135664a0c3247facc16ebf9765548061e33d4cacb9b987c5abe0dd",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\service-reel-r8.mp4"
+  },
+  {
+    "path": "public\\content-examples\\webtoon\\service-reel-r8-poster.webp",
+    "sha256": "2c2b9e9300187dbe7d8ceea133b42d125ce18325e0a362f6a8d445a12661031a",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\service-reel-r8-poster.webp"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\audit.py",
+    "sha256": "13cb3073a6062fcbc9de8ee30d9b7dcc86cbf0188379b30433fa86f3c39745e3",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\audit.py"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\build.py",
+    "sha256": "139e6ef272a8fec16092b02c0510a82bcf66a4e4f11073737d4f09feca2f345d",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\build.py"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\config.js",
+    "sha256": "b12a8f8c0adc3662e231aabb4ed100b1d5ad63d6280ceb7da2fc6d8067a0109c",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\config.js"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\index.html",
+    "sha256": "102a85284bdd366386765b49b2692bc5ffcf2182a1824c9751ef728857a2a596",
+    "backup": ".qa\\r8-w2\\w2b-baseline\\webtoon\\index.html"
+  }
+]

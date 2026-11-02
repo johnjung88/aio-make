@@ -1,0 +1,257 @@
+{
+  "environment": "development runtime, loopback only, operational database disconnected",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/about",
+      "status": 200
+    },
+    {
+      "path": "/about/team",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/work",
+      "status": 200
+    },
+    {
+      "path": "/privacy",
+      "status": 200
+    },
+    {
+      "path": "/terms",
+      "status": 200
+    },
+    {
+      "path": "/marketing",
+      "status": 200
+    },
+    {
+      "path": "/marketing/contact",
+      "status": 200
+    },
+    {
+      "path": "/marketing/work",
+      "status": 200
+    },
+    {
+      "path": "/marketing/insights",
+      "status": 200
+    },
+    {
+      "path": "/lab",
+      "status": 200
+    },
+    {
+      "path": "/lab/contact",
+      "status": 200
+    },
+    {
+      "path": "/lab/work",
+      "status": 200
+    },
+    {
+      "path": "/lab/insights",
+      "status": 200
+    },
+    {
+      "path": "/video",
+      "status": 200
+    },
+    {
+      "path": "/video/contact",
+      "status": 200
+    },
+    {
+      "path": "/video/work",
+      "status": 200
+    },
+    {
+      "path": "/video/insights",
+      "status": 200
+    },
+    {
+      "path": "/marketing/services/integrated",
+      "status": 200
+    },
+    {
+      "path": "/marketing/services/sns",
+      "status": 200
+    },
+    {
+      "path": "/marketing/services/ai-influencer",
+      "status": 200
+    },
+    {
+      "path": "/marketing/services/seo",
+      "status": 200
+    },
+    {
+      "path": "/lab/services/website",
+      "status": 200
+    },
+    {
+      "path": "/lab/services/shopping-mall",
+      "status": 200
+    },
+    {
+      "path": "/lab/services/automation",
+      "status": 200
+    },
+    {
+      "path": "/lab/services/program",
+      "status": 200
+    },
+    {
+      "path": "/video/services/webtoon",
+      "status": 200
+    },
+    {
+      "path": "/video/services/animation",
+      "status": 200
+    },
+    {
+      "path": "/video/services/ai-influencer",
+      "status": 200
+    },
+    {
+      "path": "/video/services/brand-film",
+      "status": 200
+    },
+    {
+      "path": "/video/services/ad",
+      "status": 200
+    },
+    {
+      "path": "/video/services/editing",
+      "status": 200
+    },
+    {
+      "path": "/marketing/work/example-integrated",
+      "status": 200
+    },
+    {
+      "path": "/marketing/work/example-sns",
+      "status": 200
+    },
+    {
+      "path": "/marketing/work/example-ai-influencer",
+      "status": 200
+    },
+    {
+      "path": "/marketing/work/example-seo",
+      "status": 200
+    },
+    {
+      "path": "/lab/work/example-website",
+      "status": 200
+    },
+    {
+      "path": "/lab/work/example-shopping-mall",
+      "status": 200
+    },
+    {
+      "path": "/lab/work/example-automation",
+      "status": 200
+    },
+    {
+      "path": "/lab/work/example-program",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-webtoon",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-animation",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-ai-influencer",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-brand-film",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-ad",
+      "status": 200
+    },
+    {
+      "path": "/video/work/example-editing",
+      "status": 200
+    },
+    {
+      "path": "/marketing/insights/preparation",
+      "status": 200
+    },
+    {
+      "path": "/marketing/insights/process",
+      "status": 200
+    },
+    {
+      "path": "/marketing/insights/consultation",
+      "status": 200
+    },
+    {
+      "path": "/lab/insights/preparation",
+      "status": 200
+    },
+    {
+      "path": "/lab/insights/process",
+      "status": 200
+    },
+    {
+      "path": "/lab/insights/consultation",
+      "status": 200
+    },
+    {
+      "path": "/video/insights/preparation",
+      "status": 200
+    },
+    {
+      "path": "/video/insights/process",
+      "status": 200
+    },
+    {
+      "path": "/video/insights/consultation",
+      "status": 200
+    }
+  ],
+  "serviceCount": 14,
+  "staticExamples": 14,
+  "staticArticles": 9,
+  "sitemap": "PASS",
+  "contact": {
+    "status": 503,
+    "success": false
+  },
+  "loginStatus": 200,
+  "disconnected": [
+    {
+      "path": "/api/admin/inquiries",
+      "status": 200,
+      "connected": false
+    },
+    {
+      "path": "/api/admin/entries",
+      "status": 200,
+      "connected": false
+    },
+    {
+      "path": "/api/admin/analytics",
+      "status": 200,
+      "connected": false
+    }
+  ],
+  "originalWorktree": "clean",
+  "legacySinceV02": "unchanged"
+}

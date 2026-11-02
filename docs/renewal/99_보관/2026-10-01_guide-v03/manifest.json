@@ -1,0 +1,27 @@
+[
+  {
+    "source": "README.md",
+    "archive": "docs/renewal/99_보관/2026-10-01_guide-v03/README.md",
+    "sha256": "70e5421e679685603ff3d45bfe492d1cedeb4efa60d87fe30bde51bd109c75fc"
+  },
+  {
+    "source": "docs/renewal/QA_REPORT.md",
+    "archive": "docs/renewal/99_보관/2026-10-01_guide-v03/docs__renewal__QA_REPORT.md",
+    "sha256": "c7ffa3f45db251a09ebf5e80e7e7c20e6004aeb8c576e1e50e54816525d51aee"
+  },
+  {
+    "source": "docs/renewal/ARCHITECTURE.md",
+    "archive": "docs/renewal/99_보관/2026-10-01_guide-v03/docs__renewal__ARCHITECTURE.md",
+    "sha256": "da5b6abe0367a56d0d73fc708d7754bc4ff6c4b30e4b8d7bbf04ca384e88d027"
+  },
+  {
+    "source": "docs/renewal/RELEASE.md",
+    "archive": "docs/renewal/99_보관/2026-10-01_guide-v03/docs__renewal__RELEASE.md",
+    "sha256": "bc5a2e95ff4d01b61cc0cc8a9f4d3e6ed5ebbc54bb865d7fc292de51ffe8c2eb"
+  },
+  {
+    "source": "docs/renewal/SOURCE_AUDIT.md",
+    "archive": "docs/renewal/99_보관/2026-10-01_guide-v03/docs__renewal__SOURCE_AUDIT.md",
+    "sha256": "77238dadb71a658537a6819b2c2858327fa052d18e44c59721eb42a8b329f304"
+  }
+]

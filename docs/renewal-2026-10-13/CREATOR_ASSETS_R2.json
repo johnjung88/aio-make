@@ -1,0 +1,74 @@
+[
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\01_옆집엄마\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\01.png",
+    "dest": "public\\content-site\\ai-influencer\\yeopjip-portrait.webp",
+    "width": 900,
+    "height": 1117,
+    "sourceSha256": "6c10ed661de7bdce40edde21751a7c66f0d412d71a8204a9dba716bff3a515c1",
+    "outputSha256": "3e4af754604e1c581714088b0060e15363d098c3ca4a398603aa734cc9ec1fb9"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\01_옆집엄마\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\14.png",
+    "dest": "public\\content-site\\ai-influencer\\yeopjip-style.webp",
+    "width": 900,
+    "height": 1342,
+    "sourceSha256": "249e65f74ff4725b2c38879a35b6a9c3328daf7a14f0ef557e32e3a0f10c2722",
+    "outputSha256": "4bb09cb550ecc761282ffc73a9364d45aaeaebb23ca221d17c84e0fd72636e48"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\01_옆집엄마\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\05.png",
+    "dest": "public\\content-site\\ai-influencer\\yeopjip-detail.webp",
+    "width": 900,
+    "height": 1117,
+    "sourceSha256": "2d9e15ff414d137cad328b1599eb703c606b693de10ad8c4598598ddfa2c4727",
+    "outputSha256": "22858db27547ad50dc30e574b12a4f645db649dd4c6e5128350e72d3b6409cbe"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\04_그레이스의정원\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_기준얼굴.png",
+    "dest": "public\\content-site\\ai-influencer\\grace-portrait.webp",
+    "width": 900,
+    "height": 1613,
+    "sourceSha256": "61938615686ca93949ca65ed95e018c13fc70bd5610b11216f1c81f0fd89f8f4",
+    "outputSha256": "0109942cf2932fcadf6e034321827b0181c372ea3232abd8d52c9352598178da"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\04_그레이스의정원\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\14.png",
+    "dest": "public\\content-site\\ai-influencer\\grace-style.webp",
+    "width": 900,
+    "height": 1613,
+    "sourceSha256": "64bc5a419e787d8ef333ead7f1c7fdfe20ddeceb0cc25adfb9bda7952bc9c729",
+    "outputSha256": "b1051a95a71407c91117356e2adb8c09dd7c2079592c1ee3e495ed9960513508"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\04_그레이스의정원\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_기준전신.png",
+    "dest": "public\\content-site\\ai-influencer\\grace-full.webp",
+    "width": 900,
+    "height": 1613,
+    "sourceSha256": "48faa2edc92c7b7904eee2c36dafa184955517bf9c5c8af90bafd76f89123ca7",
+    "outputSha256": "fb626f8ea07ab1f168d33886651249586d795782536c25e779df842ebd2b5400"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\05_쌀만드는아저씨\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_기준얼굴.png",
+    "dest": "public\\content-site\\ai-influencer\\ssal-portrait.webp",
+    "width": 900,
+    "height": 1205,
+    "sourceSha256": "3ae2e4a87754dc67307ce6272d2940a05717adbf6572f2c2f8bc89d34432a387",
+    "outputSha256": "4314d66f3609fc60a047e14a58326879bb1c2c70c76585b106d4e2225e5f6c1b"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\05_쌀만드는아저씨\\01_계정관리\\02_브랜드·캐릭터자산\\character\\soul_dataset\\14.png",
+    "dest": "public\\content-site\\ai-influencer\\ssal-farm.webp",
+    "width": 900,
+    "height": 1613,
+    "sourceSha256": "548ecc94992108a6a746ee9760e355ed4a064c91f9751c379b4b7462b1fca823",
+    "outputSha256": "7a26593f3dce763a2c138611358d7cf2289d3541b258f75a377bc87a14a913d7"
+  },
+  {
+    "source": "I:\\AIO_OS\\01_WORK\\05_MCN\\02_AI 인플루언서\\05_쌀만드는아저씨\\01_계정관리\\02_브랜드·캐릭터자산\\character\\기준이미지\\I03_기준전신.png",
+    "dest": "public\\content-site\\ai-influencer\\ssal-full.webp",
+    "width": 900,
+    "height": 1613,
+    "sourceSha256": "331240d23866f1bfd825626759236e340304a4987b4aff4d3e5f0d03159912ca",
+    "outputSha256": "d203b806771b8d7ed07965f90ae3c2797cc0c78116a3f6c41e5163c3b133a052"
+  }
+]

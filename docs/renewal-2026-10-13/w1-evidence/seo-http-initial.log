@@ -1,0 +1,74 @@
+{
+  "pages": 48,
+  "internalLinks": 164,
+  "shareImages": 4,
+  "errors": [
+    "/: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/about: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/about/team: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/contact: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/privacy: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/terms: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/contact: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/work: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/insights: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/contact: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/work: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/insights: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/contact: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/insights: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/services/integrated: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/services/sns: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/services/ai-influencer: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/services/seo: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/services/website: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/services/shopping-mall: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/services/automation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/services/program: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/webtoon: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/animation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/ai-influencer: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/motion-graphics: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/brand-film: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/services/ad: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/work/example-integrated: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/work/example-sns: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/work/example-ai-influencer: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/work/example-seo: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/work/example-website: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/work/example-shopping-mall: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/work/example-automation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/work/example-program: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/insights/preparation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/insights/process: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/marketing/insights/consultation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/insights/preparation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/insights/process: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/lab/insights/consultation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/insights/preparation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/insights/process: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "/content/insights/consultation: The expression evaluated to a falsy value:\n\n  assert.ok(\n",
+    "robots: The input did not match the regular expression /Allow: \\/\\s/. Input:\n\n'User-Agent: *\\nDisallow: /\\n\\nSitemap: https://aio-make.com/sitemap.xml\\n'\n"
+  ]
+}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: SEO release checks
+
+49 !== 0
+
+    at file:///I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261013-AIO-CONTENT-RENEWAL/tests/seo-http.mjs:371:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 49,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.1

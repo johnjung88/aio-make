@@ -1,0 +1,6 @@
+# Immutable review inputs and original records retain their exact bytes.
+docs/renewal/guide-source/** -text whitespace=-trailing-space,-blank-at-eof
+docs/renewal/99_보관/** -text whitespace=-trailing-space,-blank-at-eof
+docs/renewal/iteration-v03/*.log -text whitespace=-trailing-space,-blank-at-eof
+docs/renewal/iteration-v03/production/*.log -text whitespace=-trailing-space,-blank-at-eof
+public/fonts/*-OFL.txt -text whitespace=-trailing-space,-blank-at-eof

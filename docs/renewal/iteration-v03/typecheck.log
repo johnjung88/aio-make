@@ -1,0 +1,76 @@
+
+> aio-make@1.0.0 typecheck
+> tsc --noEmit
+
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/contact/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/insights/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/services/[service]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/work/[slug]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/[division]/work/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/about/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/about/team/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/contact/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/privacy/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/terms/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/(public)/work/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/admin/login/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/admin/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/analytics/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/entries/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/inquiries/[id]/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/inquiries/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/login/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/logout/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/admin/media/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/api/contact/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'
+error TS6053: File 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/.next/types/app/layout.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'I:/AIO_OS/06_GITHUB/worktrees/aio-make/codex/WRK-20261001-WEBSITE-RENEWAL/tsconfig.json'

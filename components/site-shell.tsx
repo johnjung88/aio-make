@@ -1,0 +1,182 @@
+"use client";
+import { BUSINESS_INFO, BUSINESS_EMAIL } from "@/lib/business-info";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { contentLinkProps } from "@/lib/new-tab";
+import { NewTabHint } from "./new-tab-hint";
+import { MarketingHeader, MarketingFooter } from "./marketing/shell";
+export function Brand() {
+  return (
+    <span className="brand guide-brand">
+      <b>AIO</b>
+      <span>MAKE</span>
+      <i aria-hidden="true" />
+    </span>
+  );
+}
+const links = [
+  ["컨텐츠", "/content"],
+  ["마케팅", "/marketing"],
+  ["개발", "/lab"],
+];
+export function Header() {
+  const path = usePathname(),
+    [open, setOpen] = useState(false),
+    [about, setAbout] = useState(false);
+  const menu = useRef<HTMLButtonElement>(null);
+  if (path === "/marketing" || path.startsWith("/marketing/")) return <MarketingHeader brand={<Brand />} />;
+  return (
+    <header
+      className="guide-header"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setOpen(false);
+          setAbout(false);
+          menu.current?.focus();
+        }
+      }}
+    >
+      <div className="guide-header-inner">
+        <Link href="/" aria-label="AIO MAKE 홈" onClick={() => setOpen(false)}>
+          <Brand />
+        </Link>
+        <button
+          ref={menu}
+          className="guide-mobile-toggle"
+          aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
+          aria-expanded={open}
+          aria-controls="guide-main-nav"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+        <nav
+          className={"guide-main-nav" + (open ? " is-open" : "")}
+          id="guide-main-nav"
+          aria-label="주 메뉴"
+        >
+          <div
+            className="guide-about-menu"
+            onMouseEnter={() => setAbout(true)}
+            onMouseLeave={() => setAbout(false)}
+          >
+            <button
+              aria-expanded={about}
+              aria-controls="guide-about-links"
+              className={path.startsWith("/about") ? "is-current" : ""}
+              onClick={(event) =>
+                setAbout(
+                  event.detail && matchMedia("(hover:hover)").matches
+                    ? true
+                    : !about,
+                )
+              }
+            >
+              AIO 소개 <ChevronDown size={11} />
+            </button>
+            {about && (
+              <div id="guide-about-links">
+                <Link
+                  href="/about"
+                  onClick={() => {
+                    setOpen(false);
+                    setAbout(false);
+                  }}
+                >
+                  회사소개
+                </Link>
+                <Link
+                  href="/about/team"
+                  onClick={() => {
+                    setOpen(false);
+                    setAbout(false);
+                  }}
+                >
+                  일하는 방식
+                </Link>
+              </div>
+            )}
+          </div>
+          {links.map(([label, href]) => {
+            // 컨텐츠 opens the content site in a new tab from the main site.
+            const newTab = contentLinkProps(href, path);
+            return (
+              <Link
+                key={label}
+                className={
+                  path === href || path.startsWith(href + "/")
+                    ? "is-current"
+                    : ""
+                }
+                href={href}
+                {...newTab}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+                {newTab.target && <NewTabHint />}
+              </Link>
+            );
+          })}
+          <Link
+            className="guide-header-cta t-button t-button--sm"
+            href={
+              path.startsWith("/marketing")
+                ? "/marketing/contact"
+                : path.startsWith("/content")
+                  ? "/content/contact"
+                  : "/contact"
+            }
+            onClick={() => setOpen(false)}
+          >
+            문의하기
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+export function Footer() {
+  const path = usePathname();
+  if (path === "/marketing" || path.startsWith("/marketing/")) return <MarketingFooter brand={<Brand />} />;
+  return (
+    <footer className="guide-footer">
+      <div className="guide-footer-inner">
+        <div className="guide-footer-top">
+          <Link href="/" aria-label="AIO MAKE 홈">
+            <Brand />
+          </Link>
+          <nav aria-label="하단 메뉴">
+            {[
+              ["회사소개", "/about"],
+              ["일하는 방식", "/about/team"],
+              ["컨텐츠", "/content"],
+              ["마케팅", "/marketing"],
+              ["개발", "/lab"],
+              ["개인정보처리방침", "/privacy"],
+              ["이용약관", "/terms"],
+            ].map(([label, href]) => {
+              const newTab = contentLinkProps(href, path);
+              return (
+                <Link key={href} href={href} {...newTab}>
+                  {label}
+                  {newTab.target && <NewTabHint />}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+        <div className="guide-business-info">
+          {BUSINESS_INFO.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+          <a href={`mailto:${BUSINESS_EMAIL}`}>이메일: {BUSINESS_EMAIL}</a>
+          <span className="guide-copyright">
+            © 2026 AIO MAKE · All rights reserved
+          </span>
+        </div>
+      </div>
+    </footer>
+  );
+}

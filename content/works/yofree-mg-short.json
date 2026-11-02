@@ -1,0 +1,51 @@
+{
+  "id": "AIO-WORK-YOFREE-AD-01",
+  "slug": "yofree-mg-short",
+  "brand": "YoFree",
+  "title": "밸런스 샷 모션그래픽 4안",
+  "division": "video",
+  "primaryService": "motion-graphics",
+  "productionStatus": "제작 후보",
+  "description": "두 콘셉트의 세로 광고 후보 4개 버전입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "ad"
+    }
+  ],
+  "purpose": "선물과 제품 소개라는 두 메시지를 서로 다른 움직임으로 표현했습니다",
+  "scope": "두 콘셉트에 각각 절제형·다이내믹형을 적용한 세로 모션그래픽 4안을 제작했습니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg-short/hero.mp4",
+      "poster": "/reference-review/yofree-mg-short/hero-poster.webp",
+      "alt": "YoFree 밸런스 샷 모션그래픽 4안",
+      "presentation": "portrait"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg-short/gallery-01.mp4",
+      "poster": "/reference-review/yofree-mg-short/gallery-01-poster.webp",
+      "alt": "YoFree 밸런스 샷 모션그래픽 4안",
+      "presentation": "portrait"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg-short/gallery-02.mp4",
+      "poster": "/reference-review/yofree-mg-short/gallery-02-poster.webp",
+      "alt": "YoFree 밸런스 샷 모션그래픽 4안",
+      "presentation": "portrait"
+    },
+    {
+      "kind": "video",
+      "src": "/reference-review/yofree-mg-short/gallery-03.mp4",
+      "poster": "/reference-review/yofree-mg-short/gallery-03-poster.webp",
+      "alt": "YoFree 밸런스 샷 모션그래픽 4안",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 21
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/marketing",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/lab",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/marketing/services/integrated",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/marketing/services/sns",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/marketing/services/ai-influencer",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/marketing/services/seo",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/lab/services/website",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/lab/services/shopping-mall",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/lab/services/automation",
+    "width": 1440
+  },
+  {
+    "caption": {
+      "inside": true
+    },
+    "heroColumns": "550.938px 617.062px",
+    "overflow": 0,
+    "path": "/lab/services/program",
+    "width": 1440
+  }
+]

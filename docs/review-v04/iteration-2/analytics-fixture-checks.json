@@ -1,0 +1,26 @@
+[
+  {
+    "barCount": 90,
+    "minBarWidth": 1.96875,
+    "overflow": false,
+    "state": "90 days mobile"
+  },
+  {
+    "emptyPanels": 3,
+    "metrics": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "state": "empty"
+  },
+  {
+    "state": "permission",
+    "metrics": 0
+  },
+  {
+    "state": "loading",
+    "status": "방문 통계를 불러오고 있습니다…"
+  }
+]

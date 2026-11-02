@@ -1,0 +1,42 @@
+{
+  "id": "AIO-WORK-BWL-WEBTOON-02",
+  "slug": "bwl-aqua-webtoon",
+  "brand": "BWL · DR's Secret",
+  "title": "충전은 챙기면서",
+  "division": "video",
+  "primaryService": "webtoon",
+  "productionStatus": "제작 후보",
+  "description": "아쿠아 부스트 세럼 10 제품편 웹툰 3페이지의 내부 검토본입니다.",
+  "relatedServices": [],
+  "purpose": "바쁜 일상 속 피부 관리 이야기를 제품 소개와 연결했습니다",
+  "scope": "아쿠아 부스트 세럼 10을 주제로 6컷·3페이지의 웹툰을 제작했습니다",
+  "media": [
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-aqua-webtoon/gallery-01.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 충전은 챙기면서 1페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-aqua-webtoon/gallery-02.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 충전은 챙기면서 2페이지",
+      "presentation": "webtoon"
+    },
+    {
+      "kind": "webtoon",
+      "src": "/reference-review/bwl-aqua-webtoon/gallery-03.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "DR's Secret 충전은 챙기면서 3페이지",
+      "presentation": "webtoon"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 12
+}

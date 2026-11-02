@@ -1,0 +1,8 @@
+
+> aio-make@1.0.0 typecheck
+> tsc --noEmit
+
+.next-dev/types/validator.ts(179,39): error TS2307: Cannot find module '../../app/(public)/work/page.js' or its corresponding type declarations.
+.next/types/app/(public)/work/page.ts(2,24): error TS2307: Cannot find module '../../../../../app/(public)/work/page.js' or its corresponding type declarations.
+.next/types/app/(public)/work/page.ts(5,29): error TS2307: Cannot find module '../../../../../app/(public)/work/page.js' or its corresponding type declarations.
+.next/types/validator.ts(179,39): error TS2307: Cannot find module '../../app/(public)/work/page.js' or its corresponding type declarations.

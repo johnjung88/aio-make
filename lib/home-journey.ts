@@ -1,0 +1,338 @@
+// Main page workflow journey: steps, neutral copy, tab setup and types.
+// Client-safe: no customer data and no value import from the work catalog.
+// Customer work (project labels, before captures, AI persona label, review
+// slugs) lives in the server-only home-journey-data.ts, which selects media on
+// the server and passes plain props; it selects customer work only for the
+// exact local review flag "1".
+import type { WorkItem, WorkMedia } from "./work-catalog.ts";
+import type { ContentServiceId } from "./content-home.ts";
+
+// 메인 워크플로우는 개발 → 마케팅 → 컨텐츠 3단계만 보여준다(2026-10-14 사용자 결정).
+// 상담·브랜드 가이드 단계의 원문(consultPanel·brandPanel)은 보존하되 렌더링하지 않는다.
+export type JourneyStepId =
+  | "journey-dev"
+  | "journey-content"
+  | "journey-marketing";
+
+export type JourneyStep = {
+  id: JourneyStepId;
+  num: string;
+  eyebrow: string;
+  railLabel: string;
+  title: string;
+  lead: string;
+};
+
+export type JourneyLink = { label: string; href: string };
+
+export const journeyIntro = {
+  eyebrow: "HOW WE WORK",
+  title: "기획부터 성과까지\n하나로 이어집니다",
+};
+
+export const journeySteps: JourneyStep[] = [
+  {
+    id: "journey-dev",
+    num: "01",
+    eyebrow: "01 DEVELOPMENT",
+    railLabel: "개발",
+    title: "웹사이트와 쇼핑몰을\n가이드대로 만듭니다",
+    lead: "새롭게 기획한 브랜드 가이드를\n문의나 구매로 이어지도록 설계",
+  },
+  {
+    id: "journey-marketing",
+    num: "02",
+    eyebrow: "02 MARKETING",
+    railLabel: "마케팅",
+    title: "계획하고 운영하고\n데이터로 고칩니다",
+    lead: "어느 채널에, 어떻게 보여줄지 계획하고\n반응을 확인하고 다음 계획에 반영합니다",
+  },
+  {
+    id: "journey-content",
+    num: "03",
+    eyebrow: "03 CONTENT",
+    railLabel: "컨텐츠",
+    title: "채널에 맞는 컨텐츠를\n직접 만듭니다",
+    lead: "브랜드 가이드로 기준을 잡고\n웹툰부터 SNS 영상까지 직접 제작",
+  },
+];
+
+// (보존·미렌더링) 3214 원문의 01 상담 패널
+export const consultPanel = {
+  fields: ["개발", "컨텐츠", "마케팅"],
+  label: "상담에서 정하는 것",
+  rows: [
+    { term: "목표", text: "알리고 싶은 내용과 기대하는 반응" },
+    { term: "작업 범위", text: "개발·컨텐츠·마케팅 중 맡길 일과 분량" },
+    { term: "일정", text: "오픈일이나 게시일에 맞춘 작업 순서" },
+    { term: "맞춤 견적", text: "정한 범위와 일정에 따른 비용 안내" },
+  ],
+  links: [{ label: "상담 신청하기", href: "#contact" }] as JourneyLink[],
+};
+
+// (보존·미렌더링) 3214 원문의 02 브랜드 가이드 패널 (중립 견본만 쓴다. 고객 색·로고는 쓰지 않는다)
+export const brandPanel = {
+  label: "가이드 구성",
+  tag: "구성 예시",
+  tiles: [
+    { id: "logo", title: "로고 사용", text: "여백과 최소 크기, 잘못 쓴 예" },
+    { id: "color", title: "컬러", text: "주색과 보조색의 쓰임" },
+    { id: "type", title: "서체", text: "제목과 본문 서체의 크기 단계" },
+    { id: "tone", title: "톤과 말투", text: "자주 쓰는 표현과 피할 표현" },
+    { id: "photo", title: "사진 방향", text: "빛과 배경, 제품 연출 기준" },
+  ],
+  swatches: ["ink", "paper", "violet", "lavender"] as const,
+};
+
+// 01 개발
+export type JourneyMedia = {
+  kind: "image" | "video";
+  src: string;
+  poster?: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+export type JourneyShape =
+  | "portrait"
+  | "page"
+  | "square"
+  | "landscape"
+  | "wide";
+
+export function mediaShape(media: {
+  width: number;
+  height: number;
+}): JourneyShape {
+  const ratio = media.width / media.height;
+  if (ratio < 0.62) return "portrait";
+  if (ratio < 0.85) return "page";
+  if (ratio < 1.25) return "square";
+  if (ratio < 1.7) return "landscape";
+  return "wide";
+}
+
+// R7: the development step shows one case. Public builds show one neutral
+// shopping-mall example frame; the review build shows the server-selected case.
+export const devFallback = {
+  title: "쇼핑몰 제작",
+  tag: "연출 예시",
+  description:
+    "기존 화면을 점검하고 브랜드 가이드를 적용해 PC·모바일 화면과 문의·구매 동선을 설계합니다",
+  media: {
+    kind: "image",
+    src: "/creative-v06/development-shopping-mall.webp",
+    width: 1586,
+    height: 992,
+    alt: "쇼핑몰 제작 연출 예시 이미지",
+  } as JourneyMedia,
+};
+
+export const devFallbackSteps = [
+  "기존 화면 점검",
+  "가이드 적용",
+  "PC·모바일 화면 설계",
+  "문의·구매 동선 연결",
+];
+
+export type DevProjectConfig = {
+  slug: string;
+  label: string;
+};
+
+export type BeforeShot = {
+  pc: JourneyMedia;
+  mobile: JourneyMedia;
+};
+
+// Neutral labels only. Case titles and captions come from the server.
+export const devCopy = {
+  before: "BEFORE",
+  after: "AFTER",
+  compareLabel: "기존 화면과 AIO 제작 화면 비교",
+  sliderLabel: "전후 비교 슬라이더",
+  beforeValue: "기존 화면",
+  afterValue: "AIO 제작 화면",
+  deviceLabel: "화면 종류",
+  devicePc: "PC",
+  deviceMobile: "모바일",
+  open: "자세히 보기",
+  close: "닫기",
+  purposeLabel: "무엇을 만들었나요",
+  scopeLabel: "어디까지 작업했나요",
+  stepsLabel: "제작 순서",
+  dialogSuffix: "상세 보기",
+  viewLabel: "비교 화면 선택",
+};
+
+// Only the fields the detail dialog shows (the full WorkItem stays on the server).
+export type DevDetail = {
+  title: string;
+  status: string;
+  description: string;
+  purpose: string;
+  scope: string;
+};
+
+export type DevProject = {
+  title: string;
+  detail: DevDetail;
+  after: JourneyMedia;
+  afterMobile: JourneyMedia | null;
+  before: BeforeShot | null;
+};
+
+const SITE_FALLBACK = { width: 1440, height: 900 };
+
+export function toJourneyMedia(media: WorkMedia): JourneyMedia {
+  if (media.kind === "video") {
+    const portrait = media.presentation === "portrait";
+    return {
+      kind: "video",
+      src: media.src,
+      poster: media.poster,
+      width: media.width ?? (portrait ? 720 : 1280),
+      height: media.height ?? (portrait ? 1280 : 720),
+      alt: media.alt,
+    };
+  }
+  return {
+    kind: "image",
+    src: media.src,
+    width: media.width ?? SITE_FALLBACK.width,
+    height: media.height ?? SITE_FALLBACK.height,
+    alt: media.alt,
+  };
+}
+
+// 03 컨텐츠 (label·line·chips는 3214 원문(9b3def8의 contentHomeServices)을 여기에 고정한다.
+// /content 홈 문구(lib/content-home.ts)가 바뀌어도 메인 워크플로우는 따라 바뀌지 않는다)
+export type ContentTabId = ContentServiceId;
+
+export type ContentTab = {
+  id: ContentTabId;
+  label: string;
+  line: string;
+  fallback: JourneyMedia & { caption?: string; tag?: string };
+};
+
+const contentFallbacks: Record<ContentTabId, ContentTab["fallback"]> = {
+  webtoon: {
+    kind: "image",
+    src: "/content-examples/webtoon/card-r8.webp",
+    width: 960,
+    height: 600,
+    alt: "소파에서 축구 경기를 보며 환호하는 인물이 나오는 웹툰 컷",
+    caption: "1억의 구단주 · 제작 예시",
+  },
+  animation: {
+    kind: "image",
+    src: "/content-examples/animation/card-r8.webp",
+    width: 960,
+    height: 600,
+    alt: "손을 들어 인사하는 클레이 캐릭터 영상의 한 장면",
+    tag: "연출 예시",
+  },
+  "ai-influencer": {
+    kind: "image",
+    src: "/creative-v06/video-ai-influencer.webp",
+    width: 1586,
+    height: 992,
+    alt: "AI 인플루언서 연출 예시 이미지 · AI로 만든 가상인물",
+    tag: "AI 가상인물 · 연출 예시",
+  },
+  "motion-graphics": {
+    kind: "image",
+    src: "/content-examples/motion-graphics/card-r8.webp",
+    width: 960,
+    height: 600,
+    alt: "원료 이미지와 제품 병, 정제를 배치한 모션그래픽의 한 장면",
+    tag: "연출 예시",
+  },
+  "brand-film": {
+    kind: "image",
+    src: "/content-examples/brand-film/card-r8.webp",
+    width: 960,
+    height: 600,
+    alt: "고층 건물 앞에서 사다리를 펼치는 차량을 담은 홍보 영상의 한 장면",
+    tag: "연출 예시",
+  },
+  ad: {
+    kind: "image",
+    src: "/content-examples/ad/card-r8.webp",
+    width: 960,
+    height: 600,
+    alt: "상궁이 쟁반 위 제품 병을 올리는 사극 패러디 광고의 한 장면",
+    tag: "연출 예시",
+  },
+};
+
+const contentTabCopy: { id: ContentTabId; label: string; line: string }[] = [
+  {
+    id: "webtoon",
+    label: "웹툰",
+    line: "브랜드 이야기를 세로로 읽히는 컷으로 그립니다",
+  },
+  {
+    id: "animation",
+    label: "애니메이션",
+    line: "캐릭터와 장면에 움직임을 더합니다",
+  },
+  {
+    id: "ai-influencer",
+    label: "AI 인플루언서",
+    line: "브랜드 전용 AI 가상인물을 만듭니다",
+  },
+  {
+    id: "motion-graphics",
+    label: "모션그래픽",
+    line: "그래픽과 글자의 움직임으로 메시지를 전합니다",
+  },
+  {
+    id: "brand-film",
+    label: "브랜드 홍보 영상",
+    line: "브랜드가 하는 일과 이유를 한 편에 담습니다",
+  },
+  {
+    id: "ad",
+    label: "SNS 광고 영상",
+    line: "피드에서 첫 장면으로 시선을 붙잡습니다",
+  },
+];
+
+export const contentTabs: ContentTab[] = contentTabCopy.map((tab) => ({
+  ...tab,
+  fallback: contentFallbacks[tab.id],
+}));
+
+export const requiredContentServices = contentTabs
+  .map((tab) => tab.label)
+  .join(" · ");
+
+export type ContentSelection = {
+  tab: ContentTab;
+  work: WorkItem | null;
+  media: JourneyMedia;
+  caption: string | null;
+  tag: string | null;
+};
+
+// Neutral example used when no catalog work matches the tab.
+export function fallbackContentSelection(tab: ContentTab): ContentSelection {
+  const { caption, tag, ...media } = tab.fallback;
+  return { tab, work: null, media, caption: caption ?? null, tag: tag ?? null };
+}
+
+// Server-selected props for the 01 개발 and 03 컨텐츠 steps.
+export type HomeJourneyData = {
+  devProject: DevProject | null;
+  contentSelections: ContentSelection[];
+};
+
+export const emptyJourneyData: HomeJourneyData = {
+  devProject: null,
+  contentSelections: contentTabs.map(fallbackContentSelection),
+};
+
+export const railLabel = "작업 단계";

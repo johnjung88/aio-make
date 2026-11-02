@@ -1,0 +1,50 @@
+[
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\index.html",
+    "sha256": "5fcfabcb0fef22816270a0e5a1acad1a9022773e43a2d53af24d3667ad961dd6"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\build.py",
+    "sha256": "139e6ef272a8fec16092b02c0510a82bcf66a4e4f11073737d4f09feca2f345d"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\config.js",
+    "sha256": "b12a8f8c0adc3662e231aabb4ed100b1d5ad63d6280ceb7da2fc6d8067a0109c"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\layout.js",
+    "sha256": "2add9afd945ca83738a587daeb2f34a91bfd4143783eb640d4a809ccd235e611"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\service-reels-r8\\webtoon\\audit.py",
+    "sha256": "21cc04f180ea8917e25fa14f601bf434bf6626b1d7e767945072993c537341a2"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\hero-reel-r8\\build.py",
+    "sha256": "0e4d0fa2b40bc3469479f703e54f15d7aac1b39a308b70883345e1ffd038ba9d"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\hero-reel-r8\\sources.py",
+    "sha256": "dd49f824d40790134da441f3d87681eec7ec62a81539ad22a72a07774a667ae0"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\hero-reel-r8\\timeline.py",
+    "sha256": "a7f5f45f08d0f755366a2a28b6e1b50996bf0016c71bc54a345322cb88653f1c"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\hero-reel-r8\\renderer.js",
+    "sha256": "dcc8470f93c0ebe15487be452dd0524f59040f202f2c79099dd33419fd58eaf9"
+  },
+  {
+    "path": "docs\\renewal-2026-10-13\\hero-reel-r8\\assets.js",
+    "sha256": "85d24f5bde6d1244fc7180d81a06a826e05f5ca3044b74747dd689db2ca2fc09"
+  },
+  {
+    "path": "public\\fonts\\PretendardVariable.woff2",
+    "sha256": "9599f12fd42fc0bce1cd50b47a0c022e108d7aa64dd0d1bb0ed44f3282d900b4"
+  },
+  {
+    "path": "public\\fonts\\Unbounded-latin.woff2",
+    "sha256": "a32407700bcf77b8d8378283ebd47d7535da46b087e794dbb3c04324917aec05"
+  }
+]

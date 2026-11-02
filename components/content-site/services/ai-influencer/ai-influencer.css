@@ -1,0 +1,231 @@
+/* ai-influencer 서비스 고유 스타일(R5 WP-S2 소유, R6 WP-B 개정).
+ * 선택자는 모두 .cs-svc-ai-influencer로 시작한다. 장식 색은 맨 위 변수 블록에만 둔다. 글자 속성은 역할 클래스(cs-t-*)만 쓴다.
+ * 움직임(transition·animation-*)은 @media (prefers-reduced-motion: no-preference) 안에서만 선언한다.
+ * 카드 위치(data-place)는 컨텐츠 홈 캐러셀 수치(rotateY ±42°, scale 1/.88/.72)를 카드 너비 비율로 옮긴 값이다.
+ *
+ * R6 히어로 덱: 글(위) + 카드 덱(아래 전체 폭). 모든 거리는 카드 너비 --svc-card-w의 비율이다.
+ *   모바일 카드 min(75vw, 290px) x 1.4 = 약 290 x 406, 768 이상 min(480px, 48vw) x 1.4 = 최대 480 x 672.
+ *   양옆 카드의 바깥 끝은 카드 너비의 약 .93배(옆 카드 중심 .625w + 회전·원근 폭)라 데스크톱은 컨테이너 안에 모두 들어오고,
+ *   모바일은 덱을 화면 끝까지 넓혀(거터만큼 음수 여백) 옆 카드가 화면 가장자리에서 살짝 보인다(앞 카드는 항상 전부 보임).
+ *   perspective도 카드 너비 비율이라 크기가 달라도 같은 기울기가 나온다. */
+.cs-svc-ai-influencer {
+  --svc-card-w: min(75vw, 290px);
+  --svc-card-h: calc(var(--svc-card-w) * 1.4);
+  --svc-orbit-h: calc(var(--svc-card-h) + 24px);
+  --svc-side-x: calc(var(--svc-card-w) * .625);
+  --svc-side-z: calc(var(--svc-card-w) * -.354);
+  --svc-back-z: calc(var(--svc-card-w) * -.625);
+  --svc-persp: calc(var(--svc-card-w) * 2.3);
+  --svc-side-turn: 42deg;
+  --svc-name-shade: rgba(8, 8, 16, 0.82);
+  --svc-card-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  --svc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------- 히어로 3D 덱 */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deck { position: relative; min-width: 0; overflow-x: clip; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit {
+  position: relative;
+  height: var(--svc-orbit-h);
+  perspective: var(--svc-persp);
+  isolation: isolate;
+  touch-action: pan-y;
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--svc-card-w);
+  height: var(--svc-card-h);
+  margin-left: calc(var(--svc-card-w) / -2);
+  padding: 0;
+  border: 1px solid var(--cs-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--cs-surface);
+  box-shadow: var(--svc-card-shadow);
+  cursor: pointer;
+  transform-origin: center 60%;
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card[data-place="0"] { transform: translate3d(0, 0, 0) rotateY(0deg) scale(1); opacity: 1; z-index: 4; filter: none; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card[data-place="1"] { transform: translate3d(var(--svc-side-x), 0, var(--svc-side-z)) rotateY(calc(var(--svc-side-turn) * -1)) scale(.88); opacity: .82; z-index: 3; filter: brightness(.62); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card[data-place="-1"] { transform: translate3d(calc(var(--svc-side-x) * -1), 0, var(--svc-side-z)) rotateY(var(--svc-side-turn)) scale(.88); opacity: .82; z-index: 3; filter: brightness(.62); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card[data-place="2"] { transform: translate3d(0, -10px, var(--svc-back-z)) rotateY(0deg) scale(.72); opacity: .32; z-index: 1; filter: brightness(.45); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-media { position: absolute; inset: 0; display: block; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-media img,
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-media video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+/* 카드 안에는 AI 가상인물 표기만 둔다(이름은 카드 아래 한 줄) */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-tag {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 40px 16px 14px;
+  text-align: left;
+  color: var(--cs-fg);
+  background: linear-gradient(transparent, var(--svc-name-shade));
+}
+
+/* 카드 아래: 이름 한 줄 + 좌우 화살표(카드 너비에 맞춘 한 줄) */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deck-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: var(--svc-card-w);
+  margin: 20px auto 0;
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deck-name { flex: 1; min-width: 0; text-align: center; overflow-wrap: anywhere; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deck-arrow {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--cs-line);
+  border-radius: var(--cs-r-pill);
+  background: none;
+  color: var(--cs-fg);
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------- 계정 소개(탭 · 피드) */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-editor-note { margin: -16px 0 32px; color: var(--cs-fg-3); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-bottom: 32px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-tabs button {
+  display: grid;
+  gap: 10px;
+  min-height: 44px;
+  padding: 20px 0;
+  border: 0;
+  border-top: 1px solid var(--cs-line);
+  background: none;
+  color: var(--cs-fg-3);
+  text-align: left;
+  cursor: pointer;
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-tabs button[aria-selected="true"] { color: var(--cs-fg); border-top-color: var(--cs-fg); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-panel { display: grid; grid-template-columns: .85fr 1.15fr; gap: 48px; align-items: start; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-panel[hidden] { display: none; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile { max-width: var(--cs-measure); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile > .cs-t-caption { color: var(--cs-fg-3); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile h3 { margin: 20px 0 28px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile .cs-t-body { margin-top: 20px; color: var(--cs-fg-2); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-profile-meta { display: grid; gap: 8px; margin-top: 24px; color: var(--cs-fg-2); }
+
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-ui { width: min(100%, 380px); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage { position: relative; aspect-ratio: 2 / 3; overflow: hidden; border: 1px solid var(--cs-line); background: var(--cs-surface); touch-action: pan-y; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage figure { position: absolute; inset: 0; margin: 0; z-index: 0; clip-path: inset(0 0 0 100%); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage figure[data-active="true"] { z-index: 2; clip-path: inset(0); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-caption { display: grid; gap: 6px; min-height: 76px; padding-top: 16px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-caption p { color: var(--cs-fg-2); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs button {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cs-fg-3);
+  text-align: left;
+  cursor: pointer;
+}
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs button[aria-pressed="true"] { color: var(--cs-fg); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs img { display: block; width: 100%; height: 90px; object-fit: cover; object-position: center 28%; border: 1px solid var(--cs-line); opacity: .5; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs button[aria-pressed="true"] img { opacity: 1; border-color: var(--cs-fg); }
+/* 다음 컷까지 남은 시간(장식) */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs i { position: absolute; left: 0; right: 0; top: 88px; height: 2px; background: var(--cs-fg); transform: scaleX(0); transform-origin: left; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-show-all { margin-top: 24px; }
+
+/* ---------------------------------------------------------------- 브랜드 전용 인물 · 표기 */
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; margin: 0; padding: 0; list-style: none; }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables li { display: grid; align-content: start; gap: 12px; padding-top: 24px; border-top: 1px solid var(--cs-line); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables .cs-t-caption { color: var(--cs-accent-text); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables .cs-t-body { color: var(--cs-fg-2); max-width: var(--cs-measure); }
+.cs-svc-ai-influencer .cs-svc-ai-influencer-disclosure { margin-top: 32px; color: var(--cs-fg-3); }
+
+/* R6 히어로: 글(제목 · 리드/가격/버튼)이 위, 카드 덱이 아래 전체 폭. 명시도는 공통 --wide 규칙보다 높게 둔다 */
+.cs-svc-ai-influencer .cs-service-editorial-hero.cs-service-editorial-hero--wide .cs-service-editorial-grid { align-items: start; row-gap: 40px; }
+.cs-svc-ai-influencer .cs-service-editorial-hero .cs-service-editorial-media { justify-self: stretch; }
+
+@media (min-width: 768px) {
+  .cs-svc-ai-influencer { --svc-card-w: min(480px, 48vw); }
+}
+
+@media (max-width: 767px) {
+  /* 모바일 순서: 제목 → 리드·가격·버튼 → 카드 덱. 덱은 화면 끝까지 넓혀 옆 카드가 가장자리에 보인다 */
+  .cs-svc-ai-influencer .cs-service-editorial-hero.cs-service-editorial-hero--wide .cs-service-editorial-grid { grid-template-areas: "heading" "copy" "media"; row-gap: 24px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-deck { margin-inline: calc(var(--cs-gutter) * -1); }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-profile h3 { margin: 16px 0 24px; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-ui { width: min(100%, 320px); }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-deliverables li { padding-bottom: 24px; }
+}
+
+/* ---------------------------------------------------------------- 움직임 */
+@media (prefers-reduced-motion: no-preference) {
+  /* 카드 회전: 위치·깊이·회전·밝기를 함께 옮긴다 */
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card {
+    transition-property: transform, opacity, filter;
+    transition-duration: 900ms, 700ms, 700ms;
+    transition-timing-function: var(--svc-ease), ease, ease;
+  }
+  /* 앞 카드는 천천히 다가오는 켄번스 */
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-orbit-card[data-place="0"] .cs-svc-ai-influencer-orbit-media {
+    animation-name: cs-svc-ai-influencer-drift;
+    animation-duration: 8s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  /* 계정 소개 피드 썸네일·큰 화면 진입(120ms 간격) */
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-thumbs button,
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-stage {
+    animation-name: cs-svc-ai-influencer-post-in;
+    animation-duration: 700ms;
+    animation-timing-function: var(--svc-ease);
+    animation-fill-mode: both;
+    animation-delay: 260ms;
+  }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-thumbs button[data-order="0"] { animation-delay: 380ms; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-thumbs button[data-order="1"] { animation-delay: 500ms; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-thumbs button[data-order="2"] { animation-delay: 620ms; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-panel:not([hidden]) .cs-svc-ai-influencer-feed-stage { animation-delay: 0ms; animation-name: cs-svc-ai-influencer-stage-in; }
+  /* 큰 피드 화면: 다음 컷이 오른쪽에서 닦아 들어오고, 나가는 컷은 덮인 뒤 닫힌다 */
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage figure { transition: clip-path 0s linear 950ms; }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage figure[data-active="true"] { transition: clip-path 950ms var(--svc-ease); }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-stage figure[data-active="true"] img {
+    animation-name: cs-svc-ai-influencer-settle;
+    animation-duration: 3600ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs img { transition: opacity 400ms ease, border-color 400ms ease; }
+  /* 다음 컷까지 남은 시간 막대(계정 소개 피드) */
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs i[data-run="true"] {
+    animation-name: cs-svc-ai-influencer-timer;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+  .cs-svc-ai-influencer .cs-svc-ai-influencer-feed-thumbs i[data-run="true"] { animation-duration: 3600ms; }
+  /* 화면 밖·숨김 탭·hover·focus·터치 중(data-play="paused")에는 루프를 멈춘다 */
+  .cs-svc-ai-influencer [data-play="paused"] .cs-svc-ai-influencer-orbit-media,
+  .cs-svc-ai-influencer [data-play="paused"] .cs-svc-ai-influencer-feed-stage img { animation-play-state: paused; }
+
+  @keyframes cs-svc-ai-influencer-drift { from { transform: scale(1) translate3d(0, 0, 0); } to { transform: scale(1.07) translate3d(-1.5%, -2%, 0); } }
+  @keyframes cs-svc-ai-influencer-post-in { from { opacity: 0; transform: translateY(22px) scale(.92); clip-path: inset(24% 0 0 0); } to { opacity: 1; transform: none; clip-path: inset(0); } }
+  @keyframes cs-svc-ai-influencer-stage-in { from { opacity: 0; transform: translateX(36px) scale(.96); } to { opacity: 1; transform: none; } }
+  @keyframes cs-svc-ai-influencer-settle { from { transform: scale(1.12); } to { transform: scale(1); } }
+  @keyframes cs-svc-ai-influencer-timer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* R8 */
+.cs-svc-ai-influencer-sheet {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;list-style:none;padding:0;margin:0;} .cs-svc-ai-influencer-sheet img{width:100%;aspect-ratio:3/4;object-fit:cover;} .cs-svc-ai-influencer-rules{display:grid;gap:24px;margin-top:32px;} .cs-svc-ai-influencer-rules dd{margin:8px 0 0;color:var(--cs-fg-2);} .cs-svc-ai-influencer-disclosure{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;list-style:none;padding:0;} .cs-svc-ai-influencer-deck-bar{flex-wrap:wrap;} .cs-svc-ai-influencer-deck-name{text-align:center;max-width:70%;}
+
+.cs-svc-ai-influencer-sheet img {height:auto;aspect-ratio:3/4;object-fit:contain;background:var(--cs-surface);}
+
+.cs-svc-ai-influencer-static {width:min(100%,400px);margin-inline:auto;} .cs-svc-ai-influencer-static img {width:100%;height:auto;}

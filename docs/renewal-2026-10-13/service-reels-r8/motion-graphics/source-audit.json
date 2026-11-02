@@ -1,0 +1,116 @@
+{
+  "sources": [
+    {
+      "id": "mg1",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 0.5,
+      "end": 2.5,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mg2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 3,
+      "end": 5,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mg3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 6,
+      "end": 10,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mg4",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 10,
+      "end": 16,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mg5",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 17,
+      "end": 19,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "mg6",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\힐러넷\\MG-20261010-01_v02\\out\\HEALERNET_MG_V1_30s_16x9_후보v02.mp4",
+      "start": 19,
+      "end": 23,
+      "sha256": "9e028604e9879ea0eee986938032b97703fa3b50888d76d1b8b5b19d8037ecc6",
+      "originalUnchanged": true
+    },
+    {
+      "id": "s2",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\요프리\\MG-20261012-03_v01\\S1_키네틱\\out\\YOFREE_MG30_S1_키네틱_16x9_후보v01.mp4",
+      "start": 21.7,
+      "end": 27.7,
+      "sha256": "563bd2a6ab085897af263e4cb54a452e2ffe8a7cbebcffe2eb6637cf532cb5a8",
+      "originalUnchanged": true
+    },
+    {
+      "id": "s3",
+      "source": "I:\\AIO_OS\\01_WORK\\01_에이전시\\01_영업관리\\03_잠재고객\\261010_힐러넷\\02_컨텐츠 자료\\모션그래픽\\요프리\\MG-20261012-03_v01\\S1_키네틱\\out\\YOFREE_MG30_S1_키네틱_16x9_후보v01.mp4",
+      "start": 27.7,
+      "end": 29.7,
+      "sha256": "563bd2a6ab085897af263e4cb54a452e2ffe8a7cbebcffe2eb6637cf532cb5a8",
+      "originalUnchanged": true
+    }
+  ],
+  "cuts": [
+    {
+      "time": 0.0,
+      "ideal": 0.0,
+      "error": 0.0
+    },
+    {
+      "time": 1.8333333333333333,
+      "ideal": 1.8461538461538463,
+      "error": 0.012820512820512997
+    },
+    {
+      "time": 3.7,
+      "ideal": 3.6923076923076925,
+      "error": 0.007692307692307665
+    },
+    {
+      "time": 7.4,
+      "ideal": 7.384615384615385,
+      "error": 0.01538461538461533
+    },
+    {
+      "time": 12.933333333333334,
+      "ideal": 12.923076923076923,
+      "error": 0.01025641025641022
+    },
+    {
+      "time": 16.6,
+      "ideal": 16.615384615384617,
+      "error": 0.01538461538461533
+    },
+    {
+      "time": 20.3,
+      "ideal": 20.30769230769231,
+      "error": 0.007692307692309441
+    },
+    {
+      "time": 25.833333333333332,
+      "ideal": 25.846153846153847,
+      "error": 0.012820512820514551
+    },
+    {
+      "time": 27.7,
+      "ideal": 27.692307692307693,
+      "error": 0.007692307692305889
+    }
+  ],
+  "originalAudio": "discarded: frame extraction and picture encode -an; only chosen music is muxed"
+}

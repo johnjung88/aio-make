@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-01T10:13:12.830Z",
+  "environment": "Next development + loopback PGlite adapter, synthetic records only",
+  "results": [
+    {
+      "name": "Content totals and published count include entries beyond 200, with distinct pages",
+      "status": "PASS"
+    },
+    {
+      "name": "Content type filters apply on the server; global published count stays stable",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid content pagination, type and analytics period return 400",
+      "status": "PASS"
+    },
+    {
+      "name": "7/28/90 day queries preserve period and never invent metrics without Google authorization",
+      "status": "PASS"
+    }
+  ]
+}

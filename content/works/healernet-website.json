@@ -1,0 +1,35 @@
+{
+  "id": "AIO-WORK-HEALERNET-SITE-01",
+  "slug": "healernet-website",
+  "brand": "힐러넷",
+  "title": "힐러넷 기업 웹사이트 시안",
+  "division": "development",
+  "primaryService": "website",
+  "productionStatus": "제작 후보",
+  "description": "회사 소개, 연구 방향과 제품을 연결한 웹사이트 검토 시안입니다.",
+  "relatedServices": [],
+  "purpose": "힐러넷의 회사 소개와 연구 방향을 요프리 제품 소개로 연결했습니다",
+  "scope": "회사·제품 정보 구조와 반응형 웹 화면을 설계한 시안입니다 실제 시설을 촬영한 기록이나 최종 배포본을 의미하지 않습니다",
+  "media": [
+    {
+      "kind": "image",
+      "src": "/reference-review/healernet-website/hero.webp",
+      "width": 1440,
+      "height": 900,
+      "alt": "HEALERNET 기업 웹사이트 시안 PC 화면",
+      "presentation": "site",
+      "mobileSrc": "/reference-review/healernet-website/mobile.webp"
+    },
+    {
+      "kind": "image",
+      "src": "/reference-review/healernet-website/gallery-01.webp",
+      "width": 1440,
+      "height": 900,
+      "alt": "HEALERNET 기업 웹사이트 시안 1번째 이미지",
+      "presentation": "site"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 3
+}

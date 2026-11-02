@@ -1,0 +1,170 @@
+[
+  {
+    "client": 345,
+    "currentVisible": null,
+    "path": "/",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": null,
+    "path": "/marketing",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": null,
+    "path": "/lab",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": null,
+    "path": "/video/services/webtoon",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/marketing/services/integrated",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/marketing/services/sns",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/marketing/services/ai-influencer",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/marketing/services/seo",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/lab/services/website",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/lab/services/shopping-mall",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/lab/services/automation",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 345,
+    "currentVisible": true,
+    "path": "/lab/services/program",
+    "scroll": 345,
+    "width": 360
+  },
+  {
+    "client": 375,
+    "currentVisible": null,
+    "path": "/",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": null,
+    "path": "/marketing",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": null,
+    "path": "/lab",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": null,
+    "path": "/video/services/webtoon",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/marketing/services/integrated",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/marketing/services/sns",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/marketing/services/ai-influencer",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/marketing/services/seo",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/lab/services/website",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/lab/services/shopping-mall",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/lab/services/automation",
+    "scroll": 375,
+    "width": 390
+  },
+  {
+    "client": 375,
+    "currentVisible": true,
+    "path": "/lab/services/program",
+    "scroll": 375,
+    "width": 390
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "id": "AIO-WORK-BWL-AD-03",
+  "slug": "bwl-cplus-ad",
+  "brand": "BWL · DR's Secret",
+  "title": "C Plus 세럼 영상 시안",
+  "division": "video",
+  "primaryService": "ad",
+  "productionStatus": "제작 후보",
+  "description": "C Plus 세럼 7S의 9:16 제안용 영상입니다.",
+  "relatedServices": [
+    {
+      "division": "video",
+      "id": "ai-influencer"
+    }
+  ],
+  "purpose": "C Plus 세럼 7S를 소개하는 인물 중심의 세로 영상을 구성했습니다",
+  "scope": "제품 소개 장면을 연결한 9:16 광고 편집 시안입니다",
+  "media": [
+    {
+      "kind": "video",
+      "src": "/reference-review/bwl-cplus-ad/hero.mp4",
+      "poster": "/reference-review/bwl-cplus-ad/hero-poster.webp",
+      "alt": "DR's Secret C Plus 세럼 영상 시안",
+      "presentation": "portrait"
+    }
+  ],
+  "visibility": "review",
+  "rightsConfirmed": false,
+  "featuredOrder": 16
+}

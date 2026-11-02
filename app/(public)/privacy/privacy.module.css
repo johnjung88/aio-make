@@ -1,0 +1,44 @@
+.policy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.policyPage.policyPage {
+  background: #f7f5f2;
+  color: #28252d;
+}
+
+.policyPage.policyPage :global(.page-intro) :is(h1, p),
+.policyPage.policyPage :global(.prose),
+.policyPage.policyPage :global(.prose) :is(h2, h3, p, li, th, td, a) {
+  color: #28252d;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--line, #d8d8d8);
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .table th,
+  .table td {
+    padding: 0.625rem 0.25rem;
+  }
+}
