@@ -83,6 +83,11 @@ test("direct submission survives notification failure, deduplicates concurrently
     await updateInquiry(envelope.id, "replied", "관리자에서 상담 확인");
     assert.equal((await inquiryDetail(envelope.id)).notes.length, 1);
     const second = make();
+    second.payload.attribution.utm = {
+      utm_source: "a03_instagram",
+      utm_medium: "social",
+      utm_campaign: "a03_profile",
+    };
     await saveInquiry(second);
     globalThis.fetch = async (_, init) => {
       sends++;
@@ -90,6 +95,11 @@ test("direct submission survives notification failure, deduplicates concurrently
       assert.deepEqual(body.to, ["aiomake2023@gmail.com"]);
       assert.equal(body.reply_to, "qa@example.test");
       assert.equal(init.headers["Idempotency-Key"], "aio-inquiry/" + second.id);
+      assert.match(
+        body.text,
+        /^유입 경로: a03_instagram \/ social \/ a03_profile$/m,
+      );
+      assert.match(body.text, /^최초 유입 경로: 없음$/m);
       return Response.json({ id: "test-mail-id" });
     };
     const notified = await Promise.all([

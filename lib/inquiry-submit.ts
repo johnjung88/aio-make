@@ -40,6 +40,14 @@ export async function saveInquiry(envelope: Envelope) {
   });
 }
 
+// utm_source carries the account and platform (e.g. a03_instagram).
+function sourceLine(utm?: Record<string, string>) {
+  const parts = [utm?.utm_source, utm?.utm_medium, utm?.utm_campaign].filter(
+    Boolean,
+  );
+  return parts.length ? parts.join(" / ") : "없음";
+}
+
 // The inquiry is durable before notification. Unknown delivery is held for
 // reconciliation, never automatically sent again.
 export async function notifyInquiry(id: string) {
@@ -81,6 +89,8 @@ export async function notifyInquiry(id: string) {
           "전화: " + p.phone,
           "분야: " + p.division,
           "서비스: " + p.service,
+          "유입 경로: " + sourceLine(p.attribution?.utm),
+          "최초 유입 경로: " + sourceLine(p.attribution?.firstTouch?.utm),
           "",
           p.message,
           "",
